@@ -51,7 +51,7 @@ class UtilsTests(TestCase):
             errors = "error2"
 
         res = spirit_utils.render_form_errors(MockForm())
-        self.assertEqual(res, "error1\r\nerror2")
+        self.assertEqual(res.splitlines(), "error1\r\nerror2".splitlines())
 
 
 # Mock out datetime in some tests so they don't fail occasionally when they
@@ -271,7 +271,7 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = u"text\nnew line"
         quote = quotify(comment, self.user)
-        self.assertEqual(quote, u"@%s\n> text\n> new line\n\n" % self.user.username)
+        self.assertListEqual(quote.splitlines(), (u"@%s\n> text\n> new line\n\n" % self.user.username).splitlines())
 
     def test_markdown_image(self):
         """
@@ -286,16 +286,16 @@ class UtilsMarkdownTests(TestCase):
                               output_formats='html5',
                               safe_mode='escape',
                               extensions=['spirit.utils.markdown.image', ])
-        self.assertEqual(comment_md, u'<p><img alt="image" src="http://foo.bar/image.png" />'
-                                     u'\n<img alt="image" src="http://www.foo.bar.fb/path/image.png" />'
-                                     u'\n<img alt="image" src="https://foo.bar/image.png" />'
-                                     u'\nbad http://foo.bar/image.png'
-                                     u'\nhttp://foo.bar/image.png bad'
-                                     u'\nhttp://bad.png'
-                                     u'\nhttp://foo.bar/.png'
-                                     u'\n<img alt="im" src="http://foo.bar/not_imagified.png" />'
-                                     u'\nfoo.bar/bad.png'
-                                     u'\n<img alt="image" src="http://foo.bar/&lt;escaped&gt;.png" /></p>')
+        self.assertListEqual(comment_md.splitlines(), u'<p><img alt="image" src="http://foo.bar/image.png" />'
+                                                  u'\n<img alt="image" src="http://www.foo.bar.fb/path/image.png" />'
+                                                  u'\n<img alt="image" src="https://foo.bar/image.png" />'
+                                                  u'\nbad http://foo.bar/image.png'
+                                                  u'\nhttp://foo.bar/image.png bad'
+                                                  u'\nhttp://bad.png'
+                                                  u'\nhttp://foo.bar/.png'
+                                                  u'\n<img alt="im" src="http://foo.bar/not_imagified.png" />'
+                                                  u'\nfoo.bar/bad.png'
+                                                  u'\n<img alt="image" src="http://foo.bar/&lt;escaped&gt;.png" /></p>'.splitlines())
 
     def test_markdown_youtube(self):
         """
@@ -312,13 +312,13 @@ class UtilsMarkdownTests(TestCase):
                               output_formats='html5',
                               safe_mode='escape',
                               extensions=['spirit.utils.markdown.youtube', ])
-        self.assertEqual(comment_md, u'<p><span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?feature=oembed" allowfullscreen></iframe></span>'
-                                     u'\n<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?feature=oembed" allowfullscreen></iframe></span>'
-                                     u'\n<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?feature=oembed" allowfullscreen></iframe></span>'
-                                     u'\nhttps://www.youtube.com/watch?v=&lt;bad&gt;'
-                                     u'\nhttps://www.noyoutube.com/watch?v=Z0UISCEe52Y'
-                                     u'\nbadbad https://www.youtube.com/watch?v=Z0UISCEe52Y'
-                                     u'\nhttps://www.youtube.com/watch?v=Z0UISCEe52Y badbad</p>')
+        self.assertListEqual(comment_md.splitlines(), u'<p><span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?feature=oembed" allowfullscreen></iframe></span>'
+                                                  u'\n<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?feature=oembed" allowfullscreen></iframe></span>'
+                                                  u'\n<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?feature=oembed" allowfullscreen></iframe></span>'
+                                                  u'\nhttps://www.youtube.com/watch?v=&lt;bad&gt;'
+                                                  u'\nhttps://www.noyoutube.com/watch?v=Z0UISCEe52Y'
+                                                  u'\nbadbad https://www.youtube.com/watch?v=Z0UISCEe52Y'
+                                                  u'\nhttps://www.youtube.com/watch?v=Z0UISCEe52Y badbad</p>'.splitlines())
 
     def test_markdown_vimeo(self):
         """
@@ -339,16 +339,16 @@ class UtilsMarkdownTests(TestCase):
                               output_formats='html5',
                               safe_mode='escape',
                               extensions=['spirit.utils.markdown.vimeo', ])
-        self.assertEqual(comment_md, u'<p><span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                     u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                     u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                     u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                     u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                     u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                     u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                     u'\nhttps://novimeo.com/11111111'
-                                     u'\nbad https://novimeo.com/11111111'
-                                     u'\nhttps://novimeo.com/11111111 bad</p>')
+        self.assertListEqual(comment_md.splitlines(), u'<p><span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  u'\nhttps://novimeo.com/11111111'
+                                                  u'\nbad https://novimeo.com/11111111'
+                                                  u'\nhttps://novimeo.com/11111111 bad</p>'.splitlines())
 
     def test_markdown_video(self):
         """
@@ -359,11 +359,11 @@ class UtilsMarkdownTests(TestCase):
                               output_formats='html5',
                               safe_mode='escape',
                               extensions=['spirit.utils.markdown.video', ])
-        self.assertEqual(comment_md, u'<p><video controls><source src="http://foo.bar/video.mp4">'
-                                     u'<a href="http://foo.bar/video.mp4">http://foo.bar/video.mp4</a></video>'
-                                     u'\n<video controls><source src="http://foo.bar/&lt;escaped&gt;.mp4">'
-                                     u'<a href="http://foo.bar/&lt;escaped&gt;.mp4">'
-                                     u'http://foo.bar/&lt;escaped&gt;.mp4</a></video></p>')
+        self.assertListEqual(comment_md.splitlines(), u'<p><video controls><source src="http://foo.bar/video.mp4">'
+                                                      u'<a href="http://foo.bar/video.mp4">http://foo.bar/video.mp4</a></video>'
+                                                      u'\n<video controls><source src="http://foo.bar/&lt;escaped&gt;.mp4">'
+                                                      u'<a href="http://foo.bar/&lt;escaped&gt;.mp4">'
+                                                      u'http://foo.bar/&lt;escaped&gt;.mp4</a></video></p>'.splitlines())
 
     def test_markdown_audio(self):
         """
@@ -375,8 +375,8 @@ class UtilsMarkdownTests(TestCase):
                               output_formats='html5',
                               safe_mode='escape',
                               extensions=['spirit.utils.markdown.audio', ])
-        self.assertEqual(comment_md, u'<p><audio controls><source src="http://foo.bar/audio.mp3"><a href="http://foo.bar/audio.mp3">http://foo.bar/audio.mp3</a></audio>'
-                                     u'\n<audio controls><source src="http://foo.bar/&lt;escaped&gt;.mp3"><a href="http://foo.bar/&lt;escaped&gt;.mp3">http://foo.bar/&lt;escaped&gt;.mp3</a></audio></p>')
+        self.assertListEqual(comment_md.splitlines(), u'<p><audio controls><source src="http://foo.bar/audio.mp3"><a href="http://foo.bar/audio.mp3">http://foo.bar/audio.mp3</a></audio>'
+                                                  u'\n<audio controls><source src="http://foo.bar/&lt;escaped&gt;.mp3"><a href="http://foo.bar/&lt;escaped&gt;.mp3">http://foo.bar/&lt;escaped&gt;.mp3</a></audio></p>'.splitlines())
 
 
 class UtilsUserTests(TestCase):
