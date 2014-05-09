@@ -7,4 +7,4 @@ install:
   - pip install -r requirements.txt --use-mirrors
 
 script:
-  - "python manage.py test spirit.tests"
+  - "python setup.py test"
