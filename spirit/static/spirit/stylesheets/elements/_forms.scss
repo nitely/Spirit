@@ -1,0 +1,48 @@
+// Forms styles
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  margin-bottom: $base-spacing-size;
+  padding: $half-spacing-size / 2 $half-spacing-size;
+  border: 1px solid $light-grey;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+  border: 1px solid $red;
+}
+
+input[type="checkbox"] {
+  display: block;
+  margin: $half-spacing-size / 2 $half-spacing-size;
+  margin-bottom: $base-spacing-size;
+}
+
+label {
+  display: block;
+  margin-bottom: $half-spacing-size;
+  font-size: 18px;
+  
+  input[type="checkbox"] {
+    display: inline;
+    margin: $half-spacing-size / 2 $half-spacing-size;
+    margin-bottom: 0;
+  }
+}

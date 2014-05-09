@@ -1,0 +1,22 @@
+{% load i18n %}
+
+        {% for n in page %}
+            <div class="row">
+                {% url "spirit:profile-detail" pk=n.comment.user.pk slug=n.comment.user.slug as url_profile %}
+                {% url "spirit:comment-find" pk=n.comment.pk as url_topic %}
+
+                {% if n.is_comment %}
+                    {% blocktrans with username=n.comment.user.username topic_title=n.topic.title %}<a href="{{ url_profile }}">{{ username }}</a> has commented on <a href="{{ url_topic }}">{{ topic_title }}</a>{% endblocktrans %}
+                {% elif n.is_mention %}
+                    {% blocktrans with username=n.comment.user.username topic_title=n.topic.title %}<a href="{{ url_profile }}">{{ username }}</a> has mention you on <a href="{{ url_topic }}">{{ topic_title }}</a>{% endblocktrans %}
+                {% else %}
+                    Unknow action
+                {% endif %}
+
+                {% if not n.is_read %}
+                    <span class="row-unread">{% trans "unread" %}</span>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>{% trans "There are no notifications, yet" %}</p>
+        {% endfor %}

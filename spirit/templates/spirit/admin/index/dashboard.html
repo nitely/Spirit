@@ -1,0 +1,53 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/admin/_side_menu.html" with active="dashboard" %}
+
+    <h1 class="headline">{% trans "Dashboard" %}</h1>
+
+    <div class="messages-info">
+		<div class="message-title is-info">{% trans "Software" %}</div>
+
+		<ul class="inline-list">
+			<li>{% trans "Installed" %}: {{ version }}</li><!--
+		 --><li>{% trans "Latest" %}: ??</li>
+		</ul>
+	</div>
+
+    <h2 class="headline">{% trans "Statistics" %}</h2>
+
+	<div>
+
+		<div class="statistics-box">
+			<div class="statistics-title">{% trans "Members" %}</div>
+			<div class="statistics-count">{{ users_count }}</div>
+		</div>
+		<div class="statistics-box">
+			<div class="statistics-title">{% trans "Topics" %}</div>
+			<div class="statistics-count">{{ topics_count }}</div>
+		</div>
+		<div class="statistics-box">
+			<div class="statistics-title">{% trans "Comments" %}</div>
+			<div class="statistics-count">{{ comments_count }}</div>
+		</div>
+		<div class="statistics-box">
+			<div class="statistics-title">{% trans "Likes" %}</div>
+			<div class="statistics-count">{{ likes_count }}</div>
+		</div>
+		<div class="statistics-box">
+			<div class="statistics-title">{% trans "Flags" %}</div>
+			<div class="statistics-count">{{ flags_count }}</div>
+		</div>
+		<div class="statistics-box">
+			<div class="statistics-title">{% trans "Categories" %}</div>
+			<div class="statistics-count">{{ category_count }}</div>
+		</div>
+
+	</div>
+
+{% endblock %}

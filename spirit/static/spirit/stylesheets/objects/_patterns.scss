@@ -1,0 +1,23 @@
+// Reusable patterns
+// Usage: @extend %pattern;
+
+
+%clearfix {
+  @include clearfix;
+}
+
+%inline-block {
+  @include inline-block;
+}
+
+.inline-list,
+%inline-list {
+  li {
+	@extend %inline-block;
+	margin-left: $half-spacing-size;
+	
+	&:first-child {
+      margin-left: 0;
+    }
+  }
+}

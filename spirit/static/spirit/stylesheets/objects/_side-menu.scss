@@ -1,0 +1,73 @@
+// Off-canvas side menu object
+
+
+$side-menu-background: #333333 !default;
+$side-menu-link-color: #ccc !default;
+$side-menu-link-highlight: #fefefe !default;
+
+
+.side-menu {
+  z-index: 9000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;  /* hidden (for animation) */
+  max-width: 320px;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  background: $side-menu-background;
+  
+  -webkit-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+  
+  -webkit-transition: width 0.5s ease;
+  -moz-transition: width 0.5s ease;
+  -o-transition: width 0.5s ease;
+  transition: width 0.5s ease;
+  
+  li {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  
+    &:last-child {
+      border-bottom: rgba(255, 255, 255, 0.1) solid 1px;
+    }
+  }
+}
+
+/* IE9+ */
+#side-menu:target,
+.side-menu-show {
+  width: 70%;
+}
+
+.side-menu-link {
+  display: block;
+  line-height: 42px;
+  white-space: nowrap;
+  color: $side-menu-link-color;
+  padding-left: 15px;
+  
+  &:focus,
+  &:hover {
+    color: $side-menu-link-highlight;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  &.is-active {
+    color: $side-menu-link-highlight;
+  }
+}
+
+.side-menu-close {
+  font-size: 35px;
+  line-height: 75px;
+  margin-left: 15px;
+  color: $side-menu-link-color;
+  
+  &:focus,
+  &:hover {
+    color: $side-menu-link-highlight;
+  }
+}

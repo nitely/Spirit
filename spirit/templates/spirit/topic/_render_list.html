@@ -1,0 +1,48 @@
+{% load spirit_tags i18n %}
+
+{% if user.is_authenticated %}
+    {% populate_bookmarks topics=page user=user  %}
+{% endif %}
+
+{# topic list #}
+        <div class="rows">
+
+        {% for t in page %}
+			<div class="row">
+
+                <div class="row-title">
+                    {% if t.is_pinned %}
+                        <i class="fa fa-thumb-tack"></i>
+                    {% endif %}
+                    {% if t.is_closed %}
+                        <i class="fa fa-lock"></i>
+                    {% endif %}
+
+                    {% if t.bookmark %}
+                       <a class="row-link" href="{{ t.bookmark.get_absolute_url }}">{{ t.title }}</a>
+                    {% else %}
+                        <a class="row-link" href="{{ t.get_absolute_url }}">{{ t.title }}</a>
+                    {% endif %}
+                </div>
+                <div class="row-info">
+                    <div>
+                        {% if show_subcategory %}
+                            {{ t.category.title }}
+                        {% else %}
+                            {% if t.category.parent %}
+                                {{ t.category.parent.title }}
+                            {% else %}
+                                {{ t.category.title }}
+                            {% endif %}
+                        {% endif %}
+                    </div><!--
+                 --><div><i class="fa fa-comment"></i> {{ t.comment_count }}</div><!--
+                 --><div title="{{ t.date }}"><i class="fa fa-clock-o"></i> {{ t.last_active|shortnaturaltime }}</div>
+                </div>
+
+			</div>
+        {% empty %}
+            <p>{% trans "There are no topics here, yet" %}</p>
+        {% endfor %}
+
+		</div>

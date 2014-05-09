@@ -1,0 +1,15 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Mods" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/admin/_side_menu.html" with active="users" %}
+
+    <h1 class="headline">{% trans "Mods" %}</h1>
+
+    {% include "spirit/admin/user/_user_list.html" with active_tab="mods" %}
+
+{% endblock %}

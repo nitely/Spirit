@@ -1,0 +1,14 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ p_user.username }} {% trans "topics" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/user/_profile.html" with active_tab=1 %}
+
+    {# Topics #}
+    {% include "spirit/topic/_render_page_list.html" %}
+
+{% endblock %}

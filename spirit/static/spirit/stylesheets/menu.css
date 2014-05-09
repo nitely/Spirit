@@ -1,0 +1,61 @@
+
+
+.side-menu {
+  z-index: 9000;
+  position: fixed;
+  width: 0;  /* hidden (for animation) */
+  max-width: 320px;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  background: #333333;
+  
+  -webkit-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1.5em 0 1.5em -0.75em rgba(0, 0, 0, 0.25);
+  
+  -webkit-transition: width 0.5s ease;
+  -moz-transition: width 0.5s ease;
+  -o-transition: width 0.5s ease;
+  transition: width 0.5s ease;
+}
+
+/* IE9+ */
+#side-menu:target {
+  width: 70%;
+}
+
+.side-menu li a{
+  display: block;
+  line-height: 42px;
+  white-space: nowrap;
+  color: #ccc;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-left: 15px;
+}
+
+.side-menu li:last-child a {
+  border-bottom: rgba(255, 255, 255, 0.1) solid 1px;
+}
+
+.side-menu li a:focus,
+.side-menu li a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.side-menu li.is-active a {
+  color: #fff;
+}
+
+.side-menu-close {
+  font-size: 35px;
+  line-height: 75px;
+  margin-left: 15px;
+  color: #ccc;
+}
+
+.side-menu-close:focus,
+.side-menu-close:hover {
+  color: #fff;
+}

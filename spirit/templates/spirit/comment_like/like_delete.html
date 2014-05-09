@@ -1,0 +1,16 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Remove like" %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="headline">{% blocktrans with username=like.comment.user.username %}Remove {{ username }}'s comment like{% endblocktrans %}</h1>
+
+    <form action="." method="post">
+        {% csrf_token %}
+        <input class="button" type="submit" name="post" value="{% trans "Remove like" %}" />
+    </form>
+
+{% endblock %}

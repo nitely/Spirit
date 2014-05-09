@@ -1,0 +1,16 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Remove user from private topic" %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="headline">{% blocktrans with username=topic_private.user.username topic_title=topic_private.topic.title %}Removing {{ username }}'s from {{ topic_title }}{% endblocktrans %}</h1>
+
+    <form action="." method="post">{% csrf_token %}
+        {% include "spirit/_form.html" %}
+        <input class="button" type="submit" name="post" value="{% trans "Remove" %}" />
+    </form>
+
+{% endblock %}

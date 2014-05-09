@@ -1,0 +1,49 @@
+{% load spirit_tags i18n %}
+
+
+    <div class="profile-img">
+		<img class="profile-avatar" src="{% get_gravatar_url user=p_user size=200 %}" />
+		<div class="profile-username">{{ p_user.username }}</div>
+	</div>
+
+    <div class="profile-info">
+		<ul class="profile-track">
+			<li>
+				<div class="profile-title">{% trans "Joined at" %}</div>
+				<div class="profile-date">{{ p_user.date_joined|shortnaturaltime }}</div>
+			</li><!--
+		 --><li>
+				<div class="profile-title">{% trans "Seen" %}</div>
+				<div class="profile-date">{{ p_user.last_seen|shortnaturaltime }}</div>
+			</li>
+
+            {% if user.is_administrator %}
+                <li>
+                    <div class="profile-title">{% trans "Last IP" %}</div>
+                    <div class="profile-date">{{ p_user.last_ip }}</div>
+                </li>
+            {% endif %}
+		</ul>
+	</div>
+
+    {% ifequal user.username p_user.username %}
+        <div class="profile-preferences">
+            <a class="button" href="{% url "spirit:profile-update" %}"><i class="fa fa-cog"></i> {% trans "Preferences" %}</a>
+        </div>
+    {% else %}
+        <div class="private-message">
+            <a class="button" href="{% url "spirit:private-publish" user_id=p_user.pk %}"><i class="fa fa-envelope"></i> {% trans "Private Message" %}</a>
+        </div>
+    {% endifequal %}
+
+    {% if user.is_administrator %}
+        <div class="profile-preferences">
+            <a class="button" href="{% url "spirit:admin-user-edit" user_id=p_user.pk %}"><i class="fa fa-cog"></i> {% trans "Edit user" %}</a>
+        </div>
+    {% endif %}
+
+    <ul class="tabs">
+		<li><a class="tab-link{% ifequal active_tab 0 %} is-selected{% endifequal %}" href="{% url "spirit:profile-detail" pk=p_user.pk slug=p_user.slug %}" >{% trans "Comments" %}</a></li><!--
+	 --><li><a class="tab-link{% ifequal active_tab 1 %} is-selected{% endifequal %}" href="{% url "spirit:profile-topics" pk=p_user.pk slug=p_user.slug %}" >{% trans "Topics" %}</a></li><!--
+	 --><li><a class="tab-link{% ifequal active_tab 2 %} is-selected{% endifequal %}" href="{% url "spirit:profile-likes" pk=p_user.pk slug=p_user.slug %}" >{% trans "Likes" %}</a></li>
+	</ul>

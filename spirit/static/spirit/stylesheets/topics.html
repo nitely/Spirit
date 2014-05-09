@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Topics</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="tests.css">
+
+    <script src="scripts/jquery.min.js"></script>
+	
+    <!--[if (lt IE 9) & (!IEMobile)]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+    <![endif]-->
+	
+	<script src="scripts/utils.js"></script>
+    <script src="scripts/dropdown.js"></script>
+	
+	<script>
+	
+	$( document ).ready(function() {
+
+		$.dropdown( {} );
+
+	});
+	
+	</script>
+
+  </head>
+
+  <body>
+	
+	<header class="header">
+		<a class="header-logo" href="#">Spirit</a>
+		
+	</header>
+	
+	<div class="container">
+		<div class="categories js-tabs-container">
+			<a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">Show all <i class="fa fa-chevron-down"></i></a>
+				
+			<div class="tab-content js-tab-content js-categories-content">
+				<ul class="menu">
+					<li><a class="menu-link" href="#" >Foro 1</a></li>
+					<li><a class="menu-link" href="#" >Foro 2</a></li>
+					<li><a class="menu-link" href="#" >Show all</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="new-topic">
+			<a class="button" href="#">New topic</a>
+		</div>
+	</div>
+	
+	<div class="rows">
+		<div class="row">
+			<div class="row-title"><i class="fa fa-thumb-tack"></i> <a class="row-link" href="#t1">title</a></div>
+			<div class="row-info">
+				<div>General</div><!--
+			 --><div><i class="fa fa-comment"></i> 1111</div><!--
+			 --><div><i class="fa fa-clock-o"></i> 1111</div>
+			</div>
+		</div>
+			
+		<div class="row">
+			<div class="row-title"><i class="fa fa-lock"></i> <a class="row-link" href="#t2">long title long title long title long title long title long title long title</a></div>
+			<div class="row-info">
+				<div>General</div><!--
+			 --><div><i class="fa fa-comment"></i> 11</div><!--
+			 --><div><i class="fa fa-clock-o"></i> 1111</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="row-title"><a class="row-link" href="#">visited</a></div>
+			<div class="row-info">
+				<div>General</div><!--
+			 --><div><i class="fa fa-comment"></i> 11</div><!--
+			 --><div><i class="fa fa-clock-o"></i> 1111</div>
+			</div>
+		</div>
+	</div>
+	
+	<footer class="footer">
+		<div class="footer-container">
+			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
+		</div>
+	</footer>
+
+  </body>
+
+</html>

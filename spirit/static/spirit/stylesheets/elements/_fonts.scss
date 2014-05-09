@@ -1,0 +1,11 @@
+// Fonts
+
+@include font-face(ubuntu-light-webfont, "vendors/fonts/ubuntu-light-webfont");
+
+// Workaround for chrome bug: https://code.google.com/p/chromium/issues/detail?id=137692
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'ubuntu-light-webfont';
+    src: url('vendors/fonts/ubuntu-light-webfont.svg') format('svg');
+  }
+}

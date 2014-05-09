@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<form action="{% url "spirit:private-access-create" topic.pk %}" method="post">
+    {% csrf_token %}
+    {% include "spirit/_form.html" %}
+
+    <input class="button" type="submit" value="{% trans "Invite" %}" />
+</form>

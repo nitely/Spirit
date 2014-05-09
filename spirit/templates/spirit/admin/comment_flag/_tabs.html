@@ -1,0 +1,6 @@
+{% load i18n %}
+
+<ul class="tabs">
+	<li><a class="tab-link{% ifequal active_tab "open" %} is-selected{% endifequal %}" href="{% url "spirit:admin-flag-open" %}" >{% trans "Open" %}</a></li><!--
+ --><li><a class="tab-link{% ifequal active_tab "closed" %} is-selected{% endifequal %}" href="{% url "spirit:admin-flag-closed" %}" >{% trans "Closed" %}</a></li>
+</ul>

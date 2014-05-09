@@ -1,0 +1,57 @@
+// Header styles
+
+.header {
+  @extend %container;
+}
+
+.header-logo {
+  float: left;
+  font-size: 28px;
+  line-height: $base-line-height * 2;
+  color: $dark-grey;
+}
+
+.header-link {
+  float: right;
+  line-height: $base-line-height * 2;
+}
+
+.header-tabs {
+  @extend %inline-list;
+  float: right;
+  line-height: $base-line-height * 2;
+  
+  li {
+    margin-left: $base-spacing-size;
+  }
+}
+
+.header-tab-link {
+  &.is-selected {
+	color: $black;
+  }
+  
+  &.is-highlighted {
+	color: $red;
+  }
+}
+
+.header-tabs-content {
+  clear: both;
+}
+
+.header-tab-content {
+  display: none;
+  padding-bottom: $base-spacing-size;
+  border-bottom: $light-grey 1px solid;
+}
+
+.header-nav {
+  @include media( $medium ) {
+    text-align: right;
+  }
+  
+  .menu {
+    text-align: left;
+  }
+}

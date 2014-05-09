@@ -1,0 +1,13 @@
+// Media object
+
+%media {
+  @extend %clearfix;
+}
+
+%media-img {
+  float: left;
+}
+
+%media-body {
+  overflow: hidden;
+}

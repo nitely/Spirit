@@ -1,0 +1,30 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Preferences" %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="headline">{% trans "Preferences" %}</h1>
+
+    <dl class="preference">
+	   <dt class="preference-label">{% trans "Email" %}:</dt>
+	   <dd class="preference-desc"><a href="{% url "spirit:profile-email-change" %}"><i class="fa fa-pencil"></i> {{ user.email }}</a></dd>
+
+	   <dt class="preference-label">{% trans "Password" %}:</dt>
+	   <dd class="preference-desc"><a href="{% url "spirit:profile-password-change" %}"><i class="fa fa-pencil"></i> {% trans "Change password" %}</a></dd>
+
+	   <dt class="preference-label">{% trans "Avatar" %}:</dt>
+	   <dd class="preference-desc"><a href="https://gravatar.com"><i class="fa fa-pencil"></i> {% trans "Change avatar" %}</a>
+           ({% trans "Go to gravatar.com and use your current email to change it" %})</dd>
+	</dl>
+
+    <form action="." method="post">
+        {% csrf_token %}
+        {% include "spirit/_form.html" %}
+
+        <input class="button" type="submit" name="post" value="{% trans "Save" %}" />
+    </form>
+
+{% endblock %}

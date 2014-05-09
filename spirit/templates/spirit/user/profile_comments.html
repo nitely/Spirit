@@ -1,0 +1,17 @@
+{% extends "spirit/_base.html" %}
+
+{% load spirit_tags i18n tz %}
+
+{% block title %}{{ p_user.username }} {% trans "comments" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/user/_profile.html" with active_tab=0 %}
+
+    {% yt_paginator_autopaginate comments as page %}
+
+    {% include "spirit/user/_render_comments_list.html" %}
+
+    {% render_yt_paginator page %}
+
+{% endblock %}

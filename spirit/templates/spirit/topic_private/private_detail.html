@@ -1,0 +1,70 @@
+{% extends "spirit/_base.html" %}
+
+{% load spirit_tags i18n %}
+
+{% block title %}{{ topic.title }}{% endblock %}
+
+{% block content %}
+
+    {% get_comment_list topic=topic as comments %}
+    {% paginator_autopaginate comments per_page=COMMENTS_PER_PAGE as page %}
+
+        <ul class="nav">
+            <li><a href="{% url "spirit:private-list" %}" >{% trans "Private topics" %}</a></li>
+        </ul>
+
+        <h1 class="headline">{{ topic.title }}</h1>
+
+        <div class="container">
+            <div class="private-participants js-tabs-container">
+                <a class="dropdown-button js-tab" href="#" data-related=".js-participants-content">{% trans "Participants" %} <i class="fa fa-chevron-down"></i></a>
+
+                <div class="tab-content js-tab-content js-participants-content">
+                    <ul class="participants-menu">
+                        {% for tp in topic.topics_private.all %}
+                            <li class="menu-item">{{ tp.user.username }}{% ifequal user.pk topic.user.pk %} <a class="menu-icon" href="{% url "spirit:private-access-remove" tp.pk %}" ><i class="fa fa-times"></i></a>{% endifequal %}</li>
+                        {% endfor %}
+                    </ul>
+
+                    {% ifequal user.pk topic.user.pk %}
+                        {% render_invite_form topic %}
+                    {% endifequal %}
+                </div>
+            </div>
+
+            <div class="private-leave">
+                <a class="button" href="{% url "spirit:private-access-remove" topic_private.pk %}" ><i class="fa fa-times"></i>{% trans "Leave topic" %}</a>
+            </div>
+        </div>
+
+        {% include "spirit/comment/_render_list.html" %}
+
+        {% render_paginator page %}
+
+        <div class="reply">
+
+            <div class="comment-media">
+                <div class="comment-img">
+                    <img src="{% get_gravatar_url user=user size=50 %}" />
+                </div>
+
+                <div class="comment-body">
+                    {% render_comments_form topic=topic %}
+                </div>
+            </div>
+
+        </div>
+
+            <script>
+                $( document ).ready(function() {
+
+                    $( ".comment" ).bookmark( {
+                        csrf_token: "{{ csrf_token }}",
+                        target: "{% url "spirit:bookmark-create" topic.pk %}",
+                    } );
+
+                });
+            </script>
+
+
+{% endblock %}

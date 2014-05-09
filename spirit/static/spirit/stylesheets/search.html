@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>search</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="tests.css">
+
+    <!--[if (lt IE 9) & (!IEMobile)]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+	
+	<header class="header">
+		<a class="header-logo" href="#">Spirit</a>
+
+	</header>
+		
+	<header>
+		<h1 class="headline">Search categories</h1>
+	</header>
+
+	
+    <form method="get" action="/search/">
+		<label for="id_q">Search:</label>
+		<input id="id_q" name="q" type="text" />
+
+		<label for="id_category_0">Filtrado por:</label>
+		<ul class="checkboxes" id="id_category">
+			<li><label for="id_category_0"><input id="id_category_0" name="category" type="checkbox" value="1" /> Categoria 1</label></li>
+			<li><label for="id_category_1"><input id="id_category_1" name="category" type="checkbox" value="3" /> --- SubCategoria 1</label></li>
+			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
+			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
+			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
+			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
+			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
+		</ul>
+
+        <input class="button" type="submit" value="Search" />
+    </form>
+		
+	
+	<footer class="footer">
+		<div class="footer-container">
+			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
+		</div>
+	</footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<a class="button" href="#side-menu"><i class="fa fa-bars"></i> {% trans "Show menu" %}</a>
+
+<div id="side-menu" class="side-menu">
+    <a class="side-menu-close" href="#"><i class="fa fa-times-circle-o"></i></a>
+
+	<ul>
+        <li><a class="side-menu-link{% ifequal active "dashboard" %} is-selected{% endifequal %}" href="{% url "spirit:admin" %}">{% trans "Dashboard" %}</a></li><!--
+	 --><li><a class="side-menu-link{% ifequal active "basic_settings" %} is-selected{% endifequal %}" href="{% url "spirit:admin-config-basic" %}">{% trans "Basic settings" %}</a></li><!--
+	 --><li><a class="side-menu-link{% ifequal active "categories" %} is-selected{% endifequal %}" href="{% url "spirit:admin-category" %}">{% trans "Categories" %}</a></li><!--
+	 --><li><a class="side-menu-link{% ifequal active "topics" %} is-selected{% endifequal %}" href="{% url "spirit:admin-topic" %}">{% trans "Topics" %}</a></li><!--
+	 --><li><a class="side-menu-link{% ifequal active "users" %} is-selected{% endifequal %}" href="{% url "spirit:admin-user" %}">{% trans "Users" %}</a></li><!--
+	 --><li><a class="side-menu-link{% ifequal active "flags" %} is-selected{% endifequal %}" href="{% url "spirit:admin-flag" %}">{% trans "Flags" %}</a></li>
+	</ul>
+</div>

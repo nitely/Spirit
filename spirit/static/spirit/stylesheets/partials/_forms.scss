@@ -1,0 +1,14 @@
+// Forms styles
+
+.checkboxes {
+  overflow: auto;
+  max-height: $base-line-height * 6;
+  margin-bottom: $base-spacing-size;
+  background-color: $white;
+  border: 1px solid $light-grey;
+}
+
+.errorlist {
+  color: $red;
+  margin-bottom: $half-spacing-size;
+}

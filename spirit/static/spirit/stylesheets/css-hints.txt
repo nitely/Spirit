@@ -1,0 +1,19 @@
+componenetes: elementos especificos de la pagina (partials), construidos usando objetos (extensiones)
+objetos: elementos genericos, reutilizables (objects)
+patterns: skins reutilizables, NO clases, para extender/heredar
+
+Reglas:
+.No usar IDs
+.No extender clases (solo %placeholders)
+.No encadenar selectores
+.3 niveles de anidacion maximo
+.Convenciones en clases (o usar BEM): http://thesassway.com/advanced/modular-css-naming-conventions
+.Escribir/importar en orden: reset, elements (h1, ul...), objects, components, style trumps... https://github.com/csswizardry/CSS-Guidelines#source-order
+.Usar nombres vagos para objectos (ej: .media, ui-list), y especificos para extensiones/hijos de objetos (.user-avatar-img)
+.No usar height (excepto en img), usar line-height
+.No usar width en componentes, dejar que se expanda segun el parent/grid.
+.Tratar de usar solo margin-bottom y margin-left en los elementos bloques http://csswizardry.com/2012/06/single-direction-margin-declarations/
+.https://github.com/csswizardry/CSS-Guidelines
+.Usar multiplos de line-height principal (html{}) para margins, paddings, line-heights. Mantine cierto vertical rhythm
+.Usar modular-scale para font-size y line-heights
+.Usar rem + px para cambiar el font-size principal (html{}) en cada breakpoint

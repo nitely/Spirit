@@ -1,0 +1,13 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Private topics" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/topic_private/_top_bar.html" with active="participating" %}
+
+    {% include "spirit/topic/_render_page_list.html" %}
+
+{% endblock %}

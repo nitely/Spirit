@@ -1,0 +1,10 @@
+{# django.contrib.messages #}
+{% if messages_grouped %}
+    {% for level, messages in messages_grouped.iteritems %}
+        <ul class="messages-{{ level }}">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endif %}

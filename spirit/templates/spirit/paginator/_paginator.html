@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<ul class="paginator">
+	<li class="paginator-pages">{% blocktrans with number=page.number num_pages=page.paginator.num_pages %}Page {{ number }} of {{ num_pages }}{% endblocktrans %}</li>
+    {% if page.has_other_pages %}
+        {% if page.number == 1 %}
+            <li><a class="paginator-button" href="?{{ page_var }}={{ page.next_page_number }}{{ extra_query }}{{ hashtag }}"><i class="fa fa-chevron-right"></i></a></li><!--
+         --><li><a class="paginator-button" href="?{{ page_var }}={{ page.paginator.num_pages }}{{ extra_query }}{{ hashtag }}">{% trans "Last" %} <i class="fa fa-chevron-right"></i></a></li>
+        {% elif page.number == page.paginator.num_pages %}
+            <li><a class="paginator-button" href="?{{ page_var }}=1{{ extra_query }}{{ hashtag }}"><i class="fa fa-chevron-left"></i> {% trans "First" %}</a></li><!--
+         --><li><a class="paginator-button" href="?{{ page_var }}={{ page.previous_page_number }}{{ extra_query }}{{ hashtag }}"><i class="fa fa-chevron-left"></i></a></li>
+        {% else %}
+            <li><a class="paginator-button" href="?{{ page_var }}={{ page.previous_page_number }}{{ extra_query }}{{ hashtag }}"><i class="fa fa-chevron-left"></i></a></li><!--
+         --><li><a class="paginator-button" href="?{{ page_var }}={{ page.next_page_number }}{{ extra_query }}{{ hashtag }}"><i class="fa fa-chevron-right"></i></a></li>
+        {% endif %}
+    {% endif %}
+</ul>

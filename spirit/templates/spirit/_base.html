@@ -1,0 +1,72 @@
+{% load spirit_tags i18n %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{{ config.site_description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/tests.css">
+
+    <script src="{{ STATIC_URL }}spirit/scripts/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/utils.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/dropdown.js"></script>
+
+    <script src="{{ STATIC_URL }}spirit/scripts/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/utils.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/dropdown.js"></script>
+
+    {% if user.is_authenticated %}
+        <script src="{{ STATIC_URL }}spirit/scripts/marked/marked.min.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/waypoints/waypoints.min.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/storage.js"></script>
+	    <script src="{{ STATIC_URL }}spirit/scripts/editor.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/like.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/bookmark.js"></script>
+    {% endif %}
+
+    {% if user.is_moderator %}
+        <script src="{{ STATIC_URL }}spirit/scripts/move_comments.js"></script>
+    {% endif %}
+
+    <script>
+
+	$( document ).ready(function() {
+
+		$.dropdown( {
+			notification_url: "{% url "spirit:topic-notification-ajax" %}",
+			notification_list_url: "{% url "spirit:topic-notification-list-unread" %}",
+			mention_txt: "{% trans "{user} has mention you on {topic}" %}",
+			comment_txt: "{% trans "{user} has commented on {topic}" %}",
+			show_all: "{% trans "Show all" %}",
+			empty: "{% trans "No new notifications, yet" %}",
+            unread: "{% trans "unread" %}",
+		} );
+
+	});
+
+	</script>
+
+    {% block head-extra %}{% endblock %}
+
+    <!--[if (lt IE 9) & (!IEMobile)]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    {% include 'spirit/_header.html' %}
+    {% render_messages messages %}
+    {% block content %}{% endblock %}
+    {% include 'spirit/_footer.html' %}
+
+  </body>
+
+</html>

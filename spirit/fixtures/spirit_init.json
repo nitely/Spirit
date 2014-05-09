@@ -1,0 +1,4 @@
+[
+    {"pk": 1, "model": "spirit.category", "fields": {"description": "", "parent": null, "title": "Private", "is_closed": false, "is_removed": false, "is_private": true, "slug": "private"}},
+    {"pk": 2, "model": "spirit.category", "fields": {"description": "", "parent": null, "title": "Uncategorized", "is_closed": false, "is_removed": false, "is_private": false, "slug": "uncategorized"}}
+]

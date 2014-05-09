@@ -1,0 +1,89 @@
+{% extends "spirit/_base.html" %}
+
+{% load spirit_tags i18n tz %}
+
+{% block title %}{% trans "Flag" %}{% endblock %}
+
+{% block content %}
+
+    <ul class="nav">
+        <li><a href="{% url "spirit:admin" %}" >{% trans "Admin" %}</a><i class="fa fa-chevron-right"></i></li><!--
+     --><li><a href="{% url "spirit:admin-flag" %}" >{% trans "Flags" %}</a></li>
+    </ul>
+
+    <h1 class="headline">{% trans "Flag" %}</h1>
+
+    {% if flag.moderator %}
+        <dl class="preference">
+           <dt class="preference-label">{% trans "Moderated by" %}:</dt>
+           <dd class="preference-desc"><a href="{{ flag.moderator.get_absolute_url }}">{{ flag.moderator.username }}</a></dd>
+        </dl>
+    {% endif %}
+
+    <form action="." method="post">
+        {% csrf_token %}
+        {% include "spirit/_form.html" %}
+
+        <input class="button" type="submit" name="post" value="{% trans "Save" %}" />
+    </form>
+
+    <h2 class="headline">{% trans "Comment flagged" %}</h2>
+
+		<div class="comments">
+
+			<div class="comment">
+                <ul class="comment-info">
+                    <li title="{{ flag.comment.date }}">{{ flag.comment.date|localtime|shortnaturaltime }}</li>
+                </ul>
+
+                <div class="comment-media">
+                    <div class="comment-img">
+                        <img src="{% get_gravatar_url user=flag.comment.user size=50 %}" />
+
+                        <div class="comment-username">
+                            <a href="{{ flag.comment.user.get_absolute_url }}">{{ flag.comment.user.username }}</a>
+                        </div>
+                    </div>
+
+                    <div class="comment-body">
+                        {{ flag.comment.comment_html|safe }}
+                    </div>
+                </div>
+
+				<ul class="comment-actions">
+					<li><a href="#">{% trans "delete" %}</a></li>
+				</ul>
+            </div>
+
+		</div>
+
+
+    <h2 class="headline">{% trans "Reporters" %}</h2>
+
+    {% for f in flags %}
+		<div class="comments">
+
+			<div class="comment">
+                <ul class="comment-info">
+                    <li title="{{ f.date }}">{{ f.date|localtime|shortnaturaltime }}</li>
+                </ul>
+
+                <div class="comment-media">
+                    <div class="comment-img">
+                        <img src="{% get_gravatar_url user=f.user size=50 %}" />
+
+                        <div class="comment-username">
+                            <a href="{{ f.user.get_absolute_url }}">{{ f.user.username }}</a>
+                        </div>
+                    </div>
+
+                    <div class="comment-body">
+                        {{ f.body }}
+                    </div>
+                </div>
+            </div>
+
+		</div>
+    {% endfor %}
+
+{% endblock %}

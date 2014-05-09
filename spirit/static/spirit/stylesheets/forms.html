@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Forms</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="tests.css">
+
+    <!--[if (lt IE 9) & (!IEMobile)]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+	
+	<header class="header">
+		<a class="header-logo" href="#">Spirit</a>
+	
+	</header>
+	
+	<h1 class="headline">Form</h1>
+	
+	<ul class="messages-info">
+        <li>Success message</li>
+		<li>Other message</li>
+    </ul>
+	
+	<ul class="messages-error">
+        <li>Error message</li>
+		<li>Other message</li>
+    </ul>
+		
+		<form action=".">
+			<label for="id_field1">Fields 1</label>
+			
+			<ul class="errorlist">
+				<li>Este campo es obligatorio.</li>
+				<li>Otro error.</li>
+			</ul>
+			
+			<input id="id_field1" type="text" value="1" />
+				
+			<label for="id_field2">Fields 2</label>
+			<textarea id="id_field2" placeholder="textarea..."></textarea>
+				
+			<input class="button" type="submit" value="Publish" />
+		</form>
+	
+	<footer class="footer">
+		<div class="footer-container">
+			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
+		</div>
+	</footer>
+
+  </body>
+
+</html>

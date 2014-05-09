@@ -1,0 +1,41 @@
+{% extends "spirit/_base.html" %}
+
+{% load spirit_tags i18n %}
+
+{% block title %}{% trans "Comment history" %}{% endblock %}
+
+{% block content %}
+
+    {# todo: add nav bar #}
+
+    <h1 class="headline">{% trans "Comment history" %}</h1>
+
+    <div class="comments">
+
+        {% for c in comments %}
+            <div class="comment">
+
+                <ul class="comment-info">
+                    <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+                </ul>
+
+                <div class="comment-media">
+                    <div class="comment-img">
+                        <img src="{% get_gravatar_url user=c.comment_fk.user size=50 %}" />
+
+                        <div class="comment-username">
+                            <a href="#">{{ c.comment_fk.user.username }}</a>
+                        </div>
+                    </div>
+
+                    <div class="comment-body">
+                        {{ c.comment_html|safe }}
+                    </div>
+                </div>
+
+			</div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

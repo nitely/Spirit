@@ -1,0 +1,14 @@
+{% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+
+{{ form.non_field_errors }}
+
+{% for field in form.hidden_fields %}
+    {{ field.errors }}
+    {{ field }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+    {{ field.label_tag }}
+    {{ field.errors }}
+    {{ field }}
+{% endfor %}

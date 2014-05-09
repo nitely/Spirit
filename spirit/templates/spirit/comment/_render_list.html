@@ -1,0 +1,115 @@
+{% load spirit_tags i18n tz %}
+
+{% if user.is_authenticated %}
+    {% populate_likes comments=page user=user %}
+{% endif %}
+
+<div class="comments">
+
+    {% for c in page %}
+
+		<div class="comment{% if c.action %} is-highlighted{% endif %}" id="c{{forloop.counter0|add:page.start_index }}" data-number="{{ forloop.counter0|add:page.start_index }}" data-pk="{{ c.pk }}">
+
+            {% if not c.is_removed %}
+
+                <ul class="comment-info">
+                    {% if c.modified_count > 0 %}
+                        <li><a href="{% url "spirit:comment-history" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
+                    {% else %}
+                        <li title="{{ c.date }}">{{ c.date|localtime|shortnaturaltime }}</li>
+                    {% endif %}
+                </ul>
+
+                <div class="comment-media">
+                    <div class="comment-img">
+                        <img src="{% get_gravatar_url user=c.user size=50 %}" />
+
+                        <div class="comment-username">
+                            <a class="username{% if c.user.is_administrator %} is-admin{% elif c.user.is_moderator %} is-mod{% endif %}" href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>
+                        </div>
+                    </div>
+
+                    <div class="comment-body">
+                        {% if not c.action %}
+                            {{ c.comment_html|safe }}
+                        {% else %}
+                            <p>{% get_comment_action_text c.action %}.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if user.is_authenticated and not c.action %}
+                    <ul class="comment-actions">
+                        {% if user.is_moderator %}
+                            <li><a href="{% url "spirit:comment-delete" c.pk %}"><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
+                        {% endif %}
+
+                        <li><a href="{% url "spirit:flag-create" c.pk %}"><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
+
+                        {% if c.like %}
+                            <li class="comment-like"><a class="js-like" href="{% url "spirit:like-delete" c.like.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
+                        {% else %}
+                            {% ifnotequal c.user user  %}
+                                <li class="comment-like"><a class="js-like" class="like" href="{% url "spirit:like-create" c.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
+                            {% else %}
+                                <li class="comment-like"><i class="fa fa-heart"></i> ({{ c.likes_count }})</li>
+                            {% endifnotequal %}
+                        {% endif %}
+
+                        {% if user.is_moderator or c.user.pk == user.pk %}
+                            <li><a href="{% url "spirit:comment-update" pk=c.pk %}" >{% trans "edit" %}</a></li>
+                        {% endif %}
+
+                        {% ifnotequal c.user.pk user.pk %}
+                            <li><a href="{% url "spirit:comment-publish" topic_id=topic.pk pk=c.pk %}" >{% trans "quote" %}</a></li>
+                            <li><a href="#reply" >{% trans "reply" %}</a></li>
+                        {% endifnotequal %}
+                    </ul>
+                {% endif %}
+
+            {% else %}
+
+                <div class="comment-media">
+                    <div class="comment-img">
+                        <div class="comment-username">
+                            <a href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>
+                        </div>
+                    </div>
+
+                    <div class="comment-body">
+                        {% if user.is_moderator %}
+                            {{ c.comment_html|safe }}
+                        {% else %}
+                            {% trans "This comment was deleted" %}.
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if user.is_moderator %}
+                    <ul class="comment-actions">
+                        <li><a href="{% url "spirit:comment-undelete" c.pk %}"><i class="fa fa-times"></i> {% trans "undelete" %}</a></li>
+                    </ul>
+                {% endif %}
+
+            {% endif %}
+
+		</div>
+
+	{% endfor %}
+
+</div>
+
+
+    <script>
+
+	$( document ).ready(function() {
+
+		$.like( {
+			csrf_token: "{{ csrf_token }}",
+			like_text: "{% trans "like" %} ({count})",
+			remove_like_text: '{% trans "remove like" %} ({count})',
+		} );
+
+	});
+
+	</script>

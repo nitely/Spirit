@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<ul class="paginator">
+    {% if page.num_pages == 1 %}
+        <li class="paginator-pages">{% trans "Page 1 of 1" %}</li>
+    {% else %}
+        {% if page.number > 1 %}
+            <li><a class="paginator-button" href="?{{ page_var }}={{ page.previous_page_number }}{{ extra_query }}{{ hashtag }}"><i class="fa fa-chevron-left"></i></a></li>
+        {% endif %}
+
+        {% for page_number in page.page_range %}
+            <li><a class="paginator-button" href="?{{ page_var }}={{ page_number }}{{ extra_query }}{{ hashtag }}">{{ page_number }}</a></li>
+        {% endfor %}
+
+        {% if page.number < page.num_pages %}
+            <li><a class="paginator-button" href="?{{ page_var }}={{ page.next_page_number }}{{ extra_query }}{{ hashtag }}"><i class="fa fa-chevron-right"></i></a></li>
+        {% endif %}
+    {% endif %}
+</ul>

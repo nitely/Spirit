@@ -1,0 +1,17 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Moderate topic" %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="headline">{% trans "Moderate topic" %}: {{ topic.title }}</h1>
+    
+    <form action="." method="post">
+        {% csrf_token %}
+
+        <input class="button" type="submit" name="post" value="{% trans "Apply" %}" />
+    </form>
+
+{% endblock %}

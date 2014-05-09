@@ -1,0 +1,17 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Closed topics" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/admin/_side_menu.html" with active="topics" %}
+
+    <h1 class="headline">{% trans "Closed topics" %}</h1>
+    
+    {% include "spirit/admin/topic/_tabs.html" with active_tab="closed" %}
+    
+    {% include "spirit/topic/_render_page_list.html" %}
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans %}You have a new notification at {{ site_name }}.{% endblocktrans %}
+
+{% trans "Please go to the following link to read the comment:" %}
+
+{{ protocol }}://{{ domain }}{% url "spirit:bookmark-find" topic_id=comment.topic_id %}
+
+{% trans "If you don't want to keep receiving notifications, you can deactivate them on your profile preferences." %}
+
+{% endautoescape %}

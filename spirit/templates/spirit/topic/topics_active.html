@@ -1,0 +1,13 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Latest active topics" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/topic/_top_bar.html" with category=None categories=categories %}
+
+    {% include "spirit/topic/_render_page_list.html" %}
+
+{% endblock %}

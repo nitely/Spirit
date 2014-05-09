@@ -1,0 +1,7 @@
+{% load spirit_tags %}
+
+{% yt_paginator_autopaginate topics as page %}
+
+{% include "spirit/topic/_render_list.html" %}
+
+{% render_yt_paginator page %}

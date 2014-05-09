@@ -1,0 +1,51 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Category list" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/admin/_side_menu.html" with active="categories" %}
+
+    <h1 class="headline">{% trans "Category list" %}</h1>
+
+    <a class="button" href="{% url "spirit:admin-category-create" %}">{% trans "Create Category" %}</a>
+
+    <div class="rows">
+
+        {% for c in categories %}
+            <div class="row">
+                <a href="{{ c.get_absolute_url }}">{{ c.title }}</a>
+
+                {% if c.is_removed %}
+                    <i class="fa fa-times"></i>
+                {% endif %}
+
+                {% if c.is_closed %}
+                    <i class="fa fa-lock"></i>
+                {% endif %}
+
+                <a class="row-edit" href="{% url "spirit:admin-category-update" category_id=c.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
+            </div>
+
+            {% for subc in c.category_set.all %}
+                <div class="row">
+                    --- <a href="{{ subc.get_absolute_url }}">{{ subc.title }}</a>
+
+                    {% if subc.is_removed %}
+                        <i class="fa fa-times"></i>
+                    {% endif %}
+
+                    {% if subc.is_closed %}
+                        <i class="fa fa-lock"></i>
+                    {% endif %}
+
+                    <a class="row-edit" href="{% url "spirit:admin-category-update" category_id=subc.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+	</div>
+
+{% endblock %}

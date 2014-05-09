@@ -1,0 +1,27 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Publish a private topic" %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="headline">{% trans "Publish private topic" %}</h1>
+
+    <form action="." method="post" class="js-reply">
+        {% csrf_token %}
+        {% include "spirit/_form.html" with form=tform %}
+        {% include "spirit/_form.html" with form=tpform %}
+
+        <div class="topic-publish-comment">
+            {% include "spirit/_form.html" with form=cform %}
+        </div>
+
+        <div class="container">
+            {% include "spirit/comment/_editor.html" %}
+
+            <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+Django>=1.6,<1.7
+django-haystack>=2.1,<2.2
+whoosh>=2.5,<2.6
+Markdown>=2.3,<2.4
+django-infinite-scroll-pagination>=0.1,<0.2
+django-djconfig>=0.1.3,<0.2
+django-debug-toolbar
+pytz

@@ -1,0 +1,22 @@
+{% load i18n %}
+
+    <div class="container">
+		<div class="categories js-tabs-container">
+            {% ifequal active "participating" %}
+                <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "Participating in" %} <i class="fa fa-chevron-down"></i></a>
+            {% else %}
+                <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "Left" %} <i class="fa fa-chevron-down"></i></a>
+            {% endifequal %}
+
+			<div class="tab-content js-tab-content js-categories-content">
+				<ul class="menu">
+                    <li><a class="menu-link" href="{% url "spirit:private-created-list" %}" >{% trans "Left" %}</a></li>
+                    <li><a class="menu-link" href="{% url "spirit:private-list" %}" >{% trans "Participating in" %}</a></li>
+				</ul>
+			</div>
+		</div>
+
+        <div class="new-topic">
+            <a class="button" href="{% url "spirit:private-publish" %}">{% trans "Create private topic" %}</a>
+		</div>
+	</div>

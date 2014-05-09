@@ -1,0 +1,17 @@
+// Base variables
+
+// Font weights
+$light: 100;
+$regular: 400;
+$bold: 600;
+
+// Base Font
+$base-font-family: "ubuntu-light-webfont" !default;
+$base-font-weight: $regular !default;
+$base-font-size: 16px !default;
+$base-line-height: $base-font-size * 1.5 !default;
+
+// Space between elements
+$base-spacing-size: $base-line-height !default;
+$half-spacing-size: $base-spacing-size / 2 !default;
+$quarter-spacing-size: $base-spacing-size / 4 !default;

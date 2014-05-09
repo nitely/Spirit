@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Comments</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--<link rel="stylesheet" href="http://basehold.it/24">-->
+	<link rel="stylesheet" href="vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="tests.css">
+
+    <!--[if (lt IE 9) & (!IEMobile)]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+    <![endif]-->
+	
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/marked/marked.min.js"></script>
+	<script src="scripts/editor.js"></script>
+	<script src="scripts/storage.js"></script>
+	<script src="scripts/like.js"></script>
+	
+	<script>
+
+	$( document ).ready(function() {
+
+        marked.setOptions({
+            renderer: new marked.Renderer(),
+            gfm: true,
+            tables: false,
+            breaks: true,
+            pedantic: false,
+            sanitize: true,
+            smartLists: false,
+            smartypants: false
+        });
+		
+		$.editor( {} );
+		
+		$( ".reply" ).find( "textarea" ).store( "topic_id" );
+		
+		$.like( {} );
+
+	});
+
+	</script>
+
+  </head>
+
+  <body>
+	
+	<header class="header">
+		<a class="header-logo" href="#">Spirit</a>
+		
+		<a class="header-link" href="#">Log in</a>
+	</header>
+	
+	<ul class="nav">
+		<li><a href="#" >Latest</a><i class="fa fa-chevron-right"></i></li><!--
+	 --><li><a href="#" >General</a></li>
+	</ul>
+		
+	<header>
+		<h1 class="headline">Topic title here</h1>
+	</header>
+		
+	<div class="comments">
+			
+		<div class="comment">
+			<ul class="comment-info">
+				<li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
+			 --><li>4h</li>
+			</ul>
+				
+			<div class="comment-media">
+				<div class="comment-img">
+					<img src="avatar.png" />
+						
+					<div class="comment-username">
+						<a class="username is-admin" href="#">nitely</a>
+					</div>
+				</div>
+					
+				<div class="comment-body">
+                        
+                            <p>texto normal<br /><strong>texto en negrita</strong><br />
+							<em>texto en italica</em></p>
+							<ul>
+							<li>item de lista</li>
+							<li>item de lista</li>
+							</ul>
+							<p><a href="http://google.com">texto del enlace</a></p>
+							<p><img alt="texto de imagen" src="http://episodecalendar.com/assets/logos/logo-4b922247bf8564ed7c2480eec8bc252c.png" /></p>
+							<p><a href="/user/1/">@estecb</a></p>
+							<blockquote>
+							<p>quote<br />
+							line quote</p>
+							</blockquote>
+                        
+                    </div>
+			</div>
+				
+			<ul class="comment-actions">
+				<li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
+			 --><li class="comment-like"><i class="fa fa-heart"></i> like</li><!--
+			 --><li><a href="#">reply</a></li>
+			</ul>
+		</div>
+			
+		<div class="comment">
+			<ul class="comment-info">
+				<li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
+			 --><li>4h</li>
+			</ul>
+				
+			<div class="comment-media">
+				<div class="comment-img">
+					<img src="avatar.png" />
+						
+					<div class="comment-username">
+						<a class="username is-mod" href="#">nitely</a>
+					</div>
+				</div>
+					
+				<div class="comment-body">
+					<p>Comment text</p>
+				</div>
+			</div>
+				
+			<ul class="comment-actions">
+				<li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
+			 --><li class="comment-like"><a class="js-like" href="#" data-count="1"><i class="fa fa-heart"></i> like</a></li><!--
+			 --><li><a href="#">reply</a></li>
+			</ul>
+		</div>
+		
+		<div class="comment">
+			<div class="comment-media">
+				<div class="comment-img">
+					<div class="comment-username">
+						<a href="#">nitely</a>
+					</div>
+				</div>
+					
+				<div class="comment-body">
+					This comment was deleted
+				</div>
+			</div>
+			
+			<!--
+			<ul class="comment-actions">
+				<li><a href="#">undelete</a></li>
+			</ul>
+			-->
+		</div>
+		
+		<div class="comment is-highlighted">
+			<ul class="comment-info">
+				<li>1h</li>
+			</ul>
+				
+			<div class="comment-media">
+				<div class="comment-img">
+					<img src="avatar.png" />
+						
+					<div class="comment-username">
+						<a href="#">nitelylylyly</a>
+					</div>
+				</div>
+					
+				<div class="comment-body">
+					<p>This topic is now closed.</p>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="container">
+		<ul class="paginator">
+			<li class="paginator-pages">Page 1 of 3</li><!--
+		 --><li><a class="paginator-button" href="#"><i class="fa fa-chevron-left"></i> First</a></li><!--
+		 --><li><a class="paginator-button" href="#"><i class="fa fa-chevron-left"></i></a></li><!--
+		 --><li><a class="paginator-button" href="#"><i class="fa fa-chevron-right"></i></a></li><!--
+		 --><li><a class="paginator-button" href="#">Last <i class="fa fa-chevron-right"></i></a></li>
+		</ul>
+			
+		<div class="notify">
+			<a class="button" href="#">Notify me</a>
+		</div>
+	</div>
+	
+	<!--
+	<div class="notify">
+		<a class="button is-undo" href="#">Unnotify me</a>
+	</div>
+	-->
+		
+	<div id="reply" class="reply js-reply">
+	
+		<div class="comment-media">
+			<div class="comment-img">
+				<img src="avatar.png" />
+			</div>
+						
+			<div class="comment-body">
+				<form action=".">
+					<input id="id_id" type="hidden" value="1" />
+					<textarea id="id_comment" rows="2" placeholder="Write comment..."></textarea>
+						
+					<div class="js-box-preview-content" style="display:none;"></div>
+					
+					<div class="container">
+						<ul class="reply-markdown">
+							<li><a class="js-box-bold" href="#" title="Bold"><i class="fa fa-bold"></i></a></li><!--
+						 --><li><a class="js-box-italic" href="#" title="Italic"><i class="fa fa-italic"></i></a></li><!--
+						 --><li><a class="js-box-list" href="#" title="List"><i class="fa fa-list"></i></a></li><!--
+						 --><li><a class="js-box-url" href="#" title="URL"><i class="fa fa-link"></i></a></li><!--
+						 --><li><a class="js-box-image" href="#" title="Image"><i class="fa fa-picture-o"></i></a></li><!--
+						 --><li><a class="js-box-preview" href="#" title="Preview"><i class="fa fa-eye"></i></a></li>
+						</ul>
+							
+						<input class="button reply-button" type="submit" value="Publish" />
+					</div>
+				</form>
+			</div>
+		</div>
+					
+	</div>
+	
+	
+	
+	
+	<footer class="footer">
+		<div class="footer-container">
+			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
+		</div>
+	</footer>
+
+  </body>
+
+</html>

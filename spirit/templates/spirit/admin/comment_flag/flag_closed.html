@@ -1,0 +1,15 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Closed flags" %}{% endblock %}
+
+{% block content %}
+
+    {% include "spirit/admin/_side_menu.html" with active="flags" %}
+
+    <h1 class="headline">{% trans "Closed flags" %}</h1>
+
+    {% include "spirit/admin/comment_flag/_flag_list.html" with active_tab="closed" %}
+
+{% endblock %}

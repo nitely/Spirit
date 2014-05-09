@@ -1,0 +1,7 @@
+// Layout styles
+
+.container,
+%container {
+  @extend %clearfix;
+  margin-bottom: $base-spacing-size;
+}

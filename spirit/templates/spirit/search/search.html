@@ -1,0 +1,33 @@
+{% extends 'spirit/_base.html' %}
+
+{% load spirit_tags i18n %}
+
+{% block title %}{% trans "Search" %}{% endblock %}
+
+{% block content %}
+
+        {% if not query %}
+            <h1 class="headline">{% trans "Search" %}</h1>
+
+            <form method="get" action="{% url "spirit:search" %}">
+                {% include "spirit/_form.html" %}
+
+                <input class="button" type="submit" value="{% trans "Search" %}" />
+            </form>
+
+        {% else %}
+            <h1 class="headline">{% trans "Results" %}</h1>
+
+            {% yt_paginator_autopaginate page as page %}
+            {% get_topics_from_search_result results=page as topics_page %}
+
+            {% if topics_page %}
+                {% include "spirit/topic/_render_list.html" with page=topics_page %}
+                {% render_yt_paginator page %}
+            {% else %}
+                <p>{% trans "There are no search results." %}</p>
+            {% endif %}
+
+        {% endif %}
+
+{% endblock %}

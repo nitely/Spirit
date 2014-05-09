@@ -1,0 +1,39 @@
+{% load i18n %}
+
+<div class="js-box-preview-content" style="display:none;"></div>
+<ul class="reply-markdown">
+	<li><a class="js-box-bold" href="#" title="{% trans "Bold" %}"><i class="fa fa-bold"></i></a></li><!--
+ --><li><a class="js-box-italic" href="#" title="{% trans "Italic" %}"><i class="fa fa-italic"></i></a></li><!--
+ --><li><a class="js-box-list" href="#" title="{% trans "List" %}"><i class="fa fa-list"></i></a></li><!--
+ --><li><a class="js-box-url" href="#" title="{% trans "URL" %}"><i class="fa fa-link"></i></a></li><!--
+ --><li><a class="js-box-image" href="#" title="{% trans "Image" %}"><i class="fa fa-picture-o"></i></a></li><!--
+ --><li><a class="js-box-preview" href="#" title="{% trans "Preview" %}"><i class="fa fa-eye"></i></a></li>
+</ul>
+
+<script>
+    $( document ).ready(function() {
+
+        marked.setOptions( {
+            renderer: new marked.Renderer(),
+            gfm: true,
+            tables: false,
+            breaks: true,
+            pedantic: false,
+            sanitize: true,
+            smartLists: false,
+            smartypants: false
+        } );
+
+
+        $.editor( {
+			bolded_text: "{% trans "bolded text" %}",
+			italicised_text: "{% trans "italicised text" %}",
+			list_item_text: "{% trans "list item" %}",
+			link_text: "{% trans "link text" %}",
+			link_url_text: "{% trans "link url" %}",
+			image_text: "{% trans "image text" %}",
+			image_url_text: "{% trans "image url" %}"
+		} );
+
+	});
+</script>

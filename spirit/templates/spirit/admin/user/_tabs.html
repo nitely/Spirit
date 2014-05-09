@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<ul class="tabs">
+	<li><a class="tab-link{% ifequal active_tab "list" %} is-selected{% endifequal %}" href="{% url "spirit:admin-user-list" %}" >{% trans "List" %}</a></li><!--
+ --><li><a class="tab-link{% ifequal active_tab "admins" %} is-selected{% endifequal %}" href="{% url "spirit:admin-user-admins" %}" >{% trans "Admins" %}</a></li><!--
+ --><li><a class="tab-link{% ifequal active_tab "mods" %} is-selected{% endifequal %}" href="{% url "spirit:admin-user-mods" %}" >{% trans "Mods" %}</a></li><!--
+ --><li><a class="tab-link{% ifequal active_tab "unactive" %} is-selected{% endifequal %}" href="{% url "spirit:admin-user-unactive" %}" >{% trans "Unactive" %}</a></li>
+</ul>

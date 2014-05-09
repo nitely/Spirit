@@ -1,0 +1,18 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Update Category" %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="headline">{% trans "Update Category" %}</h1>
+
+    <form action="." method="post">
+        {% csrf_token %}
+        {% include "spirit/_form.html" %}
+
+        <input class="button" type="submit" name="post" value="{% trans "Save" %}" />
+    </form>
+
+{% endblock %}

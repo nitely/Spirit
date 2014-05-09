@@ -1,0 +1,25 @@
+{% extends "spirit/_base.html" %}
+
+{% load spirit_tags i18n %}
+
+{% block title %}{% trans "Created private topics" %}{% endblock %}
+
+{% block content %}
+
+    {% yt_paginator_autopaginate topics as page %}
+
+    {% include "spirit/topic_private/_top_bar.html" with active="left" %}
+
+    <div class="rows">
+
+        {% for t in page %}
+            <div class="row">
+                <a href="{% url "spirit:private-join" topic_id=t.pk %}">{{ t.title }}</a> <a class="row-edit" href="{% url "spirit:private-join" topic_id=t.pk %}"><i class="fa fa-users"></i> {% trans "join" %}</a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+    {% render_yt_paginator page %}
+
+{% endblock %}

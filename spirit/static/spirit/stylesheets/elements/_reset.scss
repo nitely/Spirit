@@ -1,0 +1,84 @@
+// Reset styles
+
+::selection {
+  background: $light-grey;
+  color: $white;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: $light-grey;
+  color: $white;
+  text-shadow: none;
+}
+
+i {
+  color: inherit;
+}
+
+p {
+  margin: 0;
+  margin-bottom: $base-line-height;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+iframe {
+  border: 0;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+}
+
+audio {
+  width: 100%;
+}
+
+audio,
+canvas,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+img {
+  max-width: 100%;
+  font-style: italic;  //if image dont load
+}
+
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: normal;
+  padding: 0;
+}
+
+/* Fix for odd Mozilla border & padding issues */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+textarea {
+  border: none;
+  outline: none;
+  margin: 0;
+  width: 100%;
+  display: block;
+  background: #fff;
+}

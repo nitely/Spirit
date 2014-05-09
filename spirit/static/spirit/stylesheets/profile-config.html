@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>preferences</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="tests.css">
+
+    <!--[if (lt IE 9) & (!IEMobile)]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+	
+	<header class="header">
+		<a class="header-logo" href="#">Spirit</a>
+
+	</header>
+		
+	<header>
+		<h1 class="headline">Preferences</h1>
+	</header>
+	
+	<dl class="preference">
+	   <dt class="preference-label">Email:</dt>
+	   <dd class="preference-desc"><a href="#"><i class="fa fa-pencil"></i> foo@bar.com</a></dd>
+
+	   <dt class="preference-label">Password:</dt>
+	   <dd class="preference-desc"><a href="#"><i class="fa fa-pencil"></i> Change password</a></dd>
+	   
+	   <dt class="preference-label">Avatar:</dt>
+	   <dd class="preference-desc"><a href="#"><i class="fa fa-pencil"></i> Change avatar</a></dd>
+	</dl>
+		
+	<form action="." method="post">
+
+		<label for="id_first_name">Primer nombre:</label>
+		
+		<input id="id_first_name" maxlength="30" name="first_name" type="text" />
+
+		<label for="id_last_name">Apellido:</label>
+		
+		<input id="id_last_name" maxlength="30" name="last_name" type="text" />
+
+		<label for="id_location">Ubicacion:</label>
+		
+		<input id="id_location" maxlength="75" name="location" type="text" />
+
+		<label for="id_timezone">Zona horaria:</label>
+		
+		<select id="id_timezone" name="timezone">
+			<option value="Etc/GMT+12">(GMT -12:00) Eniwetok, Kwajalein</option>
+			<option value="Etc/GMT+11">(GMT -11:00) Midway Island, Samoa</option>
+			<option value="Etc/GMT+10">(GMT -10:00) Hawaii</option>
+			<option value="Etc/GMT+9">(GMT -9:00) Alaska</option>
+			<option value="Etc/GMT+8">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+			<option value="Etc/GMT+7">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+			<option value="Etc/GMT+6">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+			<option value="Etc/GMT+5">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+			<option value="Etc/GMT+4">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+			<option value="Etc/GMT+3">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+			<option value="Etc/GMT+2">(GMT -2:00) Mid-Atlantic</option>
+			<option value="Etc/GMT+1">(GMT -1:00) Azores, Cape Verde Islands</option>
+			<option value="UTC" selected="selected">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+			<option value="Etc/GMT-1">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
+			<option value="Etc/GMT-2">(GMT +2:00) Kaliningrad, South Africa</option>
+			<option value="Etc/GMT-3">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+			<option value="Etc/GMT-4">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+			<option value="Etc/GMT-5">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+			<option value="Etc/GMT-6">(GMT +6:00) Almaty, Dhaka, Colombo</option>
+			<option value="Etc/GMT-7">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+			<option value="Etc/GMT-8">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+			<option value="Etc/GMT-9">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+			<option value="Etc/GMT-10">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+			<option value="Etc/GMT-11">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+			<option value="Etc/GMT-12">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+		</select>
+		
+		<label for="id_is_subscribed">Receive an email when you get a notification:</label>
+		
+		<input checked="checked" id="id_is_subscribed" name="is_subscribed" type="checkbox" />
+
+        <input class="button" type="submit" name="post" value="Guardar" />
+    </form>
+		
+	
+	<footer class="footer">
+		<div class="footer-container">
+			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
+		</div>
+	</footer>
+
+  </body>
+
+</html>

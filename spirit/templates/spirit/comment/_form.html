@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<form action="{% url "spirit:comment-publish" topic_id %}" method="post" class="js-reply">
+    {% csrf_token %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+        {{ field.errors }}
+        {{ field }}
+    {% endfor %}
+
+    <div class="container">
+        {% include "spirit/comment/_editor.html" %}
+
+        <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
+    </div>
+</form>
+
+
+<script>
+    $( document ).ready(function() {
+
+        $( ".reply" ).find( "textarea" ).store( "comment-thread-{{ topic_id }}" );
+
+	});
+</script>

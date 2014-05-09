@@ -1,0 +1,10 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans %}You're receiving this email because you registered at {{ site_name }}.{% endblocktrans %}
+
+{% trans "Please go to the following link to activate your account:" %}
+
+{{ protocol }}://{{ domain }}{% url 'spirit:registration-activation' pk=user_id token=token %}
+
+{% trans "Thanks for using our site!" %}
+
+{% endautoescape %}

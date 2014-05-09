@@ -1,0 +1,11 @@
+// Footer styles
+
+.footer-container {
+  @include outer-container;
+}
+
+.footer-logo {
+  float: right;
+  font-size: 14px;
+  margin-top: 50px;
+}
