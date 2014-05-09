@@ -1,4 +1,4 @@
-# Spirit
+# Spirit [![Build Status](https://travis-ci.org/nitely/Spirit.png)](https://travis-ci.org/nitely/Spirit) [![Coverage Status](https://coveralls.io/repos/nitely/Spirit/badge.png)](https://coveralls.io/r/nitely/Spirit)
 
 Spirit is a Python based forum built using the Django framework.
 
