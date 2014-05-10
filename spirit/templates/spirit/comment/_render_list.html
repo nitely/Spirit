@@ -15,9 +15,9 @@
                 <ul class="comment-info">
                     {% if c.modified_count > 0 %}
                         <li><a href="{% url "spirit:comment-history" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
-                    {% else %}
-                        <li title="{{ c.date }}">{{ c.date|localtime|shortnaturaltime }}</li>
                     {% endif %}
+
+                    <li title="{{ c.date }}">{{ c.date|localtime|shortnaturaltime }}</li>
                 </ul>
 
                 <div class="comment-media">
