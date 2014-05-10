@@ -39,9 +39,16 @@
 
         {% include "spirit/comment/_render_list.html" %}
 
-        {% render_paginator page %}
+        {# this can be *included* here and in topic_detail #}
+        <div class="container">
+            {% render_paginator page %}
 
-        <div class="reply">
+            <div class="notify">
+                {% render_notification_form user=user topic=topic %}
+            </div>
+        </div>
+
+        <div id="reply" class="reply">
 
             <div class="comment-media">
                 <div class="comment-img">
