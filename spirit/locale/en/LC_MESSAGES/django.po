@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -34,7 +33,6 @@ msgid "This like already exists"
 msgstr ""
 
 #: .\forms\search.py:20
-#, python-format
 msgid "Your search must contain at least %(length)s characters."
 msgstr ""
 
@@ -75,7 +73,6 @@ msgid "Invite user"
 msgstr ""
 
 #: .\forms\topic_private.py:89 .\forms\topic_private.py:120
-#, python-format
 msgid "%(username)s is already a participant"
 msgstr ""
 
@@ -781,7 +778,6 @@ msgid "Report"
 msgstr ""
 
 #: .\templates\spirit\comment_flag\flag_create.html:9
-#, python-format
 msgid "Reporting %(username)s's comment"
 msgstr ""
 
@@ -796,7 +792,6 @@ msgid "Like"
 msgstr ""
 
 #: .\templates\spirit\comment_like\like_create.html:9
-#, python-format
 msgid "Like %(username)s's comment"
 msgstr ""
 
@@ -806,12 +801,10 @@ msgid "Remove like"
 msgstr ""
 
 #: .\templates\spirit\comment_like\like_delete.html:9
-#, python-format
 msgid "Remove %(username)s's comment like"
 msgstr ""
 
 #: .\templates\spirit\paginator\_paginator.html:4
-#, python-format
 msgid "Page %(number)s of %(num_pages)s"
 msgstr ""
 
@@ -932,14 +925,12 @@ msgid "Notify Me"
 msgstr ""
 
 #: .\templates\spirit\topic_notification\_render_list.html:9
-#, python-format
 msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href=\"%"
 "(url_topic)s\">%(topic_title)s</a>"
 msgstr ""
 
 #: .\templates\spirit\topic_notification\_render_list.html:11
-#, python-format
 msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href=\"%"
 "(url_topic)s\">%(topic_title)s</a>"
@@ -1003,7 +994,6 @@ msgid "Remove user from private topic"
 msgstr ""
 
 #: .\templates\spirit\topic_private\private_delete.html:9
-#, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr ""
 
@@ -1024,7 +1014,6 @@ msgid "Join topic"
 msgstr ""
 
 #: .\templates\spirit\topic_private\private_join.html:10
-#, python-format
 msgid "Do you want to join %(topic_title)s?"
 msgstr ""
 
@@ -1068,7 +1057,6 @@ msgid "There are no comments here, yet"
 msgstr ""
 
 #: .\templates\spirit\user\activation_email.html:2
-#, python-format
 msgid "You're receiving this email because you registered at %(site_name)s."
 msgstr ""
 
@@ -1083,7 +1071,6 @@ msgid "Thanks for using our site!"
 msgstr ""
 
 #: .\templates\spirit\user\email_change_email.html:2
-#, python-format
 msgid ""
 "You're receiving this because you changed your user email at %(site_name)s."
 msgstr ""
@@ -1114,7 +1101,6 @@ msgid "Menu"
 msgstr ""
 
 #: .\templates\spirit\user\notification_email.html:2
-#, python-format
 msgid "You have a new notification at %(site_name)s."
 msgstr ""
 
@@ -1173,7 +1159,6 @@ msgid ""
 msgstr ""
 
 #: .\templates\spirit\user\password_reset_email.html:2
-#, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
@@ -1184,7 +1169,6 @@ msgid "Please go to the following page and choose a new password:"
 msgstr ""
 
 #: .\templates\spirit\user\password_reset_email.html:11
-#, python-format
 msgid "The %(site_name)s team"
 msgstr ""
 
@@ -1198,7 +1182,6 @@ msgid "Reset my password"
 msgstr ""
 
 #: .\templates\spirit\user\password_reset_subject.txt:2
-#, python-format
 msgid "Password reset on %(site_name)s"
 msgstr ""
 
@@ -1268,17 +1251,14 @@ msgid "now"
 msgstr ""
 
 #: .\templatetags\tags\utils.py:45
-#, python-format
 msgid "%(count)ss"
 msgstr ""
 
 #: .\templatetags\tags\utils.py:49
-#, python-format
 msgid "%(count)sm"
 msgstr ""
 
 #: .\templatetags\tags\utils.py:52
-#, python-format
 msgid "%(count)sh"
 msgstr ""
 
@@ -1387,12 +1367,10 @@ msgid "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
 msgstr ""
 
 #: .\utils\ratelimit\decorators.py:22
-#, python-format
 msgid "Too many submissions, wait %(time)s."
 msgstr ""
 
 #: .\utils\user\email.py:57
-#, python-format
 msgid "New notification: %(topic_name)s"
 msgstr ""
 
