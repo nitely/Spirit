@@ -14,7 +14,7 @@ Spirit requires the following software to be installed:
 
 ## Dependencies
 
-Check out the [requirements](http://url.com) provided.
+Check out the [requirements](https://github.com/nitely/Spirit/blob/master/requirements.txt) provided.
 
 ## Integration
 
@@ -29,7 +29,7 @@ your model must inherit from `spirit.models.user.AbstractUser`.
 
 ## Installing (Advanced)
 
-Check out the [example](http://url.com) provided.
+Check out the [example](https://github.com/nitely/Spirit/tree/master/example) provided.
 
 In short:
 
@@ -72,13 +72,13 @@ Soon.
 
 Feel free to check out the source code and submit pull requests.
 
-You may also report any bug or propose new features in the [issues tracker](https://github.com/nitely/spirit/issues)
+You may also report any bug or propose new features in the [issues tracker](https://github.com/nitely/Spirit/issues)
 
 ## Copyright / License
 
 Copyright 2014 [Esteban Castro Borsani](https://github.com/nitely).
 
-Licensed under the [MIT License](http://url.com).
+Licensed under the [MIT License](https://github.com/nitely/Spirit/blob/master/LICENSE).
 
 Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an "AS IS" BASIS,
