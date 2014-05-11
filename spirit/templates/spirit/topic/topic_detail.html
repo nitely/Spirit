@@ -83,7 +83,7 @@
             <div class="notify">
                 {% if user.is_authenticated %}
                     {% render_notification_form user=user topic=topic %}
-                {% else %}
+                {% elif not topic.is_closed %}
                     <a class="button" href="{% url "spirit:comment-publish" topic_id=topic.pk %}">{% trans "Reply" %}</a>
                 {% endif %}
             </div>
