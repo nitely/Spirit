@@ -75,7 +75,7 @@ requires: utils.js
 								}
 								
 								$txt = $.format( $txt, {'user': obj.user, 'topic': $link} );
-								$tab_notification_content.prepend( '<div>' + $txt + '</div>' );
+								$tab_notification_content.append( '<div>' + $txt + '</div>' );
 							});
 							
 							$txt = '<a href="' + settings.notification_list_url + '">' + settings.show_all + '</a>';
@@ -83,14 +83,14 @@ requires: utils.js
 						}
 						else
 						{
-							$tab_notification_content.prepend( '<div>' + settings.empty + '</div>' );
+							$tab_notification_content.append( '<div>' + settings.empty + '</div>' );
 						}
 
 					})
 					.fail( function() {
 					
 						$txt = 'error';
-						$tab_notification_content.prepend( '<p>' + $txt + '</p>' );
+						$tab_notification_content.append( '<p>' + $txt + '</p>' );
 					
 					})
 					.always( function() {
