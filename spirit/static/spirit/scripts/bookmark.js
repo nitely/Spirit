@@ -24,7 +24,6 @@
 
             $this = this;
 
-
 			$this.waypoint(function() {
 
                 $this.waypoint( 'disable' );
@@ -42,6 +41,9 @@
 
                         });
 
+				}
+				else {
+					$this.waypoint( 'enable' );
 				}
 
 			}, { offset: '100%', });

@@ -89,20 +89,22 @@
             </div>
         </div>
 
-        {% if user.is_authenticated and not topic.is_closed %}
-            <div id="reply" class="reply">
+        {% if user.is_authenticated %}
+            {% if not topic.is_closed %}
+                <div id="reply" class="reply">
 
-                <div class="comment-media">
-                    <div class="comment-img">
-                        <img src="{% get_gravatar_url user=user size=50 %}" />
+                    <div class="comment-media">
+                        <div class="comment-img">
+                            <img src="{% get_gravatar_url user=user size=50 %}" />
+                        </div>
+
+                        <div class="comment-body">
+                            {% render_comments_form topic=topic %}
+                        </div>
                     </div>
 
-                    <div class="comment-body">
-                        {% render_comments_form topic=topic %}
-                    </div>
                 </div>
-
-            </div>
+            {% endif %}
 
             <script>
                 $( document ).ready(function() {
