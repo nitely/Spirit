@@ -24,6 +24,7 @@
 * Moderation section: flags, topics
 * User groups (permissions)
 * >> add @username on reply
+* >> allow mods to create topics on closed categories
 
 
 Template
@@ -31,6 +32,9 @@ Template
 * admin: flag detail delete comment, detail add topic title
 * admin: add nav to detail templates
 * Notifications: show all/unread link
+* Emojis popup selector
+* bold/italic text doesnt work in google chrome
+* fenced code blocks
 
 
 Readme
