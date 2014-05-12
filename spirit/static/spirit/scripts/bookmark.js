@@ -12,6 +12,11 @@
 		{
 			comment_number = 0;
 		}
+		else
+		{
+			// workaround to override the default comment number setted on topic_viewed (server side)
+			comment_number -= 1;
+		}
 
 
 		$.fn.bookmark = function( options ) {
@@ -23,24 +28,31 @@
 
 
             $this = this;
+			
+			
+			var post = function() {
 
+				$this.waypoint( 'disable' );
+
+				$.post( settings.target, { 'csrfmiddlewaretoken': settings.csrf_token,
+                                           'comment_number': comment_number })
+					.always(function() {
+					
+						$this.waypoint( 'enable' );
+						
+					});
+			
+			}
+			
 
 			$this.waypoint(function() {
-
-                $this.waypoint( 'disable' );
 
 				var new_comment_number = $( this ).data( 'number' );  // HTML5 <... data-number=""> custom attr
 
 				if ( new_comment_number > comment_number ) {
                     comment_number = new_comment_number;
 
-                    $.post( settings.target, { 'csrfmiddlewaretoken': settings.csrf_token,
-                                               'comment_number': new_comment_number })
-                        .always(function() {
-
-                            $this.waypoint( 'enable' );
-
-                        });
+                    post();
 
 				}
 
