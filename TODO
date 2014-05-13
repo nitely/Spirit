@@ -36,6 +36,7 @@ Template
 * bold/italic text doesnt work in google chrome
 * fenced code blocks
 * bookmark on closed topic
+* Topics list date shows the creation date on hover instead of the last_active date
 
 
 Readme
