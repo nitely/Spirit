@@ -28,6 +28,7 @@ ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 # check out http://pythonhosted.org/Markdown/extensions/index.html
 ST_MARKDOWN_EXT = (
     'nl2br',
+    'fenced_code',
     'spirit.utils.markdown.mention',
     'spirit.utils.markdown.emoji',
     'spirit.utils.markdown.image',

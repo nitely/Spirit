@@ -33,7 +33,6 @@ Template
 * admin: add nav to detail templates
 * Notifications: show all/unread link
 * Emojis popup selector
-* fenced code blocks
 * bookmark on closed topic
 * Topics list date shows the creation date on hover instead of the last_active date
 
