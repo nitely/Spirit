@@ -1089,6 +1089,7 @@ input.move-comment-checkbox {
   list-style-type: disc;
   list-style-position: inside;
   margin-left: 40px;
+  margin-bottom: 24px;
 }
 
 .comment-info {

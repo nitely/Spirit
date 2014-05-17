@@ -224,8 +224,9 @@ input.move-comment-checkbox {
   
   ul {
     list-style-type: disc; 
-    list-style-position: inside; 
+    list-style-position: inside;
 	margin-left: 40px;
+	margin-bottom: $base-line-height;
   }
 }
 
