@@ -30,7 +30,7 @@
 
 
 ###Template
---------------
+===========
 * profile, add rank mod/admin, add topic title to comments
 * admin: flag detail delete comment, detail add topic title
 * admin: add nav to detail templates
@@ -38,5 +38,5 @@
 
 
 ###Readme
------------
+=========
 * add note about translations and fuzziness
