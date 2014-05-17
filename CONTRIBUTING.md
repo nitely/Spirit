@@ -1,3 +1,6 @@
+**Contributing**
+==================
+
 * Unsubscribe on notifications list
 * Unread: mark all as read, unsubscribe
 * NestedModelChoiceField for multiple choice (search)
