@@ -20,7 +20,8 @@ from spirit.signals.comment import comment_posted, comment_pre_update, comment_p
 @login_required
 @ratelimit(rate='1/10s')
 def comment_publish(request, topic_id, pk=None):
-    topic = Topic.objects.for_access_or_404(pk=topic_id, user=request.user)
+    topic = get_object_or_404(Topic.objects.for_access_open(request.user),
+                              pk=topic_id)
 
     if request.method == 'POST':
         form = CommentForm(user=request.user, topic=topic, data=request.POST)

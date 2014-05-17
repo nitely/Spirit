@@ -16,15 +16,9 @@ class TopicManager(Manager):
         return self._for_all()\
             .filter(category__is_private=False)
 
-    def for_open(self):
-        return self._for_all()\
-            .filter(Q(category__parent=None) | Q(category__parent__is_closed=False),
-                    category__is_closed=False,
-                    is_closed=False)
-
     def for_public_open(self):
-        return self.for_open()\
-            .filter(category__is_private=False)
+        return self.for_public()\
+            .filter(is_closed=False)
 
     def for_category(self, category):
         if category.is_subcategory:
@@ -56,12 +50,10 @@ class TopicManager(Manager):
                                      pk=pk,
                                      user=user)
 
-    def for_access_or_404(self, pk, user):
-        # todo: remove
-        return get_object_or_404(self.for_open(),
-                                 Q(category__is_private=False) | Q(topics_private__user=user),
-                                 pk=pk)
-
     def for_access(self, user):
         return self._for_all()\
             .filter(Q(category__is_private=False) | Q(topics_private__user=user))
+
+    def for_access_open(self, user):
+        return self.for_access(user)\
+            .filter(is_closed=False)

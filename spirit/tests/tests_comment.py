@@ -23,6 +23,7 @@ from spirit.templatetags.tags.comment import render_comments_form
 from spirit.utils import markdown
 from spirit.views.comment import comment_delete
 from spirit.models.topic import Topic
+from spirit.models.category import Category
 
 
 User = get_user_model()
@@ -85,6 +86,54 @@ class CommentViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 404)
+
+    def test_comment_publish_on_closed_cateory(self):
+        """
+        should be able to create a comment on a closed category (if topic is not closed)
+        """
+        Category.objects.filter(pk=self.category.pk).update(is_closed=True)
+
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(Comment.objects.all()), 1)
+
+    def test_comment_publish_on_removed_topic_or_category(self):
+        """
+        should not be able to create a comment
+        """
+        # removed category
+        Category.objects.all().update(is_removed=True)
+
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 404)
+
+        # removed subcategory
+        Category.objects.all().update(is_removed=False)
+        subcategory = utils.create_category(parent=self.category, is_removed=True)
+        topic2 = utils.create_topic(subcategory)
+
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': topic2.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 404)
+
+        # removed topic
+        Category.objects.all().update(is_removed=False)
+        Topic.objects.all().update(is_removed=True)
+
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 404)
+
 
     def test_comment_publish_no_access(self):
         """

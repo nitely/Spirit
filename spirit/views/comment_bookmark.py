@@ -8,7 +8,6 @@ from django.http import Http404
 
 from spirit.utils import json_response
 from spirit.models.topic import Topic
-from spirit.models.comment_bookmark import CommentBookmark
 from spirit.forms.comment_bookmark import BookmarkForm
 
 
