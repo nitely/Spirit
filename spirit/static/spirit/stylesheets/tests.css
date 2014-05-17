@@ -574,12 +574,6 @@ label input[type="checkbox"] {
   src: url("vendors/fonts/ubuntu-light-webfont.eot");
   src: url("vendors/fonts/ubuntu-light-webfont.eot?#iefix") format("embedded-opentype"), url("vendors/fonts/ubuntu-light-webfont.woff") format("woff"), url("vendors/fonts/ubuntu-light-webfont.ttf") format("truetype"), url("vendors/fonts/ubuntu-light-webfont.svg#ubuntu-light-webfont") format("svg");
 }
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  @font-face {
-    font-family: 'ubuntu-light-webfont';
-    src: url("vendors/fonts/ubuntu-light-webfont.svg") format("svg");
-  }
-}
 a {
   color: #979797;
   text-decoration: none;
