@@ -29,12 +29,14 @@
 * >> add @username on reply
 
 
-Template
+###Template
+--------------
 * profile, add rank mod/admin, add topic title to comments
 * admin: flag detail delete comment, detail add topic title
 * admin: add nav to detail templates
 * Notifications: show all/unread link
 
 
-Readme
+###Readme
+-----------
 * add note about translations and fuzziness
