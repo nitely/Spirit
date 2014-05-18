@@ -38,7 +38,7 @@
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img src="{% get_gravatar_url user=flag.comment.user size=50 %}" />
+                        <img class="comment-avatar" src="{% get_gravatar_url user=flag.comment.user size=50 %}" />
 
                         <div class="comment-username">
                             <a href="{{ flag.comment.user.get_absolute_url }}">{{ flag.comment.user.username }}</a>
@@ -70,7 +70,7 @@
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img src="{% get_gravatar_url user=f.user size=50 %}" />
+                        <img class="comment-avatar" src="{% get_gravatar_url user=f.user size=50 %}" />
 
                         <div class="comment-username">
                             <a href="{{ f.user.get_absolute_url }}">{{ f.user.username }}</a>

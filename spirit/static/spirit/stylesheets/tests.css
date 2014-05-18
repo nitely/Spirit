@@ -1097,6 +1097,10 @@ input.move-comment-checkbox {
   text-align: right;
 }
 
+.comment-avatar {
+  border-radius: 25px;
+}
+
 .comment-username {
   font-size: 14px;
   text-align: center;
@@ -1231,6 +1235,7 @@ ul.reply-markdown {
 .profile-avatar {
   width: 200px;
   height: 200px;
+  border-radius: 100px;
 }
 
 .profile-username {

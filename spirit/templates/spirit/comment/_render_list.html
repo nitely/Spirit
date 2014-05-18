@@ -22,7 +22,7 @@
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img src="{% get_gravatar_url user=c.user size=50 %}" />
+                        <img class="comment-avatar" src="{% get_gravatar_url user=c.user size=50 %}" />
 
                         <div class="comment-username">
                             <a class="username{% if c.user.is_administrator %} is-admin{% elif c.user.is_moderator %} is-mod{% endif %}" href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>
