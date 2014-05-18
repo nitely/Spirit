@@ -1,6 +1,6 @@
 * Unsubscribe on notifications list
 * Unread: mark all as read, unsubscribe
-* NestedModelChoiceField for multiple choice (search)
+* NestedModelChoiceField for multiple choice (search), add *----* as initial
 * 'User has leave or has joined the conversation' comment on private topics, dont send notification.
 * Ocultar quote anidado (ej: max tres niveles, y ocultar el tercero con js [...])
 * Diff entre comentarios en historial (js)
@@ -23,6 +23,7 @@
 * Private topic: paginate participants
 * Moderation section: flags, topics
 * User groups (permissions)
+* comment history pagination
 * >> add @username on reply
 * >> allow mods to create topics on closed categories
 

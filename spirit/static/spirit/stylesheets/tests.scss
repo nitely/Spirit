@@ -218,8 +218,9 @@ input.move-comment-checkbox {
   @extend %media-body;
   
   blockquote {
+    margin: 0;
     border-left: $light-grey 4px solid;
-	padding-left: $half-spacing-size;
+	padding-left: $base-spacing-size;
   }
   
   ul {

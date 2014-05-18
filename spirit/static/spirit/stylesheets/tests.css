@@ -1082,8 +1082,9 @@ input.move-comment-checkbox {
 }
 
 .comment-body blockquote {
+  margin: 0;
   border-left: #cecece 4px solid;
-  padding-left: 12px;
+  padding-left: 24px;
 }
 .comment-body ul {
   list-style-type: disc;
