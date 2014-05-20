@@ -16,10 +16,6 @@
     <script src="{{ STATIC_URL }}spirit/scripts/utils.js"></script>
     <script src="{{ STATIC_URL }}spirit/scripts/dropdown.js"></script>
 
-    <script src="{{ STATIC_URL }}spirit/scripts/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/utils.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/dropdown.js"></script>
-
     {% if user.is_authenticated %}
         <script src="{{ STATIC_URL }}spirit/scripts/marked/marked.min.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/waypoints/waypoints.min.js"></script>
@@ -46,6 +42,8 @@
 			empty: "{% trans "No new notifications, yet" %}",
             unread: "{% trans "unread" %}",
 		} );
+
+        $( "#id_comment" ).store( "comment" );
 
 	});
 

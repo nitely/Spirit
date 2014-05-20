@@ -2,11 +2,11 @@
 	
 		$.fn.store = function( ls_key ) {
 		
-			$this = this;
-			$form = $this.closest( "form" );
+			var $this = $( this ),
+				$form = $this.closest( "form" );
 			
 			if ( !localStorage ) {
-				return $this;
+				return this;
 			}
 			
 			
@@ -52,7 +52,7 @@
 			});
 			
 			
-			return $this;
+			return this;
 			
 		};
 	

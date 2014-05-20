@@ -16,6 +16,8 @@ Move comments to other topic
 
             $( ".js-show-move-comments" ).on( 'click', function() {
 			
+				var $li;
+			
 				if ( $( ".move-comments" ).is( ":hidden" ) )
 				{
 					$( ".move-comments" ).show();
@@ -37,21 +39,20 @@ Move comments to other topic
 			$( ".js-move-comments" ).on( 'click', function() {
 				// dynamic form
 				
-				$form = $("<form/>", {
+				var $form = $("<form/>", {
 					'action': settings.target,
 					'method': "post"
-				});
+				}),
+					topic_id = $( "#id_move_comments_topic" ).val(),
+					$comment_id;
 				
-				$input = $("<input/>", {
+				$("<input/>", {
 					'name': "csrfmiddlewaretoken",
 					'type': "hidden",
 					'value': settings.csrf_token
 				}).appendTo( $form );
 				
-				// topic target
-				var topic_id = $( "#id_move_comments_topic" ).val();
-				
-				$input = $("<input/>", {
+				$("<input/>", {
 					'name': "topic",
 					'type': "text",
 					'value': topic_id

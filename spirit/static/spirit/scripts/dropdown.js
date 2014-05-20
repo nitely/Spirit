@@ -22,7 +22,8 @@ requires: utils.js
 			
 			var switch_tab = function( tab ) {
 			
-				$tabs_container = tab.closest( ".js-tabs-container" );
+				var $tabs_container = tab.closest( ".js-tabs-container" );
+				
 				$tabs_container.find( ".js-tab-content" ).hide();
 				
 				if ( tab.hasClass( "is-selected" ) )
@@ -49,19 +50,21 @@ requires: utils.js
 			// on first click
 			$( ".js-tab-notification" ).one("click", function( e ) {
 			
-				$tab_notification = $( this );
-				$tab_notification_content = $( $tab_notification.data( "related" ) );
+				var $tab_notification = $( this ),
+					$tab_notification_content = $( $tab_notification.data( "related" ) );
 			
 				$.getJSON( settings.notification_url )
 					.done( function( data, status, jqXHR ) {
 						/* alert(jqXHR.responseText); */
+						var $link,
+							$txt;
 
 						if ( data.n.length > 0 )
 						{
 							$.each( data.n, function( i, obj ) {
 								$link = '<a href="' + obj.url + '">' + obj.title + '</a>';
 								
-								if ( obj.action == "Mention" )
+								if ( obj.action === "Mention" )
 								{
 									$txt = settings.mention_txt;
 								}
@@ -89,8 +92,7 @@ requires: utils.js
 					})
 					.fail( function() {
 					
-						$txt = 'error';
-						$tab_notification_content.append( '<p>' + $txt + '</p>' );
+						$tab_notification_content.append( '<p>error</p>' );
 					
 					})
 					.always( function() {

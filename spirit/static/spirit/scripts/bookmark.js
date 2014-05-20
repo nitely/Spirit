@@ -24,10 +24,8 @@
             var settings = $.extend( {
 				csrf_token: "csrf_token",
                 target: "target url",
-			}, options );
-
-
-            $this = this;
+			}, options ),
+				$this = $( this );
 			
 			
 			var post = function() {
@@ -59,7 +57,7 @@
 			}, { offset: '100%', });
 
 
-			return $this;
+			return this;
 
 		};
 

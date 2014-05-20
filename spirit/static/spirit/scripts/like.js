@@ -15,15 +15,17 @@ requires: utils.js
 				like_text: "like ({count})",
 				remove_like_text: "remove like ({count})",
 			}, options );
+			
+			
+			var $likes = $( ".js-like" );
 
 
             var post = function() {
 
-                $this = $( this );
+                var $this = $( this ),
+					href = $this.attr( 'href' );
 
                 $this.off( "click", post );
-
-                var href = $this.attr( 'href' );
 
                 $.post( href, { 'csrfmiddlewaretoken': settings.csrf_token, })
                     .done(function( data ) {
@@ -53,9 +55,7 @@ requires: utils.js
                     });
 
             }
-
-
-            $likes = $( ".js-like" );
+			
 
             $likes.on( 'click', post );
 
