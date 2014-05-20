@@ -25,6 +25,8 @@ ST_SEARCH_QUERY_MIN_LEN = 3
 
 ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 
+ST_PRIVATE_FORUM = False
+
 # check out http://pythonhosted.org/Markdown/extensions/index.html
 ST_MARKDOWN_EXT = (
     'nl2br',
@@ -92,6 +94,7 @@ MIDDLEWARE_CLASSES = (
     'spirit.middleware.LastIPMiddleware',
     'spirit.middleware.LastSeenMiddleware',
     'spirit.middleware.ActiveUserMiddleware',
+    'spirit.middleware.PrivateForumMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
