@@ -64,7 +64,7 @@ requires: utils.js
 							$.each( data.n, function( i, obj ) {
 								$link = '<a href="' + obj.url + '">' + obj.title + '</a>';
 								
-								if ( obj.action === "Mention" )
+								if ( obj.action === 1 )
 								{
 									$txt = settings.mention_txt;
 								}
