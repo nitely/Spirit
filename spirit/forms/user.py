@@ -3,7 +3,6 @@
 from django import forms
 from django.utils.translation import ugettext as _
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
 
@@ -39,7 +38,6 @@ class RegistrationForm(UserCreationForm):
         raise forms.ValidationError(_("The username is taken."))
 
     def save(self, commit=True):
-        self.instance.slug = slugify(self.cleaned_data["username"])
         self.instance.is_active = False
         return super(RegistrationForm, self).save(commit)
 

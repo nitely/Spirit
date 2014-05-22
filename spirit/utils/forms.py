@@ -35,9 +35,9 @@ class NestedModelChoiceField(forms.ModelChoiceField):
         self.choices = choices
 
     def label_from_instance(self, obj):
-        level_indicator = ""
+        level_indicator = u""
 
         if getattr(obj, self.parent_field):
-            level_indicator = "--- "
+            level_indicator = u"--- "
 
         return mark_safe(level_indicator + conditional_escape(smart_text(getattr(obj, self.label_field))))

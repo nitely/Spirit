@@ -1,9 +1,6 @@
 #-*- coding: utf-8 -*-
 
 from django import forms
-from django.conf import settings
-from django.utils import timezone
-from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 
 from ..utils.forms import NestedModelChoiceField
@@ -44,6 +41,5 @@ class TopicForm(forms.ModelForm):
     def save(self, commit=True):
         if not self.instance.pk:
             self.instance.user = self.user
-            self.instance.slug = slugify(self.cleaned_data["title"])
 
         return super(TopicForm, self).save(commit)

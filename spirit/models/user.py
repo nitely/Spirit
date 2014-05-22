@@ -10,12 +10,13 @@ from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
-from ..utils.timezone import TIMEZONE_CHOICES
+from spirit.utils.timezone import TIMEZONE_CHOICES
+from spirit.utils.models import AutoSlugField
 
 
 class AbstractForumUser(models.Model):
 
-    slug = models.SlugField(db_index=False, blank=True)
+    slug = AutoSlugField(populate_from="username", db_index=False, blank=True)
     location = models.CharField(_("location"), max_length=75, blank=True)
     last_seen = models.DateTimeField(_("last seen"), auto_now=True)
     last_ip = models.GenericIPAddressField(_("last ip"), blank=True, null=True)
