@@ -61,6 +61,7 @@ class TopicViewTest(TestCase):
                                     form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(Topic.objects.all()), 1)
+        self.assertEqual(Topic.objects.last().slug, title[:50])
 
     def test_topic_publish_in_category(self):
         """
