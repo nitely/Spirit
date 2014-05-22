@@ -7,7 +7,11 @@ from django.utils.encoding import smart_text
 
 class AutoSlugField(SlugField):
     """
-    Auto populates itself from another field
+    Auto populates itself from another field.
+
+    It behaves like a regular SlugField.
+    When populate_from is provided it'll populate itself on creation
+    only if a slug was not provided.
     """
     def __init__(self, *args, **kwargs):
         self.populate_from = kwargs.pop('populate_from', None)
@@ -22,11 +26,7 @@ class AutoSlugField(SlugField):
         value = getattr(instance, self.populate_from)
 
         if value is None:
-            if self.blank:
-                return default
-
-            raise ValueError('Failed to populate slug %s.%s from %s' %
-                             (instance._meta.object_name, self.attname, self.populate_from))
+            return default
 
         slug = slugify(smart_text(value))[:self.max_length].strip('-')
 
