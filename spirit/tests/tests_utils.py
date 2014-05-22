@@ -21,6 +21,7 @@ from django.template.loader import render_to_string
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils.translation import ugettext as _
+from django.db import models
 
 from spirit.models.category import Category
 from spirit.utils.forms import NestedModelChoiceField
@@ -35,6 +36,7 @@ from spirit.templatetags.tags.utils import time as ttags_utils
 import utils as test_utils
 from spirit.utils.markdown import quotify
 from spirit.templatetags.tags.utils.messages import render_messages
+from spirit.utils.models import AutoSlugField
 
 
 class UtilsTests(TestCase):
@@ -145,6 +147,31 @@ class UtilsFormsTests(TestCase):
         self.assertSequenceEqual(list(field.choices), [(1, u'%s' % category.title),
                                                        (3, u'--- %s' % subcategory.title),
                                                        (2, u'%s' % category2.title)])
+
+
+class AutoSlugModel(models.Model):
+
+    title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', max_length=50)
+
+    class Meta:
+        app_label = 'spirit'
+
+
+class UtilsModelsTests(TestCase):
+
+    def test_auto_slug_field(self):
+        """
+        AutoSlugField
+        """
+        title = "a" * 255
+        foo_model = AutoSlugModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, title[:50])
+
+        foo_model.title = "foo"
+        foo_model.save()
+        self.assertEqual(foo_model.slug, title[:50])
 
 
 class UtilsTimezoneTests(TestCase):

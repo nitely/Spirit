@@ -90,7 +90,6 @@ class PrivateForumMiddleware(object):
                          'user-register',
                          'resend-activation',
                          'registration-activation',
-                         'email-change-confirm',
                          'password-reset',
                          'password-reset-done',
                          'password-reset-confirm',
