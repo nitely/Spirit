@@ -22,6 +22,14 @@ class AutoSlugDefaultModel(models.Model):
         app_label = 'spirit'
 
 
+class AutoSlugBadPopulateFromModel(models.Model):
+
+    slug = AutoSlugField(populate_from='bad', max_length=50)
+
+    class Meta:
+        app_label = 'spirit'
+
+
 class AutoSlugPopulateFromModel(models.Model):
 
     title = models.CharField(max_length=255, blank=True)
@@ -56,6 +64,14 @@ class UtilsModelsTests(TestCase):
         foo_model = AutoSlugDefaultModel(slug="bar")
         foo_model.save()
         self.assertEqual(foo_model.slug, "bar")
+
+    def test_auto_slug_field_invalid_populate_from(self):
+        """
+        Should raise AttributeError
+        """
+        foo_model = AutoSlugBadPopulateFromModel()
+        self.assertRaisesMessage(AttributeError, "'AutoSlugBadPopulateFromModel' "
+                                                 "object has no attribute 'bad'", foo_model.save)
 
     def test_auto_slug_field_populate_from(self):
         """
