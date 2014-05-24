@@ -67,4 +67,7 @@ class CommentFlagForm(forms.ModelForm):
 class BasicConfigForm(ConfigForm):
 
     site_name = forms.CharField(initial="Spirit")
-    site_description = forms.CharField(initial="", max_length=75)
+    site_description = forms.CharField(initial="", max_length=75, required=False)
+    template_footer = forms.CharField(initial="", label="footer snippet", required=False,
+                                      widget=forms.Textarea(attrs={'rows': 2, }),
+                                      help_text=_("This gets rendered just before the footer in your template"))

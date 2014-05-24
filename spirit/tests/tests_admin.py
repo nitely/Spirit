@@ -314,7 +314,14 @@ class AdminFormTest(TestCase):
         basic conf edition
         """
         form_data = {"site_name": "foo",
-                     "site_description": "bar"}
+                     "site_description": "",
+                     "template_footer": ""}
+        form = BasicConfigForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+
+        form_data = {"site_name": "foo",
+                     "site_description": "bar",
+                     "template_footer": "foobar"}
         form = BasicConfigForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
