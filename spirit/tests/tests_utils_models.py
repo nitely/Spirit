@@ -82,10 +82,20 @@ class UtilsModelsTests(TestCase):
         foo_model.save()
         self.assertEqual(foo_model.slug, title[:50])
 
-        # update
+        # update title
         foo_model.title = "foo"
         foo_model.save()
         self.assertEqual(foo_model.slug, title[:50])
+
+        # update slug
+        foo_model.slug = "foo"
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "foo")
+
+        # update slug to blank
+        foo_model.slug = ""
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "")
 
         # populate_from field is blank
         foo_model = AutoSlugPopulateFromModel()
