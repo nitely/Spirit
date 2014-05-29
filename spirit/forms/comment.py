@@ -1,5 +1,8 @@
 #-*- coding: utf-8 -*-
 
+import hashlib
+import os
+
 from markdown import Markdown
 
 from django import forms
@@ -56,3 +59,22 @@ class CommentMoveForm(forms.Form):
         topic = self.cleaned_data['topic']
         comments.update(topic=topic)
         return comments_list
+
+
+class CommentImageForm(forms.Form):
+
+    image = forms.ImageField()
+
+    def save(self):
+        image = self.cleaned_data["image"]
+        hasher = hashlib.md5(image.read())
+        name, ext = os.path.splitext(image.name)
+        image.name = u"".join((hasher.hexdigest(), ext))
+        # todo: fixme, save in /media/spirit/images
+        image.path = os.path.join(settings.MEDIA_ROOT, image.name)
+
+        with open(image.path, "wb") as fh:
+            fh.write(image.read())
+
+        image.close()
+        return image

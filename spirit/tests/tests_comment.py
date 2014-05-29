@@ -1,23 +1,25 @@
 #-*- coding: utf-8 -*-
 
-import time
+import os
+from StringIO import StringIO
 
 from django.test import TestCase, RequestFactory
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.template import Template, Context, TemplateSyntaxError
-from django.test.signals import template_rendered
+from django.template import Template, Context
 from django.utils.translation import ugettext as _
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 import utils
 
 from spirit.models.comment import Comment,\
     comment_like_post_create, comment_like_post_delete,\
-    topic_post_moderate, comment_post_update
-from spirit.forms.comment import CommentForm, CommentMoveForm
+    topic_post_moderate
+from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
 from spirit.signals.comment import comment_post_update, comment_posted, comment_pre_update
 from spirit.templatetags.tags.comment import render_comments_form
 from spirit.utils import markdown
@@ -450,3 +452,21 @@ class CommentFormTest(TestCase):
         form = CommentMoveForm(topic=self.topic, data=form_data)
         self.assertEqual(form.is_valid(), True)
         self.assertEqual(form.save(), list(Comment.objects.filter(topic=to_topic)))
+
+    def test_comment_image_upload(self):
+        """
+
+        """
+        image = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                         '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        image.name = 'image.gif'
+        image.content_type = 'image/gif'
+        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+
+        form = CommentImageForm({}, files)
+        self.assertTrue(form.is_valid())
+        image = form.save()
+        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
+        self.assertEqual(image.path, os.path.join(settings.MEDIA_ROOT, image.name))
+        self.assertTrue(os.path.isfile(image.path))
+        os.remove(image.path)
