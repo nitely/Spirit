@@ -13,6 +13,7 @@ from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test.utils import override_settings
 
 import utils
 
@@ -492,6 +493,15 @@ class CommentFormTest(TestCase):
         image = form.save()
         self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
         os.remove(image.path)
+
+    @override_settings(ST_ALLOWED_UPLOAD_IMAGES=['png', ])
+    def test_comment_image_upload_not_allowed_format(self):
+        image = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                         '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        image.name = 'image'
+        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        form = CommentImageForm(data={}, files=files)
+        self.assertFalse(form.is_valid())
 
     def test_comment_image_upload_invalid(self):
         """
