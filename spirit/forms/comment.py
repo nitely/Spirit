@@ -67,13 +67,14 @@ class CommentImageForm(forms.Form):
 
     def save(self):
         image = self.cleaned_data["image"]
-        hasher = hashlib.md5(image.read())
+        hash = hashlib.md5(image.read()).hexdigest()
         name, ext = os.path.splitext(image.name)
-        image.name = u"".join((hasher.hexdigest(), ext))
+        image.name = u"".join((hash, ext))
         # todo: fixme, save in /media/spirit/images
         image.path = os.path.join(settings.MEDIA_ROOT, image.name)
 
         with open(image.path, "wb") as fh:
+            image.seek(0)
             fh.write(image.read())
 
         image.close()

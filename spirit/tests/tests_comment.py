@@ -457,8 +457,9 @@ class CommentFormTest(TestCase):
         """
         Image upload
         """
-        image = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                         '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        content = 'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00' \
+                  '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;'
+        image = StringIO(content)
         image.name = 'image.gif'
         image.content_type = 'image/gif'
         files = {'image': SimpleUploadedFile(image.name, image.read()), }
@@ -469,6 +470,12 @@ class CommentFormTest(TestCase):
         self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
         self.assertEqual(image.path, os.path.join(settings.MEDIA_ROOT, image.name))
         self.assertTrue(os.path.isfile(image.path))
+        image.open()
+        self.assertEqual(image.read(), content)
+
+        with open(image.path, "rb") as fh:
+            self.assertEqual(fh.read(), content)
+
         os.remove(image.path)
 
     def test_comment_image_upload_no_extension(self):
