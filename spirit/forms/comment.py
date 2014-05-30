@@ -68,16 +68,11 @@ class CommentImageForm(forms.Form):
 
     def clean_image(self):
         image = self.cleaned_data["image"]
+        im = Image.open(image)
 
-        try:
-            im = Image.open(image)
-
-            if im.format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGES:
-                raise forms.ValidationError(_("Unsupported file format. Supported formats are %s."
-                                              % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGES)))
-        except Exception:
-            # This hould not happen since it was validated by ImageField
-            raise forms.ValidationError(_("Invalid image."))
+        if im.format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGES:
+            raise forms.ValidationError(_("Unsupported file format. Supported formats are %s."
+                                          % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGES)))
 
         image.seek(0)
         return image
