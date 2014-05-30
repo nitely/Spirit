@@ -13,4 +13,6 @@ urlpatterns = patterns("spirit.views.comment",
 
     url(r'^(?P<pk>\d+)/delete/$', 'comment_delete', name='comment-delete'),
     url(r'^(?P<pk>\d+)/undelete/$', 'comment_delete', kwargs={'remove': False, }, name='comment-undelete'),
+
+    url(r'^upload/$', 'comment_image_upload', name='comment-image-upload'),
 )

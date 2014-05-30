@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 import os
+import json
 from StringIO import StringIO
 
 from django.test import TestCase, RequestFactory
@@ -136,7 +137,6 @@ class CommentViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 404)
-
 
     def test_comment_publish_no_access(self):
         """
@@ -323,6 +323,38 @@ class CommentViewTest(TestCase):
         expected_url = comment.topic.get_absolute_url() + "#c%d" % comment.pk
         self.assertRedirects(response, expected_url, status_code=302)
 
+    def test_comment_image_upload(self):
+        """
+        comment image upload
+        """
+        utils.login(self)
+        image = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                         '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        image.name = 'image.gif'
+        image.content_type = 'image/gif'
+        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        response = self.client.post(reverse('spirit:comment-image-upload'),
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+                                    data=files)
+        res = json.loads(response.content)
+        self.assertEqual(res['name'], "bf21c3043d749d5598366c26e7e4ab44.gif")
+
+    def test_comment_image_upload_invalid(self):
+        """
+        comment image upload, invalid image
+        """
+        utils.login(self)
+        image = StringIO('BAD\x02D\x01\x00;')
+        image.name = 'image.gif'
+        image.content_type = 'image/gif'
+        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        response = self.client.post(reverse('spirit:comment-image-upload'),
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+                                    data=files)
+        self.assertEqual(response.status_code, 404)
+        res = json.loads(response.content)
+        self.assertIn('error', res.keys())
+
 
 class CommentSignalTest(TestCase):
 
@@ -496,9 +528,13 @@ class CommentFormTest(TestCase):
 
     @override_settings(ST_ALLOWED_UPLOAD_IMAGES=['png', ])
     def test_comment_image_upload_not_allowed_format(self):
+        """
+        Image upload, invalid format
+        """
         image = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
                          '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        image.name = 'image'
+        # fake png extension
+        image.name = 'image.png'
         files = {'image': SimpleUploadedFile(image.name, image.read()), }
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())

@@ -6,14 +6,16 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.conf import settings
+from django.http import Http404
 
 from spirit.utils.ratelimit.decorators import ratelimit
 from spirit.models.topic import Topic
 from spirit.utils import paginator, markdown, render_form_errors
 from spirit.utils.decorators import moderator_required
+from spirit.utils import json_response, render_form_errors
 
 from spirit.models.comment import Comment
-from spirit.forms.comment import CommentForm, CommentMoveForm
+from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
 from spirit.signals.comment import comment_posted, comment_pre_update, comment_post_update
 
 
@@ -100,3 +102,18 @@ def comment_find(request, pk):
                             settings.ST_COMMENTS_PER_PAGE,
                             settings.ST_COMMENTS_PAGE_VAR)
     return redirect(url)
+
+
+@require_POST
+@login_required
+def comment_image_upload(request):
+    if not request.is_ajax():
+        return Http404()
+
+    form = CommentImageForm(data=request.POST, files=request.FILES)
+
+    if form.is_valid():
+        image = form.save()
+        return json_response({'name': image.name, })
+
+    return json_response({'error': render_form_errors(form), }, status=404)

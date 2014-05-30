@@ -68,9 +68,8 @@ class CommentImageForm(forms.Form):
 
     def clean_image(self):
         image = self.cleaned_data["image"]
-        im = Image.open(image)
 
-        if im.format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGES:
+        if Image.open(image).format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGES:
             raise forms.ValidationError(_("Unsupported file format. Supported formats are %s."
                                           % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGES)))
 
@@ -88,6 +87,6 @@ class CommentImageForm(forms.Form):
         with open(image.path, "wb") as fh:
             image.seek(0)
             fh.write(image.read())
+            image.close()
 
-        image.close()
         return image
