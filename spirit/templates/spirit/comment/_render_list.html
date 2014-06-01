@@ -1,4 +1,4 @@
-{% load spirit_tags i18n tz %}
+{% load spirit_tags i18n %}
 
 {% if user.is_authenticated %}
     {% populate_likes comments=page user=user %}
@@ -17,7 +17,7 @@
                         <li><a href="{% url "spirit:comment-history" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
                     {% endif %}
 
-                    <li title="{{ c.date }}">{{ c.date|localtime|shortnaturaltime }}</li>
+                    <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
                 </ul>
 
                 <div class="comment-media">
