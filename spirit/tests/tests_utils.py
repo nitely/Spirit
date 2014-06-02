@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 
 import datetime
+import json
+import os
 
 from markdown import markdown
 from markdown import Markdown
@@ -14,7 +16,7 @@ from django.utils import translation
 from django.utils import timezone
 from django.contrib.auth.models import AnonymousUser, User
 from django.http import HttpResponseRedirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.conf import settings
 from django.core import mail
 from django.template.loader import render_to_string
@@ -53,6 +55,45 @@ class UtilsTests(TestCase):
 
         res = spirit_utils.render_form_errors(MockForm())
         self.assertEqual(res.splitlines(), "error1\r\nerror2".splitlines())
+
+    def test_json_response(self):
+        """
+        return json_response
+        """
+        res = spirit_utils.json_response()
+        self.assertIsInstance(res, HttpResponse)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res['Content-Type'], 'application/json')
+        self.assertDictEqual(json.loads(res.content), {})
+
+        res = spirit_utils.json_response({"foo": "bar", })
+        self.assertDictEqual(json.loads(res.content), {"foo": "bar", })
+
+        res = spirit_utils.json_response(status=404)
+        self.assertEqual(res.status_code, 404)
+
+    def test_mkdir_p(self):
+        """
+        mkdir -p
+        """
+        # Empty path should raise an exception
+        self.assertRaises(OSError, spirit_utils.mkdir_p, "")
+
+        # Try to create an existing dir should do nothing
+        self.assertTrue(os.path.isdir(settings.BASE_DIR))
+        spirit_utils.mkdir_p(settings.BASE_DIR)
+
+        # Create path tree
+        # setup
+        path = os.path.join(settings.BASE_DIR, "test_foo")
+        sub_path = os.path.join(path, "bar")
+        self.assertFalse(os.path.isdir(sub_path))
+        # test
+        spirit_utils.mkdir_p(sub_path)
+        self.assertTrue(os.path.isdir(sub_path))
+        # clean up
+        os.rmdir(sub_path)
+        os.rmdir(path)
 
 
 # Mock out datetime in some tests so they don't fail occasionally when they

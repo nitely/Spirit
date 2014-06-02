@@ -18,7 +18,6 @@ def json_response(data=None, status=200):
 
 
 def mkdir_p(path):
-    # TODO: test it!
     try:
         os.makedirs(path)
     except OSError:
