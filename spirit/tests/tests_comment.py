@@ -328,16 +328,16 @@ class CommentViewTest(TestCase):
         comment image upload
         """
         utils.login(self)
-        image = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                         '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        image.name = 'image.gif'
-        image.content_type = 'image/gif'
-        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
         response = self.client.post(reverse('spirit:comment-image-upload'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
         res = json.loads(response.content)
-        self.assertEqual(res['name'], "bf21c3043d749d5598366c26e7e4ab44.gif")
+        self.assertEqual(res['url'], os.path.join(settings.MEDIA_URL, 'spirit', 'images',
+                                                  "bf21c3043d749d5598366c26e7e4ab44.gif"))
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', "bf21c3043d749d5598366c26e7e4ab44.gif"))
 
     def test_comment_image_upload_invalid(self):
         """
@@ -492,50 +492,46 @@ class CommentFormTest(TestCase):
         """
         content = 'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00' \
                   '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;'
-        image = StringIO(content)
-        image.name = 'image.gif'
-        image.content_type = 'image/gif'
-        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        img = StringIO(content)
+        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
 
         form = CommentImageForm(data={}, files=files)
         self.assertTrue(form.is_valid())
         image = form.save()
         self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
-        self.assertEqual(image.path, os.path.join(settings.MEDIA_ROOT, image.name))
-        self.assertTrue(os.path.isfile(image.path))
+        self.assertEqual(image.url, os.path.join(settings.MEDIA_URL, 'spirit', 'images', image.name))
+        image_path = os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', image.name)
+        self.assertTrue(os.path.isfile(image_path))
         image.open()
         self.assertEqual(image.read(), content)
 
-        with open(image.path, "rb") as fh:
+        with open(image_path, "rb") as fh:
             self.assertEqual(fh.read(), content)
 
-        os.remove(image.path)
+        os.remove(image_path)
 
     def test_comment_image_upload_no_extension(self):
         """
         Image upload no extension
         """
-        image = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                         '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        image.name = 'image'
-        image.content_type = 'image/gif'
-        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {'image': SimpleUploadedFile('image', img.read(), content_type='image/gif'), }
         form = CommentImageForm(data={}, files=files)
         self.assertTrue(form.is_valid())
         image = form.save()
         self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
-        os.remove(image.path)
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', image.name))
 
     @override_settings(ST_ALLOWED_UPLOAD_IMAGES=['png', ])
     def test_comment_image_upload_not_allowed_format(self):
         """
         Image upload, invalid format
         """
-        image = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                         '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         # fake png extension
-        image.name = 'image.png'
-        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        files = {'image': SimpleUploadedFile('image.png', img.read(), content_type='image/png'), }
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())
 
@@ -543,9 +539,7 @@ class CommentFormTest(TestCase):
         """
         Image upload, bad image
         """
-        image = StringIO('bad\x00;')
-        image.name = 'image.gif'
-        image.content_type = 'image/gif'
-        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        img = StringIO('bad\x00;')
+        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())

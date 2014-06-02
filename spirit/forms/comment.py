@@ -12,6 +12,7 @@ from django.utils.image import Image
 
 from spirit.models.comment import Comment
 from spirit.models.topic import Topic
+from spirit import utils
 
 
 class CommentForm(forms.ModelForm):
@@ -81,10 +82,12 @@ class CommentImageForm(forms.Form):
         hash = hashlib.md5(image.read()).hexdigest()
         name, ext = os.path.splitext(image.name)
         image.name = u"".join((hash, ext))
-        # todo: fixme, save in /media/spirit/images
-        image.path = os.path.join(settings.MEDIA_ROOT, image.name)
+        upload_to = os.path.join('spirit', 'images')
+        image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name)
+        media_path = os.path.join(settings.MEDIA_ROOT, upload_to)
+        utils.mkdir_p(media_path)
 
-        with open(image.path, "wb") as fh:
+        with open(os.path.join(media_path, image.name), "wb") as fh:
             image.seek(0)
             fh.write(image.read())
             image.close()

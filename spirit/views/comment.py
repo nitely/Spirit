@@ -114,6 +114,6 @@ def comment_image_upload(request):
 
     if form.is_valid():
         image = form.save()
-        return json_response({'name': image.name, })
+        return json_response({'url': image.url, })
 
     return json_response({'error': render_form_errors(form), }, status=404)

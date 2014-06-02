@@ -118,10 +118,11 @@ class UtilsTemplateTagTests(TestCase):
                     # This is 2012-03-08HT19:30:00-06:00 in America/Chicago
                     dt = datetime.datetime(2011, 3, 9, 1, 30, tzinfo=utc)
 
+                    # Overriding TIME_ZONE won't work when timezone.activate
+                    # was called in some point before (middleware)
+                    timezone.deactivate()
+
                     with override_settings(TIME_ZONE="America/Chicago"):
-                        # Overriding TIME_ZONE won't work when timezone.activate
-                        # was called in some point before (middleware)
-                        timezone.deactivate()
                         self.assertEqual(render(dt), "8 Mar &#39;11")
         finally:
             ttags_utils.datetime = orig_humanize_datetime
