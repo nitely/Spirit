@@ -6,7 +6,8 @@
 
             <div class="comment">
                 <ul class="comment-info">
-                    <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+                    <li><a href="{{ c.get_absolute_url }}"><i class="fa fa-comments"></i> {{ c.topic.title }}</a></li><!--
+			     --><li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
                 </ul>
 
                 <div class="comment-media">
