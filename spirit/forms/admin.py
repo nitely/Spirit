@@ -44,7 +44,7 @@ class CategoryForm(forms.ModelForm):
 
             if parent and has_childrens:
                 raise forms.ValidationError(_("The category you are updating "
-                                              "can not has a parent since it has childrens"))
+                                              "can not have a parent since it has childrens"))
 
         return parent
 
