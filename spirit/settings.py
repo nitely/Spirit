@@ -70,8 +70,6 @@ CACHES = {
     },
 }
 
-LOCALE_PATHS = [os.path.join(os.path.dirname(__file__), 'locale'), ]
-
 AUTH_USER_MODEL = 'spirit.User'
 
 AUTHENTICATION_BACKENDS = (
