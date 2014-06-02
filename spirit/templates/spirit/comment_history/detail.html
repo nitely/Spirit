@@ -12,7 +12,9 @@
 
     <div class="comments">
 
-        {% for c in comments %}
+        {% yt_paginator_autopaginate comments as page %}
+
+        {% for c in page %}
             <div class="comment">
 
                 <ul class="comment-info">
@@ -37,5 +39,7 @@
         {% endfor %}
 
     </div>
+
+    {% render_yt_paginator page %}
 
 {% endblock %}

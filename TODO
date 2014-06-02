@@ -23,13 +23,12 @@
 * Private topic: paginate participants
 * Moderation section: flags, topics
 * User groups (permissions)
-* comment history pagination
 * >> add @username on reply
 * >> allow mods to create topics on closed categories
 
 
 Template
-* profile, add rank mod/admin, add topic title to comments
+* profile, add rank mod/admin
 * admin: flag detail delete comment, detail add topic title
 * admin: add nav to detail templates
 * Notifications: show all/unread link
