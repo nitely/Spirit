@@ -4,6 +4,7 @@
 # DO NOT USE IT IN PRODUCTION
 
 import os
+import sys
 
 
 DEBUG = True
@@ -35,3 +36,19 @@ PASSWORD_HASHERS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+TESTING = 'test' in sys.argv
+
+if TESTING:
+    # Keep templates in memory
+    TEMPLATE_LOADERS = (
+        ('django.template.loaders.cached.Loader', (
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+        )),
+    )
+else:
+    TEMPLATE_LOADERS = (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )

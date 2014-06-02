@@ -88,6 +88,7 @@ class UtilsTests(TestCase):
         path = os.path.join(settings.BASE_DIR, "test_foo")
         sub_path = os.path.join(path, "bar")
         self.assertFalse(os.path.isdir(sub_path))
+        self.assertFalse(os.path.isdir(path))
         # test
         spirit_utils.mkdir_p(sub_path)
         self.assertTrue(os.path.isdir(sub_path))
