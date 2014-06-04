@@ -189,7 +189,7 @@ class UtilsTemplateTagTests(TestCase):
 
 class UtilsFormsTests(TestCase):
 
-    def test_form(self):
+    def test_nested_model_choise_form(self):
         """
         NestedModelChoiceField
         """
@@ -200,7 +200,8 @@ class UtilsFormsTests(TestCase):
                                        related_name='category_set',
                                        parent_field='parent_id',
                                        label_field='title')
-        self.assertSequenceEqual(list(field.choices), [(1, u'%s' % category.title),
+        self.assertSequenceEqual(list(field.choices), [('', u'---------'),
+                                                       (1, u'%s' % category.title),
                                                        (3, u'--- %s' % subcategory.title),
                                                        (2, u'%s' % category2.title)])
 

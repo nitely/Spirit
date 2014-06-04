@@ -22,7 +22,7 @@ class NestedModelChoiceField(forms.ModelChoiceField):
 
     def _populate_choices(self):
         # This is *hackish* but simpler than subclassing ModelChoiceIterator
-        choices = []
+        choices = [("", self.empty_label), ]
         kwargs = {self.parent_field: None, }
         queryset = self.queryset.filter(**kwargs)\
             .prefetch_related(self.related_name)
