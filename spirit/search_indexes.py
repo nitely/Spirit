@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
-import datetime
+from django.conf import settings
+
 from haystack import indexes
 
 from spirit.models.topic import Topic
@@ -18,6 +19,7 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Topic
 
-    #def index_queryset(self, using=None):
-        #"""Used when the entire index for model is updated."""
-        #return self.get_model().objects.filter(pub_date__lte=datetime.datetime.now())
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        topics = super(TopicIndex, self).index_queryset(using=using)
+        return topics.exclude(category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
