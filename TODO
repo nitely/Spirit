@@ -37,3 +37,4 @@ Template
 
 Readme
 * add note about translations and fuzziness
+* update: rebuild_index (search) command

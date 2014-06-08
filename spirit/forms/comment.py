@@ -67,12 +67,16 @@ class CommentImageForm(forms.Form):
 
     image = forms.ImageField()
 
+    def __init__(self, user=None, *args, **kwargs):
+        super(CommentImageForm, self).__init__(*args, **kwargs)
+        self.user = user
+
     def clean_image(self):
         image = self.cleaned_data["image"]
 
-        if Image.open(image).format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGES:
+        if Image.open(image).format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT:
             raise forms.ValidationError(_("Unsupported file format. Supported formats are %s."
-                                          % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGES)))
+                                          % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT)))
 
         image.seek(0)
         return image
@@ -81,9 +85,14 @@ class CommentImageForm(forms.Form):
         image = self.cleaned_data["image"]
         hash = hashlib.md5(image.read()).hexdigest()
         name, ext = os.path.splitext(image.name)
-        image.name = u"".join((hash, ext))
-        upload_to = os.path.join('spirit', 'images')
-        image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name)
+
+        # Remove the extension if not allowed
+        if ext and ext[1:].lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_EXT:
+            ext = ""
+
+        image.name = u"".join((hash, ext.lower()))
+        upload_to = os.path.join('spirit', 'images', str(self.user.pk))
+        image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name).replace("\\", "/")
         media_path = os.path.join(settings.MEDIA_ROOT, upload_to)
         utils.mkdir_p(media_path)
 

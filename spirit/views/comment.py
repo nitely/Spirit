@@ -106,11 +106,11 @@ def comment_find(request, pk):
 
 @require_POST
 @login_required
-def comment_image_upload(request):
+def comment_image_upload_ajax(request):
     if not request.is_ajax():
         return Http404()
 
-    form = CommentImageForm(data=request.POST, files=request.FILES)
+    form = CommentImageForm(user=request.user, data=request.POST, files=request.FILES)
 
     if form.is_valid():
         image = form.save()

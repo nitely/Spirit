@@ -331,13 +331,14 @@ class CommentViewTest(TestCase):
         img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
                        '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
-        response = self.client.post(reverse('spirit:comment-image-upload'),
+        response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
         res = json.loads(response.content)
-        self.assertEqual(res['url'], os.path.join(settings.MEDIA_URL, 'spirit', 'images',
-                                                  "bf21c3043d749d5598366c26e7e4ab44.gif"))
-        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', "bf21c3043d749d5598366c26e7e4ab44.gif"))
+        self.assertEqual(res['url'], os.path.join(settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
+                                                  "bf21c3043d749d5598366c26e7e4ab44.gif").replace("\\", "/"))
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk),
+                               "bf21c3043d749d5598366c26e7e4ab44.gif"))
 
     def test_comment_image_upload_invalid(self):
         """
@@ -348,7 +349,7 @@ class CommentViewTest(TestCase):
         image.name = 'image.gif'
         image.content_type = 'image/gif'
         files = {'image': SimpleUploadedFile(image.name, image.read()), }
-        response = self.client.post(reverse('spirit:comment-image-upload'),
+        response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
         self.assertEqual(response.status_code, 404)
@@ -495,12 +496,14 @@ class CommentFormTest(TestCase):
         img = StringIO(content)
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
 
-        form = CommentImageForm(data={}, files=files)
+        form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertTrue(form.is_valid())
         image = form.save()
         self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
-        self.assertEqual(image.url, os.path.join(settings.MEDIA_URL, 'spirit', 'images', image.name))
-        image_path = os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', image.name)
+        image_url = os.path.join(settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
+                                 image.name).replace("\\", "/")
+        self.assertEqual(image.url, image_url)
+        image_path = os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name)
         self.assertTrue(os.path.isfile(image_path))
         image.open()
         self.assertEqual(image.read(), content)
@@ -517,13 +520,27 @@ class CommentFormTest(TestCase):
         img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
                        '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile('image', img.read(), content_type='image/gif'), }
-        form = CommentImageForm(data={}, files=files)
+        form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertTrue(form.is_valid())
         image = form.save()
         self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
-        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', image.name))
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
 
-    @override_settings(ST_ALLOWED_UPLOAD_IMAGES=['png', ])
+    @override_settings(ST_ALLOWED_UPLOAD_IMAGE_EXT=[])
+    def test_comment_image_upload_bad_extension(self):
+        """
+        Image upload bad extensions are removed
+        """
+        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
+        form = CommentImageForm(user=self.user, data={}, files=files)
+        self.assertTrue(form.is_valid())
+        image = form.save()
+        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
+
+    @override_settings(ST_ALLOWED_UPLOAD_IMAGE_FORMAT=['png', ])
     def test_comment_image_upload_not_allowed_format(self):
         """
         Image upload, invalid format
