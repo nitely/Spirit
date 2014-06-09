@@ -8,7 +8,10 @@
 {% endfor %}
 
 {% for field in form.visible_fields %}
-    {{ field.label_tag }}
-    {{ field.errors }}
-    {{ field }}
+    <div class="field">
+        {{ field.label_tag }}
+        {{ field.errors }}
+        {{ field }}
+        {{ field.help_text }}
+    </div>
 {% endfor %}

@@ -9,11 +9,14 @@ from django.conf import settings
 from django.core.management import call_command
 
 import haystack
+from haystack.query import SearchQuerySet
 
 import utils
 
+from spirit.models.topic import Topic
 from spirit.forms.search import BasicSearchForm, BaseSearchForm, AdvancedSearchForm
 from spirit.templatetags.tags.search import render_search_form
+from spirit.search_indexes import TopicIndex
 
 
 HAYSTACK_TEST = {
@@ -21,6 +24,37 @@ HAYSTACK_TEST = {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
 }
+
+
+class SearchTopicIndexTest(TestCase):
+
+    fixtures = ['spirit_init.json', ]
+
+    def setUp(self):
+        cache.clear()
+
+    def test_index_queryset_excludes_private_topics(self):
+        """
+        index_queryset should exclude private topics
+        """
+        private = utils.create_private_topic()
+        self.assertEqual(len(TopicIndex().index_queryset()), 0)
+
+        category = utils.create_category()
+        topic = utils.create_topic(category)
+        self.assertEqual(len(TopicIndex().index_queryset()), 1)
+
+    def test_indexing_excludes_private_topics(self):
+        """
+        rebuild_index command should exclude private topics
+        """
+        private = utils.create_private_topic()
+        category = utils.create_category()
+        topic = utils.create_topic(category)
+        call_command("rebuild_index", interactive=False)
+
+        sqs = SearchQuerySet().models(Topic)
+        self.assertQuerysetEqual([s.object for s in sqs], map(repr, [topic, ]))
 
 
 class SearchViewTest(TestCase):
@@ -85,9 +119,6 @@ class SearchFormTest(TestCase):
 
     def setUp(self):
         cache.clear()
-        self.user = utils.create_user()
-        self.category = utils.create_category()
-        self.topic = utils.create_topic(category=self.category)
 
     def test_basic_search(self):
         data = {'q': 'foobar', }

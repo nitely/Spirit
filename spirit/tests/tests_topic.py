@@ -39,10 +39,29 @@ class TopicViewTest(TestCase):
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
+
         # ratelimit
         response = self.client.post(reverse('spirit:topic-publish'),
                                     form_data)
         self.assertEqual(response.status_code, 200)
+
+        # get
+        response = self.client.get(reverse('spirit:topic-publish'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_topic_publish_long_title(self):
+        """
+        POST, create topic with long title
+        """
+        utils.login(self)
+        category = utils.create_category()
+        title = "a" * 75
+        form_data = {'comment': 'foo', 'title': title, 'category': category.pk}
+        response = self.client.post(reverse('spirit:topic-publish'),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(Topic.objects.all()), 1)
+        self.assertEqual(Topic.objects.last().slug, title[:50])
 
     def test_topic_publish_in_category(self):
         """
@@ -56,6 +75,7 @@ class TopicViewTest(TestCase):
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
+
         # ratelimit
         response = self.client.post(reverse('spirit:topic-publish', kwargs={'category_id': category.pk, }),
                                     form_data)
@@ -153,7 +173,8 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         topic = utils.create_topic(category=category)
-        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, }))
+        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], topic)
 
     def test_topic_detail_view_signals(self):
@@ -168,7 +189,8 @@ class TopicViewTest(TestCase):
 
         category = utils.create_category()
         topic = utils.create_topic(category=category, user=self.user)
-        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, }))
+        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+        self.assertEqual(response.status_code, 200)
         self.assertSequenceEqual(self._viewed, [response.context['request'], repr(topic)])
 
     def test_topic_detail_view_invalid_slug(self):
@@ -179,7 +201,18 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category=category)
         response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk,
-                                                                           'slug': 'bar'}))
+                                                                          'slug': 'bar'}))
+        self.assertRedirects(response, topic.get_absolute_url(), status_code=301)
+
+    def test_topic_detail_view_no_slug(self):
+        """
+        no slug
+        """
+        utils.login(self)
+        category = utils.create_category()
+        topic = utils.create_topic(category=category)
+        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk,
+                                                                          'slug': ''}))
         self.assertRedirects(response, topic.get_absolute_url(), status_code=301)
 
     def test_topic_active_view(self):

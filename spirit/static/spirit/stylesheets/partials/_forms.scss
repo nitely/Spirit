@@ -1,5 +1,9 @@
 // Forms styles
 
+.field {
+  margin-bottom: $base-spacing-size;
+}
+
 .checkboxes {
   overflow: auto;
   max-height: $base-line-height * 6;

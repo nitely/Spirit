@@ -1,6 +1,6 @@
 * Unsubscribe on notifications list
 * Unread: mark all as read, unsubscribe
-* NestedModelChoiceField for multiple choice (search)
+* NestedModelChoiceField for multiple choice (search), add *----* as initial
 * 'User has leave or has joined the conversation' comment on private topics, dont send notification.
 * Ocultar quote anidado (ej: max tres niveles, y ocultar el tercero con js [...])
 * Diff entre comentarios en historial (js)
@@ -24,14 +24,17 @@
 * Moderation section: flags, topics
 * User groups (permissions)
 * >> add @username on reply
+* >> allow mods to create topics on closed categories
 
 
 Template
-* profile, add rank mod/admin, add topic title to comments
+* profile, add rank mod/admin
 * admin: flag detail delete comment, detail add topic title
 * admin: add nav to detail templates
 * Notifications: show all/unread link
+* Emojis popup selector
 
 
 Readme
 * add note about translations and fuzziness
+* update: rebuild_index (search) command

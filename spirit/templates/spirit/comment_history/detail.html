@@ -12,7 +12,9 @@
 
     <div class="comments">
 
-        {% for c in comments %}
+        {% yt_paginator_autopaginate comments as page %}
+
+        {% for c in page %}
             <div class="comment">
 
                 <ul class="comment-info">
@@ -21,10 +23,10 @@
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img src="{% get_gravatar_url user=c.comment_fk.user size=50 %}" />
+                        <img class="comment-avatar" src="{% get_gravatar_url user=c.comment_fk.user size=50 %}" />
 
                         <div class="comment-username">
-                            <a href="#">{{ c.comment_fk.user.username }}</a>
+                            <a href="{{ c.comment_fk.user.get_absolute_url }}">{{ c.comment_fk.user.username }}</a>
                         </div>
                     </div>
 
@@ -37,5 +39,7 @@
         {% endfor %}
 
     </div>
+
+    {% render_yt_paginator page %}
 
 {% endblock %}

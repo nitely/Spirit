@@ -1,28 +1,33 @@
 #-*- coding: utf-8 -*-
 
-import time
+import os
+import json
+from StringIO import StringIO
 
 from django.test import TestCase, RequestFactory
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.template import Template, Context, TemplateSyntaxError
-from django.test.signals import template_rendered
+from django.template import Template, Context
 from django.utils.translation import ugettext as _
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test.utils import override_settings
 
 import utils
 
 from spirit.models.comment import Comment,\
     comment_like_post_create, comment_like_post_delete,\
-    topic_post_moderate, comment_post_update
-from spirit.forms.comment import CommentForm, CommentMoveForm
+    topic_post_moderate
+from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
 from spirit.signals.comment import comment_post_update, comment_posted, comment_pre_update
 from spirit.templatetags.tags.comment import render_comments_form
 from spirit.utils import markdown
 from spirit.views.comment import comment_delete
 from spirit.models.topic import Topic
+from spirit.models.category import Category
 
 
 User = get_user_model()
@@ -79,6 +84,53 @@ class CommentViewTest(TestCase):
         should not be able to create a comment on a closed topic
         """
         Topic.objects.filter(pk=self.topic.pk).update(is_closed=True)
+
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 404)
+
+    def test_comment_publish_on_closed_cateory(self):
+        """
+        should be able to create a comment on a closed category (if topic is not closed)
+        """
+        Category.objects.filter(pk=self.category.pk).update(is_closed=True)
+
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(Comment.objects.all()), 1)
+
+    def test_comment_publish_on_removed_topic_or_category(self):
+        """
+        should not be able to create a comment
+        """
+        # removed category
+        Category.objects.all().update(is_removed=True)
+
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 404)
+
+        # removed subcategory
+        Category.objects.all().update(is_removed=False)
+        subcategory = utils.create_category(parent=self.category, is_removed=True)
+        topic2 = utils.create_topic(subcategory)
+
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': topic2.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 404)
+
+        # removed topic
+        Category.objects.all().update(is_removed=False)
+        Topic.objects.all().update(is_removed=True)
 
         utils.login(self)
         form_data = {'comment': 'foobar', }
@@ -271,6 +323,39 @@ class CommentViewTest(TestCase):
         expected_url = comment.topic.get_absolute_url() + "#c%d" % comment.pk
         self.assertRedirects(response, expected_url, status_code=302)
 
+    def test_comment_image_upload(self):
+        """
+        comment image upload
+        """
+        utils.login(self)
+        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
+        response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+                                    data=files)
+        res = json.loads(response.content)
+        self.assertEqual(res['url'], os.path.join(settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
+                                                  "bf21c3043d749d5598366c26e7e4ab44.gif").replace("\\", "/"))
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk),
+                               "bf21c3043d749d5598366c26e7e4ab44.gif"))
+
+    def test_comment_image_upload_invalid(self):
+        """
+        comment image upload, invalid image
+        """
+        utils.login(self)
+        image = StringIO('BAD\x02D\x01\x00;')
+        image.name = 'image.gif'
+        image.content_type = 'image/gif'
+        files = {'image': SimpleUploadedFile(image.name, image.read()), }
+        response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+                                    data=files)
+        res = json.loads(response.content)
+        self.assertIn('error', res.keys())
+        self.assertIn('image', res['error'].keys())
+
 
 class CommentSignalTest(TestCase):
 
@@ -401,3 +486,77 @@ class CommentFormTest(TestCase):
         form = CommentMoveForm(topic=self.topic, data=form_data)
         self.assertEqual(form.is_valid(), True)
         self.assertEqual(form.save(), list(Comment.objects.filter(topic=to_topic)))
+
+    def test_comment_image_upload(self):
+        """
+        Image upload
+        """
+        content = 'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00' \
+                  '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;'
+        img = StringIO(content)
+        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
+
+        form = CommentImageForm(user=self.user, data={}, files=files)
+        self.assertTrue(form.is_valid())
+        image = form.save()
+        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
+        image_url = os.path.join(settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
+                                 image.name).replace("\\", "/")
+        self.assertEqual(image.url, image_url)
+        image_path = os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name)
+        self.assertTrue(os.path.isfile(image_path))
+        image.open()
+        self.assertEqual(image.read(), content)
+
+        with open(image_path, "rb") as fh:
+            self.assertEqual(fh.read(), content)
+
+        os.remove(image_path)
+
+    def test_comment_image_upload_no_extension(self):
+        """
+        Image upload no extension
+        """
+        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {'image': SimpleUploadedFile('image', img.read(), content_type='image/gif'), }
+        form = CommentImageForm(user=self.user, data={}, files=files)
+        self.assertTrue(form.is_valid())
+        image = form.save()
+        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
+
+    @override_settings(ST_ALLOWED_UPLOAD_IMAGE_EXT=[])
+    def test_comment_image_upload_bad_extension(self):
+        """
+        Image upload bad extensions are removed
+        """
+        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
+        form = CommentImageForm(user=self.user, data={}, files=files)
+        self.assertTrue(form.is_valid())
+        image = form.save()
+        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
+
+    @override_settings(ST_ALLOWED_UPLOAD_IMAGE_FORMAT=['png', ])
+    def test_comment_image_upload_not_allowed_format(self):
+        """
+        Image upload, invalid format
+        """
+        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        # fake png extension
+        files = {'image': SimpleUploadedFile('image.png', img.read(), content_type='image/png'), }
+        form = CommentImageForm(data={}, files=files)
+        self.assertFalse(form.is_valid())
+
+    def test_comment_image_upload_invalid(self):
+        """
+        Image upload, bad image
+        """
+        img = StringIO('bad\x00;')
+        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
+        form = CommentImageForm(data={}, files=files)
+        self.assertFalse(form.is_valid())

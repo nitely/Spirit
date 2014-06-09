@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.contrib.auth import logout
+from django.core.urlresolvers import resolve
+from django.contrib.auth.views import redirect_to_login
 
 
 User = get_user_model()
@@ -66,3 +68,35 @@ class ActiveUserMiddleware(object):
 
         if not request.user.is_active:
            logout(request)
+
+
+class PrivateForumMiddleware(object):
+
+    def process_request(self, request):
+        if not settings.ST_PRIVATE_FORUM:
+            return
+
+        if request.user.is_authenticated():
+            return
+
+        resolver_match = resolve(request.path)
+
+        if resolver_match.app_name != 'spirit':
+            return
+
+        # Namespacing /user/ would be better but breaks current urls namespace.
+        url_whitelist = ['user-login',
+                         'user-logout',
+                         'user-register',
+                         'resend-activation',
+                         'registration-activation',
+                         'password-reset',
+                         'password-reset-done',
+                         'password-reset-confirm',
+                         'password-reset-complete']
+
+        if resolver_match.url_name in url_whitelist:
+            return
+
+        return redirect_to_login(next=request.get_full_path(),
+                                 login_url=settings.LOGIN_URL)

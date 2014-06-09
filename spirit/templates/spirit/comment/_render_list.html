@@ -1,4 +1,4 @@
-{% load spirit_tags i18n tz %}
+{% load spirit_tags i18n %}
 
 {% if user.is_authenticated %}
     {% populate_likes comments=page user=user %}
@@ -17,12 +17,12 @@
                         <li><a href="{% url "spirit:comment-history" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
                     {% endif %}
 
-                    <li title="{{ c.date }}">{{ c.date|localtime|shortnaturaltime }}</li>
+                    <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
                 </ul>
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img src="{% get_gravatar_url user=c.user size=50 %}" />
+                        <img class="comment-avatar" src="{% get_gravatar_url user=c.user size=50 %}" />
 
                         <div class="comment-username">
                             <a class="username{% if c.user.is_administrator %} is-admin{% elif c.user.is_moderator %} is-mod{% endif %}" href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>

@@ -34,18 +34,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'spirit',
-    'haystack',
-    'djconfig',
-    #'debug_toolbar'
+INSTALLED_APPS += (
+    # 'myapp',
 )
 
 ROOT_URLCONF = 'example.urls'
@@ -81,6 +71,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

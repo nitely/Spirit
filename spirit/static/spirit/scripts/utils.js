@@ -9,7 +9,7 @@ A bunch of generic functions, this are used by other plugins.
 		$.format = function( str, args ) {
 
             for ( var key in args ) {
-                str = str.replace( '{' + key + '}', args[ key ] );
+                str = str.replace( '{' + key + '}', String( args[ key ] ) );
             }
 
             return str;

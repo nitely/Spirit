@@ -3,6 +3,7 @@
 from django.conf.urls import patterns, include, url
 
 import djconfig
+
 from spirit.forms.admin import BasicConfigForm
 
 # TODO: use app loader in django 1.7

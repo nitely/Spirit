@@ -99,7 +99,8 @@ class TopicPrivateViewTest(TestCase):
         """
         utils.login(self)
         private = utils.create_private_topic(user=self.user)
-        response = self.client.get(reverse('spirit:private-detail', kwargs={'topic_id': private.topic.pk, }))
+        response = self.client.get(reverse('spirit:private-detail', kwargs={'topic_id': private.topic.pk,
+                                                                            'slug': private.topic.slug}))
         self.assertEqual(response.context['topic'], private.topic)
 
     def test_private_access_create(self):

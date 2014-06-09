@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 
 import datetime
+import json
+import os
 
 from markdown import markdown
 from markdown import Markdown
@@ -14,13 +16,14 @@ from django.utils import translation
 from django.utils import timezone
 from django.contrib.auth.models import AnonymousUser, User
 from django.http import HttpResponseRedirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.conf import settings
 from django.core import mail
 from django.template.loader import render_to_string
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils.translation import ugettext as _
+from django.utils.timezone import utc
 
 from spirit.models.category import Category
 from spirit.utils.forms import NestedModelChoiceField
@@ -52,6 +55,46 @@ class UtilsTests(TestCase):
 
         res = spirit_utils.render_form_errors(MockForm())
         self.assertEqual(res.splitlines(), "error1\r\nerror2".splitlines())
+
+    def test_json_response(self):
+        """
+        return json_response
+        """
+        res = spirit_utils.json_response()
+        self.assertIsInstance(res, HttpResponse)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res['Content-Type'], 'application/json')
+        self.assertDictEqual(json.loads(res.content), {})
+
+        res = spirit_utils.json_response({"foo": "bar", })
+        self.assertDictEqual(json.loads(res.content), {"foo": "bar", })
+
+        res = spirit_utils.json_response(status=404)
+        self.assertEqual(res.status_code, 404)
+
+    def test_mkdir_p(self):
+        """
+        mkdir -p
+        """
+        # Empty path should raise an exception
+        self.assertRaises(OSError, spirit_utils.mkdir_p, "")
+
+        # Try to create an existing dir should do nothing
+        self.assertTrue(os.path.isdir(settings.BASE_DIR))
+        spirit_utils.mkdir_p(settings.BASE_DIR)
+
+        # Create path tree
+        # setup
+        path = os.path.join(settings.BASE_DIR, "test_foo")
+        sub_path = os.path.join(path, "bar")
+        self.assertFalse(os.path.isdir(sub_path))
+        self.assertFalse(os.path.isdir(path))
+        # test
+        spirit_utils.mkdir_p(sub_path)
+        self.assertTrue(os.path.isdir(sub_path))
+        # clean up
+        os.rmdir(sub_path)
+        os.rmdir(path)
 
 
 # Mock out datetime in some tests so they don't fail occasionally when they
@@ -91,23 +134,38 @@ class UtilsTemplateTagTests(TestCase):
 
     def test_shortnaturaltime(self):
         """"""
-        def render(date):
-            return t.render(Context({'date': date, }))
+        class naive(datetime.tzinfo):
+            def utcoffset(self, dt):
+                return None
 
-        t = Template('{% load spirit_tags %}'
-                     '{{ date|shortnaturaltime }}')
+        def render(date):
+            t = Template('{% load spirit_tags %}'
+                         '{{ date|shortnaturaltime }}')
+            return t.render(Context({'date': date, }))
 
         orig_humanize_datetime, ttags_utils.datetime = ttags_utils.datetime, MockDateTime
         try:
             with translation.override('en'):
-                #now.replace(tzinfo=utc)
-                #with override_settings(USE_TZ=True):
-                self.assertEqual(render(now), "now")
-                self.assertEqual(render(now - datetime.timedelta(seconds=1)), "1s")
-                self.assertEqual(render(now - datetime.timedelta(minutes=1)), "1m")
-                self.assertEqual(render(now - datetime.timedelta(hours=1)), "1h")
-                self.assertEqual(render(now - datetime.timedelta(days=1)), "8 Mar")
-                self.assertEqual(render(now - datetime.timedelta(days=69)), "31 Dec &#39;11")
+                with override_settings(USE_TZ=True):
+                    self.assertEqual(render(now), "now")
+                    self.assertEqual(render(now.replace(tzinfo=naive())), "now")
+                    self.assertEqual(render(now.replace(tzinfo=utc)), "now")
+                    self.assertEqual(render(now - datetime.timedelta(seconds=1)), "1s")
+                    self.assertEqual(render(now - datetime.timedelta(minutes=1)), "1m")
+                    self.assertEqual(render(now - datetime.timedelta(hours=1)), "1h")
+                    self.assertEqual(render(now - datetime.timedelta(days=1)), "8 Mar")
+                    self.assertEqual(render(now - datetime.timedelta(days=69)), "31 Dec &#39;11")
+
+                    # Tests it uses localtime
+                    # This is 2012-03-08HT19:30:00-06:00 in America/Chicago
+                    dt = datetime.datetime(2011, 3, 9, 1, 30, tzinfo=utc)
+
+                    # Overriding TIME_ZONE won't work when timezone.activate
+                    # was called in some point before (middleware)
+                    timezone.deactivate()
+
+                    with override_settings(TIME_ZONE="America/Chicago"):
+                        self.assertEqual(render(dt), "8 Mar &#39;11")
         finally:
             ttags_utils.datetime = orig_humanize_datetime
 
@@ -131,7 +189,7 @@ class UtilsTemplateTagTests(TestCase):
 
 class UtilsFormsTests(TestCase):
 
-    def test_form(self):
+    def test_nested_model_choise_form(self):
         """
         NestedModelChoiceField
         """
@@ -142,7 +200,8 @@ class UtilsFormsTests(TestCase):
                                        related_name='category_set',
                                        parent_field='parent_id',
                                        label_field='title')
-        self.assertSequenceEqual(list(field.choices), [(1, u'%s' % category.title),
+        self.assertSequenceEqual(list(field.choices), [('', u'---------'),
+                                                       (1, u'%s' % category.title),
                                                        (3, u'--- %s' % subcategory.title),
                                                        (2, u'%s' % category2.title)])
 

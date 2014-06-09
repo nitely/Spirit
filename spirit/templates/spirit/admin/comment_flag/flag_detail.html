@@ -1,6 +1,6 @@
 {% extends "spirit/_base.html" %}
 
-{% load spirit_tags i18n tz %}
+{% load spirit_tags i18n %}
 
 {% block title %}{% trans "Flag" %}{% endblock %}
 
@@ -33,12 +33,12 @@
 
 			<div class="comment">
                 <ul class="comment-info">
-                    <li title="{{ flag.comment.date }}">{{ flag.comment.date|localtime|shortnaturaltime }}</li>
+                    <li title="{{ flag.comment.date }}">{{ flag.comment.date|shortnaturaltime }}</li>
                 </ul>
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img src="{% get_gravatar_url user=flag.comment.user size=50 %}" />
+                        <img class="comment-avatar" src="{% get_gravatar_url user=flag.comment.user size=50 %}" />
 
                         <div class="comment-username">
                             <a href="{{ flag.comment.user.get_absolute_url }}">{{ flag.comment.user.username }}</a>
@@ -65,12 +65,12 @@
 
 			<div class="comment">
                 <ul class="comment-info">
-                    <li title="{{ f.date }}">{{ f.date|localtime|shortnaturaltime }}</li>
+                    <li title="{{ f.date }}">{{ f.date|shortnaturaltime }}</li>
                 </ul>
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img src="{% get_gravatar_url user=f.user size=50 %}" />
+                        <img class="comment-avatar" src="{% get_gravatar_url user=f.user size=50 %}" />
 
                         <div class="comment-username">
                             <a href="{{ f.user.get_absolute_url }}">{{ f.user.username }}</a>

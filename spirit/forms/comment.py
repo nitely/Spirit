@@ -1,13 +1,18 @@
 #-*- coding: utf-8 -*-
 
+import hashlib
+import os
+
 from markdown import Markdown
 
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext as _
+from django.utils.image import Image
 
 from spirit.models.comment import Comment
 from spirit.models.topic import Topic
+from spirit import utils
 
 
 class CommentForm(forms.ModelForm):
@@ -56,3 +61,44 @@ class CommentMoveForm(forms.Form):
         topic = self.cleaned_data['topic']
         comments.update(topic=topic)
         return comments_list
+
+
+class CommentImageForm(forms.Form):
+
+    image = forms.ImageField()
+
+    def __init__(self, user=None, *args, **kwargs):
+        super(CommentImageForm, self).__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_image(self):
+        image = self.cleaned_data["image"]
+
+        if Image.open(image).format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT:
+            raise forms.ValidationError(_("Unsupported file format. Supported formats are %s."
+                                          % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT)))
+
+        image.seek(0)
+        return image
+
+    def save(self):
+        image = self.cleaned_data["image"]
+        hash = hashlib.md5(image.read()).hexdigest()
+        name, ext = os.path.splitext(image.name)
+
+        # Remove the extension if not allowed
+        if ext and ext[1:].lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_EXT:
+            ext = ""
+
+        image.name = u"".join((hash, ext.lower()))
+        upload_to = os.path.join('spirit', 'images', str(self.user.pk))
+        image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name).replace("\\", "/")
+        media_path = os.path.join(settings.MEDIA_ROOT, upload_to)
+        utils.mkdir_p(media_path)
+
+        with open(os.path.join(media_path, image.name), "wb") as fh:
+            image.seek(0)
+            fh.write(image.read())
+            image.close()
+
+        return image

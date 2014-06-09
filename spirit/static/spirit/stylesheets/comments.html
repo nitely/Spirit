@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--<link rel="stylesheet" href="http://basehold.it/24">-->
 	<link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="tests.css">
+    <link rel="stylesheet" href="styles.css">
 
     <!--[if (lt IE 9) & (!IEMobile)]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
@@ -21,6 +21,9 @@
 	<script src="scripts/editor.js"></script>
 	<script src="scripts/storage.js"></script>
 	<script src="scripts/like.js"></script>
+	
+	<script src="scripts/waypoints/waypoints.min.js"></script>
+	<script src="scripts/bookmark.js"></script>
 	
 	<script>
 
@@ -40,6 +43,8 @@
 		$.editor( {} );
 		
 		$( ".reply" ).find( "textarea" ).store( "topic_id" );
+		
+		$( ".comment" ).bookmark( {} );
 		
 		$.like( {} );
 
@@ -76,7 +81,7 @@
 				
 			<div class="comment-media">
 				<div class="comment-img">
-					<img src="avatar.png" />
+					<img class="comment-avatar" src="avatar.png" />
 						
 					<div class="comment-username">
 						<a class="username is-admin" href="#">nitely</a>
@@ -96,8 +101,11 @@
 							<p><a href="/user/1/">@estecb</a></p>
 							<blockquote>
 							<p>quote<br />
-							line quote</p>
+							line quote<br />
+							some more text text text text text text<br />
+							some more text text text text text text</p>
 							</blockquote>
+							<p>texto normal</p>
                         
                     </div>
 			</div>
@@ -117,7 +125,7 @@
 				
 			<div class="comment-media">
 				<div class="comment-img">
-					<img src="avatar.png" />
+					<img class="comment-avatar" src="avatar.png" />
 						
 					<div class="comment-username">
 						<a class="username is-mod" href="#">nitely</a>
@@ -163,7 +171,7 @@
 				
 			<div class="comment-media">
 				<div class="comment-img">
-					<img src="avatar.png" />
+					<img class="comment-avatar" src="avatar.png" />
 						
 					<div class="comment-username">
 						<a href="#">nitelylylyly</a>
@@ -202,7 +210,7 @@
 	
 		<div class="comment-media">
 			<div class="comment-img">
-				<img src="avatar.png" />
+				<img class="comment-avatar" src="avatar.png" />
 			</div>
 						
 			<div class="comment-body">

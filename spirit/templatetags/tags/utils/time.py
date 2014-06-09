@@ -9,7 +9,7 @@ from django.utils.timezone import is_aware, utc
 from .. import register
 
 
-@register.filter
+@register.filter(expects_localtime=True)
 def shortnaturaltime(value):
     """
     now, 1s, 1m, 1h, 1 Ene, 1 Ene 2012

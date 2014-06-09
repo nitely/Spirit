@@ -42,7 +42,8 @@ class CategoryViewTest(TestCase):
         Topic.objects.filter(pk=topic.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
         Topic.objects.filter(pk=topic3.pk).update(last_active=timezone.now() - datetime.timedelta(days=5))
 
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk, }))
+        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+                                                                             'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [repr(topic2), repr(topic3), repr(topic)])
 
     def test_category_detail_view_order(self):
@@ -55,7 +56,8 @@ class CategoryViewTest(TestCase):
         # show pinned first
         Topic.objects.filter(pk=topic_a.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
 
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk, }))
+        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+                                                                             'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_a, topic_b, ]))
 
     def test_category_detail_view_removed_topics(self):
@@ -67,7 +69,8 @@ class CategoryViewTest(TestCase):
         topic_removed2 = utils.create_topic(category=self.category_1, is_removed=True)
         topic_bad = utils.create_topic(category=self.category_2)
 
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk, }))
+        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+                                                                             'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [])
 
     def test_category_detail_view_invalid_category(self):
@@ -85,12 +88,21 @@ class CategoryViewTest(TestCase):
                                                                              'slug': 'bar'}))
         self.assertRedirects(response, self.category_1.get_absolute_url(), status_code=301)
 
+    def test_category_detail_view_no_slug(self):
+        """
+        no slug
+        """
+        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+                                                                             'slug': ''}))
+        self.assertRedirects(response, self.category_1.get_absolute_url(), status_code=301)
+
     def test_category_detail_subcategory(self):
         """
         should display all topics in  subcategory
         """
         topic = utils.create_topic(category=self.category_1)
         topic2 = utils.create_topic(category=self.subcategory_1, title="topic_subcat1")
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.subcategory_1.pk, }))
+        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.subcategory_1.pk,
+                                                                             'slug': self.subcategory_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [repr(topic2), ])
         self.assertQuerysetEqual(response.context['categories'], [])

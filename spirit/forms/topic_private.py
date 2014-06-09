@@ -2,7 +2,6 @@
 
 from django import forms
 from django.utils.translation import ugettext as _
-from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
@@ -30,7 +29,6 @@ class TopicForPrivateForm(forms.ModelForm):
         if not self.instance.pk:
             self.instance.user = self.user
             self.instance.category = Category.objects.get(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
-            self.instance.slug = slugify(self.cleaned_data["title"])
 
         return super(TopicForPrivateForm, self).save(commit)
 

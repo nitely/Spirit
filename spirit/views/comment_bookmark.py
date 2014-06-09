@@ -8,7 +8,6 @@ from django.http import Http404
 
 from spirit.utils import json_response
 from spirit.models.topic import Topic
-from spirit.models.comment_bookmark import CommentBookmark
 from spirit.forms.comment_bookmark import BookmarkForm
 
 
@@ -19,18 +18,13 @@ def bookmark_create(request, topic_id):
         return Http404()
 
     topic = get_object_or_404(Topic, pk=topic_id)
-    form = BookmarkForm(data=request.POST)
+    form = BookmarkForm(user=request.user, topic=topic, data=request.POST)
 
-    if not form.is_valid():
-        return Http404()
+    if form.is_valid():
+        form.save()
+        return json_response()
 
-    comment_number = form.cleaned_data['comment_number']
-
-    # Bookmark is created/updated on topic view.
-    CommentBookmark.objects.filter(user=request.user, topic=topic)\
-        .update(comment_number=comment_number)
-
-    return json_response()
+    return Http404()
 
 
 @login_required

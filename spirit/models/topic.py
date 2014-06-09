@@ -10,7 +10,8 @@ from django.utils import timezone
 from ..signals.comment import comment_posted
 
 from spirit.signals.topic import topic_viewed
-from ..managers.topic import TopicManager
+from spirit.managers.topic import TopicManager
+from spirit.utils.models import AutoSlugField
 
 
 class Topic(models.Model):
@@ -19,7 +20,7 @@ class Topic(models.Model):
     category = models.ForeignKey('spirit.Category', verbose_name=_("category"))
 
     title = models.CharField(_("title"), max_length=75)
-    slug = models.SlugField(db_index=False, blank=True)
+    slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     date = models.DateTimeField(_("date"), auto_now_add=True)
     last_active = models.DateTimeField(_("last active"), auto_now_add=True)
     is_pinned = models.BooleanField(_("pinned"), default=False)

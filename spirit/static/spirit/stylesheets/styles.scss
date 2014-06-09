@@ -218,14 +218,16 @@ input.move-comment-checkbox {
   @extend %media-body;
   
   blockquote {
+    margin: 0;
     border-left: $light-grey 4px solid;
-	padding-left: $half-spacing-size;
+	padding-left: $base-spacing-size;
   }
   
   ul {
     list-style-type: disc; 
-    list-style-position: inside; 
+    list-style-position: inside;
 	margin-left: 40px;
+	margin-bottom: $base-line-height;
   }
 }
 
@@ -233,6 +235,10 @@ input.move-comment-checkbox {
   @extend %inline-list;
   font-size: 14px;
   text-align: right;
+}
+
+.comment-avatar {
+  border-radius: 25px;
 }
 
 .comment-username {
@@ -360,9 +366,9 @@ ul.reply-markdown {
 }
 
 .profile-avatar {
-  //remove
   width: 200px;
   height: 200px;
+  border-radius: 100px;
 }
 
 .profile-username {
