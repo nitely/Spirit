@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 REQUIREMENTS = open(os.path.join(os.path.dirname(__file__), 'requirements.txt')).read()
@@ -18,9 +18,7 @@ setup(
     author_email='ecastroborsani@gmail.com',
     long_description=README,
     url='http://spirit-project.com/',
-    packages=[
-        'spirit',
-    ],
+    packages=find_packages(exclude=['example', ]),
     test_suite="run_tests.run_tests",
     include_package_data=True,
     zip_safe=False,

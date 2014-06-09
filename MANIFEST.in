@@ -1,5 +1,3 @@
-recursive-include spirit/static *
-recursive-include spirit/templates *
-recursive-include spirit/whoosh_index *
+recursive-include spirit *
 include LICENSE
 include README.md

@@ -42,7 +42,7 @@ otherwise you will have to setup all django's related constants (Middlewares, Lo
 
 Run:
 
-    python pip install -r requeriments.txt
+    python pip install -r requirements.txt
     python manage.py syncdb
     python manage.py loaddata spirit_init
     python manage.py createcachetable spirit_cache
