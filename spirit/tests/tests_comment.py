@@ -352,9 +352,9 @@ class CommentViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
-        self.assertEqual(response.status_code, 404)
         res = json.loads(response.content)
         self.assertIn('error', res.keys())
+        self.assertIn('image', res['error'].keys())
 
 
 class CommentSignalTest(TestCase):

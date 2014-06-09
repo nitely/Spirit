@@ -67,6 +67,7 @@
 				
 			});
 			
+			/*
 			$( '.js-box-image' ).click(function() {
 				
 				wrapSelection( "![", "](" + settings.image_url_text + ")", settings.image_text );
@@ -74,7 +75,7 @@
 				return false;
 				
 			});
-			
+			*/
 			
 			$( '.js-box-preview' ).click(function() {
 				
@@ -88,6 +89,6 @@
 				
 			});
 			
-		};
+		}
 	
 	}( jQuery ));

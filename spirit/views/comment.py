@@ -116,4 +116,4 @@ def comment_image_upload_ajax(request):
         image = form.save()
         return json_response({'url': image.url, })
 
-    return json_response({'error': render_form_errors(form), }, status=404)
+    return json_response({'error': dict(form.errors.items()), })

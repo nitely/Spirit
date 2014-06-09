@@ -35,5 +35,12 @@
 			image_url_text: "{% trans "image url" %}"
 		} );
 
+
+        $.editor_image_upload( {
+			csrf_token: "{{ csrf_token }}",
+			target: "{% url "spirit:comment-image-upload-ajax" %}",
+			placeholder_text: "{% trans "uploading {image_name}" %}"
+		} );
+
 	});
 </script>
