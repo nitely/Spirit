@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/vendors/github.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/styles.css">
 
     <script src="{{ STATIC_URL }}spirit/scripts/jquery.min.js"></script>
@@ -17,6 +18,7 @@
     <script src="{{ STATIC_URL }}spirit/scripts/dropdown.js"></script>
 
     {% if user.is_authenticated %}
+        <script src="{{ STATIC_URL }}spirit/scripts/highlightjs/highlight.min.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/marked/marked.min.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/waypoints/waypoints.min.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/storage.js"></script>
