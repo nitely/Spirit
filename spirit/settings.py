@@ -28,7 +28,6 @@ ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 ST_PRIVATE_FORUM = False
 
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
-ST_ALLOWED_UPLOAD_IMAGE_EXT = ST_ALLOWED_UPLOAD_IMAGE_FORMAT + ('jpg', )
 
 # check out http://pythonhosted.org/Markdown/extensions/index.html
 ST_MARKDOWN_EXT = (

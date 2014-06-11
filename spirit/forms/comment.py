@@ -73,24 +73,19 @@ class CommentImageForm(forms.Form):
 
     def clean_image(self):
         image = self.cleaned_data["image"]
+        image.format = Image.open(image).format.lower()
+        image.seek(0)
 
-        if Image.open(image).format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT:
+        if image.format not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT:
             raise forms.ValidationError(_("Unsupported file format. Supported formats are %s."
                                           % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT)))
 
-        image.seek(0)
         return image
 
     def save(self):
         image = self.cleaned_data["image"]
         hash = hashlib.md5(image.read()).hexdigest()
-        name, ext = os.path.splitext(image.name)
-
-        # Remove the extension if not allowed
-        if ext and ext[1:].lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_EXT:
-            ext = ""
-
-        image.name = u"".join((hash, ext.lower()))
+        image.name = u"".join((hash, ".", image.format))
         upload_to = os.path.join('spirit', 'images', str(self.user.pk))
         image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name).replace("\\", "/")
         media_path = os.path.join(settings.MEDIA_ROOT, upload_to)
