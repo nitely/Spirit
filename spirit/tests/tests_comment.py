@@ -523,21 +523,7 @@ class CommentFormTest(TestCase):
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertTrue(form.is_valid())
         image = form.save()
-        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
-        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
-
-    @override_settings(ST_ALLOWED_UPLOAD_IMAGE_EXT=[])
-    def test_comment_image_upload_bad_extension(self):
-        """
-        Image upload bad extensions are removed
-        """
-        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
-        form = CommentImageForm(user=self.user, data={}, files=files)
-        self.assertTrue(form.is_valid())
-        image = form.save()
-        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
+        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
         os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
 
     @override_settings(ST_ALLOWED_UPLOAD_IMAGE_FORMAT=['png', ])

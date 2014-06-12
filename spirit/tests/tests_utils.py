@@ -448,6 +448,8 @@ class UtilsUserTests(TestCase):
         """
         Validate if user can be activated
         """
+        self.user.last_login = self.user.last_login - datetime.timedelta(hours=1)
+
         activation_token = UserActivationTokenGenerator()
         token = activation_token.generate(self.user)
         self.assertTrue(activation_token.is_valid(self.user, token))

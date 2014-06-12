@@ -397,7 +397,9 @@ class UserViewTest(TestCase):
         Activation token should expire after first login
         ActiveUserMiddleware required
         """
+        self.user.last_login = self.user.last_login - datetime.timedelta(hours=1)
         token = UserActivationTokenGenerator().generate(self.user)
+
         utils.login(self)
         User.objects.filter(pk=self.user.pk).update(is_active=False)
         response = self.client.get(reverse('spirit:registration-activation', kwargs={'pk': self.user.pk,
