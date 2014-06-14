@@ -2,7 +2,7 @@
 
 from django import forms
 from django.conf import settings
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from haystack.forms import SearchForm
 from haystack.query import EmptySearchQuerySet
