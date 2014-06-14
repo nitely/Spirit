@@ -12,7 +12,7 @@ from django.conf import settings
 import utils
 
 from spirit.models.comment import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
-from spirit.models.topic import Topic, topic_viewed, comment_posted
+from spirit.models.topic import Topic, topic_viewed, comment_posted, comment_moved
 from spirit.forms.topic import TopicForm
 from spirit.signals.topic import topic_post_moderate
 from spirit.models.comment import Comment
@@ -462,6 +462,16 @@ class TopicSignalTest(TestCase):
         comment_posted_handler signal
         """
         comment = utils.create_comment(topic=self.topic)
-        comment_posted.send(sender=self.topic.__class__, comment=comment, mentions=None)
+        comment_posted.send(sender=comment.__class__, comment=comment, mentions=None)
         self.assertEqual(Topic.objects.get(pk=self.topic.pk).comment_count, 1)
         self.assertGreater(Topic.objects.get(pk=self.topic.pk).last_active, self.topic.last_active)
+
+    def test_topic_comment_moved_handler(self):
+        """
+        comment_moved_handler signal
+        """
+        comment = utils.create_comment(topic=self.topic)
+        comment2 = utils.create_comment(topic=self.topic)
+        Topic.objects.filter(pk=self.topic.pk).update(comment_count=10)
+        comment_moved.send(sender=comment.__class__, comments=[comment, comment2], topic_from=self.topic)
+        self.assertEqual(Topic.objects.get(pk=self.topic.pk).comment_count, 8)

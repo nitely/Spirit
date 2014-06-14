@@ -16,7 +16,7 @@ from spirit.utils import json_response, render_form_errors
 
 from spirit.models.comment import Comment
 from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
-from spirit.signals.comment import comment_posted, comment_pre_update, comment_post_update
+from spirit.signals.comment import comment_posted, comment_pre_update, comment_post_update, comment_moved
 
 
 @login_required
@@ -79,15 +79,16 @@ def comment_delete(request, pk, remove=True):
 @require_POST
 @moderator_required
 def comment_move(request, topic_id):
-    # TODO: comment_move signal (update topic comment_count)
     topic = get_object_or_404(Topic, pk=topic_id)
     form = CommentMoveForm(topic=topic, data=request.POST)
 
     if form.is_valid():
         comments = form.save()
 
-        for comment in comments:
+        for comment in reversed(comments):
             comment_posted.send(sender=comment.__class__, comment=comment, mentions=None)
+
+        comment_moved.send(sender=Comment, comments=comments, topic_from=topic)
     else:
         messages.error(request, render_form_errors(form))
 

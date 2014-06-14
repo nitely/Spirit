@@ -6,10 +6,10 @@
 * Diff entre comentarios en historial (js)
 * Agregar contadores (comments, topics) para categoria
 * Agregar contadores (likes, topics, comments) para usuario
-* Agregar opcion para ver topics privados abandonados (solo para creador)
 * Panel de administracion: news letter,
 * Email notificacion digest/resume (once a day or so),
-  add preference for sending on every notif, unsubscribe
+  add preference for sending on every notif, unsubscribe,
+  translate.activate the user lang before sending or send bulk in english (?)
 * Test middlewares
 * Test managers
 * Tests views for login required
