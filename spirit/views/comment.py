@@ -85,7 +85,7 @@ def comment_move(request, topic_id):
     if form.is_valid():
         comments = form.save()
 
-        for comment in reversed(comments):
+        for comment in comments:
             comment_posted.send(sender=comment.__class__, comment=comment, mentions=None)
 
         comment_moved.send(sender=Comment, comments=comments, topic_from=topic)

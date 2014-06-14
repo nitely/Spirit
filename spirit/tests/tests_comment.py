@@ -342,7 +342,7 @@ class CommentViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment-move', kwargs={'topic_id': self.topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 302)
-        self.assertListEqual(self._comments, [comment, comment2])
+        self.assertListEqual(self._comments, [comment2, comment])
         self.assertEqual(self._comment_count, 2)
         self.assertEqual(repr(self._topic_from), repr(self.topic))
 
