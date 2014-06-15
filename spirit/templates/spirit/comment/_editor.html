@@ -25,6 +25,13 @@
         } );
 
 
+        $( ".js-reply textarea" ).atwho({
+			at: ':',
+			tpl: "<li data-value=':${name}:'><img src='{{ STATIC_URL }}spirit/emojis/${name}.png' height='20' width='20'/> ${name} </li>",
+			data: $.emoji_list()
+		});
+
+
         $.editor( {
 			bolded_text: "{% trans "bolded text" %}",
 			italicised_text: "{% trans "italicised text" %}",

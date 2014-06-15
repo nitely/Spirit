@@ -16,21 +16,38 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
     <![endif]-->
 	
-	<link rel="stylesheet" href="vendors/github.min.css">
-	<script src="scripts/highlightjs/highlight.min.js"></script>
-	
 	<script src="scripts/jquery.min.js"></script>
 	<script src="scripts/marked/marked.min.js"></script>
 	<script src="scripts/editor.js"></script>
 	<script src="scripts/storage.js"></script>
 	<script src="scripts/like.js"></script>
+	<script src="scripts/emoji_list.js"></script>
 	
 	<script src="scripts/waypoints/waypoints.min.js"></script>
 	<script src="scripts/bookmark.js"></script>
 	
+	<link rel="stylesheet" href="vendors/github.min.css">
+	<script src="scripts/highlightjs/highlight.min.js"></script>
+	
+	<link rel="stylesheet" href="vendors/jquery.atwho.min.css">
+	<script src="scripts/atwho/jquery.caret.min.js"></script>
+	<script src="scripts/atwho/jquery.atwho.min.js"></script>
+	
 	<script>
 
 	$( document ).ready(function() {
+	
+		$( 'share-link' ).click( function() {
+			
+		});
+		
+		var emojis = ["aerial_tramway", "airplane", "alarm_clock", "alien"];
+		
+		$( ".reply textarea" ).atwho({
+			at: ':',
+			tpl: "<li data-value=':${name}:'><img src='http://a248.e.akamai.net/assets.github.com/images/icons/emoji/${name}.png' height='20' width='20'/> ${name} </li>",
+			data: $.emoji_list()
+		});
 	
 		hljs.initHighlightingOnLoad();
 
@@ -117,6 +134,7 @@
 				
 			<ul class="comment-actions">
 				<li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
+			 --><li class="comment-share"><a href="#"><i class="fa fa-share"></i> share</a></li><!--
 			 --><li class="comment-like"><i class="fa fa-heart"></i> like</li><!--
 			 --><li><a href="#">reply</a></li>
 			</ul>
