@@ -44,7 +44,7 @@ ST_MARKDOWN_EXT = (
 
 
 #
-# Django settings defined below...
+# Django & Spirit settings defined below...
 #
 
 INSTALLED_APPS = (
@@ -56,8 +56,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'spirit',
-    'haystack',
-    'djconfig',
     #'debug_toolbar'
 )
 
@@ -120,6 +118,10 @@ TEMPLATE_LOADERS = (
 
 # django-djconfig
 
+INSTALLED_APPS += (
+    'djconfig',
+)
+
 DJC_BACKEND = 'djconfig'
 
 CACHES.update({
@@ -137,6 +139,10 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 )
 
 # django-haystack
+
+INSTALLED_APPS += (
+    'haystack',
+)
 
 HAYSTACK_CONNECTIONS = {
     'default': {
