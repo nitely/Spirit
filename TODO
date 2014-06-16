@@ -1,6 +1,6 @@
 * Unsubscribe on notifications list
 * Unread: mark all as read, unsubscribe
-* NestedModelChoiceField for multiple choice (search), add *----* as initial
+* NestedModelChoiceField for multiple choice (search)
 * 'User has leave or has joined the conversation' comment on private topics, dont send notification.
 * Ocultar quote anidado (ej: max tres niveles, y ocultar el tercero con js [...])
 * Diff entre comentarios en historial (js)
@@ -32,7 +32,6 @@ Template
 * admin: flag detail delete comment, detail add topic title
 * admin: add nav to detail templates
 * Notifications: show all/unread link
-* Emojis popup selector
 
 
 Readme
