@@ -32,6 +32,7 @@ Template
 * admin: flag detail delete comment, detail add topic title
 * admin: add nav to detail templates
 * Notifications: show all/unread link
+* local store comment publish/update
 
 
 Readme
