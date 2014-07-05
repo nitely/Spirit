@@ -42,11 +42,11 @@
             smartypants: false
         });
 		
-		$.editor( {} );
+		$( '.js-reply' ).find( 'textarea' ).editor( {} );
 		
 		$( ".reply" ).find( "textarea" ).store( "topic_id" );
 		
-		$.like( {} );
+		$('.js-like').like( {} );
 		
 		$( ".comment" ).bookmark( {} );
 

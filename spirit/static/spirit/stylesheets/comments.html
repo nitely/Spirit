@@ -70,13 +70,13 @@
             smartypants: false
         });
 		
-		$.editor( {} );
+		$( '.js-reply' ).find( 'textarea' ).editor( {} );
 		
 		$( ".reply" ).find( "textarea" ).store( "topic_id" );
 		
 		$( ".comment" ).bookmark( {} );
 		
-		$.like( {} );
+		$('.js-like').like( {} );
 
 	});
 

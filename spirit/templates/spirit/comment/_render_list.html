@@ -104,10 +104,10 @@
 
 	$( document ).ready(function() {
 
-		$.like( {
-			csrf_token: "{{ csrf_token }}",
-			like_text: "{% trans "like" %} ({count})",
-			remove_like_text: '{% trans "remove like" %} ({count})',
+		$('.js-like').like( {
+			csrfToken: "{{ csrf_token }}",
+			likeText: "{% trans "like" %} ({count})",
+			removeLikeText: '{% trans "remove like" %} ({count})',
 		} );
 
 

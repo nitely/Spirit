@@ -14,22 +14,23 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/vendors/jquery.atwho.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/styles.css">
 
-    <script src="{{ STATIC_URL }}spirit/scripts/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/utils.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/dropdown.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/vendors/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/util.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/tab.js"></script>
 
     {% if user.is_authenticated %}
-        <script src="{{ STATIC_URL }}spirit/scripts/atwho/jquery.caret.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/atwho/jquery.atwho.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/highlightjs/highlight.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/marked/marked.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/waypoints/waypoints.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/storage.js"></script>
-	    <script src="{{ STATIC_URL }}spirit/scripts/editor.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/vendors/atwho/jquery.caret.min.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/vendors/atwho/jquery.atwho.min.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/vendors/highlightjs/highlight.min.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/vendors/marked/marked.min.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/vendors/waypoints/waypoints.min.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/store.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/editor_image_upload.js"></script>
+	    <script src="{{ STATIC_URL }}spirit/scripts/editor.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/emoji_list.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/like.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/bookmark.js"></script>
+        <script src="{{ STATIC_URL }}spirit/scripts/notification.js"></script>
     {% endif %}
 
     {% if user.is_moderator %}
@@ -40,12 +41,13 @@
 
 	$( document ).ready(function() {
 
-		$.dropdown( {
-			notification_url: "{% url "spirit:topic-notification-ajax" %}",
-			notification_list_url: "{% url "spirit:topic-notification-list-unread" %}",
-			mention_txt: "{% trans "{user} has mention you on {topic}" %}",
-			comment_txt: "{% trans "{user} has commented on {topic}" %}",
-			show_all: "{% trans "Show all" %}",
+        $.tab();
+		$.notification( {
+			notificationUrl: "{% url "spirit:topic-notification-ajax" %}",
+			notificationListUrl: "{% url "spirit:topic-notification-list-unread" %}",
+			mentionTxt: "{% trans "{user} has mention you on {topic}" %}",
+			commentTxt: "{% trans "{user} has commented on {topic}" %}",
+			showAll: "{% trans "Show all" %}",
 			empty: "{% trans "No new notifications, yet" %}",
             unread: "{% trans "unread" %}",
 		} );

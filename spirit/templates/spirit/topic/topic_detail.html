@@ -110,14 +110,14 @@
                 $( document ).ready(function() {
 
                     $( ".comment" ).bookmark( {
-                        csrf_token: "{{ csrf_token }}",
+                        csrfToken: "{{ csrf_token }}",
                         target: "{% url "spirit:bookmark-create" topic.pk %}",
                     } );
 
 
                     {% if user.is_moderator %}
-                        $.move_comments( {
-                            csrf_token: "{{ csrf_token }}",
+                        $('.js-show-move-comments').move_comments( {
+                            csrfToken: "{{ csrf_token }}",
                             target: "{% url "spirit:comment-move" topic.pk %}",
                         } );
                     {% endif %}

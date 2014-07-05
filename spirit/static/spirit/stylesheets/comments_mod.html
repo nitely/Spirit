@@ -19,7 +19,8 @@
     <![endif]-->
 	
 	<script src="../scripts/utils.js"></script>
-    <script src="../scripts/dropdown.js"></script>
+    <script src="../scripts/tab.js"></script>
+    <script src="../scripts/notification.js"></script>
 	
 	<script src="../scripts/move_comments.js"></script>
 	
@@ -27,9 +28,10 @@
 	
 	$( document ).ready(function() {
 
-		$.dropdown( {} );
+		$.tab();
+        $.notification( {} );
 		
-		$.move_comments();
+		$('.js-show-move-comments').move_comments();
 
 	});
 	

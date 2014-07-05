@@ -25,29 +25,25 @@
         } );
 
 
-        $( ".js-reply textarea" ).atwho({
+        $( '.js-reply' ).find( 'textarea' ).editor_image_upload( {
+			csrfToken: "{{ csrf_token }}",
+			target: "{% url "spirit:comment-image-upload-ajax" %}",
+			placeholderText: "{% trans "uploading {image_name}" %}"
+		} )
+        .editor( {
+			boldedText: "{% trans "bolded text" %}",
+			italicisedText: "{% trans "italicised text" %}",
+			listItemText: "{% trans "list item" %}",
+			linkText: "{% trans "link text" %}",
+			linkUrlText: "{% trans "link url" %}",
+			imageText: "{% trans "image text" %}",
+			imageUrlText: "{% trans "image url" %}"
+		} )
+        .atwho({
 			at: ':',
 			tpl: "<li data-value=':${name}:'><img src='{{ STATIC_URL }}spirit/emojis/${name}.png' height='20' width='20'/> ${name} </li>",
 			data: $.emoji_list()
 		});
-
-
-        $.editor( {
-			bolded_text: "{% trans "bolded text" %}",
-			italicised_text: "{% trans "italicised text" %}",
-			list_item_text: "{% trans "list item" %}",
-			link_text: "{% trans "link text" %}",
-			link_url_text: "{% trans "link url" %}",
-			image_text: "{% trans "image text" %}",
-			image_url_text: "{% trans "image url" %}"
-		} );
-
-
-        $.editor_image_upload( {
-			csrf_token: "{{ csrf_token }}",
-			target: "{% url "spirit:comment-image-upload-ajax" %}",
-			placeholder_text: "{% trans "uploading {image_name}" %}"
-		} );
 
 	});
 </script>
