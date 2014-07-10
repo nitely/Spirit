@@ -12,11 +12,12 @@ class YTPaginator(object):
     where using standard Django pagination is impractical because of significant
     ``count(*)`` query overhead.
 
-    It's not a drop-in replacement for django's paginator.
+    It'll limit the page list to a given limit
     """
-    def __init__(self, object_list, per_page):
+    def __init__(self, object_list, per_page, allow_empty_first_page=True):
         self.object_list = object_list
         self.per_page = per_page
+        self.allow_empty_first_page = allow_empty_first_page
 
     def validate_number(self, number):
         """Validates the given 1-based page number."""
@@ -41,12 +42,14 @@ class YTPaginator(object):
         offset = (number - 1) * self.per_page
         limit = offset + self.per_page
 
-        object_list = list(self.object_list[offset:limit])
+        object_list = self.object_list[offset:limit]
+        page = YTPage(object_list, number, self)
 
-        if not object_list and number != 1:
-            raise InvalidPage("That page contains no results")
+        if not page.num_pages:
+            if number != 1 or not self.allow_empty_first_page:
+                raise InvalidPage("That page contains no results")
 
-        return YTPage(object_list, number, self)
+        return page
 
 
 class YTPage(object):
@@ -61,11 +64,18 @@ class YTPage(object):
         return '<Page %s>' % self.number
 
     def __getitem__(self, index):
+        if not isinstance(self.object_list, list):
+            self.object_list = list(self.object_list)
+
         return self.object_list[index]
 
     @property
     def num_pages(self):
-        """Return the number of pages, limited by max_pages"""
+        """
+        Return the number of pages
+        relative to the current page
+        limited by max_pages
+        """
         if self._num_pages is not None:
             return self._num_pages
 
