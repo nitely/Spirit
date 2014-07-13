@@ -71,8 +71,8 @@
       }
       this.mark.isSending = true;
       post = $.post(this.options.target, {
-        'csrfmiddlewaretoken': this.options.csrfToken,
-        'comment_number': this.mark.commentNumber
+        csrfmiddlewaretoken: this.options.csrfToken,
+        comment_number: this.mark.commentNumber
       });
       return post.always((function(_this) {
         return function() {

@@ -19,7 +19,7 @@ class Mark
     if isNaN commentNumber
       commentNumber = 0
     else
-      # workaround to override the default comment number setted on topic_viewed (server side)
+      # workaround to always send comment number from hash
 		  commentNumber -= 1
 
     return commentNumber
@@ -55,7 +55,7 @@ class Bookmark
 
     @mark.isSending = true
 
-    post = $.post @options.target, {'csrfmiddlewaretoken': @options.csrfToken, 'comment_number': @mark.commentNumber}
+    post = $.post @options.target, {csrfmiddlewaretoken: @options.csrfToken, comment_number: @mark.commentNumber}
     post.always =>
       @mark.isSending = false
 

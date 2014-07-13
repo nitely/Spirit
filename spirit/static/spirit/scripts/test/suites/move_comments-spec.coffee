@@ -18,11 +18,11 @@ describe "move_comments plugin tests", ->
 
   it "shows the move form on click", ->
     expect($(".move-comments").is ":visible").toEqual false
-    expect($(".js-move-comment-checkbox").length).toEqual 0
+    expect($(".move-comment-checkbox").length).toEqual 0
 
     $('.js-show-move-comments').trigger 'click'
     expect($(".move-comments").is ":visible").toEqual true
-    expect($(".js-move-comment-checkbox").length).toEqual 2
+    expect($(".move-comment-checkbox").length).toEqual 2
 
   it "prevents the default click behaviour on show move comments", ->
     event = {type: 'click', stopPropagation: (->), preventDefault: (->)}

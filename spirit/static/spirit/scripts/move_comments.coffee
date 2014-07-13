@@ -36,7 +36,7 @@ class MoveComment
     $li = $("<li/>").appendTo ".comment-info"
 
     $checkbox = $("<input/>", {
-      class: "js-move-comment-checkbox",
+      class: "move-comment-checkbox",
       name: "comments",
       type: "checkbox",
       value: ""
@@ -69,7 +69,7 @@ class MoveComment
     }).appendTo $form
 
     # append all selection inputs
-    $(".js-move-comment-checkbox").clone().appendTo $form
+    $(".move-comment-checkbox").clone().appendTo $form
 
     @formSubmit $form
 

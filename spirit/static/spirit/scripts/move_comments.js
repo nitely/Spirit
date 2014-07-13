@@ -45,7 +45,7 @@
       var $checkbox, $li;
       $li = $("<li/>").appendTo(".comment-info");
       $checkbox = $("<input/>", {
-        "class": "js-move-comment-checkbox",
+        "class": "move-comment-checkbox",
         name: "comments",
         type: "checkbox",
         value: ""
@@ -74,7 +74,7 @@
         type: "text",
         value: topicId
       }).appendTo($form);
-      $(".js-move-comment-checkbox").clone().appendTo($form);
+      $(".move-comment-checkbox").clone().appendTo($form);
       this.formSubmit($form);
     };
 
