@@ -23,7 +23,7 @@
     });
     it("shows the move form on click", function() {
       expect($(".move-comments").is(":visible")).toEqual(false);
-      expect($(".js-move-comment-checkbox").length).toEqual(0);
+      expect($(".move-comment-checkbox").length).toEqual(0);
       $('.js-show-move-comments').trigger('click');
       expect($(".move-comments").is(":visible")).toEqual(true);
       return expect($(".js-move-comment-checkbox").length).toEqual(2);
