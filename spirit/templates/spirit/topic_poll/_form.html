@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% if poll %}
+    <form action="{% url "spirit:poll-vote" pk=poll.pk %}" method="post">
+        {% csrf_token %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+
+        {% include "spirit/_form.html" %}
+
+        <input class="button" type="submit" name="post" value="{% trans "Publish" %}" />
+    </form>
+{% endif %}

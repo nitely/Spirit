@@ -73,7 +73,7 @@ class TopicPollVoteManyForm(forms.Form):
                                                             label=_("choices"))
 
     def load_initial(self):
-        selected_choices = TopicPollChoice.objects.filter(votes__user=self.user)
+        selected_choices = TopicPollChoice.objects.filter(poll=self.poll, votes__user=self.user)
 
         if self.poll.choice_limit == 1:
             try:
