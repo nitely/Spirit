@@ -13,7 +13,8 @@ def render_poll(topic, user):
     except models.ObjectDoesNotExist:
         return ""
 
-    choices = poll.choices.all()
+    form = TopicPollVoteManyForm(user=user, poll=poll)
+    form.load_initial()
     #votes = choices.objects.filter(voters=user)
 
-    return ",".join([c.description for c in choices])
+    return form.as_p()

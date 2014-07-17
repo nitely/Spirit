@@ -36,7 +36,10 @@ class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
 
     def is_filled(self):
         for form in self.forms:
-            if form.cleaned_data['description']:
+            description = form.cleaned_data.get('description')
+            is_marked_as_delete = form.cleaned_data.get('DELETE', False)
+
+            if description and not is_marked_as_delete:
                 return True
 
         return False
@@ -45,8 +48,7 @@ class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
 # TODO: use min_num and validate_min in Django 1.7
 TopicPollChoiceFormSet = inlineformset_factory(TopicPoll, TopicPollChoice,
                                                formset=TopicPollChoiceInlineFormSet, fields=('description', ),
-                                               extra=2, can_delete=False,
-                                               max_num=20, validate_max=True)
+                                               extra=2, max_num=20, validate_max=True)
 
 
 class TopicPollVoteManyForm(forms.Form):
@@ -62,26 +64,32 @@ class TopicPollVoteManyForm(forms.Form):
 
         if poll.choice_limit > 1:
             self.fields['choices'] = forms.ModelMultipleChoiceField(queryset=choices,
-                                                                    widget=forms.CheckboxSelectMultiple)
+                                                                    widget=forms.CheckboxSelectMultiple,
+                                                                    label=_("choices"))
         else:
             self.fields['choices'] = forms.ModelChoiceField(queryset=choices,
-                                                            widget=forms.CheckboxChoiceInput)
+                                                            empty_label=None,
+                                                            widget=forms.RadioSelect,
+                                                            label=_("choices"))
 
     def load_initial(self):
         selected_choices = TopicPollChoice.objects.filter(votes__user=self.user)
 
         if self.poll.choice_limit == 1:
-            # TODO: catch exception
-            selected_choices = selected_choices[0]
+            try:
+                selected_choices = selected_choices[0]
+            except IndexError:
+                selected_choices = None
 
         self.initial = {'choices': selected_choices, }
 
     def clean_choices(self):
         choices = self.cleaned_data['choices']
 
-        if len(list(choices)) > self.poll.choice_limit:
-            raise forms.ValidationError(_("Too many selected choices. Limit is %s")
-                                        % self.poll.choice_limit)
+        if self.poll.choice_limit > 1:
+            if len(choices) > self.poll.choice_limit:
+                raise forms.ValidationError(_("Too many selected choices. Limit is %s")
+                                            % self.poll.choice_limit)
 
         return choices
 
@@ -94,7 +102,10 @@ class TopicPollVoteManyForm(forms.Form):
         return cleaned_data
 
     def save_m2m(self):
-        choices = list(self.cleaned_data['choices'])
+        choices = self.cleaned_data['choices']
+
+        if self.poll.choice_limit == 1:
+            choices = [choices, ]
 
         TopicPollVote.objects.filter(user=self.user, choice__poll=self.poll)\
             .delete()
