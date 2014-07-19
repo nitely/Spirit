@@ -104,11 +104,13 @@
 
 	$( document ).ready(function() {
 
-		$('.js-like').like( {
-			csrfToken: "{{ csrf_token }}",
-			likeText: "{% trans "like" %} ({count})",
-			removeLikeText: '{% trans "remove like" %} ({count})',
-		} );
+        {% if user.is_authenticated %}
+            $('.js-like').like( {
+                csrfToken: "{{ csrf_token }}",
+                likeText: "{% trans "like" %} ({count})",
+                removeLikeText: '{% trans "remove like" %} ({count})',
+            } );
+        {% endif %}
 
 
         hljs.initHighlightingOnLoad();

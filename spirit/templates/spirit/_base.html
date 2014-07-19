@@ -15,13 +15,13 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/styles.css">
 
     <script src="{{ STATIC_URL }}spirit/scripts/vendors/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/vendors/highlightjs/highlight.min.js"></script>
     <script src="{{ STATIC_URL }}spirit/scripts/util.js"></script>
     <script src="{{ STATIC_URL }}spirit/scripts/tab.js"></script>
 
     {% if user.is_authenticated %}
         <script src="{{ STATIC_URL }}spirit/scripts/vendors/atwho/jquery.caret.min.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/vendors/atwho/jquery.atwho.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/vendors/highlightjs/highlight.min.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/vendors/marked/marked.min.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/vendors/waypoints/waypoints.min.js"></script>
         <script src="{{ STATIC_URL }}spirit/scripts/store.js"></script>
@@ -42,15 +42,18 @@
 	$( document ).ready(function() {
 
         $.tab();
-		$.notification( {
-			notificationUrl: "{% url "spirit:topic-notification-ajax" %}",
-			notificationListUrl: "{% url "spirit:topic-notification-list-unread" %}",
-			mentionTxt: "{% trans "{user} has mention you on {topic}" %}",
-			commentTxt: "{% trans "{user} has commented on {topic}" %}",
-			showAll: "{% trans "Show all" %}",
-			empty: "{% trans "No new notifications, yet" %}",
-            unread: "{% trans "unread" %}",
-		} );
+
+        {% if user.is_authenticated %}
+            $.notification( {
+                notificationUrl: "{% url "spirit:topic-notification-ajax" %}",
+                notificationListUrl: "{% url "spirit:topic-notification-list-unread" %}",
+                mentionTxt: "{% trans "{user} has mention you on {topic}" %}",
+                commentTxt: "{% trans "{user} has commented on {topic}" %}",
+                showAll: "{% trans "Show all" %}",
+                empty: "{% trans "No new notifications, yet" %}",
+                unread: "{% trans "unread" %}",
+            } );
+        {% endif %}
 
 	});
 
