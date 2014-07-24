@@ -7,7 +7,7 @@ from django.contrib.auth.views import *
 
 urlpatterns = patterns('spirit.views.user',
     url(r'^login/$', 'custom_login', {'template_name': 'spirit/user/login.html'}, name='user-login'),
-    url(r'^logout/$', logout, {'next_page': '/', }, name='user-logout'),
+    url(r'^logout/$', 'custom_logout', {'next_page': '/', }, name='user-logout'),
 
     url(r'^register/$', 'register', name='user-register'),
     url(r'^resend-activation/$', 'resend_activation_email', name='resend-activation'),
