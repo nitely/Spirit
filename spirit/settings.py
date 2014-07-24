@@ -40,7 +40,6 @@ ST_MARKDOWN_EXT = (
     'spirit.utils.markdown.audio',
     'spirit.utils.markdown.youtube',
     'spirit.utils.markdown.vimeo',
-    #'spirit.utils.markdown.poll',
 )
 
 

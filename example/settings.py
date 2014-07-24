@@ -34,9 +34,32 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# Extend the Spirit installed apps (notice the plus sign)
+# Check out the spirit.settings.py so you do not end up with duplicate apps.
 INSTALLED_APPS += (
-    # 'myapp',
+    #'my_app1',
+    #'my_app2',
 )
+
+# same here, check out the spirit.settings.py
+MIDDLEWARE_CLASSES += (
+    #'my_middleware1',
+    #'my_middleware2',
+)
+
+# same here
+TEMPLATE_CONTEXT_PROCESSORS += (
+    #'my_template_proc1',
+    #'my_template_proc2',
+)
+
+# same here (we update the Spirit caches)
+CACHES.update({
+    #'default': {
+    #  'BACKEND': 'my.backend.path',
+    #},
+})
+
 
 ROOT_URLCONF = 'example.urls'
 
