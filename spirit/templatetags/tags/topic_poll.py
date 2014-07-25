@@ -14,5 +14,8 @@ def render_poll_form(topic, user, next=None):
         return {}
 
     form = TopicPollVoteManyForm(user=user, poll=poll)
-    form.load_initial()
+
+    if user.is_authenticated():
+        form.load_initial()
+
     return {'form': form, 'poll': poll, 'next': next}

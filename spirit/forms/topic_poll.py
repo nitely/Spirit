@@ -65,12 +65,12 @@ class TopicPollVoteManyForm(forms.Form):
         if poll.choice_limit > 1:
             self.fields['choices'] = forms.ModelMultipleChoiceField(queryset=choices,
                                                                     widget=forms.CheckboxSelectMultiple,
-                                                                    label=_("choices"))
+                                                                    label=_("Poll choices"))
         else:
             self.fields['choices'] = forms.ModelChoiceField(queryset=choices,
                                                             empty_label=None,
                                                             widget=forms.RadioSelect,
-                                                            label=_("choices"))
+                                                            label=_("Poll choices"))
 
     def load_initial(self):
         selected_choices = TopicPollChoice.objects.filter(poll=self.poll, votes__user=self.user)
