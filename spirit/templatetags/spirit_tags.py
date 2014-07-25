@@ -11,6 +11,7 @@ from .tags import topic_private
 from .tags.utils import gravatar
 from .tags.utils import messages
 from .tags.utils import paginator
+from .tags.utils import social_share
 from .tags.utils import time
 from .tags.utils import widgets
 
