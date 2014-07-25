@@ -50,11 +50,13 @@ class UtilsTests(TestCase):
         return form errors string
         """
         class MockForm:
-            non_field_errors = "error1"
-            errors = "error2"
+            non_field_errors = ["error1", ]
+            hidden_fields = [{'errors': "error2", }, ]
+            visible_fields = [{'errors': "error3", }, ]
 
         res = spirit_utils.render_form_errors(MockForm())
-        self.assertEqual(res.splitlines(), "error1\r\nerror2".splitlines())
+        lines = [line.strip() for line in res.splitlines()]
+        self.assertEqual("".join(lines), '<ul class="errorlist"><li>error1</li><li>error2</li><li>error3</li></ul>')
 
     def test_json_response(self):
         """
