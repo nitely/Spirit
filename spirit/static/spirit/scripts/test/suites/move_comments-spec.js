@@ -26,7 +26,7 @@
       expect($(".move-comment-checkbox").length).toEqual(0);
       $('.js-show-move-comments').trigger('click');
       expect($(".move-comments").is(":visible")).toEqual(true);
-      return expect($(".js-move-comment-checkbox").length).toEqual(2);
+      return expect($(".move-comment-checkbox").length).toEqual(2);
     });
     it("prevents the default click behaviour on show move comments", function() {
       var event, preventDefault, stopPropagation;
@@ -61,11 +61,11 @@
       $('.js-show-move-comments').trigger('click');
       $(".js-move-comments").trigger('click');
       expect(formSubmit).toHaveBeenCalled();
-      expect($("form").attr('action')).toEqual("/foo/");
-      expect($("form").is(":visible")).toEqual(false);
+      expect($("form").last().attr('action')).toEqual("/foo/");
+      expect($("form").last().is(":visible")).toEqual(false);
       expect($("input[name=csrfmiddlewaretoken]").val()).toEqual("foobar");
       expect($("input[name=topic]").val()).toEqual("10");
-      return expect($("form").find("input[name=comments]").length).toEqual(2);
+      return expect($("form").last().find("input[name=comments]").length).toEqual(2);
     });
   });
 

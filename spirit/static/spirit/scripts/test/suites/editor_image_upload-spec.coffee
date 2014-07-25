@@ -39,6 +39,9 @@ describe "editor image upload plugin tests", ->
     org_formData = window.FormData
     window.FormData = null
     try
+      # remove event from beforeEach editor to prevent popup
+      $(".js-box-image").off 'click'
+
       textarea2 = $('#id_comment2').editor_image_upload()
       inputFile2 = textarea2.data('plugin_editor_image_upload').inputFile
 

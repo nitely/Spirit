@@ -18,6 +18,7 @@
     <script src="{{ STATIC_URL }}spirit/scripts/vendors/highlightjs/highlight.min.js"></script>
     <script src="{{ STATIC_URL }}spirit/scripts/util.js"></script>
     <script src="{{ STATIC_URL }}spirit/scripts/tab.js"></script>
+    <script src="{{ STATIC_URL }}spirit/scripts/postify.js"></script>
 
     {% if user.is_authenticated %}
         <script src="{{ STATIC_URL }}spirit/scripts/vendors/atwho/jquery.caret.min.js"></script>
@@ -42,6 +43,10 @@
 	$( document ).ready(function() {
 
         $.tab();
+
+        $( 'a.js-post' ).postify( {
+            csrfToken: "{{ csrf_token }}",
+        } );
 
         {% if user.is_authenticated %}
             $.notification( {

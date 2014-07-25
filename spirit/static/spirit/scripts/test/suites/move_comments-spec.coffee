@@ -49,8 +49,8 @@ describe "move_comments plugin tests", ->
     $('.js-show-move-comments').trigger 'click'
     $( ".js-move-comments" ).trigger 'click'
     expect(formSubmit).toHaveBeenCalled()
-    expect($("form").attr('action')).toEqual "/foo/"
-    expect($("form").is ":visible").toEqual false
+    expect($("form").last().attr('action')).toEqual "/foo/"
+    expect($("form").last().is ":visible").toEqual false
     expect($("input[name=csrfmiddlewaretoken]").val()).toEqual "foobar"
     expect($("input[name=topic]").val()).toEqual "10"
-    expect($("form").find("input[name=comments]").length).toEqual 2
+    expect($("form").last().find("input[name=comments]").length).toEqual 2
