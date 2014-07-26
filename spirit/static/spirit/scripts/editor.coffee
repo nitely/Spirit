@@ -23,6 +23,9 @@ class Editor
     do @setUp
 
   setUp: ->
+    # TODO: fixme, having multiple editor
+    # in the same page will trigger button
+    # click on every editor
     $('.js-box-bold').on 'click', @addBold
     $('.js-box-italic').on 'click', @addItalic
     $('.js-box-list').on 'click', @addList

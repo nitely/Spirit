@@ -62,3 +62,9 @@ def get_email_share_url(context, url, title):
               'subject': title,
               'to': ""}
     return u"mailto:?%s" % urlencode(params)
+
+
+@register.simple_tag(takes_context=True)
+def get_share_url(context, url):
+    request = context['request']
+    return request.build_absolute_uri(url)

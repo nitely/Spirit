@@ -16,32 +16,43 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
     <![endif]-->
 	
-	<script src="../scripts/jquery.min.js"></script>
+	<script src="../scripts/vendors/jquery.min.js"></script>
 	<script src="../scripts/marked/marked.min.js"></script>
 	<script src="../scripts/editor.js"></script>
 	<script src="../scripts/storage.js"></script>
 	<script src="../scripts/like.js"></script>
 	<script src="../scripts/emoji_list.js"></script>
+    <script src="../scripts/social_share.js"></script>
 	
-	<script src="../scripts/waypoints/waypoints.min.js"></script>
+	<script src="../scripts/vendors/waypoints/waypoints.min.js"></script>
 	<script src="../scripts/bookmark.js"></script>
 	
 	<link rel="stylesheet" href="vendors/github.min.css">
-	<script src="../scripts/highlightjs/highlight.min.js"></script>
+	<script src="../scripts/vendors/highlightjs/highlight.min.js"></script>
 	
 	<link rel="stylesheet" href="vendors/jquery.atwho.min.css">
-	<script src="../scripts/atwho/jquery.caret.min.js"></script>
-	<script src="../scripts/atwho/jquery.atwho.min.js"></script>
+	<script src="../scripts/vendors/atwho/jquery.caret.min.js"></script>
+	<script src="../scripts/vendors/atwho/jquery.atwho.min.js"></script>
 	
 	<script>
 
 	$( document ).ready(function() {
-	
-		$( '.share-link' ).click( function() {
-			
+
+        $( '.comment-share a' ).social_share();
+
+        /*
+		$( '.comment-share a' ).on( 'click', function(e){
+            $( '.share' ).hide();
+			$( this ).closest( '.comment' ).find( '.share' ).show();
+            e.preventDefault();
+            e.stopPropagation();
 		});
-		
-		// TODO: auto focus the input on open popup
+
+        $( '.share-close' ).on( 'click', function(e){
+            $( this ).closest( '.comment' ).find( '.share' ).hide();
+            e.preventDefault();
+            e.stopPropagation();
+        });
 		
 		// Auto selection
 		$( '.share-box input[type=text]' ).focus( function(){
@@ -50,6 +61,8 @@
 		.mouseup( function ( e ) {  // Fix for chrome and safari
 			e.preventDefault();
 		});
+
+		*/
 		
 		$( ".reply textarea" ).atwho({
 			at: ':',
@@ -100,19 +113,6 @@
 	<header>
 		<h1 class="headline">Topic title here</h1>
 	</header>
-	
-	<div class="share">
-		<div class="share-box">
-			<a class="share-close" href="#" ><i class="fa fa-times"></i> close</a>
-			<input class="share-url" type="text" value="http://url.com/comment" />
-			<ul class="share-actions">
-				<li><a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fexample.com%2Fcommentid&text=Topic%20Title" ><i class="fa fa-twitter"></i></a></li><!--
-			 --><li><a href="#" ><i class="fa fa-facebook"></i></a></li><!--
-			 --><li><a href="#" ><i class="fa fa-google-plus"></i></a></li><!--
-			 --><li><a href="mailto:?to=&subject=Site name - Topic Title&body=http://example.com/comment/find/1/" ><i class="fa fa-envelope"></i></a></li>
-			</ul>
-		</div>
-	</div>
 		
 	<div class="comments">
 			
@@ -141,7 +141,9 @@
 							</ul>
 							<p><a href="http://google.com">texto del enlace</a></p>
 							<p><img alt="texto de imagen" src="http://episodecalendar.com/assets/logos/logo-4b922247bf8564ed7c2480eec8bc252c.png" /></p>
-							<p><a href="/user/1/">@estecb</a></p>
+							<p>text<img alt="texto de imagen" src="https://www.google.com/images/srpr/logo11w.png" /></p>
+                            <p>some text <img alt="texto de imagen" src="../emojis/smile.png" /> some more</p>
+                            <p><a href="/user/1/">@estecb</a></p>
 							<blockquote>
 							<p>quote<br />
 							line quote<br />
@@ -155,10 +157,24 @@
 				
 			<ul class="comment-actions">
 				<li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
-			 --><li class="comment-share"><a href="#"><i class="fa fa-share"></i> share</a></li><!--
+			 --><li class="comment-share"><a href="#" data-dialog=".js-share-1"><i class="fa fa-share"></i> share</a></li><!--
 			 --><li class="comment-like"><i class="fa fa-heart"></i> like</li><!--
 			 --><li><a href="#">reply</a></li>
 			</ul>
+
+            <div class="share js-share-1" style="display: none;">
+                <div class="share-box">
+                    <a class="share-close" href="#" ><i class="fa fa-times"></i> close</a>
+                    <input class="share-url" type="text" value="http://url.com/comment" />
+                    <ul class="share-actions">
+                        <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li><!--
+                     --><li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li><!--
+                     --><li><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li><!--
+                     --><li><a href="#" ><i class="fa fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
 		</div>
 			
 		<div class="comment">

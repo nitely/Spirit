@@ -24,6 +24,10 @@ class EditorImageUpload
       return
 
     @inputFile.on 'change', @sendFile
+
+    # TODO: fixme, having multiple editors
+    # in the same page would open several
+    # dialogs on box-image click
     $boxImage = $(".js-box-image")
     $boxImage.on 'click', @openFileDialog
     $boxImage.on 'click', @stopClick

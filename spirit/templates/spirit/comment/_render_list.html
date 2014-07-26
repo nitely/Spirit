@@ -38,33 +38,56 @@
                     </div>
                 </div>
 
-                {% if user.is_authenticated and not c.action %}
+                {% if not c.action %}
                     <ul class="comment-actions">
-                        {% if user.is_moderator %}
-                            <li><a href="{% url "spirit:comment-delete" c.pk %}"><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
+                        {% if user.is_authenticated %}
+                            {% if user.is_moderator %}
+                                <li><a href="{% url "spirit:comment-delete" c.pk %}"><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
+                            {% endif %}
+
+                            <li><a href="{% url "spirit:flag-create" c.pk %}"><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
                         {% endif %}
+                    
+                        <li><a class="js-share" href="#" data-dialog=".js-share-{{ c.pk }}"><i class="fa fa-share"></i> {% trans "share" %}</a></li>
 
-                        <li><a href="{% url "spirit:flag-create" c.pk %}"><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
-
-                        {% if c.like %}
-                            <li class="comment-like"><a class="js-like" href="{% url "spirit:like-delete" c.like.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
-                        {% else %}
-                            {% ifnotequal c.user user  %}
-                                <li class="comment-like"><a class="js-like" class="like" href="{% url "spirit:like-create" c.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
+                        {% if user.is_authenticated %}
+                            {% if c.like %}
+                                <li class="comment-like"><a class="js-like" href="{% url "spirit:like-delete" c.like.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
                             {% else %}
-                                <li class="comment-like"><i class="fa fa-heart"></i> ({{ c.likes_count }})</li>
+                                {% ifnotequal c.user user  %}
+                                    <li class="comment-like"><a class="js-like" class="like" href="{% url "spirit:like-create" c.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
+                                {% else %}
+                                    <li class="comment-like"><i class="fa fa-heart"></i> ({{ c.likes_count }})</li>
+                                {% endifnotequal %}
+                            {% endif %}
+
+                            {% if user.is_moderator or c.user.pk == user.pk %}
+                                <li><a href="{% url "spirit:comment-update" pk=c.pk %}" >{% trans "edit" %}</a></li>
+                            {% endif %}
+
+                            {% ifnotequal c.user.pk user.pk %}
+                                <li><a href="{% url "spirit:comment-publish" topic_id=topic.pk pk=c.pk %}" >{% trans "quote" %}</a></li>
+                                <li><a href="#reply" >{% trans "reply" %}</a></li>
                             {% endifnotequal %}
                         {% endif %}
-
-                        {% if user.is_moderator or c.user.pk == user.pk %}
-                            <li><a href="{% url "spirit:comment-update" pk=c.pk %}" >{% trans "edit" %}</a></li>
-                        {% endif %}
-
-                        {% ifnotequal c.user.pk user.pk %}
-                            <li><a href="{% url "spirit:comment-publish" topic_id=topic.pk pk=c.pk %}" >{% trans "quote" %}</a></li>
-                            <li><a href="#reply" >{% trans "reply" %}</a></li>
-                        {% endifnotequal %}
                     </ul>
+
+                    <div class="share js-share-{{ c.pk }}" style="display: none;">
+                        <div class="share-box">
+                            <a class="share-close" href="#" ><i class="fa fa-times"></i> {% trans "close" %}</a>
+
+                            {% with comment_url=c.get_absolute_url %}
+                                <input class="share-url" type="text" value="{% get_share_url url=comment_url %}" />
+                                <ul class="share-actions">
+                                    <li><a href="{% get_twitter_share_url url=comment_url title=topic.title %}" target="_blank"><i class="fa fa-twitter"></i></a></li><!--
+                                 --><li><a href="{% get_facebook_share_url url=comment_url title=topic.title %}" target="_blank"><i class="fa fa-facebook"></i></a></li><!--
+                                 --><li><a href="{% get_gplus_share_url url=comment_url %}" target="_blank"><i class="fa fa-google-plus"></i></a></li><!--
+                                 --><li><a href="{% get_email_share_url url=comment_url title=topic.title %}" ><i class="fa fa-envelope"></i></a></li>
+                                </ul>
+                            {% endwith %}
+
+                        </div>
+                    </div>
                 {% endif %}
 
             {% else %}
@@ -112,6 +135,7 @@
             } );
         {% endif %}
 
+        $('.js-share').social_share();
 
         hljs.initHighlightingOnLoad();
 

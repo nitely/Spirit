@@ -27,6 +27,9 @@ class Storage
       $(window).on 'storage', @updateField
       return
 
+    # This gets called for every el,
+    # even if they belong to the same form,
+    # it's ok though.
     $form = @el.closest "form"
     $form.on 'submit', @clearStorage
 

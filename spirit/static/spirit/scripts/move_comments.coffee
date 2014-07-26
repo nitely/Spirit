@@ -21,7 +21,11 @@ class MoveComment
     @el.on 'click', @showMoveComments
     @el.on 'click', @stopClick
 
-    $move_comments = $( ".js-move-comments" )
+    # TODO: this should probably be moved from
+    # here to its own class, since it gets
+    # called for every el. Since we have only
+    # one "move comments" link, it's ok for now.
+    $move_comments = $(".js-move-comments")
     $move_comments.on 'click', @moveComments
     $move_comments.on 'click', @stopClick
 
