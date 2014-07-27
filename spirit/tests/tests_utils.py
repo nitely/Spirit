@@ -24,6 +24,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.timezone import utc
+from django.utils.http import urlunquote
 
 from spirit.models.category import Category
 from spirit.utils.forms import NestedModelChoiceField
@@ -119,21 +120,6 @@ class MockDateTime(datetime.datetime):
 
 class UtilsTemplateTagTests(TestCase):
 
-    def test_is_checkbox(self):
-        """
-        return True if the field is a checkbox
-        """
-        class CheckBoxForm(forms.Form):
-            checkbox = forms.BooleanField()
-
-        out = Template(
-            "{% load spirit_tags %}"
-            "{% for field in form.visible_fields %}"
-            "{{ field|is_checkbox }}"
-            "{% endfor %}"
-        ).render(Context({'form': CheckBoxForm(), }))
-        self.assertEqual(out, "True")
-
     def test_shortnaturaltime(self):
         """"""
         class naive(datetime.tzinfo):
@@ -187,6 +173,38 @@ class UtilsTemplateTagTests(TestCase):
         res = render_messages([m1, m2, m3])
         self.assertDictEqual(dict(res['messages_grouped']), {'error': [m1, m2],
                                                              'info': [m3, ]})
+
+    def test_social_share(self):
+        """
+        Test social share tags with unicode input
+        """
+        t = Template(u'{% load spirit_tags %}'
+                     u'{% get_facebook_share_url url="/á/foo bar/" title="á" %}'
+                     u'{% get_twitter_share_url url="/á/foo bar/" title="á" %}'
+                     u'{% get_gplus_share_url url="/á/foo bar/" %}'
+                     u'{% get_email_share_url url="/á/foo bar/" title="á" %}'
+                     u'{% get_share_url url="/á/foo bar/" %}')
+        res = t.render(Context({'request': RequestFactory().get('/'), }))
+        self.assertEqual(res.strip(), u"http://www.facebook.com/sharer.php?u=100&p%5Burl%5D=http%3A%2F%2Ftestserver"
+                                      u"%2F%25C3%25A1%2Ffoo%2520bar%2F&p%5Btitle%5D=%C3%A1"
+                                      u"https://twitter.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
+                                      u"foo%2520bar%2F&text=%C3%A1"
+                                      u"https://plus.google.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
+                                      u"foo%2520bar%2F"
+                                      u"mailto:?body=http%3A%2F%2Ftestserver%2F%25C3%25A1%2Ffoo%2520bar%2F"
+                                      u"&subject=%C3%A1&to="
+                                      u"http://testserver/%C3%A1/foo%20bar/")
+
+    def test_social_share_twitter_length(self):
+        """
+        Twitter allows up to 140 chars, takes 23 for urls (https)
+        """
+        long_title = u"á" * 150
+        t = Template(u'{% load spirit_tags %}'
+                     u'{% get_twitter_share_url url="/foo/" title=long_title %}')
+        res = t.render(Context({'request': RequestFactory().get('/'), 'long_title': long_title}))
+        url = urlunquote(res.strip())
+        self.assertEqual(len(url.split("text=")[-1]) + 23, 139)
 
 
 class UtilsFormsTests(TestCase):

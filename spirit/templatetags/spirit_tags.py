@@ -13,6 +13,5 @@ from .tags.utils import messages
 from .tags.utils import paginator
 from .tags.utils import social_share
 from .tags.utils import time
-from .tags.utils import widgets
 
 from .tags import register
