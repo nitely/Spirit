@@ -26,3 +26,16 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+# These are all the languages Spirit provides.
+# https://www.transifex.com/projects/p/spirit/
+gettext_noop = lambda s: s
+LANGUAGES = (
+    ('de', gettext_noop('German')),
+    ('en', gettext_noop('English')),
+    ('es', gettext_noop('Spanish')),
+    ('sv', gettext_noop('Swedish')),
+)
+
+# Default language
+LANGUAGE_CODE = 'en'
