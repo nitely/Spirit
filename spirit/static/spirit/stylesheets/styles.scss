@@ -210,21 +210,50 @@ input.move-comment-checkbox {
 .comment-img {
   @extend %media-img;
   width: 50px;
-  word-wrap: break-word;
   margin-right: $base-spacing-size;
 }
 
 .comment-body {
   @extend %media-body;
-  
+}
+
+.comment-avatar {
+  border-radius: 25px;
+}
+
+.comment-info {
+  @extend %clearfix;
+  font-size: 14px;
+  margin-bottom: $half-spacing-size;
+}
+
+.comment-username {
+  float: left;
+}
+
+.comment-date {
+  @extend %inline-list;
+  float: right;
+}
+
+.comment-realname {
+  display: none;
+
+  @include media( $medium ) {
+    display: inline;
+    margin-left: $half-spacing-size;
+  }
+}
+
+.comment-text {
   blockquote {
     margin: 0;
     border-left: $light-grey 4px solid;
 	padding-left: $base-spacing-size;
   }
-  
+
   ul {
-    list-style-type: disc; 
+    list-style-type: disc;
     list-style-position: inside;
 	margin-left: 40px;
 	margin-bottom: $base-line-height;
@@ -233,21 +262,6 @@ input.move-comment-checkbox {
   img {
     vertical-align: text-bottom;
   }
-}
-
-.comment-info {
-  @extend %inline-list;
-  font-size: 14px;
-  text-align: right;
-}
-
-.comment-avatar {
-  border-radius: 25px;
-}
-
-.comment-username {
-  font-size: 14px;
-  text-align: center;
 }
 
 .comment-actions {
@@ -401,7 +415,12 @@ ul.reply-markdown {
 }
 
 .menu-item {
+  @extend %clearfix;
   padding: 0 $half-spacing-size;
+}
+
+.menu-username {
+  float: left;
 }
 
 .menu-icon {

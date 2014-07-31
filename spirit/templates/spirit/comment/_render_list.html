@@ -12,29 +12,35 @@
 
             {% if not c.is_removed %}
 
-                <ul class="comment-info">
-                    {% if c.modified_count > 0 %}
-                        <li><a href="{% url "spirit:comment-history" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
-                    {% endif %}
-
-                    <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
-                </ul>
-
                 <div class="comment-media">
                     <div class="comment-img">
                         <img class="comment-avatar" src="{% get_gravatar_url user=c.user size=50 %}" />
-
-                        <div class="comment-username">
-                            <a class="username{% if c.user.is_administrator %} is-admin{% elif c.user.is_moderator %} is-mod{% endif %}" href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>
-                        </div>
                     </div>
 
                     <div class="comment-body">
-                        {% if not c.action %}
-                            {{ c.comment_html|safe }}
-                        {% else %}
-                            <p>{% get_comment_action_text c.action %}.</p>
-                        {% endif %}
+                        <div class="comment-info">
+
+                            <div class="comment-username">
+                                <a class="username{% if c.user.is_administrator %} is-admin{% elif c.user.is_moderator %} is-mod{% endif %}" href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a><span class="comment-realname">{{ c.user.get_full_name }}</span>
+                            </div>
+
+                            <ul class="comment-date">
+                                {% if c.modified_count > 0 %}
+                                    <li><a href="{% url "spirit:comment-history" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
+                                {% endif %}
+
+                                <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+                            </ul>
+
+                        </div>
+
+                        <div class="comment-text">
+                            {% if not c.action %}
+                                {{ c.comment_html|safe }}
+                            {% else %}
+                                <p>{% get_comment_action_text c.action %}.</p>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
 
@@ -47,7 +53,7 @@
 
                             <li><a href="{% url "spirit:flag-create" c.pk %}"><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
                         {% endif %}
-                    
+
                         <li><a class="js-share" href="#" data-dialog=".js-share-{{ c.pk }}"><i class="fa fa-share"></i> {% trans "share" %}</a></li>
 
                         {% if user.is_authenticated %}
@@ -94,17 +100,20 @@
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <div class="comment-username">
+                        <div>
                             <a href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>
                         </div>
                     </div>
 
                     <div class="comment-body">
-                        {% if user.is_moderator %}
-                            {{ c.comment_html|safe }}
-                        {% else %}
-                            {% trans "This comment was deleted" %}.
-                        {% endif %}
+
+                        <div class="comment-text">
+                            {% if user.is_moderator %}
+                                {{ c.comment_html|safe }}
+                            {% else %}
+                                {% trans "This comment was deleted" %}.
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
 

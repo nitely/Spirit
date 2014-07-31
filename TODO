@@ -25,7 +25,6 @@
 * User groups (permissions)
 * >> add @username on reply
 * >> allow mods to create topics on closed categories
-* >> test templatetags/utils/share_social
 
 
 Template

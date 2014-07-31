@@ -22,7 +22,7 @@
                 <div class="tab-content js-tab-content js-participants-content">
                     <ul class="participants-menu">
                         {% for tp in topic.topics_private.all %}
-                            <li class="menu-item">{{ tp.user.username }}{% ifequal user.pk topic.user.pk %} <a class="menu-icon" href="{% url "spirit:private-access-remove" tp.pk %}" ><i class="fa fa-times"></i></a>{% endifequal %}</li>
+                            <li class="menu-item"><span class="menu-username">{{ tp.user.username }}</span>{% ifequal user.pk topic.user.pk %}<a class="menu-icon" href="{% url "spirit:private-access-remove" tp.pk %}" ><i class="fa fa-times"></i></a>{% endifequal %}</li>
                         {% endfor %}
                     </ul>
 

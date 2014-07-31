@@ -525,18 +525,18 @@ h2 {
 
 .comment-media, .container,
 .header, .row,
-.comment {
+.comment, .comment-info, .menu-item {
   *zoom: 1; }
   .comment-media:before, .container:before,
   .header:before, .row:before,
-  .comment:before, .comment-media:after, .container:after,
+  .comment:before, .comment-info:before, .menu-item:before, .comment-media:after, .container:after,
   .header:after, .row:after,
-  .comment:after {
+  .comment:after, .comment-info:after, .menu-item:after {
     content: " ";
     display: table; }
   .comment-media:after, .container:after,
   .header:after, .row:after,
-  .comment:after {
+  .comment:after, .comment-info:after, .menu-item:after {
     clear: both; }
 
 .inline-list li,
@@ -544,7 +544,7 @@ h2 {
 .admin-tabs li,
 .header-tabs li,
 .nav li,
-.comment-info li,
+.comment-date li,
 .comment-actions li,
 .paginator li,
 .reply-markdown li,
@@ -559,7 +559,7 @@ h2 {
 .admin-tabs li,
 .header-tabs li,
 .nav li,
-.comment-info li,
+.comment-date li,
 .comment-actions li,
 .paginator li,
 .reply-markdown li,
@@ -571,7 +571,7 @@ h2 {
   .admin-tabs li:first-child,
   .header-tabs li:first-child,
   .nav li:first-child,
-  .comment-info li:first-child,
+  .comment-date li:first-child,
   .comment-actions li:first-child,
   .paginator li:first-child,
   .reply-markdown li:first-child,
@@ -916,31 +916,39 @@ input.move-comment-checkbox {
 
 .comment-img {
   width: 50px;
-  word-wrap: break-word;
   margin-right: 24px; }
-
-.comment-body blockquote {
-  margin: 0;
-  border-left: #cecece 4px solid;
-  padding-left: 24px; }
-.comment-body ul {
-  list-style-type: disc;
-  list-style-position: inside;
-  margin-left: 40px;
-  margin-bottom: 24px; }
-.comment-body img {
-  vertical-align: text-bottom; }
-
-.comment-info {
-  font-size: 14px;
-  text-align: right; }
 
 .comment-avatar {
   border-radius: 25px; }
 
-.comment-username {
+.comment-info {
   font-size: 14px;
-  text-align: center; }
+  margin-bottom: 12px; }
+
+.comment-username {
+  float: left; }
+
+.comment-date {
+  float: right; }
+
+.comment-realname {
+  display: none; }
+  @media screen and (min-width: 768px) {
+    .comment-realname {
+      display: inline;
+      margin-left: 12px; } }
+
+.comment-text blockquote {
+  margin: 0;
+  border-left: #cecece 4px solid;
+  padding-left: 24px; }
+.comment-text ul {
+  list-style-type: disc;
+  list-style-position: inside;
+  margin-left: 40px;
+  margin-bottom: 24px; }
+.comment-text img {
+  vertical-align: text-bottom; }
 
 .comment-actions {
   font-size: 14px;
@@ -1060,6 +1068,9 @@ ul.reply-markdown {
 
 .menu-item {
   padding: 0 12px; }
+
+.menu-username {
+  float: left; }
 
 .menu-icon {
   float: right; }
