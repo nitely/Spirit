@@ -37,7 +37,7 @@ class MoveComment
     return
 
   addCommentSelection: =>
-    $li = $("<li/>").appendTo ".comment-info"
+    $li = $("<li/>").appendTo ".comment-date"
 
     $checkbox = $("<input/>", {
       class: "move-comment-checkbox",

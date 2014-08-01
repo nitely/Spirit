@@ -60,6 +60,11 @@ class CommentMoveForm(forms.Form):
         comments_list = list(comments)
         topic = self.cleaned_data['topic']
         comments.update(topic=topic)
+
+        # Update topic in comment instance
+        for c in comments_list:
+            c.topic = topic
+
         return comments_list
 
 

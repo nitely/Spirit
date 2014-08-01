@@ -43,7 +43,7 @@
 
     MoveComment.prototype.addCommentSelection = function() {
       var $checkbox, $li;
-      $li = $("<li/>").appendTo(".comment-info");
+      $li = $("<li/>").appendTo(".comment-date");
       $checkbox = $("<input/>", {
         "class": "move-comment-checkbox",
         name: "comments",
