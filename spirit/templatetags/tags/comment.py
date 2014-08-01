@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 
+from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from . import register
@@ -15,7 +16,7 @@ def get_comment_list(topic):
 @register.inclusion_tag('spirit/comment/_form.html')
 def render_comments_form(topic, next=None):
     form = CommentForm()
-    return {'form': form, 'topic_id': topic.pk, 'next': next}
+    return {'form': form, 'topic_id': topic.pk, 'next': next, 'STATIC_URL': settings.STATIC_URL}
 
 
 @register.simple_tag()

@@ -13,6 +13,7 @@ def render_like_form(comment, like, next=None):
 
 @register.simple_tag()
 def populate_likes(comments, user, to_attr='like'):
+    # TODO: use Prefetch on django 1.7, move this to CustomQuerySet.as_manager
     likes = CommentLike.objects.filter(comment__in=comments, user=user)
     likes_dict = {l.comment_id: l for l in likes}
 

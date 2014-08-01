@@ -1,8 +1,9 @@
 #-*- coding: utf-8 -*-
 
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from spirit.managers.category import CategoryManager
 from spirit.utils.models import AutoSlugField
@@ -30,6 +31,9 @@ class Category(models.Model):
         verbose_name_plural = _("categories")
 
     def get_absolute_url(self):
+        if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
+            return reverse('spirit:private-list')
+
         return reverse('spirit:category-detail', kwargs={'pk': str(self.id), 'slug': self.slug})
 
     @property

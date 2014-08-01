@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.views import login as login_view
-from django.contrib.auth.views import password_reset
+from django.contrib.auth.views import password_reset, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -36,6 +36,17 @@ def custom_login(request, **kwargs):
     return login_view(request, authentication_form=LoginForm, **kwargs)
 
 
+def custom_logout(request, **kwargs):
+    # Current Django 1.6 uses GET to log out
+    if not request.user.is_authenticated():
+        return redirect(request.GET.get('next', reverse('spirit:user-login')))
+
+    if request.method == 'POST':
+        return logout(request, **kwargs)
+
+    return render(request, 'spirit/user/logout.html')
+
+
 @ratelimit(field='email', rate='5/5m')
 def custom_reset_password(request, **kwargs):
     if request.is_limited and request.method == "POST":
@@ -44,6 +55,7 @@ def custom_reset_password(request, **kwargs):
     return password_reset(request, **kwargs)
 
 
+@ratelimit(rate='2/10s')
 def register(request):
     if request.user.is_authenticated():
         return redirect(request.GET.get('next', reverse('spirit:profile-update')))
@@ -51,7 +63,7 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
 
-        if form.is_valid():
+        if not request.is_limited and form.is_valid():
             user = form.save()
             send_activation_email(request, user)
             messages.info(request, _("We have sent you an email so you can activate your account!"))
@@ -88,7 +100,7 @@ def resend_activation_email(request):
     if request.method == 'POST':
         form = ResendActivationForm(data=request.POST)
 
-        if form.is_valid():
+        if not request.is_limited and form.is_valid():
             user = form.get_user()
             send_activation_email(request, user)
 

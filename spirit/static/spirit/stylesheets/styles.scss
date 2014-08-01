@@ -210,46 +210,69 @@ input.move-comment-checkbox {
 .comment-img {
   @extend %media-img;
   width: 50px;
-  word-wrap: break-word;
   margin-right: $base-spacing-size;
 }
 
 .comment-body {
   @extend %media-body;
-  
-  blockquote {
-    margin: 0;
-    border-left: $light-grey 4px solid;
-	padding-left: $base-spacing-size;
-  }
-  
-  ul {
-    list-style-type: disc; 
-    list-style-position: inside;
-	margin-left: 40px;
-	margin-bottom: $base-line-height;
-  }
-}
-
-.comment-info {
-  @extend %inline-list;
-  font-size: 14px;
-  text-align: right;
 }
 
 .comment-avatar {
   border-radius: 25px;
 }
 
-.comment-username {
+.comment-info {
+  @extend %clearfix;
   font-size: 14px;
-  text-align: center;
+  margin-bottom: $half-spacing-size;
+}
+
+.comment-username {
+  float: left;
+}
+
+.comment-date {
+  @extend %inline-list;
+  float: right;
+}
+
+.comment-realname {
+  display: none;
+
+  @include media( $medium ) {
+    display: inline;
+    margin-left: $half-spacing-size;
+  }
+}
+
+.comment-text {
+  blockquote {
+    margin: 0;
+    border-left: $light-grey 4px solid;
+	padding-left: $base-spacing-size;
+  }
+
+  ul {
+    list-style-type: disc;
+    list-style-position: inside;
+	margin-left: 40px;
+	margin-bottom: $base-line-height;
+  }
+
+  img {
+    vertical-align: text-bottom;
+  }
 }
 
 .comment-actions {
   @extend %inline-list;
   font-size: 14px;
   text-align: right;
+}
+
+.comment-removed {
+  font-size: 14px;
+  word-wrap: break-word;
 }
 
 .username {
@@ -326,6 +349,53 @@ ul.reply-markdown {
   }
 }
 
+.share {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9100;
+  
+  display: table;
+  width: 100%;
+  height: 100%;
+  background: $white;
+  background: rgba($white, 0.75);
+  
+  @include media( $medium ) {
+    width: 300px;
+    height: 150px;
+	top: 50%;
+	left: 50%;
+	margin-top: -75px;
+    margin-left: -150px;
+	padding: $base-spacing-size;
+	border: $light-grey 1px solid;
+  }
+}
+
+.share-close {
+  float: right;
+  margin-bottom: $base-spacing-size;
+}
+
+.share-box {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.share-url {
+  margin-bottom: $half-spacing-size;
+}
+
+.share-actions {
+  @extend %inline-list;
+  text-align: right;
+  
+  li {
+    margin-left: $base-spacing-size;
+  }
+}
+
 //menu
 
 .menu,
@@ -350,7 +420,12 @@ ul.reply-markdown {
 }
 
 .menu-item {
+  @extend %clearfix;
   padding: 0 $half-spacing-size;
+}
+
+.menu-username {
+  float: left;
 }
 
 .menu-icon {

@@ -4,11 +4,7 @@
     <form action="{% url "spirit:like-create" comment_id %}" method="post">
 {% endif %}
     {% csrf_token %}
-    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
-
-    {% for field in form %}
-        {{ field }}
-    {% endfor %}
+    {% include "spirit/_form.html" %}
 
     {# javascript submission #}
 </form>

@@ -4,13 +4,15 @@ from django.db.models.fields import SlugField
 from django.utils.text import slugify
 from django.utils.encoding import smart_text
 
+__all__ = ['AutoSlugField', ]
+
 
 class AutoSlugField(SlugField):
     """
     Auto populates itself from another field.
 
     It behaves like a regular SlugField.
-    When populate_from is provided it'll populate itself on creation
+    When populate_from is provided it'll populate itself on creation,
     only if a slug was not provided.
     """
     def __init__(self, *args, **kwargs):

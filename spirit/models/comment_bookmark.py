@@ -1,18 +1,13 @@
 #-*- coding: utf-8 -*-
 
-import logging
-
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db import IntegrityError
 
 from spirit.signals.topic import topic_viewed
 from ..utils import paginator
-
-
-logger = logging.getLogger(__name__)
 
 
 class CommentBookmark(models.Model):

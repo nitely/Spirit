@@ -16,16 +16,16 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
     <![endif]-->
 	
-	<script src="scripts/jquery.min.js"></script>
+	<script src="../scripts/jquery.min.js"></script>
 	
-	<script src="scripts/marked/marked.min.js"></script>
-	<script src="scripts/editor.js"></script>
+	<script src="../scripts/marked/marked.min.js"></script>
+	<script src="../scripts/editor.js"></script>
 	
-	<script src="scripts/storage.js"></script>
-	<script src="scripts/like.js"></script>
+	<script src="../scripts/storage.js"></script>
+	<script src="../scripts/like.js"></script>
 	
-	<script src="scripts/waypoints/waypoints.min.js"></script>
-	<script src="scripts/bookmark.js"></script>
+	<script src="../scripts/waypoints/waypoints.min.js"></script>
+	<script src="../scripts/bookmark.js"></script>
 	
 	<script>
 
@@ -42,11 +42,11 @@
             smartypants: false
         });
 		
-		$.editor( {} );
+		$( '.js-reply' ).find( 'textarea' ).editor( {} );
 		
 		$( ".reply" ).find( "textarea" ).store( "topic_id" );
 		
-		$.like( {} );
+		$('.js-like').like( {} );
 		
 		$( ".comment" ).bookmark( {} );
 
@@ -74,60 +74,65 @@
 	</header>
 		
 	<div class="comments">
-			
-		<div class="comment" data-number="1" id="c1">
-			<ul class="comment-info">
-				<li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
-			 --><li>4h</li>
-			</ul>
-				
+
+	    <div class="comment" data-number="1" id="c1">
+
 			<div class="comment-media">
 				<div class="comment-img">
-					<img src="avatar.png" />
-						
-					<div class="comment-username">
-						<a href="#">nitely</a>
-					</div>
+					<img class="comment-avatar" src="avatar.png" />
 				</div>
-					
+
 				<div class="comment-body">
-					<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
-						<p>How ya' doin today?</p>
+                    <div class="comment-info">
+
+                        <div class="comment-username">
+                            <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
+                        </div>
+
+                        <ul class="comment-date">
+                            <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
+                         --><li>4h</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="comment-text">
+
+                        <p>Comment text</p>
+
+                    </div>
+
 				</div>
 			</div>
-				
+
 			<ul class="comment-actions">
 				<li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
-			 --><li class="comment-like"><i class="fa fa-heart"></i> like</li><!--
+			 --><li class="comment-like"><a class="js-like" href="#" data-count="1"><i class="fa fa-heart"></i> like</a></li><!--
 			 --><li><a href="#">reply</a></li>
 			</ul>
 		</div>
 			
 		<div class="comment" data-number="2" id="c2">
-			<ul class="comment-info">
-				<li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
-			 --><li>4h</li>
-			</ul>
-				
 			<div class="comment-media">
 				<div class="comment-img">
-					<img src="avatar.png" />
-						
-					<div class="comment-username">
-						<a href="#">nitely</a>
-					</div>
+					<img class="comment-avatar" src="avatar.png" />
 				</div>
-					
+
 				<div class="comment-body">
+                    <div class="comment-info">
+
+                        <div class="comment-username">
+                            <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
+                        </div>
+
+                        <ul class="comment-date">
+                            <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
+                         --><li>4h</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="comment-text">
 					<p>more How ya' doin today?</p>
 						<p>more How ya' doin today?</p>
 						<p>more How ya' doin today?</p>
@@ -154,6 +159,7 @@
 						<p>more How ya' doin today?</p>
 						<p>more How ya' doin today?</p>
 						<p>more How ya' doin today?</p>
+                    </div>
 				</div>
 			</div>
 				
@@ -165,21 +171,26 @@
 		</div>
 		
 		<div class="comment" data-number="3" id="c3">
-			<ul class="comment-info">
-				<li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
-			 --><li>4h</li>
-			</ul>
-				
 			<div class="comment-media">
 				<div class="comment-img">
-					<img src="avatar.png" />
-						
-					<div class="comment-username">
-						<a href="#">nitely</a>
-					</div>
+					<img class="comment-avatar" src="avatar.png" />
 				</div>
-					
+
 				<div class="comment-body">
+                    <div class="comment-info">
+
+                        <div class="comment-username">
+                            <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
+                        </div>
+
+                        <ul class="comment-date">
+                            <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
+                         --><li>4h</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="comment-text">
 					<p>4 How ya' doin today?</p>
 						<p>4 How ya' doin today?</p>
 						<p>4 How ya' doin today?</p>
@@ -200,6 +211,7 @@
 						<p>4 How ya' doin today?</p>
 						<p>4 How ya' doin today?</p>
 						<p>4 How ya' doin today?</p>
+                    </div>
 				</div>
 			</div>
 				
@@ -211,21 +223,28 @@
 		</div>
 		
 		<div class="comment is-highlighted" data-number="4" id="c4">
-			<ul class="comment-info">
-				<li>1h</li>
-			</ul>
-				
 			<div class="comment-media">
 				<div class="comment-img">
-					<img src="avatar.png" />
-						
-					<div class="comment-username">
-						<a href="#">nitely</a>
-					</div>
+					<img class="comment-avatar" src="avatar.png" />
 				</div>
-					
+
 				<div class="comment-body">
+                    <div class="comment-info">
+
+                        <div class="comment-username">
+                            <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
+                        </div>
+
+                        <ul class="comment-date">
+                            <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
+                         --><li>4h</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="comment-text">
 					<p>This topic is now closed.</p>
+                    </div>
 				</div>
 			</div>
 		</div>

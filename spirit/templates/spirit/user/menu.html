@@ -20,7 +20,7 @@
             <li><a class="menu-link" href="{% url "spirit:admin" %}">{% trans "Admin" %}</a></li>
         {% endif %}
 
-         <li><a class="menu-link" href="{% url "spirit:user-logout" %}">{% trans "Log out" %}</a></li>
+         <li><a class="menu-link js-post" href="{% url "spirit:user-logout" %}">{% trans "Log out" %}</a></li>
     </ul>
 
 {% endblock %}

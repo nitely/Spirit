@@ -22,7 +22,7 @@ from spirit.models.comment import Comment,\
     comment_like_post_create, comment_like_post_delete,\
     topic_post_moderate
 from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
-from spirit.signals.comment import comment_post_update, comment_posted, comment_pre_update
+from spirit.signals.comment import comment_post_update, comment_posted, comment_pre_update, comment_moved
 from spirit.templatetags.tags.comment import render_comments_form
 from spirit.utils import markdown
 from spirit.views.comment import comment_delete
@@ -314,6 +314,38 @@ class CommentViewTest(TestCase):
         self.assertEqual(Comment.objects.filter(topic=to_topic.pk).count(), 2)
         self.assertEqual(Comment.objects.filter(topic=self.topic.pk).count(), 0)
 
+    def test_comment_move_signal(self):
+        """
+        move comments, emit signal
+        """
+        self._comments = []
+
+        def comment_posted_handler(sender, comment, **kwargs):
+            self._comments.append(comment)
+        comment_posted.connect(comment_posted_handler)
+
+        def comment_moved_handler(sender, comments, topic_from, **kwargs):
+            self._comment_count = len(comments)
+            self._topic_from = topic_from
+        comment_moved.connect(comment_moved_handler)
+
+        utils.login(self)
+        self.user.is_moderator = True
+        self.user.save()
+
+        comment = utils.create_comment(user=self.user, topic=self.topic)
+        comment2 = utils.create_comment(user=self.user, topic=self.topic)
+        to_topic = utils.create_topic(self.category)
+
+        form_data = {'topic': to_topic.pk,
+                     'comments': [comment.pk, comment2.pk], }
+        response = self.client.post(reverse('spirit:comment-move', kwargs={'topic_id': self.topic.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertListEqual(self._comments, [comment2, comment])
+        self.assertEqual(self._comment_count, 2)
+        self.assertEqual(repr(self._topic_from), repr(self.topic))
+
     def test_comment_find(self):
         """
         comment absolute and lazy url
@@ -523,21 +555,7 @@ class CommentFormTest(TestCase):
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertTrue(form.is_valid())
         image = form.save()
-        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
-        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
-
-    @override_settings(ST_ALLOWED_UPLOAD_IMAGE_EXT=[])
-    def test_comment_image_upload_bad_extension(self):
-        """
-        Image upload bad extensions are removed
-        """
-        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
-        form = CommentImageForm(user=self.user, data={}, files=files)
-        self.assertTrue(form.is_valid())
-        image = form.save()
-        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44")
+        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
         os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
 
     @override_settings(ST_ALLOWED_UPLOAD_IMAGE_FORMAT=['png', ])

@@ -27,12 +27,12 @@
                 <div class="row-info">
                     <div>
                         {% if show_subcategory %}
-                            {{ t.category.title }}
+                            <a href="{{ t.category.get_absolute_url }}">{{ t.category.title }}</a>
                         {% else %}
                             {% if t.category.parent %}
-                                {{ t.category.parent.title }}
+                                <a href="{{ t.category.parent.get_absolute_url }}">{{ t.category.parent.title }}</a>
                             {% else %}
-                                {{ t.category.title }}
+                                <a href="{{ t.category.get_absolute_url }}">{{ t.category.title }}</a>
                             {% endif %}
                         {% endif %}
                     </div><!--

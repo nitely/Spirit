@@ -1,0 +1,23 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Update poll" %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="headline">{% trans "Update poll" %}</h1>
+
+    <form action="." method="post">
+        {% csrf_token %}
+        {% include "spirit/_form.html" %}
+
+        {{ formset.management_form }}
+        {% for f in formset %}
+            {% include "spirit/_form.html" with form=f %}
+        {% endfor %}
+
+        <input class="button" type="submit" name="post" value="{% trans "Publish" %}" />
+    </form>
+
+{% endblock %}

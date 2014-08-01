@@ -1,0 +1,9 @@
+{
+    "devDependencies": {
+        "coffee-script": "~1.7.1",
+        "karma": "~0.12.16",
+        "karma-jasmine": "~0.2.2",
+        "karma-coffee-preprocessor": "~0.2.1",
+        "karma-cli": "~0.0.4",
+    },
+}

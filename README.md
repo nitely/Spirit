@@ -65,7 +65,13 @@ Visit (http://127.0.0.1:8000/)
 
 ## Updating
 
-Soon.
+Run:
+
+    pip install -r requirements.txt
+    python manage.py syncdb
+    python manage.py loaddata spirit_init
+    python manage.py collectstatic
+    python manage.py rebuild_index
 
 ## Contributing
 

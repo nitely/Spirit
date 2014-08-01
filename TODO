@@ -1,15 +1,15 @@
 * Unsubscribe on notifications list
 * Unread: mark all as read, unsubscribe
-* NestedModelChoiceField for multiple choice (search), add *----* as initial
+* NestedModelChoiceField for multiple choice (search)
 * 'User has leave or has joined the conversation' comment on private topics, dont send notification.
 * Ocultar quote anidado (ej: max tres niveles, y ocultar el tercero con js [...])
 * Diff entre comentarios en historial (js)
 * Agregar contadores (comments, topics) para categoria
 * Agregar contadores (likes, topics, comments) para usuario
-* Agregar opcion para ver topics privados abandonados (solo para creador)
 * Panel de administracion: news letter,
 * Email notificacion digest/resume (once a day or so),
-  add preference for sending on every notif, unsubscribe
+  add preference for sending on every notif, unsubscribe,
+  translate.activate the user lang before sending or send bulk in english (?)
 * Test middlewares
 * Test managers
 * Tests views for login required
@@ -25,6 +25,7 @@
 * User groups (permissions)
 * >> add @username on reply
 * >> allow mods to create topics on closed categories
+* >> order profile topics by creation date
 
 
 Template
@@ -32,7 +33,7 @@ Template
 * admin: flag detail delete comment, detail add topic title
 * admin: add nav to detail templates
 * Notifications: show all/unread link
-* Emojis popup selector
+* local store comment publish/update
 
 
 Readme

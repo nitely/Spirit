@@ -36,7 +36,8 @@ class TokenGenerator(object):
 class UserActivationTokenGenerator(TokenGenerator):
 
     def _uid(self, user):
-        return smart_text(user.pk) + smart_text(user.last_login)
+        # Older mysql won't store ms.
+        return u";".join((smart_text(user.pk), smart_text(user.last_login.replace(microsecond=0))))
 
 
 class UserEmailChangeTokenGenerator(TokenGenerator):

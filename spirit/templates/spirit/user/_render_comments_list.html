@@ -5,22 +5,29 @@
         {% for c in page %}
 
             <div class="comment">
-                <ul class="comment-info">
-                    <li><a href="{{ c.get_absolute_url }}"><i class="fa fa-comments"></i> {{ c.topic.title }}</a></li><!--
-			     --><li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
-                </ul>
 
                 <div class="comment-media">
                     <div class="comment-img">
                         <img class="comment-avatar" src="{% get_gravatar_url user=c.user size=50 %}" />
-
-                        <div class="comment-username">
-                            <a href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>
-                        </div>
                     </div>
 
                     <div class="comment-body">
-                        {{ c.comment_html|safe }}
+                        <div class="comment-info">
+
+                            <div class="comment-username">
+                                <a href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>
+                            </div>
+
+                            <ul class="comment-date">
+                                <li><a href="{{ c.get_absolute_url }}"><i class="fa fa-comments"></i> {{ c.topic.title }}</a></li><!--
+			                 --><li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+                            </ul>
+
+                        </div>
+
+                        <div class="comment-text">
+                            {{ c.comment_html|safe }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,3 +37,14 @@
         {% endfor %}
 
     </div>
+
+
+    <script>
+
+	$( document ).ready(function() {
+
+        hljs.initHighlightingOnLoad();
+
+	});
+
+	</script>

@@ -397,7 +397,9 @@ class UserViewTest(TestCase):
         Activation token should expire after first login
         ActiveUserMiddleware required
         """
+        self.user.last_login = self.user.last_login - datetime.timedelta(hours=1)
         token = UserActivationTokenGenerator().generate(self.user)
+
         utils.login(self)
         User.objects.filter(pk=self.user.pk).update(is_active=False)
         response = self.client.get(reverse('spirit:registration-activation', kwargs={'pk': self.user.pk,
@@ -503,6 +505,43 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse('spirit:resend-activation'))
         expected_url = reverse("spirit:profile-update")
         self.assertRedirects(response, expected_url, status_code=302)
+
+    def test_logout(self):
+        """
+        should log out on POST only
+        """
+        utils.login(self)
+
+        # get should display confirmation message
+        response = self.client.get(reverse('spirit:user-logout'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(self.client.session.items())
+
+        # post should log out the user (clear the session)
+        response = self.client.post(reverse('spirit:user-logout'))
+        expected_url = "/"
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertFalse(self.client.session.items())
+
+        # next
+        utils.login(self)
+        self.assertTrue(self.client.session.items())
+        response = self.client.post(reverse('spirit:user-logout') + '?next=/fakepath/')
+        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+        self.assertFalse(self.client.session.items())
+
+    def test_logout_anonymous_redirect(self):
+        """
+        should log out on POST only
+        """
+        # redirect to login if user is anonymous
+        response = self.client.get(reverse('spirit:user-logout'))
+        expected_url = reverse("spirit:user-login")
+        self.assertRedirects(response, expected_url, status_code=302)
+
+        # next if user is anonymous
+        response = self.client.get(reverse('spirit:user-logout') + '?next=/fakepath/')
+        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
 
 
 class UserFormTest(TestCase):

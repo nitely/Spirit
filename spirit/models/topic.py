@@ -1,13 +1,13 @@
 #-*- coding: utf-8 -*-
 
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import F
 from django.utils import timezone
 
-from ..signals.comment import comment_posted
+from ..signals.comment import comment_posted, comment_moved
 
 from spirit.signals.topic import topic_viewed
 from spirit.managers.topic import TopicManager
@@ -62,5 +62,11 @@ def comment_posted_handler(sender, comment, **kwargs):
         .update(comment_count=F('comment_count') + 1, last_active=timezone.now())
 
 
+def comment_moved_handler(sender, comments, topic_from, **kwargs):
+    Topic.objects.filter(pk=topic_from.pk)\
+        .update(comment_count=F('comment_count') - len(comments))
+
+
 topic_viewed.connect(topic_page_viewed_handler, dispatch_uid=__name__)
 comment_posted.connect(comment_posted_handler, dispatch_uid=__name__)
+comment_moved.connect(comment_moved_handler, dispatch_uid=__name__)
