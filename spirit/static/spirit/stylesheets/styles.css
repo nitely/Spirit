@@ -954,6 +954,10 @@ input.move-comment-checkbox {
   font-size: 14px;
   text-align: right; }
 
+.comment-removed {
+  font-size: 14px;
+  word-wrap: break-word; }
+
 .username.is-admin {
   background: #ffffe9; }
 .username.is-mod {

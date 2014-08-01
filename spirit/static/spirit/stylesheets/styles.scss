@@ -270,6 +270,11 @@ input.move-comment-checkbox {
   text-align: right;
 }
 
+.comment-removed {
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
 .username {
   &.is-admin {
     background: $yellow;
