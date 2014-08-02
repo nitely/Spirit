@@ -34,6 +34,13 @@ class TopicPollForm(forms.ModelForm):
 
 class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
 
+    def __init__(self, can_delete=None, *args, **kwargs):
+        super(TopicPollChoiceInlineFormSet, self).__init__(*args, **kwargs)
+
+        if can_delete is not None:
+            # Adds the *delete* checkbox or not
+            self.can_delete = can_delete
+
     def is_filled(self):
         for form in self.forms:
             description = form.cleaned_data.get('description')
