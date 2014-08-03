@@ -11,7 +11,7 @@ from django.utils.image import Image
 from spirit.models.comment import Comment
 from spirit.models.topic import Topic
 from spirit import utils
-from spirit.utils.new_markdown import Markdown
+from spirit.utils.markdown import Markdown
 
 
 class CommentForm(forms.ModelForm):

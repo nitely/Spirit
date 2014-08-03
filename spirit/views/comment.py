@@ -10,7 +10,7 @@ from django.http import Http404
 
 from spirit.utils.ratelimit.decorators import ratelimit
 from spirit.models.topic import Topic
-from spirit.utils import paginator, new_markdown
+from spirit.utils import paginator, markdown
 from spirit.utils.decorators import moderator_required
 from spirit.utils import json_response, render_form_errors
 
@@ -37,7 +37,7 @@ def comment_publish(request, topic_id, pk=None):
 
         if pk:
             comment = get_object_or_404(Comment.objects.for_all(), pk=pk)
-            quote = new_markdown.quotify(comment.comment, comment.user.username)
+            quote = markdown.quotify(comment.comment, comment.user.username)
             initial = {'comment': quote, }
 
         form = CommentForm(initial=initial)

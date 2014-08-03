@@ -24,7 +24,7 @@ from spirit.models.comment import Comment,\
 from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
 from spirit.signals.comment import comment_post_update, comment_posted, comment_pre_update, comment_moved
 from spirit.templatetags.tags.comment import render_comments_form
-from spirit.utils import new_markdown
+from spirit.utils import markdown
 from spirit.views.comment import comment_delete
 from spirit.models.topic import Topic
 from spirit.models.category import Category
@@ -174,7 +174,7 @@ class CommentViewTest(TestCase):
         response = self.client.get(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk,
                                                                              'pk': comment.pk}))
         self.assertEqual(response.context['form'].initial['comment'],
-                         new_markdown.quotify(comment.comment, comment.user.username))
+                         markdown.quotify(comment.comment, comment.user.username))
 
     def test_comment_publish_next(self):
         """
