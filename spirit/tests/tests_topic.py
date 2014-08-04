@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 import utils
 
@@ -33,12 +34,16 @@ class TopicViewTest(TestCase):
         """
         utils.login(self)
         category = utils.create_category()
-        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish'),
                                     form_data)
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
+
+        # Make sure it does not creates an empty poll
+        self.assertRaises(ObjectDoesNotExist, lambda: topic.poll)
 
         # ratelimit
         response = self.client.post(reverse('spirit:topic-publish'),
@@ -56,7 +61,8 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         title = "a" * 75
-        form_data = {'comment': 'foo', 'title': title, 'category': category.pk}
+        form_data = {'comment': 'foo', 'title': title, 'category': category.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish'),
                                     form_data)
         self.assertEqual(response.status_code, 302)
@@ -69,7 +75,8 @@ class TopicViewTest(TestCase):
         """
         utils.login(self)
         category = utils.create_category()
-        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish', kwargs={'category_id': category.pk, }),
                                     form_data)
         topic = Topic.objects.last()
@@ -88,8 +95,8 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         subcategory = utils.create_subcategory(category)
-        form_data = {'comment': 'foo', 'title': 'foobar',
-                     'category': subcategory.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': subcategory.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish', kwargs={'category_id': subcategory.pk, }),
                                     form_data)
         topic = Topic.objects.last()
@@ -115,7 +122,8 @@ class TopicViewTest(TestCase):
         utils.login(self)
 
         category = utils.create_category()
-        form_data = {'title': 'foobar', 'category': category.pk, 'comment': 'foo'}
+        form_data = {'title': 'foobar', 'category': category.pk, 'comment': 'foo',
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish'),
                                     form_data)
         self.assertEqual(response.status_code, 302)

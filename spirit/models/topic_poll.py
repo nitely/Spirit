@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.db.models import F
 
 
 class TopicPoll(models.Model):
@@ -57,3 +58,14 @@ class TopicPollVote(models.Model):
 
     def __unicode__(self):
         return "poll vote %s" % self.pk
+
+
+# TODO: implement
+def poll_pre_vote(sender, poll, user, **kwargs):
+    TopicPollChoice.objects.filter(poll=poll, votes__user=user)\
+        .update(vote_count=F('vote_count') - 1)
+
+
+def poll_post_vote(sender, poll, user, **kwargs):
+    TopicPollChoice.objects.filter(poll=poll, votes__user=user)\
+        .update(vote_count=F('vote_count') + 1)
