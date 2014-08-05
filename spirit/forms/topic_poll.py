@@ -43,6 +43,9 @@ class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
             self.can_delete = can_delete
 
     def is_filled(self):
+        if self.instance.pk:
+            return True
+
         for form in self.forms:
             description = form.cleaned_data.get('description')
             is_marked_as_delete = form.cleaned_data.get('DELETE', False)

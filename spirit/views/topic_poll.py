@@ -19,6 +19,7 @@ def poll_update(request, pk):
     poll = get_object_or_404(TopicPoll, pk=pk, topic__user=request.user)
 
     if request.method == 'POST':
+        print request.POST
         form = TopicPollForm(data=request.POST, instance=poll)
         formset = TopicPollChoiceFormSet(data=request.POST, instance=poll)
 

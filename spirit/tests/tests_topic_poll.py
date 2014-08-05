@@ -179,3 +179,92 @@ class TopicPollViewTest(TestCase):
         expected_url = poll.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(len(response.context['messages']), 1)  # error message
+
+
+class TopicPollFormTest(TestCase):
+
+    fixtures = ['spirit_init.json', ]
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.user2 = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(self.category, user=self.user)
+        self.topic2 = utils.create_topic(self.category, user=self.user2)
+
+    def test_create_poll(self):
+        """
+        TopicPollForm
+        """
+        form_data = {'choice_limit': 1, }
+        form = TopicPollForm(topic=self.topic, data=form_data)
+        self.assertTrue(form.is_valid())
+        form.save()
+        self.assertEqual(len(TopicPoll.objects.filter(topic=self.topic)), 1)
+
+    def test_create_poll_invalid(self):
+        """
+        TopicPollForm
+        """
+        form_data = {'choice_limit': 0, }
+        form = TopicPollForm(topic=self.topic, data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_poll_choices_can_delete(self):
+        """
+        TopicPollChoiceFormSet
+        """
+        form = TopicPollChoiceFormSet(can_delete=True)
+        self.assertIn('DELETE', [f.fields for f in form.forms][0])
+
+        form = TopicPollChoiceFormSet(can_delete=False)
+        self.assertNotIn('DELETE', [f.fields for f in form.forms][0])
+
+    def test_create_poll_choices(self):
+        """
+        TopicPollChoiceFormSet
+        Check it's valid and is filled
+        """
+        # <QueryDict: {u'category': [u''], u'comment': [u''], u'choices-1-description': [u'op2'], u'choices-1-poll': [u''], u'title': [u''], u'choices-MAX_NUM_FORMS': [u'20'], u'choices-0-id': [u''], u'choices-INITIAL_FORMS': [u'0'], u'choices-0-poll': [u''], u'choice_limit': [u'1'], u'csrfmiddlewaretoken': [u'cAf24UW3Xj6cFpL8IqQCtSbQvnGg3Axb'], u'choices-0-description': [u'op1'], u'choices-1-id': [u''], u'choices-TOTAL_FORMS': [u'2']}>
+        form_data = {'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0,
+                     'choices-0-description': 'op1',
+                     'choices-1-description': 'op2'}
+        form = TopicPollChoiceFormSet(data=form_data)
+        self.assertTrue(form.is_valid())
+        self.assertTrue(form.is_filled())
+
+    def test_create_poll_choices_unfilled(self):
+        """
+        TopicPollChoiceFormSet
+        """
+        form_data = {'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0,
+                     'choices-0-description': '',
+                     'choices-1-description': ''}
+        form = TopicPollChoiceFormSet(data=form_data)
+        self.assertTrue(form.is_valid())
+        self.assertFalse(form.is_filled())
+
+    def test_create_poll_choices_filled_but_deleted(self):
+        """
+        TopicPollChoiceFormSet, create
+        """
+        form_data = {'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0,
+                     'choices-0-description': 'op1', 'choices-0-DELETE': "on",
+                     'choices-1-description': 'op2', 'choices-1-DELETE': "on"}
+        form = TopicPollChoiceFormSet(can_delete=True, data=form_data)
+        self.assertTrue(form.is_valid())
+        self.assertFalse(form.is_filled())
+
+    def test_update_poll_choices_filled_but_deleted(self):
+        """
+        TopicPollChoiceFormSet, update
+        is_filled should not be called when updating (coz form is always filled), but whatever
+        """
+        poll = TopicPoll.objects.create(topic=self.topic)
+        form_data = {'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0,
+                     'choices-0-description': 'op1', 'choices-0-DELETE': "on",
+                     'choices-1-description': 'op2', 'choices-1-DELETE': "on"}
+        form = TopicPollChoiceFormSet(can_delete=True, data=form_data, instance=poll)
+        self.assertTrue(form.is_valid())
+        self.assertTrue(form.is_filled())
