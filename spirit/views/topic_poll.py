@@ -49,6 +49,7 @@ def poll_close(request, pk):
 
 @require_POST
 def poll_vote(request, pk):
+    # TODO: check if user has access to this topic/poll
     poll = get_object_or_404(TopicPoll, pk=pk)
 
     if not request.user.is_authenticated():

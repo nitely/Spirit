@@ -1,7 +1,6 @@
 #-*- coding: utf-8 -*-
 
 from django import forms
-from django.utils.html import conditional_escape, mark_safe
 from django.utils.encoding import smart_text
 
 
@@ -40,4 +39,4 @@ class NestedModelChoiceField(forms.ModelChoiceField):
         if getattr(obj, self.parent_field):
             level_indicator = u"--- "
 
-        return mark_safe(level_indicator + conditional_escape(smart_text(getattr(obj, self.label_field))))
+        return u"%s%s" % (level_indicator, smart_text(getattr(obj, self.label_field)))

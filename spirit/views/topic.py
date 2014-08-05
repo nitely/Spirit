@@ -39,6 +39,7 @@ def topic_publish(request, category_id=None):
             comment = cform.save()
             comment_posted.send(sender=comment.__class__, comment=comment, mentions=cform.mentions)
 
+            # Create a poll only if we have choices
             if pformset.is_filled():
                 pform.topic = topic
                 poll = pform.save()

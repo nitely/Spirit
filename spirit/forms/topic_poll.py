@@ -3,6 +3,7 @@
 from django import forms
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_text
 
 from spirit.models.topic_poll import TopicPollChoice, TopicPoll, TopicPollVote
 
@@ -78,6 +79,8 @@ class TopicPollVoteManyForm(forms.Form):
                                                             empty_label=None,
                                                             widget=forms.RadioSelect,
                                                             label=_("Poll choices"))
+
+        self.fields['choices'].label_from_instance = lambda obj: smart_text(obj.description)
 
     def load_initial(self):
         selected_choices = TopicPollChoice.objects.filter(poll=self.poll, votes__user=self.user)
