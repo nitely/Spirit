@@ -86,13 +86,13 @@ class TopicPollVoteManyForm(forms.Form):
         self.fields['choices'].label_from_instance = lambda obj: smart_text(obj.description)
 
     def load_initial(self):
-        selected_choices = TopicPollChoice.objects.filter(poll=self.poll, votes__user=self.user)
+        selected_choices = list(TopicPollChoice.objects.filter(poll=self.poll, votes__user=self.user))
+
+        if not selected_choices:
+            return
 
         if self.poll.choice_limit == 1:
-            try:
-                selected_choices = selected_choices[0]
-            except IndexError:
-                selected_choices = None
+            selected_choices = selected_choices[0]
 
         self.initial = {'choices': selected_choices, }
 

@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 import utils
 
 from spirit.models.topic_poll import TopicPoll, TopicPollChoice, TopicPollVote
-from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
+from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet, TopicPollVoteManyForm
 
 
 User = get_user_model()
@@ -268,3 +268,137 @@ class TopicPollFormTest(TestCase):
         form = TopicPollChoiceFormSet(can_delete=True, data=form_data, instance=poll)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.is_filled())
+
+
+class TopicPollVoteManyFormTest(TestCase):
+
+    fixtures = ['spirit_init.json', ]
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.user2 = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(self.category, user=self.user)
+        self.topic2 = utils.create_topic(self.category, user=self.user2)
+        self.topic3 = utils.create_topic(self.category, user=self.user2)
+
+        self.poll = TopicPoll.objects.create(topic=self.topic, choice_limit=1)
+        self.poll_multi = TopicPoll.objects.create(topic=self.topic2, choice_limit=2)
+
+        self.poll_choice = TopicPollChoice.objects.create(poll=self.poll, description="op1")
+        self.poll_choice2 = TopicPollChoice.objects.create(poll=self.poll, description="op2")
+
+        self.poll_vote = TopicPollVote.objects.create(user=self.user, choice=self.poll_choice)
+        self.poll_vote2 = TopicPollVote.objects.create(user=self.user2, choice=self.poll_choice)
+
+        self.poll_multi_choice = TopicPollChoice.objects.create(poll=self.poll_multi, description="op1")
+        self.poll_multi_choice2 = TopicPollChoice.objects.create(poll=self.poll_multi, description="op2")
+        self.poll_multi_choice3 = TopicPollChoice.objects.create(poll=self.poll_multi, description="op3")
+
+        self.poll_multi_vote = TopicPollVote.objects.create(user=self.user, choice=self.poll_multi_choice)
+        self.poll_multi_vote2 = TopicPollVote.objects.create(user=self.user, choice=self.poll_multi_choice2)
+        self.poll_multi_vote3 = TopicPollVote.objects.create(user=self.user2, choice=self.poll_multi_choice)
+
+    def test_vote_load_initial_single(self):
+        """
+        TopicPollVoteManyForm
+        """
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll)
+        form.load_initial()
+        self.assertDictEqual(form.initial, {'choices': self.poll_choice, })
+
+    def test_vote_load_initial_multi(self):
+        """
+        TopicPollVoteManyForm
+        """
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll_multi)
+        form.load_initial()
+        self.assertDictEqual(form.initial, {'choices': [self.poll_multi_choice, self.poll_multi_choice2], })
+
+    def test_vote_load_initial_empty(self):
+        """
+        TopicPollVoteManyForm
+        """
+        TopicPollVote.objects.all().delete()
+
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll)
+        form.load_initial()
+        self.assertEqual(form.initial, {})
+
+    def test_vote_load_initial_choice_limit(self):
+        """
+        Load initial for a single choice poll that was previously a multi choice poll
+        """
+        # multi to single
+        self.poll_multi.choice_limit = 1
+
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll_multi)
+        form.load_initial()
+        self.assertDictEqual(form.initial, {'choices': self.poll_multi_choice, })
+
+        # single to multi
+        self.poll.choice_limit = 2
+
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll)
+        form.load_initial()
+        self.assertDictEqual(form.initial, {'choices': [self.poll_choice, ], })
+
+    def test_vote_poll_closed(self):
+        """
+        Cant vote on closed poll
+        """
+        self.poll.is_closed = True
+        self.poll.save()
+
+        form_data = {'choices': self.poll_choice.pk, }
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll, data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_create_vote_single(self):
+        """
+        TopicPollVoteManyForm
+        """
+        TopicPollVote.objects.all().delete()
+
+        form_data = {'choices': self.poll_choice.pk, }
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll, data=form_data)
+        self.assertTrue(form.is_valid())
+        form.save_m2m()
+        self.assertEqual(len(TopicPollVote.objects.filter(choice=self.poll_choice)), 1)
+
+    def test_create_vote_multi(self):
+        """
+        TopicPollVoteManyForm
+        """
+        TopicPollVote.objects.all().delete()
+
+        form_data = {'choices': [self.poll_multi_choice.pk, self.poll_multi_choice2.pk], }
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll_multi, data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_create_vote_multi_invalid(self):
+        """
+        Limit selected choices to choice_limit
+        """
+        TopicPollVote.objects.all().delete()
+
+        form_data = {'choices': [self.poll_multi_choice.pk,
+                                 self.poll_multi_choice2.pk,
+                                 self.poll_multi_choice3.pk], }
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll_multi, data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_update_vote_single(self):
+        """
+        TopicPollVoteManyForm
+        """
+        self.assertEqual(len(TopicPollVote.objects.filter(choice=self.poll_choice2)), 0)
+        self.assertEqual(len(TopicPollVote.objects.filter(choice=self.poll_choice)), 2)
+
+        form_data = {'choices': self.poll_choice2.pk, }
+        form = TopicPollVoteManyForm(user=self.user, poll=self.poll, data=form_data)
+        self.assertTrue(form.is_valid())
+        form.save_m2m()
+        self.assertEqual(len(TopicPollVote.objects.filter(choice=self.poll_choice2)), 1)
+        self.assertEqual(len(TopicPollVote.objects.filter(choice=self.poll_choice)), 1)
