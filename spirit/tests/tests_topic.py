@@ -18,6 +18,7 @@ from spirit.forms.topic import TopicForm
 from spirit.signals.topic import topic_post_moderate
 from spirit.models.comment import Comment
 from spirit.models.category import Category
+from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
 
 
 class TopicViewTest(TestCase):
@@ -129,6 +130,30 @@ class TopicViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         comment = Comment.objects.last()
         self.assertEqual(self._comment, repr(comment))
+
+    def test_topic_publish_poll(self):
+        """
+        POST, create topic + poll
+        """
+        utils.login(self)
+        category = utils.create_category()
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0,
+                     'choices-0-description': 'op1', 'choices-0-poll': "",
+                     'choices-1-description': 'op2', 'choices-1-poll': "",
+                     'choice_limit': 2}
+        response = self.client.post(reverse('spirit:topic-publish'),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        topic = Topic.objects.last()
+        self.assertEqual(topic.poll.choice_limit, 2)
+        self.assertEqual(len(topic.poll.choices.all()), 2)
+
+        # get
+        response = self.client.get(reverse('spirit:topic-publish'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.context['pform'], TopicPollForm)
+        self.assertIsInstance(response.context['pformset'], TopicPollChoiceFormSet)
 
     def test_topic_update(self):
         """

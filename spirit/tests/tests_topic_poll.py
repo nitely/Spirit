@@ -492,6 +492,8 @@ class TopicPollTemplateTagsTest(TestCase):
             "{% load spirit_tags %}"
             "{% render_poll_form topic=topic user=user %}"
         ).render(Context({'topic': self.topic, 'user': self.user}))
+        self.assertNotEqual(out.strip(), "")
+
         context = render_poll_form(self.topic, self.user)
         self.assertEqual(context['next'], None)
         self.assertIsInstance(context['form'], TopicPollVoteManyForm)
