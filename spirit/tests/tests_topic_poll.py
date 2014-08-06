@@ -7,12 +7,14 @@ from django.http import Http404
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
+from django.template import Template, Context
 
 import utils
 
 from spirit.models.topic_poll import TopicPoll, TopicPollChoice, TopicPollVote
 from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet, TopicPollVoteManyForm
 from spirit.signals.topic_poll import topic_poll_post_vote, topic_poll_pre_vote
+from spirit.templatetags.tags.topic_poll import render_poll_form
 
 
 User = get_user_model()
@@ -449,7 +451,7 @@ class TopicPollSignalTest(TestCase):
         self.poll_other_choice = TopicPollChoice.objects.create(poll=self.poll_other, description="op2")
 
         self.poll_vote = TopicPollVote.objects.create(user=self.user, choice=self.poll_choice)
-        self.poll_vote2 = TopicPollVote.objects.create(user=self.user, choice=self.poll_other_choice)
+        self.poll_other_vote = TopicPollVote.objects.create(user=self.user, choice=self.poll_other_choice)
 
     def test_topic_poll_pre_vote_handler(self):
         """
@@ -468,3 +470,56 @@ class TopicPollSignalTest(TestCase):
         topic_poll_post_vote.send(sender=self.poll.__class__, poll=self.poll, user=self.user)
         self.assertEqual(TopicPollChoice.objects.get(pk=self.poll_choice.pk).vote_count, 1)
         self.assertEqual(TopicPollChoice.objects.get(pk=self.poll_other_choice.pk).vote_count, 0)
+
+
+class TopicPollTemplateTagsTest(TestCase):
+
+    fixtures = ['spirit_init.json', ]
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(category=self.category, user=self.user)
+
+        self.poll = TopicPoll.objects.create(topic=self.topic)
+
+    def test_render_poll_form(self):
+        """
+        should display poll vote form
+        """
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_poll_form topic=topic user=user %}"
+        ).render(Context({'topic': self.topic, 'user': self.user}))
+        context = render_poll_form(self.topic, self.user)
+        self.assertEqual(context['next'], None)
+        self.assertIsInstance(context['form'], TopicPollVoteManyForm)
+        self.assertEqual(context['poll'], self.poll)
+
+    def test_render_poll_form_no_poll(self):
+        """
+        should display nothing
+        """
+        topic = utils.create_topic(category=self.category, user=self.user)
+
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_poll_form topic=topic user=user %}"
+        ).render(Context({'topic': topic, 'user': self.user}))
+        self.assertEqual(out.strip(), "")
+
+    def test_render_poll_form_user(self):
+        """
+        should load initial or not
+        """
+        poll_choice = TopicPollChoice.objects.create(poll=self.poll, description="op2")
+        poll_vote = TopicPollVote.objects.create(user=self.user, choice=poll_choice)
+
+        self.user.is_authenticated = lambda: True
+        context = render_poll_form(self.topic, self.user)
+        self.assertDictEqual(context['form'].initial, {'choices': poll_choice})
+
+        self.user.is_authenticated = lambda: False
+        context = render_poll_form(self.topic, self.user)
+        self.assertDictEqual(context['form'].initial, {})

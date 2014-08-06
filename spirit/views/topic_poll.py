@@ -60,7 +60,6 @@ def poll_vote(request, pk):
     form = TopicPollVoteManyForm(user=request.user, poll=poll, data=request.POST)
 
     if form.is_valid():
-        # TODO: test signals!
         topic_poll_pre_vote.send(sender=poll.__class__, poll=poll, user=request.user)
         form.save_m2m()
         topic_poll_post_vote.send(sender=poll.__class__, poll=poll, user=request.user)
