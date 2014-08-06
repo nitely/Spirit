@@ -12,6 +12,7 @@ from spirit import utils
 
 from spirit.models.topic_poll import TopicPoll
 from spirit.forms.topic_poll import TopicPollChoiceFormSet, TopicPollForm, TopicPollVoteManyForm
+from spirit.signals.topic_poll import topic_poll_pre_vote, topic_poll_post_vote
 
 
 @login_required
@@ -19,7 +20,6 @@ def poll_update(request, pk):
     poll = get_object_or_404(TopicPoll, pk=pk, topic__user=request.user)
 
     if request.method == 'POST':
-        print request.POST
         form = TopicPollForm(data=request.POST, instance=poll)
         formset = TopicPollChoiceFormSet(data=request.POST, instance=poll)
 
@@ -60,7 +60,10 @@ def poll_vote(request, pk):
     form = TopicPollVoteManyForm(user=request.user, poll=poll, data=request.POST)
 
     if form.is_valid():
+        # TODO: test signals!
+        topic_poll_pre_vote.send(sender=poll.__class__, poll=poll, user=request.user)
         form.save_m2m()
+        topic_poll_post_vote.send(sender=poll.__class__, poll=poll, user=request.user)
         return redirect(request.POST.get('next', poll.get_absolute_url()))
     else:
         messages.error(request, utils.render_form_errors(form))

@@ -12,6 +12,7 @@ import utils
 
 from spirit.models.topic_poll import TopicPoll, TopicPollChoice, TopicPollVote
 from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet, TopicPollVoteManyForm
+from spirit.signals.topic_poll import topic_poll_post_vote, topic_poll_pre_vote
 
 
 User = get_user_model()
@@ -180,6 +181,32 @@ class TopicPollViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(len(response.context['messages']), 1)  # error message
 
+    def test_poll_vote_signal(self):
+        """
+        POST, poll_vote
+        """
+        def topic_poll_pre_vote_handler(sender, poll, user, **kwargs):
+            self._poll = poll
+            self._user = user._wrapped
+        topic_poll_pre_vote.connect(topic_poll_pre_vote_handler)
+
+        def topic_poll_post_vote_handler(sender, poll, user, **kwargs):
+            self._poll2 = poll
+            self._user2 = user._wrapped
+        topic_poll_post_vote.connect(topic_poll_post_vote_handler)
+
+        utils.login(self)
+        poll = TopicPoll.objects.create(topic=self.topic)
+        choice = TopicPollChoice.objects.create(poll=poll, description="op1")
+        form_data = {'choices': choice.pk, }
+        response = self.client.post(reverse('spirit:poll-vote', kwargs={'pk': poll.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(repr(self._poll), repr(poll))
+        self.assertEqual(repr(self._user), repr(self.user))
+        self.assertEqual(repr(self._poll2), repr(poll))
+        self.assertEqual(repr(self._user2), repr(self.user))
+
 
 class TopicPollFormTest(TestCase):
 
@@ -226,7 +253,6 @@ class TopicPollFormTest(TestCase):
         TopicPollChoiceFormSet
         Check it's valid and is filled
         """
-        # <QueryDict: {u'category': [u''], u'comment': [u''], u'choices-1-description': [u'op2'], u'choices-1-poll': [u''], u'title': [u''], u'choices-MAX_NUM_FORMS': [u'20'], u'choices-0-id': [u''], u'choices-INITIAL_FORMS': [u'0'], u'choices-0-poll': [u''], u'choice_limit': [u'1'], u'csrfmiddlewaretoken': [u'cAf24UW3Xj6cFpL8IqQCtSbQvnGg3Axb'], u'choices-0-description': [u'op1'], u'choices-1-id': [u''], u'choices-TOTAL_FORMS': [u'2']}>
         form_data = {'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0,
                      'choices-0-description': 'op1',
                      'choices-1-description': 'op2'}
@@ -402,3 +428,43 @@ class TopicPollVoteManyFormTest(TestCase):
         form.save_m2m()
         self.assertEqual(len(TopicPollVote.objects.filter(choice=self.poll_choice2)), 1)
         self.assertEqual(len(TopicPollVote.objects.filter(choice=self.poll_choice)), 1)
+
+
+class TopicPollSignalTest(TestCase):
+
+    fixtures = ['spirit_init.json', ]
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(category=self.category, user=self.user)
+        self.topic2 = utils.create_topic(category=self.category, user=self.user)
+
+        self.poll = TopicPoll.objects.create(topic=self.topic)
+        self.poll_other = TopicPoll.objects.create(topic=self.topic2)
+
+        self.poll_choice = TopicPollChoice.objects.create(poll=self.poll, description="op1")
+        self.poll_choice2 = TopicPollChoice.objects.create(poll=self.poll, description="op2")
+        self.poll_other_choice = TopicPollChoice.objects.create(poll=self.poll_other, description="op2")
+
+        self.poll_vote = TopicPollVote.objects.create(user=self.user, choice=self.poll_choice)
+        self.poll_vote2 = TopicPollVote.objects.create(user=self.user, choice=self.poll_other_choice)
+
+    def test_topic_poll_pre_vote_handler(self):
+        """
+        topic_poll_pre_vote_handler signal
+        """
+        self.poll_choice.vote_count = 2
+        self.poll_choice.save()
+        topic_poll_pre_vote.send(sender=self.poll.__class__, poll=self.poll, user=self.user)
+        self.assertEqual(TopicPollChoice.objects.get(pk=self.poll_choice.pk).vote_count, 1)
+        self.assertEqual(TopicPollChoice.objects.get(pk=self.poll_other_choice.pk).vote_count, 0)
+
+    def test_topic_poll_post_vote_handler(self):
+        """
+        topic_poll_post_vote_handler signal
+        """
+        topic_poll_post_vote.send(sender=self.poll.__class__, poll=self.poll, user=self.user)
+        self.assertEqual(TopicPollChoice.objects.get(pk=self.poll_choice.pk).vote_count, 1)
+        self.assertEqual(TopicPollChoice.objects.get(pk=self.poll_other_choice.pk).vote_count, 0)
