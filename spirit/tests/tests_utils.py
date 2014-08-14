@@ -338,13 +338,26 @@ class UtilsMarkdownTests(TestCase):
                                      u'<img class="comment-emoji" src="%(static)sspirit/emojis/8ball.png"> '
                                      u':bademoji: foo:</p>' % {'static': settings.STATIC_URL, })
 
+    @override_settings(LANGUAGE_CODE='en')
     def test_markdown_quote(self):
         """
         markdown quote
         """
         comment = u"text\nnew line"
         quote = quotify(comment, self.user)
-        self.assertListEqual(quote.splitlines(), (u"@%s\n> text\n> new line\n\n" % self.user.username).splitlines())
+        self.assertListEqual(quote.splitlines(), (u"> @%s said:\n> text\n> new line\n\n" % self.user.username).splitlines())
+
+    @override_settings(LANGUAGE_CODE='en')
+    def test_markdown_quote_header_language(self):
+        """
+        markdown quote
+        "@user said:" should keep the default language (settings.LANGUAGE_CODE)
+        """
+        comment = u""
+        quote = quotify(comment, self.user)
+
+        with translation.override('es'):
+            self.assertListEqual(quote.splitlines(), (u"> @%s said:\n> \n\n" % self.user.username).splitlines())
 
     def test_markdown_image(self):
         """
