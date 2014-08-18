@@ -24,11 +24,11 @@ The only thing to notice is that Spirit uses its own *AUTH_USER_MODEL*.
 
 If you want to roll your own user app, your user model must inherit from `spirit.models.user.AbstractForumUser`.
 
-If you just want to extend the Spirit user model (adding new fields or methods),
+If you want to extend the Spirit user model (adding new fields or methods),
 your model must inherit from `spirit.models.user.AbstractUser`.
 
-If you just want to integrate Spirit user profile to your *existing* project
-and you are using the default Django user model, check out the [Spirit-User-Profile](https://github.com/nitely/Spirit-User-Profile) app.
+If you just want to integrate Spirit's user profile to your *existing* project
+and you are using the default Django's user model, check out the [Spirit-User-Profile](https://github.com/nitely/Spirit-User-Profile) app.
 
 ## Installing (Advanced)
 

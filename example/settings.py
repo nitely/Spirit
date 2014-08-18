@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS += (
     #'my_app1',
     #'my_app2',
+    'debug_toolbar',
 )
 
 # same here, check out the spirit.settings.py

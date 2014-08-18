@@ -18,5 +18,5 @@ def quotify(comment, username):
 
     lines = comment.splitlines()
     quote = u"\n> ".join(lines)
-    quote = u"> %(header)s\n> %(quote)s\n\n" % ({'header': header, 'quote': quote})
+    quote = u"> %(header)s\n> %(quote)s\n\n" % {'header': header, 'quote': quote}
     return quote
