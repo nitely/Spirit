@@ -27,6 +27,9 @@ If you want to roll your own user app, your user model must inherit from `spirit
 If you just want to extend the Spirit user model (adding new fields or methods),
 your model must inherit from `spirit.models.user.AbstractUser`.
 
+If you just want to integrate Spirit user profile to your *existing* project
+and you are using the default Django user model, check out the [Spirit-User-Profile](https://github.com/nitely/Spirit-User-Profile) app.
+
 ## Installing (Advanced)
 
 Check out the [example](https://github.com/nitely/Spirit/tree/master/example) provided.
