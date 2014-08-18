@@ -87,7 +87,8 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, AbstractForumUser):
 
 class User(AbstractUser):
 
-    class Meta:
+    class Meta(AbstractUser.Meta):
+        swappable = 'AUTH_USER_MODEL'
         app_label = 'spirit'
         ordering = ['-date_joined', ]
         verbose_name = _('user')
