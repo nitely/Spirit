@@ -33,7 +33,7 @@ urlpatterns = patterns('spirit.views.user',
         name='password-reset-complete'),
 
     url(r'^$', 'profile_update', name='profile-update'),
-    url(r'^passwrod-change/$', 'profile_password_change', name='profile-password-change'),
+    url(r'^password-change/$', 'profile_password_change', name='profile-password-change'),
     url(r'^email-change/$', 'profile_email_change', name='profile-email-change'),
 
     url(r'^(?P<pk>\d+)/$', 'profile_comments', kwargs={'slug': "", }, name='profile-detail'),
