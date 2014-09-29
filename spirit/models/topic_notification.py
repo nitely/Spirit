@@ -37,7 +37,6 @@ class TopicNotification(models.Model):
     objects = TopicNotificationManager()
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'topic')
         ordering = ['-date', ]
         verbose_name = _("topic notification")

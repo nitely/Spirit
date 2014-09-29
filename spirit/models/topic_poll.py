@@ -18,7 +18,6 @@ class TopicPoll(models.Model):
     is_closed = models.BooleanField(default=False)
 
     class Meta:
-        app_label = 'spirit'
         verbose_name = _("topic poll")
         verbose_name_plural = _("topics polls")
 
@@ -37,7 +36,6 @@ class TopicPollChoice(models.Model):
     vote_count = models.PositiveIntegerField(_("vote count"), default=0)
 
     class Meta:
-        app_label = 'spirit'
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
 
@@ -53,7 +51,6 @@ class TopicPollVote(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'choice')
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")

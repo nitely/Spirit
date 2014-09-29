@@ -18,7 +18,6 @@ class CommentLike(models.Model):
     objects = CommentLikeManager()
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'comment')
         ordering = ['-date', ]
         verbose_name = _("like")

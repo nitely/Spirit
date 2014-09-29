@@ -24,7 +24,6 @@ class TopicUnread(models.Model):
     objects = TopicUnreadManager()
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'topic')
         ordering = ['-date', ]
         verbose_name = _("topic unread")
