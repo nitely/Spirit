@@ -9,7 +9,7 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 Spirit requires the following software to be installed:
 
 * Python 2.7
-* Django 1.6
+* Django 1.7
 * PostgreSQL or MySQL or Oracle Database
 
 ## Dependencies
@@ -44,8 +44,7 @@ otherwise you will have to setup all django's related constants (Installed_apps,
 Run:
 
     pip install -r requirements.txt
-    python manage.py syncdb
-    python manage.py loaddata spirit_init
+    python manage.py migrate
     python manage.py createcachetable spirit_cache
     python manage.py collectstatic
 
@@ -71,8 +70,7 @@ Visit (http://127.0.0.1:8000/)
 Run:
 
     pip install -r requirements.txt
-    python manage.py syncdb
-    python manage.py loaddata spirit_init
+    python manage.py migrate
     python manage.py collectstatic
     python manage.py rebuild_index
 
