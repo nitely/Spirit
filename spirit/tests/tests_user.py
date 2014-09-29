@@ -356,8 +356,8 @@ class UserViewTest(TestCase):
         admin.site.login = login_required(admin.site.login)
         to urls.py (the one in your project's root)
         """
-        response = self.client.get(reverse('admin:index'))
-        expected_url = reverse("spirit:user-login") + "?next=" + reverse('admin:index')
+        response = self.client.get(reverse('admin:login'))
+        expected_url = reverse("spirit:user-login") + "?next=" + reverse('admin:login')
         self.assertRedirects(response, expected_url, status_code=302)
 
     def test_profile_password_change(self):

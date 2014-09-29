@@ -537,8 +537,6 @@ class CommentFormTest(TestCase):
         self.assertEqual(image.url, image_url)
         image_path = os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name)
         self.assertTrue(os.path.isfile(image_path))
-        image.open()
-        self.assertEqual(image.read(), content)
 
         with open(image_path, "rb") as fh:
             self.assertEqual(fh.read(), content)
