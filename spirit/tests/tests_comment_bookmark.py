@@ -14,8 +14,6 @@ from spirit.forms.comment_bookmark import BookmarkForm
 
 class CommentBookmarkViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -36,8 +34,6 @@ class CommentBookmarkViewTest(TestCase):
 
 
 class CommentBookmarkSignalTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -72,8 +68,6 @@ class CommentBookmarkSignalTest(TestCase):
 
 class CommentBookmarkFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def test_form(self):
         form_data = {'comment_number': 999, }
         form = BookmarkForm(data=form_data)
@@ -81,8 +75,6 @@ class CommentBookmarkFormTest(TestCase):
 
 
 class CommentBookmarkTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

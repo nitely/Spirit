@@ -28,8 +28,6 @@ HAYSTACK_TEST = {
 
 class SearchTopicIndexTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
 
@@ -58,8 +56,6 @@ class SearchTopicIndexTest(TestCase):
 
 
 class SearchViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         # TODO: simple backend wont work on django +1.6 coz of a bug on haystack 2.1
@@ -115,8 +111,6 @@ class SearchViewTest(TestCase):
 
 class SearchFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
 
@@ -142,8 +136,6 @@ class SearchFormTest(TestCase):
 
 
 class SearchTemplateTagTests(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

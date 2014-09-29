@@ -35,8 +35,6 @@ User = get_user_model()
 
 class CommentViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -391,8 +389,6 @@ class CommentViewTest(TestCase):
 
 class CommentSignalTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -434,8 +430,6 @@ class CommentSignalTest(TestCase):
 
 
 class CommentTemplateTagTests(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -484,8 +478,6 @@ class CommentTemplateTagTests(TestCase):
 
 
 class CommentFormTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

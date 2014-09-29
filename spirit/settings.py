@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'spirit',
+    # 'spirit.tests'
 )
 
 # python manage.py createcachetable spirit_cache

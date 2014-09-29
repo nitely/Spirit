@@ -27,8 +27,6 @@ User = get_user_model()
 
 class UserViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -546,8 +544,6 @@ class UserViewTest(TestCase):
 
 class UserFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -634,8 +630,6 @@ class UserFormTest(TestCase):
 
 class UserBackendTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user(email="foobar@bar.com", password="bar")
@@ -646,8 +640,6 @@ class UserBackendTest(TestCase):
 
 
 class UserModelTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

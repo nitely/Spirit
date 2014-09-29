@@ -13,8 +13,6 @@ from spirit.models.comment_history import CommentHistory, comment_pre_update, co
 
 class CommentHistoryViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -89,8 +87,6 @@ class CommentHistoryViewTest(TestCase):
 
 
 class CommentHistorySignalTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

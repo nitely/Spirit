@@ -23,8 +23,6 @@ from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
 
 class TopicViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -431,8 +429,6 @@ class TopicViewTest(TestCase):
 
 class TopicFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -472,8 +468,6 @@ class TopicFormTest(TestCase):
 
 
 class TopicSignalTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

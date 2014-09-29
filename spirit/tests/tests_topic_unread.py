@@ -13,8 +13,6 @@ from spirit.models.topic_unread import TopicUnread, topic_viewed, comment_posted
 
 class TopicUnreadViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -112,7 +110,9 @@ class TopicUnreadViewTest(TestCase):
 
 class TopicUnreadSignalTest(TransactionTestCase):  # since signal raises IntegrityError
 
-    fixtures = ['spirit_init.json', ]
+    # Needed to work with migrations when using TransactionTestCase
+    available_apps = ["spirit", ]
+    serialized_rollback = True
 
     def setUp(self):
         cache.clear()

@@ -14,8 +14,6 @@ from spirit.models.topic import Topic
 
 class CategoryViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.category_1 = utils.create_category(title="cat1")

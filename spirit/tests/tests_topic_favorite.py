@@ -14,8 +14,6 @@ from spirit.forms.topic_favorite import FavoriteForm
 
 class FavoriteViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     # TODO: templatetags test
     def setUp(self):
         cache.clear()
@@ -82,8 +80,6 @@ class FavoriteViewTest(TestCase):
 
 
 class FavoriteFormTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

@@ -4,9 +4,6 @@ import datetime
 import json
 import os
 
-#from markdown import markdown
-#from markdown import Markdown
-
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
@@ -215,6 +212,8 @@ class UtilsFormsTests(TestCase):
         """
         NestedModelChoiceField
         """
+        Category.objects.all().delete()
+
         category = test_utils.create_category()
         category2 = test_utils.create_category()
         subcategory = test_utils.create_subcategory(category)
@@ -223,9 +222,9 @@ class UtilsFormsTests(TestCase):
                                        parent_field='parent_id',
                                        label_field='title')
         self.assertSequenceEqual(list(field.choices), [('', u'---------'),
-                                                       (1, u'%s' % category.title),
-                                                       (3, u'--- %s' % subcategory.title),
-                                                       (2, u'%s' % category2.title)])
+                                                       (3, u'%s' % category.title),
+                                                       (5, u'--- %s' % subcategory.title),
+                                                       (4, u'%s' % category2.title)])
 
 
 class UtilsTimezoneTests(TestCase):

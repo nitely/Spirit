@@ -15,8 +15,6 @@ from spirit.templatetags.tags.comment_like import render_like_form
 
 class LikeViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -82,8 +80,6 @@ class LikeViewTest(TestCase):
 
 class LikeFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -114,8 +110,6 @@ class LikeFormTest(TestCase):
 
 
 class LikeTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

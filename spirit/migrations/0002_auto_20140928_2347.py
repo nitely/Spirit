@@ -9,13 +9,13 @@ def default_categories(apps, schema_editor):
     Category = apps.get_model("spirit", "Category")
 
     if not Category.objects.filter(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK).exists():
-        Category.objects.create(id=1,
+        Category.objects.create(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK,
                                 title="Private",
                                 slug="private",
                                 is_private=True)
 
     if not Category.objects.filter(pk=settings.ST_UNCATEGORIZED_CATEGORY_PK).exists():
-        Category.objects.get_or_create(id=2,
+        Category.objects.get_or_create(pk=settings.ST_UNCATEGORIZED_CATEGORY_PK,
                                        title="Uncategorized",
                                        slug="uncategorized")
 

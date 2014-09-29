@@ -19,8 +19,6 @@ User = get_user_model()
 
 class TopicPollViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -209,8 +207,6 @@ class TopicPollViewTest(TestCase):
 
 class TopicPollFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -296,8 +292,6 @@ class TopicPollFormTest(TestCase):
 
 
 class TopicPollVoteManyFormTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -431,8 +425,6 @@ class TopicPollVoteManyFormTest(TestCase):
 
 class TopicPollSignalTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -470,8 +462,6 @@ class TopicPollSignalTest(TestCase):
 
 
 class TopicPollTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
