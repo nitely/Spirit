@@ -16,7 +16,7 @@ from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
 
-import utils
+from . import utils
 
 from spirit.models.comment import Comment,\
     comment_like_post_create, comment_like_post_delete,\

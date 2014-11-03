@@ -11,7 +11,7 @@ from django.conf import settings
 from django.template import Template, Context
 from django.utils import timezone
 
-import utils
+from . import utils
 
 from spirit.models.topic_private import TopicPrivate
 

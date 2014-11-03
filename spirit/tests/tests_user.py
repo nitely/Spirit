@@ -11,7 +11,7 @@ from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
 
-import utils
+from . import utils
 
 from spirit.forms.user import RegistrationForm, UserProfileForm, EmailChangeForm, ResendActivationForm
 from spirit.backends.user import EmailAuthBackend

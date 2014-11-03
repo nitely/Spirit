@@ -11,7 +11,7 @@ from django.core.management import call_command
 import haystack
 from haystack.query import SearchQuerySet
 
-import utils
+from . import utils
 
 from spirit.models.topic import Topic
 from spirit.forms.search import BasicSearchForm, BaseSearchForm, AdvancedSearchForm

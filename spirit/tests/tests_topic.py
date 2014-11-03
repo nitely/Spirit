@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.conf import settings
 
-import utils
+from . import utils
 
 from spirit.models.comment import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
 from spirit.models.topic import Topic, topic_viewed, comment_posted, comment_moved

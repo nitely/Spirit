@@ -7,7 +7,7 @@ from django.test.utils import override_settings
 from django.http import Http404
 from django.core.paginator import Page, Paginator
 
-import utils
+from . import utils
 from spirit.models.comment import Comment
 
 from spirit.utils.paginator.yt_paginator import YTPaginator, InvalidPage, YTPage

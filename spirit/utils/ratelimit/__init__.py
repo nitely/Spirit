@@ -1,1 +1,1 @@
-from ratelimit import RateLimit
+from .ratelimit import RateLimit

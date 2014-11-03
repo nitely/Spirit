@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 
-import utils
+from . import utils
 
 from spirit.models.comment_history import CommentHistory, comment_pre_update, comment_post_update
 

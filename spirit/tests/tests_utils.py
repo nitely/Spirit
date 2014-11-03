@@ -36,7 +36,7 @@ from spirit.utils.user import email
 
 from spirit import utils as spirit_utils
 from spirit.templatetags.tags.utils import time as ttags_utils
-import utils as test_utils
+from . import utils as test_utils
 from spirit.utils.markdown import quotify
 from spirit.templatetags.tags.utils.messages import render_messages
 

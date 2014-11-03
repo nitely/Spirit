@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 
-import utils
+from . import utils
 
 from spirit.models.topic_favorite import TopicFavorite
 from spirit.forms.topic_favorite import FavoriteForm

@@ -6,7 +6,7 @@ from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 from django.conf import settings
 
-import utils
+from . import utils
 
 from spirit.models.comment_bookmark import CommentBookmark, topic_viewed
 from spirit.forms.comment_bookmark import BookmarkForm

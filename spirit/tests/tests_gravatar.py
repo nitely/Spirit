@@ -3,7 +3,7 @@
 from django.test import TestCase
 from django.template import Template, Context, TemplateSyntaxError
 
-import utils
+from . import utils
 
 
 class GravatarTemplateTagTests(TestCase):
