@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
 from django.db import IntegrityError
+from django.utils.six.moves import xrange
 
 from spirit.signals.comment import comment_posted
 from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create

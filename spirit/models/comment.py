@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import F
+from django.utils.six.moves import xrange
 
 from ..signals.comment_like import comment_like_post_create, comment_like_post_delete
 from ..signals.topic import topic_post_moderate
