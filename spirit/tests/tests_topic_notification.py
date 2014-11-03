@@ -76,7 +76,7 @@ class TopicNotificationViewTest(TestCase):
         # ajax list should behave the same
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 1)
 
     def test_topic_notification_list_dont_show_topic_removed_or_no_access(self):
@@ -117,7 +117,7 @@ class TopicNotificationViewTest(TestCase):
         # ajax list should behave the same
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 0)
 
     @override_settings(ST_NOTIFICATIONS_PER_PAGE=10)
@@ -146,7 +146,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 1)
         expected = {
             'user': self.topic_notification.comment.user.username,
@@ -171,7 +171,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertGreater(TopicNotification.objects.filter(user=self.user), 1)
         self.assertEqual(len(res['n']), 1)
 
@@ -195,7 +195,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertFalse(res['n'][0]['is_read'])
         self.assertTrue(res['n'][1]['is_read'])
 

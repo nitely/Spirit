@@ -366,7 +366,7 @@ class CommentViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(res['url'], os.path.join(settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
                                                   "bf21c3043d749d5598366c26e7e4ab44.gif").replace("\\", "/"))
         os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk),
@@ -384,7 +384,7 @@ class CommentViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertIn('error', res.keys())
         self.assertIn('image', res['error'].keys())
 

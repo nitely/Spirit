@@ -67,10 +67,10 @@ class UtilsTests(TestCase):
         self.assertIsInstance(res, HttpResponse)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res['Content-Type'], 'application/json')
-        self.assertDictEqual(json.loads(res.content), {})
+        self.assertDictEqual(json.loads(res.content.decode('utf-8')), {})
 
         res = spirit_utils.json_response({"foo": "bar", })
-        self.assertDictEqual(json.loads(res.content), {"foo": "bar", })
+        self.assertDictEqual(json.loads(res.content.decode('utf-8')), {"foo": "bar", })
 
         res = spirit_utils.json_response(status=404)
         self.assertEqual(res.status_code, 404)
