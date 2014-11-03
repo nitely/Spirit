@@ -4,6 +4,7 @@ from math import ceil
 
 from django.core.paginator import InvalidPage
 from django.conf import settings
+from django.utils.six.moves import xrange
 
 
 class YTPaginator(object):

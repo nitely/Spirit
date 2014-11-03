@@ -2,7 +2,6 @@
 
 import os
 import json
-from StringIO import StringIO
 
 from django.test import TestCase, RequestFactory
 from django.core.cache import cache
@@ -15,6 +14,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
+from django.utils.six import StringIO
 
 from . import utils
 

@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 from django.conf import settings
+from django.utils.six.moves import xrange
 
 from . import utils
 

@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
+from django.utils.six.moves import xrange
 
 from . import utils
 

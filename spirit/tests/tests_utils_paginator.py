@@ -6,6 +6,7 @@ from django.template import Template, Context, TemplateSyntaxError
 from django.test.utils import override_settings
 from django.http import Http404
 from django.core.paginator import Page, Paginator
+from django.utils.six.moves import xrange
 
 from . import utils
 from spirit.models.comment import Comment

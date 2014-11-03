@@ -10,6 +10,7 @@ from django.core.cache import cache
 from django.conf import settings
 from django.template import Template, Context
 from django.utils import timezone
+from django.utils.six.moves import xrange
 
 from . import utils
 
