@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
 from django.db import IntegrityError
-from django.utils.six.moves import xrange
+from django.utils import six
 
 from spirit.signals.comment import comment_posted
 from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
@@ -15,7 +15,7 @@ from spirit.signals.topic import topic_viewed
 from spirit.managers.topic_notifications import TopicNotificationManager
 
 
-UNDEFINED, MENTION, COMMENT = xrange(3)
+UNDEFINED, MENTION, COMMENT = six.moves.xrange(3)
 
 ACTION_CHOICES = (
     (UNDEFINED, _("Undefined")),
@@ -83,7 +83,7 @@ def mention_comment_posted_handler(sender, comment, mentions, **kwargs):
     if not mentions:
         return
 
-    for username, user in mentions.iteritems():
+    for username, user in six.iteritems(mentions):
         try:
             TopicNotification.objects.create(user=user, topic=comment.topic,
                                              comment=comment, action=MENTION)
