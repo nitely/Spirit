@@ -7,6 +7,8 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
+from __future__ import absolute_import
+from __future__ import unicode_literals
 
 # You may override spirit settings below...
 
