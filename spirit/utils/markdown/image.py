@@ -25,9 +25,9 @@ class ImagifyPreprocessor(Preprocessor):
 
         for line in lines:
             if line.strip():
-                line = re.sub(ur'^https?://[^\s]+/(?P<image_name>[^\s]+)\.'
-                              ur'(?P<extension>png|jpg|jpeg|gif|bmp|tif|tiff)'
-                              ur'(\?[^\s]+)?$', imagify, line, flags=re.UNICODE)
+                line = re.sub(r'^https?://[^\s]+/(?P<image_name>[^\s]+)\.'
+                              r'(?P<extension>png|jpg|jpeg|gif|bmp|tif|tiff)'
+                              r'(\?[^\s]+)?$', imagify, line, flags=re.UNICODE)
 
             new_lines.append(line)
 

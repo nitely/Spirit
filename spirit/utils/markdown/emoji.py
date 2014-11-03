@@ -149,7 +149,7 @@ class EmojifyPreprocessor(Preprocessor):
 
         for line in lines:
             if line.strip():
-                line = re.sub(ur':(?P<emoji>[a-z0-9\+\-_]+):', emojify, line, flags=re.UNICODE)
+                line = re.sub(r':(?P<emoji>[a-z0-9\+\-_]+):', emojify, line, flags=re.UNICODE)
 
             new_lines.append(line)
 

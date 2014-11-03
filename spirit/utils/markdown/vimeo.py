@@ -14,8 +14,8 @@ from markdown.preprocessors import Preprocessor
 # * https://vimeo.com/groups/name/videos/11111111
 # * https://vimeo.com/album/2222222/video/11111111
 # * https://vimeo.com/11111111?param=value
-PATTERN_RE = ur'^https?://(www\.|player\.)?vimeo\.com/(channels/|groups/[^/]+/videos/|album/(\d+)/video/|video/)?' \
-             ur'(?P<id>\d+)(\?[^\s]+)?$'
+PATTERN_RE = r'^https?://(www\.|player\.)?vimeo\.com/(channels/|groups/[^/]+/videos/|album/(\d+)/video/|video/)?' \
+             r'(?P<id>\d+)(\?[^\s]+)?$'
 
 
 class VimeofyExtension(Extension):

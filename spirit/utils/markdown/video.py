@@ -8,7 +8,7 @@ from markdown.preprocessors import Preprocessor
 from django.utils.html import escape as html_escape
 
 
-PATTERN_RE = ur'^https?://[^\s]+\.(mov|mp4|webm|ogv)(\?[^\s]+)?$'
+PATTERN_RE = r'^https?://[^\s]+\.(mov|mp4|webm|ogv)(\?[^\s]+)?$'
 
 
 class VideofyExtension(Extension):

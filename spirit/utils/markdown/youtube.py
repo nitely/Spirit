@@ -10,7 +10,7 @@ from markdown.preprocessors import Preprocessor
 # * https://www.youtube.com/watch?v=Z0UISCEe52Y
 # * http://youtu.be/afyK1HSFfgw
 # * https://www.youtube.com/embed/vsF0K3Ou1v0
-PATTERN_RE = ur'^https?://(www\.)?(youtube\.com/watch\?v=|youtu\.be/|youtube\.com/embed/)(?P<id>[a-zA-Z0-9_\-]{11})$'
+PATTERN_RE = r'^https?://(www\.)?(youtube\.com/watch\?v=|youtu\.be/|youtube\.com/embed/)(?P<id>[a-zA-Z0-9_\-]{11})$'
 
 
 class YouTubefyExtension(Extension):

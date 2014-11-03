@@ -50,7 +50,7 @@ class MentionifyPreprocessor(Preprocessor):
 
         for line in lines:
             if line.strip() and not line.startswith('>'):  # exclude code/quote
-                line = re.sub(ur'([^\w]?)@(?P<username>[\w.@+-]+)', mentionify, line, flags=re.UNICODE)
+                line = re.sub(r'([^\w]?)@(?P<username>[\w.@+-]+)', mentionify, line, flags=re.UNICODE)
 
             new_lines.append(line)
 
