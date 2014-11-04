@@ -11,8 +11,8 @@ from django.core.cache import cache
 from django.conf import settings
 from django.template import Template, Context
 from django.utils import timezone
+from django.utils import six
 from django.utils.six.moves import xrange
-
 from . import utils
 
 from spirit.models.topic_private import TopicPrivate
@@ -156,7 +156,11 @@ class TopicNotificationViewTest(TestCase):
             'url': self.topic_notification.get_absolute_url(),
             'is_read': self.topic_notification.is_read
         }
-        self.assertItemsEqual(res['n'][0], expected)
+        # django.utils.six will provide a method in django 1.8
+        if six.PY3:
+            self.assertCountEqual(res['n'][0], expected)
+        else:
+            self.assertItemsEqual(res['n'][0], expected)
         self.assertFalse(TopicNotification.objects.get(pk=self.topic_notification.pk).is_read)
 
     def test_topic_notification_ajax_limit(self):
