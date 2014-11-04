@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .category import Category
 from .comment import Comment
 from .comment_history import CommentHistory

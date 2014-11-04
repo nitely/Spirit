@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.core import signing
 from django.utils.encoding import smart_text
@@ -37,13 +38,13 @@ class UserActivationTokenGenerator(TokenGenerator):
 
     def _uid(self, user):
         # Older mysql won't store ms.
-        return u";".join((smart_text(user.pk), smart_text(user.last_login.replace(microsecond=0))))
+        return ";".join((smart_text(user.pk), smart_text(user.last_login.replace(microsecond=0))))
 
 
 class UserEmailChangeTokenGenerator(TokenGenerator):
 
     def _uid(self, user):
-        return u";".join((smart_text(user.pk), smart_text(user.email)))
+        return ";".join((smart_text(user.pk), smart_text(user.email)))
 
     def generate(self, user, new_email):
         return super(UserEmailChangeTokenGenerator, self).generate(user, {'new_email': new_email, })

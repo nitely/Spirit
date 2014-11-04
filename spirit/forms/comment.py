@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import hashlib
 import os
@@ -90,7 +91,7 @@ class CommentImageForm(forms.Form):
     def save(self):
         image = self.cleaned_data["image"]
         hash = hashlib.md5(image.read()).hexdigest()
-        image.name = u"".join((hash, ".", image.format))
+        image.name = "".join((hash, ".", image.format))
         upload_to = os.path.join('spirit', 'images', str(self.user.pk))
         image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name).replace("\\", "/")
         media_path = os.path.join(settings.MEDIA_ROOT, upload_to)

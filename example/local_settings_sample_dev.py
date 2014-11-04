@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from __future__ import unicode_literals
-#-*- coding: utf-8 -*-
 
 # THIS IS FOR DEVELOPMENT ENVIRONMENT, MOSTLY TO SPEED UP TESTS
 # DO NOT USE IT IN PRODUCTION

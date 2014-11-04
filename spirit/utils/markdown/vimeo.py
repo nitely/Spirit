@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import re
 
@@ -34,8 +35,8 @@ class VimeofyPreprocessor(Preprocessor):
 
         def vimeofy(match):
             video_id = match.group("id")
-            html = u'<span class="video"><iframe src="https://player.vimeo.com/video/{video_id}" ' \
-                   u'allowfullscreen></iframe></span>'.format(video_id=video_id)
+            html = '<span class="video"><iframe src="https://player.vimeo.com/video/{video_id}" ' \
+                   'allowfullscreen></iframe></span>'.format(video_id=video_id)
             return self.markdown.htmlStash.store(html, safe=True)
 
         for line in lines:

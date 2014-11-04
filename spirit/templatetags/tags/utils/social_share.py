@@ -1,23 +1,24 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.utils.http import urlencode
 
 from .. import register
 
 
-FACEBOOK_URL = u"http://www.facebook.com/sharer.php?%s"
-TWITTER_URL = u"https://twitter.com/share?%s"
-GPLUS_URL = u"https://plus.google.com/share?%s"
+FACEBOOK_URL = "http://www.facebook.com/sharer.php?%s"
+TWITTER_URL = "https://twitter.com/share?%s"
+GPLUS_URL = "https://plus.google.com/share?%s"
 
 
 def _compose_tweet(title):
     # twitter adds the url and a space to the tweet
     # urls, no mather their length, take 23 characters (https)
-    extra_len = len(u' ') + 23
+    extra_len = len(' ') + 23
     total_len = len(title) + extra_len
 
     if total_len > 140:
-        return title[:(140 - len(u"...") - extra_len)] + u"..."
+        return title[:(140 - len("...") - extra_len)] + "..."
 
     return title
 
@@ -53,7 +54,7 @@ def get_email_share_url(context, url, title):
     params = [('body', request.build_absolute_uri(url)),
               ('subject', title),
               ('to', "")]
-    return u"mailto:?%s" % urlencode(params)
+    return "mailto:?%s" % urlencode(params)
 
 
 @register.simple_tag(takes_context=True)

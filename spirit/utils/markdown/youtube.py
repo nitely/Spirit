@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import re
 
@@ -29,8 +30,8 @@ class YouTubefyPreprocessor(Preprocessor):
 
         def youtubefy(match):
             video_id = match.group("id")
-            html = u'<span class="video"><iframe src="https://www.youtube.com/embed/{video_id}?feature=oembed" ' \
-                   u'allowfullscreen></iframe></span>'.format(video_id=video_id)
+            html = '<span class="video"><iframe src="https://www.youtube.com/embed/{video_id}?feature=oembed" ' \
+                   'allowfullscreen></iframe></span>'.format(video_id=video_id)
             return self.markdown.htmlStash.store(html, safe=True)
 
         for line in lines:

@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import re
 
@@ -46,7 +47,7 @@ class MentionifyPreprocessor(Preprocessor):
 
             mentions[username] = user
 
-            return u'%s[@%s](%s)' % (match.group(1), username, user.get_absolute_url())
+            return '%s[@%s](%s)' % (match.group(1), username, user.get_absolute_url())
 
         for line in lines:
             if line.strip() and not line.startswith('>'):  # exclude code/quote

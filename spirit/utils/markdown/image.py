@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import re
 
@@ -21,7 +22,7 @@ class ImagifyPreprocessor(Preprocessor):
         new_lines = []
 
         def imagify(match):
-            return u'![image](%s)' % match.group(0)
+            return '![image](%s)' % match.group(0)
 
         for line in lines:
             if line.strip():

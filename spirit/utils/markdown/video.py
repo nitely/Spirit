@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import re
 
@@ -28,7 +29,7 @@ class VideofyPreprocessor(Preprocessor):
         def videofy(match):
             url = match.group(0)
             url = html_escape(url)
-            html = u'<video controls><source src="{url}"><a href="{url}">{url}</a></video>'.format(url=url)
+            html = '<video controls><source src="{url}"><a href="{url}">{url}</a></video>'.format(url=url)
             return self.markdown.htmlStash.store(html, safe=True)
 
         for line in lines:
