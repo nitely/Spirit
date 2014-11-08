@@ -4,6 +4,7 @@ whoosh>=2.5,<2.6
 Markdown>=2.3,<2.4
 Pillow>=2.4,<2.5
 django-infinite-scroll-pagination>=0.1,<0.2
-django-djconfig>=0.1.3,<0.2
+#django-djconfig>=0.1.3,<0.2
+git+https://git@github.com/nitely/django-djconfig.git
 django-debug-toolbar
 pytz
