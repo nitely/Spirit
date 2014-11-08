@@ -177,7 +177,7 @@ class TopicNotificationViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         res = json.loads(response.content.decode('utf-8'))
-        self.assertGreater(TopicNotification.objects.filter(user=self.user), 1)
+        self.assertGreater(TopicNotification.objects.filter(user=self.user).count(), 1)
         self.assertEqual(len(res['n']), 1)
 
     @override_settings(ST_NOTIFICATIONS_PER_PAGE=20)

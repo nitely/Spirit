@@ -8,6 +8,7 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
+from django.utils import six
 from django.utils import timezone
 
 from . import utils
@@ -351,8 +352,12 @@ class TopicPrivateFormTest(TestCase):
         form.topic = topic
         privates_saved = form.save_m2m()
         privates = TopicPrivate.objects.all()
-        self.assertItemsEqual(map(repr, privates_saved), map(repr, privates))
-
+        # django.utils.six will provide a method in django 1.8
+        if six.PY3:
+            self.assertCountEqual(map(repr, privates_saved), map(repr, privates))
+        else:
+            self.assertItemsEqual(map(repr, privates_saved), map(repr, privates))
+        
     def test_private_create(self):
         """
         create single private topic access
