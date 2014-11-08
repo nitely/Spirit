@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
 from django.db import IntegrityError
+from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.signals.comment import comment_posted
 
@@ -14,6 +15,7 @@ from spirit.managers.topic_unread import TopicUnreadManager
 from spirit.signals.topic import topic_viewed
 
 
+@python_2_unicode_compatible
 class TopicUnread(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -34,7 +36,7 @@ class TopicUnread(models.Model):
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s read %s" % (self.user, self.topic)
 
 

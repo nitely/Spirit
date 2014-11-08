@@ -5,8 +5,10 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class TopicPoll(models.Model):
 
     topic = models.OneToOneField('spirit.Topic', verbose_name=_("topic"), primary_key=True, related_name='poll')
@@ -23,10 +25,11 @@ class TopicPoll(models.Model):
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
 
-    def __unicode__(self):
+    def __str__(self):
         return "poll at topic #%s" % self.topic.pk
 
 
+@python_2_unicode_compatible
 class TopicPollChoice(models.Model):
 
     poll = models.ForeignKey(TopicPoll, verbose_name=_("poll"), related_name='choices')
@@ -39,10 +42,11 @@ class TopicPollChoice(models.Model):
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
 
-    def __unicode__(self):
+    def __str__(self):
         return "poll choice %s at topic #%s" % (self.pk, self.poll.topic.pk)
 
 
+@python_2_unicode_compatible
 class TopicPollVote(models.Model):
 
     choice = models.ForeignKey(TopicPollChoice, verbose_name=_("poll choice"), related_name='votes')
@@ -56,5 +60,5 @@ class TopicPollVote(models.Model):
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")
 
-    def __unicode__(self):
+    def __str__(self):
         return "poll vote %s" % self.pk

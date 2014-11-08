@@ -8,6 +8,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.db import IntegrityError
 from django.utils import six
+from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.signals.comment import comment_posted
 from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
@@ -25,6 +26,7 @@ ACTION_CHOICES = (
 )
 
 
+@python_2_unicode_compatible
 class TopicNotification(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -60,7 +62,7 @@ class TopicNotification(models.Model):
     def is_comment(self):
         return self.action == COMMENT
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s in %s" % (self.user, self.topic)
 
 

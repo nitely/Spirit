@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import F
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 from ..signals.comment import comment_posted, comment_moved
 
@@ -15,6 +16,7 @@ from spirit.managers.topic import TopicManager
 from spirit.utils.models import AutoSlugField
 
 
+@python_2_unicode_compatible
 class Topic(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -49,7 +51,7 @@ class Topic(models.Model):
     def main_category(self):
         return self.category.parent or self.category
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 

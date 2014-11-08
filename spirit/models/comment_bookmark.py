@@ -6,11 +6,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db import IntegrityError
+from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.signals.topic import topic_viewed
 from ..utils import paginator
 
 
+@python_2_unicode_compatible
 class CommentBookmark(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -30,7 +32,7 @@ class CommentBookmark(models.Model):
                                  settings.ST_COMMENTS_PER_PAGE,
                                  settings.ST_COMMENTS_PAGE_VAR)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s bookmarked comment %s in %s" % (self.user.username,
                                                    self.topic.title,
                                                    self.comment_number)

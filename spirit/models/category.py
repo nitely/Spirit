@@ -5,11 +5,13 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.managers.category import CategoryManager
 from spirit.utils.models import AutoSlugField
 
 
+@python_2_unicode_compatible
 class Category(models.Model):
 
     parent = models.ForeignKey('self', verbose_name=_("category parent"), null=True, blank=True)
@@ -44,7 +46,7 @@ class Category(models.Model):
         else:
             return False
 
-    def __unicode__(self):
+    def __str__(self):
         if self.parent:
             return "%s, %s" % (self.parent.title, self.title)
         else:
