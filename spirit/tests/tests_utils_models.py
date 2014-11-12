@@ -2,42 +2,9 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from django.db import models
 
-from spirit.utils.models import AutoSlugField
-
-
-class AutoSlugModel(models.Model):
-
-    slug = AutoSlugField(max_length=50)
-
-    class Meta:
-        app_label = 'spirit'
-
-
-class AutoSlugDefaultModel(models.Model):
-
-    slug = AutoSlugField(max_length=50, default="foo")
-
-    class Meta:
-        app_label = 'spirit'
-
-
-class AutoSlugBadPopulateFromModel(models.Model):
-
-    slug = AutoSlugField(populate_from='bad', max_length=50)
-
-    class Meta:
-        app_label = 'spirit'
-
-
-class AutoSlugPopulateFromModel(models.Model):
-
-    title = models.CharField(max_length=255, blank=True)
-    slug = AutoSlugField(populate_from='title', max_length=50)
-
-    class Meta:
-        app_label = 'spirit'
+from spirit.tests.models.auto_slug import AutoSlugPopulateFromModel, AutoSlugModel, AutoSlugDefaultModel, \
+    AutoSlugBadPopulateFromModel
 
 
 class UtilsModelsTests(TestCase):

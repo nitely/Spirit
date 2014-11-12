@@ -21,7 +21,6 @@ class TopicPrivate(models.Model):
     objects = TopicPrivateManager()
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'topic')
         ordering = ['-date', ]
         verbose_name = _("private topic")

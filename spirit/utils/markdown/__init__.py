@@ -1,2 +1,4 @@
 # -*- coding: utf-8 -*-
-from .quote import quotify
+
+from .markdown import Markdown
+from .utils.quote import quotify

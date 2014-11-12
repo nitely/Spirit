@@ -16,7 +16,6 @@ class TopicFavorite(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'topic')
         ordering = ['-date', ]
         verbose_name = _("favorite")

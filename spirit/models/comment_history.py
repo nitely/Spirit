@@ -20,7 +20,6 @@ class CommentHistory(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        app_label = 'spirit'
         ordering = ['-date', ]
         verbose_name = _("comment history")
         verbose_name_plural = _("comments history")

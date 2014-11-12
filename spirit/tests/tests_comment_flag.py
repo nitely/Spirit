@@ -15,8 +15,6 @@ from spirit.forms.comment_flag import FlagForm
 
 class FlagViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -38,8 +36,6 @@ class FlagViewTest(TestCase):
 
 
 class FlagFormTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

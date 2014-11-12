@@ -6,6 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
+from django.db.models import F
+
+from spirit.signals.topic_poll import topic_poll_post_vote, topic_poll_pre_vote
 
 
 @python_2_unicode_compatible
@@ -18,7 +21,6 @@ class TopicPoll(models.Model):
     is_closed = models.BooleanField(default=False)
 
     class Meta:
-        app_label = 'spirit'
         verbose_name = _("topic poll")
         verbose_name_plural = _("topics polls")
 
@@ -38,7 +40,6 @@ class TopicPollChoice(models.Model):
     vote_count = models.PositiveIntegerField(_("vote count"), default=0)
 
     class Meta:
-        app_label = 'spirit'
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
 
@@ -55,10 +56,23 @@ class TopicPollVote(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'choice')
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")
 
     def __str__(self):
         return "poll vote %s" % self.pk
+
+
+def poll_pre_vote(sender, poll, user, **kwargs):
+    TopicPollChoice.objects.filter(poll=poll, votes__user=user)\
+        .update(vote_count=F('vote_count') - 1)
+
+
+def poll_post_vote(sender, poll, user, **kwargs):
+    TopicPollChoice.objects.filter(poll=poll, votes__user=user)\
+        .update(vote_count=F('vote_count') + 1)
+
+
+topic_poll_pre_vote.connect(poll_pre_vote, dispatch_uid=__name__)
+topic_poll_post_vote.connect(poll_post_vote, dispatch_uid=__name__)

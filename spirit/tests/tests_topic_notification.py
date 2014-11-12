@@ -26,8 +26,6 @@ from spirit.templatetags.tags.topic_notification import render_notification_form
 @override_settings(ST_NOTIFICATIONS_PER_PAGE=1)
 class TopicNotificationViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -272,8 +270,6 @@ class TopicNotificationViewTest(TestCase):
 
 class TopicNotificationFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -313,7 +309,9 @@ class TopicNotificationFormTest(TestCase):
 
 class TopicNotificationSignalTest(TransactionTestCase):
 
-    fixtures = ['spirit_init.json', ]
+    # Needed to work with migrations when using TransactionTestCase
+    available_apps = ["spirit", ]
+    serialized_rollback = True
 
     def setUp(self):
         cache.clear()
@@ -421,8 +419,6 @@ class TopicNotificationSignalTest(TransactionTestCase):
 
 
 class TopicNotificationTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

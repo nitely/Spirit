@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Topic Publish</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="../scripts/vendors/jquery.min.js"></script>
+
+    <script>
+
+	$( document ).ready(function(e) {
+		$( ".js-poll-add" ).on( 'click', function( e ) {
+            $( this ).closest( 'dd' ).hide();
+            $( ".js-poll-form" ).show();
+            e.preventDefault();
+            e.stopPropagation();
+        });
+	});
+
+	</script>
+
+  </head>
+
+  <body>
+
+	<header class="header">
+		<a class="header-logo" href="#">Spirit</a>
+
+	</header>
+
+	<h1 class="headline">Publish topic</h1>
+
+		<form action=".">
+			<div class="field">
+				<label for="id_field1">Field</label>
+				<input id="id_field1" type="text" value="1" />
+			</div>
+
+            <dl class="preference">
+               <dt class="preference-label">Poll:</dt>
+               <dd class="preference-desc"><a class="js-poll-add" href="#"><i class="fa fa-bar-chart-o"></i> Add poll</a></dd>
+            </dl>
+
+            <!--
+            if form.data, show!
+            !-->
+            <div class="field js-poll-form" style="display:none;margin-left:20px;">
+				<label for="id_field2">Field 2</label>
+				<input id="id_field2" type="text" value="1" />
+			</div>
+
+			<div class="field">
+				<label for="id_field3">Comment</label>
+				<textarea id="id_field3" placeholder="textarea..."></textarea>
+			</div>
+
+			<input class="button" type="submit" value="Publish" />
+		</form>
+
+
+	<footer class="footer">
+		<div class="footer-container">
+			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
+		</div>
+	</footer>
+
+  </body>
+
+</html>

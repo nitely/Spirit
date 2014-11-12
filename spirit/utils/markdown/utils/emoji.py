@@ -1,16 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import re
-import os
 
-from markdown.extensions import Extension
-from markdown.preprocessors import Preprocessor
-
-from django.conf import settings
-
-
-emojis_set = {
+emojis = {
     "+1", "-1", "100", "1234", "8ball", "a", "ab", "abc", "abcd", "accept", "aerial_tramway", "airplane",
     "alarm_clock", "alien", "ambulance", "anchor", "angel", "anger", "angry", "anguished", "ant", "apple",
     "aquarius", "aries", "arrows_clockwise", "arrows_counterclockwise", "arrow_backward", "arrow_double_down",
@@ -121,41 +113,3 @@ emojis_set = {
     "wink", "wolf", "woman", "womans_clothes", "womans_hat", "womens", "worried", "wrench", "x", "yellow_heart",
     "yen", "yum", "zap", "zero", "zzz",
 }
-
-
-class EmojifyExtension(Extension):
-
-    def extendMarkdown(self, md, md_globals):
-        md.registerExtension(self)
-        md.preprocessors.add('emojify',
-                             EmojifyPreprocessor(md),
-                             '_end')
-
-
-class EmojifyPreprocessor(Preprocessor):
-
-    def run(self, lines):
-        new_lines = []
-
-        def emojify(match):
-            emoji = match.group(1)
-
-            if not emoji in emojis_set:
-                return match.group(0)
-
-            image = emoji + '.png'
-            url = os.path.join(settings.STATIC_URL, 'spirit', 'emojis', image).replace('\\', '/')
-
-            return '![%(emoji)s](%(url)s)' % {'emoji': emoji, 'url': url}
-
-        for line in lines:
-            if line.strip():
-                line = re.sub(r':(?P<emoji>[a-z0-9\+\-_]+):', emojify, line, flags=re.UNICODE)
-
-            new_lines.append(line)
-
-        return new_lines
-
-
-def makeExtension(configs=None):
-    return EmojifyExtension(configs=configs)

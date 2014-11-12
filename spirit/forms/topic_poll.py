@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_text
 
 from spirit.models.topic_poll import TopicPollChoice, TopicPoll, TopicPollVote
 
@@ -35,7 +36,17 @@ class TopicPollForm(forms.ModelForm):
 
 class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
 
+    def __init__(self, can_delete=None, *args, **kwargs):
+        super(TopicPollChoiceInlineFormSet, self).__init__(*args, **kwargs)
+
+        if can_delete is not None:
+            # Adds the *delete* checkbox or not
+            self.can_delete = can_delete
+
     def is_filled(self):
+        if self.instance.pk:
+            return True
+
         for form in self.forms:
             description = form.cleaned_data.get('description')
             is_marked_as_delete = form.cleaned_data.get('DELETE', False)
@@ -73,14 +84,16 @@ class TopicPollVoteManyForm(forms.Form):
                                                             widget=forms.RadioSelect,
                                                             label=_("Poll choices"))
 
+        self.fields['choices'].label_from_instance = lambda obj: smart_text(obj.description)
+
     def load_initial(self):
-        selected_choices = TopicPollChoice.objects.filter(poll=self.poll, votes__user=self.user)
+        selected_choices = list(TopicPollChoice.objects.filter(poll=self.poll, votes__user=self.user))
+
+        if not selected_choices:
+            return
 
         if self.poll.choice_limit == 1:
-            try:
-                selected_choices = selected_choices[0]
-            except IndexError:
-                selected_choices = None
+            selected_choices = selected_choices[0]
 
         self.initial = {'choices': selected_choices, }
 

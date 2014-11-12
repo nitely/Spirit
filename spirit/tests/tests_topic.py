@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 from . import utils
 
@@ -18,11 +19,10 @@ from spirit.forms.topic import TopicForm
 from spirit.signals.topic import topic_post_moderate
 from spirit.models.comment import Comment
 from spirit.models.category import Category
+from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
 
 
 class TopicViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -34,12 +34,16 @@ class TopicViewTest(TestCase):
         """
         utils.login(self)
         category = utils.create_category()
-        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish'),
                                     form_data)
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
+
+        # Make sure it does not creates an empty poll
+        self.assertRaises(ObjectDoesNotExist, lambda: topic.poll)
 
         # ratelimit
         response = self.client.post(reverse('spirit:topic-publish'),
@@ -57,7 +61,8 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         title = "a" * 75
-        form_data = {'comment': 'foo', 'title': title, 'category': category.pk}
+        form_data = {'comment': 'foo', 'title': title, 'category': category.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish'),
                                     form_data)
         self.assertEqual(response.status_code, 302)
@@ -70,7 +75,8 @@ class TopicViewTest(TestCase):
         """
         utils.login(self)
         category = utils.create_category()
-        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish', kwargs={'category_id': category.pk, }),
                                     form_data)
         topic = Topic.objects.last()
@@ -89,8 +95,8 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         subcategory = utils.create_subcategory(category)
-        form_data = {'comment': 'foo', 'title': 'foobar',
-                     'category': subcategory.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': subcategory.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish', kwargs={'category_id': subcategory.pk, }),
                                     form_data)
         topic = Topic.objects.last()
@@ -116,12 +122,37 @@ class TopicViewTest(TestCase):
         utils.login(self)
 
         category = utils.create_category()
-        form_data = {'title': 'foobar', 'category': category.pk, 'comment': 'foo'}
+        form_data = {'title': 'foobar', 'category': category.pk, 'comment': 'foo',
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish'),
                                     form_data)
         self.assertEqual(response.status_code, 302)
         comment = Comment.objects.last()
         self.assertEqual(self._comment, repr(comment))
+
+    def test_topic_publish_poll(self):
+        """
+        POST, create topic + poll
+        """
+        utils.login(self)
+        category = utils.create_category()
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk,
+                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0,
+                     'choices-0-description': 'op1', 'choices-0-poll': "",
+                     'choices-1-description': 'op2', 'choices-1-poll': "",
+                     'choice_limit': 2}
+        response = self.client.post(reverse('spirit:topic-publish'),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        topic = Topic.objects.last()
+        self.assertEqual(topic.poll.choice_limit, 2)
+        self.assertEqual(len(topic.poll.choices.all()), 2)
+
+        # get
+        response = self.client.get(reverse('spirit:topic-publish'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.context['pform'], TopicPollForm)
+        self.assertIsInstance(response.context['pformset'], TopicPollChoiceFormSet)
 
     def test_topic_update(self):
         """
@@ -399,8 +430,6 @@ class TopicViewTest(TestCase):
 
 class TopicFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -440,8 +469,6 @@ class TopicFormTest(TestCase):
 
 
 class TopicSignalTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

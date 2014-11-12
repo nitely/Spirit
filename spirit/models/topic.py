@@ -36,7 +36,6 @@ class Topic(models.Model):
     objects = TopicManager()
 
     class Meta:
-        app_label = 'spirit'
         ordering = ['-last_active', ]
         verbose_name = _("topic")
         verbose_name_plural = _("topics")

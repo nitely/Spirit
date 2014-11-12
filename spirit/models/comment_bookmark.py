@@ -21,7 +21,6 @@ class CommentBookmark(models.Model):
     comment_number = models.PositiveIntegerField(default=0)
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'topic')
         verbose_name = _("comment bookmark")
         verbose_name_plural = _("comments bookmarks")

@@ -22,8 +22,6 @@ User = get_user_model()
 
 class AdminViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user(is_administrator=True)
@@ -243,8 +241,6 @@ class AdminViewTest(TestCase):
 
 
 class AdminFormTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

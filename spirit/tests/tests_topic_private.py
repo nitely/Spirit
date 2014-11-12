@@ -26,8 +26,6 @@ from spirit.models.topic import Topic
 
 class TopicPrivateViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -323,8 +321,6 @@ class TopicPrivateViewTest(TestCase):
 
 class TopicPrivateFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -390,8 +386,6 @@ class TopicPrivateFormTest(TestCase):
 
 
 class TopicTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

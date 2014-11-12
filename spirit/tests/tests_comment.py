@@ -36,8 +36,6 @@ User = get_user_model()
 
 class CommentViewTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -392,8 +390,6 @@ class CommentViewTest(TestCase):
 
 class CommentSignalTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -435,8 +431,6 @@ class CommentSignalTest(TestCase):
 
 
 class CommentTemplateTagTests(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -485,8 +479,6 @@ class CommentTemplateTagTests(TestCase):
 
 
 class CommentFormTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -538,8 +530,6 @@ class CommentFormTest(TestCase):
         self.assertEqual(image.url, image_url)
         image_path = os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name)
         self.assertTrue(os.path.isfile(image_path))
-        image.open()
-        self.assertEqual(image.read(), content)
 
         with open(image_path, "rb") as fh:
             self.assertEqual(fh.read(), content)

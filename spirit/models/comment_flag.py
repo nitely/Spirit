@@ -24,7 +24,6 @@ class CommentFlag(models.Model):
     is_closed = models.BooleanField(default=False)
 
     class Meta:
-        app_label = 'spirit'
         ordering = ['-date', ]
         verbose_name = _("comment flag")
         verbose_name_plural = _("comments flags")
@@ -47,7 +46,6 @@ class Flag(models.Model):
     body = models.TextField(_("body"), blank=True)
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'comment')
         ordering = ['-date', ]
         verbose_name = _("flag")

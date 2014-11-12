@@ -31,20 +31,6 @@ ST_PRIVATE_FORUM = False
 
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
 
-# check out http://pythonhosted.org/Markdown/extensions/index.html
-ST_MARKDOWN_EXT = (
-    'nl2br',
-    'fenced_code',
-    'spirit.utils.markdown.mention',
-    'spirit.utils.markdown.emoji',
-    'spirit.utils.markdown.image',
-    'spirit.utils.markdown.video',
-    'spirit.utils.markdown.audio',
-    'spirit.utils.markdown.youtube',
-    'spirit.utils.markdown.vimeo',
-)
-
-
 #
 # Django & Spirit settings defined below...
 #
@@ -58,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'spirit',
-    #'debug_toolbar'
+    # 'spirit.tests'
 )
 
 # python manage.py createcachetable spirit_cache

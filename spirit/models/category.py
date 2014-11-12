@@ -28,7 +28,6 @@ class Category(models.Model):
     objects = CategoryManager()
 
     class Meta:
-        app_label = 'spirit'
         ordering = ['title', ]
         verbose_name = _("category")
         verbose_name_plural = _("categories")

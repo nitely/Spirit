@@ -7,6 +7,7 @@ from .tags import search
 from .tags import topic_favorite
 from .tags import topic_notification
 from .tags import topic_private
+from .tags.utils import filters
 from .tags.utils import gravatar
 from .tags.utils import messages
 from .tags.utils import paginator

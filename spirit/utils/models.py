@@ -38,5 +38,10 @@ class AutoSlugField(SlugField):
 
         return slug
 
-    # def deconstruct(self):
-        # TODO: django 1.7 requires this
+    def deconstruct(self):
+        name, path, args, kwargs = super(AutoSlugField, self).deconstruct()
+
+        if self.populate_from is not None:
+            kwargs['populate_from'] = self.populate_from
+
+        return name, path, args, kwargs
