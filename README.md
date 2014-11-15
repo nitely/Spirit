@@ -8,7 +8,7 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 
 Spirit requires the following software to be installed:
 
-* Python 2.7
+* Python 2.7 3.3 3.4
 * Django 1.7
 * PostgreSQL or MySQL or Oracle Database
 
