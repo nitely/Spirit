@@ -57,8 +57,8 @@ class InlineLexer(mistune.InlineLexer):
         if not emoji in emojis:
             return m.group(0)
 
-        image = emoji + u'.png'
-        path = os.path.join(settings.STATIC_URL, u'spirit', u'emojis', image).replace(u'\\', u'/')
+        image = emoji + '.png'
+        path = os.path.join(settings.STATIC_URL, 'spirit', 'emojis', image).replace(u'\\', '/')
 
         return self.renderer.emoji(path)
 

@@ -40,4 +40,4 @@ class NestedModelChoiceField(forms.ModelChoiceField):
         if getattr(obj, self.parent_field):
             level_indicator = "--- "
 
-        return u"%s%s" % (level_indicator, smart_text(getattr(obj, self.label_field)))
+        return "%s%s" % (level_indicator, smart_text(getattr(obj, self.label_field)))
