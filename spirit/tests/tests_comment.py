@@ -1,8 +1,8 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import os
 import json
-from StringIO import StringIO
 
 from django.test import TestCase, RequestFactory
 from django.core.cache import cache
@@ -15,8 +15,9 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
+from django.utils.six import BytesIO
 
-import utils
+from . import utils
 
 from spirit.models.comment import Comment,\
     comment_like_post_create, comment_like_post_delete,\
@@ -34,8 +35,6 @@ User = get_user_model()
 
 
 class CommentViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -360,13 +359,13 @@ class CommentViewTest(TestCase):
         comment image upload
         """
         utils.login(self)
-        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                       b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
         response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(res['url'], os.path.join(settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
                                                   "bf21c3043d749d5598366c26e7e4ab44.gif").replace("\\", "/"))
         os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk),
@@ -377,21 +376,19 @@ class CommentViewTest(TestCase):
         comment image upload, invalid image
         """
         utils.login(self)
-        image = StringIO('BAD\x02D\x01\x00;')
+        image = BytesIO(b'BAD\x02D\x01\x00;')
         image.name = 'image.gif'
         image.content_type = 'image/gif'
         files = {'image': SimpleUploadedFile(image.name, image.read()), }
         response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertIn('error', res.keys())
         self.assertIn('image', res['error'].keys())
 
 
 class CommentSignalTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -434,8 +431,6 @@ class CommentSignalTest(TestCase):
 
 
 class CommentTemplateTagTests(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -485,8 +480,6 @@ class CommentTemplateTagTests(TestCase):
 
 class CommentFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -499,15 +492,15 @@ class CommentFormTest(TestCase):
         self.assertEqual(form.is_valid(), True)
 
     def test_comment_markdown(self):
-        form_data = {'comment': u'**Spirit unicode: áéíóú** '
-                                u'<script>alert();</script>', }
+        form_data = {'comment': '**Spirit unicode: áéíóú** '
+                                '<script>alert();</script>', }
         form = CommentForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
         form.user = self.user
         form.topic = self.topic
         comment = form.save()
-        self.assertEqual(comment.comment_html, u'<p><strong>Spirit unicode: áéíóú</strong> '
-                                               u'&lt;script&gt;alert();&lt;/script&gt;</p>')
+        self.assertEqual(comment.comment_html, '<p><strong>Spirit unicode: áéíóú</strong> '
+                                               '&lt;script&gt;alert();&lt;/script&gt;</p>')
 
     def test_comments_move(self):
         comment = utils.create_comment(user=self.user, topic=self.topic)
@@ -523,9 +516,9 @@ class CommentFormTest(TestCase):
         """
         Image upload
         """
-        content = 'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00' \
-                  '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;'
-        img = StringIO(content)
+        content = b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00' \
+                  b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;'
+        img = BytesIO(content)
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
 
         form = CommentImageForm(user=self.user, data={}, files=files)
@@ -537,8 +530,6 @@ class CommentFormTest(TestCase):
         self.assertEqual(image.url, image_url)
         image_path = os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name)
         self.assertTrue(os.path.isfile(image_path))
-        image.open()
-        self.assertEqual(image.read(), content)
 
         with open(image_path, "rb") as fh:
             self.assertEqual(fh.read(), content)
@@ -549,8 +540,8 @@ class CommentFormTest(TestCase):
         """
         Image upload no extension
         """
-        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                      b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile('image', img.read(), content_type='image/gif'), }
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertTrue(form.is_valid())
@@ -563,8 +554,8 @@ class CommentFormTest(TestCase):
         """
         Image upload, invalid format
         """
-        img = StringIO('GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                       '\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                      b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         # fake png extension
         files = {'image': SimpleUploadedFile('image.png', img.read(), content_type='image/png'), }
         form = CommentImageForm(data={}, files=files)
@@ -574,7 +565,7 @@ class CommentFormTest(TestCase):
         """
         Image upload, bad image
         """
-        img = StringIO('bad\x00;')
+        img = BytesIO(b'bad\x00;')
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())

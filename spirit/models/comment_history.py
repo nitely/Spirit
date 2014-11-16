@@ -1,14 +1,17 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import signals
+from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.signals.comment import comment_pre_update, comment_post_update
 
 
+@python_2_unicode_compatible
 class CommentHistory(models.Model):
 
     comment_fk = models.ForeignKey('spirit.Comment', verbose_name=_("original comment"))
@@ -17,7 +20,6 @@ class CommentHistory(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        app_label = 'spirit'
         ordering = ['-date', ]
         verbose_name = _("comment history")
         verbose_name_plural = _("comments history")
@@ -25,7 +27,7 @@ class CommentHistory(models.Model):
     def get_absolute_url(self):
         return reverse('spirit:comment-history', kwargs={'pk': str(self.id), })
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s: %s..." % (self.comment_fk.user.username, self.comment_html[:50])
 
 

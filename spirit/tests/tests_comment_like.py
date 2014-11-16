@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -6,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 
-import utils
+from . import utils
 
 from spirit.models.comment_like import CommentLike
 from spirit.forms.comment_like import LikeForm
@@ -14,8 +15,6 @@ from spirit.templatetags.tags.comment_like import render_like_form
 
 
 class LikeViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -82,8 +81,6 @@ class LikeViewTest(TestCase):
 
 class LikeFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -114,8 +111,6 @@ class LikeFormTest(TestCase):
 
 
 class LikeTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

@@ -1,11 +1,9 @@
 #-*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import datetime
 import json
 import os
-
-from markdown import markdown
-from markdown import Markdown
 
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
@@ -36,9 +34,9 @@ from spirit.utils.user import email
 
 from spirit import utils as spirit_utils
 from spirit.templatetags.tags.utils import time as ttags_utils
-import utils as test_utils
-from spirit.utils.markdown import quotify
+from . import utils as test_utils
 from spirit.templatetags.tags.utils.messages import render_messages
+from spirit.utils.markdown import Markdown, quotify
 
 
 class UtilsTests(TestCase):
@@ -67,10 +65,10 @@ class UtilsTests(TestCase):
         self.assertIsInstance(res, HttpResponse)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res['Content-Type'], 'application/json')
-        self.assertDictEqual(json.loads(res.content), {})
+        self.assertDictEqual(json.loads(res.content.decode('utf-8')), {})
 
         res = spirit_utils.json_response({"foo": "bar", })
-        self.assertDictEqual(json.loads(res.content), {"foo": "bar", })
+        self.assertDictEqual(json.loads(res.content.decode('utf-8')), {"foo": "bar", })
 
         res = spirit_utils.json_response(status=404)
         self.assertEqual(res.status_code, 404)
@@ -178,33 +176,35 @@ class UtilsTemplateTagTests(TestCase):
         """
         Test social share tags with unicode input
         """
-        t = Template(u'{% load spirit_tags %}'
-                     u'{% get_facebook_share_url url="/á/foo bar/" title="á" %}'
-                     u'{% get_twitter_share_url url="/á/foo bar/" title="á" %}'
-                     u'{% get_gplus_share_url url="/á/foo bar/" %}'
-                     u'{% get_email_share_url url="/á/foo bar/" title="á" %}'
-                     u'{% get_share_url url="/á/foo bar/" %}')
+        t = Template('{% load spirit_tags %}'
+                     '{% get_facebook_share_url url="/á/foo bar/" title="á" %}'
+                     '{% get_twitter_share_url url="/á/foo bar/" title="á" %}'
+                     '{% get_gplus_share_url url="/á/foo bar/" %}'
+                     '{% get_email_share_url url="/á/foo bar/" title="á" %}'
+                     '{% get_share_url url="/á/foo bar/" %}')
         res = t.render(Context({'request': RequestFactory().get('/'), }))
-        self.assertEqual(res.strip(), u"http://www.facebook.com/sharer.php?u=100&p%5Burl%5D=http%3A%2F%2Ftestserver"
-                                      u"%2F%25C3%25A1%2Ffoo%2520bar%2F&p%5Btitle%5D=%C3%A1"
-                                      u"https://twitter.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
-                                      u"foo%2520bar%2F&text=%C3%A1"
-                                      u"https://plus.google.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
-                                      u"foo%2520bar%2F"
-                                      u"mailto:?body=http%3A%2F%2Ftestserver%2F%25C3%25A1%2Ffoo%2520bar%2F"
-                                      u"&subject=%C3%A1&to="
-                                      u"http://testserver/%C3%A1/foo%20bar/")
+        self.assertEqual(res.strip(), "http://www.facebook.com/sharer.php?u=100&p%5Burl%5D=http%3A%2F%2Ftestserver"
+                                      "%2F%25C3%25A1%2Ffoo%2520bar%2F&p%5Btitle%5D=%C3%A1"
+                                      "https://twitter.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
+                                      "foo%2520bar%2F&text=%C3%A1"
+                                      "https://plus.google.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
+                                      "foo%2520bar%2F"
+                                      "mailto:?body=http%3A%2F%2Ftestserver%2F%25C3%25A1%2Ffoo%2520bar%2F"
+                                      "&subject=%C3%A1&to="
+                                      "http://testserver/%C3%A1/foo%20bar/")
 
     def test_social_share_twitter_length(self):
         """
         Twitter allows up to 140 chars, takes 23 for urls (https)
         """
-        long_title = u"á" * 150
-        t = Template(u'{% load spirit_tags %}'
-                     u'{% get_twitter_share_url url="/foo/" title=long_title %}')
+        # so this unicode title when is *url-quoted* becomes really large, like 1000 chars large,
+        # browsers support up to 2000 chars for an address, we should be fine.
+        long_title = "á" * 150
+        t = Template('{% load spirit_tags %}'
+                     '{% get_twitter_share_url url="/foo/" title=long_title %}')
         res = t.render(Context({'request': RequestFactory().get('/'), 'long_title': long_title}))
         url = urlunquote(res.strip())
-        self.assertEqual(len(url.split("text=")[-1]) + 23, 139)
+        self.assertEqual(len(url.split("text=")[-1]) + 23, 139)  # 140 for https
 
 
 class UtilsFormsTests(TestCase):
@@ -213,6 +213,8 @@ class UtilsFormsTests(TestCase):
         """
         NestedModelChoiceField
         """
+        Category.objects.all().delete()
+
         category = test_utils.create_category()
         category2 = test_utils.create_category()
         subcategory = test_utils.create_subcategory(category)
@@ -220,10 +222,10 @@ class UtilsFormsTests(TestCase):
                                        related_name='category_set',
                                        parent_field='parent_id',
                                        label_field='title')
-        self.assertSequenceEqual(list(field.choices), [('', u'---------'),
-                                                       (1, u'%s' % category.title),
-                                                       (3, u'--- %s' % subcategory.title),
-                                                       (2, u'%s' % category2.title)])
+        self.assertSequenceEqual(list(field.choices), [('', '---------'),
+                                                       (3, '%s' % category.title),
+                                                       (5, '--- %s' % subcategory.title),
+                                                       (4, '%s' % category2.title)])
 
 
 class UtilsTimezoneTests(TestCase):
@@ -293,15 +295,13 @@ class UtilsMarkdownTests(TestCase):
         """
         markdown mentions
         """
-        comment = u"@nitely, @esteban,@áéíóú, @fakeone"
-        comment_md = markdown(comment,
-                              output_formats='html5',
-                              safe_mode='escape',
-                              extensions=['spirit.utils.markdown.mention', ])
-        self.assertEqual(comment_md, u'<p><a href="%s">@nitely</a>, '
-                                     u'<a href="%s">@esteban</a>,'
-                                     u'<a href="%s">@\xe1\xe9\xed\xf3\xfa</a>, '
-                                     u'@fakeone</p>' %
+        comment = "@nitely, @esteban,@áéíóú, @fakeone"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<p><a class="comment-mention" href="%s">@nitely</a>, '
+                                     '<a class="comment-mention" href="%s">@esteban</a>,'
+                                     '<a class="comment-mention" href="%s">@\xe1\xe9\xed\xf3\xfa</a>, '
+                                     '@fakeone</p>' %
                                      (self.user.get_absolute_url(),
                                       self.user2.get_absolute_url(),
                                       self.user3.get_absolute_url()))
@@ -311,151 +311,146 @@ class UtilsMarkdownTests(TestCase):
         """
         markdown mentions limit
         """
-        comment = u"@a, @b, @nitely"
-        comment_md = markdown(comment,
-                              output_formats='html5',
-                              safe_mode='escape',
-                              extensions=['spirit.utils.markdown.mention', ])
-        self.assertEqual(comment_md, u"<p>@a, @b, @nitely</p>")
+        comment = "@a, @b, @nitely"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, "<p>@a, @b, @nitely</p>")
 
     def test_markdown_mentions_dict(self):
         """
         markdown mentions dict
         """
-        comment = u"@nitely, @esteban"
-        md = Markdown(output_formats='html5',
-                      safe_mode='escape',
-                      extensions=['spirit.utils.markdown.mention', ])
-        comment_md = md.convert(comment)
+        comment = "@nitely, @esteban"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
         # mentions get dianmically added on MentionifyExtension
-        self.assertDictEqual(md.mentions, {'nitely': self.user,
+        self.assertDictEqual(md.get_mentions(), {'nitely': self.user,
                                            'esteban': self.user2})
 
     def test_markdown_emoji(self):
         """
         markdown emojify
         """
-        comment = u":airplane:, :8ball: :bademoji: foo:"
-        comment_md = markdown(comment,
-                              output_formats='html5',
-                              safe_mode='escape',
-                              extensions=['spirit.utils.markdown.emoji', ])
-        self.assertEqual(comment_md, u'<p><img alt="airplane" src="%(static)sspirit/emojis/airplane.png" />, '
-                                     u'<img alt="8ball" src="%(static)sspirit/emojis/8ball.png" /> '
-                                     u':bademoji: foo:</p>' % {'static': settings.STATIC_URL, })
+        comment = ":airplane:, :8ball: :bademoji: foo:"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<p><img class="comment-emoji" src="%(static)sspirit/emojis/airplane.png">, '
+                                     '<img class="comment-emoji" src="%(static)sspirit/emojis/8ball.png"> '
+                                     ':bademoji: foo:</p>' % {'static': settings.STATIC_URL, })
 
+    @override_settings(LANGUAGE_CODE='en')
     def test_markdown_quote(self):
         """
         markdown quote
         """
-        comment = u"text\nnew line"
+        comment = "text\nnew line"
         quote = quotify(comment, self.user)
-        self.assertListEqual(quote.splitlines(), (u"@%s\n> text\n> new line\n\n" % self.user.username).splitlines())
+        self.assertListEqual(quote.splitlines(), (u"> @%s said:\n> text\n> new line\n\n" % self.user.username).splitlines())
+
+    @override_settings(LANGUAGE_CODE='en')
+    def test_markdown_quote_header_language(self):
+        """
+        markdown quote
+        "@user said:" should keep the default language (settings.LANGUAGE_CODE)
+        """
+        comment = ""
+        quote = quotify(comment, self.user)
+
+        with translation.override('es'):
+            self.assertListEqual(quote.splitlines(), (u"> @%s said:\n> \n\n" % self.user.username).splitlines())
 
     def test_markdown_image(self):
         """
         markdown image
         """
-        comment = u"http://foo.bar/image.png\nhttp://www.foo.bar.fb/path/image.png\n" \
-                  u"https://foo.bar/image.png\n" \
-                  u"bad http://foo.bar/image.png\nhttp://foo.bar/image.png bad\nhttp://bad.png\n" \
-                  u"http://foo.bar/.png\n![im](http://foo.bar/not_imagified.png)\n" \
-                  u"foo.bar/bad.png\nhttp://foo.bar/<escaped>.png"
-        comment_md = markdown(comment,
-                              output_formats='html5',
-                              safe_mode='escape',
-                              extensions=['spirit.utils.markdown.image', ])
-        self.assertListEqual(comment_md.splitlines(), u'<p><img alt="image" src="http://foo.bar/image.png" />'
-                                                  u'\n<img alt="image" src="http://www.foo.bar.fb/path/image.png" />'
-                                                  u'\n<img alt="image" src="https://foo.bar/image.png" />'
-                                                  u'\nbad http://foo.bar/image.png'
-                                                  u'\nhttp://foo.bar/image.png bad'
-                                                  u'\nhttp://bad.png'
-                                                  u'\nhttp://foo.bar/.png'
-                                                  u'\n<img alt="im" src="http://foo.bar/not_imagified.png" />'
-                                                  u'\nfoo.bar/bad.png'
-                                                  u'\n<img alt="image" src="http://foo.bar/&lt;escaped&gt;.png" /></p>'.splitlines())
+        comment = "http://foo.bar/image.png\nhttp://www.foo.bar.fb/path/image.png\n" \
+                  "https://foo.bar/image.png\n" \
+                  "bad http://foo.bar/image.png\nhttp://foo.bar/image.png bad\nhttp://bad.png\n" \
+                  "http://foo.bar/.png\n![im](http://foo.bar/not_imagified.png)\n" \
+                  "foo.bar/bad.png\n\nhttp://foo.bar/<escaped>.png"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertListEqual(comment_md.splitlines(), '<p><img src="http://foo.bar/image.png" alt="image" title="image"></p>\n'
+                                                  '<p><img src="http://www.foo.bar.fb/path/image.png" alt="image" title="image"></p>\n'
+                                                  '<p><img src="https://foo.bar/image.png" alt="image" title="image"></p>\n'
+                                                  '<p>bad <a href="http://foo.bar/image.png">http://foo.bar/image.png</a><br>'  # autolink
+                                                  '<a href="http://foo.bar/image.png">http://foo.bar/image.png</a> bad<br>'  # autolink
+                                                  '<a href="http://bad.png">http://bad.png</a><br>'  # autolink
+                                                  '<a href="http://foo.bar/.png">http://foo.bar/.png</a><br>'  # autolink
+                                                  '<img src="http://foo.bar/not_imagified.png" alt="im"><br>'
+                                                  'foo.bar/bad.png</p>\n'
+                                                  '<p><img src="http://foo.bar/&lt;escaped&gt;.png" alt="&lt;escaped&gt;" title="&lt;escaped&gt;"></p>\n'.splitlines())
 
     def test_markdown_youtube(self):
         """
         markdown youtube
         """
-        comment = u"https://www.youtube.com/watch?v=Z0UISCEe52Y\n" \
-                  u"http://youtu.be/afyK1HSFfgw\n" \
-                  u"https://www.youtube.com/embed/vsF0K3Ou1v0\n" \
-                  u"https://www.youtube.com/watch?v=<bad>\n" \
-                  u"https://www.noyoutube.com/watch?v=Z0UISCEe52Y\n" \
-                  u"badbad https://www.youtube.com/watch?v=Z0UISCEe52Y\n" \
-                  u"https://www.youtube.com/watch?v=Z0UISCEe52Y badbad\n"
-        comment_md = markdown(comment,
-                              output_formats='html5',
-                              safe_mode='escape',
-                              extensions=['spirit.utils.markdown.youtube', ])
-        self.assertListEqual(comment_md.splitlines(), u'<p><span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?feature=oembed" allowfullscreen></iframe></span>'
-                                                  u'\n<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?feature=oembed" allowfullscreen></iframe></span>'
-                                                  u'\n<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?feature=oembed" allowfullscreen></iframe></span>'
-                                                  u'\nhttps://www.youtube.com/watch?v=&lt;bad&gt;'
-                                                  u'\nhttps://www.noyoutube.com/watch?v=Z0UISCEe52Y'
-                                                  u'\nbadbad https://www.youtube.com/watch?v=Z0UISCEe52Y'
-                                                  u'\nhttps://www.youtube.com/watch?v=Z0UISCEe52Y badbad</p>'.splitlines())
+        comment = "https://www.youtube.com/watch?v=Z0UISCEe52Y\n" \
+                  "http://youtu.be/afyK1HSFfgw\n" \
+                  "https://www.youtube.com/embed/vsF0K3Ou1v0\n" \
+                  "https://www.youtube.com/watch?v=<bad>\n" \
+                  "https://www.noyoutube.com/watch?v=Z0UISCEe52Y\n" \
+                  "badbad https://www.youtube.com/watch?v=Z0UISCEe52Y\n" \
+                  "https://www.youtube.com/watch?v=Z0UISCEe52Y badbad\n"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertListEqual(comment_md.splitlines(), '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?feature=oembed" allowfullscreen></iframe></span>'
+                                                  '\n<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?feature=oembed" allowfullscreen></iframe></span>'
+                                                  '\n<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?feature=oembed" allowfullscreen></iframe></span>'
+                                                  '\n<p><a href="https://www.youtube.com/watch?v=&lt;bad&amp;gt">https://www.youtube.com/watch?v=&lt;bad&amp;gt</a>;<br>'  # smart_amp ain't smart
+                                                  '<a href="https://www.noyoutube.com/watch?v=Z0UISCEe52Y">https://www.noyoutube.com/watch?v=Z0UISCEe52Y</a><br>'
+                                                  'badbad <a href="https://www.youtube.com/watch?v=Z0UISCEe52Y">https://www.youtube.com/watch?v=Z0UISCEe52Y</a><br>'
+                                                  '<a href="https://www.youtube.com/watch?v=Z0UISCEe52Y">https://www.youtube.com/watch?v=Z0UISCEe52Y</a> badbad</p>'.splitlines())
 
     def test_markdown_vimeo(self):
         """
         markdown vimeo
         """
-        self.maxDiff = None
-        comment = u"https://vimeo.com/11111111\n" \
-                  u"https://www.vimeo.com/11111111\n" \
-                  u"https://player.vimeo.com/video/11111111\n" \
-                  u"https://vimeo.com/channels/11111111\n" \
-                  u"https://vimeo.com/groups/name/videos/11111111\n" \
-                  u"https://vimeo.com/album/2222222/video/11111111\n" \
-                  u"https://vimeo.com/11111111?param=value\n" \
-                  u"https://novimeo.com/11111111\n" \
-                  u"bad https://novimeo.com/11111111\n" \
-                  u"https://novimeo.com/11111111 bad"
-        comment_md = markdown(comment,
-                              output_formats='html5',
-                              safe_mode='escape',
-                              extensions=['spirit.utils.markdown.vimeo', ])
-        self.assertListEqual(comment_md.splitlines(), u'<p><span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  u'\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  u'\nhttps://novimeo.com/11111111'
-                                                  u'\nbad https://novimeo.com/11111111'
-                                                  u'\nhttps://novimeo.com/11111111 bad</p>'.splitlines())
+        comment = "https://vimeo.com/11111111\n" \
+                  "https://www.vimeo.com/11111111\n" \
+                  "https://player.vimeo.com/video/11111111\n" \
+                  "https://vimeo.com/channels/11111111\n" \
+                  "https://vimeo.com/groups/name/videos/11111111\n" \
+                  "https://vimeo.com/album/2222222/video/11111111\n" \
+                  "https://vimeo.com/11111111?param=value\n" \
+                  "https://novimeo.com/11111111\n" \
+                  "bad https://novimeo.com/11111111\n" \
+                  "https://novimeo.com/11111111 bad"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertListEqual(comment_md.splitlines(), '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                                                  '\n<p><a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a><br>'
+                                                  'bad <a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a><br>'
+                                                  '<a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a> bad</p>'.splitlines())
 
     def test_markdown_video(self):
         """
         markdown video
         """
-        comment = u"http://foo.bar/video.mp4\nhttp://foo.bar/<escaped>.mp4"
-        comment_md = markdown(comment,
-                              output_formats='html5',
-                              safe_mode='escape',
-                              extensions=['spirit.utils.markdown.video', ])
-        self.assertListEqual(comment_md.splitlines(), u'<p><video controls><source src="http://foo.bar/video.mp4">'
-                                                      u'<a href="http://foo.bar/video.mp4">http://foo.bar/video.mp4</a></video>'
-                                                      u'\n<video controls><source src="http://foo.bar/&lt;escaped&gt;.mp4">'
-                                                      u'<a href="http://foo.bar/&lt;escaped&gt;.mp4">'
-                                                      u'http://foo.bar/&lt;escaped&gt;.mp4</a></video></p>'.splitlines())
+        comment = "http://foo.bar/video.mp4\nhttp://foo.bar/<escaped>.mp4"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertListEqual(comment_md.splitlines(), '<video controls><source src="http://foo.bar/video.mp4">'
+                                                      '<a href="http://foo.bar/video.mp4">http://foo.bar/video.mp4</a></video>'
+                                                      '\n<video controls><source src="http://foo.bar/&lt;escaped&gt;.mp4">'
+                                                      '<a href="http://foo.bar/&lt;escaped&gt;.mp4">'
+                                                      'http://foo.bar/&lt;escaped&gt;.mp4</a></video>'.splitlines())
 
     def test_markdown_audio(self):
         """
         markdown audio
         """
-        self.maxDiff = None
-        comment = u"http://foo.bar/audio.mp3\nhttp://foo.bar/<escaped>.mp3"
-        comment_md = markdown(comment,
-                              output_formats='html5',
-                              safe_mode='escape',
-                              extensions=['spirit.utils.markdown.audio', ])
-        self.assertListEqual(comment_md.splitlines(), u'<p><audio controls><source src="http://foo.bar/audio.mp3"><a href="http://foo.bar/audio.mp3">http://foo.bar/audio.mp3</a></audio>'
-                                                  u'\n<audio controls><source src="http://foo.bar/&lt;escaped&gt;.mp3"><a href="http://foo.bar/&lt;escaped&gt;.mp3">http://foo.bar/&lt;escaped&gt;.mp3</a></audio></p>'.splitlines())
+        comment = "http://foo.bar/audio.mp3\nhttp://foo.bar/<escaped>.mp3"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertListEqual(comment_md.splitlines(), '<audio controls><source src="http://foo.bar/audio.mp3"><a href="http://foo.bar/audio.mp3">http://foo.bar/audio.mp3</a></audio>'
+                                                  '\n<audio controls><source src="http://foo.bar/&lt;escaped&gt;.mp3"><a href="http://foo.bar/&lt;escaped&gt;.mp3">http://foo.bar/&lt;escaped&gt;.mp3</a></audio>'.splitlines())
 
 
 class UtilsUserTests(TestCase):

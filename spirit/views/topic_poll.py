@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -12,6 +13,7 @@ from spirit import utils
 
 from spirit.models.topic_poll import TopicPoll
 from spirit.forms.topic_poll import TopicPollChoiceFormSet, TopicPollForm, TopicPollVoteManyForm
+from spirit.signals.topic_poll import topic_poll_pre_vote, topic_poll_post_vote
 
 
 @login_required
@@ -49,6 +51,7 @@ def poll_close(request, pk):
 
 @require_POST
 def poll_vote(request, pk):
+    # TODO: check if user has access to this topic/poll
     poll = get_object_or_404(TopicPoll, pk=pk)
 
     if not request.user.is_authenticated():
@@ -58,7 +61,9 @@ def poll_vote(request, pk):
     form = TopicPollVoteManyForm(user=request.user, poll=poll, data=request.POST)
 
     if form.is_valid():
+        topic_poll_pre_vote.send(sender=poll.__class__, poll=poll, user=request.user)
         form.save_m2m()
+        topic_poll_post_vote.send(sender=poll.__class__, poll=poll, user=request.user)
         return redirect(request.POST.get('next', poll.get_absolute_url()))
     else:
         messages.error(request, utils.render_form_errors(form))

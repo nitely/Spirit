@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
@@ -8,7 +9,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
 
-import utils
+from . import utils
 
 from spirit.views.admin import user, category, comment_flag, config, index, topic
 from spirit.models.category import Category
@@ -20,8 +21,6 @@ User = get_user_model()
 
 
 class AdminViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -242,8 +241,6 @@ class AdminViewTest(TestCase):
 
 
 class AdminFormTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

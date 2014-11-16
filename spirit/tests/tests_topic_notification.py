@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import json
 import datetime
@@ -10,8 +11,9 @@ from django.core.cache import cache
 from django.conf import settings
 from django.template import Template, Context
 from django.utils import timezone
-
-import utils
+from django.utils import six
+from django.utils.six.moves import xrange
+from . import utils
 
 from spirit.models.topic_private import TopicPrivate
 
@@ -23,8 +25,6 @@ from spirit.templatetags.tags.topic_notification import render_notification_form
 
 @override_settings(ST_NOTIFICATIONS_PER_PAGE=1)
 class TopicNotificationViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -75,7 +75,7 @@ class TopicNotificationViewTest(TestCase):
         # ajax list should behave the same
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 1)
 
     def test_topic_notification_list_dont_show_topic_removed_or_no_access(self):
@@ -116,7 +116,7 @@ class TopicNotificationViewTest(TestCase):
         # ajax list should behave the same
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 0)
 
     @override_settings(ST_NOTIFICATIONS_PER_PAGE=10)
@@ -145,7 +145,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 1)
         expected = {
             'user': self.topic_notification.comment.user.username,
@@ -154,7 +154,11 @@ class TopicNotificationViewTest(TestCase):
             'url': self.topic_notification.get_absolute_url(),
             'is_read': self.topic_notification.is_read
         }
-        self.assertItemsEqual(res['n'][0], expected)
+        # django.utils.six will provide a method in django 1.8
+        if six.PY3:
+            self.assertCountEqual(res['n'][0], expected)
+        else:
+            self.assertItemsEqual(res['n'][0], expected)
         self.assertFalse(TopicNotification.objects.get(pk=self.topic_notification.pk).is_read)
 
     def test_topic_notification_ajax_limit(self):
@@ -170,8 +174,8 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
-        self.assertGreater(TopicNotification.objects.filter(user=self.user), 1)
+        res = json.loads(response.content.decode('utf-8'))
+        self.assertGreater(TopicNotification.objects.filter(user=self.user).count(), 1)
         self.assertEqual(len(res['n']), 1)
 
     @override_settings(ST_NOTIFICATIONS_PER_PAGE=20)
@@ -194,7 +198,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic-notification-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        res = json.loads(response.content)
+        res = json.loads(response.content.decode('utf-8'))
         self.assertFalse(res['n'][0]['is_read'])
         self.assertTrue(res['n'][1]['is_read'])
 
@@ -266,8 +270,6 @@ class TopicNotificationViewTest(TestCase):
 
 class TopicNotificationFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -307,7 +309,9 @@ class TopicNotificationFormTest(TestCase):
 
 class TopicNotificationSignalTest(TransactionTestCase):
 
-    fixtures = ['spirit_init.json', ]
+    # Needed to work with migrations when using TransactionTestCase
+    available_apps = ["spirit", ]
+    serialized_rollback = True
 
     def setUp(self):
         cache.clear()
@@ -415,8 +419,6 @@ class TopicNotificationSignalTest(TransactionTestCase):
 
 
 class TopicNotificationTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

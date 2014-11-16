@@ -1,5 +1,4 @@
-#-*- coding: utf-8 -*-
-
+# -*- coding: utf-8 -*-
 from functools import wraps
 
 from django.core.exceptions import PermissionDenied

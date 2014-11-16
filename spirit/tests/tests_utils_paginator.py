@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
@@ -6,8 +7,9 @@ from django.template import Template, Context, TemplateSyntaxError
 from django.test.utils import override_settings
 from django.http import Http404
 from django.core.paginator import Page, Paginator
+from django.utils.six.moves import xrange
 
-import utils
+from . import utils
 from spirit.models.comment import Comment
 
 from spirit.utils.paginator.yt_paginator import YTPaginator, InvalidPage, YTPage

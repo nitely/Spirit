@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -6,15 +7,13 @@ from django.contrib.auth import get_user_model
 from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 
-import utils
+from . import utils
 
 from spirit.models.topic_favorite import TopicFavorite
 from spirit.forms.topic_favorite import FavoriteForm
 
 
 class FavoriteViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     # TODO: templatetags test
     def setUp(self):
@@ -82,8 +81,6 @@ class FavoriteViewTest(TestCase):
 
 
 class FavoriteFormTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

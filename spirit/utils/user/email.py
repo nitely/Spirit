@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from smtplib import SMTPException
 import logging
@@ -8,7 +9,7 @@ from django.contrib.sites.models import get_current_site
 from django.utils.translation import ugettext as _
 from django.template.loader import render_to_string
 
-from tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from .tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 
 logger = logging.getLogger(__name__)
 

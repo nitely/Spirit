@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -11,7 +12,7 @@ from django.core.management import call_command
 import haystack
 from haystack.query import SearchQuerySet
 
-import utils
+from . import utils
 
 from spirit.models.topic import Topic
 from spirit.forms.search import BasicSearchForm, BaseSearchForm, AdvancedSearchForm
@@ -27,8 +28,6 @@ HAYSTACK_TEST = {
 
 
 class SearchTopicIndexTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -58,8 +57,6 @@ class SearchTopicIndexTest(TestCase):
 
 
 class SearchViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         # TODO: simple backend wont work on django +1.6 coz of a bug on haystack 2.1
@@ -115,8 +112,6 @@ class SearchViewTest(TestCase):
 
 class SearchFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
 
@@ -142,8 +137,6 @@ class SearchFormTest(TestCase):
 
 
 class SearchTemplateTagTests(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

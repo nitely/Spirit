@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import datetime
 
@@ -10,8 +11,9 @@ from django.contrib.auth import get_user_model
 from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
+from django.utils.six.moves import xrange
 
-import utils
+from . import utils
 
 from spirit.forms.user import RegistrationForm, UserProfileForm, EmailChangeForm, ResendActivationForm
 from spirit.backends.user import EmailAuthBackend
@@ -26,8 +28,6 @@ User = get_user_model()
 
 
 class UserViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -356,8 +356,8 @@ class UserViewTest(TestCase):
         admin.site.login = login_required(admin.site.login)
         to urls.py (the one in your project's root)
         """
-        response = self.client.get(reverse('admin:index'))
-        expected_url = reverse("spirit:user-login") + "?next=" + reverse('admin:index')
+        response = self.client.get(reverse('admin:login'))
+        expected_url = reverse("spirit:user-login") + "?next=" + reverse('admin:login')
         self.assertRedirects(response, expected_url, status_code=302)
 
     def test_profile_password_change(self):
@@ -546,8 +546,6 @@ class UserViewTest(TestCase):
 
 class UserFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -634,8 +632,6 @@ class UserFormTest(TestCase):
 
 class UserBackendTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user(email="foobar@bar.com", password="bar")
@@ -646,8 +642,6 @@ class UserBackendTest(TestCase):
 
 
 class UserModelTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

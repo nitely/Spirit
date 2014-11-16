@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -11,6 +12,7 @@ from spirit.models.category import Category
 from spirit.models.comment import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
 from spirit.forms.comment import CommentForm
 from spirit.signals.comment import comment_posted
+from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
 
 from spirit.models.topic import Topic
 from spirit.forms.topic import TopicForm
@@ -26,19 +28,34 @@ def topic_publish(request, category_id=None):
     if request.method == 'POST':
         form = TopicForm(user=request.user, data=request.POST)
         cform = CommentForm(user=request.user, data=request.POST)
+        pform = TopicPollForm(data=request.POST)
+        pformset = TopicPollChoiceFormSet(can_delete=False, data=request.POST)
 
-        if not request.is_limited and form.is_valid() and cform.is_valid():
+        if not request.is_limited and form.is_valid() and cform.is_valid() \
+                and pform.is_valid() and pformset.is_valid():
             # wrap in transaction.atomic?
             topic = form.save()
+
             cform.topic = topic
             comment = cform.save()
             comment_posted.send(sender=comment.__class__, comment=comment, mentions=cform.mentions)
+
+            # Create a poll only if we have choices
+            if pformset.is_filled():
+                pform.topic = topic
+                poll = pform.save()
+                pformset.instance = poll
+                pformset.save()
+
             return redirect(topic.get_absolute_url())
     else:
         form = TopicForm(user=request.user, initial={'category': category_id, })
         cform = CommentForm()
+        pform = TopicPollForm()
+        pformset = TopicPollChoiceFormSet(can_delete=False)
 
-    return render(request, 'spirit/topic/topic_publish.html', {'form': form, 'cform': cform})
+    return render(request, 'spirit/topic/topic_publish.html', {'form': form, 'cform': cform,
+                                                               'pform': pform, 'pformset': pformset})
 
 
 @login_required
@@ -77,7 +94,6 @@ def topic_detail(request, pk, slug):
 @moderator_required
 def topic_moderate(request, pk, value, remove=False, lock=False, pin=False):
     # TODO: move to topic_moderate and split it in many views
-    # delete TopicUnread on remove
     topic = get_object_or_404(Topic, pk=pk)
 
     if request.method == 'POST':

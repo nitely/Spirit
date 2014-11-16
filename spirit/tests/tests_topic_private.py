@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import datetime
 
@@ -7,9 +8,10 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
+from django.utils import six
 from django.utils import timezone
 
-import utils
+from . import utils
 
 from spirit.models.category import Category
 from spirit.models.topic_private import TopicPrivate
@@ -23,8 +25,6 @@ from spirit.models.topic import Topic
 
 
 class TopicPrivateViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -321,8 +321,6 @@ class TopicPrivateViewTest(TestCase):
 
 class TopicPrivateFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def setUp(self):
         cache.clear()
         self.user = utils.create_user()
@@ -350,8 +348,12 @@ class TopicPrivateFormTest(TestCase):
         form.topic = topic
         privates_saved = form.save_m2m()
         privates = TopicPrivate.objects.all()
-        self.assertItemsEqual(map(repr, privates_saved), map(repr, privates))
-
+        # django.utils.six will provide a method in django 1.8
+        if six.PY3:
+            self.assertCountEqual(map(repr, privates_saved), map(repr, privates))
+        else:
+            self.assertItemsEqual(map(repr, privates_saved), map(repr, privates))
+        
     def test_private_create(self):
         """
         create single private topic access
@@ -384,8 +386,6 @@ class TopicPrivateFormTest(TestCase):
 
 
 class TopicTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

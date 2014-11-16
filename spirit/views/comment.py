@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -10,7 +11,7 @@ from django.http import Http404
 
 from spirit.utils.ratelimit.decorators import ratelimit
 from spirit.models.topic import Topic
-from spirit.utils import paginator, markdown, render_form_errors
+from spirit.utils import paginator, markdown
 from spirit.utils.decorators import moderator_required
 from spirit.utils import json_response, render_form_errors
 

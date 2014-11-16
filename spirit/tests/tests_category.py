@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import datetime
 
@@ -7,14 +8,12 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils import timezone
 
-import utils
+from . import utils
 
 from spirit.models.topic import Topic
 
 
 class CategoryViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -28,7 +27,9 @@ class CategoryViewTest(TestCase):
         should display all categories
         """
         response = self.client.get(reverse('spirit:category-list'))
-        self.assertQuerysetEqual(response.context['categories'], ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)])
+        self.assertQuerysetEqual(response.context['categories'],
+                                 ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)],
+                                 ordered=False)
 
     def test_category_detail_view(self):
         """

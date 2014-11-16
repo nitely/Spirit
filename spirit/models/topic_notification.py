@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -6,6 +7,8 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
 from django.db import IntegrityError
+from django.utils import six
+from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.signals.comment import comment_posted
 from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
@@ -14,7 +17,7 @@ from spirit.signals.topic import topic_viewed
 from spirit.managers.topic_notifications import TopicNotificationManager
 
 
-UNDEFINED, MENTION, COMMENT = xrange(3)
+UNDEFINED, MENTION, COMMENT = six.moves.xrange(3)
 
 ACTION_CHOICES = (
     (UNDEFINED, _("Undefined")),
@@ -23,6 +26,7 @@ ACTION_CHOICES = (
 )
 
 
+@python_2_unicode_compatible
 class TopicNotification(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -37,7 +41,6 @@ class TopicNotification(models.Model):
     objects = TopicNotificationManager()
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'topic')
         ordering = ['-date', ]
         verbose_name = _("topic notification")
@@ -58,7 +61,7 @@ class TopicNotification(models.Model):
     def is_comment(self):
         return self.action == COMMENT
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s in %s" % (self.user, self.topic)
 
 
@@ -82,7 +85,7 @@ def mention_comment_posted_handler(sender, comment, mentions, **kwargs):
     if not mentions:
         return
 
-    for username, user in mentions.iteritems():
+    for username, user in six.iteritems(mentions):
         try:
             TopicNotification.objects.create(user=user, topic=comment.topic,
                                              comment=comment, action=MENTION)

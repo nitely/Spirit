@@ -1,1 +1,2 @@
-from ratelimit import RateLimit
+# -*- coding: utf-8 -*-
+from .ratelimit import RateLimit

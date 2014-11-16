@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 # MINIMAL CONFIGURATION FOR PRODUCTION ENV
 

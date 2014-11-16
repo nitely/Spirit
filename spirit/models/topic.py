@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -6,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import F
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 from ..signals.comment import comment_posted, comment_moved
 
@@ -14,6 +16,7 @@ from spirit.managers.topic import TopicManager
 from spirit.utils.models import AutoSlugField
 
 
+@python_2_unicode_compatible
 class Topic(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -33,7 +36,6 @@ class Topic(models.Model):
     objects = TopicManager()
 
     class Meta:
-        app_label = 'spirit'
         ordering = ['-last_active', ]
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
@@ -48,7 +50,7 @@ class Topic(models.Model):
     def main_category(self):
         return self.category.parent or self.category
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 

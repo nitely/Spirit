@@ -1,5 +1,4 @@
-#-*- coding: utf-8 -*-
-
+# -*- coding: utf-8 -*-
 from haystack.views import SearchView as BaseSearchView
 
 

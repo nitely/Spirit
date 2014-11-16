@@ -1,9 +1,8 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import hashlib
 import os
-
-from markdown import Markdown
 
 from django import forms
 from django.conf import settings
@@ -13,6 +12,7 @@ from django.utils.image import Image
 from spirit.models.comment import Comment
 from spirit.models.topic import Topic
 from spirit import utils
+from spirit.utils.markdown import Markdown
 
 
 class CommentForm(forms.ModelForm):
@@ -29,12 +29,9 @@ class CommentForm(forms.ModelForm):
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
 
     def _get_comment_html(self):
-        markdown = Markdown(output_formats='html5',
-                            safe_mode='escape',
-                            extensions=settings.ST_MARKDOWN_EXT)
-        markdown.mentions = {}
-        comment_html = markdown.convert(self.cleaned_data['comment'])
-        self.mentions = markdown.mentions
+        markdown = Markdown(escape=True, hard_wrap=True)
+        comment_html = markdown.render(self.cleaned_data['comment'])
+        self.mentions = markdown.get_mentions()
         return comment_html
 
     def save(self, commit=True):
@@ -90,7 +87,7 @@ class CommentImageForm(forms.Form):
     def save(self):
         image = self.cleaned_data["image"]
         hash = hashlib.md5(image.read()).hexdigest()
-        image.name = u"".join((hash, ".", image.format))
+        image.name = "".join((hash, ".", image.format))
         upload_to = os.path.join('spirit', 'images', str(self.user.pk))
         image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name).replace("\\", "/")
         media_path = os.path.join(settings.MEDIA_ROOT, upload_to)

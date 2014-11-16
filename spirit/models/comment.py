@@ -1,10 +1,13 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import F
+from django.utils.six.moves import xrange
+from django.utils.encoding import python_2_unicode_compatible
 
 from ..signals.comment_like import comment_like_post_create, comment_like_post_delete
 from ..signals.topic import topic_post_moderate
@@ -26,7 +29,7 @@ ACTION = (
     (UNPINNED, _("topic unpinned")),
 )
 
-
+@python_2_unicode_compatible
 class Comment(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -46,7 +49,6 @@ class Comment(models.Model):
     objects = CommentManager()
 
     class Meta:
-        app_label = 'spirit'
         ordering = ['-date', ]
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
@@ -54,7 +56,7 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse('spirit:comment-find', kwargs={'pk': str(self.id), })
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s: %s..." % (self.user.username, self.comment[:50])
 
 

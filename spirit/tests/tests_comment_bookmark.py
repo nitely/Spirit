@@ -1,20 +1,20 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 from django.conf import settings
+from django.utils.six.moves import xrange
 
-import utils
+from . import utils
 
 from spirit.models.comment_bookmark import CommentBookmark, topic_viewed
 from spirit.forms.comment_bookmark import BookmarkForm
 
 
 class CommentBookmarkViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -36,8 +36,6 @@ class CommentBookmarkViewTest(TestCase):
 
 
 class CommentBookmarkSignalTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -72,8 +70,6 @@ class CommentBookmarkSignalTest(TestCase):
 
 class CommentBookmarkFormTest(TestCase):
 
-    fixtures = ['spirit_init.json', ]
-
     def test_form(self):
         form_data = {'comment_number': 999, }
         form = BookmarkForm(data=form_data)
@@ -81,8 +77,6 @@ class CommentBookmarkFormTest(TestCase):
 
 
 class CommentBookmarkTemplateTagsTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()

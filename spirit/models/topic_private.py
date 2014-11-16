@@ -1,13 +1,16 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.managers.topic_private import TopicPrivateManager
 
 
+@python_2_unicode_compatible
 class TopicPrivate(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -18,7 +21,6 @@ class TopicPrivate(models.Model):
     objects = TopicPrivateManager()
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'topic')
         ordering = ['-date', ]
         verbose_name = _("private topic")
@@ -27,5 +29,5 @@ class TopicPrivate(models.Model):
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s participes in %s" % (self.user, self.topic)

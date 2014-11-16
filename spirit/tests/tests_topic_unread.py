@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.core.cache import cache
 from django.test import TestCase, TransactionTestCase, RequestFactory
@@ -6,14 +7,12 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
-import utils
+from . import utils
 
 from spirit.models.topic_unread import TopicUnread, topic_viewed, comment_posted
 
 
 class TopicUnreadViewTest(TestCase):
-
-    fixtures = ['spirit_init.json', ]
 
     def setUp(self):
         cache.clear()
@@ -112,7 +111,9 @@ class TopicUnreadViewTest(TestCase):
 
 class TopicUnreadSignalTest(TransactionTestCase):  # since signal raises IntegrityError
 
-    fixtures = ['spirit_init.json', ]
+    # Needed to work with migrations when using TransactionTestCase
+    available_apps = ["spirit", ]
+    serialized_rollback = True
 
     def setUp(self):
         cache.clear()

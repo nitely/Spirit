@@ -1,9 +1,11 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.utils.encoding import python_2_unicode_compatible
 
 
 REASON_CHOICES = (
@@ -12,6 +14,7 @@ REASON_CHOICES = (
 )
 
 
+@python_2_unicode_compatible
 class CommentFlag(models.Model):
 
     moderator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
@@ -21,7 +24,6 @@ class CommentFlag(models.Model):
     is_closed = models.BooleanField(default=False)
 
     class Meta:
-        app_label = 'spirit'
         ordering = ['-date', ]
         verbose_name = _("comment flag")
         verbose_name_plural = _("comments flags")
@@ -29,10 +31,11 @@ class CommentFlag(models.Model):
     #def get_absolute_url(self):
         #pass
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s flagged" % self.comment
 
 
+@python_2_unicode_compatible
 class Flag(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -43,11 +46,10 @@ class Flag(models.Model):
     body = models.TextField(_("body"), blank=True)
 
     class Meta:
-        app_label = 'spirit'
         unique_together = ('user', 'comment')
         ordering = ['-date', ]
         verbose_name = _("flag")
         verbose_name_plural = _("flags")
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s flagged %s" % (self.user, self.comment)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for test2 project.
 
@@ -7,6 +8,8 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
+from __future__ import absolute_import
+from __future__ import unicode_literals
 
 # You may override spirit settings below...
 
@@ -39,6 +42,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS += (
     #'my_app1',
     #'my_app2',
+    'debug_toolbar',
 )
 
 # same here, check out the spirit.settings.py

@@ -1,5 +1,4 @@
-#-*- coding: utf-8 -*-
-
+# -*- coding: utf-8 -*-
 from django.db.models import Manager
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
