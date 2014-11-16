@@ -72,7 +72,7 @@ Run:
     pip install -r requirements.txt
     python manage.py migrate
     python manage.py collectstatic
-    python manage.py rebuild_index
+    python manage.py rebuild_index --noinput
 
 ## Contributing
 

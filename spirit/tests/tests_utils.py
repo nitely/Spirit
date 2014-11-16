@@ -291,7 +291,7 @@ class UtilsMarkdownTests(TestCase):
         cache.clear()
         self.user = test_utils.create_user(username="nitely", slug="nitely")
         self.user2 = test_utils.create_user(username="esteban")
-        self.user3 = test_utils.create_user(username=u"áéíóú")
+        self.user3 = test_utils.create_user(username="áéíóú")
 
     def test_markdown_mentions(self):
         """
@@ -347,7 +347,7 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = "text\nnew line"
         quote = quotify(comment, self.user)
-        self.assertListEqual(quote.splitlines(), (u"> @%s said:\n> text\n> new line\n\n" % self.user.username).splitlines())
+        self.assertListEqual(quote.splitlines(), ("> @%s said:\n> text\n> new line\n\n" % self.user.username).splitlines())
 
     @override_settings(LANGUAGE_CODE='en')
     def test_markdown_quote_header_language(self):
@@ -359,7 +359,7 @@ class UtilsMarkdownTests(TestCase):
         quote = quotify(comment, self.user)
 
         with translation.override('es'):
-            self.assertListEqual(quote.splitlines(), (u"> @%s said:\n> \n\n" % self.user.username).splitlines())
+            self.assertListEqual(quote.splitlines(), ("> @%s said:\n> \n\n" % self.user.username).splitlines())
 
     def test_markdown_image(self):
         """

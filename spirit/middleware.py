@@ -69,7 +69,7 @@ class ActiveUserMiddleware(object):
             return
 
         if not request.user.is_active:
-           logout(request)
+            logout(request)
 
 
 class PrivateForumMiddleware(object):
