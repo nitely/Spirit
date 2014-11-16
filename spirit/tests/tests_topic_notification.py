@@ -12,10 +12,8 @@ from django.core.cache import cache
 from django.conf import settings
 from django.template import Template, Context
 from django.utils import timezone
-from django.utils import six
-from django.utils.six.moves import xrange
-from . import utils
 
+from . import utils
 from spirit.models.topic_private import TopicPrivate
 
 from spirit.models.topic_notification import TopicNotification, comment_posted, \
@@ -150,16 +148,12 @@ class TopicNotificationViewTest(TestCase):
         self.assertEqual(len(res['n']), 1)
         expected = {
             'user': self.topic_notification.comment.user.username,
-            'action': self.topic_notification.text_action,
+            'action': self.topic_notification.action,
             'title': self.topic_notification.comment.topic.title,
             'url': self.topic_notification.get_absolute_url(),
             'is_read': self.topic_notification.is_read
         }
-        # django.utils.six will provide a method in django 1.8
-        if six.PY3:
-            self.assertCountEqual(res['n'][0], expected)
-        else:
-            self.assertItemsEqual(res['n'][0], expected)
+        self.assertDictEqual(res['n'][0], expected)
         self.assertFalse(TopicNotification.objects.get(pk=self.topic_notification.pk).is_read)
 
     def test_topic_notification_ajax_limit(self):
@@ -186,7 +180,7 @@ class TopicNotificationViewTest(TestCase):
         """
         user = utils.create_user()
 
-        for _ in xrange(10):
+        for _ in range(10):
             topic = utils.create_topic(self.category, user=user)
             comment = utils.create_comment(topic=topic, user=user)
             TopicNotification.objects.create(user=self.user, topic=topic, comment=comment,

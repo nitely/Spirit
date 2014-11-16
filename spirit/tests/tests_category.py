@@ -29,8 +29,7 @@ class CategoryViewTest(TestCase):
         """
         response = self.client.get(reverse('spirit:category-list'))
         self.assertQuerysetEqual(response.context['categories'],
-                                 ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)],
-                                 ordered=False)
+                                 ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)])
 
     def test_category_detail_view(self):
         """

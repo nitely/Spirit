@@ -8,7 +8,6 @@ from django.template import Template, Context, TemplateSyntaxError
 from django.test.utils import override_settings
 from django.http import Http404
 from django.core.paginator import Page, Paginator
-from django.utils.six.moves import xrange
 
 from . import utils
 from spirit.models.comment import Comment
@@ -58,7 +57,7 @@ class UtilsInfinitePaginatorTest(TestCase):
         self.user = utils.create_user()
         self.topic = utils.create_topic(utils.create_category())
 
-        for _ in xrange(300):
+        for _ in range(300):
             utils.create_comment(user=self.user, topic=self.topic)
 
         self.queryset = Comment.objects.all().order_by("-pk")
@@ -102,7 +101,7 @@ class UtilsYTPaginatorTests(TestCase):
         self.user = utils.create_user()
         self.topic = utils.create_topic(utils.create_category())
 
-        for _ in xrange(300):
+        for _ in range(300):
             utils.create_comment(user=self.user, topic=self.topic)
 
         self.queryset = Comment.objects.all()
@@ -127,7 +126,7 @@ class UtilsYTPaginatorTests(TestCase):
         yt_paginator = YTPaginator(self.queryset, per_page=10)
         page = yt_paginator.page(1)
 
-        for page_num in xrange(1, 30 + 1):
+        for page_num in range(1, 30 + 1):
             page._num_pages = None
             page._max_pages = page_num
             self.assertEqual(page.num_pages, page_num)
@@ -143,7 +142,7 @@ class UtilsYTPaginatorTests(TestCase):
     @override_settings(ST_YT_PAGINATOR_PAGE_RANGE=3)
     def test_yt_paginator_page_range(self):
         # 10 pages
-        yt_paginator = YTPaginator(list(xrange(0, 100)), per_page=10)
+        yt_paginator = YTPaginator(list(range(0, 100)), per_page=10)
 
         page = yt_paginator.page(1)
         self.assertListEqual(list(page.page_range), [1, 2, 3, 4, 5, 6, 7])
@@ -158,7 +157,7 @@ class UtilsYTPaginatorTests(TestCase):
         self.assertListEqual(list(page.page_range), [4, 5, 6, 7, 8, 9, 10])
 
         # 2 pages
-        yt_paginator = YTPaginator(list(xrange(0, 20)), per_page=10)
+        yt_paginator = YTPaginator(list(range(0, 20)), per_page=10)
 
         page = yt_paginator.page(1)
         self.assertListEqual(list(page.page_range), [1, 2])
@@ -183,14 +182,14 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
             "{% for p in page %}"
             "{{ p }}"
             "{% endfor %}"
-        ).render(Context({'request': req, 'items': list(xrange(0, 20)), }))
+        ).render(Context({'request': req, 'items': list(range(0, 20)), }))
         self.assertEqual(out, "01234")
 
     def tests_yt_paginator_autopaginate(self):
         # first page
         req = RequestFactory().get('/')
         context = {'request': req, }
-        items = list(xrange(0, 20))
+        items = list(range(0, 20))
         page = yt_paginator_autopaginate(context, items, per_page=10, page_var="val")
         self.assertIsInstance(page, YTPage)
         self.assertEqual(list(page), items[:10])
@@ -218,7 +217,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
         Minimal test to check it works
         """
         req = RequestFactory().get('/')
-        items = list(xrange(0, 20))
+        items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
         out = Template(
             "{% load spirit_tags %}"
@@ -228,7 +227,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
     def tests_render_yt_paginator(self):
         req = RequestFactory().get('/')
         context = {'request': req, }
-        items = list(xrange(0, 20))
+        items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
         res = render_yt_paginator(context, page)
         self.assertDictEqual(res, {"page": page,
@@ -239,7 +238,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
     def tests_render_yt_paginator_extra(self):
         req = RequestFactory().get('/?foo_page=1&extra=foo')
         context = {'request': req, }
-        items = list(xrange(0, 20))
+        items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
         res = render_yt_paginator(context, page, page_var='foo_page', hashtag="c20")
         self.assertDictEqual(res, {"page": page,
@@ -265,14 +264,14 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
             "{% for p in page %}"
             "{{ p }}"
             "{% endfor %}"
-        ).render(Context({'request': req, 'items': list(xrange(0, 20)), }))
+        ).render(Context({'request': req, 'items': list(range(0, 20)), }))
         self.assertEqual(out, "01234")
 
     def tests_paginator_autopaginate(self):
         # first page
         req = RequestFactory().get('/')
         context = {'request': req, }
-        items = list(xrange(0, 20))
+        items = list(range(0, 20))
         page = paginator_autopaginate(context, items, per_page=10, page_var="val")
         self.assertIsInstance(page, Page)
         self.assertEqual(list(page), items[:10])
@@ -300,7 +299,7 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
         Minimal test to check it works
         """
         req = RequestFactory().get('/')
-        items = list(xrange(0, 20))
+        items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
         out = Template(
             "{% load spirit_tags %}"
@@ -310,7 +309,7 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
     def tests_render_paginator(self):
         req = RequestFactory().get('/')
         context = {'request': req, }
-        items = list(xrange(0, 20))
+        items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
         res = render_paginator(context, page)
         self.assertDictEqual(res, {"page": page,
@@ -321,7 +320,7 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
     def tests_render_paginator_extra(self):
         req = RequestFactory().get('/?foo_page=1&extra=foo')
         context = {'request': req, }
-        items = list(xrange(0, 20))
+        items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
         res = render_paginator(context, page, page_var='foo_page', hashtag="c20")
         self.assertDictEqual(res, {"page": page,

@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.template import Template, Context, TemplateSyntaxError
-from django.utils import six
 
 from . import utils
 
@@ -21,5 +20,4 @@ class GravatarTemplateTagTests(TestCase):
             "{% load spirit_tags %}"
             "{% get_gravatar_url user 21 %}"
         ).render(Context({'user': self.user, }))
-        # Argument order may change between py2 and py3
-        six.assertRegex(self, out, 'http://www.gravatar.com/avatar/441cf33d0e5b36a95bae87e400783ca4\?[srd]=\w+&[srd]=\w+&[srd]=\w+')
+        self.assertEqual(out, "http://www.gravatar.com/avatar/441cf33d0e5b36a95bae87e400783ca4?d=identicon&s=21&r=g")
