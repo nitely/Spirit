@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.test import TestCase, RequestFactory
@@ -6,7 +7,6 @@ from django.core.urlresolvers import reverse
 from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 from django.conf import settings
-from django.utils.six.moves import xrange
 
 from . import utils
 
@@ -43,7 +43,7 @@ class CommentBookmarkSignalTest(TestCase):
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
 
-        for _ in xrange(settings.ST_COMMENTS_PER_PAGE * 4):  # 4 pages
+        for _ in range(settings.ST_COMMENTS_PER_PAGE * 4):  # 4 pages
             utils.create_comment(user=self.user, topic=self.topic)
 
     def test_comment_bookmark_topic_page_viewed_handler(self):

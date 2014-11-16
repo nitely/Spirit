@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.backends import ModelBackend
 
+from __future__ import absolute_import
+
+from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 
 

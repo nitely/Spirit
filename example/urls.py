@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+
 from __future__ import unicode_literals
+
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.conf.urls.static import static
-
-# Uncomment the next two lines to enable the django admin:
 from django.contrib import admin
-admin.autodiscover()
 
 # Override admin login for security purposes
 from django.contrib.auth.decorators import login_required

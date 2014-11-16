@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.db import models
@@ -7,7 +8,6 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
 from django.db import IntegrityError
-from django.utils import six
 from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.signals.comment import comment_posted
@@ -17,7 +17,7 @@ from spirit.signals.topic import topic_viewed
 from spirit.managers.topic_notifications import TopicNotificationManager
 
 
-UNDEFINED, MENTION, COMMENT = six.moves.xrange(3)
+UNDEFINED, MENTION, COMMENT = range(3)
 
 ACTION_CHOICES = (
     (UNDEFINED, _("Undefined")),
@@ -85,7 +85,7 @@ def mention_comment_posted_handler(sender, comment, mentions, **kwargs):
     if not mentions:
         return
 
-    for username, user in six.iteritems(mentions):
+    for username, user in mentions.items():
         try:
             TopicNotification.objects.create(user=user, topic=comment.topic,
                                              comment=comment, action=MENTION)
