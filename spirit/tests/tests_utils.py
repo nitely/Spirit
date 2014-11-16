@@ -160,6 +160,7 @@ class UtilsTemplateTagTests(TestCase):
         """
         Test messages grouped by level
         """
+        # TODO: test template rendering
         class MockMessage:
             def __init__(self, level, message):
                 self.level = level
