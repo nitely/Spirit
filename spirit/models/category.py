@@ -24,7 +24,7 @@ class Category(models.Model):
     is_removed = models.BooleanField(_("removed"), default=False)
     is_private = models.BooleanField(_("private"), default=False)
 
-    #topic_count = models.PositiveIntegerField(_("topic count"), default=0)
+    # topic_count = models.PositiveIntegerField(_("topic count"), default=0)
 
     objects = CategoryManager()
 
@@ -53,7 +53,7 @@ class Category(models.Model):
             return self.title
 
 
-#def topic_posted_handler(sender, topic, **kwargs):
+# def topic_posted_handler(sender, topic, **kwargs):
 #    if topic.category.is_subcategory:
 #        category = Category.objects.filter(pk__in=[topic.category.pk, topic.category.parent.pk])
 #    else:
@@ -62,4 +62,4 @@ class Category(models.Model):
 #    category.update(topic_count=F('topic_count') + 1)
 
 
-#topic_posted.connect(topic_posted_handler, dispatch_uid=__name__)
+# topic_posted.connect(topic_posted_handler, dispatch_uid=__name__)

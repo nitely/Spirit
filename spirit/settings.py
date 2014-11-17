@@ -72,7 +72,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'spirit.middleware.XForwardedForMiddleware',
+    # 'spirit.middleware.XForwardedForMiddleware',
     'spirit.middleware.TimezoneMiddleware',
     'spirit.middleware.LastIPMiddleware',
     'spirit.middleware.LastSeenMiddleware',

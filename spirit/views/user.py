@@ -71,9 +71,9 @@ def register(request):
             messages.info(request, _("We have sent you an email so you can activate your account!"))
 
             # TODO: email-less activation
-            #if not settings.REGISTER_EMAIL_ACTIVATION_REQUIRED:
-                #login(request, user)
-                #return redirect(request.GET.get('next', reverse('spirit:profile-update')))
+            # if not settings.REGISTER_EMAIL_ACTIVATION_REQUIRED:
+                # login(request, user)
+                # return redirect(request.GET.get('next', reverse('spirit:profile-update')))
 
             return redirect(reverse('spirit:user-login'))
     else:

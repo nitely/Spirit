@@ -61,8 +61,8 @@ class SearchViewTest(TestCase):
 
     def setUp(self):
         # TODO: simple backend wont work on django +1.6 coz of a bug on haystack 2.1
-        #self.connections = haystack.connections
-        #haystack.connections = haystack.loading.ConnectionHandler(HAYSTACK_TEST)
+        # self.connections = haystack.connections
+        # haystack.connections = haystack.loading.ConnectionHandler(HAYSTACK_TEST)
 
         cache.clear()
         self.user = utils.create_user()
@@ -72,8 +72,8 @@ class SearchViewTest(TestCase):
 
         call_command("rebuild_index", interactive=False)
 
-    #def tearDown(self):
-        #haystack.connections = self.connections
+    # def tearDown(self):
+        # haystack.connections = self.connections
 
     def test_advanced_search_detail(self):
         """

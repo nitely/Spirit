@@ -25,7 +25,7 @@ class AbstractForumUser(models.Model):
     timezone = models.CharField(_("time zone"), max_length=32, choices=TIMEZONE_CHOICES, default='UTC')
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)
-    #is_verified = models.BooleanField(_('verified'), default=False)
+    # is_verified = models.BooleanField(_('verified'), default=False)
 
     topic_count = models.PositiveIntegerField(_("topic count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
