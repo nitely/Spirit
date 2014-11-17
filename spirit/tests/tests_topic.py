@@ -7,7 +7,6 @@ import datetime
 from django.test import TestCase, RequestFactory
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist

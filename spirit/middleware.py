@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-import pytz
 
 from django.utils import timezone
 from django.contrib.auth import get_user_model

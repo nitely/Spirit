@@ -9,7 +9,6 @@ from django.test import TestCase, TransactionTestCase, RequestFactory
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.conf import settings
 from django.template import Template, Context
 from django.utils import timezone
 

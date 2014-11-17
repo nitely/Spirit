@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
-from django.template import Template, Context, TemplateSyntaxError
+from django.template import Template, Context
 from django.test.utils import override_settings
 from django.http import Http404
 from django.core.paginator import Page, Paginator

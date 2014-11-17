@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
-from django.template import Template, Context, TemplateSyntaxError
+from django.template import Template, Context
 from django.core.cache import cache
 from django.conf import settings
 

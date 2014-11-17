@@ -9,16 +9,14 @@ import os
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
-from django.template import Template, Context, TemplateSyntaxError
-from django import forms
+from django.template import Template, Context
 from django.utils import translation
 from django.utils import timezone
 from django.contrib.auth.models import AnonymousUser, User
 from django.http import HttpResponseRedirect
-from django.http import Http404, HttpResponse
+from django.http import HttpResponse
 from django.conf import settings
 from django.core import mail
-from django.template.loader import render_to_string
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils.translation import ugettext as _

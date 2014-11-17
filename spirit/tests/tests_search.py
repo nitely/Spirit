@@ -3,20 +3,18 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.template import Template, Context, TemplateSyntaxError
+from django.template import Template, Context
 from django.conf import settings
 from django.core.management import call_command
 
-import haystack
 from haystack.query import SearchQuerySet
 
 from . import utils
 
 from spirit.models.topic import Topic
-from spirit.forms.search import BasicSearchForm, BaseSearchForm, AdvancedSearchForm
+from spirit.forms.search import BasicSearchForm, AdvancedSearchForm
 from spirit.templatetags.tags.search import render_search_form
 from spirit.search_indexes import TopicIndex
 

@@ -7,9 +7,10 @@ python:
 
 install:
   - pip install -r requirements.txt --use-mirrors
-  - pip install coveralls pep8
+  - pip install coveralls pep8 flake8
 script:
   - pep8 --max-line-length=120 --exclude='migrations,tests' .
+  - flake8  --select=F401 ./spirit
   - coverage run --source=. run_tests.py
 after_success:
   - coveralls
