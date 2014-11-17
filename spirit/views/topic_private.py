@@ -73,9 +73,11 @@ def private_detail(request, topic_id, slug):
 
     topic_viewed.send(sender=topic_private.topic.__class__, request=request, topic=topic_private.topic)
 
-    return render(request, 'spirit/topic_private/private_detail.html', {'topic': topic_private.topic,
-                                                                        'topic_private': topic_private,
-                                                                        'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
+    return render(request,
+                  'spirit/topic_private/private_detail.html',
+                  {'topic': topic_private.topic,
+                   'topic_private': topic_private,
+                   'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
 
 
 @login_required
