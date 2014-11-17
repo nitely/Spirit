@@ -44,9 +44,9 @@ class UtilsPaginatorTest(TestCase):
         self.assertEqual(paginator.get_url(url, obj_number, per_page, page_var), first_page)
         obj_number = 16
         expected = '%(url)s?%(page_var)s=%(page_num)s#c%(obj_number)s' % {'url': url,
-                                                                         'page_var': page_var,
-                                                                         'page_num': 2,
-                                                                         'obj_number': obj_number}
+                                                                          'page_var': page_var,
+                                                                          'page_num': 2,
+                                                                          'obj_number': obj_number}
         self.assertEqual(paginator.get_url(url, obj_number, per_page, page_var), expected)
 
 

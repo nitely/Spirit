@@ -327,7 +327,7 @@ class UtilsMarkdownTests(TestCase):
         comment_md = md.render(comment)
         # mentions get dianmically added on MentionifyExtension
         self.assertDictEqual(md.get_mentions(), {'nitely': self.user,
-                                           'esteban': self.user2})
+                                                 'esteban': self.user2})
 
     def test_markdown_emoji(self):
         """
@@ -373,15 +373,15 @@ class UtilsMarkdownTests(TestCase):
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
         self.assertListEqual(comment_md.splitlines(), '<p><img src="http://foo.bar/image.png" alt="image" title="image"></p>\n'
-                                                  '<p><img src="http://www.foo.bar.fb/path/image.png" alt="image" title="image"></p>\n'
-                                                  '<p><img src="https://foo.bar/image.png" alt="image" title="image"></p>\n'
-                                                  '<p>bad <a href="http://foo.bar/image.png">http://foo.bar/image.png</a><br>'  # autolink
-                                                  '<a href="http://foo.bar/image.png">http://foo.bar/image.png</a> bad<br>'  # autolink
-                                                  '<a href="http://bad.png">http://bad.png</a><br>'  # autolink
-                                                  '<a href="http://foo.bar/.png">http://foo.bar/.png</a><br>'  # autolink
-                                                  '<img src="http://foo.bar/not_imagified.png" alt="im"><br>'
-                                                  'foo.bar/bad.png</p>\n'
-                                                  '<p><img src="http://foo.bar/&lt;escaped&gt;.png" alt="&lt;escaped&gt;" title="&lt;escaped&gt;"></p>\n'.splitlines())
+                             '<p><img src="http://www.foo.bar.fb/path/image.png" alt="image" title="image"></p>\n'
+                             '<p><img src="https://foo.bar/image.png" alt="image" title="image"></p>\n'
+                             '<p>bad <a href="http://foo.bar/image.png">http://foo.bar/image.png</a><br>'  # autolink
+                             '<a href="http://foo.bar/image.png">http://foo.bar/image.png</a> bad<br>'  # autolink
+                             '<a href="http://bad.png">http://bad.png</a><br>'  # autolink
+                             '<a href="http://foo.bar/.png">http://foo.bar/.png</a><br>'  # autolink
+                             '<img src="http://foo.bar/not_imagified.png" alt="im"><br>'
+                             'foo.bar/bad.png</p>\n'
+                             '<p><img src="http://foo.bar/&lt;escaped&gt;.png" alt="&lt;escaped&gt;" title="&lt;escaped&gt;"></p>\n'.splitlines())
 
     def test_markdown_youtube(self):
         """
@@ -397,12 +397,12 @@ class UtilsMarkdownTests(TestCase):
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
         self.assertListEqual(comment_md.splitlines(), '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?feature=oembed" allowfullscreen></iframe></span>'
-                                                  '\n<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?feature=oembed" allowfullscreen></iframe></span>'
-                                                  '\n<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?feature=oembed" allowfullscreen></iframe></span>'
-                                                  '\n<p><a href="https://www.youtube.com/watch?v=&lt;bad&amp;gt">https://www.youtube.com/watch?v=&lt;bad&amp;gt</a>;<br>'  # smart_amp ain't smart
-                                                  '<a href="https://www.noyoutube.com/watch?v=Z0UISCEe52Y">https://www.noyoutube.com/watch?v=Z0UISCEe52Y</a><br>'
-                                                  'badbad <a href="https://www.youtube.com/watch?v=Z0UISCEe52Y">https://www.youtube.com/watch?v=Z0UISCEe52Y</a><br>'
-                                                  '<a href="https://www.youtube.com/watch?v=Z0UISCEe52Y">https://www.youtube.com/watch?v=Z0UISCEe52Y</a> badbad</p>'.splitlines())
+                             '\n<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?feature=oembed" allowfullscreen></iframe></span>'
+                             '\n<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?feature=oembed" allowfullscreen></iframe></span>'
+                             '\n<p><a href="https://www.youtube.com/watch?v=&lt;bad&amp;gt">https://www.youtube.com/watch?v=&lt;bad&amp;gt</a>;<br>'  # smart_amp ain't smart
+                             '<a href="https://www.noyoutube.com/watch?v=Z0UISCEe52Y">https://www.noyoutube.com/watch?v=Z0UISCEe52Y</a><br>'
+                             'badbad <a href="https://www.youtube.com/watch?v=Z0UISCEe52Y">https://www.youtube.com/watch?v=Z0UISCEe52Y</a><br>'
+                             '<a href="https://www.youtube.com/watch?v=Z0UISCEe52Y">https://www.youtube.com/watch?v=Z0UISCEe52Y</a> badbad</p>'.splitlines())
 
     def test_markdown_vimeo(self):
         """
@@ -421,15 +421,15 @@ class UtilsMarkdownTests(TestCase):
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
         self.assertListEqual(comment_md.splitlines(), '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
-                                                  '\n<p><a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a><br>'
-                                                  'bad <a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a><br>'
-                                                  '<a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a> bad</p>'.splitlines())
+                             '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                             '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                             '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                             '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                             '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                             '\n<span class="video"><iframe src="https://player.vimeo.com/video/11111111" allowfullscreen></iframe></span>'
+                             '\n<p><a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a><br>'
+                             'bad <a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a><br>'
+                             '<a href="https://novimeo.com/11111111">https://novimeo.com/11111111</a> bad</p>'.splitlines())
 
     def test_markdown_video(self):
         """
@@ -452,7 +452,7 @@ class UtilsMarkdownTests(TestCase):
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
         self.assertListEqual(comment_md.splitlines(), '<audio controls><source src="http://foo.bar/audio.mp3"><a href="http://foo.bar/audio.mp3">http://foo.bar/audio.mp3</a></audio>'
-                                                  '\n<audio controls><source src="http://foo.bar/&lt;escaped&gt;.mp3"><a href="http://foo.bar/&lt;escaped&gt;.mp3">http://foo.bar/&lt;escaped&gt;.mp3</a></audio>'.splitlines())
+                             '\n<audio controls><source src="http://foo.bar/&lt;escaped&gt;.mp3"><a href="http://foo.bar/&lt;escaped&gt;.mp3">http://foo.bar/&lt;escaped&gt;.mp3</a></audio>'.splitlines())
 
 
 class UtilsUserTests(TestCase):

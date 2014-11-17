@@ -52,7 +52,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, AbstractForumUser):
                                 validators=[
                                     validators.RegexValidator(re.compile('^[\w.@+-]+$'), _('Enter a valid username.'),
                                                               'invalid')
-                                ])
+        ])
     first_name = models.CharField(_("first name"), max_length=30, blank=True)
     last_name = models.CharField(_("last name"), max_length=30, blank=True)
     email = models.EmailField(_("email"), max_length=254, unique=True)

@@ -289,7 +289,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                           'slug': self.user2.slug}))
         self.assertQuerysetEqual(response.context['comments'], [])
 
     def test_profile_likes_invalid_slug(self):

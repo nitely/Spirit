@@ -354,7 +354,7 @@ class TopicPrivateFormTest(TestCase):
             self.assertCountEqual(map(repr, privates_saved), map(repr, privates))
         else:
             self.assertItemsEqual(map(repr, privates_saved), map(repr, privates))
-        
+
     def test_private_create(self):
         """
         create single private topic access

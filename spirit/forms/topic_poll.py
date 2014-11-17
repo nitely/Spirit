@@ -127,4 +127,4 @@ class TopicPollVoteManyForm(forms.Form):
             .delete()
 
         return TopicPollVote.objects.bulk_create([TopicPollVote(user=self.user, choice=choice)
-                                                 for choice in choices])
+                                                  for choice in choices])
