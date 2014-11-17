@@ -29,6 +29,7 @@ ACTION = (
     (UNPINNED, _("topic unpinned")),
 )
 
+
 @python_2_unicode_compatible
 class Comment(models.Model):
 

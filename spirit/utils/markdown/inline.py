@@ -55,7 +55,7 @@ class InlineLexer(mistune.InlineLexer):
     def output_emoji(self, m):
         emoji = m.group('emoji')
 
-        if not emoji in emojis:
+        if emoji not in emojis:
             return m.group(0)
 
         image = emoji + '.png'
