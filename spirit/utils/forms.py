@@ -9,6 +9,7 @@ from django.utils.encoding import smart_text
 class NestedModelChoiceField(forms.ModelChoiceField):
     """A ModelChoiceField that groups parents and childrens"""
     # TODO: subclass ModelChoiceIterator, remove _populate_choices()
+
     def __init__(self, related_name, parent_field, label_field, *args, **kwargs):
         """
         @related_name: related_name or "FOO_set"

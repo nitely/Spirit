@@ -17,6 +17,7 @@ class AutoSlugField(SlugField):
     When populate_from is provided it'll populate itself on creation,
     only if a slug was not provided.
     """
+
     def __init__(self, *args, **kwargs):
         self.populate_from = kwargs.pop('populate_from', None)
         super(AutoSlugField, self).__init__(*args, **kwargs)
