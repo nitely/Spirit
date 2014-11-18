@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.db import models
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
@@ -28,8 +28,8 @@ class CommentFlag(models.Model):
         verbose_name = _("comment flag")
         verbose_name_plural = _("comments flags")
 
-    #def get_absolute_url(self):
-        #pass
+    # def get_absolute_url(self):
+        # pass
 
     def __str__(self):
         return "%s flagged" % self.comment

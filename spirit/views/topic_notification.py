@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import json
 
-from django.views.generic import DetailView, ListView
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import Http404, HttpResponse

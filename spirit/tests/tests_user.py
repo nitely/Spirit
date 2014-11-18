@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import datetime
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
-from django.utils.six.moves import xrange
 
 from . import utils
 
@@ -289,7 +288,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                           'slug': self.user2.slug}))
         self.assertQuerysetEqual(response.context['comments'], [])
 
     def test_profile_likes_invalid_slug(self):
@@ -326,7 +325,7 @@ class UserViewTest(TestCase):
         """
         form_data = {'username': self.user.email, 'password': "badpassword"}
         url = reverse('spirit:user-login') + "?next=/path/"
-        for _ in xrange(6):
+        for _ in range(6):
             response = self.client.post(url, form_data)
         self.assertRedirects(response, url, status_code=302)
 
@@ -335,7 +334,7 @@ class UserViewTest(TestCase):
         test rate limit 5/5m
         """
         form_data = {'email': "bademail@bad.com", }
-        for _ in xrange(6):
+        for _ in range(6):
             response = self.client.post(reverse('spirit:password-reset'),
                                         form_data)
         expected_url = reverse("spirit:password-reset")

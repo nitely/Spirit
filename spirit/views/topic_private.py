@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
@@ -8,7 +9,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import HttpResponsePermanentRedirect
-from django.utils.translation import ugettext as _
 from django.conf import settings
 
 from spirit.utils.ratelimit.decorators import ratelimit
@@ -72,9 +72,11 @@ def private_detail(request, topic_id, slug):
 
     topic_viewed.send(sender=topic_private.topic.__class__, request=request, topic=topic_private.topic)
 
-    return render(request, 'spirit/topic_private/private_detail.html', {'topic': topic_private.topic,
-                                                                        'topic_private': topic_private,
-                                                                        'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
+    return render(request,
+                  'spirit/topic_private/private_detail.html',
+                  {'topic': topic_private.topic,
+                   'topic_private': topic_private,
+                   'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
 
 
 @login_required

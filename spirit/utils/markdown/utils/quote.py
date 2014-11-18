@@ -1,4 +1,6 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
 
 from django.utils.translation import ugettext as _
 from django.conf import settings
@@ -14,7 +16,7 @@ def quotify(comment, username):
     \n\n
     """
     with translation.override(settings.LANGUAGE_CODE):
-        header = _(u"@%(username)s said:") % {'username': username, }
+        header = _("@%(username)s said:") % {'username': username, }
 
     lines = comment.splitlines()
     quote = "\n> ".join(lines)

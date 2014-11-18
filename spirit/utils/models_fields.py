@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from django.db.models.fields import SlugField
 from django.utils.text import slugify
 from django.utils.encoding import smart_text

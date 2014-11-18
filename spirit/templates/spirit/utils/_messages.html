@@ -1,6 +1,6 @@
 {# django.contrib.messages #}
 {% if messages_grouped %}
-    {% for level, messages in messages_grouped.iteritems %}
+    {% for level, messages in messages_grouped.items %}
         <ul class="messages-{{ level }}">
             {% for message in messages %}
                 <li>{{ message }}</li>

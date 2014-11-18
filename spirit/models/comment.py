@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.db import models
@@ -6,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import F
-from django.utils.six.moves import xrange
 from django.utils.encoding import python_2_unicode_compatible
 
 from ..signals.comment_like import comment_like_post_create, comment_like_post_delete
@@ -18,7 +18,7 @@ from ..signals.comment import comment_post_update
 
 COMMENT_MAX_LEN = 3000  # changing this needs migration
 
-COMMENT, MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED = xrange(6)
+COMMENT, MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED = range(6)
 
 ACTION = (
     (COMMENT, _("comment")),
@@ -28,6 +28,7 @@ ACTION = (
     (PINNED, _("topic pinned")),
     (UNPINNED, _("topic unpinned")),
 )
+
 
 @python_2_unicode_compatible
 class Comment(models.Model):

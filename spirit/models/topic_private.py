@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.managers.topic_private import TopicPrivateManager

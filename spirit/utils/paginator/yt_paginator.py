@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
-from math import ceil
+from __future__ import unicode_literals
 
 from django.core.paginator import InvalidPage
 from django.conf import settings
-from django.utils.six.moves import xrange
 
 
 class YTPaginator(object):
@@ -16,6 +14,7 @@ class YTPaginator(object):
 
     It'll limit the page list to a given limit
     """
+
     def __init__(self, object_list, per_page, allow_empty_first_page=True):
         self.object_list = object_list
         self.per_page = per_page
@@ -93,7 +92,7 @@ class YTPage(object):
         if not count:
             self._num_pages = 0
         else:
-            offset_pages = int(ceil(count / float(self.paginator.per_page)))
+            offset_pages = (-count // self.paginator.per_page) * -1  # ceil
             self._num_pages = self.number - 1 + offset_pages
 
         return self._num_pages
@@ -117,7 +116,7 @@ class YTPage(object):
         if first_page < 1:
             first_page = 1
 
-        return xrange(first_page, last_page + 1)
+        return range(first_page, last_page + 1)
 
     def next_page_number(self):
         return self.paginator.validate_number(self.number + 1)

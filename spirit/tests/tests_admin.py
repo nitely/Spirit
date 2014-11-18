@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.http import Http404
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model

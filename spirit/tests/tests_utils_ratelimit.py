@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
-from django.template import Template, Context, TemplateSyntaxError
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages.storage.fallback import FallbackStorage
 

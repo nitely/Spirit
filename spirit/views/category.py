@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.views.generic import ListView
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.http import HttpResponsePermanentRedirect
 
 from spirit.models.topic import Topic

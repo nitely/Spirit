@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import hashlib
@@ -51,10 +52,10 @@ class RateLimit:
             keys.append('ip:%s' % self.request.META['REMOTE_ADDR'])
 
         if field is not None:
-            field_value = getattr(self.request, self.request.method).get(field, '').encode('utf-8')
+            field_value = getattr(self.request, self.request.method).get(field, '')
 
             if field_value:
-                field_value = hashlib.sha1(field_value).hexdigest()
+                field_value = hashlib.sha1(field_value.encode('utf-8')).hexdigest()
                 keys.append('field:%s:%s' % (field, field_value))
 
         return ['%s:%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, self.func_name, k) for k in keys]

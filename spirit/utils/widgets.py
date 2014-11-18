@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django import forms
@@ -9,6 +10,7 @@ class MultipleInput(forms.TextInput):
     """
     TextInput widget for input multiple *raw* choices
     """
+
     def __init__(self, attrs=None, choices=()):
         # choices is some iterable we do not need, since this is a TextInput
         super(MultipleInput, self).__init__(attrs)

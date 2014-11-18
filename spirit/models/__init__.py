@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from .category import Category
 from .comment import Comment
 from .comment_history import CommentHistory
@@ -12,3 +13,9 @@ from .topic_notification import TopicNotification
 from .topic_poll import TopicPoll, TopicPollChoice
 from .topic_private import TopicPrivate
 from .user import User
+
+__all__ = [
+    'Category', 'Comment', 'CommentHistory', 'CommentBookmark', 'Flag',
+    'CommentLike', 'Topic', 'TopicUnread', 'TopicFavorite',
+    'TopicNotification', 'TopicPoll', 'TopicPollChoice', 'TopicPrivate', 'User'
+]

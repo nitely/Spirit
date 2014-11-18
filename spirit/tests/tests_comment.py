@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import os
@@ -8,7 +9,6 @@ from django.test import TestCase, RequestFactory
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
-from django.utils.translation import ugettext as _
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
@@ -360,7 +360,7 @@ class CommentViewTest(TestCase):
         """
         utils.login(self)
         img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                       b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+                      b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
         response = self.client.post(reverse('spirit:comment-image-upload-ajax'),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',

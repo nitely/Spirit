@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django import forms
@@ -68,6 +69,7 @@ class TopicPollVoteManyForm(forms.Form):
     This special form allows single vote and multi vote as well.
     Its beauty is that it doesn't care if the choice_limit is increased or decreased later.
     """
+
     def __init__(self, user=None, poll=None, *args, **kwargs):
         super(TopicPollVoteManyForm, self).__init__(*args, **kwargs)
         self.user = user
@@ -125,4 +127,4 @@ class TopicPollVoteManyForm(forms.Form):
             .delete()
 
         return TopicPollVote.objects.bulk_create([TopicPollVote(user=self.user, choice=choice)
-                                                 for choice in choices])
+                                                  for choice in choices])

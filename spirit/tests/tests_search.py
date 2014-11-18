@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.template import Template, Context, TemplateSyntaxError
+from django.template import Template, Context
 from django.conf import settings
 from django.core.management import call_command
 
-import haystack
 from haystack.query import SearchQuerySet
 
 from . import utils
 
 from spirit.models.topic import Topic
-from spirit.forms.search import BasicSearchForm, BaseSearchForm, AdvancedSearchForm
+from spirit.forms.search import BasicSearchForm, AdvancedSearchForm
 from spirit.templatetags.tags.search import render_search_form
 from spirit.search_indexes import TopicIndex
 
@@ -60,8 +59,8 @@ class SearchViewTest(TestCase):
 
     def setUp(self):
         # TODO: simple backend wont work on django +1.6 coz of a bug on haystack 2.1
-        #self.connections = haystack.connections
-        #haystack.connections = haystack.loading.ConnectionHandler(HAYSTACK_TEST)
+        # self.connections = haystack.connections
+        # haystack.connections = haystack.loading.ConnectionHandler(HAYSTACK_TEST)
 
         cache.clear()
         self.user = utils.create_user()
@@ -71,8 +70,8 @@ class SearchViewTest(TestCase):
 
         call_command("rebuild_index", interactive=False)
 
-    #def tearDown(self):
-        #haystack.connections = self.connections
+    # def tearDown(self):
+        # haystack.connections = self.connections
 
     def test_advanced_search_detail(self):
         """

@@ -8,8 +8,11 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
-from __future__ import absolute_import
+
 from __future__ import unicode_literals
+
+import os
+
 
 # You may override spirit settings below...
 
@@ -18,7 +21,6 @@ from spirit.settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
-import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
@@ -40,28 +42,28 @@ ALLOWED_HOSTS = []
 # Extend the Spirit installed apps (notice the plus sign)
 # Check out the spirit.settings.py so you do not end up with duplicate apps.
 INSTALLED_APPS += (
-    #'my_app1',
-    #'my_app2',
+    # 'my_app1',
+    # 'my_app2',
     'debug_toolbar',
 )
 
 # same here, check out the spirit.settings.py
 MIDDLEWARE_CLASSES += (
-    #'my_middleware1',
-    #'my_middleware2',
+    # 'my_middleware1',
+    # 'my_middleware2',
 )
 
 # same here
 TEMPLATE_CONTEXT_PROCESSORS += (
-    #'my_template_proc1',
-    #'my_template_proc2',
+    # 'my_template_proc1',
+    # 'my_template_proc2',
 )
 
 # same here (we update the Spirit caches)
 CACHES.update({
-    #'default': {
-    #  'BACKEND': 'my.backend.path',
-    #},
+    # 'default': {
+    #   'BACKEND': 'my.backend.path',
+    # },
 })
 
 
@@ -135,6 +137,6 @@ LOGGING = {
 try:
     # devs must create this file to override settings
     # local_settings_sample.py is provided
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+
 from __future__ import unicode_literals
 
-import pytz
 
 from django.utils import timezone
 from django.contrib.auth import get_user_model
@@ -69,7 +68,7 @@ class ActiveUserMiddleware(object):
             return
 
         if not request.user.is_active:
-           logout(request)
+            logout(request)
 
 
 class PrivateForumMiddleware(object):

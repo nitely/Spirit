@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import re
@@ -24,7 +25,7 @@ class AbstractForumUser(models.Model):
     timezone = models.CharField(_("time zone"), max_length=32, choices=TIMEZONE_CHOICES, default='UTC')
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)
-    #is_verified = models.BooleanField(_('verified'), default=False)
+    # is_verified = models.BooleanField(_('verified'), default=False)
 
     topic_count = models.PositiveIntegerField(_("topic count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
@@ -51,7 +52,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, AbstractForumUser):
                                 validators=[
                                     validators.RegexValidator(re.compile('^[\w.@+-]+$'), _('Enter a valid username.'),
                                                               'invalid')
-                                ])
+        ])
     first_name = models.CharField(_("first name"), max_length=30, blank=True)
     last_name = models.CharField(_("last name"), max_length=30, blank=True)
     email = models.EmailField(_("email"), max_length=254, unique=True)

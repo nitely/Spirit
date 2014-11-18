@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.core.cache import cache
 from django.test import TestCase, TransactionTestCase, RequestFactory
 from django.core.urlresolvers import reverse
-from django.contrib.auth import get_user_model
-from django.utils import timezone
 
 from . import utils
 

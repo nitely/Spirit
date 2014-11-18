@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import login as login_view
 from django.contrib.auth.views import password_reset, logout
 from django.contrib.auth.forms import PasswordChangeForm
@@ -70,9 +71,9 @@ def register(request):
             messages.info(request, _("We have sent you an email so you can activate your account!"))
 
             # TODO: email-less activation
-            #if not settings.REGISTER_EMAIL_ACTIVATION_REQUIRED:
-                #login(request, user)
-                #return redirect(request.GET.get('next', reverse('spirit:profile-update')))
+            # if not settings.REGISTER_EMAIL_ACTIVATION_REQUIRED:
+            # login(request, user)
+            # return redirect(request.GET.get('next', reverse('spirit:profile-update')))
 
             return redirect(reverse('spirit:user-login'))
     else:

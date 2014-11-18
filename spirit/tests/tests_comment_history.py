@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth import get_user_model
-from django.template import Template, Context, TemplateSyntaxError
 from django.core.cache import cache
 
 from . import utils

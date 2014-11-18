@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 import re
@@ -54,11 +55,11 @@ class InlineLexer(mistune.InlineLexer):
     def output_emoji(self, m):
         emoji = m.group('emoji')
 
-        if not emoji in emojis:
+        if emoji not in emojis:
             return m.group(0)
 
         image = emoji + '.png'
-        path = os.path.join(settings.STATIC_URL, 'spirit', 'emojis', image).replace(u'\\', '/')
+        path = os.path.join(settings.STATIC_URL, 'spirit', 'emojis', image).replace('\\', '/')
 
         return self.renderer.emoji(path)
 
