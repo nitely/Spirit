@@ -80,6 +80,17 @@ Feel free to check out the source code and submit pull requests.
 
 You may also report any bug or propose new features in the [issues tracker](https://github.com/nitely/Spirit/issues)
 
+## Testing
+
+First clone the github repository:
+
+	git clone https://github.com/nitely/Spirit.git
+
+You can run the test suite using the django `manage.py` command from the root directory:
+
+	cd Spirit
+	./manage.py test
+
 ## Copyright / License
 
 Copyright 2014 [Esteban Castro Borsani](https://github.com/nitely).
