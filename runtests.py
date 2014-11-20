@@ -19,7 +19,7 @@ def log_warnings():
 
 def run_tests():
     test_runner = DiscoverRunner()
-    failures = test_runner.run_tests(["spirit", ])
+    failures = test_runner.run_tests(["tests", ])
     sys.exit(failures)
 
 
