@@ -11,6 +11,6 @@ install:
 script:
   - pep8 --max-line-length=120 --exclude='migrations,tests' .
   - flake8  --select=F401 ./spirit
-  - coverage run --source=. run_tests.py
+  - coverage run --source=. run_tests.py test
 after_success:
   - coveralls
