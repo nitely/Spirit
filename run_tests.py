@@ -23,7 +23,11 @@ def run_tests():
     sys.exit(failures)
 
 
-if __name__ == "__main__":
+def start():
     django.setup()
     log_warnings()
     run_tests()
+
+
+if __name__ == "__main__":
+    start()
