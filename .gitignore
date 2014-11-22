@@ -1,3 +1,6 @@
+# Spirit
+spirit/whoosh_index/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -34,10 +37,11 @@ htmlcov/
 nosetests.xml
 coverage.xml
 
-# Mr Developer
+# Mr Developer / eclipse pydev
 .mr.developer.cfg
 .project
 .pydevproject
+.settings
 
 # Rope
 .ropeproject

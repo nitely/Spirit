@@ -7,7 +7,7 @@ import os
 import sys
 import logging
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'example.settings_test_runner'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
 
 import django
 from django.test.runner import DiscoverRunner
