@@ -21,7 +21,7 @@ from spirit.settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(__file__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -30,12 +30,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'change-me'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
 
@@ -44,7 +45,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS += (
     # 'my_app1',
     # 'my_app2',
-    'debug_toolbar',
+    # 'debug_toolbar',
 )
 
 # same here, check out the spirit.settings.py
@@ -67,9 +68,9 @@ CACHES.update({
 })
 
 
-ROOT_URLCONF = 'example.urls'
+ROOT_URLCONF = 'urls'
 
-WSGI_APPLICATION = 'example.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
@@ -133,10 +134,3 @@ LOGGING = {
         },
     }
 }
-
-try:
-    # devs must create this file to override settings
-    # local_settings_sample.py is provided
-    from .local_settings import *
-except ImportError:
-    pass
