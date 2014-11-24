@@ -134,3 +134,10 @@ LOGGING = {
         },
     }
 }
+
+try:
+    # devs must create this file to override settings
+    # local_settings_sample.py is provided
+    from local_settings import *
+except ImportError:
+    pass
