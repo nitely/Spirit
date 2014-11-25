@@ -126,11 +126,11 @@ LOGGING = {
 }
 
 # This is used to test settings and urls from example directory
-# with `./runtests.py test example`
+# with `./runtests.py example`
 
-TESTING = 'test' in sys.argv
+EXAMPLE = 'example' in sys.argv
 
-if TESTING:
+if EXAMPLE:
     PASSWORD_HASHERS = (
         'django.contrib.auth.hashers.MD5PasswordHasher',
         )
