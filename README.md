@@ -80,6 +80,13 @@ Feel free to check out the source code and submit pull requests.
 
 You may also report any bug or propose new features in the [issues tracker](https://github.com/nitely/Spirit/issues)
 
+## Testing
+
+The `runtests.py` script enable you to run the test suite of spirit.
+
+- Type `./runtests.py` to run the test suite using the settings from the `tests` folder.
+- Type `./runtests.py example` to run the test suite using the settings from the `example` folder.
+
 ## Copyright / License
 
 Copyright 2014 [Esteban Castro Borsani](https://github.com/nitely).
