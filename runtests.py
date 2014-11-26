@@ -7,17 +7,18 @@ import os
 import sys
 import logging
 
+import django
+from django.test.runner import DiscoverRunner
+
+
 EXAMPLE = 'example' in sys.argv
 
 if EXAMPLE:
     # Run tests with example settings
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'example.settings'   # pragma: no cover
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'example.settings'  # pragma: no cover
 else:
     # Run tests with tests settings
     os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
-
-import django
-from django.test.runner import DiscoverRunner
 
 
 def log_warnings():
@@ -27,9 +28,8 @@ def log_warnings():
 
 
 def run_tests():
-    sys.stdout.write(("\nRunning spirit test suite, using settings %(settings)r\n\n")
-                     % {"settings": os.environ['DJANGO_SETTINGS_MODULE'], }
-                     )
+    sys.stdout.write("\nRunning spirit test suite, using settings %(settings)r\n\n"
+                     % {"settings": os.environ['DJANGO_SETTINGS_MODULE'], })
     test_runner = DiscoverRunner()
     failures = test_runner.run_tests(["tests", ])
     sys.exit(failures)

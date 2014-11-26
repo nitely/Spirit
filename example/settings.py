@@ -131,14 +131,16 @@ LOGGING = {
 EXAMPLE = 'example' in sys.argv
 
 if EXAMPLE:
-    PASSWORD_HASHERS = (
-        'django.contrib.auth.hashers.MD5PasswordHasher',
-        )
     # Add tests apps to installed_apps
     INSTALLED_APPS += (
         'tests',
     )
+
     ROOT_URLCONF = 'example.urls'
+
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    )
 
 try:
     # devs must create this file to override settings
