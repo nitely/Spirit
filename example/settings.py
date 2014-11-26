@@ -1,27 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Django settings for test2 project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
+Django settings for running the example of spirit app
 """
 
 from __future__ import unicode_literals
 
 import os
-
-
-# You may override spirit settings below...
+import sys
 
 from spirit.settings import *
 
+# You may override spirit settings below...
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(__file__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -30,12 +22,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'change-me'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
 
@@ -44,7 +37,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS += (
     # 'my_app1',
     # 'my_app2',
-    'debug_toolbar',
+    # 'debug_toolbar',
 )
 
 # same here, check out the spirit.settings.py
@@ -67,10 +60,9 @@ CACHES.update({
 })
 
 
-ROOT_URLCONF = 'example.urls'
+ROOT_URLCONF = 'urls'
 
-WSGI_APPLICATION = 'example.wsgi.application'
-
+WSGI_APPLICATION = 'wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -94,7 +86,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
@@ -134,9 +125,24 @@ LOGGING = {
     }
 }
 
+# This is used to test settings and urls from example directory
+# with `./runtests.py example`
+
+EXAMPLE = 'example' in sys.argv
+
+if EXAMPLE:
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+        )
+    # Add tests apps to installed_apps
+    INSTALLED_APPS += (
+        'tests',
+    )
+    ROOT_URLCONF = 'example.urls'
+
 try:
     # devs must create this file to override settings
     # local_settings_sample.py is provided
-    from .local_settings import *
+    from local_settings import *
 except ImportError:
     pass
