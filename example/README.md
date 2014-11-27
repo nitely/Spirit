@@ -7,8 +7,9 @@ Spirit example application in this directory:
     $ git clone https://github.com/nitely/Spirit.git
     $ cd Spirit
     $ virtualenv venv
-    $ . venv/bin/activate
+    $ source ./venv/bin/activate
     $ pip install .
+    $ cd example
     $ python manage.py migrate
 	$ python manage.py createcachetable spirit_cache
     $ python manage.py runserver
