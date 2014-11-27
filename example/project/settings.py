@@ -60,9 +60,9 @@ CACHES.update({
 })
 
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'project.urls'
 
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -136,7 +136,7 @@ if EXAMPLE:
         'tests',
     )
 
-    ROOT_URLCONF = 'example.urls'
+    ROOT_URLCONF = 'example.project.urls'
 
     PASSWORD_HASHERS = (
         'django.contrib.auth.hashers.MD5PasswordHasher',
@@ -145,6 +145,6 @@ if EXAMPLE:
 try:
     # devs must create this file to override settings
     # local_settings_sample.py is provided
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass

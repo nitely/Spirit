@@ -36,7 +36,7 @@ Check out the [example](https://github.com/nitely/Spirit/tree/master/example) pr
 
 In short:
 
-Add `url(r'^', include('spirit.urls', namespace="spirit", app_name="spirit")),` to your *urls.py*
+Add `url(r'^', include('spirit.urls')),` to your *urls.py*
 
 Add `from spirit.settings import *` to the top of your *settings.py* file,
 otherwise you will have to setup all django's related constants (Installed_apps, Middlewares, Login_url, etc)
