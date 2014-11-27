@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# THIS IS FOR DEVELOPMENT ENVIRONMENT, MOSTLY TO SPEED UP TESTS
+# THIS IS FOR DEVELOPMENT ENVIRONMENT
 # DO NOT USE IT IN PRODUCTION
 
 from __future__ import unicode_literals
@@ -39,18 +39,12 @@ PASSWORD_HASHERS = (
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-TESTING = 'test' in sys.argv
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 
-if TESTING:
-    # Keep templates in memory
-    TEMPLATE_LOADERS = (
-        ('django.template.loaders.cached.Loader', (
-            'django.template.loaders.filesystem.Loader',
-            'django.template.loaders.app_directories.Loader',
-        )),
-    )
-else:
-    TEMPLATE_LOADERS = (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )
+# Use a manage.py located at root folder ./Spirit
+ROOT_URLCONF = 'example.project.urls'
+
+WSGI_APPLICATION = 'example.project.wsgi.application'
