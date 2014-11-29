@@ -10,8 +10,8 @@ from django.http import Http404
 from django.core.paginator import Page, Paginator
 
 from . import utils
-from spirit.models.comment import Comment
 
+from spirit.models.comment import Comment
 from spirit.utils.paginator.yt_paginator import YTPaginator, InvalidPage, YTPage
 from spirit.utils import paginator
 from spirit.utils.paginator import infinite_paginator
@@ -245,7 +245,6 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
                                    "page_var": 'foo_page',
                                    "hashtag": '#c20',
                                    "extra_query": '&extra=foo'})
-
 
 
 class UtilsPaginatorTemplateTagsTests(TestCase):

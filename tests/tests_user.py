@@ -324,21 +324,29 @@ class UserViewTest(TestCase):
         test rate limit 5/5m
         """
         form_data = {'username': self.user.email, 'password': "badpassword"}
-        url = reverse('spirit:user-login') + "?next=/path/"
-        for _ in range(6):
-            response = self.client.post(url, form_data)
-        self.assertRedirects(response, url, status_code=302)
+
+        for attempt in range(6):
+            if attempt < 5:
+                url = reverse('spirit:user-login')
+                response = self.client.post(url, form_data)
+                self.assertTemplateUsed(response, 'spirit/user/login.html')
+            else:
+                url = reverse('spirit:user-login') + "?next=/path/"
+                response = self.client.post(url, form_data)
+                self.assertRedirects(response, url, status_code=302)
 
     def test_custom_reset_password(self):
         """
         test rate limit 5/5m
         """
         form_data = {'email': "bademail@bad.com", }
-        for _ in range(6):
-            response = self.client.post(reverse('spirit:password-reset'),
-                                        form_data)
-        expected_url = reverse("spirit:password-reset")
-        self.assertRedirects(response, expected_url, status_code=302)
+        for attempt in range(6):
+            response = self.client.post(reverse('spirit:password-reset'), form_data)
+            if attempt < 5:
+                expected_url = reverse("spirit:password-reset-done")
+            else:
+                expected_url = reverse("spirit:password-reset")
+            self.assertRedirects(response, expected_url, status_code=302)
 
     def test_password_reset_confirm(self):
         """
