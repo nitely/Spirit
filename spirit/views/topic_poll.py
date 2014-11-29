@@ -26,7 +26,7 @@ def poll_update(request, pk):
 
         if form.is_valid() and formset.is_valid():
             poll = form.save()
-            choices = formset.save()
+            formset.save()
             return redirect(request.POST.get('next', poll.get_absolute_url()))
     else:
         form = TopicPollForm(instance=poll)

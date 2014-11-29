@@ -219,7 +219,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
         req = RequestFactory().get('/')
         items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
-        out = Template(
+        Template(
             "{% load spirit_tags %}"
             "{% render_yt_paginator page %}"
         ).render(Context({'request': req, 'page': page, }))
@@ -300,7 +300,7 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
         req = RequestFactory().get('/')
         items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
-        out = Template(
+        Template(
             "{% load spirit_tags %}"
             "{% render_paginator page %}"
         ).render(Context({'request': req, 'page': page, }))

@@ -322,7 +322,7 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = "@nitely, @esteban"
         md = Markdown(escape=True, hard_wrap=True)
-        comment_md = md.render(comment)
+        md.render(comment)
         # mentions get dianmically added on MentionifyExtension
         self.assertDictEqual(md.get_mentions(), {'nitely': self.user,
                                                  'esteban': self.user2})

@@ -26,7 +26,7 @@ class CommentHistoryViewTest(TestCase):
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment_history = CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)
-        comment_history2 = CommentHistory.objects.create(comment_fk=comment2, comment_html=comment2.comment_html)
+        CommentHistory.objects.create(comment_fk=comment2, comment_html=comment2.comment_html)
 
         utils.login(self)
         response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))
@@ -38,7 +38,7 @@ class CommentHistoryViewTest(TestCase):
         """
         private = utils.create_private_topic(user=self.user)
         comment = utils.create_comment(user=self.user, topic=private.topic)
-        comment_history = CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
+        CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
 
         utils.login(self)
         response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))
@@ -52,14 +52,14 @@ class CommentHistoryViewTest(TestCase):
 
         # comment removed
         comment = utils.create_comment(user=self.user, topic=self.topic, is_removed=True)
-        comment_history = CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
+        CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
         response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))
         self.assertEqual(response.status_code, 404)
 
         # topic removed
         topic = utils.create_topic(category=self.category, user=self.user, is_removed=True)
         comment = utils.create_comment(user=self.user, topic=topic)
-        comment_history = CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
+        CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
         response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))
         self.assertEqual(response.status_code, 404)
 
@@ -67,7 +67,7 @@ class CommentHistoryViewTest(TestCase):
         category = utils.create_category(is_removed=True)
         topic = utils.create_topic(category=category, user=self.user)
         comment = utils.create_comment(user=self.user, topic=topic)
-        comment_history = CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
+        CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
         response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))
         self.assertEqual(response.status_code, 404)
 
@@ -79,7 +79,7 @@ class CommentHistoryViewTest(TestCase):
         private.delete()
 
         comment = utils.create_comment(user=self.user, topic=private.topic)
-        comment_history = CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
+        CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
 
         utils.login(self)
         response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))

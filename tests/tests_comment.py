@@ -160,8 +160,7 @@ class CommentViewTest(TestCase):
 
         utils.login(self)
         form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        self.client.post(reverse('spirit:comment-publish', kwargs={'topic_id': self.topic.pk, }), form_data)
         self.assertEqual(self._comment.comment, 'foobar')
 
     def test_comment_publish_quote(self):
@@ -249,8 +248,8 @@ class CommentViewTest(TestCase):
         utils.login(self)
         comment_posted = utils.create_comment(user=self.user, topic=self.topic)
         form_data = {'comment': 'barfoo', }
-        response = self.client.post(reverse('spirit:comment-update', kwargs={'pk': comment_posted.pk, }),
-                                    form_data)
+        self.client.post(reverse('spirit:comment-update', kwargs={'pk': comment_posted.pk, }),
+                         form_data)
         self.assertEqual(repr(self._comment_new), repr(Comment.objects.get(pk=comment_posted.pk)))
         self.assertEqual(repr(self._comment_old), repr(comment_posted))
 
@@ -458,7 +457,7 @@ class CommentTemplateTagTests(TestCase):
         """
         should display simple comment form
         """
-        out = Template(
+        Template(
             "{% load spirit_tags %}"
             "{% render_comments_form topic %}"
         ).render(Context({'topic': self.topic, }))

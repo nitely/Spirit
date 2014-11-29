@@ -53,7 +53,7 @@ class CategoryViewTest(TestCase):
         """
         topic_a = utils.create_topic(category=self.category_1, is_pinned=True)
         topic_b = utils.create_topic(category=self.category_1)
-        topic_c = utils.create_topic(category=self.category_1, is_pinned=True, is_removed=True)
+        utils.create_topic(category=self.category_1, is_pinned=True, is_removed=True)
         # show pinned first
         Topic.objects.filter(pk=topic_a.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
 
@@ -66,9 +66,9 @@ class CategoryViewTest(TestCase):
         should not display removed topics or from other categories
         """
         subcategory_removed = utils.create_subcategory(self.category_1, is_removed=True)
-        topic_removed = utils.create_topic(category=subcategory_removed)
-        topic_removed2 = utils.create_topic(category=self.category_1, is_removed=True)
-        topic_bad = utils.create_topic(category=self.category_2)
+        utils.create_topic(category=subcategory_removed)
+        utils.create_topic(category=self.category_1, is_removed=True)
+        utils.create_topic(category=self.category_2)
 
         response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
@@ -101,7 +101,7 @@ class CategoryViewTest(TestCase):
         """
         should display all topics in  subcategory
         """
-        topic = utils.create_topic(category=self.category_1)
+        utils.create_topic(category=self.category_1)
         topic2 = utils.create_topic(category=self.subcategory_1, title="topic_subcat1")
         response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.subcategory_1.pk,
                                                                              'slug': self.subcategory_1.slug}))
