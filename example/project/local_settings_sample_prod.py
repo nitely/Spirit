@@ -41,3 +41,11 @@ LANGUAGES = (
 
 # Default language
 LANGUAGE_CODE = 'en'
+
+# Keep templates in memory
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)
