@@ -10,7 +10,8 @@ from django.conf import settings
 
 from . import utils
 
-from spirit.models.comment_bookmark import CommentBookmark, topic_viewed
+from spirit.models.comment_bookmark import CommentBookmark
+from spirit.signals.topic import topic_viewed
 from spirit.forms.comment_bookmark import BookmarkForm
 
 

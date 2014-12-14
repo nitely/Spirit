@@ -6,13 +6,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.db.models import F
-from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
-from ..signals.comment import comment_posted, comment_moved
-
-from spirit.signals.topic import topic_viewed
 from spirit.managers.topic import TopicManager
 from spirit.utils.models import AutoSlugField
 
@@ -53,23 +48,3 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.title
-
-
-def topic_page_viewed_handler(sender, request, topic, **kwargs):
-    Topic.objects.filter(pk=topic.pk)\
-        .update(view_count=F('view_count') + 1)
-
-
-def comment_posted_handler(sender, comment, **kwargs):
-    Topic.objects.filter(pk=comment.topic.pk)\
-        .update(comment_count=F('comment_count') + 1, last_active=timezone.now())
-
-
-def comment_moved_handler(sender, comments, topic_from, **kwargs):
-    Topic.objects.filter(pk=topic_from.pk)\
-        .update(comment_count=F('comment_count') - len(comments))
-
-
-topic_viewed.connect(topic_page_viewed_handler, dispatch_uid=__name__)
-comment_posted.connect(comment_posted_handler, dispatch_uid=__name__)
-comment_moved.connect(comment_moved_handler, dispatch_uid=__name__)

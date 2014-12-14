@@ -6,14 +6,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.db.models import F
 from django.utils.encoding import python_2_unicode_compatible
 
-from ..signals.comment_like import comment_like_post_create, comment_like_post_delete
-from ..signals.topic import topic_post_moderate
-
 from spirit.managers.comment import CommentManager
-from ..signals.comment import comment_post_update
 
 
 COMMENT_MAX_LEN = 3000  # changing this needs migration
@@ -59,25 +54,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return "%s: %s..." % (self.user.username, self.comment[:50])
-
-
-def comment_post_update_handler(sender, comment, **kwargs):
-    Comment.objects.filter(pk=comment.pk).update(modified_count=F('modified_count') + 1)
-
-
-def comment_like_post_create_handler(sender, comment, **kwargs):
-    Comment.objects.filter(pk=comment.pk).update(likes_count=F('likes_count') + 1)
-
-
-def comment_like_post_delete_handler(sender, comment, **kwargs):
-    Comment.objects.filter(pk=comment.pk).update(likes_count=F('likes_count') - 1)
-
-
-def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-    Comment.objects.create(user=user, topic=topic, action=action, comment="action", comment_html="action")
-
-
-comment_post_update.connect(comment_post_update_handler, dispatch_uid=__name__)
-comment_like_post_create.connect(comment_like_post_create_handler, dispatch_uid=__name__)
-comment_like_post_delete.connect(comment_like_post_delete_handler, dispatch_uid=__name__)
-topic_post_moderate.connect(topic_post_moderate_handler, dispatch_uid=__name__)

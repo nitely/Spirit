@@ -8,7 +8,8 @@ from django.core.cache import cache
 
 from . import utils
 
-from spirit.models.comment_history import CommentHistory, comment_pre_update, comment_post_update
+from spirit.models.comment_history import CommentHistory
+from spirit.signals.comment import comment_pre_update, comment_post_update
 
 
 class CommentHistoryViewTest(TestCase):

@@ -8,7 +8,9 @@ from django.core.urlresolvers import reverse
 
 from . import utils
 
-from spirit.models.topic_unread import TopicUnread, topic_viewed, comment_posted
+from spirit.models.topic_unread import TopicUnread
+from spirit.signals.topic import topic_viewed
+from spirit.signals.comment import comment_posted
 
 
 class TopicUnreadViewTest(TestCase):

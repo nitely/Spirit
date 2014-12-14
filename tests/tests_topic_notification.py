@@ -15,8 +15,10 @@ from django.utils import timezone
 from . import utils
 from spirit.models.topic_private import TopicPrivate
 
-from spirit.models.topic_notification import TopicNotification, comment_posted, \
-    COMMENT, MENTION, topic_private_post_create, topic_private_access_pre_create, topic_viewed
+from spirit.models.topic_notification import TopicNotification, COMMENT, MENTION
+from spirit.signals.comment import comment_posted
+from spirit.signals.topic import topic_viewed
+from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
 from spirit.forms.topic_notification import NotificationCreationForm, NotificationForm
 from spirit.templatetags.tags.topic_notification import render_notification_form, has_topic_notifications
 

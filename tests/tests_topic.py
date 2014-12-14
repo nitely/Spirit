@@ -14,7 +14,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from . import utils
 
 from spirit.models.comment import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
-from spirit.models.topic import Topic, topic_viewed, comment_posted, comment_moved
+from spirit.models.topic import Topic
+from spirit.signals.comment import comment_posted, comment_moved
+from spirit.signals.topic import topic_viewed
 from spirit.forms.topic import TopicForm
 from spirit.signals.topic import topic_post_moderate
 from spirit.models.comment import Comment

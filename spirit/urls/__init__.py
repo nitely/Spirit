@@ -4,12 +4,6 @@ from __future__ import unicode_literals
 
 from django.conf.urls import patterns, include, url
 
-import djconfig
-
-from spirit.forms.admin import BasicConfigForm
-
-# TODO: use app loader in django 1.7
-djconfig.register(BasicConfigForm)
 
 urls = patterns('',
                 url(r'^$', 'spirit.views.topic.topics_active', name='index'),
