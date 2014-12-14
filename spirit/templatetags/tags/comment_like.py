@@ -15,7 +15,12 @@ def render_like_form(comment, like, next=None):
 
 @register.simple_tag()
 def populate_likes(comments, user, to_attr='like'):
-    # TODO: use Prefetch on django 1.7, move this to CustomQuerySet.as_manager
+    # TODO: use Prefetch on django 1.7
+    # move this to CustomQuerySet.as_manager
+    # move this from template to view
+    # note: paginator should return a querySet,
+    # saddly it returns a list right now,
+    # so cant use prefetch yet.
     likes = CommentLike.objects.filter(comment__in=comments, user=user)
     likes_dict = {l.comment_id: l for l in likes}
 

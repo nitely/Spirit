@@ -145,6 +145,9 @@ class LikeTemplateTagsTest(TestCase):
         """
         should populate comments likes, tell if current user liked the comment
         """
+        user2 = utils.create_user()
+        CommentLike.objects.create(user=user2, comment=self.comment)
+
         like = CommentLike.objects.create(user=self.user, comment=self.comment)
         out = Template(
             "{% load spirit_tags %}"

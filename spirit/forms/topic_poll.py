@@ -71,6 +71,7 @@ class TopicPollVoteManyForm(forms.Form):
     """
 
     def __init__(self, user=None, poll=None, *args, **kwargs):
+        # TODO: refactor this by using Factory pattern
         super(TopicPollVoteManyForm, self).__init__(*args, **kwargs)
         self.user = user
         self.poll = poll
