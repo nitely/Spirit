@@ -3,8 +3,10 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import patterns, url
+from django.contrib.auth.views import (password_reset_done,
+                                       password_reset_confirm,
+                                       password_reset_complete)
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.views import *
 
 
 urlpatterns = patterns('spirit.views.user',

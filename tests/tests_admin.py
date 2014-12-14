@@ -141,7 +141,7 @@ class AdminViewTest(TestCase):
         """
         Categories, excludes Topic Private and subcats
         """
-        subcat = utils.create_category(parent=self.category)
+        utils.create_category(parent=self.category)
         categories = Category.objects.filter(is_private=False, parent=None)
         utils.login(self)
         response = self.client.get(reverse('spirit:admin-category-list'))
@@ -195,7 +195,7 @@ class AdminViewTest(TestCase):
         """
         comment = utils.create_comment(topic=self.topic)
         comment2 = utils.create_comment(topic=self.topic)
-        flag_closed = CommentFlag.objects.create(comment=comment2, is_closed=True)
+        CommentFlag.objects.create(comment=comment2, is_closed=True)
         flag_ = CommentFlag.objects.create(comment=comment)
 
         utils.login(self)
@@ -209,7 +209,7 @@ class AdminViewTest(TestCase):
         comment = utils.create_comment(topic=self.topic)
         comment2 = utils.create_comment(topic=self.topic)
         flag_closed = CommentFlag.objects.create(comment=comment2, is_closed=True)
-        flag_ = CommentFlag.objects.create(comment=comment)
+        CommentFlag.objects.create(comment=comment)
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin-flag-closed'))
@@ -224,8 +224,8 @@ class AdminViewTest(TestCase):
         flag_ = Flag.objects.create(comment=comment, user=self.user, reason=0)
 
         comment2 = utils.create_comment(topic=self.topic)
-        comment_flag2 = CommentFlag.objects.create(comment=comment2)
-        flag_2 = Flag.objects.create(comment=comment2, user=self.user, reason=0)
+        CommentFlag.objects.create(comment=comment2)
+        Flag.objects.create(comment=comment2, user=self.user, reason=0)
 
         utils.login(self)
         form_data = {"is_closed": True, }

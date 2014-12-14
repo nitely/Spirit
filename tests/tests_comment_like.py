@@ -128,7 +128,7 @@ class LikeTemplateTagsTest(TestCase):
             "{% render_like_form comment=comment like=like %}"
         )
         data = {'comment': self.comment, 'like': None}
-        out = template.render(Context(data))
+        template.render(Context(data))
         context = render_like_form(**data)
         self.assertEqual(context['next'], None)
         self.assertIsInstance(context['form'], LikeForm)
@@ -137,7 +137,7 @@ class LikeTemplateTagsTest(TestCase):
 
         like = CommentLike.objects.create(user=self.user, comment=self.comment)
         data['like'] = like
-        out = template.render(Context(data))
+        template.render(Context(data))
         context = render_like_form(**data)
         self.assertEqual(context['like'], like)
 

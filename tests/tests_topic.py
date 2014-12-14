@@ -184,8 +184,8 @@ class TopicViewTest(TestCase):
         topic = utils.create_topic(category=category, user=self.user)
         category2 = utils.create_category()
         form_data = {'title': 'foobar', 'category': category2.pk}
-        response = self.client.post(reverse('spirit:topic-update', kwargs={'pk': topic.pk, }),
-                                    form_data)
+        self.client.post(reverse('spirit:topic-update', kwargs={'pk': topic.pk, }),
+                         form_data)
         self.assertSequenceEqual(self._moderate, [repr(self.user), repr(Topic.objects.get(pk=topic.pk)), MOVED])
 
     def test_topic_update_invalid_user(self):
@@ -272,11 +272,11 @@ class TopicViewTest(TestCase):
         # show topic from regular category
         topic_a = utils.create_topic(category=category)
         # dont show pinned from regular category
-        topic_b = utils.create_topic(category=category, is_pinned=True)
+        utils.create_topic(category=category, is_pinned=True)
 
         uncat_category = Category.objects.get(pk=settings.ST_UNCATEGORIZED_CATEGORY_PK)
         # dont show pinned and removed
-        topic_c = utils.create_topic(category=uncat_category, is_pinned=True, is_removed=True)
+        utils.create_topic(category=uncat_category, is_pinned=True, is_removed=True)
         # show topic from uncategorized category
         topic_d = utils.create_topic(category=uncat_category, is_pinned=True)
         # show pinned first
@@ -298,11 +298,11 @@ class TopicViewTest(TestCase):
         category_removed = utils.create_category(is_removed=True)
         subcategory = utils.create_category(parent=category_removed)
         subcategory_removed = utils.create_category(parent=category, is_removed=True)
-        topic_a = utils.create_private_topic()
-        topic_b = utils.create_topic(category=category, is_removed=True)
-        topic_c = utils.create_topic(category=category_removed)
-        topic_d = utils.create_topic(category=subcategory)
-        topic_e = utils.create_topic(category=subcategory_removed)
+        utils.create_private_topic()
+        utils.create_topic(category=category, is_removed=True)
+        utils.create_topic(category=category_removed)
+        utils.create_topic(category=subcategory)
+        utils.create_topic(category=subcategory_removed)
 
         response = self.client.get(reverse('spirit:topic-active'))
         self.assertQuerysetEqual(response.context['topics'], [])

@@ -142,11 +142,11 @@ class UserViewTest(TestCase):
         category_removed = utils.create_category(is_removed=True)
         subcategory = utils.create_category(parent=category_removed)
         subcategory_removed = utils.create_category(parent=category, is_removed=True)
-        topic_a = utils.create_private_topic(user=self.user2)
-        topic_b = utils.create_topic(category=category, user=self.user2, is_removed=True)
-        topic_c = utils.create_topic(category=category_removed, user=self.user2)
-        topic_d = utils.create_topic(category=subcategory, user=self.user2)
-        topic_e = utils.create_topic(category=subcategory_removed, user=self.user2)
+        utils.create_private_topic(user=self.user2)
+        utils.create_topic(category=category, user=self.user2, is_removed=True)
+        utils.create_topic(category=category_removed, user=self.user2)
+        utils.create_topic(category=subcategory, user=self.user2)
+        utils.create_topic(category=subcategory_removed, user=self.user2)
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
@@ -170,7 +170,7 @@ class UserViewTest(TestCase):
         """
         utils.login(self)
         comment = utils.create_comment(user=self.user2, topic=self.topic)
-        comment2 = utils.create_comment(user=self.user, topic=self.topic)
+        utils.create_comment(user=self.user, topic=self.topic)
         response = self.client.get(reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.slug}))
         self.assertEqual(response.status_code, 200)
@@ -206,11 +206,11 @@ class UserViewTest(TestCase):
         topic_c = utils.create_topic(category=category_removed)
         topic_d = utils.create_topic(category=subcategory)
         topic_e = utils.create_topic(category=subcategory_removed)
-        comment_a = utils.create_comment(user=self.user2, topic=topic_a.topic)
-        comment_b = utils.create_comment(user=self.user2, topic=topic_b)
-        comment_c = utils.create_comment(user=self.user2, topic=topic_c)
-        comment_d = utils.create_comment(user=self.user2, topic=topic_d)
-        comment_e = utils.create_comment(user=self.user2, topic=topic_e)
+        utils.create_comment(user=self.user2, topic=topic_a.topic)
+        utils.create_comment(user=self.user2, topic=topic_b)
+        utils.create_comment(user=self.user2, topic=topic_c)
+        utils.create_comment(user=self.user2, topic=topic_d)
+        utils.create_comment(user=self.user2, topic=topic_e)
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
@@ -236,7 +236,7 @@ class UserViewTest(TestCase):
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment2 = utils.create_comment(user=self.user2, topic=self.topic)
         like = CommentLike.objects.create(user=self.user2, comment=comment)
-        like2 = CommentLike.objects.create(user=self.user, comment=comment2)
+        CommentLike.objects.create(user=self.user, comment=comment2)
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
                                                                            'slug': self.user2.slug}))
         self.assertEqual(response.status_code, 200)
@@ -251,7 +251,7 @@ class UserViewTest(TestCase):
         comment_b = utils.create_comment(user=self.user, topic=self.topic)
         comment_c = utils.create_comment(user=self.user, topic=self.topic)
         like_a = CommentLike.objects.create(user=self.user2, comment=comment_a)
-        like_b = CommentLike.objects.create(user=self.user2, comment=comment_b)
+        CommentLike.objects.create(user=self.user2, comment=comment_b)
         like_c = CommentLike.objects.create(user=self.user2, comment=comment_c)
 
         CommentLike.objects.filter(pk=like_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
@@ -280,11 +280,11 @@ class UserViewTest(TestCase):
         comment_c = utils.create_comment(user=self.user, topic=topic_c)
         comment_d = utils.create_comment(user=self.user, topic=topic_d)
         comment_e = utils.create_comment(user=self.user, topic=topic_e)
-        like_a = CommentLike.objects.create(user=self.user2, comment=comment_a)
-        like_b = CommentLike.objects.create(user=self.user2, comment=comment_b)
-        like_c = CommentLike.objects.create(user=self.user2, comment=comment_c)
-        like_d = CommentLike.objects.create(user=self.user2, comment=comment_d)
-        like_e = CommentLike.objects.create(user=self.user2, comment=comment_e)
+        CommentLike.objects.create(user=self.user2, comment=comment_a)
+        CommentLike.objects.create(user=self.user2, comment=comment_b)
+        CommentLike.objects.create(user=self.user2, comment=comment_c)
+        CommentLike.objects.create(user=self.user2, comment=comment_d)
+        CommentLike.objects.create(user=self.user2, comment=comment_e)
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
@@ -324,21 +324,29 @@ class UserViewTest(TestCase):
         test rate limit 5/5m
         """
         form_data = {'username': self.user.email, 'password': "badpassword"}
-        url = reverse('spirit:user-login') + "?next=/path/"
-        for _ in range(6):
-            response = self.client.post(url, form_data)
-        self.assertRedirects(response, url, status_code=302)
+
+        for attempt in range(6):
+            if attempt < 5:
+                url = reverse('spirit:user-login')
+                response = self.client.post(url, form_data)
+                self.assertTemplateUsed(response, 'spirit/user/login.html')
+            else:
+                url = reverse('spirit:user-login') + "?next=/path/"
+                response = self.client.post(url, form_data)
+                self.assertRedirects(response, url, status_code=302)
 
     def test_custom_reset_password(self):
         """
         test rate limit 5/5m
         """
         form_data = {'email': "bademail@bad.com", }
-        for _ in range(6):
-            response = self.client.post(reverse('spirit:password-reset'),
-                                        form_data)
-        expected_url = reverse("spirit:password-reset")
-        self.assertRedirects(response, expected_url, status_code=302)
+        for attempt in range(6):
+            response = self.client.post(reverse('spirit:password-reset'), form_data)
+            if attempt < 5:
+                expected_url = reverse("spirit:password-reset-done")
+            else:
+                expected_url = reverse("spirit:password-reset")
+            self.assertRedirects(response, expected_url, status_code=302)
 
     def test_password_reset_confirm(self):
         """
@@ -488,7 +496,7 @@ class UserViewTest(TestCase):
         """
         resend_activation_email invalid password
         """
-        user = utils.create_user(password="foo")
+        utils.create_user(password="foo")
 
         form_data = {'email': "bad@foo.com", }
         response = self.client.post(reverse('spirit:resend-activation'),

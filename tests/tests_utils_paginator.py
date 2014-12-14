@@ -10,8 +10,8 @@ from django.http import Http404
 from django.core.paginator import Page, Paginator
 
 from . import utils
-from spirit.models.comment import Comment
 
+from spirit.models.comment import Comment
 from spirit.utils.paginator.yt_paginator import YTPaginator, InvalidPage, YTPage
 from spirit.utils import paginator
 from spirit.utils.paginator import infinite_paginator
@@ -219,7 +219,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
         req = RequestFactory().get('/')
         items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
-        out = Template(
+        Template(
             "{% load spirit_tags %}"
             "{% render_yt_paginator page %}"
         ).render(Context({'request': req, 'page': page, }))
@@ -245,7 +245,6 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
                                    "page_var": 'foo_page',
                                    "hashtag": '#c20',
                                    "extra_query": '&extra=foo'})
-
 
 
 class UtilsPaginatorTemplateTagsTests(TestCase):
@@ -301,7 +300,7 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
         req = RequestFactory().get('/')
         items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
-        out = Template(
+        Template(
             "{% load spirit_tags %}"
             "{% render_paginator page %}"
         ).render(Context({'request': req, 'page': page, }))

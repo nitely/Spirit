@@ -505,7 +505,7 @@ class TopicPollTemplateTagsTest(TestCase):
         should load initial or not
         """
         poll_choice = TopicPollChoice.objects.create(poll=self.poll, description="op2")
-        poll_vote = TopicPollVote.objects.create(user=self.user, choice=poll_choice)
+        TopicPollVote.objects.create(user=self.user, choice=poll_choice)
 
         self.user.is_authenticated = lambda: True
         context = render_poll_form(self.topic, self.user)

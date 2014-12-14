@@ -35,18 +35,18 @@ class SearchTopicIndexTest(TestCase):
         """
         index_queryset should exclude private topics
         """
-        private = utils.create_private_topic()
+        utils.create_private_topic()
         self.assertEqual(len(TopicIndex().index_queryset()), 0)
 
         category = utils.create_category()
-        topic = utils.create_topic(category)
+        utils.create_topic(category)
         self.assertEqual(len(TopicIndex().index_queryset()), 1)
 
     def test_indexing_excludes_private_topics(self):
         """
         rebuild_index command should exclude private topics
         """
-        private = utils.create_private_topic()
+        utils.create_private_topic()
         category = utils.create_category()
         topic = utils.create_topic(category)
         call_command("rebuild_index", interactive=False)
@@ -144,7 +144,7 @@ class SearchTemplateTagTests(TestCase):
         """
         should display the basic search form
         """
-        out = Template(
+        Template(
             "{% load spirit_tags %}"
             "{% render_search_form %}"
         ).render(Context())

@@ -192,10 +192,10 @@ class TopicPrivateViewTest(TestCase):
         """
         private = utils.create_private_topic(user=self.user)
         # dont show private topics from other users
-        private2 = TopicPrivate.objects.create(user=self.user2, topic=private.topic)
+        TopicPrivate.objects.create(user=self.user2, topic=private.topic)
         # dont show topics from other categories
         category = utils.create_category()
-        topic = utils.create_topic(category, user=self.user)
+        utils.create_topic(category, user=self.user)
 
         utils.login(self)
         response = self.client.get(reverse('spirit:private-list'))
@@ -284,14 +284,14 @@ class TopicPrivateViewTest(TestCase):
         private topic created list, shows only the private topics the user is no longer participating
         """
         category = utils.create_category()
-        regular_topic = utils.create_topic(category, user=self.user)
+        utils.create_topic(category, user=self.user)
         # it's the owner, left the topic
         private = utils.create_private_topic(user=self.user)
         private.delete()
         # has access and is the owner
-        private2 = utils.create_private_topic(user=self.user)
+        utils.create_private_topic(user=self.user)
         # does not has access
-        private3 = utils.create_private_topic(user=self.user2)
+        utils.create_private_topic(user=self.user2)
         # has access but it's not owner
         private4 = utils.create_private_topic(user=self.user2)
         TopicPrivate.objects.create(user=self.user, topic=private4.topic)
