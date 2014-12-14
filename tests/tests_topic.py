@@ -447,12 +447,24 @@ class TopicFormTest(TestCase):
         form = TopicForm(self.user, data=form_data)
         self.assertEqual(form.is_valid(), True)
 
-    def test_topic_publish_invalid_subcategory(self):
+    def test_topic_publish_invalid_closed_subcategory(self):
         """
-        invalid subcategory
+        invalid closed subcategory
         """
         category = utils.create_category()
         subcategory = utils.create_subcategory(category, is_closed=True)
+        form_data = {'comment': 'foo', 'title': 'foobar',
+                     'category': subcategory.pk}
+        form = TopicForm(self.user, data=form_data)
+        self.assertEqual(form.is_valid(), False)
+        self.assertNotIn('category', form.cleaned_data)
+
+    def test_topic_publish_invalid_removed_subcategory(self):
+        """
+        invalid removed subcategory
+        """
+        category = utils.create_category()
+        subcategory = utils.create_subcategory(category, is_removed=True)
         form_data = {'comment': 'foo', 'title': 'foobar',
                      'category': subcategory.pk}
         form = TopicForm(self.user, data=form_data)

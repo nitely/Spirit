@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.utils.encoding import smart_text
+from django.db.models import Prefetch
 
 
 class NestedModelChoiceField(forms.ModelChoiceField):
@@ -27,7 +28,7 @@ class NestedModelChoiceField(forms.ModelChoiceField):
         choices = [("", self.empty_label), ]
         kwargs = {self.parent_field: None, }
         queryset = self.queryset.filter(**kwargs)\
-            .prefetch_related(self.related_name)
+            .prefetch_related(Prefetch(self.related_name, queryset=self.queryset))
 
         for parent in queryset:
             choices.append((self.prepare_value(parent), self.label_from_instance(parent)))
