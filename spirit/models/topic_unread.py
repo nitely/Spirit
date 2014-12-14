@@ -43,12 +43,11 @@ def topic_page_viewed_handler(sender, request, topic, **kwargs):
     if not request.user.is_authenticated():
         return
 
-    # TODO: use update_or_create on django 1.7
     try:
-        TopicUnread.objects.create(user=request.user, topic=topic)
+        TopicUnread.objects.update_or_create(user=request.user, topic=topic,
+                                             defaults={'is_read': True, })
     except IntegrityError:
-        TopicUnread.objects.filter(user=request.user, topic=topic)\
-            .update(is_read=True)
+        pass
 
 
 def comment_posted_handler(sender, comment, **kwargs):

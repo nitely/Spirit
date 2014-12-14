@@ -48,12 +48,11 @@ def topic_page_viewed_handler(sender, request, topic, **kwargs):
 
     comment_number = settings.ST_COMMENTS_PER_PAGE * (page_number - 1) + 1
 
-    # TODO: use update_or_create on django 1.7
     try:
-        CommentBookmark.objects.create(user=request.user, topic=topic, comment_number=comment_number)
+        CommentBookmark.objects.update_or_create(user=request.user, topic=topic,
+                                                 defaults={'comment_number': comment_number, })
     except IntegrityError:
-        CommentBookmark.objects.filter(user=request.user, topic=topic)\
-            .update(comment_number=comment_number)
+        pass
 
 
 topic_viewed.connect(topic_page_viewed_handler, dispatch_uid=__name__)
