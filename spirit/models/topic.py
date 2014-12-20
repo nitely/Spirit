@@ -23,6 +23,7 @@ class Topic(models.Model):
     date = models.DateTimeField(_("date"), auto_now_add=True)
     last_active = models.DateTimeField(_("last active"), auto_now_add=True)
     is_pinned = models.BooleanField(_("pinned"), default=False)
+    is_globally_pinned = models.BooleanField(_("globally pinned"), default=False)
     is_closed = models.BooleanField(_("closed"), default=False)
     is_removed = models.BooleanField(default=False)
 

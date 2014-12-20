@@ -3,21 +3,21 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.http import HttpResponsePermanentRedirect
 from django.conf import settings
 
 from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.utils.decorators import moderator_required
 from spirit.models.category import Category
-from spirit.models.comment import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
+from spirit.models.comment import MOVED
 from spirit.forms.comment import CommentForm
 from spirit.signals.comment import comment_posted
 from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
 
 from spirit.models.topic import Topic
 from spirit.forms.topic import TopicForm
-from spirit.signals.topic import topic_viewed, topic_post_moderate
+from spirit.signals.topic import topic_viewed
+from spirit.signals.topic_moderate import topic_post_moderate
 
 
 @login_required
@@ -90,39 +90,6 @@ def topic_detail(request, pk, slug):
 
     return render(request, 'spirit/topic/topic_detail.html', {'topic': topic,
                                                               'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
-
-
-@moderator_required
-def topic_moderate(request, pk, value, remove=False, lock=False, pin=False):
-    # TODO: move to topic_moderate and split it in many views
-    topic = get_object_or_404(Topic, pk=pk)
-
-    if request.method == 'POST':
-        not_value = not value
-
-        if remove:
-            Topic.objects.filter(pk=pk, is_removed=not_value)\
-                .update(is_removed=value)
-
-        if lock:
-            count = Topic.objects.filter(pk=pk, is_closed=not_value)\
-                .update(is_closed=value)
-
-            if count:
-                action = CLOSED if value else UNCLOSED
-                topic_post_moderate.send(sender=topic.__class__, user=request.user, topic=topic, action=action)
-
-        if pin:
-            count = Topic.objects.filter(pk=pk, is_pinned=not_value)\
-                .update(is_pinned=value)
-
-            if count:
-                action = PINNED if value else UNPINNED
-                topic_post_moderate.send(sender=topic.__class__, user=request.user, topic=topic, action=action)
-
-        return redirect(request.POST.get('next', topic.get_absolute_url()))
-
-    return render(request, 'spirit/topic/topic_moderate.html', {'topic': topic, })
 
 
 def topics_active(request):

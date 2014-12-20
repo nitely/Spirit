@@ -21,7 +21,7 @@ from . import utils
 
 from spirit.models.comment import Comment
 from spirit.signals.comment_like import comment_like_post_create, comment_like_post_delete
-from spirit.signals.topic import topic_post_moderate
+from spirit.signals.topic_moderate import topic_post_moderate
 from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
 from spirit.signals.comment import comment_post_update, comment_posted, comment_pre_update, comment_moved
 from spirit.templatetags.tags.comment import render_comments_form

@@ -7,7 +7,7 @@ from django.db.models import F
 from spirit.models import Comment
 from ..comment import comment_post_update
 from ..comment_like import comment_like_post_create, comment_like_post_delete
-from ..topic import topic_post_moderate
+from ..topic_moderate import topic_post_moderate
 
 
 def comment_post_update_handler(sender, comment, **kwargs):
