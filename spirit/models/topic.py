@@ -18,7 +18,7 @@ class Topic(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
     category = models.ForeignKey('spirit.Category', verbose_name=_("category"))
 
-    title = models.CharField(_("title"), max_length=75)
+    title = models.CharField(_("title"), max_length=255)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     date = models.DateTimeField(_("date"), auto_now_add=True)
     last_active = models.DateTimeField(_("last active"), auto_now_add=True)

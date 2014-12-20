@@ -62,7 +62,7 @@ class TopicViewTest(TestCase):
         """
         utils.login(self)
         category = utils.create_category()
-        title = "a" * 75
+        title = "a" * 255
         form_data = {'comment': 'foo', 'title': title, 'category': category.pk,
                      'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
         response = self.client.post(reverse('spirit:topic-publish'),
