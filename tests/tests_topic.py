@@ -266,29 +266,18 @@ class TopicViewTest(TestCase):
 
     def test_topic_active_view_pinned(self):
         """
-        pinned topics. Only show pinned topics from uncategorized category, even if the category is removed
+        Show globally pinned topics first, regular pinned topics are shown as regular topics
         """
         category = utils.create_category()
-        # show topic from regular category
         topic_a = utils.create_topic(category=category)
-        # dont show pinned from regular category
-        utils.create_topic(category=category, is_pinned=True)
-
-        uncat_category = Category.objects.get(pk=settings.ST_UNCATEGORIZED_CATEGORY_PK)
-        # dont show pinned and removed
-        utils.create_topic(category=uncat_category, is_pinned=True, is_removed=True)
-        # show topic from uncategorized category
-        topic_d = utils.create_topic(category=uncat_category, is_pinned=True)
-        # show pinned first
+        topic_b = utils.create_topic(category=category, is_pinned=True)
+        topic_c = utils.create_topic(category=category)
+        topic_d = utils.create_topic(category=category, is_globally_pinned=True)
+        # show globally pinned first
         Topic.objects.filter(pk=topic_d.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
 
         response = self.client.get(reverse('spirit:topic-active'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_d, topic_a, ]))
-
-        # show topic from uncategorized category even if it is removed
-        Category.objects.filter(pk=uncat_category.pk).update(is_removed=True)
-        response = self.client.get(reverse('spirit:topic-active'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_d, topic_a, ]))
+        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_d, topic_c, topic_b, topic_a]))
 
     def test_topic_active_view_dont_show_private_or_removed(self):
         """

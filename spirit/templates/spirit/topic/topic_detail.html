@@ -17,7 +17,7 @@
         </ul>
 
         <h1 class="headline">
-            {% if topic.is_pinned %}
+            {% if topic.is_pinned or topic.is_globally_pinned %}
                 <i class="fa fa-thumb-tack"></i>
             {% endif %}
             {% if topic.is_closed %}
@@ -57,6 +57,12 @@
                             <li><a class="menu-link js-post" href="{% url "spirit:topic-unpin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic" %}</a></li>
                         {% else %}
                             <li><a class="menu-link js-post" href="{% url "spirit:topic-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic" %}</a></li>
+                        {% endif %}
+
+                        {% if topic.is_globally_pinned %}
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic-unglobal-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a></li>
+                        {% else %}
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic-global-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic globally" %}</a></li>
                         {% endif %}
                     </ul>
                 </div>

@@ -23,5 +23,5 @@ def topic_closed(request):
 
 @administrator_required
 def topic_pinned(request):
-    topics = Topic.objects.filter(is_pinned=True)
+    topics = Topic.objects.filter(is_pinned=True) | Topic.objects.filter(is_globally_pinned=True)
     return render(request, 'spirit/admin/topic/topic_pinned.html', {'topics': topics, })

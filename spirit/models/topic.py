@@ -22,6 +22,7 @@ class Topic(models.Model):
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     date = models.DateTimeField(_("date"), auto_now_add=True)
     last_active = models.DateTimeField(_("last active"), auto_now_add=True)
+
     is_pinned = models.BooleanField(_("pinned"), default=False)
     is_globally_pinned = models.BooleanField(_("globally pinned"), default=False)
     is_closed = models.BooleanField(_("closed"), default=False)

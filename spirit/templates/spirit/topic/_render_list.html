@@ -11,7 +11,7 @@
 			<div class="row">
 
                 <div class="row-title">
-                    {% if t.is_pinned %}
+                    {% if t.is_pinned or t.is_globally_pinned %}
                         <i class="fa fa-thumb-tack"></i>
                     {% endif %}
                     {% if t.is_closed %}

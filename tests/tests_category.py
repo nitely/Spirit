@@ -61,6 +61,22 @@ class CategoryViewTest(TestCase):
                                                                              'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_a, topic_b, ]))
 
+    def test_category_detail_view_pinned(self):
+        """
+        Show globally pinned topics first, then regular pinned topics, then regular topics
+        """
+        category = utils.create_category()
+        topic_a = utils.create_topic(category=category)
+        topic_b = utils.create_topic(category=category, is_pinned=True)
+        topic_c = utils.create_topic(category=category)
+        topic_d = utils.create_topic(category=category, is_globally_pinned=True)
+        # show globally pinned first
+        Topic.objects.filter(pk=topic_d.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
+
+        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': category.pk,
+                                                                             'slug': category.slug}))
+        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_d, topic_b, topic_c, topic_a]))
+
     def test_category_detail_view_removed_topics(self):
         """
         should not display removed topics or from other categories

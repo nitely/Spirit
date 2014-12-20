@@ -63,3 +63,15 @@ class TopicModeratePin(TopicModerateBase):
             action = PINNED if value else UNPINNED
             topic_post_moderate.send(sender=self.topic.__class__, user=request.user,
                                      topic=self.topic, action=action)
+
+
+class TopicModerateGlobalPin(TopicModerateBase):
+
+    def update(self, request, pk, value, not_value):
+        count = Topic.objects.filter(pk=pk, is_globally_pinned=not_value)\
+            .update(is_globally_pinned=value)
+
+        if count:
+            action = PINNED if value else UNPINNED
+            topic_post_moderate.send(sender=self.topic.__class__, user=request.user,
+                                     topic=self.topic, action=action)

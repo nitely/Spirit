@@ -93,12 +93,9 @@ def topic_detail(request, pk, slug):
 
 
 def topics_active(request):
-    topics = Topic.objects.for_public().filter(is_pinned=False)
-    topics_pinned = Topic.objects.filter(category_id=settings.ST_UNCATEGORIZED_CATEGORY_PK,
-                                         is_removed=False,
-                                         is_pinned=True)
-    topics = topics | topics_pinned
-    topics = topics.order_by('-is_pinned', '-last_active').select_related('category')
+    topics = Topic.objects.for_public().filter()\
+        .order_by('-is_globally_pinned', '-last_active')\
+        .select_related('category')
     categories = Category.objects.for_parent()
 
     return render(request, 'spirit/topic/topics_active.html', {'categories': categories,

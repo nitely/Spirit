@@ -19,7 +19,7 @@ def category_detail(request, pk, slug):
 
     subcategories = Category.objects.for_parent(parent=category)
     topics = Topic.objects.for_category(category=category)\
-        .order_by('-is_pinned', '-last_active')\
+        .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
         .select_related('category')
 
     return render(request, 'spirit/category/category_detail.html', {'category': category,
