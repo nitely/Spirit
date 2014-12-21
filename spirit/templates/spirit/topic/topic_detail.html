@@ -60,7 +60,7 @@
                         {% endif %}
 
                         {% if topic.is_globally_pinned %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-unglobal-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic-global-unpin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a></li>
                         {% else %}
                             <li><a class="menu-link js-post" href="{% url "spirit:topic-global-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic globally" %}</a></li>
                         {% endif %}

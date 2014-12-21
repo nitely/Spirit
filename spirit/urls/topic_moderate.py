@@ -23,5 +23,5 @@ urlpatterns = patterns(
     url(r'^globallypin/(?P<pk>\d+)/$', TopicModerateGlobalPin.as_view(), kwargs={'value': True, },
         name='topic-global-pin'),
     url(r'^ungloballypin/(?P<pk>\d+)/$', TopicModerateGlobalPin.as_view(), kwargs={'value': False, },
-        name='topic-unglobal-pin'),
+        name='topic-global-unpin'),
     )

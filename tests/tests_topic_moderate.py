@@ -140,3 +140,47 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_pinned)
         self.assertEqual(self._moderate, [repr(self.user), repr(topic), UNPINNED])
+
+    def test_topic_moderate_global_pin(self):
+        """
+        topic pin
+        """
+        def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
+            self._moderate = [repr(user._wrapped), repr(topic), action]
+        topic_post_moderate.connect(topic_post_moderate_handler)
+
+        utils.login(self)
+        self.user.is_moderator = True
+        self.user.save()
+
+        category = utils.create_category()
+        topic = utils.create_topic(category)
+        form_data = {}
+        response = self.client.post(reverse('spirit:topic-global-pin', kwargs={'pk': topic.pk, }),
+                                    form_data)
+        expected_url = topic.get_absolute_url()
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertTrue(Topic.objects.get(pk=topic.pk).is_globally_pinned)
+        self.assertEqual(self._moderate, [repr(self.user), repr(topic), PINNED])
+
+    def test_topic_moderate_global_unpin(self):
+        """
+        topic unpin
+        """
+        def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
+            self._moderate = [repr(user._wrapped), repr(topic), action]
+        topic_post_moderate.connect(topic_post_moderate_handler)
+
+        utils.login(self)
+        self.user.is_moderator = True
+        self.user.save()
+
+        category = utils.create_category()
+        topic = utils.create_topic(category, is_globally_pinned=True)
+        form_data = {}
+        response = self.client.post(reverse('spirit:topic-global-unpin', kwargs={'pk': topic.pk, }),
+                                    form_data)
+        expected_url = topic.get_absolute_url()
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertFalse(Topic.objects.get(pk=topic.pk).is_globally_pinned)
+        self.assertEqual(self._moderate, [repr(self.user), repr(topic), UNPINNED])

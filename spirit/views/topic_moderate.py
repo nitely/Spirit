@@ -15,14 +15,25 @@ from spirit.signals.topic_moderate import topic_post_moderate
 
 class TopicModerateBase(View):
 
+    actions = None  # (do_action, undo_action)
+
     def update(self, request, pk, value, not_value):
         raise NotImplementedError()
+
+    def send_signal(self, user, action):
+        topic_post_moderate.send(sender=self.topic.__class__, user=user,
+                                 topic=self.topic, action=action)
 
     def post(self, request, *args, **kwargs):
         pk = kwargs['pk']
         value = kwargs['value']
         not_value = not value
-        self.update(request, pk, value, not_value)
+        count = self.update(request, pk, value, not_value)
+
+        if count and self.actions is not None:
+            action = self.actions[0] if value else self.actions[1]
+            self.send_signal(request.user, action)
+
         return redirect(request.POST.get('next', self.topic.get_absolute_url()))
 
     def get(self, request, *args, **kwargs):
@@ -37,41 +48,32 @@ class TopicModerateBase(View):
 class TopicModerateDelete(TopicModerateBase):
 
     def update(self, request, pk, value, not_value):
-        Topic.objects.filter(pk=pk, is_removed=not_value)\
+        return Topic.objects.filter(pk=pk, is_removed=not_value)\
             .update(is_removed=value)
 
 
 class TopicModerateLock(TopicModerateBase):
 
-    def update(self, request, pk, value, not_value):
-        count = Topic.objects.filter(pk=pk, is_closed=not_value)\
-            .update(is_closed=value)
+    actions = (CLOSED, UNCLOSED)
 
-        if count:
-            action = CLOSED if value else UNCLOSED
-            topic_post_moderate.send(sender=self.topic.__class__, user=request.user,
-                                     topic=self.topic, action=action)
+    def update(self, request, pk, value, not_value):
+        return Topic.objects.filter(pk=pk, is_closed=not_value)\
+            .update(is_closed=value)
 
 
 class TopicModeratePin(TopicModerateBase):
 
-    def update(self, request, pk, value, not_value):
-        count = Topic.objects.filter(pk=pk, is_pinned=not_value)\
-            .update(is_pinned=value)
+    actions = (PINNED, UNPINNED)
 
-        if count:
-            action = PINNED if value else UNPINNED
-            topic_post_moderate.send(sender=self.topic.__class__, user=request.user,
-                                     topic=self.topic, action=action)
+    def update(self, request, pk, value, not_value):
+        return Topic.objects.filter(pk=pk, is_pinned=not_value)\
+            .update(is_pinned=value)
 
 
 class TopicModerateGlobalPin(TopicModerateBase):
 
-    def update(self, request, pk, value, not_value):
-        count = Topic.objects.filter(pk=pk, is_globally_pinned=not_value)\
-            .update(is_globally_pinned=value)
+    actions = (PINNED, UNPINNED)
 
-        if count:
-            action = PINNED if value else UNPINNED
-            topic_post_moderate.send(sender=self.topic.__class__, user=request.user,
-                                     topic=self.topic, action=action)
+    def update(self, request, pk, value, not_value):
+        return Topic.objects.filter(pk=pk, is_globally_pinned=not_value)\
+            .update(is_globally_pinned=value)
