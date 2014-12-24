@@ -8,7 +8,6 @@ from .tags import search
 from .tags import topic_favorite
 from .tags import topic_notification
 from .tags import topic_private
-from .tags.utils import filters
 from .tags.utils import gravatar
 from .tags.utils import messages
 from .tags.utils import paginator
@@ -18,6 +17,6 @@ from .tags import register
 
 __all__ = [
     'comment', 'comment_bookmark', 'comment_like', 'topic_poll', 'search',
-    'topic_favorite', 'topic_notification', 'topic_private', 'filters',
+    'topic_favorite', 'topic_notification', 'topic_private',
     'gravatar', 'messages', 'paginator', 'social_share', 'time', 'register'
 ]

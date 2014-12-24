@@ -37,16 +37,17 @@
         <dl class="preference">
             <dt class="preference-label">{% trans "Poll" %}:</dt>
 
-            {% if not pform.errors and not pformset|has_errors %}
+            {% if not pform.errors and not pformset.has_errors %}
                 <dd class="preference-desc"><a class="js-poll-add" href="#"><i class="fa fa-bar-chart-o"></i> {% trans "Add poll" %}</a></dd>
             {% endif %}
         </dl>
 
-        <div class="js-poll-form" style="{% if not pform.errors and not pformset|has_errors %}display:none;{% endif %}margin-left:20px;">
+        <div class="js-poll-form" style="{% if not pform.errors and not pformset.has_errors %}display:none;{% endif %}margin-left:20px;">
             {% include "spirit/_form.html" with form=pform %}
             {{ pformset.management_form }}
-            {% for pfs in pformset %}
-                {% include "spirit/_form.html" with form=pfs %}
+            {{ pformset.non_form_errors }}
+            {% for f in pformset %}
+                {% include "spirit/_form.html" with form=f %}
             {% endfor %}
         </div>
 

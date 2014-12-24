@@ -6,6 +6,7 @@ from django import forms
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_text
+from django.core.exceptions import ValidationError
 
 from spirit.models.topic_poll import TopicPollChoice, TopicPoll, TopicPollVote
 
@@ -24,7 +25,7 @@ class TopicPollForm(forms.ModelForm):
         choice_limit = self.cleaned_data['choice_limit']
 
         if choice_limit < 1:
-            raise forms.ValidationError(_("This must be greater than zero"))
+            raise forms.ValidationError(_("Choice's limit must be greater than zero"))
 
         return choice_limit
 
@@ -35,33 +36,77 @@ class TopicPollForm(forms.ModelForm):
         return super(TopicPollForm, self).save(commit)
 
 
+class TopicPollChoiceForm(forms.ModelForm):
+
+    class Meta:
+        model = TopicPollChoice
+        fields = ['description', ]
+
+    def is_filled(self):
+        description = self.cleaned_data.get('description')
+        is_marked_as_delete = self.cleaned_data.get('DELETE', False)
+
+        if description and not is_marked_as_delete:
+            return True
+
+        return False
+
+
 class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
 
     def __init__(self, can_delete=None, *args, **kwargs):
         super(TopicPollChoiceInlineFormSet, self).__init__(*args, **kwargs)
+        self._is_filled_cache = None
 
         if can_delete is not None:
             # Adds the *delete* checkbox or not
             self.can_delete = can_delete
 
-    def is_filled(self):
+    def _is_filled(self):
         if self.instance.pk:
             return True
 
-        for form in self.forms:
-            description = form.cleaned_data.get('description')
-            is_marked_as_delete = form.cleaned_data.get('DELETE', False)
+        return any([form.is_filled() for form in self.forms])
 
-            if description and not is_marked_as_delete:
-                return True
+    def is_filled(self):
+        if self._is_filled_cache is None:
+            self._is_filled_cache = self._is_filled()
 
-        return False
+        return self._is_filled_cache
+
+    def has_errors(self):
+        return any(self.errors) or self.non_form_errors()
+
+    def clean(self):
+        # formset.non_field_errors
+        super(TopicPollChoiceInlineFormSet, self).clean()
+
+        if not self.is_filled():
+            return
+
+        forms_filled = [form for form in self.forms if form.is_filled()]
+
+        if len(forms_filled) < 2:
+            raise ValidationError(_("There must be 2 or more choices"))
+
+    def is_valid(self):
+        is_valid = super(TopicPollChoiceInlineFormSet, self).is_valid()
+
+        if not self.is_filled():
+            return True
+
+        return is_valid
+
+    def save(self, commit=True):
+        if not self.is_filled():
+            raise Exception("You should check and save if is_filled is True")
+
+        return super(TopicPollChoiceInlineFormSet, self).save(commit=commit)
 
 
-# TODO: use min_num and validate_min in Django 1.7
-TopicPollChoiceFormSet = inlineformset_factory(TopicPoll, TopicPollChoice,
-                                               formset=TopicPollChoiceInlineFormSet, fields=('description', ),
-                                               extra=2, max_num=20, validate_max=True)
+TopicPollChoiceFormSet = inlineformset_factory(TopicPollForm._meta.model, TopicPollChoiceForm._meta.model,
+                                               form=TopicPollChoiceForm, formset=TopicPollChoiceInlineFormSet,
+                                               max_num=20, validate_max=True, extra=2)
 
 
 class TopicPollVoteManyForm(forms.Form):
@@ -71,13 +116,12 @@ class TopicPollVoteManyForm(forms.Form):
     """
 
     def __init__(self, user=None, poll=None, *args, **kwargs):
-        # TODO: refactor this by using Factory pattern
         super(TopicPollVoteManyForm, self).__init__(*args, **kwargs)
         self.user = user
         self.poll = poll
         choices = TopicPollChoice.objects.filter(poll=poll)
 
-        if poll.choice_limit > 1:
+        if poll.is_multiple_choice:
             self.fields['choices'] = forms.ModelMultipleChoiceField(queryset=choices,
                                                                     widget=forms.CheckboxSelectMultiple,
                                                                     label=_("Poll choices"))
@@ -95,7 +139,7 @@ class TopicPollVoteManyForm(forms.Form):
         if not selected_choices:
             return
 
-        if self.poll.choice_limit == 1:
+        if not self.poll.is_multiple_choice:
             selected_choices = selected_choices[0]
 
         self.initial = {'choices': selected_choices, }
@@ -103,10 +147,10 @@ class TopicPollVoteManyForm(forms.Form):
     def clean_choices(self):
         choices = self.cleaned_data['choices']
 
-        if self.poll.choice_limit > 1:
-            if len(choices) > self.poll.choice_limit:
-                raise forms.ValidationError(_("Too many selected choices. Limit is %s")
-                                            % self.poll.choice_limit)
+        if (self.poll.is_multiple_choice and
+                len(choices) > self.poll.choice_limit):
+            raise forms.ValidationError(_("Too many selected choices. Limit is %s")
+                                        % self.poll.choice_limit)
 
         return choices
 
@@ -121,7 +165,7 @@ class TopicPollVoteManyForm(forms.Form):
     def save_m2m(self):
         choices = self.cleaned_data['choices']
 
-        if self.poll.choice_limit == 1:
+        if not self.poll.is_multiple_choice:
             choices = [choices, ]
 
         TopicPollVote.objects.filter(user=self.user, choice__poll=self.poll)\

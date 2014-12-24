@@ -24,6 +24,10 @@ class TopicPoll(models.Model):
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
 
+    @property
+    def is_multiple_choice(self):
+        return self.choice_limit > 1
+
     def __str__(self):
         return "poll at topic #%s" % self.topic.pk
 

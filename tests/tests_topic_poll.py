@@ -276,7 +276,7 @@ class TopicPollFormTest(TestCase):
                      'choices-0-description': 'op1', 'choices-0-DELETE': "on",
                      'choices-1-description': 'op2', 'choices-1-DELETE': "on"}
         form = TopicPollChoiceFormSet(can_delete=True, data=form_data)
-        self.assertTrue(form.is_valid())
+        self.assertTrue(form.is_valid())  # not enough choices, but since we are NOT updating this is valid
         self.assertFalse(form.is_filled())
 
     def test_update_poll_choices_filled_but_deleted(self):
@@ -289,7 +289,7 @@ class TopicPollFormTest(TestCase):
                      'choices-0-description': 'op1', 'choices-0-DELETE': "on",
                      'choices-1-description': 'op2', 'choices-1-DELETE': "on"}
         form = TopicPollChoiceFormSet(can_delete=True, data=form_data, instance=poll)
-        self.assertTrue(form.is_valid())
+        self.assertFalse(form.is_valid())  # not enough choices
         self.assertTrue(form.is_filled())
 
 
