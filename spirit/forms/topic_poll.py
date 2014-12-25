@@ -89,14 +89,6 @@ class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
         if len(forms_filled) < 2:
             raise ValidationError(_("There must be 2 or more choices"))
 
-    def is_valid(self):
-        is_valid = super(TopicPollChoiceInlineFormSet, self).is_valid()
-
-        if not self.is_filled():
-            return True
-
-        return is_valid
-
     def save(self, commit=True):
         if not self.is_filled():
             raise Exception("You should check and save if is_filled is True")
@@ -123,10 +115,12 @@ class TopicPollVoteManyForm(forms.Form):
 
         if poll.is_multiple_choice:
             self.fields['choices'] = forms.ModelMultipleChoiceField(queryset=choices,
+                                                                    cache_choices=True,
                                                                     widget=forms.CheckboxSelectMultiple,
                                                                     label=_("Poll choices"))
         else:
             self.fields['choices'] = forms.ModelChoiceField(queryset=choices,
+                                                            cache_choices=True,
                                                             empty_label=None,
                                                             widget=forms.RadioSelect,
                                                             label=_("Poll choices"))

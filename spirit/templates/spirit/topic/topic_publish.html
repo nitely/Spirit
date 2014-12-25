@@ -44,11 +44,7 @@
 
         <div class="js-poll-form" style="{% if not pform.errors and not pformset.has_errors %}display:none;{% endif %}margin-left:20px;">
             {% include "spirit/_form.html" with form=pform %}
-            {{ pformset.management_form }}
-            {{ pformset.non_form_errors }}
-            {% for f in pformset %}
-                {% include "spirit/_form.html" with form=f %}
-            {% endfor %}
+            {% include "spirit/_formset.html" with formset=pformset %}
         </div>
 
         {# comment #}
