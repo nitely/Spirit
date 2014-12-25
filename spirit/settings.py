@@ -30,6 +30,8 @@ ST_PRIVATE_FORUM = False
 
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
 
+ST_INITIAL_MIGRATION_DEPENDENCIES = []  # [('myuser', '0001_initial'), ]
+
 #
 # Django & Spirit settings defined below...
 #
