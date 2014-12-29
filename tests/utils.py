@@ -15,7 +15,7 @@ User = get_user_model()
 
 def create_user(**kwargs):
     if 'username' not in kwargs:
-        kwargs['username'] = "foo%d" % User.objects.all().count()
+        kwargs['username'] = "user_foo%d" % User.objects.all().count()
 
     if 'email' not in kwargs:
         kwargs['email'] = "%s@bar.com" % kwargs['username']
@@ -28,12 +28,10 @@ def create_user(**kwargs):
 
 def create_topic(category, **kwargs):
     if 'user' not in kwargs:
-        username = "foo%d" % User.objects.all().count()
-        email = "%s@bar.com" % username
-        kwargs['user'] = User.objects.create_user(username=username, password="bar", email=email)
+        kwargs['user'] = create_user()
 
     if 'title' not in kwargs:
-        kwargs['title'] = "foo%d" % Topic.objects.all().count()
+        kwargs['title'] = "topic_foo%d" % Topic.objects.all().count()
 
     return Topic.objects.create(category=category, **kwargs)
 
@@ -48,21 +46,21 @@ def create_private_topic(**kwargs):
 
 def create_category(**kwargs):
     if 'title' not in kwargs:
-        kwargs['title'] = "foo%d" % Category.objects.all().count()
+        kwargs['title'] = "category_foo%d" % Category.objects.all().count()
 
     return Category.objects.create(**kwargs)
 
 
 def create_subcategory(category, **kwargs):
     if 'title' not in kwargs:
-        kwargs['title'] = "foo%d" % Category.objects.all().count()
+        kwargs['title'] = "subcategory_foo%d" % Category.objects.all().count()
 
     return Category.objects.create(parent=category, **kwargs)
 
 
 def create_comment(**kwargs):
     if 'comment' not in kwargs:
-        kwargs['comment'] = "foobar%d" % Comment.objects.all().count()
+        kwargs['comment'] = "comment_foobar%d" % Comment.objects.all().count()
 
     if 'comment_html' not in kwargs:
         kwargs['comment_html'] = kwargs['comment']

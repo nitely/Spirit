@@ -451,7 +451,7 @@ class CommentTemplateTagTests(TestCase):
             "{{ c.comment }},"
             "{% endfor %}"
         ).render(Context({'topic': self.topic, }))
-        self.assertEqual(out, "foobar0,foobar1,foobar2,")
+        self.assertEqual(out, "comment_foobar0,comment_foobar1,comment_foobar2,")
 
     def test_render_comments_form(self):
         """

@@ -35,9 +35,6 @@ class YTPaginator(object):
     def page(self, number):
         """
         Returns a Page object for the given 1-based page number.
-
-        Retrieves objects for the given page number plus 1 additional to check
-        if there are more objects after this page.
         """
         number = self.validate_number(number)
         offset = (number - 1) * self.per_page

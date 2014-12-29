@@ -18,9 +18,10 @@ def populate_likes(comments, user, to_attr='like'):
     # TODO: use Prefetch on django 1.7
     # move this to CustomQuerySet.as_manager
     # move this from template to view
-    # note: paginator should return a querySet,
-    # saddly it returns a list right now,
-    # so cant use prefetch yet.
+
+    # user_likes = CommentLike.objects.filter(user=user)
+    # comments = comments.prefetch_related(Prefetch("comment_likes", queryset=user_likes, to_attr=to_attr))
+
     likes = CommentLike.objects.filter(comment__in=comments, user=user)
     likes_dict = {l.comment_id: l for l in likes}
 
