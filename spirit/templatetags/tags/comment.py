@@ -18,7 +18,7 @@ def get_comment_list(topic):
 @register.inclusion_tag('spirit/comment/_form.html')
 def render_comments_form(topic, next=None):
     form = CommentForm()
-    return {'form': form, 'topic_id': topic.pk, 'next': next, 'STATIC_URL': settings.STATIC_URL}
+    return {'form': form, 'topic_id': topic.pk, 'next': next}
 
 
 @register.simple_tag()

@@ -121,9 +121,9 @@ class TopicPollVoteManyForm(forms.Form):
         else:
             self.fields['choices'] = forms.ModelChoiceField(queryset=choices,
                                                             cache_choices=True,
-                                                            empty_label=None,
                                                             widget=forms.RadioSelect,
-                                                            label=_("Poll choices"))
+                                                            label=_("Poll choices"),
+                                                            empty_label=None)
 
         self.fields['choices'].label_from_instance = lambda obj: smart_text(obj.description)
 

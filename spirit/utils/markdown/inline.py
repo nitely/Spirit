@@ -8,6 +8,7 @@ import os
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 import mistune
 
@@ -59,7 +60,8 @@ class InlineLexer(mistune.InlineLexer):
             return m.group(0)
 
         image = emoji + '.png'
-        path = os.path.join(settings.STATIC_URL, 'spirit', 'emojis', image).replace('\\', '/')
+        rel_path = os.path.join('spirit', 'emojis', image).replace('\\', '/')
+        path = staticfiles_storage.url(rel_path)
 
         return self.renderer.emoji(path)
 
