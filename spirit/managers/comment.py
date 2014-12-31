@@ -39,6 +39,6 @@ class CommentQuerySet(models.QuerySet):
 
     def for_update_or_404(self, pk, user):
         if user.is_moderator:
-            return get_object_or_404(self, pk=pk)
+            return get_object_or_404(self.for_access(user), pk=pk)
         else:
             return get_object_or_404(self.for_access(user), user=user, pk=pk)

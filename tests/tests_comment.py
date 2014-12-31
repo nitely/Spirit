@@ -233,6 +233,21 @@ class CommentViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(Comment.objects.get(pk=comment.pk).comment, 'barfoo')
 
+    def test_comment_update_moderator_private(self):
+        """
+        moderators can not update comments in private topics they has no access
+        """
+        User.objects.filter(pk=self.user.pk).update(is_moderator=True)
+        user = utils.create_user()
+        topic_private = utils.create_private_topic()
+        comment = utils.create_comment(user=user, topic=topic_private.topic)
+
+        utils.login(self)
+        form_data = {'comment': 'barfoo', }
+        response = self.client.post(reverse('spirit:comment-update', kwargs={'pk': comment.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 404)
+
     def test_comment_update_signal(self):
         """
         update comment, emit signal
