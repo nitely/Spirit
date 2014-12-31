@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.managers.topic import TopicManager
+from spirit.managers.topic import TopicQuerySet
 from spirit.utils.models import AutoSlugField
 
 
@@ -31,7 +31,7 @@ class Topic(models.Model):
     view_count = models.PositiveIntegerField(_("views count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
 
-    objects = TopicManager()
+    objects = TopicQuerySet.as_manager()
 
     class Meta:
         ordering = ['-last_active', ]

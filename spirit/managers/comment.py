@@ -2,12 +2,12 @@
 
 from __future__ import unicode_literals
 
-from django.db.models import Manager
+from django.db import models
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 
-class CommentManager(Manager):
+class CommentQuerySet(models.QuerySet):
 
     def _for_all(self):
         return self.filter(Q(topic__category__parent=None) | Q(topic__category__parent__is_removed=False),

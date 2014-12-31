@@ -2,12 +2,12 @@
 
 from __future__ import unicode_literals
 
-from django.db.models import Manager
+from django.db import models
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 
-class TopicPrivateManager(Manager):
+class TopicPrivateQuerySet(models.QuerySet):
 
     def for_delete_or_404(self, pk, user):
         # User is the creator or wants to leave

@@ -2,10 +2,10 @@
 
 from __future__ import unicode_literals
 
-from django.db.models import Manager
+from django.db import models
 
 
-class CommentLikeManager(Manager):
+class CommentLikeQuerySet(models.QuerySet):
 
     def for_user(self, user):
         return self.filter(user=user)\

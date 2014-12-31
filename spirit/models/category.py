@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.managers.category import CategoryManager
+from spirit.managers.category import CategoryQuerySet
 from spirit.utils.models import AutoSlugField
 
 
@@ -26,7 +26,7 @@ class Category(models.Model):
 
     # topic_count = models.PositiveIntegerField(_("topic count"), default=0)
 
-    objects = CategoryManager()
+    objects = CategoryQuerySet.as_manager()
 
     class Meta:
         ordering = ['title', ]

@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.managers.comment import CommentManager
+from spirit.managers.comment import CommentQuerySet
 
 
 COMMENT_MAX_LEN = 3000  # changing this needs migration
@@ -42,7 +42,7 @@ class Comment(models.Model):
     modified_count = models.PositiveIntegerField(_("modified count"), default=0)
     likes_count = models.PositiveIntegerField(_("likes count"), default=0)
 
-    objects = CommentManager()
+    objects = CommentQuerySet.as_manager()
 
     class Meta:
         ordering = ['-date', ]

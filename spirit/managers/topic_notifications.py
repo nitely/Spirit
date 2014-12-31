@@ -2,11 +2,11 @@
 
 from __future__ import unicode_literals
 
-from django.db.models import Manager
+from django.db import models
 from django.db.models import Q
 
 
-class TopicNotificationManager(Manager):
+class TopicNotificationQuerySet(models.QuerySet):
 
     def _for_all(self):
         return self.filter(Q(topic__category__parent=None) | Q(topic__category__parent__is_removed=False),

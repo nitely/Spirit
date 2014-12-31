@@ -2,10 +2,10 @@
 
 from __future__ import unicode_literals
 
-from django.db.models import Manager
+from django.db import models
 
 
-class TopicUnreadManager(Manager):
+class TopicUnreadQuerySet(models.QuerySet):
 
     def for_user(self, user):
         return self.filter(user=user, is_read=False, is_removed=False)

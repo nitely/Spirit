@@ -2,12 +2,12 @@
 
 from __future__ import unicode_literals
 
-from django.db.models import Manager
+from django.db import models
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 
-class TopicManager(Manager):
+class TopicQuerySet(models.QuerySet):
 
     def _for_all(self):
         return self.filter(Q(category__parent=None) | Q(category__parent__is_removed=False),

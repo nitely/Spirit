@@ -2,12 +2,12 @@
 
 from __future__ import unicode_literals
 
-from django.db.models import Manager
+from django.db import models
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
 
-class CategoryManager(Manager):
+class CategoryQuerySet(models.QuerySet):
 
     def for_public(self):
         return self.filter(Q(parent=None) | Q(parent__is_removed=False),

@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 
-from ..managers.comment_like import CommentLikeManager
+from ..managers.comment_like import CommentLikeQuerySet
 
 
 @python_2_unicode_compatible
@@ -19,7 +19,7 @@ class CommentLike(models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
 
-    objects = CommentLikeManager()
+    objects = CommentLikeQuerySet.as_manager()
 
     class Meta:
         unique_together = ('user', 'comment')

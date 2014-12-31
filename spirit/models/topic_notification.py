@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.managers.topic_notifications import TopicNotificationManager
+from spirit.managers.topic_notifications import TopicNotificationQuerySet
 
 
 UNDEFINED, MENTION, COMMENT = range(3)
@@ -31,7 +31,7 @@ class TopicNotification(models.Model):
     is_read = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
-    objects = TopicNotificationManager()
+    objects = TopicNotificationQuerySet.as_manager()
 
     class Meta:
         unique_together = ('user', 'topic')
