@@ -7,8 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.managers.topic_unread import TopicUnreadQuerySet
-
 
 @python_2_unicode_compatible
 class TopicUnread(models.Model):
@@ -18,8 +16,6 @@ class TopicUnread(models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=True)
-
-    objects = TopicUnreadQuerySet.as_manager()
 
     class Meta:
         unique_together = ('user', 'topic')
