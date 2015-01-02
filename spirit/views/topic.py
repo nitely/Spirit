@@ -94,7 +94,7 @@ def topic_detail(request, pk, slug):
 
 
 def topic_active_list(request):
-    topics = Topic.objects.for_public()\
+    topics = Topic.objects.visible()\
         .order_by('-is_globally_pinned', '-last_active')\
         .select_related('category')
     categories = Category.objects.visible().parents()

@@ -181,7 +181,7 @@ def profile_topics(request, pk, slug):
         return HttpResponsePermanentRedirect(reverse("spirit:profile-topics", kwargs={'pk': p_user.pk,
                                                                                       'slug': p_user.slug}))
 
-    topics = Topic.objects.for_public().filter(user=p_user).order_by('-date').select_related('user')
+    topics = Topic.objects.visible().filter(user=p_user).order_by('-date').select_related('user')
 
     return render(request, 'spirit/user/profile_topics.html', {'p_user': p_user, 'topics': topics})
 

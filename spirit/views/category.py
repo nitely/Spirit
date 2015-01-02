@@ -20,7 +20,7 @@ def category_detail(request, pk, slug):
         return HttpResponsePermanentRedirect(category.get_absolute_url())
 
     subcategories = Category.objects.visible().children(parent=category)
-    topics = Topic.objects.for_category(category=category)\
+    topics = Topic.objects.unremoved().for_category(category=category)\
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
         .select_related('category')
 
