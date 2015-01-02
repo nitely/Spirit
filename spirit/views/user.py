@@ -194,7 +194,8 @@ def profile_comments(request, pk, slug):
         return HttpResponsePermanentRedirect(reverse("spirit:profile-detail", kwargs={'pk': p_user.pk,
                                                                                       'slug': p_user.slug}))
 
-    comments = Comment.objects.for_user_public(user=p_user)
+    comments = Comment.objects.visible()\
+        .filter(user=p_user)
     return render(request, 'spirit/user/profile_comments.html', {'p_user': p_user, 'comments': comments})
 
 
@@ -206,7 +207,9 @@ def profile_likes(request, pk, slug):
         return HttpResponsePermanentRedirect(reverse("spirit:profile-likes", kwargs={'pk': p_user.pk,
                                                                                      'slug': p_user.slug}))
 
-    comments = Comment.objects.for_public().filter(comment_likes__user=p_user).order_by('-comment_likes__date')
+    comments = Comment.objects.visible()\
+        .filter(comment_likes__user=p_user)\
+        .order_by('-comment_likes__date')
     return render(request, 'spirit/user/profile_likes.html', {'p_user': p_user, 'comments': comments})
 
 

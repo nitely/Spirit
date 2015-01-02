@@ -37,7 +37,7 @@ def comment_publish(request, topic_id, pk=None):
         initial = None
 
         if pk:
-            comment = get_object_or_404(Comment.objects.for_all(), pk=pk)
+            comment = get_object_or_404(Comment.objects.for_access(user=request.user), pk=pk)
             quote = markdown.quotify(comment.comment, comment.user.username)
             initial = {'comment': quote, }
 

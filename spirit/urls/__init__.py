@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 
 
 urls = patterns('',
-                url(r'^$', 'spirit.views.topic.topics_active', name='index'),
+                url(r'^$', 'spirit.views.topic.topic_active_list', name='index'),
                 url(r'^st/admin/', include('spirit.urls.admin')),
                 url(r'^category/', include('spirit.urls.category')),
                 url(r'^topic/', include('spirit.urls.topic')),

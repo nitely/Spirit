@@ -78,7 +78,7 @@ class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
         return any(self.errors) or self.non_form_errors()
 
     def clean(self):
-        # formset.non_field_errors
+        # Stores in formset.non_field_errors
         super(TopicPollChoiceInlineFormSet, self).clean()
 
         if not self.is_filled():

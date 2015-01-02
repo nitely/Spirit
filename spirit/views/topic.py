@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponsePermanentRedirect
 from django.conf import settings
 
@@ -24,7 +24,8 @@ from spirit.signals.topic_moderate import topic_post_moderate
 @ratelimit(rate='1/10s')
 def topic_publish(request, category_id=None):
     if category_id:
-        Category.objects.get_public_or_404(pk=category_id)
+        get_object_or_404(Category.objects.visible(),
+                          pk=category_id)
 
     if request.method == 'POST':
         form = TopicForm(user=request.user, data=request.POST)
@@ -92,11 +93,11 @@ def topic_detail(request, pk, slug):
                                                               'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
 
 
-def topics_active(request):
-    topics = Topic.objects.for_public().filter()\
+def topic_active_list(request):
+    topics = Topic.objects.for_public()\
         .order_by('-is_globally_pinned', '-last_active')\
         .select_related('category')
-    categories = Category.objects.for_parent()
+    categories = Category.objects.visible().parents()
 
     return render(request, 'spirit/topic/topics_active.html', {'categories': categories,
                                                                'topics': topics})

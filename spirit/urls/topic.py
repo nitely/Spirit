@@ -14,5 +14,5 @@ urlpatterns = patterns("spirit.views.topic",
                        url(r'^(?P<pk>\d+)/$', 'topic_detail', kwargs={'slug': "", }, name='topic-detail'),
                        url(r'^(?P<pk>\d+)/(?P<slug>[\w-]+)/$', 'topic_detail', name='topic-detail'),
 
-                       url(r'^active/$', 'topics_active', name='topic-active'),
+                       url(r'^active/$', 'topic_active_list', name='topic-active'),
                        )

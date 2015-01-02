@@ -31,7 +31,7 @@ class CategoryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)
-        queryset = Category.objects.for_parent()
+        queryset = Category.objects.visible().parents()
 
         if self.instance.pk:
             queryset = queryset.exclude(pk=self.instance.pk)
