@@ -77,11 +77,16 @@ def notification_list_unread(request):
     if page:
         next_page_pk = page[-1].pk
 
-    return render(request, 'spirit/topic_notification/list_unread.html', {'page': page,
-                                                                          'next_page_pk': next_page_pk})
+    context = {
+        'page': page,
+        'next_page_pk': next_page_pk
+    }
+
+    return render(request, 'spirit/topic_notification/list_unread.html', context)
 
 
 @login_required
 def notification_list(request):
     notifications = TopicNotification.objects.for_access(request.user)
-    return render(request, 'spirit/topic_notification/list.html', {'notifications': notifications, })
+    context = {'notifications': notifications, }
+    return render(request, 'spirit/topic_notification/list.html', context)

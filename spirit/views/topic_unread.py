@@ -25,5 +25,9 @@ def topic_unread_list(request):
     if page:
         next_page_pk = page[-1].pk
 
-    return render(request, 'spirit/topic_unread/list.html', {'page': page,
-                                                             'next_page_pk': next_page_pk})
+    context = {
+        'page': page,
+        'next_page_pk': next_page_pk
+    }
+
+    return render(request, 'spirit/topic_unread/list.html', context)

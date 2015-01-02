@@ -43,7 +43,12 @@ def comment_publish(request, topic_id, pk=None):
 
         form = CommentForm(initial=initial)
 
-    return render(request, 'spirit/comment/comment_publish.html', {'form': form, 'topic': topic})
+    context = {
+        'form': form,
+        'topic': topic
+    }
+
+    return render(request, 'spirit/comment/comment_publish.html', context)
 
 
 @login_required
@@ -61,7 +66,9 @@ def comment_update(request, pk):
     else:
         form = CommentForm(instance=comment)
 
-    return render(request, 'spirit/comment/comment_update.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/comment/comment_update.html', context)
 
 
 @moderator_required
@@ -74,7 +81,9 @@ def comment_delete(request, pk, remove=True):
 
         return redirect(comment.get_absolute_url())
 
-    return render(request, 'spirit/comment/comment_moderate.html', {'comment': comment, })
+    context = {'comment': comment, }
+
+    return render(request, 'spirit/comment/comment_moderate.html', context)
 
 
 @require_POST

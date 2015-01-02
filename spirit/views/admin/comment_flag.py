@@ -16,13 +16,15 @@ from spirit.forms.admin import CommentFlagForm
 @administrator_required
 def flag_open(request):
     flags = CommentFlag.objects.filter(is_closed=False)
-    return render(request, 'spirit/admin/comment_flag/flag_open.html', {'flags': flags, })
+    context = {'flags': flags, }
+    return render(request, 'spirit/admin/comment_flag/flag_open.html', context)
 
 
 @administrator_required
 def flag_closed(request):
     flags = CommentFlag.objects.filter(is_closed=True)
-    return render(request, 'spirit/admin/comment_flag/flag_closed.html', {'flags': flags, })
+    context = {'flags': flags, }
+    return render(request, 'spirit/admin/comment_flag/flag_closed.html', context)
 
 
 @administrator_required
@@ -40,6 +42,11 @@ def flag_detail(request, pk):
         form = CommentFlagForm(instance=flag)
 
     flags = Flag.objects.filter(comment=flag.comment)
-    return render(request, 'spirit/admin/comment_flag/flag_detail.html', {'flag': flag,
-                                                                          'flags': flags,
-                                                                          'form': form})
+
+    context = {
+        'flag': flag,
+        'flags': flags,
+        'form': form
+    }
+
+    return render(request, 'spirit/admin/comment_flag/flag_detail.html', context)

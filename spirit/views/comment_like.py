@@ -32,7 +32,12 @@ def like_create(request, comment_id):
     else:
         form = LikeForm()
 
-    return render(request, 'spirit/comment_like/like_create.html', {'form': form, 'comment': comment})
+    context = {
+        'form': form,
+        'comment': comment
+    }
+
+    return render(request, 'spirit/comment_like/like_create.html', context)
 
 
 @login_required
@@ -49,4 +54,6 @@ def like_delete(request, pk):
 
         return redirect(request.POST.get('next', like.comment.get_absolute_url()))
 
-    return render(request, 'spirit/comment_like/like_delete.html', {'like': like, })
+    context = {'like': like, }
+
+    return render(request, 'spirit/comment_like/like_delete.html', context)

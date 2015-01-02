@@ -57,9 +57,13 @@ def private_publish(request, user_id=None):
 
         tpform = TopicPrivateManyForm(initial=initial)
 
-    return render(request, 'spirit/topic_private/private_publish.html', {'tform': tform,
-                                                                         'cform': cform,
-                                                                         'tpform': tpform})
+    context = {
+        'tform': tform,
+        'cform': cform,
+        'tpform': tpform
+    }
+
+    return render(request, 'spirit/topic_private/private_publish.html', context)
 
 
 @login_required
@@ -72,11 +76,13 @@ def private_detail(request, topic_id, slug):
 
     topic_viewed.send(sender=topic_private.topic.__class__, request=request, topic=topic_private.topic)
 
-    return render(request,
-                  'spirit/topic_private/private_detail.html',
-                  {'topic': topic_private.topic,
-                   'topic_private': topic_private,
-                   'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
+    context = {
+        'topic': topic_private.topic,
+        'topic_private': topic_private,
+        'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE
+    }
+
+    return render(request, 'spirit/topic_private/private_detail.html', context)
 
 
 @login_required
@@ -107,8 +113,10 @@ def private_access_delete(request, pk):
             return redirect(reverse("spirit:private-list"))
 
         return redirect(request.POST.get('next', topic_private.get_absolute_url()))
-    else:
-        return render(request, 'spirit/topic_private/private_delete.html', {'topic_private': topic_private, })
+
+    context = {'topic_private': topic_private, }
+
+    return render(request, 'spirit/topic_private/private_delete.html', context)
 
 
 @login_required
@@ -127,19 +135,29 @@ def private_join(request, topic_id):
     else:
         form = TopicPrivateJoinForm()
 
-    return render(request, 'spirit/topic_private/private_join.html', {'topic': topic, 'form': form, })
+    context = {
+        'topic': topic,
+        'form': form
+    }
+
+    return render(request, 'spirit/topic_private/private_join.html', context)
 
 
 @login_required
 def private_list(request):
     topics = Topic.objects.filter(topics_private__user=request.user).order_by('-last_active')
-    return render(request, 'spirit/topic_private/private_list.html', {'topics': topics, })
+    context = {'topics': topics, }
+    return render(request, 'spirit/topic_private/private_list.html', context)
 
 
 @login_required
 def private_created_list(request):
     # Show created topics but exclude those the user is participating on
     # TODO: show all, show join link in those the user is not participating
-    topics = Topic.objects.filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)\
+    topics = Topic.objects\
+        .filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)\
         .exclude(topics_private__user=request.user)
-    return render(request, 'spirit/topic_private/private_created_list.html', {'topics': topics, })
+
+    context = {'topics': topics, }
+
+    return render(request, 'spirit/topic_private/private_created_list.html', context)

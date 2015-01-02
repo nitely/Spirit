@@ -12,16 +12,19 @@ from spirit.models.topic import Topic
 def topic_deleted(request):
     # Private topics cant be deleted, closed or pinned so we are ok
     topics = Topic.objects.filter(is_removed=True)
-    return render(request, 'spirit/admin/topic/topic_deleted.html', {'topics': topics, })
+    context = {'topics': topics, }
+    return render(request, 'spirit/admin/topic/topic_deleted.html', context)
 
 
 @administrator_required
 def topic_closed(request):
     topics = Topic.objects.filter(is_closed=True)
-    return render(request, 'spirit/admin/topic/topic_closed.html', {'topics': topics, })
+    context = {'topics': topics, }
+    return render(request, 'spirit/admin/topic/topic_closed.html', context)
 
 
 @administrator_required
 def topic_pinned(request):
     topics = Topic.objects.filter(is_pinned=True) | Topic.objects.filter(is_globally_pinned=True)
-    return render(request, 'spirit/admin/topic/topic_pinned.html', {'topics': topics, })
+    context = {'topics': topics, }
+    return render(request, 'spirit/admin/topic/topic_pinned.html', context)

@@ -56,8 +56,14 @@ def topic_publish(request, category_id=None):
         pform = TopicPollForm()
         pformset = TopicPollChoiceFormSet(can_delete=False)
 
-    return render(request, 'spirit/topic/topic_publish.html', {'form': form, 'cform': cform,
-                                                               'pform': pform, 'pformset': pformset})
+    context = {
+        'form': form,
+        'cform': cform,
+        'pform': pform,
+        'pformset': pformset
+    }
+
+    return render(request, 'spirit/topic/topic_publish.html', context)
 
 
 @login_required
@@ -78,7 +84,9 @@ def topic_update(request, pk):
     else:
         form = TopicForm(user=request.user, instance=topic)
 
-    return render(request, 'spirit/topic/topic_update.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/topic/topic_update.html', context)
 
 
 def topic_detail(request, pk, slug):
@@ -89,15 +97,27 @@ def topic_detail(request, pk, slug):
 
     topic_viewed.send(sender=topic.__class__, request=request, topic=topic)
 
-    return render(request, 'spirit/topic/topic_detail.html', {'topic': topic,
-                                                              'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
+    context = {
+        'topic': topic,
+        'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE
+    }
+
+    return render(request, 'spirit/topic/topic_detail.html', context)
 
 
 def topic_active_list(request):
-    topics = Topic.objects.visible()\
+    categories = Category.objects\
+        .visible()\
+        .parents()
+
+    topics = Topic.objects\
+        .visible()\
         .order_by('-is_globally_pinned', '-last_active')\
         .select_related('category')
-    categories = Category.objects.visible().parents()
 
-    return render(request, 'spirit/topic/topics_active.html', {'categories': categories,
-                                                               'topics': topics})
+    context = {
+        'categories': categories,
+        'topics': topics
+    }
+
+    return render(request, 'spirit/topic/topics_active.html', context)

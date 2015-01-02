@@ -19,14 +19,23 @@ def category_detail(request, pk, slug):
     if category.slug != slug:
         return HttpResponsePermanentRedirect(category.get_absolute_url())
 
-    subcategories = Category.objects.visible().children(parent=category)
-    topics = Topic.objects.unremoved().for_category(category=category)\
+    subcategories = Category.objects\
+        .visible()\
+        .children(parent=category)
+
+    topics = Topic.objects\
+        .unremoved()\
+        .for_category(category=category)\
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
         .select_related('category')
 
-    return render(request, 'spirit/category/category_detail.html', {'category': category,
-                                                                    'subcategories': subcategories,
-                                                                    'topics': topics})
+    context = {
+        'category': category,
+        'subcategories': subcategories,
+        'topics': topics
+    }
+
+    return render(request, 'spirit/category/category_detail.html', context)
 
 
 class CategoryList(ListView):

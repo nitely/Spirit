@@ -29,28 +29,34 @@ def user_edit(request, user_id):
     else:
         form = UserEditForm(instance=user)
 
-    return render(request, 'spirit/admin/user/user_edit.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/admin/user/user_edit.html', context)
 
 
 @administrator_required
 def user_list(request):
     users = User.objects.all()
-    return render(request, 'spirit/admin/user/user_list.html', {'users': users, })
+    context = {'users': users, }
+    return render(request, 'spirit/admin/user/user_list.html', context)
 
 
 @administrator_required
 def user_admins(request):
     users = User.objects.filter(is_administrator=True)
-    return render(request, 'spirit/admin/user/user_admins.html', {'users': users, })
+    context = {'users': users, }
+    return render(request, 'spirit/admin/user/user_admins.html', context)
 
 
 @administrator_required
 def user_mods(request):
     users = User.objects.filter(is_moderator=True, is_administrator=False)
-    return render(request, 'spirit/admin/user/user_mods.html', {'users': users, })
+    context = {'users': users, }
+    return render(request, 'spirit/admin/user/user_mods.html', context)
 
 
 @administrator_required
 def user_unactive(request):
     users = User.objects.filter(is_active=False)
-    return render(request, 'spirit/admin/user/user_unactive.html', {'users': users, })
+    context = {'users': users, }
+    return render(request, 'spirit/admin/user/user_unactive.html', context)

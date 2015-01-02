@@ -79,7 +79,9 @@ def register(request):
     else:
         form = RegistrationForm()
 
-    return render(request, 'spirit/user/register.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/register.html', context)
 
 
 def registration_activation(request, pk, token):
@@ -112,7 +114,9 @@ def resend_activation_email(request):
     else:
         form = ResendActivationForm()
 
-    return render(request, 'spirit/user/activation_resend.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/activation_resend.html', context)
 
 
 @login_required
@@ -127,7 +131,9 @@ def profile_update(request):
     else:
         form = UserProfileForm(instance=request.user)
 
-    return render(request, 'spirit/user/profile_update.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/profile_update.html', context)
 
 
 @login_required
@@ -142,7 +148,9 @@ def profile_password_change(request):
     else:
         form = PasswordChangeForm(user=request.user)
 
-    return render(request, 'spirit/user/profile_password_change.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/profile_password_change.html', context)
 
 
 @login_required
@@ -157,7 +165,9 @@ def profile_email_change(request):
     else:
         form = EmailChangeForm()
 
-    return render(request, 'spirit/user/profile_email_change.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/profile_email_change.html', context)
 
 
 @login_required
@@ -181,9 +191,16 @@ def profile_topics(request, pk, slug):
         return HttpResponsePermanentRedirect(reverse("spirit:profile-topics", kwargs={'pk': p_user.pk,
                                                                                       'slug': p_user.slug}))
 
-    topics = Topic.objects.visible().filter(user=p_user).order_by('-date').select_related('user')
+    topics = Topic.objects.visible().filter(user=p_user)\
+        .order_by('-date')\
+        .select_related('user')
 
-    return render(request, 'spirit/user/profile_topics.html', {'p_user': p_user, 'topics': topics})
+    context = {
+        'p_user': p_user,
+        'topics': topics
+    }
+
+    return render(request, 'spirit/user/profile_topics.html', context)
 
 
 @login_required
@@ -194,9 +211,16 @@ def profile_comments(request, pk, slug):
         return HttpResponsePermanentRedirect(reverse("spirit:profile-detail", kwargs={'pk': p_user.pk,
                                                                                       'slug': p_user.slug}))
 
-    comments = Comment.objects.visible()\
+    comments = Comment.objects\
+        .visible()\
         .filter(user=p_user)
-    return render(request, 'spirit/user/profile_comments.html', {'p_user': p_user, 'comments': comments})
+
+    context = {
+        'p_user': p_user,
+        'comments': comments
+    }
+
+    return render(request, 'spirit/user/profile_comments.html', context)
 
 
 @login_required
@@ -207,10 +231,17 @@ def profile_likes(request, pk, slug):
         return HttpResponsePermanentRedirect(reverse("spirit:profile-likes", kwargs={'pk': p_user.pk,
                                                                                      'slug': p_user.slug}))
 
-    comments = Comment.objects.visible()\
+    comments = Comment.objects\
+        .visible()\
         .filter(comment_likes__user=p_user)\
         .order_by('-comment_likes__date')
-    return render(request, 'spirit/user/profile_likes.html', {'p_user': p_user, 'comments': comments})
+
+    context = {
+        'p_user': p_user,
+        'comments': comments
+    }
+
+    return render(request, 'spirit/user/profile_likes.html', context)
 
 
 @login_required
