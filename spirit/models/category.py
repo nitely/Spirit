@@ -42,8 +42,8 @@ class Category(models.Model):
     def get_absolute_url(self):
         if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
             return reverse('spirit:private-list')
-
-        return reverse('spirit:category-detail', kwargs={'pk': str(self.id), 'slug': self.slug})
+        else:
+            return reverse('spirit:category-detail', kwargs={'pk': str(self.id), 'slug': self.slug})
 
     @property
     def is_subcategory(self):

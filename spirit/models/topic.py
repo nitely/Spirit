@@ -44,8 +44,8 @@ class Topic(models.Model):
     def get_absolute_url(self):
         if self.category_id == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
             return reverse('spirit:private-detail', kwargs={'topic_id': str(self.id), 'slug': self.slug})
-
-        return reverse('spirit:topic-detail', kwargs={'pk': str(self.id), 'slug': self.slug})
+        else:
+            return reverse('spirit:topic-detail', kwargs={'pk': str(self.id), 'slug': self.slug})
 
     @property
     def main_category(self):
