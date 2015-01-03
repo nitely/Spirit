@@ -21,8 +21,8 @@ class CommentHistory(models.Model):
         verbose_name = _("comment history")
         verbose_name_plural = _("comments history")
 
-    def get_absolute_url(self):
-        return reverse('spirit:comment-history', kwargs={'pk': str(self.id), })
-
     def __str__(self):
         return "%s: %s..." % (self.comment_fk.user.username, self.comment_html[:50])
+
+    def get_absolute_url(self):
+        return reverse('spirit:comment-history', kwargs={'pk': str(self.id), })

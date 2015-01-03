@@ -21,15 +21,15 @@ class TopicPoll(models.Model):
         verbose_name = _("topic poll")
         verbose_name_plural = _("topics polls")
 
+    def __str__(self):
+        return "poll at topic #%s" % self.topic.pk
+
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
 
     @property
     def is_multiple_choice(self):
         return self.choice_limit > 1
-
-    def __str__(self):
-        return "poll at topic #%s" % self.topic.pk
 
 
 @python_2_unicode_compatible

@@ -23,8 +23,8 @@ class CommentLike(models.Model):
         verbose_name = _("like")
         verbose_name_plural = _("likes")
 
-    def get_delete_url(self):
-        return reverse('spirit:like-delete', kwargs={'pk': str(self.pk), })
-
     def __str__(self):
         return "%s likes %s" % (self.user, self.comment)
+
+    def get_delete_url(self):
+        return reverse('spirit:like-delete', kwargs={'pk': str(self.pk), })

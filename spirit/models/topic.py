@@ -38,6 +38,9 @@ class Topic(models.Model):
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
 
+    def __str__(self):
+        return self.title
+
     def get_absolute_url(self):
         if self.category_id == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
             return reverse('spirit:private-detail', kwargs={'topic_id': str(self.id), 'slug': self.slug})
@@ -47,6 +50,3 @@ class Topic(models.Model):
     @property
     def main_category(self):
         return self.category.parent or self.category
-
-    def __str__(self):
-        return self.title

@@ -26,8 +26,8 @@ class TopicPrivate(models.Model):
         verbose_name = _("private topic")
         verbose_name_plural = _("private topics")
 
-    def get_absolute_url(self):
-        return self.topic.get_absolute_url()
-
     def __str__(self):
         return "%s participes in %s" % (self.user, self.topic)
+
+    def get_absolute_url(self):
+        return self.topic.get_absolute_url()

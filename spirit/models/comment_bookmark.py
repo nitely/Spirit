@@ -23,13 +23,12 @@ class CommentBookmark(models.Model):
         verbose_name = _("comment bookmark")
         verbose_name_plural = _("comments bookmarks")
 
+    def __str__(self):
+        return "%s bookmarked comment %s in %s" \
+               % (self.user.username, self.topic.title, self.comment_number)
+
     def get_absolute_url(self):
         return paginator.get_url(self.topic.get_absolute_url(),
                                  self.comment_number,
                                  settings.ST_COMMENTS_PER_PAGE,
                                  settings.ST_COMMENTS_PAGE_VAR)
-
-    def __str__(self):
-        return "%s bookmarked comment %s in %s" % (self.user.username,
-                                                   self.topic.title,
-                                                   self.comment_number)

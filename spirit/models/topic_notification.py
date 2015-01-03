@@ -39,6 +39,9 @@ class TopicNotification(models.Model):
         verbose_name = _("topic notification")
         verbose_name_plural = _("topics notification")
 
+    def __str__(self):
+        return "%s in %s" % (self.user, self.topic)
+
     def get_absolute_url(self):
         return self.comment.get_absolute_url()
 
@@ -53,6 +56,3 @@ class TopicNotification(models.Model):
     @property
     def is_comment(self):
         return self.action == COMMENT
-
-    def __str__(self):
-        return "%s in %s" % (self.user, self.topic)

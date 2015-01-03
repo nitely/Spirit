@@ -28,11 +28,11 @@ class CommentFlag(models.Model):
         verbose_name = _("comment flag")
         verbose_name_plural = _("comments flags")
 
-    # def get_absolute_url(self):
-        # pass
-
     def __str__(self):
         return "%s flagged" % self.comment
+
+    # def get_absolute_url(self):
+        # pass
 
 
 @python_2_unicode_compatible
