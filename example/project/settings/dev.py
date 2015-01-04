@@ -31,14 +31,14 @@ DATABASES = {
     }
 }
 
-CACHES = {
+CACHES.update({
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     },
     'djconfig': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     },
-}
+})
 
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
