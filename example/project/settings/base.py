@@ -18,18 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'change-me'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = False
-
-ALLOWED_HOSTS = []
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 # Application definition
 
 # Extend the Spirit installed apps (notice the plus sign)
@@ -37,7 +25,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 INSTALLED_APPS += (
     # 'my_app1',
     # 'my_app2',
-    # 'debug_toolbar',
 )
 
 # same here, check out the spirit.settings.py
@@ -63,16 +50,6 @@ CACHES.update({
 ROOT_URLCONF = 'project.urls'
 
 WSGI_APPLICATION = 'project.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -124,27 +101,3 @@ LOGGING = {
         },
     }
 }
-
-# This is used to test settings and urls from example directory
-# with `./runtests.py example`
-
-EXAMPLE = 'example' in sys.argv
-
-if EXAMPLE:
-    # Add tests apps to installed_apps
-    INSTALLED_APPS += (
-        'tests',
-    )
-
-    ROOT_URLCONF = 'example.project.urls'
-
-    PASSWORD_HASHERS = (
-        'django.contrib.auth.hashers.MD5PasswordHasher',
-    )
-
-try:
-    # devs must create this file to override settings
-    # local_settings_sample.py is provided
-    from .local_settings import *
-except ImportError:
-    pass

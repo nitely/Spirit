@@ -10,7 +10,7 @@ import os
 from spirit.settings import *
 
 
-SECRET_KEY = 'change-me'
+SECRET_KEY = 'TEST'
 
 INSTALLED_APPS += (
     'tests',

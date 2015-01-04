@@ -3,24 +3,31 @@
 # THIS IS FOR DEVELOPMENT ENVIRONMENT
 # DO NOT USE IT IN PRODUCTION
 
+# Create your own dev_local.py
+# import * this module there and use it like this:
+# python manage.py runserver --settings=project.settings.dev_local
+
 from __future__ import unicode_literals
 
-import os
-import sys
+from .base import *
 
 
 DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+SECRET_KEY = "DEV"
+
 ALLOWED_HOSTS = ['127.0.0.1', ]
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+INSTALLED_APPS += (
+    'debug_toolbar',
+)
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -38,13 +45,3 @@ PASSWORD_HASHERS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-# Use a manage.py located at root folder ./Spirit
-ROOT_URLCONF = 'example.project.urls'
-
-WSGI_APPLICATION = 'example.project.wsgi.application'

@@ -15,7 +15,7 @@ EXAMPLE = 'example' in sys.argv
 
 if EXAMPLE:
     # Run tests with example settings
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'example.project.settings'  # pragma: no cover
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'example.project.settings.test'  # pragma: no cover
 else:
     # Run tests with tests settings
     os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
