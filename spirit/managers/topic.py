@@ -47,9 +47,6 @@ class TopicQuerySet(models.QuerySet):
 
     def for_update_or_404(self, pk, user):
         if user.is_moderator:
-            return get_object_or_404(self.public(),
-                                     pk=pk)
+            return get_object_or_404(self.public(), pk=pk)
         else:
-            return get_object_or_404(self.visible().opened(),
-                                     pk=pk,
-                                     user=user)
+            return get_object_or_404(self.visible().opened(), pk=pk, user=user)

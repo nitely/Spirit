@@ -141,19 +141,3 @@ class LikeTemplateTagsTest(TestCase):
         template.render(Context(data))
         context = render_like_form(**data)
         self.assertEqual(context['like'], like)
-
-    def test_like_populate_likes(self):
-        """
-        should populate comments likes, tell if current user liked the comment
-        """
-        user2 = utils.create_user()
-        CommentLike.objects.create(user=user2, comment=self.comment)
-
-        like = CommentLike.objects.create(user=self.user, comment=self.comment)
-        comments = Comment.objects.filter(pk=self.comment.pk)
-        out = Template(
-            "{% load spirit_tags %}"
-            "{% populate_likes comments=comments user=user %}"
-            "{{ comments.0.like }}"
-        ).render(Context({'comments': comments, 'user': self.user}))
-        self.assertEqual(out, str(like))

@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.managers.comment import CommentQuerySet
+from ..managers.comment import CommentQuerySet
 
 
 COMMENT_MAX_LEN = 3000  # changing this needs migration
@@ -54,3 +54,12 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('spirit:comment-find', kwargs={'pk': str(self.id), })
+
+    @property
+    def like(self):
+        # *likes* is dinamically created by manager.with_likes()
+        try:
+            assert len(self.likes) <= 1, "Panic, too many likes"
+            return self.likes[0]
+        except (AttributeError, IndexError):
+            return

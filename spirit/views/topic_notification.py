@@ -28,10 +28,10 @@ def notification_create(request, topic_id):
 
     if form.is_valid():
         form.save()
-        return redirect(request.POST.get('next', topic.get_absolute_url()))
     else:
         messages.error(request, utils.render_form_errors(form))
-        return redirect(request.POST.get('next', topic.get_absolute_url()))
+
+    return redirect(request.POST.get('next', topic.get_absolute_url()))
 
 
 @require_POST
@@ -42,10 +42,10 @@ def notification_update(request, pk):
 
     if form.is_valid():
         form.save()
-        return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
     else:
         messages.error(request, utils.render_form_errors(form))
-        return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
+
+    return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
 
 
 @login_required
@@ -53,9 +53,12 @@ def notification_ajax(request):
     if not request.is_ajax():
         return Http404()
 
-    notifications = TopicNotification.objects.for_access(request.user)\
+    notifications = TopicNotification.objects\
+        .for_access(request.user)\
         .order_by("is_read", "-date")\
-        .select_related('comment__user', 'comment__topic')[:settings.ST_NOTIFICATIONS_PER_PAGE]
+        .select_related('comment__user', 'comment__topic')
+
+    notifications = notifications[:settings.ST_NOTIFICATIONS_PER_PAGE]
 
     notifications = [{'user': n.comment.user.username, 'action': n.action,
                       'title': n.comment.topic.title, 'url': n.get_absolute_url(),
@@ -67,7 +70,8 @@ def notification_ajax(request):
 
 @login_required
 def notification_list_unread(request):
-    notifications = TopicNotification.objects.for_access(request.user)\
+    notifications = TopicNotification.objects\
+        .for_access(request.user)\
         .filter(is_read=False)
 
     page = paginate(request, query_set=notifications, lookup_field="date",

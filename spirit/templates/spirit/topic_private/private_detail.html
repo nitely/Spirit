@@ -6,7 +6,6 @@
 
 {% block content %}
 
-    {% get_comment_list topic=topic as comments %}
     {% paginator_autopaginate comments per_page=COMMENTS_PER_PAGE as page %}
 
         <ul class="nav">

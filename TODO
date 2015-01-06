@@ -26,6 +26,7 @@
 * >> add @username on reply
 * >> allow mods to create topics on closed categories
 * >> order profile topics by creation date
+* >> accessing custom user attr makes an extra query
 
 
 Template
@@ -34,6 +35,7 @@ Template
 * admin: add nav to detail templates
 * Notifications: show all/unread link
 * local store comment publish/update
+* topic: like/dislike icon disappears when clicked (js)
 
 
 Readme

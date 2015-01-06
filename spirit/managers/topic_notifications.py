@@ -13,6 +13,9 @@ class TopicNotificationQuerySet(models.QuerySet):
                            topic__category__is_removed=False,
                            topic__is_removed=False)
 
+    def unread(self):
+        return self.filter(is_read=False)
+
     def _access(self, user):
         return self.filter(Q(topic__category__is_private=False) | Q(topic__topics_private__user=user),
                            user=user)

@@ -16,12 +16,13 @@ from spirit import utils
 from spirit.forms.comment import CommentForm
 from spirit.signals.comment import comment_posted
 
-from spirit.models.topic import Topic
-from spirit.signals.topic import topic_viewed
+from ..models.comment import Comment
+from ..models.topic import Topic
+from ..signals.topic import topic_viewed
 from ..models.topic_private import TopicPrivate
 from ..forms.topic_private import TopicPrivateManyForm, TopicForPrivateForm,\
     TopicPrivateJoinForm, TopicPrivateInviteForm
-from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
+from ..signals.topic_private import topic_private_post_create, topic_private_access_pre_create
 
 
 User = get_user_model()
@@ -69,16 +70,25 @@ def private_publish(request, user_id=None):
 @login_required
 def private_detail(request, topic_id, slug):
     topic_private = get_object_or_404(TopicPrivate.objects.select_related('topic'),
-                                      topic_id=topic_id, user=request.user)
+                                      topic_id=topic_id,
+                                      user=request.user)
+    topic = topic_private.topic
 
-    if topic_private.topic.slug != slug:
-        return HttpResponsePermanentRedirect(topic_private.get_absolute_url())
+    if topic.slug != slug:
+        return HttpResponsePermanentRedirect(topic.get_absolute_url())
 
-    topic_viewed.send(sender=topic_private.topic.__class__, request=request, topic=topic_private.topic)
+    topic_viewed.send(sender=topic.__class__, request=request, topic=topic)
+
+    # TODO: test!
+    comments = Comment.objects\
+        .for_topic(topic=topic)\
+        .with_likes(user=request.user)\
+        .order_by('date')
 
     context = {
-        'topic': topic_private.topic,
+        'topic': topic,
         'topic_private': topic_private,
+        'comments': comments,
         'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE
     }
 

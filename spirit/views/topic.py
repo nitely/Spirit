@@ -14,6 +14,7 @@ from spirit.forms.comment import CommentForm
 from spirit.signals.comment import comment_posted
 from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
 
+from ..models import Comment
 from spirit.models.topic import Topic
 from spirit.forms.topic import TopicForm
 from spirit.signals.topic import topic_viewed
@@ -97,8 +98,15 @@ def topic_detail(request, pk, slug):
 
     topic_viewed.send(sender=topic.__class__, request=request, topic=topic)
 
+    # TODO: test!
+    comments = Comment.objects\
+        .for_topic(topic=topic)\
+        .with_likes(user=request.user)\
+        .order_by('date')
+
     context = {
         'topic': topic,
+        'comments': comments,
         'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE
     }
 

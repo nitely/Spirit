@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from . import register
@@ -12,7 +11,9 @@ from spirit.models.comment import Comment, MOVED, CLOSED, UNCLOSED, PINNED, UNPI
 
 @register.assignment_tag()
 def get_comment_list(topic):
-    return Comment.objects.for_topic(topic).order_by('date')
+    # TODO: remove
+    return Comment.objects.for_topic(topic)\
+        .order_by('date')
 
 
 @register.inclusion_tag('spirit/comment/_form.html')
