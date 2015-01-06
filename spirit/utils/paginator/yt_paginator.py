@@ -8,10 +8,6 @@ from django.conf import settings
 
 class YTPaginator(object):
     """
-    Paginator for efficiently paginating large object collections on systems
-    where using standard Django pagination is impractical because of significant
-    ``count(*)`` query overhead.
-
     It'll limit the page list to a given limit
     """
 

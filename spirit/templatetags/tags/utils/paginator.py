@@ -2,25 +2,8 @@
 
 from __future__ import unicode_literals
 
-from django.http import Http404
-from django.core.paginator import Paginator, InvalidPage
-
 from .. import register
-from spirit.utils.paginator.yt_paginator import YTPaginator
-
-
-def _get_page(context, object_list, per_page, page_var, page_number, paginator_class):
-    request = context["request"]
-    page_number = page_number or request.GET.get(page_var, 1)
-
-    paginator = paginator_class(object_list, per_page)
-
-    try:
-        page = paginator.page(page_number)
-    except InvalidPage as err:
-        raise Http404(err)
-
-    return page
+from spirit.utils.paginator import paginate, yt_paginate
 
 
 def _render_paginator(context, page, page_var, hashtag):
@@ -49,7 +32,8 @@ def _render_paginator(context, page, page_var, hashtag):
 
 @register.assignment_tag(takes_context=True)
 def yt_paginator_autopaginate(context, object_list, per_page=15, page_var='page', page_number=None):
-    return _get_page(context, object_list, per_page, page_var, page_number, YTPaginator)
+    page_number = page_number or context["request"].GET.get(page_var, 1)
+    return yt_paginate(object_list, per_page=per_page, page_number=page_number)
 
 
 @register.inclusion_tag("spirit/paginator/_yt_paginator.html", takes_context=True)
@@ -59,7 +43,8 @@ def render_yt_paginator(context, page, page_var='page', hashtag=''):
 
 @register.assignment_tag(takes_context=True)
 def paginator_autopaginate(context, object_list, per_page=15, page_var='page', page_number=None):
-    return _get_page(context, object_list, per_page, page_var, page_number, Paginator)
+    page_number = page_number or context["request"].GET.get(page_var, 1)
+    return paginate(object_list, per_page=per_page, page_number=page_number)
 
 
 @register.inclusion_tag("spirit/paginator/_paginator.html", takes_context=True)
