@@ -34,7 +34,7 @@ class Topic(models.Model):
     objects = TopicQuerySet.as_manager()
 
     class Meta:
-        ordering = ['-last_active', ]
+        ordering = ['-last_active', '-pk']
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
 

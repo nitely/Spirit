@@ -19,7 +19,7 @@ class CommentLike(models.Model):
 
     class Meta:
         unique_together = ('user', 'comment')
-        ordering = ['-date', ]
+        ordering = ['-date', '-pk']
         verbose_name = _("like")
         verbose_name_plural = _("likes")
 

@@ -92,6 +92,6 @@ class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
         app_label = 'spirit'
-        ordering = ['-date_joined', ]
+        ordering = ['-date_joined', '-pk']
         verbose_name = _('user')
         verbose_name_plural = _('users')

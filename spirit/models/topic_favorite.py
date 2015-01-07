@@ -18,7 +18,7 @@ class TopicFavorite(models.Model):
 
     class Meta:
         unique_together = ('user', 'topic')
-        ordering = ['-date', ]
+        ordering = ['-date', '-pk']
         verbose_name = _("favorite")
         verbose_name_plural = _("favorites")
 

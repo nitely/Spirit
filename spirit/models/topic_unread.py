@@ -19,7 +19,7 @@ class TopicUnread(models.Model):
 
     class Meta:
         unique_together = ('user', 'topic')
-        ordering = ['-date', ]
+        ordering = ['-date', '-pk']
         verbose_name = _("topic unread")
         verbose_name_plural = _("topics unread")
 

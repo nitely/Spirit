@@ -29,7 +29,7 @@ class Category(models.Model):
     objects = CategoryQuerySet.as_manager()
 
     class Meta:
-        ordering = ['title', ]
+        ordering = ['title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
 

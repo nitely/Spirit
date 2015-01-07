@@ -22,7 +22,7 @@ class TopicPrivate(models.Model):
 
     class Meta:
         unique_together = ('user', 'topic')
-        ordering = ['-date', ]
+        ordering = ['-date', '-pk']
         verbose_name = _("private topic")
         verbose_name_plural = _("private topics")
 
