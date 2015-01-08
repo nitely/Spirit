@@ -23,6 +23,13 @@ DATABASES = {
     }
 }
 
+CACHES.update({
+    'djconfig': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'test-djconfig',
+    },
+})
+
 ROOT_URLCONF = 'example.project.urls'
 
 PASSWORD_HASHERS = (

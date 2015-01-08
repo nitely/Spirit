@@ -73,3 +73,4 @@ class BasicConfigForm(ConfigForm):
     template_footer = forms.CharField(initial="", label=_("footer snippet"), required=False,
                                       widget=forms.Textarea(attrs={'rows': 2, }),
                                       help_text=_("This gets rendered just before the footer in your template."))
+    comments_per_page = forms.IntegerField(initial=20, label=_("comments per page"), min_value=1, max_value=100)

@@ -80,12 +80,10 @@
 
         {% render_poll_form topic=topic user=user %}
 
-        {% paginator_autopaginate comments per_page=COMMENTS_PER_PAGE as page %}
-
         {% include "spirit/comment/_render_list.html" %}
 
         <div class="container">
-            {% render_paginator page %}
+            {% render_paginator page=comments %}
 
             <div class="notify">
                 {% if user.is_authenticated %}

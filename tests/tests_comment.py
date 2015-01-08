@@ -455,19 +455,6 @@ class CommentTemplateTagTests(TestCase):
         utils.create_comment(topic=self.topic)
         utils.create_comment(topic=self.topic)
 
-    def test_get_comment_list(self):
-        """
-        should display all comment for a topic
-        """
-        out = Template(
-            "{% load spirit_tags %}"
-            "{% get_comment_list topic as comments %}"
-            "{% for c in comments %}"
-            "{{ c.comment }},"
-            "{% endfor %}"
-        ).render(Context({'topic': self.topic, }))
-        self.assertEqual(out, "comment_foobar0,comment_foobar1,comment_foobar2,")
-
     def test_render_comments_form(self):
         """
         should display simple comment form

@@ -8,7 +8,6 @@ from django.test import TestCase, RequestFactory
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 from . import utils
@@ -202,14 +201,22 @@ class TopicViewTest(TestCase):
 
     def test_topic_detail_view(self):
         """
-        should display topic
+        should display topic with comments
         """
         utils.login(self)
         category = utils.create_category()
+
         topic = utils.create_topic(category=category)
+        topic2 = utils.create_topic(category=category)
+
+        comment1 = utils.create_comment(topic=topic)
+        comment2 = utils.create_comment(topic=topic)
+        utils.create_comment(topic=topic2)
+
         response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], topic)
+        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
 
     def test_topic_detail_view_signals(self):
         """

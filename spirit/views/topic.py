@@ -5,20 +5,22 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponsePermanentRedirect
-from django.conf import settings
 
-from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.models.category import Category
-from spirit.models.comment import MOVED
-from spirit.forms.comment import CommentForm
-from spirit.signals.comment import comment_posted
-from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
+from djconfig import config
 
-from ..models import Comment
-from spirit.models.topic import Topic
-from spirit.forms.topic import TopicForm
-from spirit.signals.topic import topic_viewed
-from spirit.signals.topic_moderate import topic_post_moderate
+from ..utils.paginator import paginate
+from ..utils.ratelimit.decorators import ratelimit
+from ..models.category import Category
+from ..models.comment import MOVED
+from ..forms.comment import CommentForm
+from ..signals.comment import comment_posted
+from ..forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
+
+from ..models.comment import Comment
+from ..models.topic import Topic
+from ..forms.topic import TopicForm
+from ..signals.topic import topic_viewed
+from ..signals.topic_moderate import topic_post_moderate
 
 
 @login_required
@@ -104,10 +106,15 @@ def topic_detail(request, pk, slug):
         .with_likes(user=request.user)\
         .order_by('date')
 
+    comments = paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
     context = {
         'topic': topic,
-        'comments': comments,
-        'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE
+        'comments': comments
     }
 
     return render(request, 'spirit/topic/topic_detail.html', context)

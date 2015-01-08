@@ -6,14 +6,7 @@ from django.utils.translation import ugettext as _
 
 from . import register
 from spirit.forms.comment import CommentForm
-from spirit.models.comment import Comment, MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
-
-
-@register.assignment_tag()
-def get_comment_list(topic):
-    # TODO: remove
-    return Comment.objects.for_topic(topic)\
-        .order_by('date')
+from spirit.models.comment import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
 
 
 @register.inclusion_tag('spirit/comment/_form.html')

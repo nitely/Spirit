@@ -180,7 +180,7 @@ class AdminViewTest(TestCase):
         Config
         """
         utils.login(self)
-        form_data = {"site_name": "foo", "site_description": "bar"}
+        form_data = {"site_name": "foo", "site_description": "bar", "comments_per_page": 10}
         response = self.client.post(reverse('spirit:admin-config-basic'),
                                     form_data)
         expected_url = reverse('spirit:admin-config-basic')
@@ -312,13 +312,15 @@ class AdminFormTest(TestCase):
         """
         form_data = {"site_name": "foo",
                      "site_description": "",
-                     "template_footer": ""}
+                     "template_footer": "",
+                     "comments_per_page": 10}
         form = BasicConfigForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
         form_data = {"site_name": "foo",
                      "site_description": "bar",
-                     "template_footer": "foobar"}
+                     "template_footer": "foobar",
+                     "comments_per_page": 10}
         form = BasicConfigForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
