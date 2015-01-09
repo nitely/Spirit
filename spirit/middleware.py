@@ -10,6 +10,9 @@ from django.contrib.auth import logout
 from django.core.urlresolvers import resolve
 from django.contrib.auth.views import redirect_to_login
 
+from spirit.models.profile import ForumProfile
+from spirit.utils.user.profile import has_profile
+
 
 User = get_user_model()
 
@@ -24,8 +27,8 @@ class XForwardedForMiddleware(object):
 class TimezoneMiddleware(object):
 
     def process_request(self, request):
-        if request.user.is_authenticated():
-            timezone.activate(request.user.timezone)
+        if request.user.is_authenticated() and has_profile(request.user):
+            timezone.activate(request.user.forum_profile.timezone)
         else:
             timezone.deactivate()
 
@@ -33,31 +36,31 @@ class TimezoneMiddleware(object):
 class LastIPMiddleware(object):
 
     def process_request(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated() or not has_profile(request.user):
             return
 
         last_ip = request.META['REMOTE_ADDR'].strip()
 
-        if request.user.last_ip == last_ip:
+        if request.user.forum_profile.last_ip == last_ip:
             return
 
-        User.objects.filter(pk=request.user.pk)\
+        ForumProfile.objects.filter(user__pk=request.user.pk)\
             .update(last_ip=last_ip)
 
 
 class LastSeenMiddleware(object):
 
     def process_request(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated() or not has_profile(request.user):
             return
 
         threshold = settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60
-        delta = timezone.now() - request.user.last_seen
+        delta = timezone.now() - request.user.forum_profile.last_seen
 
         if delta.seconds < threshold:
             return
 
-        User.objects.filter(pk=request.user.pk)\
+        ForumProfile.objects.filter(user__pk=request.user.pk)\
             .update(last_seen=timezone.now())
 
 

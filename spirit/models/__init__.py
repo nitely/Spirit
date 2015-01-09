@@ -12,10 +12,10 @@ from .topic_favorite import TopicFavorite
 from .topic_notification import TopicNotification
 from .topic_poll import TopicPoll, TopicPollChoice
 from .topic_private import TopicPrivate
-from .user import User
+from .profile import ForumProfile
 
 __all__ = [
     'Category', 'Comment', 'CommentHistory', 'CommentBookmark', 'Flag',
     'CommentLike', 'Topic', 'TopicUnread', 'TopicFavorite',
-    'TopicNotification', 'TopicPoll', 'TopicPollChoice', 'TopicPrivate', 'User'
+    'TopicNotification', 'TopicPoll', 'TopicPollChoice', 'TopicPrivate', 'ForumProfile'
 ]

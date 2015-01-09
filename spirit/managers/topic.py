@@ -32,7 +32,7 @@ class TopicManager(Manager):
                                is_removed=False)
 
     def get_public_or_404(self, pk, user):
-        if user.is_authenticated() and user.is_moderator:
+        if user.is_authenticated() and user.forum_profile.is_moderator:
             return get_object_or_404(self
                                      .select_related('category__parent'),
                                      pk=pk,
@@ -43,7 +43,7 @@ class TopicManager(Manager):
                                      pk=pk)
 
     def for_update_or_404(self, pk, user):
-        if user.is_moderator:
+        if user.forum_profile.is_moderator:
             return get_object_or_404(self,
                                      pk=pk,
                                      category__is_private=False)

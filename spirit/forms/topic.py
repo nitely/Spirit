@@ -28,7 +28,7 @@ class TopicForm(forms.ModelForm):
                                                          label=_("Category"),
                                                          empty_label=_("Chose a category"))
 
-        if self.instance.pk and not user.is_moderator:
+        if self.instance.pk and not user.forum_profile.is_moderator:
             del self.fields['category']
 
     def clean_category(self):

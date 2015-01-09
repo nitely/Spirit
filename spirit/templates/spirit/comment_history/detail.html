@@ -26,7 +26,7 @@
                         <div class="comment-info">
 
                             <div class="comment-username">
-                                <a href="{{ c.comment_fk.user.get_absolute_url }}">{{ c.comment_fk.user.username }}</a>
+                                <a href="{{ c.comment_fk.user.forum_profile.get_absolute_url }}">{{ c.comment_fk.user.username }}</a>
                             </div>
 
                             <ul class="comment-date">

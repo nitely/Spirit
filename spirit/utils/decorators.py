@@ -17,7 +17,7 @@ def moderator_required(view_func):
             return redirect_to_login(next=request.get_full_path(),
                                      login_url=settings.LOGIN_URL)
 
-        if not user.is_moderator:
+        if not user.forum_profile.is_moderator:
             raise PermissionDenied
 
         return view_func(request, *args, **kwargs)
@@ -34,7 +34,7 @@ def administrator_required(view_func):
             return redirect_to_login(next=request.get_full_path(),
                                      login_url=settings.LOGIN_URL)
 
-        if not user.is_administrator:
+        if not user.forum_profile.is_administrator:
             raise PermissionDenied
 
         return view_func(request, *args, **kwargs)

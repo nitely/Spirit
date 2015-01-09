@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import unicode_literals
 
-from django.db import migrations
 from django.conf import settings
+from django.db import models, migrations
 
 
 def default_categories(apps, schema_editor):

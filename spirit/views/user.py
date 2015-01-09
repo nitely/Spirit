@@ -30,7 +30,7 @@ User = get_user_model()
 def custom_login(request, **kwargs):
     # Current Django 1.5 login view does not redirect somewhere if the user is logged in
     if request.user.is_authenticated():
-        return redirect(request.GET.get('next', request.user.get_absolute_url()))
+        return redirect(request.GET.get('next', request.user.forum_profile.get_absolute_url()))
 
     if request.is_limited and request.method == "POST":
         return redirect(request.get_full_path())
@@ -177,9 +177,9 @@ def email_change_confirm(request, token):
 def profile_topics(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
-    if p_user.slug != slug:
+    if p_user.forum_profile.slug != slug:
         return HttpResponsePermanentRedirect(reverse("spirit:profile-topics", kwargs={'pk': p_user.pk,
-                                                                                      'slug': p_user.slug}))
+                                                                                      'slug': p_user.forum_profile.slug}))
 
     topics = Topic.objects.for_public().filter(user=p_user).order_by('-date').select_related('user')
 
@@ -190,9 +190,9 @@ def profile_topics(request, pk, slug):
 def profile_comments(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
-    if p_user.slug != slug:
+    if p_user.forum_profile.slug != slug:
         return HttpResponsePermanentRedirect(reverse("spirit:profile-detail", kwargs={'pk': p_user.pk,
-                                                                                      'slug': p_user.slug}))
+                                                                                      'slug': p_user.forum_profile.slug}))
 
     comments = Comment.objects.for_user_public(user=p_user)
     return render(request, 'spirit/user/profile_comments.html', {'p_user': p_user, 'comments': comments})
@@ -202,9 +202,9 @@ def profile_comments(request, pk, slug):
 def profile_likes(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
-    if p_user.slug != slug:
+    if p_user.forum_profile.slug != slug:
         return HttpResponsePermanentRedirect(reverse("spirit:profile-likes", kwargs={'pk': p_user.pk,
-                                                                                     'slug': p_user.slug}))
+                                                                                     'slug': p_user.forum_profile.slug}))
 
     comments = Comment.objects.for_public().filter(comment_likes__user=p_user).order_by('-comment_likes__date')
     return render(request, 'spirit/user/profile_likes.html', {'p_user': p_user, 'comments': comments})
