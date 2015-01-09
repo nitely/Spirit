@@ -4,11 +4,6 @@ from __future__ import unicode_literals
 
 from django.conf.urls import patterns, include, url
 
-import djconfig
-
-from spirit.forms.admin import BasicConfigForm
-
-djconfig.register(BasicConfigForm)
 
 urls = patterns('',
                 url(r'^$', 'spirit.views.topic.topic_active_list', name='index'),
