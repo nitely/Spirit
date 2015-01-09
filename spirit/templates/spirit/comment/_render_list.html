@@ -2,9 +2,9 @@
 
 <div class="comments">
 
-    {% for c in page %}
+    {% for c in comments %}
 
-		<div class="comment{% if c.action %} is-highlighted{% endif %}" id="c{{forloop.counter0|add:page.start_index }}" data-number="{{ forloop.counter0|add:page.start_index }}" data-pk="{{ c.pk }}">
+		<div class="comment{% if c.action %} is-highlighted{% endif %}" id="c{{forloop.counter0|add:comments.start_index }}" data-number="{{ forloop.counter0|add:comments.start_index }}" data-pk="{{ c.pk }}">
 
             {% if not c.is_removed %}
 
