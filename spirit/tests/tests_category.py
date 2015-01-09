@@ -3,24 +3,28 @@
 from __future__ import unicode_literals
 
 import datetime
+from unittest import skip
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
+from django.test.utils import override_settings
 from django.utils import timezone
 
 from . import utils
 
+from spirit.models.category import Category
 from spirit.models.topic import Topic
 
 
+@override_settings(ST_TOPIC_PRIVATE_CATEGORY_PK=1, ST_UNCATEGORIZED_CATEGORY_PK=2)
 class CategoryViewTest(TestCase):
 
     def setUp(self):
         cache.clear()
-        self.category_1 = utils.create_category(title="cat1")
+        self.category_1 = utils.create_category(pk=3, title='cat1')
         self.subcategory_1 = utils.create_subcategory(self.category_1)
-        self.category_2 = utils.create_category(title="cat2")
+        self.category_2 = utils.create_category(pk=4, title='cat2')
         self.category_removed = utils.create_category(title="cat3", is_removed=True)
 
     def test_category_list_view(self):
@@ -29,7 +33,7 @@ class CategoryViewTest(TestCase):
         """
         response = self.client.get(reverse('spirit:category-list'))
         self.assertQuerysetEqual(response.context['categories'],
-                                 ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)])
+                                 [repr(self.category_1), repr(self.category_2), '<Category: Uncategorized>'])
 
     def test_category_detail_view(self):
         """

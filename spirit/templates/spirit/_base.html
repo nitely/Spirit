@@ -35,7 +35,7 @@
         <script src="{{ STATIC_URL }}spirit/scripts/notification.js"></script>
     {% endif %}
 
-    {% if user.is_moderator %}
+    {% if user.forum_profile.is_moderator %}
         <script src="{{ STATIC_URL }}spirit/scripts/move_comments.js"></script>
     {% endif %}
 

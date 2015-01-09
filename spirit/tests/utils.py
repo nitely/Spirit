@@ -9,11 +9,21 @@ from spirit.models.topic import Topic
 from spirit.models.category import Category
 from spirit.models.comment import Comment
 from spirit.models.topic_private import TopicPrivate
+from spirit.models.profile import ForumProfile, PROFILE_FIELDS
+from spirit.tests import factories
 
 User = get_user_model()
 
 
 def create_user(**kwargs):
+    profile_kwargs = {}
+    for field in PROFILE_FIELDS:
+        value = kwargs.pop(field, None)
+        if value:
+            profile_kwargs.update({
+                field: value
+            })
+
     if 'username' not in kwargs:
         kwargs['username'] = "foo%d" % User.objects.all().count()
 
@@ -23,7 +33,13 @@ def create_user(**kwargs):
     if 'password' not in kwargs:
         kwargs['password'] = "bar"
 
-    return User.objects.create_user(**kwargs)
+    user = User.objects.create_user(**kwargs)
+    profile_kwargs.update({
+        'user': user
+    })
+    profile = ForumProfile.objects.create(**profile_kwargs)
+
+    return user
 
 
 def create_topic(category, **kwargs):
@@ -50,14 +66,14 @@ def create_category(**kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = "foo%d" % Category.objects.all().count()
 
-    return Category.objects.create(**kwargs)
+    return factories.CategoryFactory(**kwargs)
 
 
 def create_subcategory(category, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = "foo%d" % Category.objects.all().count()
 
-    return Category.objects.create(parent=category, **kwargs)
+    return factories.CategoryFactory(parent=category, **kwargs)
 
 
 def create_comment(**kwargs):
@@ -70,7 +86,7 @@ def create_comment(**kwargs):
     if 'user' not in kwargs:
         kwargs['user'] = create_user()
 
-    return Comment.objects.create(**kwargs)
+    return factories.CommentFactory(**kwargs)
 
 
 def login(test_case_instance, user=None, password=None):

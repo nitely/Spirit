@@ -9,6 +9,8 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.template import defaultfilters
 
+from spirit.utils.timezone import TIMEZONE_CHOICES
+
 
 User = get_user_model()
 
@@ -48,9 +50,13 @@ class RegistrationForm(UserCreationForm):
 
 class UserProfileForm(forms.ModelForm):
 
+    location = forms.CharField(max_length=75, required=False)
+
+    timezone = forms.ChoiceField(choices=TIMEZONE_CHOICES)
+
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "location", "timezone")
+        fields = ("first_name", "last_name")
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -59,6 +65,10 @@ class UserProfileForm(forms.ModelForm):
             'date': defaultfilters.date(now),
             'time': defaultfilters.time(now)
         }
+
+    def save(self, commit=True):
+        # FIXME: Save profile fields
+        return super(UserProfileForm, self).save(commit)
 
 
 class LoginForm(AuthenticationForm):
@@ -108,7 +118,7 @@ class ResendActivationForm(forms.Form):
         except User.DoesNotExist:
             raise forms.ValidationError(_("The provided email does not exists."))
 
-        if self.user.last_ip:
+        if self.user.forum_profile.last_ip:
             raise forms.ValidationError(_("This account was activated."))
 
         return email

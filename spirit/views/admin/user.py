@@ -40,13 +40,13 @@ def user_list(request):
 
 @administrator_required
 def user_admins(request):
-    users = User.objects.filter(is_administrator=True)
+    users = User.objects.filter(forum_profile__is_administrator=True)
     return render(request, 'spirit/admin/user/user_admins.html', {'users': users, })
 
 
 @administrator_required
 def user_mods(request):
-    users = User.objects.filter(is_moderator=True, is_administrator=False)
+    users = User.objects.filter(forum_profile__is_moderator=True, forum_profile__is_administrator=False)
     return render(request, 'spirit/admin/user/user_mods.html', {'users': users, })
 
 

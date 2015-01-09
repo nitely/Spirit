@@ -15,6 +15,7 @@ from spirit.views.admin import user, category, comment_flag, config, index, topi
 from spirit.models.category import Category
 from spirit.models.comment_flag import CommentFlag, Flag
 from spirit.forms.admin import UserEditForm, CategoryForm, BasicConfigForm, CommentFlagForm
+from spirit.tests.utils import create_user
 
 
 User = get_user_model()
@@ -30,8 +31,8 @@ class AdminViewTest(TestCase):
 
     def test_permission_denied_to_non_admin(self):
         req = RequestFactory().get('/')
-        req.user = UserModel()
-        req.user.is_administrator = False
+        req.user = create_user()
+        req.user.forum_profile.is_administrator = False
 
         self.assertRaises(PermissionDenied, category.category_list, req)
         self.assertRaises(PermissionDenied, category.category_create, req)

@@ -38,7 +38,7 @@ class CommentManager(Manager):
             .filter(Q(topic__category__is_private=False) | Q(topic__topics_private__user=user))
 
     def for_update_or_404(self, pk, user):
-        if user.is_moderator:
+        if user.forum_profile.is_moderator:
             return get_object_or_404(self, pk=pk)
         else:
             return get_object_or_404(self.for_access(user), user=user, pk=pk)

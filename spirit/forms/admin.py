@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 
 from spirit.models.category import Category
 from spirit.models.comment_flag import CommentFlag
+from spirit.utils.timezone import TIMEZONE_CHOICES
 
 
 User = get_user_model()
@@ -17,10 +18,21 @@ User = get_user_model()
 
 class UserEditForm(forms.ModelForm):
 
+    is_administrator = forms.BooleanField()
+
+    is_moderator = forms.BooleanField()
+
+    location = forms.CharField(max_length=75, required=False)
+
+    timezone = forms.ChoiceField(choices=TIMEZONE_CHOICES)
+
     class Meta:
         model = User
-        fields = ("username", "email", "location",
-                  "timezone", "is_administrator", "is_moderator", "is_active")
+        fields = ("username", "email", "is_active")
+
+    def save(self, commit=True):
+        # FIXME: Save profile fields
+        return super(UserEditForm, self).save(commit)
 
 
 class CategoryForm(forms.ModelForm):
