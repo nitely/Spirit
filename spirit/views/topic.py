@@ -100,7 +100,6 @@ def topic_detail(request, pk, slug):
 
     topic_viewed.send(sender=topic.__class__, request=request, topic=topic)
 
-    # TODO: test!
     comments = Comment.objects\
         .for_topic(topic=topic)\
         .with_likes(user=request.user)\

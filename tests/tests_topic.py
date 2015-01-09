@@ -10,6 +10,8 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 
+from djconfig.utils import override_djconfig
+
 from . import utils
 
 from spirit.models.comment import MOVED
@@ -19,7 +21,6 @@ from spirit.signals.topic import topic_viewed
 from spirit.forms.topic import TopicForm
 from spirit.signals.topic_moderate import topic_post_moderate
 from spirit.models.comment import Comment
-from spirit.models.category import Category
 from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
 
 
@@ -216,6 +217,24 @@ class TopicViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], topic)
+        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
+
+    @override_djconfig(comments_per_page=2)
+    def test_topic_detail_view_paginate(self):
+        """
+        should display topic with comments, page 1
+        """
+        utils.login(self)
+        category = utils.create_category()
+
+        topic = utils.create_topic(category=category)
+
+        comment1 = utils.create_comment(topic=topic)
+        comment2 = utils.create_comment(topic=topic)
+        utils.create_comment(topic=topic)  # comment3
+
+        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+        self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
 
     def test_topic_detail_view_signals(self):

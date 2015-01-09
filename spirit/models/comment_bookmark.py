@@ -7,6 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
+from djconfig import config
+
 from ..utils import paginator
 
 
@@ -30,5 +32,5 @@ class CommentBookmark(models.Model):
     def get_absolute_url(self):
         return paginator.get_url(self.topic.get_absolute_url(),
                                  self.comment_number,
-                                 settings.ST_COMMENTS_PER_PAGE,
+                                 config.comments_per_page,
                                  settings.ST_COMMENTS_PAGE_VAR)
