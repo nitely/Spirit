@@ -36,6 +36,7 @@ def user_edit(request, user_id):
 
 @administrator_required
 def user_list(request):
+    # TODO: paginate
     users = User.objects.all()
     context = {'users': users, }
     return render(request, 'spirit/admin/user/user_list.html', context)

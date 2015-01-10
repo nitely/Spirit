@@ -9,6 +9,8 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
 
+from djconfig.utils import override_djconfig
+
 from . import utils
 
 from spirit.views.admin import user, category, comment_flag, config, index, topic
@@ -202,6 +204,20 @@ class AdminViewTest(TestCase):
         response = self.client.get(reverse('spirit:admin-flag-open'))
         self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
 
+    @override_djconfig(comments_per_page=1)
+    def test_flag_open_paginate(self):
+        """
+        Open flags paginated
+        """
+        comment = utils.create_comment(topic=self.topic)
+        comment2 = utils.create_comment(topic=self.topic)
+        CommentFlag.objects.create(comment=comment2)
+        flag_ = CommentFlag.objects.create(comment=comment)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:admin-flag-open'))
+        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
+
     def test_flag_closed(self):
         """
         Open flags
@@ -210,6 +226,20 @@ class AdminViewTest(TestCase):
         comment2 = utils.create_comment(topic=self.topic)
         flag_closed = CommentFlag.objects.create(comment=comment2, is_closed=True)
         CommentFlag.objects.create(comment=comment)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:admin-flag-closed'))
+        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_closed, ]))
+
+    @override_djconfig(comments_per_page=1)
+    def test_flag_open_paginate(self):
+        """
+        Open flags paginated
+        """
+        comment = utils.create_comment(topic=self.topic)
+        comment2 = utils.create_comment(topic=self.topic)
+        CommentFlag.objects.create(comment=comment2, is_closed=True)
+        flag_closed = CommentFlag.objects.create(comment=comment, is_closed=True)
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin-flag-closed'))
@@ -237,6 +267,22 @@ class AdminViewTest(TestCase):
         response = self.client.get(reverse('spirit:admin-flag-detail', kwargs={'pk': comment_flag.pk, }))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(repr(response.context['flag']), repr(comment_flag))
+        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
+
+    @override_djconfig(comments_per_page=1)
+    def test_flag_detail_paginate(self):
+        """
+        flag detail paginated
+        """
+        user2 = utils.create_user()
+        comment = utils.create_comment(topic=self.topic)
+        comment_flag = CommentFlag.objects.create(comment=comment)
+        Flag.objects.create(comment=comment, user=user2, reason=0)
+        flag_ = Flag.objects.create(comment=comment, user=self.user, reason=0)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:admin-flag-detail', kwargs={'pk': comment_flag.pk, }))
+        self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
 
 

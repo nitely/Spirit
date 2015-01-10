@@ -7,22 +7,33 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 
-from spirit.utils.decorators import administrator_required
+from djconfig import config
 
-from spirit.models.comment_flag import CommentFlag, Flag
-from spirit.forms.admin import CommentFlagForm
+from ...utils.paginator import yt_paginate
+from ...utils.decorators import administrator_required
+
+from ...models.comment_flag import CommentFlag, Flag
+from ...forms.admin import CommentFlagForm
 
 
 @administrator_required
 def flag_open(request):
-    flags = CommentFlag.objects.filter(is_closed=False)
+    flags = yt_paginate(
+        CommentFlag.objects.filter(is_closed=False),
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
     context = {'flags': flags, }
     return render(request, 'spirit/admin/comment_flag/flag_open.html', context)
 
 
 @administrator_required
 def flag_closed(request):
-    flags = CommentFlag.objects.filter(is_closed=True)
+    flags = yt_paginate(
+        CommentFlag.objects.filter(is_closed=True),
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
     context = {'flags': flags, }
     return render(request, 'spirit/admin/comment_flag/flag_closed.html', context)
 
@@ -41,7 +52,11 @@ def flag_detail(request, pk):
     else:
         form = CommentFlagForm(instance=flag)
 
-    flags = Flag.objects.filter(comment=flag.comment)
+    flags = yt_paginate(
+        Flag.objects.filter(comment=flag.comment),
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
 
     context = {
         'flag': flag,

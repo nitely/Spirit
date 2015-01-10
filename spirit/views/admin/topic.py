@@ -11,6 +11,7 @@ from spirit.models.topic import Topic
 @administrator_required
 def topic_deleted(request):
     # Private topics cant be deleted, closed or pinned so we are ok
+    # TODO: paginate
     topics = Topic.objects.filter(is_removed=True)
     context = {'topics': topics, }
     return render(request, 'spirit/admin/topic/topic_deleted.html', context)
