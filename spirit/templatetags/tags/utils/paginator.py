@@ -26,7 +26,7 @@ def render_paginator(context, page, page_var='page', hashtag=''):
     if hashtag:
         hashtag = "#%s" % hashtag
 
-    context = {
+    new_context = {
         "page": page,
         "page_var": page_var,
         "hashtag": hashtag,
@@ -38,7 +38,7 @@ def render_paginator(context, page, page_var='page', hashtag=''):
     else:
         template = "spirit/paginator/_yt_paginator.html"
 
-    return render_to_string(template, context)
+    return render_to_string(template, new_context)
 
 
 @register.assignment_tag(takes_context=True)
@@ -53,3 +53,4 @@ def paginator_autopaginate(context, object_list, per_page=15, page_var='page', p
     # TODO: remove
     page_number = page_number or context["request"].GET.get(page_var, 1)
     return paginate(object_list, per_page=per_page, page_number=page_number)
+
