@@ -12,6 +12,8 @@ from django.conf import settings
 from django.utils import six
 from django.utils import timezone
 
+from djconfig.utils import override_djconfig
+
 from . import utils
 
 from spirit.models.category import Category
@@ -100,9 +102,37 @@ class TopicPrivateViewTest(TestCase):
         """
         utils.login(self)
         private = utils.create_private_topic(user=self.user)
+
+        comment1 = utils.create_comment(topic=private.topic)
+        comment2 = utils.create_comment(topic=private.topic)
+
+        category = utils.create_category()
+        topic2 = utils.create_topic(category=category)
+        utils.create_comment(topic=topic2)
+
         response = self.client.get(reverse('spirit:private-detail', kwargs={'topic_id': private.topic.pk,
                                                                             'slug': private.topic.slug}))
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], private.topic)
+        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
+
+    @override_djconfig(comments_per_page=2)
+    def test_private_detail_view_paginate(self):
+        """
+        should display topic with comments, page 1
+        """
+        utils.login(self)
+        private = utils.create_private_topic(user=self.user)
+
+        comment1 = utils.create_comment(topic=private.topic)
+        comment2 = utils.create_comment(topic=private.topic)
+        utils.create_comment(topic=private.topic)  # comment3
+
+        response = self.client.get(reverse('spirit:private-detail', kwargs={'topic_id': private.topic.pk,
+                                                                            'slug': private.topic.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['topic'], private.topic)
+        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
 
     def test_private_access_create(self):
         """

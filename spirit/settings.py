@@ -6,9 +6,6 @@
 from __future__ import unicode_literals
 import os
 
-ST_COMMENTS_PER_PAGE = 20
-ST_COMMENTS_PAGE_VAR = 'page'
-
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
 ST_UNCATEGORIZED_CATEGORY_PK = 2
 
@@ -109,6 +106,7 @@ DJC_BACKEND = 'djconfig'
 CACHES.update({
     'djconfig': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-config',
     },
 })
 

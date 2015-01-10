@@ -11,10 +11,13 @@ from django.contrib import messages
 from django.http import HttpResponsePermanentRedirect
 from django.conf import settings
 
-from spirit.utils.ratelimit.decorators import ratelimit
-from spirit import utils
-from spirit.forms.comment import CommentForm
-from spirit.signals.comment import comment_posted
+from djconfig import config
+
+from .. import utils
+from ..utils.paginator import paginate
+from ..utils.ratelimit.decorators import ratelimit
+from ..forms.comment import CommentForm
+from ..signals.comment import comment_posted
 
 from ..models.comment import Comment
 from ..models.topic import Topic
@@ -79,17 +82,21 @@ def private_detail(request, topic_id, slug):
 
     topic_viewed.send(sender=topic.__class__, request=request, topic=topic)
 
-    # TODO: test!
     comments = Comment.objects\
         .for_topic(topic=topic)\
         .with_likes(user=request.user)\
         .order_by('date')
 
+    comments = paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
     context = {
         'topic': topic,
         'topic_private': topic_private,
         'comments': comments,
-        'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE
     }
 
     return render(request, 'spirit/topic_private/private_detail.html', context)

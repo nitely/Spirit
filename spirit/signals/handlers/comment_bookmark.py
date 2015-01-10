@@ -2,10 +2,11 @@
 
 from __future__ import unicode_literals
 
-from django.conf import settings
 from django.db import IntegrityError
 
-from spirit.models import CommentBookmark
+from djconfig import config
+
+from ...models.comment_bookmark import CommentBookmark
 from ..topic import topic_viewed
 
 
@@ -14,11 +15,11 @@ def topic_page_viewed_handler(sender, request, topic, **kwargs):
         return
 
     try:
-        page_number = int(request.GET.get(settings.ST_COMMENTS_PAGE_VAR, 1))
+        page_number = int(request.GET.get('page', 1))
     except ValueError:
         return
 
-    comment_number = settings.ST_COMMENTS_PER_PAGE * (page_number - 1) + 1
+    comment_number = config.comments_per_page * (page_number - 1) + 1
 
     try:
         CommentBookmark.objects.update_or_create(user=request.user, topic=topic,

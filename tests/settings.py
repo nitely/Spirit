@@ -37,15 +37,11 @@ DATABASES = {
     }
 }
 
-CACHES = {
+CACHES.update({
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     },
-    'djconfig': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'test-djconfig',
-    },
-}
+})
 
 # speedup tests requiring login
 PASSWORD_HASHERS = (

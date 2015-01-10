@@ -33,4 +33,4 @@ class CommentBookmark(models.Model):
         return paginator.get_url(self.topic.get_absolute_url(),
                                  self.comment_number,
                                  config.comments_per_page,
-                                 settings.ST_COMMENTS_PAGE_VAR)
+                                 'page')
