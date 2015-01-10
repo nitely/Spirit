@@ -23,6 +23,7 @@ def category_detail(request, pk, slug):
         .visible()\
         .children(parent=category)
 
+    # TODO: paginate
     topics = Topic.objects\
         .unremoved()\
         .with_bookmarks(user=request.user)\

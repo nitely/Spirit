@@ -6,6 +6,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
+from djconfig.utils import override_djconfig
+
 from . import utils
 
 from spirit.models.comment_history import CommentHistory
@@ -28,6 +30,19 @@ class CommentHistoryViewTest(TestCase):
         comment_history = CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)
         CommentHistory.objects.create(comment_fk=comment2, comment_html=comment2.comment_html)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))
+        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment_history, ]))
+
+    @override_djconfig(comments_per_page=1)
+    def test_comment_history_detail_paginate(self):
+        """
+        history comment paginate
+        """
+        comment = utils.create_comment(user=self.user, topic=self.topic)
+        comment_history = CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
+        CommentHistory.objects.create(comment_fk=comment, comment_html=comment.comment_html)
 
         utils.login(self)
         response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))

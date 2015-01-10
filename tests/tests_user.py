@@ -12,6 +12,8 @@ from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
 
+from djconfig.utils import override_djconfig
+
 from . import utils
 
 from spirit.forms.user import RegistrationForm, UserProfileForm, EmailChangeForm, ResendActivationForm
@@ -207,6 +209,20 @@ class UserViewTest(TestCase):
                                                                             'slug': self.user2.slug}))
         self.assertQuerysetEqual(response.context['comments'], map(repr, [comment_b, comment_c, comment_a]))
 
+    @override_djconfig(comments_per_page=1)
+    def test_profile_comments_paginate(self):
+        """
+        profile user's comments paginated
+        """
+        utils.create_comment(user=self.user2, topic=self.topic)
+        comment = utils.create_comment(user=self.user2, topic=self.topic)
+
+        utils.login(self)
+        response = self.client.get(reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
+                                                                            'slug': self.user2.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context['comments'], [repr(comment), ])
+
     def test_profile_comments_dont_show_removed_or_private(self):
         """
         dont show private topics or removed
@@ -315,6 +331,22 @@ class UserViewTest(TestCase):
         expected_url = reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
                                                                'slug': self.user2.slug})
         self.assertRedirects(response, expected_url, status_code=301)
+
+    @override_djconfig(comments_per_page=1)
+    def test_profile_likes_paginate(self):
+        """
+        profile user's likes paginate
+        """
+        comment = utils.create_comment(user=self.user2, topic=self.topic)
+        comment2 = utils.create_comment(user=self.user2, topic=self.topic)
+        CommentLike.objects.create(user=self.user2, comment=comment)
+        like = CommentLike.objects.create(user=self.user2, comment=comment2)
+
+        utils.login(self)
+        response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
+                                                                           'slug': self.user2.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context['comments'], [repr(like.comment), ])
 
     def test_profile_update(self):
         """

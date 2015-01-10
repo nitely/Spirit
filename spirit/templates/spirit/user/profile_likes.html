@@ -8,10 +8,8 @@
 
     {% include "spirit/user/_profile.html" with active_tab=2 %}
 
-    {% yt_paginator_autopaginate comments as page %}
-
     {% include "spirit/user/_render_comments_list.html" %}
 
-    {% render_yt_paginator page %}
+    {% render_yt_paginator comments %}
 
 {% endblock %}

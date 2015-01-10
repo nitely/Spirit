@@ -12,9 +12,7 @@
 
     <div class="comments">
 
-        {% yt_paginator_autopaginate comments as page %}
-
-        {% for c in page %}
+        {% for c in comments %}
             <div class="comment">
 
                 <div class="comment-media">
@@ -46,7 +44,7 @@
 
     </div>
 
-    {% render_yt_paginator page %}
+    {% render_yt_paginator comments %}
 
 
     <script>

@@ -13,9 +13,12 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.http import HttpResponsePermanentRedirect
 
-from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.utils.user.email import send_activation_email, send_email_change_email
-from spirit.utils.user.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from djconfig import config
+
+from ..utils.ratelimit.decorators import ratelimit
+from ..utils.user.email import send_activation_email, send_email_change_email
+from ..utils.user.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from ..utils.paginator import yt_paginate
 
 from ..models.topic import Topic
 from ..models.comment import Comment
@@ -190,7 +193,7 @@ def profile_topics(request, pk, slug):
     if p_user.slug != slug:
         return HttpResponsePermanentRedirect(reverse("spirit:profile-topics", kwargs={'pk': p_user.pk,
                                                                                       'slug': p_user.slug}))
-
+    # TODO: paginate
     topics = Topic.objects\
         .visible()\
         .with_bookmarks(user=request.user)\
@@ -211,12 +214,18 @@ def profile_comments(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.slug != slug:
-        return HttpResponsePermanentRedirect(reverse("spirit:profile-detail", kwargs={'pk': p_user.pk,
-                                                                                      'slug': p_user.slug}))
+        url = reverse("spirit:profile-detail", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+        return HttpResponsePermanentRedirect(url)
 
     comments = Comment.objects\
         .visible()\
         .filter(user=p_user)
+
+    comments = yt_paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
 
     context = {
         'p_user': p_user,
@@ -231,13 +240,19 @@ def profile_likes(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.slug != slug:
-        return HttpResponsePermanentRedirect(reverse("spirit:profile-likes", kwargs={'pk': p_user.pk,
-                                                                                     'slug': p_user.slug}))
+        url = reverse("spirit:profile-likes", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+        return HttpResponsePermanentRedirect(url)
 
     comments = Comment.objects\
         .visible()\
         .filter(comment_likes__user=p_user)\
-        .order_by('-comment_likes__date')
+        .order_by('-comment_likes__date', '-pk')
+
+    comments = yt_paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
 
     context = {
         'p_user': p_user,

@@ -162,6 +162,7 @@ def private_join(request, topic_id):
 
 @login_required
 def private_list(request):
+    # TODO: paginate
     topics = Topic.objects\
         .with_bookmarks(user=request.user)\
         .filter(topics_private__user=request.user)

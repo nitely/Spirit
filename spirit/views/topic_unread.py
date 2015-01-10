@@ -15,6 +15,7 @@ def topic_unread_list(request):
     # TODO: add button to clean up read topics? or read all?
     # redirect to first page if empty
 
+    # TODO: paginate
     topics = Topic.objects\
         .for_access(user=request.user)\
         .for_unread(user=request.user)\
