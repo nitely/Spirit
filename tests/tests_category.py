@@ -12,12 +12,14 @@ from django.utils import timezone
 from . import utils
 
 from spirit.models.topic import Topic
+from spirit.models.comment_bookmark import CommentBookmark
 
 
 class CategoryViewTest(TestCase):
 
     def setUp(self):
         cache.clear()
+        self.user = utils.create_user()
         self.category_1 = utils.create_category(title="cat1")
         self.subcategory_1 = utils.create_subcategory(self.category_1)
         self.category_2 = utils.create_category(title="cat2")
@@ -28,8 +30,10 @@ class CategoryViewTest(TestCase):
         should display all categories
         """
         response = self.client.get(reverse('spirit:category-list'))
-        self.assertQuerysetEqual(response.context['categories'],
-                                 ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)])
+        self.assertQuerysetEqual(
+            response.context['categories'],
+            ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)]
+        )
 
     def test_category_detail_view(self):
         """
@@ -123,3 +127,17 @@ class CategoryViewTest(TestCase):
                                                                              'slug': self.subcategory_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [repr(topic2), ])
         self.assertQuerysetEqual(response.context['categories'], [])
+
+    def test_category_detail_view_bookmarks(self):
+        """
+        topics should have bookmarks
+        """
+        utils.login(self)
+        topic = utils.create_topic(category=self.category_1)
+        bookmark = CommentBookmark.objects.create(topic=topic, user=self.user)
+
+        response = self.client.get(reverse('spirit:category-detail',
+                                           kwargs={'pk': self.category_1.pk,
+                                                   'slug': self.category_1.slug}))
+        self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])
+        self.assertEqual(response.context['topics'][0].bookmark, bookmark)

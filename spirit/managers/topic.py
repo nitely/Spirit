@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.shortcuts import get_object_or_404
-from django.db.models import Q
+from django.db.models import Q, Prefetch
+
+from ..models.comment_bookmark import CommentBookmark
 
 
 class TopicQuerySet(models.QuerySet):
@@ -34,6 +36,20 @@ class TopicQuerySet(models.QuerySet):
 
     def for_access(self, user):
         return self.unremoved()._access(user=user)
+
+    def for_unread(self, user):
+        return self.filter(topicunread__user=user,
+                           topicunread__is_read=False)
+
+    def with_bookmarks(self, user):
+        if not user.is_authenticated():
+            return self
+
+        user_bookmarks = CommentBookmark.objects\
+            .filter(user=user)\
+            .select_related('topic')
+        prefetch = Prefetch("commentbookmark_set", queryset=user_bookmarks, to_attr='bookmarks')
+        return self.prefetch_related(prefetch)
 
     def get_public_or_404(self, pk, user):
         if user.is_authenticated() and user.is_moderator:

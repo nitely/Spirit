@@ -25,6 +25,7 @@ from spirit.views.topic_private import comment_posted
 from spirit.models.comment import Comment
 from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
 from spirit.models.topic import Topic
+from spirit.models.comment_bookmark import CommentBookmark
 
 
 class TopicPrivateViewTest(TestCase):
@@ -246,6 +247,18 @@ class TopicPrivateViewTest(TestCase):
         response = self.client.get(reverse('spirit:private-list'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [private_b.topic, private_c.topic,
                                                                         private_a.topic]))
+
+    def test_private_list_bookmarks(self):
+        """
+        private topic list with bookmarks
+        """
+        private = utils.create_private_topic(user=self.user)
+        bookmark = CommentBookmark.objects.create(topic=private.topic, user=self.user)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:private-list'))
+        self.assertQuerysetEqual(response.context['topics'], [repr(private.topic), ])
+        self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     def test_private_join(self):
         """

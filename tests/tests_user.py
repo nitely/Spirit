@@ -21,6 +21,7 @@ from spirit.utils.user.tokens import UserActivationTokenGenerator, UserEmailChan
 from spirit.models.user import User as UserModel
 from spirit.models.topic import Topic
 from spirit.models.comment import Comment
+from spirit.models.comment_bookmark import CommentBookmark
 
 
 User = get_user_model()
@@ -131,6 +132,19 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.slug}))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_b, topic_c, topic_a]))
+
+    def test_profile_topics_bookmarks(self):
+        """
+        profile user's topics with bookmarks
+        """
+        bookmark = CommentBookmark.objects.create(topic=self.topic, user=self.user)
+
+        utils.login(self)
+        response = self.client.get(reverse("spirit:profile-topics",
+                                           kwargs={'pk': self.user2.pk, 'slug': self.user2.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context['topics'], [repr(self.topic), ])
+        self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     def test_profile_topics_dont_show_removed_or_private(self):
         """

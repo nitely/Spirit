@@ -25,6 +25,7 @@ def category_detail(request, pk, slug):
 
     topics = Topic.objects\
         .unremoved()\
+        .with_bookmarks(user=request.user)\
         .for_category(category=category)\
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
         .select_related('category')

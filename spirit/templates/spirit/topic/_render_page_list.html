@@ -2,6 +2,6 @@
 
 {% yt_paginator_autopaginate topics as page %}
 
-{% include "spirit/topic/_render_list.html" %}
+{% include "spirit/topic/_render_list.html" with topics=page %}
 
 {% render_yt_paginator page %}

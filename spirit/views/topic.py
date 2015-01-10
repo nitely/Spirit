@@ -124,8 +124,10 @@ def topic_active_list(request):
         .visible()\
         .parents()
 
+    # TODO: paginate
     topics = Topic.objects\
         .visible()\
+        .with_bookmarks(user=request.user)\
         .order_by('-is_globally_pinned', '-last_active')\
         .select_related('category')
 

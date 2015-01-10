@@ -162,7 +162,9 @@ def private_join(request, topic_id):
 
 @login_required
 def private_list(request):
-    topics = Topic.objects.filter(topics_private__user=request.user).order_by('-last_active')
+    topics = Topic.objects\
+        .with_bookmarks(user=request.user)\
+        .filter(topics_private__user=request.user)
     context = {'topics': topics, }
     return render(request, 'spirit/topic_private/private_list.html', context)
 

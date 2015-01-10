@@ -50,3 +50,12 @@ class Topic(models.Model):
     @property
     def main_category(self):
         return self.category.parent or self.category
+
+    @property
+    def bookmark(self):
+        # *bookmarks* is dinamically created by manager.with_bookmarks()
+        try:
+            assert len(self.bookmarks) <= 1, "Panic, too many bookmarks"
+            return self.bookmarks[0]
+        except (AttributeError, IndexError):
+            return

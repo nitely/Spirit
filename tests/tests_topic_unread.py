@@ -11,6 +11,7 @@ from . import utils
 from spirit.models.topic_unread import TopicUnread
 from spirit.signals.topic import topic_viewed
 from spirit.signals.comment import comment_posted
+from spirit.models.comment_bookmark import CommentBookmark
 
 
 class TopicUnreadViewTest(TestCase):
@@ -108,6 +109,20 @@ class TopicUnreadViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic-unread-list') + "?topic_id=" + str(self.topic.pk))
         self.assertEqual(response.status_code, 404)
+
+    def test_topic_unread_list_bookmarks(self):
+        """
+        topic unread list with bookmarks
+        """
+        TopicUnread.objects\
+            .filter(pk__in=[self.topic_unread.pk, self.topic_unread2.pk])\
+            .update(is_read=False)
+        bookmark = CommentBookmark.objects.create(topic=self.topic2, user=self.user)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:topic-unread-list'))
+        self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic2, self.topic]))
+        self.assertEqual(response.context['page'][0].bookmark, bookmark)
 
 
 class TopicUnreadSignalTest(TransactionTestCase):  # since signal raises IntegrityError

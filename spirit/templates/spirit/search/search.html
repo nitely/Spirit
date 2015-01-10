@@ -22,7 +22,7 @@
             {% get_topics_from_search_result results=page as topics_page %}
 
             {% if topics_page %}
-                {% include "spirit/topic/_render_list.html" with page=topics_page %}
+                {% include "spirit/topic/_render_list.html" with topics=topics_page %}
                 {% render_yt_paginator page %}
             {% else %}
                 <p>{% trans "There are no search results." %}</p>

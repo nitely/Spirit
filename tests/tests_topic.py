@@ -21,6 +21,7 @@ from spirit.signals.topic import topic_viewed
 from spirit.forms.topic import TopicForm
 from spirit.signals.topic_moderate import topic_post_moderate
 from spirit.models.comment import Comment
+from spirit.models.comment_bookmark import CommentBookmark
 from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
 
 
@@ -321,6 +322,27 @@ class TopicViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:topic-active'))
         self.assertQuerysetEqual(response.context['topics'], [])
+
+    def test_topic_active_view_bookmark(self):
+        """
+        topics with bookmarks
+        """
+        utils.login(self)
+        category = utils.create_category()
+        topic = utils.create_topic(category=category, user=self.user)
+        bookmark = CommentBookmark.objects.create(topic=topic, user=self.user)
+
+        user2 = utils.create_user()
+        CommentBookmark.objects.create(topic=topic, user=user2)
+
+        topic2 = utils.create_topic(category=category, user=self.user)
+        CommentBookmark.objects.create(topic=topic2, user=self.user)
+        ten_days_ago = timezone.now() - datetime.timedelta(days=10)
+        Topic.objects.filter(pk=topic2.pk).update(last_active=ten_days_ago)
+
+        response = self.client.get(reverse('spirit:topic-active'))
+        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic, topic2]))
+        self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
 
 class TopicFormTest(TestCase):
