@@ -54,7 +54,7 @@ class CommentBookmarkSignalTest(TestCase):
         topic_page_viewed_handler signal
         """
         page = 2
-        req = RequestFactory().get('/', data={settings.ST_COMMENTS_PAGE_VAR: str(page), })
+        req = RequestFactory().get('/', data={'page': str(page), })
         req.user = self.user
         topic_viewed.send(sender=self.topic.__class__, topic=self.topic, request=req)
         comment_bookmark = CommentBookmark.objects.get(user=self.user, topic=self.topic)
@@ -65,7 +65,7 @@ class CommentBookmarkSignalTest(TestCase):
         invalid page
         """
         page = 'im_a_string'
-        req = RequestFactory().get('/', data={settings.ST_COMMENTS_PAGE_VAR: str(page), })
+        req = RequestFactory().get('/', data={'page': str(page), })
         req.user = self.user
         topic_viewed.send(sender=self.topic.__class__, topic=self.topic, request=req)
         self.assertEqual(len(CommentBookmark.objects.all()), 0)
