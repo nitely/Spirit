@@ -2,11 +2,14 @@
 
 from __future__ import unicode_literals
 
+from django.template.loader import render_to_string
+from django.core.paginator import Page
+
 from .. import register
 from spirit.utils.paginator import paginate, yt_paginate
 
 
-def _render_paginator(context, page, page_var, hashtag):
+def _render_paginator(template, context, page, page_var, hashtag):
     query_dict = context["request"].GET.copy()
 
     try:
@@ -22,12 +25,14 @@ def _render_paginator(context, page, page_var, hashtag):
     if hashtag:
         hashtag = "#%s" % hashtag
 
-    return {
+    context = {
         "page": page,
         "page_var": page_var,
         "hashtag": hashtag,
         "extra_query": extra_query
     }
+
+    return render_to_string(template, context)
 
 
 @register.assignment_tag(takes_context=True)
@@ -37,11 +42,6 @@ def yt_paginator_autopaginate(context, object_list, per_page=15, page_var='page'
     return yt_paginate(object_list, per_page=per_page, page_number=page_number)
 
 
-@register.inclusion_tag("spirit/paginator/_yt_paginator.html", takes_context=True)
-def render_yt_paginator(context, page, page_var='page', hashtag=''):
-    return _render_paginator(context, page, page_var, hashtag)
-
-
 @register.assignment_tag(takes_context=True)
 def paginator_autopaginate(context, object_list, per_page=15, page_var='page', page_number=None):
     # TODO: remove
@@ -49,6 +49,12 @@ def paginator_autopaginate(context, object_list, per_page=15, page_var='page', p
     return paginate(object_list, per_page=per_page, page_number=page_number)
 
 
-@register.inclusion_tag("spirit/paginator/_paginator.html", takes_context=True)
+@register.simple_tag(takes_context=True)
 def render_paginator(context, page, page_var='page', hashtag=''):
-    return _render_paginator(context, page, page_var, hashtag)
+    # TODO: test!
+    if isinstance(page, Page):
+        template = "spirit/paginator/_paginator.html"
+    else:
+        template = "spirit/paginator/_yt_paginator.html"
+
+    return _render_paginator(template, context, page, page_var, hashtag)
