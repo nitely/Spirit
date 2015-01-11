@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.template import Template, Context
 from django.utils import timezone
+from django.conf import settings
 
 from djconfig.utils import override_djconfig
 
@@ -320,11 +321,7 @@ class TopicNotificationFormTest(TestCase):
         self.assertEqual(form.is_valid(), True)
 
 
-class TopicNotificationSignalTest(TransactionTestCase):
-
-    # Needed to work with migrations when using TransactionTestCase
-    available_apps = ["spirit", ]
-    serialized_rollback = True
+class TopicNotificationSignalTest(TestCase):
 
     def setUp(self):
         cache.clear()

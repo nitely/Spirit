@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.core.cache import cache
 from django.test import TestCase, TransactionTestCase, RequestFactory
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from . import utils
 
@@ -125,11 +126,7 @@ class TopicUnreadViewTest(TestCase):
         self.assertEqual(response.context['page'][0].bookmark, bookmark)
 
 
-class TopicUnreadSignalTest(TransactionTestCase):  # since signal raises IntegrityError
-
-    # Needed to work with migrations when using TransactionTestCase
-    available_apps = ["spirit", ]
-    serialized_rollback = True
+class TopicUnreadSignalTest(TestCase):
 
     def setUp(self):
         cache.clear()
