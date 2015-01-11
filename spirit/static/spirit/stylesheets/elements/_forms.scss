@@ -13,6 +13,7 @@ textarea {
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="search"],
 select,
 textarea {
   width: 100%;
@@ -23,6 +24,7 @@ textarea {
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
+input[type="search"]:focus,
 select:focus,
 textarea:focus {
   border: 1px solid $red;
