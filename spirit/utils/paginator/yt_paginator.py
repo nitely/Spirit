@@ -57,6 +57,9 @@ class YTPage(object):
     def __repr__(self):
         return '<Page %s>' % self.number
 
+    def __len__(self):
+        return len(self.object_list)
+
     def __getitem__(self, index):
         if not isinstance(self.object_list, list):
             self.object_list = list(self.object_list)
