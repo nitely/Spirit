@@ -10,6 +10,7 @@ from django.conf import settings
 from django.core.management import call_command
 
 from haystack.query import SearchQuerySet
+from djconfig.utils import override_djconfig
 
 from . import utils
 
@@ -65,7 +66,7 @@ class SearchViewTest(TestCase):
         cache.clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
-        self.topic = utils.create_topic(category=self.category, user=self.user, title="spirit search test")
+        self.topic = utils.create_topic(category=self.category, user=self.user, title="spirit search test foo")
         self.topic2 = utils.create_topic(category=self.category, user=self.user, title="foo")
 
         call_command("rebuild_index", interactive=False)
@@ -91,6 +92,18 @@ class SearchViewTest(TestCase):
                                    data)
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual([s.object for s in response.context['page']], map(repr, [self.topic, ]))
+
+    @override_djconfig(topics_per_page=1)
+    def test_advanced_search_topics_paginate(self):
+        """
+        advanced search by topic paginated
+        """
+        utils.login(self)
+        data = {'q': 'foo', }
+        response = self.client.get(reverse('spirit:search'),
+                                   data)
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual([s.object for s in response.context['page']], map(repr, [self.topic2, ]))
 
     def test_advanced_search_in_category(self):
         """

@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils import timezone
 
+from djconfig.utils import override_djconfig
+
 from . import utils
 
 from spirit.models.topic import Topic
@@ -141,3 +143,15 @@ class CategoryViewTest(TestCase):
                                                    'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
+
+    @override_djconfig(topics_per_page=1)
+    def test_category_detail_view_paginate(self):
+        """
+        List of topics paginated
+        """
+        utils.create_topic(category=self.category_1)
+        topic = utils.create_topic(category=self.category_1)
+
+        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+                                                                             'slug': self.category_1.slug}))
+        self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])

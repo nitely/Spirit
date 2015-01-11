@@ -7,6 +7,9 @@ from django.shortcuts import render
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404
 
+from djconfig import config
+
+from ..utils.paginator import yt_paginate
 from spirit.models.topic import Topic
 
 from spirit.models.category import Category
@@ -23,13 +26,18 @@ def category_detail(request, pk, slug):
         .visible()\
         .children(parent=category)
 
-    # TODO: paginate
     topics = Topic.objects\
         .unremoved()\
         .with_bookmarks(user=request.user)\
         .for_category(category=category)\
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
         .select_related('category')
+
+    topics = yt_paginate(
+        topics,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
 
     context = {
         'category': category,

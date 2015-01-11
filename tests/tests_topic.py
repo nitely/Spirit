@@ -344,6 +344,18 @@ class TopicViewTest(TestCase):
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic, topic2]))
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
+    @override_djconfig(topics_per_page=1)
+    def test_topic_active_view_paginate(self):
+        """
+        topics ordered by activity paginated
+        """
+        category = utils.create_category()
+        topic_a = utils.create_topic(category=category)
+        topic_b = utils.create_topic(category=category, user=self.user, view_count=10)
+
+        response = self.client.get(reverse('spirit:topic-active'))
+        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_b, ]))
+
 
 class TopicFormTest(TestCase):
 

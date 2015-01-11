@@ -191,15 +191,21 @@ def profile_topics(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.slug != slug:
-        return HttpResponsePermanentRedirect(reverse("spirit:profile-topics", kwargs={'pk': p_user.pk,
-                                                                                      'slug': p_user.slug}))
-    # TODO: paginate
+        url = reverse("spirit:profile-topics", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+        return HttpResponsePermanentRedirect(url)
+
     topics = Topic.objects\
         .visible()\
         .with_bookmarks(user=request.user)\
         .filter(user=p_user)\
         .order_by('-date', '-pk')\
         .select_related('user')
+
+    topics = yt_paginate(
+        topics,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
 
     context = {
         'p_user': p_user,

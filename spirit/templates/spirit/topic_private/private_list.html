@@ -1,6 +1,6 @@
 {% extends "spirit/_base.html" %}
 
-{% load i18n %}
+{% load spirit_tags i18n %}
 
 {% block title %}{% trans "Private topics" %}{% endblock %}
 
@@ -8,6 +8,8 @@
 
     {% include "spirit/topic_private/_top_bar.html" with active="participating" %}
 
-    {% include "spirit/topic/_render_page_list.html" %}
+    {% include "spirit/topic/_render_list.html" %}
+
+    {% render_paginator page=topics %}
 
 {% endblock %}

@@ -8,7 +8,7 @@ from django.http import HttpResponsePermanentRedirect
 
 from djconfig import config
 
-from ..utils.paginator import paginate
+from ..utils.paginator import paginate, yt_paginate
 from ..utils.ratelimit.decorators import ratelimit
 from ..models.category import Category
 from ..models.comment import MOVED
@@ -124,12 +124,17 @@ def topic_active_list(request):
         .visible()\
         .parents()
 
-    # TODO: paginate
     topics = Topic.objects\
         .visible()\
         .with_bookmarks(user=request.user)\
         .order_by('-is_globally_pinned', '-last_active')\
         .select_related('category')
+
+    topics = yt_paginate(
+        topics,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
 
     context = {
         'categories': categories,

@@ -260,6 +260,18 @@ class TopicPrivateViewTest(TestCase):
         self.assertQuerysetEqual(response.context['topics'], [repr(private.topic), ])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
+    @override_djconfig(topics_per_page=1)
+    def test_private_list(self):
+        """
+        private topic list paginated
+        """
+        utils.create_private_topic(user=self.user)
+        private = utils.create_private_topic(user=self.user)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:private-list'))
+        self.assertQuerysetEqual(response.context['topics'], [repr(private.topic), ])
+
     def test_private_join(self):
         """
         private topic join
@@ -361,6 +373,20 @@ class TopicPrivateViewTest(TestCase):
         response = self.client.get(reverse('spirit:private-created-list'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [private_b.topic, private_c.topic,
                                                                         private_a.topic]))
+
+    @override_djconfig(topics_per_page=1)
+    def test_private_created_list_paginate(self):
+        """
+        private topic created list paginated
+        """
+        private = utils.create_private_topic(user=self.user)
+        private.delete()
+        private2 = utils.create_private_topic(user=self.user)
+        private2.delete()
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:private-created-list'))
+        self.assertQuerysetEqual(response.context['topics'], map(repr, [private2.topic, ]))
 
 
 class TopicPrivateFormTest(TestCase):

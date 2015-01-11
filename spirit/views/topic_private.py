@@ -14,7 +14,7 @@ from django.conf import settings
 from djconfig import config
 
 from .. import utils
-from ..utils.paginator import paginate
+from ..utils.paginator import paginate, yt_paginate
 from ..utils.ratelimit.decorators import ratelimit
 from ..forms.comment import CommentForm
 from ..signals.comment import comment_posted
@@ -162,11 +162,18 @@ def private_join(request, topic_id):
 
 @login_required
 def private_list(request):
-    # TODO: paginate
     topics = Topic.objects\
         .with_bookmarks(user=request.user)\
         .filter(topics_private__user=request.user)
+
+    topics = yt_paginate(
+        topics,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
     context = {'topics': topics, }
+
     return render(request, 'spirit/topic_private/private_list.html', context)
 
 
@@ -174,9 +181,16 @@ def private_list(request):
 def private_created_list(request):
     # Show created topics but exclude those the user is participating on
     # TODO: show all, show join link in those the user is not participating
+    # TODO: move to manager
     topics = Topic.objects\
         .filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)\
         .exclude(topics_private__user=request.user)
+
+    topics = yt_paginate(
+        topics,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
 
     context = {'topics': topics, }
 

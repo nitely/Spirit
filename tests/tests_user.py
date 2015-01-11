@@ -148,6 +148,19 @@ class UserViewTest(TestCase):
         self.assertQuerysetEqual(response.context['topics'], [repr(self.topic), ])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
+    @override_djconfig(topics_per_page=1)
+    def test_profile_topics_paginate(self):
+        """
+        profile user's topics paginated
+        """
+        topic = utils.create_topic(self.category, user=self.user2)
+
+        utils.login(self)
+        response = self.client.get(reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
+                                                                            'slug': self.user2.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])
+
     def test_profile_topics_dont_show_removed_or_private(self):
         """
         dont show private topics or removed

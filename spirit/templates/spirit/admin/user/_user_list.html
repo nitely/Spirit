@@ -1,12 +1,10 @@
 {% load spirit_tags i18n %}
 
-{% yt_paginator_autopaginate users as page %}
-
 {% include "spirit/admin/user/_tabs.html" with active_tab=active_tab %}
 
 <div class="rows">
 
-    {% for u in page %}
+    {% for u in users %}
         <div class="row">
             <a href="{{ u.get_absolute_url }}">{{ u.username }}</a> <a class="row-edit" href="{% url "spirit:admin-user-edit" user_id=u.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
         </div>
@@ -14,4 +12,4 @@
 
 </div>
 
-{% render_paginator page %}
+{% render_paginator page=users %}
