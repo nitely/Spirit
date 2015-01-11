@@ -38,7 +38,7 @@
 
         {# this can be *included* here and in topic_detail #}
         <div class="container">
-            {% render_paginator page=comments %}
+            {% render_paginator comments %}
 
             <div class="notify">
                 {% render_notification_form user=user topic=topic %}

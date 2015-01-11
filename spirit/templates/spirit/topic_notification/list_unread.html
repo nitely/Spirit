@@ -10,7 +10,7 @@
 
     <div class="rows">
         {% if page %}
-            {% include "spirit/topic_notification/_render_list.html" %}
+            {% include "spirit/topic_notification/_render_list.html" with notifications=page %}
         {% else %}
             <p>{% trans "There are no new notifications" %}.</p>
         {% endif %}

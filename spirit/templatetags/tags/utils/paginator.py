@@ -39,18 +39,3 @@ def render_paginator(context, page, page_var='page', hashtag=''):
         template = "spirit/paginator/_yt_paginator.html"
 
     return render_to_string(template, new_context)
-
-
-@register.assignment_tag(takes_context=True)
-def yt_paginator_autopaginate(context, object_list, per_page=15, page_var='page', page_number=None):
-    # TODO: remove
-    page_number = page_number or context["request"].GET.get(page_var, 1)
-    return yt_paginate(object_list, per_page=per_page, page_number=page_number)
-
-
-@register.assignment_tag(takes_context=True)
-def paginator_autopaginate(context, object_list, per_page=15, page_var='page', page_number=None):
-    # TODO: remove
-    page_number = page_number or context["request"].GET.get(page_var, 1)
-    return paginate(object_list, per_page=per_page, page_number=page_number)
-

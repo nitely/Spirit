@@ -12,6 +12,8 @@ from django.core.cache import cache
 from django.template import Template, Context
 from django.utils import timezone
 
+from djconfig.utils import override_djconfig
+
 from . import utils
 from spirit.models.topic_private import TopicPrivate
 
@@ -53,6 +55,21 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic-notification-list'))
         self.assertQuerysetEqual(response.context['notifications'], map(repr, [self.topic_notification, ]))
+
+    @override_djconfig(topics_per_page=1)
+    def test_topic_notification_list_paginate(self):
+        """
+        topic notification list paginated
+        """
+        topic2 = utils.create_topic(self.category)
+        comment2 = utils.create_comment(topic=topic2)
+        topic_notification2 = TopicNotification.objects.create(user=self.user, topic=topic2,
+                                                               comment=comment2, is_active=True,
+                                                               action=COMMENT)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:topic-notification-list'))
+        self.assertQuerysetEqual(response.context['notifications'], map(repr, [topic_notification2, ]))
 
     def test_topic_notification_list_show_private_topic(self):
         """

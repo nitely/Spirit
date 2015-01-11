@@ -11,12 +11,15 @@ from django.http import Http404, HttpResponse
 from django.conf import settings
 from django.contrib import messages
 
-from spirit import utils
-from spirit.models.topic import Topic
-from spirit.utils.paginator.infinite_paginator import paginate
+from djconfig import config
 
-from spirit.models.topic_notification import TopicNotification
-from spirit.forms.topic_notification import NotificationForm, NotificationCreationForm
+from .. import utils
+from ..models.topic import Topic
+from ..utils.paginator import yt_paginate
+from ..utils.paginator.infinite_paginator import paginate
+
+from ..models.topic_notification import TopicNotification
+from ..forms.topic_notification import NotificationForm, NotificationCreationForm
 
 
 @require_POST
@@ -91,6 +94,12 @@ def notification_list_unread(request):
 
 @login_required
 def notification_list(request):
-    notifications = TopicNotification.objects.for_access(request.user)
+    notifications = yt_paginate(
+        TopicNotification.objects.for_access(request.user),
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
     context = {'notifications': notifications, }
+
     return render(request, 'spirit/topic_notification/list.html', context)

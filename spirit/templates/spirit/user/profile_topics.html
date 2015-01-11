@@ -1,6 +1,6 @@
 {% extends "spirit/_base.html" %}
 
-{% load i18n %}
+{% load spirit_tags i18n %}
 
 {% block title %}{{ p_user.username }} {% trans "topics" %}{% endblock %}
 
@@ -8,7 +8,8 @@
 
     {% include "spirit/user/_profile.html" with active_tab=1 %}
 
-    {# Topics #}
-    {% include "spirit/topic/_render_page_list.html" %}
+    {% include "spirit/topic/_render_list.html" %}
+
+    {% render_paginator topics %}
 
 {% endblock %}

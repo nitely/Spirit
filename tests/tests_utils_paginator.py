@@ -14,9 +14,8 @@ from . import utils
 from spirit.models.comment import Comment
 from spirit.utils.paginator.yt_paginator import YTPaginator, InvalidPage, YTPage
 from spirit.utils import paginator
-from spirit.utils.paginator import infinite_paginator
-from spirit.templatetags.tags.utils.paginator import yt_paginator_autopaginate, paginator_autopaginate,\
-    render_paginator
+from spirit.utils.paginator import infinite_paginator, paginate, yt_paginate
+from spirit.templatetags.tags.utils.paginator import render_paginator
 from spirit.templatetags.tags.utils import paginator as ttag_paginator
 
 
@@ -172,58 +171,24 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
     def setUp(self):
         cache.clear()
 
-    def tests_yt_paginator_autopaginate_tag(self):
-        """
-        Minimal test to check it works
-        """
-        req = RequestFactory().get('/')
-        out = Template(
-            "{% load spirit_tags %}"
-            "{% yt_paginator_autopaginate items per_page=5 as page %}"
-            "{% for p in page %}"
-            "{{ p }}"
-            "{% endfor %}"
-        ).render(Context({'request': req, 'items': list(range(0, 20)), }))
-        self.assertEqual(out, "01234")
-
-    def tests_yt_paginator_autopaginate(self):
+    def tests_yt_paginate(self):
         # first page
-        req = RequestFactory().get('/')
-        context = {'request': req, }
         items = list(range(0, 20))
-        page = yt_paginator_autopaginate(context, items, per_page=10, page_var="val")
+        page = yt_paginate(items, per_page=10)
         self.assertIsInstance(page, YTPage)
         self.assertEqual(list(page), items[:10])
 
         # second page
-        req = RequestFactory().get('/?val=2')
-        context = {'request': req, }
-        page = yt_paginator_autopaginate(context, items, per_page=10, page_var="val")
+        page = yt_paginate(items, per_page=10, page_number=2)
         self.assertEqual(list(page), items[10:20])
 
         # invalid page
-        req = RequestFactory().get('/?val=3')
-        context = {'request': req, }
-        self.assertRaises(Http404, yt_paginator_autopaginate,
-                          context, items, per_page=10, page_var="val")
+        self.assertRaises(Http404, yt_paginate,
+                          items, per_page=10, page_number=99)
 
         # empty first page
-        req = RequestFactory().get('/')
-        context = {'request': req, }
-        page = yt_paginator_autopaginate(context, [], per_page=10, page_var="val")
+        page = yt_paginate([], per_page=10)
         self.assertListEqual(list(page), [])
-
-    def tests_render_yt_paginator_tag(self):
-        """
-        Minimal test to check it works
-        """
-        req = RequestFactory().get('/')
-        items = list(range(0, 20))
-        page = YTPaginator(items, per_page=10).page(1)
-        Template(
-            "{% load spirit_tags %}"
-            "{% render_paginator page %}"
-        ).render(Context({'request': req, 'page': page, }))
 
     def tests_render_yt_paginator(self):
         def mock_render(template, context):
@@ -271,45 +236,23 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
     def setUp(self):
         cache.clear()
 
-    def tests_paginator_autopaginate_tag(self):
-        """
-        Minimal test to check it works
-        """
-        req = RequestFactory().get('/')
-        out = Template(
-            "{% load spirit_tags %}"
-            "{% paginator_autopaginate items per_page=5 as page %}"
-            "{% for p in page %}"
-            "{{ p }}"
-            "{% endfor %}"
-        ).render(Context({'request': req, 'items': list(range(0, 20)), }))
-        self.assertEqual(out, "01234")
-
-    def tests_paginator_autopaginate(self):
+    def tests_paginate(self):
         # first page
-        req = RequestFactory().get('/')
-        context = {'request': req, }
         items = list(range(0, 20))
-        page = paginator_autopaginate(context, items, per_page=10, page_var="val")
+        page = paginate(items, per_page=10)
         self.assertIsInstance(page, Page)
         self.assertEqual(list(page), items[:10])
 
         # second page
-        req = RequestFactory().get('/?val=2')
-        context = {'request': req, }
-        page = paginator_autopaginate(context, items, per_page=10, page_var="val")
+        page = paginate(items, per_page=10, page_number=2)
         self.assertEqual(list(page), items[10:20])
 
         # invalid page
-        req = RequestFactory().get('/?val=3')
-        context = {'request': req, }
-        self.assertRaises(Http404, paginator_autopaginate,
-                          context, items, per_page=10, page_var="val")
+        self.assertRaises(Http404, paginate,
+                          items, per_page=10, page_number=99)
 
         # empty first page
-        req = RequestFactory().get('/')
-        context = {'request': req, }
-        page = paginator_autopaginate(context, [], per_page=10, page_var="val")
+        page = paginate([], per_page=10)
         self.assertListEqual(list(page), [])
 
     def tests_render_paginator_tag(self):
