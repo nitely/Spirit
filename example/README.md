@@ -12,6 +12,7 @@ Spirit example application in this directory:
     $ cd example
     $ python manage.py migrate
 	$ python manage.py createcachetable spirit_cache
+    $ export SECRET_KEY="My dev box"
     $ python manage.py runserver
 
 > **Note:**

@@ -292,6 +292,10 @@ class TopicNotificationFormTest(TestCase):
         """
         create notification
         """
+        # Should be ready to suscribe (true)
+        form = NotificationCreationForm()
+        self.assertEqual(form.fields['is_active'].initial, True)
+
         category = utils.create_category()
         topic = utils.create_topic(category)
         form_data = {'is_active': True, }
