@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.db import IntegrityError
 from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.signals.topic import topic_viewed
@@ -48,12 +47,10 @@ def topic_page_viewed_handler(sender, request, topic, **kwargs):
 
     comment_number = settings.ST_COMMENTS_PER_PAGE * (page_number - 1) + 1
 
-    # TODO: use update_or_create on django 1.7
-    try:
-        CommentBookmark.objects.create(user=request.user, topic=topic, comment_number=comment_number)
-    except IntegrityError:
-        CommentBookmark.objects.filter(user=request.user, topic=topic)\
-            .update(comment_number=comment_number)
+    CommentBookmark.objects.update_or_create(
+        user=request.user, topic=topic,
+        defaults={'comment_number': comment_number}
+    )
 
 
 topic_viewed.connect(topic_page_viewed_handler, dispatch_uid=__name__)

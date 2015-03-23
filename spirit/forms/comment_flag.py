@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.db import IntegrityError
 from django.utils import timezone
 
 from spirit.models.comment_flag import Flag, CommentFlag
@@ -38,11 +37,9 @@ class FlagForm(forms.ModelForm):
             self.instance.user = self.user
             self.instance.comment = self.comment
 
-            # TODO: use update_or_create on django 1.7
-            try:
-                CommentFlag.objects.create(comment=self.comment)
-            except IntegrityError:
-                CommentFlag.objects.filter(comment=self.comment)\
-                    .update(date=timezone.now())
+            CommentFlag.objects.update_or_create(
+                comment=self.comment,
+                defaults={'date': timezone.now()}
+            )
 
         return super(FlagForm, self).save(commit)

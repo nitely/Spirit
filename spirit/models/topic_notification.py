@@ -112,12 +112,14 @@ def topic_private_post_create_handler(sender, topics_private, comment, **kwargs)
 def topic_private_access_pre_create_handler(sender, topic, user, **kwargs):
     # TODO: use update_or_create on django 1.7
     # change to post create
-    try:
-        TopicNotification.objects.create(user=user, topic=topic,
-                                         comment=topic.comment_set.last(), action=COMMENT,
-                                         is_active=True)
-    except IntegrityError:
-        pass
+    TopicNotification.objects.update_or_create(
+        user=user, topic=topic,
+        defaults={
+            'comment': topic.comment_set.last(),
+            'action': COMMENT,
+            'is_active': True,
+        }
+    )
 
 
 def topic_viewed_handler(sender, request, topic, **kwargs):
