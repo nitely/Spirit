@@ -6,7 +6,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils import timezone
-from django.db import IntegrityError
 from django.utils.encoding import python_2_unicode_compatible
 
 from spirit.signals.comment import comment_posted
@@ -43,12 +42,10 @@ def topic_page_viewed_handler(sender, request, topic, **kwargs):
     if not request.user.is_authenticated():
         return
 
-    # TODO: use update_or_create on django 1.7
-    try:
-        TopicUnread.objects.create(user=request.user, topic=topic)
-    except IntegrityError:
-        TopicUnread.objects.filter(user=request.user, topic=topic)\
-            .update(is_read=True)
+    TopicUnread.objects.update_or_create(
+        user=request.user, topic=topic,
+        defaults={'is_read': True}
+    )
 
 
 def comment_posted_handler(sender, comment, **kwargs):
