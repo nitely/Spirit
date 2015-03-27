@@ -463,21 +463,20 @@ class UtilsUserTests(TestCase):
         """
         Validate if user can be activated
         """
-        self.user.last_login = self.user.last_login - datetime.timedelta(hours=1)
+        self.user.is_verified = False
 
         activation_token = UserActivationTokenGenerator()
         token = activation_token.generate(self.user)
         self.assertTrue(activation_token.is_valid(self.user, token))
         self.assertFalse(activation_token.is_valid(self.user, "bad token"))
 
+        # Invalid after verification
+        self.user.is_verified = True
+        self.assertFalse(activation_token.is_valid(self.user, token))
+
         # Invalid for different user
         user2 = test_utils.create_user()
         self.assertFalse(activation_token.is_valid(user2, token))
-
-        # Invalid after login
-        test_utils.login(self)
-        user = test_utils.User.objects.get(pk=self.user.pk)
-        self.assertFalse(activation_token.is_valid(user, token))
 
     def test_user_email_change_token_generator(self):
         """

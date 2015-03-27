@@ -30,6 +30,7 @@ User = get_user_model()
 
 
 @ratelimit(field='username', rate='5/5m')
+# TODO: @guest_only
 def custom_login(request, **kwargs):
     # Current Django 1.5 login view does not redirect somewhere if the user is logged in
     if request.user.is_authenticated():
@@ -41,6 +42,7 @@ def custom_login(request, **kwargs):
     return login_view(request, authentication_form=LoginForm, **kwargs)
 
 
+# TODO: @login_required ?
 def custom_logout(request, **kwargs):
     # Current Django 1.6 uses GET to log out
     if not request.user.is_authenticated():
@@ -61,6 +63,7 @@ def custom_reset_password(request, **kwargs):
 
 
 @ratelimit(rate='2/10s')
+# TODO: @guest_only
 def register(request):
     if request.user.is_authenticated():
         return redirect(request.GET.get('next', reverse('spirit:profile-update')))
@@ -92,6 +95,7 @@ def registration_activation(request, pk, token):
     activation = UserActivationTokenGenerator()
 
     if activation.is_valid(user, token):
+        user.is_verified = True
         user.is_active = True
         user.save()
         messages.info(request, _("Your account has been activated!"))
@@ -100,6 +104,7 @@ def registration_activation(request, pk, token):
 
 
 @ratelimit(field='email', rate='5/5m')
+# TODO: @guest_only
 def resend_activation_email(request):
     if request.user.is_authenticated():
         return redirect(request.GET.get('next', reverse('spirit:profile-update')))
@@ -111,6 +116,7 @@ def resend_activation_email(request):
             user = form.get_user()
             send_activation_email(request, user)
 
+        # TODO: show if is_valid only
         messages.info(request, _("If you don't receive an email, please make sure you've entered "
                                  "the address you registered with, and check your spam folder."))
         return redirect(reverse('spirit:user-login'))

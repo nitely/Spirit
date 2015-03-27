@@ -2,8 +2,6 @@
 
 from __future__ import unicode_literals
 
-from django.db import IntegrityError
-
 from djconfig import config
 
 from ...models.comment_bookmark import CommentBookmark
@@ -21,11 +19,8 @@ def topic_page_viewed_handler(sender, request, topic, **kwargs):
 
     comment_number = config.comments_per_page * (page_number - 1) + 1
 
-    try:
-        CommentBookmark.objects.update_or_create(user=request.user, topic=topic,
-                                                 defaults={'comment_number': comment_number, })
-    except IntegrityError:
-        pass
+    CommentBookmark.objects.update_or_create(user=request.user, topic=topic,
+                                             defaults={'comment_number': comment_number, })
 
 
 topic_viewed.connect(topic_page_viewed_handler, dispatch_uid=__name__)

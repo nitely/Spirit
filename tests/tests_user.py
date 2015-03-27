@@ -449,6 +449,7 @@ class UserViewTest(TestCase):
         """
         registration activation
         """
+        self.user.is_verified = False
         self.user.is_active = False
         self.user.save()
         token = UserActivationTokenGenerator().generate(self.user)
@@ -460,14 +461,14 @@ class UserViewTest(TestCase):
 
     def test_registration_activation_invalid(self):
         """
-        Activation token should expire after first login
+        Activation token should not work if user is verified
         ActiveUserMiddleware required
         """
-        self.user.last_login = self.user.last_login - datetime.timedelta(hours=1)
+        self.user.is_verified = False
         token = UserActivationTokenGenerator().generate(self.user)
 
         utils.login(self)
-        User.objects.filter(pk=self.user.pk).update(is_active=False)
+        User.objects.filter(pk=self.user.pk).update(is_active=False, is_verified=True)
         response = self.client.get(reverse('spirit:registration-activation', kwargs={'pk': self.user.pk,
                                                                                      'token': token}))
         expected_url = reverse("spirit:user-login")
@@ -540,9 +541,9 @@ class UserViewTest(TestCase):
 
     def test_resend_activation_email_invalid_previously_logged_in(self):
         """
-        resend_activation_email invalid if last_ip was set
+        resend_activation_email invalid if is_verified was set
         """
-        user = utils.create_user(password="foo", last_ip="1.1.1.1")
+        user = utils.create_user(password="foo", is_verified=True)
 
         form_data = {'email': user.email,
                      'password': "foo"}
