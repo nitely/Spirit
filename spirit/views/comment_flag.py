@@ -23,4 +23,9 @@ def flag_create(request, comment_id):
     else:
         form = FlagForm()
 
-    return render(request, 'spirit/comment_flag/flag_create.html', {'form': form, 'comment': comment})
+    context = {
+        'form': form,
+        'comment': comment
+    }
+
+    return render(request, 'spirit/comment_flag/flag_create.html', context)

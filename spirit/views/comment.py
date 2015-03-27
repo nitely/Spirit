@@ -9,21 +9,23 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import Http404
 
-from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.models.topic import Topic
-from spirit.utils import paginator, markdown
-from spirit.utils.decorators import moderator_required
-from spirit.utils import json_response, render_form_errors
+from djconfig import config
 
-from spirit.models.comment import Comment
-from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
-from spirit.signals.comment import comment_posted, comment_pre_update, comment_post_update, comment_moved
+from ..utils.ratelimit.decorators import ratelimit
+from ..models.topic import Topic
+from ..utils import paginator, markdown
+from ..utils.decorators import moderator_required
+from ..utils import json_response, render_form_errors
+
+from ..models.comment import Comment
+from ..forms.comment import CommentForm, CommentMoveForm, CommentImageForm
+from ..signals.comment import comment_posted, comment_pre_update, comment_post_update, comment_moved
 
 
 @login_required
 @ratelimit(rate='1/10s')
 def comment_publish(request, topic_id, pk=None):
-    topic = get_object_or_404(Topic.objects.for_access_open(request.user),
+    topic = get_object_or_404(Topic.objects.opened().for_access(request.user),
                               pk=topic_id)
 
     if request.method == 'POST':
@@ -37,13 +39,18 @@ def comment_publish(request, topic_id, pk=None):
         initial = None
 
         if pk:
-            comment = get_object_or_404(Comment.objects.for_all(), pk=pk)
+            comment = get_object_or_404(Comment.objects.for_access(user=request.user), pk=pk)
             quote = markdown.quotify(comment.comment, comment.user.username)
             initial = {'comment': quote, }
 
         form = CommentForm(initial=initial)
 
-    return render(request, 'spirit/comment/comment_publish.html', {'form': form, 'topic': topic})
+    context = {
+        'form': form,
+        'topic': topic
+    }
+
+    return render(request, 'spirit/comment/comment_publish.html', context)
 
 
 @login_required
@@ -61,7 +68,9 @@ def comment_update(request, pk):
     else:
         form = CommentForm(instance=comment)
 
-    return render(request, 'spirit/comment/comment_update.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/comment/comment_update.html', context)
 
 
 @moderator_required
@@ -74,7 +83,9 @@ def comment_delete(request, pk, remove=True):
 
         return redirect(comment.get_absolute_url())
 
-    return render(request, 'spirit/comment/comment_moderate.html', {'comment': comment, })
+    context = {'comment': comment, }
+
+    return render(request, 'spirit/comment/comment_moderate.html', context)
 
 
 @require_POST
@@ -101,8 +112,8 @@ def comment_find(request, pk):
     comment_number = Comment.objects.filter(topic=comment.topic, date__lte=comment.date).count()
     url = paginator.get_url(comment.topic.get_absolute_url(),
                             comment_number,
-                            settings.ST_COMMENTS_PER_PAGE,
-                            settings.ST_COMMENTS_PAGE_VAR)
+                            config.comments_per_page,
+                            'page')
     return redirect(url)
 
 

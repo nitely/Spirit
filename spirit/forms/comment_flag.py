@@ -38,11 +38,10 @@ class FlagForm(forms.ModelForm):
             self.instance.user = self.user
             self.instance.comment = self.comment
 
-            # TODO: use update_or_create on django 1.7
             try:
-                CommentFlag.objects.create(comment=self.comment)
+                CommentFlag.objects.update_or_create(comment=self.comment,
+                                                     defaults={'date': timezone.now(), })
             except IntegrityError:
-                CommentFlag.objects.filter(comment=self.comment)\
-                    .update(date=timezone.now())
+                pass
 
         return super(FlagForm, self).save(commit)

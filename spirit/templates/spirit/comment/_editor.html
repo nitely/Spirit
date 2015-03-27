@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static from staticfiles %}
 
 <div class="comment-text js-box-preview-content" style="display:none;"></div>
 <ul class="reply-markdown">
@@ -13,6 +14,8 @@
 <script>
     $( document ).ready(function() {
 
+        var emojisPath = "{% static "spirit/emojis/emoji.png" %}".replace("emoji.png", "${name}.png");
+
         marked.setOptions( {
             renderer: new marked.Renderer(),
             gfm: true,
@@ -23,7 +26,6 @@
             smartLists: false,
             smartypants: false
         } );
-
 
         $( '.js-reply' ).find( 'textarea' ).editor_image_upload( {
 			csrfToken: "{{ csrf_token }}",
@@ -41,7 +43,7 @@
 		} )
         .atwho({
 			at: ':',
-			tpl: "<li data-value=':${name}:'><img src='{{ STATIC_URL }}spirit/emojis/${name}.png' height='20' width='20'/> ${name} </li>",
+			tpl: "<li data-value=':${name}:'><img src='" + emojisPath + "' height='20' width='20'/> ${name} </li>",
 			data: $.emoji_list()
 		});
 

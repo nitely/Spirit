@@ -17,7 +17,6 @@ from spirit.utils.models import AutoSlugField
 
 
 class AbstractForumUser(models.Model):
-
     slug = AutoSlugField(populate_from="username", db_index=False, blank=True)
     location = models.CharField(_("location"), max_length=75, blank=True)
     last_seen = models.DateTimeField(_("last seen"), auto_now=True)
@@ -25,7 +24,10 @@ class AbstractForumUser(models.Model):
     timezone = models.CharField(_("time zone"), max_length=32, choices=TIMEZONE_CHOICES, default='UTC')
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)
-    # is_verified = models.BooleanField(_('verified'), default=False)
+    is_verified = models.BooleanField(_('verified'), default=False,
+                                      help_text=_('Designates whether the user has verified his '
+                                                  'account by email or by other means. Un-select this '
+                                                  'to let the user activate his account.'))
 
     topic_count = models.PositiveIntegerField(_("topic count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
@@ -92,6 +94,6 @@ class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
         app_label = 'spirit'
-        ordering = ['-date_joined', ]
+        ordering = ['-date_joined', '-pk']
         verbose_name = _('user')
         verbose_name_plural = _('users')

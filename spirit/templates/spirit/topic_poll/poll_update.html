@@ -11,11 +11,7 @@
     <form action="." method="post">
         {% csrf_token %}
         {% include "spirit/_form.html" %}
-
-        {{ formset.management_form }}
-        {% for f in formset %}
-            {% include "spirit/_form.html" with form=f %}
-        {% endfor %}
+        {% include "spirit/_formset.html" %}
 
         <input class="button" type="submit" name="post" value="{% trans "Publish" %}" />
     </form>

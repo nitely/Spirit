@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.managers.category import CategoryManager
+from spirit.managers.category import CategoryQuerySet
 from spirit.utils.models import AutoSlugField
 
 
@@ -26,18 +26,24 @@ class Category(models.Model):
 
     # topic_count = models.PositiveIntegerField(_("topic count"), default=0)
 
-    objects = CategoryManager()
+    objects = CategoryQuerySet.as_manager()
 
     class Meta:
-        ordering = ['title', ]
+        ordering = ['title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
+
+    def __str__(self):
+        if self.parent:
+            return "%s, %s" % (self.parent.title, self.title)
+        else:
+            return self.title
 
     def get_absolute_url(self):
         if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
             return reverse('spirit:private-list')
-
-        return reverse('spirit:category-detail', kwargs={'pk': str(self.id), 'slug': self.slug})
+        else:
+            return reverse('spirit:category-detail', kwargs={'pk': str(self.id), 'slug': self.slug})
 
     @property
     def is_subcategory(self):
@@ -45,12 +51,6 @@ class Category(models.Model):
             return True
         else:
             return False
-
-    def __str__(self):
-        if self.parent:
-            return "%s, %s" % (self.parent.title, self.title)
-        else:
-            return self.title
 
 
 # def topic_posted_handler(sender, topic, **kwargs):

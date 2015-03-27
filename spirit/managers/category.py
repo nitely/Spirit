@@ -2,31 +2,31 @@
 
 from __future__ import unicode_literals
 
-from django.db.models import Manager
+from django.db import models
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 
 
-class CategoryManager(Manager):
+class CategoryQuerySet(models.QuerySet):
 
-    def for_public(self):
+    def unremoved(self):
         return self.filter(Q(parent=None) | Q(parent__is_removed=False),
-                           is_removed=False,
-                           is_private=False)
+                           is_removed=False)
 
-    def for_public_open(self):
-        return self.for_public()\
-            .filter(Q(parent=None) | Q(parent__is_closed=False),
-                    is_closed=False)
+    def public(self):
+        return self.filter(is_private=False)
 
-    def for_parent(self, parent=None):
-        if parent and parent.is_subcategory:
+    def visible(self):
+        return self.unremoved().public()
+
+    def opened(self):
+        return self.filter(Q(parent=None) | Q(parent__is_closed=False),
+                           is_closed=False)
+
+    def parents(self):
+        return self.filter(parent=None)
+
+    def children(self, parent):
+        if parent.is_subcategory:
             return self.none()
-        else:
-            return self.filter(parent=parent,
-                               is_removed=False,
-                               is_private=False)
 
-    def get_public_or_404(self, pk):
-        return get_object_or_404(self.for_public(),
-                                 pk=pk)
+        return self.filter(parent=parent)

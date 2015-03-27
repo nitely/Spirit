@@ -8,12 +8,10 @@
 
     <h1 class="headline">{% trans "Notifications" %}</h1>
 
-    {% yt_paginator_autopaginate notifications as page %}
-
     <div class="rows">
         {% include "spirit/topic_notification/_render_list.html" %}
     </div>
 
-    {% render_yt_paginator page %}
+    {% render_paginator notifications %}
 
 {% endblock %}

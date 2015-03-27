@@ -11,12 +11,15 @@ from django.http import Http404, HttpResponse
 from django.conf import settings
 from django.contrib import messages
 
-from spirit import utils
-from spirit.models.topic import Topic
-from spirit.utils.paginator.infinite_paginator import paginate
+from djconfig import config
 
-from spirit.models.topic_notification import TopicNotification
-from spirit.forms.topic_notification import NotificationForm, NotificationCreationForm
+from .. import utils
+from ..models.topic import Topic
+from ..utils.paginator import yt_paginate
+from ..utils.paginator.infinite_paginator import paginate
+
+from ..models.topic_notification import TopicNotification
+from ..forms.topic_notification import NotificationForm, NotificationCreationForm
 
 
 @require_POST
@@ -28,10 +31,10 @@ def notification_create(request, topic_id):
 
     if form.is_valid():
         form.save()
-        return redirect(request.POST.get('next', topic.get_absolute_url()))
     else:
         messages.error(request, utils.render_form_errors(form))
-        return redirect(request.POST.get('next', topic.get_absolute_url()))
+
+    return redirect(request.POST.get('next', topic.get_absolute_url()))
 
 
 @require_POST
@@ -42,10 +45,10 @@ def notification_update(request, pk):
 
     if form.is_valid():
         form.save()
-        return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
     else:
         messages.error(request, utils.render_form_errors(form))
-        return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
+
+    return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
 
 
 @login_required
@@ -53,9 +56,12 @@ def notification_ajax(request):
     if not request.is_ajax():
         return Http404()
 
-    notifications = TopicNotification.objects.for_access(request.user)\
+    notifications = TopicNotification.objects\
+        .for_access(request.user)\
         .order_by("is_read", "-date")\
-        .select_related('comment__user', 'comment__topic')[:settings.ST_NOTIFICATIONS_PER_PAGE]
+        .select_related('comment__user', 'comment__topic')
+
+    notifications = notifications[:settings.ST_NOTIFICATIONS_PER_PAGE]
 
     notifications = [{'user': n.comment.user.username, 'action': n.action,
                       'title': n.comment.topic.title, 'url': n.get_absolute_url(),
@@ -67,7 +73,8 @@ def notification_ajax(request):
 
 @login_required
 def notification_list_unread(request):
-    notifications = TopicNotification.objects.for_access(request.user)\
+    notifications = TopicNotification.objects\
+        .for_access(request.user)\
         .filter(is_read=False)
 
     page = paginate(request, query_set=notifications, lookup_field="date",
@@ -77,11 +84,22 @@ def notification_list_unread(request):
     if page:
         next_page_pk = page[-1].pk
 
-    return render(request, 'spirit/topic_notification/list_unread.html', {'page': page,
-                                                                          'next_page_pk': next_page_pk})
+    context = {
+        'page': page,
+        'next_page_pk': next_page_pk
+    }
+
+    return render(request, 'spirit/topic_notification/list_unread.html', context)
 
 
 @login_required
 def notification_list(request):
-    notifications = TopicNotification.objects.for_access(request.user)
-    return render(request, 'spirit/topic_notification/list.html', {'notifications': notifications, })
+    notifications = yt_paginate(
+        TopicNotification.objects.for_access(request.user),
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
+    context = {'notifications': notifications, }
+
+    return render(request, 'spirit/topic_notification/list.html', context)

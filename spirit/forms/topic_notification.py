@@ -10,7 +10,7 @@ from spirit.models.topic_notification import TopicNotification
 
 class NotificationForm(forms.ModelForm):
 
-    is_active = forms.BooleanField(widget=forms.HiddenInput(), required=False)
+    is_active = forms.BooleanField(widget=forms.HiddenInput(), initial=True, required=False)
 
     class Meta:
         model = TopicNotification

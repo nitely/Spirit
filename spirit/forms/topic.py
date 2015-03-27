@@ -20,8 +20,7 @@ class TopicForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(TopicForm, self).__init__(*args, **kwargs)
         self.user = user
-        # TODO: add custom Prefetch object to filter closed sub-categories, on Django 1.7
-        self.fields['category'] = NestedModelChoiceField(queryset=Category.objects.for_public_open(),
+        self.fields['category'] = NestedModelChoiceField(queryset=Category.objects.visible().opened(),
                                                          related_name='category_set',
                                                          parent_field='parent_id',
                                                          label_field='title',
@@ -30,15 +29,6 @@ class TopicForm(forms.ModelForm):
 
         if self.instance.pk and not user.is_moderator:
             del self.fields['category']
-
-    def clean_category(self):
-        # TODO: remove this on django 1.7
-        category = self.cleaned_data['category']
-
-        if category.is_closed or category.is_removed:
-            raise forms.ValidationError(_("The chosen category is closed"))
-
-        return category
 
     def save(self, commit=True):
         if not self.instance.pk:

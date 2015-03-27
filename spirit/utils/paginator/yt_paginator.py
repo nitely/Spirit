@@ -8,10 +8,6 @@ from django.conf import settings
 
 class YTPaginator(object):
     """
-    Paginator for efficiently paginating large object collections on systems
-    where using standard Django pagination is impractical because of significant
-    ``count(*)`` query overhead.
-
     It'll limit the page list to a given limit
     """
 
@@ -35,9 +31,6 @@ class YTPaginator(object):
     def page(self, number):
         """
         Returns a Page object for the given 1-based page number.
-
-        Retrieves objects for the given page number plus 1 additional to check
-        if there are more objects after this page.
         """
         number = self.validate_number(number)
         offset = (number - 1) * self.per_page
@@ -63,6 +56,9 @@ class YTPage(object):
 
     def __repr__(self):
         return '<Page %s>' % self.number
+
+    def __len__(self):
+        return len(self.object_list)
 
     def __getitem__(self, index):
         if not isinstance(self.object_list, list):

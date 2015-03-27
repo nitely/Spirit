@@ -21,7 +21,7 @@ setup(
     long_description=README,
     url='http://spirit-project.com/',
     packages=find_packages(exclude=['example', ]),
-    test_suite="run_tests.run_tests",
+    test_suite="runtests.start",
     include_package_data=True,
     zip_safe=False,
     install_requires=REQUIREMENTS,

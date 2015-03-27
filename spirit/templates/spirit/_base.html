@@ -1,4 +1,5 @@
 {% load spirit_tags i18n %}
+{% load static from staticfiles %}
 <!doctype html>
 <html>
   <head>
@@ -9,34 +10,34 @@
     <meta name="description" content="{{ config.site_description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/vendors/github.min.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/vendors/jquery.atwho.min.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}spirit/stylesheets/styles.css">
+	<link rel="stylesheet" href="{% static "spirit/stylesheets/vendors/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "spirit/stylesheets/vendors/github.min.css" %}">
+    <link rel="stylesheet" href="{% static "spirit/stylesheets/vendors/jquery.atwho.min.css" %}">
+    <link rel="stylesheet" href="{% static "spirit/stylesheets/styles.css" %}">
 
-    <script src="{{ STATIC_URL }}spirit/scripts/vendors/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/vendors/highlightjs/highlight.min.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/util.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/tab.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/postify.js"></script>
-    <script src="{{ STATIC_URL }}spirit/scripts/social_share.js"></script>
+    <script src="{% static "spirit/scripts/vendors/jquery.min.js" %}"></script>
+    <script src="{% static "spirit/scripts/vendors/highlightjs/highlight.min.js" %}"></script>
+    <script src="{% static "spirit/scripts/util.js" %}"></script>
+    <script src="{% static "spirit/scripts/tab.js" %}"></script>
+    <script src="{% static "spirit/scripts/postify.js" %}"></script>
+    <script src="{% static "spirit/scripts/social_share.js" %}"></script>
 
     {% if user.is_authenticated %}
-        <script src="{{ STATIC_URL }}spirit/scripts/vendors/atwho/jquery.caret.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/vendors/atwho/jquery.atwho.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/vendors/marked/marked.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/vendors/waypoints/waypoints.min.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/store.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/editor_image_upload.js"></script>
-	    <script src="{{ STATIC_URL }}spirit/scripts/editor.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/emoji_list.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/like.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/bookmark.js"></script>
-        <script src="{{ STATIC_URL }}spirit/scripts/notification.js"></script>
+        <script src="{% static "spirit/scripts/vendors/atwho/jquery.caret.min.js" %}"></script>
+        <script src="{% static "spirit/scripts/vendors/atwho/jquery.atwho.min.js" %}"></script>
+        <script src="{% static "spirit/scripts/vendors/marked/marked.min.js" %}"></script>
+        <script src="{% static "spirit/scripts/vendors/waypoints/waypoints.min.js" %}"></script>
+        <script src="{% static "spirit/scripts/store.js" %}"></script>
+        <script src="{% static "spirit/scripts/editor_image_upload.js" %}"></script>
+	    <script src="{% static "spirit/scripts/editor.js" %}"></script>
+        <script src="{% static "spirit/scripts/emoji_list.js" %}"></script>
+        <script src="{% static "spirit/scripts/like.js" %}"></script>
+        <script src="{% static "spirit/scripts/bookmark.js" %}"></script>
+        <script src="{% static "spirit/scripts/notification.js" %}"></script>
     {% endif %}
 
     {% if user.is_moderator %}
-        <script src="{{ STATIC_URL }}spirit/scripts/move_comments.js"></script>
+        <script src="{% static "spirit/scripts/move_comments.js" %}"></script>
     {% endif %}
 
     <script>

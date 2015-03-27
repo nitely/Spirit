@@ -1,6 +1,6 @@
 {% extends "spirit/_base.html" %}
 
-{% load i18n %}
+{% load spirit_tags i18n %}
 
 {% block title %}{% trans "Closed topics" %}{% endblock %}
 
@@ -12,6 +12,8 @@
     
     {% include "spirit/admin/topic/_tabs.html" with active_tab="closed" %}
     
-    {% include "spirit/topic/_render_page_list.html" %}
+    {% include "spirit/topic/_render_list.html" %}
+
+    {% render_paginator topics %}
 
 {% endblock %}

@@ -15,9 +15,10 @@ def topic_unread_list(request):
     # TODO: add button to clean up read topics? or read all?
     # redirect to first page if empty
 
-    topics = Topic.objects.for_access(request.user)\
-        .filter(topicunread__user=request.user,
-                topicunread__is_read=False)
+    topics = Topic.objects\
+        .for_access(user=request.user)\
+        .for_unread(user=request.user)\
+        .with_bookmarks(user=request.user)
 
     page = paginate(request, query_set=topics, lookup_field="last_active", page_var='topic_id')
     next_page_pk = None
@@ -25,5 +26,9 @@ def topic_unread_list(request):
     if page:
         next_page_pk = page[-1].pk
 
-    return render(request, 'spirit/topic_unread/list.html', {'page': page,
-                                                             'next_page_pk': next_page_pk})
+    context = {
+        'page': page,
+        'next_page_pk': next_page_pk
+    }
+
+    return render(request, 'spirit/topic_unread/list.html', context)

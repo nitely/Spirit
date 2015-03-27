@@ -6,9 +6,6 @@
 from __future__ import unicode_literals
 import os
 
-ST_COMMENTS_PER_PAGE = 20
-ST_COMMENTS_PAGE_VAR = 'page'
-
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
 ST_UNCATEGORIZED_CATEGORY_PK = 2
 
@@ -29,6 +26,8 @@ ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 ST_PRIVATE_FORUM = False
 
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
+
+ST_INITIAL_MIGRATION_DEPENDENCIES = []  # [('myuser', '0001_initial'), ]
 
 #
 # Django & Spirit settings defined below...
@@ -91,13 +90,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
 )
 
-# Keep templates in memory
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)
 
 #
 # Third-party apps settings defined below...
@@ -114,6 +106,7 @@ DJC_BACKEND = 'djconfig'
 CACHES.update({
     'djconfig': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-config',
     },
 })
 
