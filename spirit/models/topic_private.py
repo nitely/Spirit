@@ -7,7 +7,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.managers.topic_private import TopicPrivateManager
+from spirit.managers.topic_private import TopicPrivateQuerySet
 
 
 @python_2_unicode_compatible
@@ -18,16 +18,16 @@ class TopicPrivate(models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
 
-    objects = TopicPrivateManager()
+    objects = TopicPrivateQuerySet.as_manager()
 
     class Meta:
         unique_together = ('user', 'topic')
-        ordering = ['-date', ]
+        ordering = ['-date', '-pk']
         verbose_name = _("private topic")
         verbose_name_plural = _("private topics")
 
-    def get_absolute_url(self):
-        return self.topic.get_absolute_url()
-
     def __str__(self):
         return "%s participes in %s" % (self.user, self.topic)
+
+    def get_absolute_url(self):
+        return self.topic.get_absolute_url()

@@ -1,17 +1,13 @@
 {% load spirit_tags i18n %}
 
-{% if user.is_authenticated %}
-    {% populate_bookmarks topics=page user=user  %}
-{% endif %}
-
 {# topic list #}
         <div class="rows">
 
-        {% for t in page %}
+        {% for t in topics %}
 			<div class="row">
 
                 <div class="row-title">
-                    {% if t.is_pinned %}
+                    {% if t.is_pinned or t.is_globally_pinned %}
                         <i class="fa fa-thumb-tack"></i>
                     {% endif %}
                     {% if t.is_closed %}

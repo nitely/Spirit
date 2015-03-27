@@ -26,13 +26,18 @@ def poll_update(request, pk):
 
         if form.is_valid() and formset.is_valid():
             poll = form.save()
-            choices = formset.save()
+            formset.save()
             return redirect(request.POST.get('next', poll.get_absolute_url()))
     else:
         form = TopicPollForm(instance=poll)
         formset = TopicPollChoiceFormSet(instance=poll)
 
-    return render(request, 'spirit/topic_poll/poll_update.html', {'form': form, 'formset': formset})
+    context = {
+        'form': form,
+        'formset': formset
+    }
+
+    return render(request, 'spirit/topic_poll/poll_update.html', context)
 
 
 @login_required
@@ -46,7 +51,9 @@ def poll_close(request, pk):
 
         return redirect(request.GET.get('next', poll.get_absolute_url()))
 
-    return render(request, 'spirit/topic_poll/poll_close.html', {'poll': poll, })
+    context = {'poll': poll, }
+
+    return render(request, 'spirit/topic_poll/poll_close.html', context)
 
 
 @require_POST
@@ -65,6 +72,6 @@ def poll_vote(request, pk):
         form.save_m2m()
         topic_poll_post_vote.send(sender=poll.__class__, poll=poll, user=request.user)
         return redirect(request.POST.get('next', poll.get_absolute_url()))
-    else:
-        messages.error(request, utils.render_form_errors(form))
-        return redirect(request.POST.get('next', poll.get_absolute_url()))
+
+    messages.error(request, utils.render_form_errors(form))
+    return redirect(request.POST.get('next', poll.get_absolute_url()))

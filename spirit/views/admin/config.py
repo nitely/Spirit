@@ -24,4 +24,6 @@ def config_basic(request):
     else:
         form = BasicConfigForm()
 
-    return render(request, 'spirit/admin/config/config_basic.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/admin/config/config_basic.html', context)

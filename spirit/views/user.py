@@ -13,9 +13,12 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.http import HttpResponsePermanentRedirect
 
-from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.utils.user.email import send_activation_email, send_email_change_email
-from spirit.utils.user.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from djconfig import config
+
+from ..utils.ratelimit.decorators import ratelimit
+from ..utils.user.email import send_activation_email, send_email_change_email
+from ..utils.user.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from ..utils.paginator import yt_paginate
 
 from ..models.topic import Topic
 from ..models.comment import Comment
@@ -27,6 +30,7 @@ User = get_user_model()
 
 
 @ratelimit(field='username', rate='5/5m')
+# TODO: @guest_only
 def custom_login(request, **kwargs):
     # Current Django 1.5 login view does not redirect somewhere if the user is logged in
     if request.user.is_authenticated():
@@ -38,6 +42,7 @@ def custom_login(request, **kwargs):
     return login_view(request, authentication_form=LoginForm, **kwargs)
 
 
+# TODO: @login_required ?
 def custom_logout(request, **kwargs):
     # Current Django 1.6 uses GET to log out
     if not request.user.is_authenticated():
@@ -58,6 +63,7 @@ def custom_reset_password(request, **kwargs):
 
 
 @ratelimit(rate='2/10s')
+# TODO: @guest_only
 def register(request):
     if request.user.is_authenticated():
         return redirect(request.GET.get('next', reverse('spirit:profile-update')))
@@ -79,7 +85,9 @@ def register(request):
     else:
         form = RegistrationForm()
 
-    return render(request, 'spirit/user/register.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/register.html', context)
 
 
 def registration_activation(request, pk, token):
@@ -87,6 +95,7 @@ def registration_activation(request, pk, token):
     activation = UserActivationTokenGenerator()
 
     if activation.is_valid(user, token):
+        user.is_verified = True
         user.is_active = True
         user.save()
         messages.info(request, _("Your account has been activated!"))
@@ -95,6 +104,7 @@ def registration_activation(request, pk, token):
 
 
 @ratelimit(field='email', rate='5/5m')
+# TODO: @guest_only
 def resend_activation_email(request):
     if request.user.is_authenticated():
         return redirect(request.GET.get('next', reverse('spirit:profile-update')))
@@ -106,13 +116,16 @@ def resend_activation_email(request):
             user = form.get_user()
             send_activation_email(request, user)
 
+        # TODO: show if is_valid only
         messages.info(request, _("If you don't receive an email, please make sure you've entered "
                                  "the address you registered with, and check your spam folder."))
         return redirect(reverse('spirit:user-login'))
     else:
         form = ResendActivationForm()
 
-    return render(request, 'spirit/user/activation_resend.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/activation_resend.html', context)
 
 
 @login_required
@@ -127,7 +140,9 @@ def profile_update(request):
     else:
         form = UserProfileForm(instance=request.user)
 
-    return render(request, 'spirit/user/profile_update.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/profile_update.html', context)
 
 
 @login_required
@@ -142,7 +157,9 @@ def profile_password_change(request):
     else:
         form = PasswordChangeForm(user=request.user)
 
-    return render(request, 'spirit/user/profile_password_change.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/profile_password_change.html', context)
 
 
 @login_required
@@ -157,7 +174,9 @@ def profile_email_change(request):
     else:
         form = EmailChangeForm()
 
-    return render(request, 'spirit/user/profile_email_change.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/user/profile_email_change.html', context)
 
 
 @login_required
@@ -178,12 +197,28 @@ def profile_topics(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.slug != slug:
-        return HttpResponsePermanentRedirect(reverse("spirit:profile-topics", kwargs={'pk': p_user.pk,
-                                                                                      'slug': p_user.slug}))
+        url = reverse("spirit:profile-topics", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+        return HttpResponsePermanentRedirect(url)
 
-    topics = Topic.objects.for_public().filter(user=p_user).order_by('-date').select_related('user')
+    topics = Topic.objects\
+        .visible()\
+        .with_bookmarks(user=request.user)\
+        .filter(user=p_user)\
+        .order_by('-date', '-pk')\
+        .select_related('user')
 
-    return render(request, 'spirit/user/profile_topics.html', {'p_user': p_user, 'topics': topics})
+    topics = yt_paginate(
+        topics,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
+    context = {
+        'p_user': p_user,
+        'topics': topics
+    }
+
+    return render(request, 'spirit/user/profile_topics.html', context)
 
 
 @login_required
@@ -191,11 +226,25 @@ def profile_comments(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.slug != slug:
-        return HttpResponsePermanentRedirect(reverse("spirit:profile-detail", kwargs={'pk': p_user.pk,
-                                                                                      'slug': p_user.slug}))
+        url = reverse("spirit:profile-detail", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+        return HttpResponsePermanentRedirect(url)
 
-    comments = Comment.objects.for_user_public(user=p_user)
-    return render(request, 'spirit/user/profile_comments.html', {'p_user': p_user, 'comments': comments})
+    comments = Comment.objects\
+        .visible()\
+        .filter(user=p_user)
+
+    comments = yt_paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
+    context = {
+        'p_user': p_user,
+        'comments': comments
+    }
+
+    return render(request, 'spirit/user/profile_comments.html', context)
 
 
 @login_required
@@ -203,11 +252,26 @@ def profile_likes(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.slug != slug:
-        return HttpResponsePermanentRedirect(reverse("spirit:profile-likes", kwargs={'pk': p_user.pk,
-                                                                                     'slug': p_user.slug}))
+        url = reverse("spirit:profile-likes", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+        return HttpResponsePermanentRedirect(url)
 
-    comments = Comment.objects.for_public().filter(comment_likes__user=p_user).order_by('-comment_likes__date')
-    return render(request, 'spirit/user/profile_likes.html', {'p_user': p_user, 'comments': comments})
+    comments = Comment.objects\
+        .visible()\
+        .filter(comment_likes__user=p_user)\
+        .order_by('-comment_likes__date', '-pk')
+
+    comments = yt_paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
+    context = {
+        'p_user': p_user,
+        'comments': comments
+    }
+
+    return render(request, 'spirit/user/profile_likes.html', context)
 
 
 @login_required

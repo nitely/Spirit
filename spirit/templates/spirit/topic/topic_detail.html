@@ -17,7 +17,7 @@
         </ul>
 
         <h1 class="headline">
-            {% if topic.is_pinned %}
+            {% if topic.is_pinned or topic.is_globally_pinned %}
                 <i class="fa fa-thumb-tack"></i>
             {% endif %}
             {% if topic.is_closed %}
@@ -58,6 +58,12 @@
                         {% else %}
                             <li><a class="menu-link js-post" href="{% url "spirit:topic-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic" %}</a></li>
                         {% endif %}
+
+                        {% if topic.is_globally_pinned %}
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic-global-unpin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a></li>
+                        {% else %}
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic-global-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic globally" %}</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -74,13 +80,10 @@
 
         {% render_poll_form topic=topic user=user %}
 
-        {% get_comment_list topic=topic as comments %}
-        {% paginator_autopaginate comments per_page=COMMENTS_PER_PAGE as page %}
-
         {% include "spirit/comment/_render_list.html" %}
 
         <div class="container">
-            {% render_paginator page %}
+            {% render_paginator page=comments %}
 
             <div class="notify">
                 {% if user.is_authenticated %}

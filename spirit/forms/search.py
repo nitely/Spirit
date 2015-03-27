@@ -39,7 +39,7 @@ class BasicSearchForm(BaseSearchForm):
 
 class AdvancedSearchForm(BaseSearchForm):
 
-    category = forms.ModelMultipleChoiceField(queryset=Category.objects.for_public(),
+    category = forms.ModelMultipleChoiceField(queryset=Category.objects.visible(),
                                               required=False,
                                               label=_('Filter by'),
                                               widget=forms.CheckboxSelectMultiple)

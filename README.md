@@ -36,7 +36,7 @@ Check out the [example](https://github.com/nitely/Spirit/tree/master/example) pr
 
 In short:
 
-Add `url(r'^', include('spirit.urls', namespace="spirit", app_name="spirit")),` to your *urls.py*
+Add `url(r'^', include('spirit.urls')),` to your *urls.py*
 
 Add `from spirit.settings import *` to the top of your *settings.py* file,
 otherwise you will have to setup all django's related constants (Installed_apps, Middlewares, Login_url, etc)
@@ -79,6 +79,13 @@ Run:
 Feel free to check out the source code and submit pull requests.
 
 You may also report any bug or propose new features in the [issues tracker](https://github.com/nitely/Spirit/issues)
+
+## Testing
+
+The `runtests.py` script enable you to run the test suite of spirit.
+
+- Type `./runtests.py` to run the test suite using the settings from the `tests` folder.
+- Type `./runtests.py example` to run the test suite using the settings from the `example` folder.
 
 ## Copyright / License
 

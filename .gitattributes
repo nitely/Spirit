@@ -1,1 +1,24 @@
+# Git will handle the files in whatever way it thinks is best
 * text=auto
+
+# Always convert line endings to LF on checkout
+*.py text eol=lf
+*.coffe text eol=lf
+*.js text eol=lf
+*.scss text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.po text eol=lf
+
+# Files that are truly binary and should not be modified
+*.png binary
+*.jpg binary
+*.ico binary
+*.eot binary
+*.svg binary
+*.ttf binary
+*.woff binary
+*.mo binary

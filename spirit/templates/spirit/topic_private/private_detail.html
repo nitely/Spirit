@@ -6,9 +6,6 @@
 
 {% block content %}
 
-    {% get_comment_list topic=topic as comments %}
-    {% paginator_autopaginate comments per_page=COMMENTS_PER_PAGE as page %}
-
         <ul class="nav">
             <li><a href="{% url "spirit:private-list" %}" >{% trans "Private topics" %}</a></li>
         </ul>
@@ -41,7 +38,7 @@
 
         {# this can be *included* here and in topic_detail #}
         <div class="container">
-            {% render_paginator page %}
+            {% render_paginator comments %}
 
             <div class="notify">
                 {% render_notification_form user=user topic=topic %}

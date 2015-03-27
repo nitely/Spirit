@@ -20,7 +20,8 @@ User = get_user_model()
 @administrator_required
 def category_list(request):
     categories = Category.objects.filter(parent=None, is_private=False)
-    return render(request, 'spirit/admin/category/category_list.html', {'categories': categories, })
+    context = {'categories': categories, }
+    return render(request, 'spirit/admin/category/category_list.html', context)
 
 
 @administrator_required
@@ -34,7 +35,9 @@ def category_create(request):
     else:
         form = CategoryForm()
 
-    return render(request, 'spirit/admin/category/category_create.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/admin/category/category_create.html', context)
 
 
 @administrator_required
@@ -51,4 +54,6 @@ def category_update(request, category_id):
     else:
         form = CategoryForm(instance=category)
 
-    return render(request, 'spirit/admin/category/category_update.html', {'form': form, })
+    context = {'form': form, }
+
+    return render(request, 'spirit/admin/category/category_update.html', context)

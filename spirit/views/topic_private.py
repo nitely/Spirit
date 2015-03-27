@@ -11,17 +11,21 @@ from django.contrib import messages
 from django.http import HttpResponsePermanentRedirect
 from django.conf import settings
 
-from spirit.utils.ratelimit.decorators import ratelimit
-from spirit import utils
-from spirit.forms.comment import CommentForm
-from spirit.signals.comment import comment_posted
+from djconfig import config
 
-from spirit.models.topic import Topic
-from spirit.signals.topic import topic_viewed
+from .. import utils
+from ..utils.paginator import paginate, yt_paginate
+from ..utils.ratelimit.decorators import ratelimit
+from ..forms.comment import CommentForm
+from ..signals.comment import comment_posted
+
+from ..models.comment import Comment
+from ..models.topic import Topic
+from ..signals.topic import topic_viewed
 from ..models.topic_private import TopicPrivate
 from ..forms.topic_private import TopicPrivateManyForm, TopicForPrivateForm,\
     TopicPrivateJoinForm, TopicPrivateInviteForm
-from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
+from ..signals.topic_private import topic_private_post_create, topic_private_access_pre_create
 
 
 User = get_user_model()
@@ -57,26 +61,45 @@ def private_publish(request, user_id=None):
 
         tpform = TopicPrivateManyForm(initial=initial)
 
-    return render(request, 'spirit/topic_private/private_publish.html', {'tform': tform,
-                                                                         'cform': cform,
-                                                                         'tpform': tpform})
+    context = {
+        'tform': tform,
+        'cform': cform,
+        'tpform': tpform
+    }
+
+    return render(request, 'spirit/topic_private/private_publish.html', context)
 
 
 @login_required
 def private_detail(request, topic_id, slug):
     topic_private = get_object_or_404(TopicPrivate.objects.select_related('topic'),
-                                      topic_id=topic_id, user=request.user)
+                                      topic_id=topic_id,
+                                      user=request.user)
+    topic = topic_private.topic
 
-    if topic_private.topic.slug != slug:
-        return HttpResponsePermanentRedirect(topic_private.get_absolute_url())
+    if topic.slug != slug:
+        return HttpResponsePermanentRedirect(topic.get_absolute_url())
 
-    topic_viewed.send(sender=topic_private.topic.__class__, request=request, topic=topic_private.topic)
+    topic_viewed.send(sender=topic.__class__, request=request, topic=topic)
 
-    return render(request,
-                  'spirit/topic_private/private_detail.html',
-                  {'topic': topic_private.topic,
-                   'topic_private': topic_private,
-                   'COMMENTS_PER_PAGE': settings.ST_COMMENTS_PER_PAGE})
+    comments = Comment.objects\
+        .for_topic(topic=topic)\
+        .with_likes(user=request.user)\
+        .order_by('date')
+
+    comments = paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
+    context = {
+        'topic': topic,
+        'topic_private': topic_private,
+        'comments': comments,
+    }
+
+    return render(request, 'spirit/topic_private/private_detail.html', context)
 
 
 @login_required
@@ -107,8 +130,10 @@ def private_access_delete(request, pk):
             return redirect(reverse("spirit:private-list"))
 
         return redirect(request.POST.get('next', topic_private.get_absolute_url()))
-    else:
-        return render(request, 'spirit/topic_private/private_delete.html', {'topic_private': topic_private, })
+
+    context = {'topic_private': topic_private, }
+
+    return render(request, 'spirit/topic_private/private_delete.html', context)
 
 
 @login_required
@@ -127,19 +152,46 @@ def private_join(request, topic_id):
     else:
         form = TopicPrivateJoinForm()
 
-    return render(request, 'spirit/topic_private/private_join.html', {'topic': topic, 'form': form, })
+    context = {
+        'topic': topic,
+        'form': form
+    }
+
+    return render(request, 'spirit/topic_private/private_join.html', context)
 
 
 @login_required
 def private_list(request):
-    topics = Topic.objects.filter(topics_private__user=request.user).order_by('-last_active')
-    return render(request, 'spirit/topic_private/private_list.html', {'topics': topics, })
+    topics = Topic.objects\
+        .with_bookmarks(user=request.user)\
+        .filter(topics_private__user=request.user)
+
+    topics = yt_paginate(
+        topics,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
+    context = {'topics': topics, }
+
+    return render(request, 'spirit/topic_private/private_list.html', context)
 
 
 @login_required
 def private_created_list(request):
     # Show created topics but exclude those the user is participating on
     # TODO: show all, show join link in those the user is not participating
-    topics = Topic.objects.filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)\
+    # TODO: move to manager
+    topics = Topic.objects\
+        .filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)\
         .exclude(topics_private__user=request.user)
-    return render(request, 'spirit/topic_private/private_created_list.html', {'topics': topics, })
+
+    topics = yt_paginate(
+        topics,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
+    context = {'topics': topics, }
+
+    return render(request, 'spirit/topic_private/private_created_list.html', context)

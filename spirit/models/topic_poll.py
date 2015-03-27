@@ -6,9 +6,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
-from django.db.models import F
-
-from spirit.signals.topic_poll import topic_poll_post_vote, topic_poll_pre_vote
 
 
 @python_2_unicode_compatible
@@ -24,11 +21,15 @@ class TopicPoll(models.Model):
         verbose_name = _("topic poll")
         verbose_name_plural = _("topics polls")
 
+    def __str__(self):
+        return "poll at topic #%s" % self.topic.pk
+
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
 
-    def __str__(self):
-        return "poll at topic #%s" % self.topic.pk
+    @property
+    def is_multiple_choice(self):
+        return self.choice_limit > 1
 
 
 @python_2_unicode_compatible
@@ -62,17 +63,3 @@ class TopicPollVote(models.Model):
 
     def __str__(self):
         return "poll vote %s" % self.pk
-
-
-def poll_pre_vote(sender, poll, user, **kwargs):
-    TopicPollChoice.objects.filter(poll=poll, votes__user=user)\
-        .update(vote_count=F('vote_count') - 1)
-
-
-def poll_post_vote(sender, poll, user, **kwargs):
-    TopicPollChoice.objects.filter(poll=poll, votes__user=user)\
-        .update(vote_count=F('vote_count') + 1)
-
-
-topic_poll_pre_vote.connect(poll_pre_vote, dispatch_uid=__name__)
-topic_poll_post_vote.connect(poll_post_vote, dispatch_uid=__name__)
