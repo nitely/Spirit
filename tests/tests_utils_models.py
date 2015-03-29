@@ -74,6 +74,11 @@ class UtilsModelsTests(TestCase):
         """
         AutoSlugField should handle unicode
         """
+        title = "愛" * 255
+        foo_model = AutoSlugPopulateFromModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, title[:50])
+
         title = "áéíóú"
         foo_model = AutoSlugPopulateFromModel(title=title)
         foo_model.save()
