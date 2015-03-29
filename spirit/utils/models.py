@@ -2,9 +2,11 @@
 
 from __future__ import unicode_literals
 
+from slugify import slugify
+
 from django.db.models.fields import SlugField
-from django.utils.text import slugify
 from django.utils.encoding import smart_text
+from django.conf import settings
 
 __all__ = ['AutoSlugField', ]
 
@@ -33,7 +35,9 @@ class AutoSlugField(SlugField):
         if value is None:
             return default
 
-        slug = slugify(smart_text(value))[:self.max_length].strip('-')
+        slug = slugify(smart_text(value), ok='-', only_ascii=settings.ST_NO_UNICODE_SLUGS)
+        slug = slug[:self.max_length].strip('-')
+        # TODO: mark as safe?
 
         # Update the model’s attribute
         setattr(instance, self.attname, slug)

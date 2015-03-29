@@ -29,6 +29,8 @@ ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
 
 ST_INITIAL_MIGRATION_DEPENDENCIES = []  # [('myuser', '0001_initial'), ]
 
+ST_NO_UNICODE_SLUGS = False
+
 #
 # Django & Spirit settings defined below...
 #

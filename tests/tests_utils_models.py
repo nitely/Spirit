@@ -69,3 +69,46 @@ class UtilsModelsTests(TestCase):
         # populate_from field is blank
         foo_model = AutoSlugPopulateFromModel()
         self.assertEqual(foo_model.slug, "")
+
+    def test_auto_slug_field_unicode(self):
+        """
+        AutoSlugField should handle unicode
+        """
+        title = "áéíóú"
+        foo_model = AutoSlugPopulateFromModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "áéíóú")
+
+        title = "$~_@"
+        foo_model = AutoSlugPopulateFromModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "")
+
+    def test_auto_slug_field_word_separation(self):
+        """
+        AutoSlugField not end with "-"
+        """
+        title = "---"
+        foo_model = AutoSlugPopulateFromModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "")
+
+        title = "-word-"
+        foo_model = AutoSlugPopulateFromModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "word")
+
+        title = " -word- "
+        foo_model = AutoSlugPopulateFromModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "word")
+
+        title = "s-e-p-a-r-a-t-i-o-n-s"
+        foo_model = AutoSlugPopulateFromModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "s-e-p-a-r-a-t-i-o-n-s")
+
+        title = "s e  p   a    r     a     t    i   o  n s"
+        foo_model = AutoSlugPopulateFromModel(title=title)
+        foo_model.save()
+        self.assertEqual(foo_model.slug, "s-e-p-a-r-a-t-i-o-n-s")
