@@ -53,10 +53,10 @@ Visit (http://127.0.0.1:8000/)
 
 ## Updating
 
-> *Note:* If you are *upgrading* from any release *previous to v0.3*, you should add `AUTH_USER_MODEL = 'spirit.User'`.
-> If you have your own custom `AUTH_USER_MODEL` you can leave it as is (don't change it),
-you should remove `AbstractForumUser` from your inherited classes,
-if you are extending `spirit.models.AbstractUser` change it to `django.contrib.auth.models.AbstractUser`.
+> *Note:* If you are *upgrading* from any release *previous to v0.3*:
+> * Add `AUTH_USER_MODEL = 'spirit.User'` (or your custom user model) to your `settings.py`.
+> * Remove the `AbstractForumUser` from your custom user model (if you have one).
+> * Change `spirit.models.AbstractUser` to `django.contrib.auth.models.AbstractUser` if you were extending the old spirit user model.
 
 Run:
 
