@@ -56,7 +56,7 @@ Visit (http://127.0.0.1:8000/)
 > *Note:* If you are *upgrading* from any release *previous to v0.3*:
 > * Add `AUTH_USER_MODEL = 'spirit.User'` (or your custom user model) to your `settings.py`.
 > * Remove the `AbstractForumUser` from your custom user model (if you have one).
-> * Change `spirit.models.AbstractUser` to `django.contrib.auth.models.AbstractUser` (if you are extending the old spirit user model).
+> * Change `spirit.models.AbstractUser` to `django.contrib.auth.models.AbstractUser` in your custom user model (if you have one).
 
 Run:
 
