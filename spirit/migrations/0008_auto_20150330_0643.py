@@ -25,7 +25,8 @@ def migrate_users(apps, schema_editor):
         st.comment_count = user.comment_count
         profiles.append(st)
 
-    UserProfile.objects.bulk_create(profiles)
+    if profiles:
+        UserProfile.objects.bulk_create(profiles)
 
 
 class Migration(migrations.Migration):
