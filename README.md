@@ -53,9 +53,15 @@ Visit (http://127.0.0.1:8000/)
 
 ## Updating
 
+> *Note:* If you are *upgrading* from any release *previous to v0.3*, you should add `AUTH_USER_MODEL = 'spirit.User'`.
+> If you have your own custom `AUTH_USER_MODEL` you can leave it as is (don't change it),
+you should remove `AbstractForumUser` from your inherited classes,
+if you are extending `spirit.models.AbstractUser` change it to `django.contrib.auth.models.AbstractUser`.
+
 Run:
 
     pip install -r requirements.txt
+    python manage.py makemigrations
     python manage.py migrate
     python manage.py collectstatic
     python manage.py rebuild_index --noinput
