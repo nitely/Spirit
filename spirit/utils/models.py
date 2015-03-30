@@ -36,6 +36,7 @@ class AutoSlugField(SlugField):
         if value is None:
             return default
 
+        # TODO: Django 1.9 will support unicode slugs
         if settings.ST_UNICODE_SLUGS:
             # TODO: mark as safe?
             slug = unicode_slugify(smart_text(value), ok='-')

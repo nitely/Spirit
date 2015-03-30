@@ -47,7 +47,11 @@ class AbstractForumUser(models.Model):
 
 class AbstractUser(AbstractBaseUser, PermissionsMixin, AbstractForumUser):
     # almost verbatim copy from the auth user model
-    # adds username(db_index=True), email(unique=True, blank=False, max_length=254)
+    # adds email(unique=True, blank=False, max_length=254)
+
+    # TODO: Django 1.8 sets email to max_length=254, so there is no point in keeping this,
+    # uniqueness can be checked at app level, although it's better to have a db index (for login)
+    # this should be change to the good old OneToOneField.
     username = models.CharField(_("username"), max_length=30, unique=True, db_index=True,
                                 help_text=_('Required. 30 characters or fewer. Letters, numbers and '
                                             '@/./+/-/_ characters'),
