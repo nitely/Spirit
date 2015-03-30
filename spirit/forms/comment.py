@@ -5,10 +5,11 @@ from __future__ import unicode_literals
 import hashlib
 import os
 
+from PIL import Image
+
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.utils.image import Image
 
 from spirit.models.comment import Comment
 from spirit.models.topic import Topic
