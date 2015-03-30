@@ -57,6 +57,8 @@ Visit (http://127.0.0.1:8000/)
 > * Add `AUTH_USER_MODEL = 'spirit.User'` (or your custom user model) to your `settings.py`.
 > * Remove the `AbstractForumUser` from your custom user model (if you have one).
 > * Change `spirit.models.AbstractUser` to `django.contrib.auth.models.AbstractUser` in your custom user model (if you have one).
+>
+> *Deprecation notice:* `AbstractForumUser` and `AbstractUser` will no longer exist in future releases.
 
 Run:
 
