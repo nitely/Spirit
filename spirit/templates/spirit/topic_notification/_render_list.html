@@ -2,7 +2,7 @@
 
         {% for n in notifications %}
             <div class="row">
-                {% url "spirit:profile-detail" pk=n.comment.user.pk slug=n.comment.user.slug as url_profile %}
+                {% url "spirit:profile-detail" pk=n.comment.user.pk slug=n.comment.user.st.slug as url_profile %}
                 {% url "spirit:comment-find" pk=n.comment.pk as url_topic %}
 
                 {% if n.is_comment %}

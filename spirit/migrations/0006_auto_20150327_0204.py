@@ -7,7 +7,9 @@ from django.conf import settings
 
 def verify_active_users(apps, schema_editor):
     User = apps.get_model(settings.AUTH_USER_MODEL)
-    User.objects.filter(is_active=True).update(is_verified=True)
+
+    if hasattr(User, 'is_verified'):
+        User.objects.filter(is_active=True).update(is_verified=True)
 
 
 class Migration(migrations.Migration):

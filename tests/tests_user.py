@@ -16,11 +16,11 @@ from djconfig.utils import override_djconfig
 
 from . import utils
 
-from spirit.forms.user import RegistrationForm, UserProfileForm, EmailChangeForm, ResendActivationForm
+from spirit.forms.user import RegistrationForm, UserProfileForm, EmailChangeForm, ResendActivationForm, UserForm
 from spirit.backends.user import EmailAuthBackend
 from spirit.models.comment_like import CommentLike
 from spirit.utils.user.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
-from spirit.models.user import User as UserModel
+from spirit.models.user import UserProfile
 from spirit.models.topic import Topic
 from spirit.models.comment import Comment
 from spirit.models.comment_bookmark import CommentBookmark
@@ -60,7 +60,7 @@ class UserViewTest(TestCase):
         """
         utils.login(self)
         response = self.client.get(reverse('spirit:user-login'))
-        expected_url = self.user.get_absolute_url()
+        expected_url = self.user.st.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         # next
         response = self.client.get(reverse('spirit:user-login') + '?next=/fakepath/')
@@ -111,7 +111,7 @@ class UserViewTest(TestCase):
         """
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                            'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['topics'], [repr(self.topic), ])
         self.assertEqual(repr(response.context['p_user']), repr(self.user2))
@@ -132,7 +132,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                            'slug': self.user2.st.slug}))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_b, topic_c, topic_a]))
 
     def test_profile_topics_bookmarks(self):
@@ -143,7 +143,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-topics",
-                                           kwargs={'pk': self.user2.pk, 'slug': self.user2.slug}))
+                                           kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['topics'], [repr(self.topic), ])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
@@ -157,7 +157,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                            'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])
 
@@ -179,7 +179,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                            'slug': self.user2.st.slug}))
         self.assertQuerysetEqual(response.context['topics'], [])
 
     def test_profile_topics_invalid_slug(self):
@@ -190,7 +190,7 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
                                                                             'slug': "invalid"}))
         expected_url = reverse("spirit:profile-topics", kwargs={'pk': self.user2.pk,
-                                                                'slug': self.user2.slug})
+                                                                'slug': self.user2.st.slug})
         self.assertRedirects(response, expected_url, status_code=301)
 
     def test_profile_comments(self):
@@ -201,7 +201,7 @@ class UserViewTest(TestCase):
         comment = utils.create_comment(user=self.user2, topic=self.topic)
         utils.create_comment(user=self.user, topic=self.topic)
         response = self.client.get(reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                            'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['comments'], [repr(comment), ])
         self.assertEqual(repr(response.context['p_user']), repr(self.user2))
@@ -219,7 +219,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                            'slug': self.user2.st.slug}))
         self.assertQuerysetEqual(response.context['comments'], map(repr, [comment_b, comment_c, comment_a]))
 
     @override_djconfig(comments_per_page=1)
@@ -232,7 +232,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                            'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['comments'], [repr(comment), ])
 
@@ -257,7 +257,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.slug}))
+                                                                            'slug': self.user2.st.slug}))
         self.assertQuerysetEqual(response.context['comments'], [])
 
     def test_profile_comments_invalid_slug(self):
@@ -268,7 +268,7 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
                                                                             'slug': "invalid"}))
         expected_url = reverse("spirit:profile-detail", kwargs={'pk': self.user2.pk,
-                                                                'slug': self.user2.slug})
+                                                                'slug': self.user2.st.slug})
         self.assertRedirects(response, expected_url, status_code=301)
 
     def test_profile_likes(self):
@@ -281,7 +281,7 @@ class UserViewTest(TestCase):
         like = CommentLike.objects.create(user=self.user2, comment=comment)
         CommentLike.objects.create(user=self.user, comment=comment2)
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': self.user2.slug}))
+                                                                           'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['comments'], [repr(like.comment), ])
         self.assertEqual(repr(response.context['p_user']), repr(self.user2))
@@ -302,7 +302,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': self.user2.slug}))
+                                                                           'slug': self.user2.st.slug}))
         self.assertQuerysetEqual(response.context['comments'], map(repr, [comment_b, comment_c, comment_a]))
 
     def test_profile_likes_dont_show_removed_or_private(self):
@@ -331,7 +331,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': self.user2.slug}))
+                                                                           'slug': self.user2.st.slug}))
         self.assertQuerysetEqual(response.context['comments'], [])
 
     def test_profile_likes_invalid_slug(self):
@@ -342,7 +342,7 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
                                                                            'slug': "invalid"}))
         expected_url = reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
-                                                               'slug': self.user2.slug})
+                                                               'slug': self.user2.st.slug})
         self.assertRedirects(response, expected_url, status_code=301)
 
     @override_djconfig(comments_per_page=1)
@@ -357,7 +357,7 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:profile-likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': self.user2.slug}))
+                                                                           'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['comments'], [repr(like.comment), ])
 
@@ -372,7 +372,7 @@ class UserViewTest(TestCase):
 
         # post
         form_data = {'first_name': 'foo', 'last_name': 'bar',
-                     'location': 'spirit', 'timezone': self.user.timezone}
+                     'location': 'spirit', 'timezone': self.user.st.timezone}
         response = self.client.post(reverse('spirit:profile-update'),
                                     form_data)
         expected_url = reverse('spirit:profile-update')
@@ -449,7 +449,7 @@ class UserViewTest(TestCase):
         """
         registration activation
         """
-        self.user.is_verified = False
+        self.user.st.is_verified = False
         self.user.is_active = False
         self.user.save()
         token = UserActivationTokenGenerator().generate(self.user)
@@ -464,11 +464,12 @@ class UserViewTest(TestCase):
         Activation token should not work if user is verified
         ActiveUserMiddleware required
         """
-        self.user.is_verified = False
+        self.user.st.is_verified = False
         token = UserActivationTokenGenerator().generate(self.user)
 
         utils.login(self)
-        User.objects.filter(pk=self.user.pk).update(is_active=False, is_verified=True)
+        User.objects.filter(pk=self.user.pk).update(is_active=False)
+        UserProfile.objects.filter(user__pk=self.user.pk).update(is_verified=True)
         response = self.client.get(reverse('spirit:registration-activation', kwargs={'pk': self.user.pk,
                                                                                      'token': token}))
         expected_url = reverse("spirit:user-login")
@@ -543,7 +544,9 @@ class UserViewTest(TestCase):
         """
         resend_activation_email invalid if is_verified was set
         """
-        user = utils.create_user(password="foo", is_verified=True)
+        user = utils.create_user(password="foo")
+        user.st.is_verified = True
+        user.st.save()
 
         form_data = {'email': user.email,
                      'password': "foo"}
@@ -654,8 +657,11 @@ class UserFormTest(TestCase):
         edit user profile
         """
         form_data = {'first_name': 'foo', 'last_name': 'bar',
-                     'location': 'spirit', 'timezone': self.user.timezone}
-        form = UserProfileForm(data=form_data, instance=self.user)
+                     'location': 'spirit', 'timezone': self.user.st.timezone}
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), True)
+
+        form = UserForm(data=form_data, instance=self.user)
         self.assertEqual(form.is_valid(), True)
 
     def test_email_change(self):
@@ -718,15 +724,17 @@ class UserModelTest(TestCase):
         is_superuser should always be is_administrator and is_moderator
         test model
         """
-        user = UserModel(is_superuser=True)
+        user = User(is_superuser=True)
         user.save()
-        self.assertTrue(user.is_administrator)
-        self.assertTrue(user.is_moderator)
+        self.assertTrue(user.st.is_administrator)
+        self.assertTrue(user.st.is_moderator)
 
     def test_user_administrator(self):
         """
         is_administrator should always be is_moderator
         """
-        user = UserModel(is_administrator=True)
+        user = User()
         user.save()
-        self.assertTrue(user.is_moderator)
+        user.st.is_administrator = True
+        user.st.save()
+        self.assertTrue(user.st.is_moderator)

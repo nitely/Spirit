@@ -9,26 +9,12 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 Spirit requires the following software to be installed:
 
 * Python 2.7, 3.3 or 3.4 (recommended)
-* Django 1.7
+* Django 1.8
 * PostgreSQL or MySQL or Oracle Database
 
 ## Dependencies
 
 Check out the [requirements](https://github.com/nitely/Spirit/blob/master/requirements.txt) provided.
-
-## Integration
-
-Spirit can be integrated with any other Django application without much of a hassle.
-
-The only thing to notice is that Spirit uses its own *AUTH_USER_MODEL*.
-
-If you want to roll your own user app, your user model must inherit from `spirit.models.user.AbstractForumUser`.
-
-If you want to extend the Spirit user model (adding new fields or methods),
-your model must inherit from `spirit.models.user.AbstractUser`.
-
-If you just want to integrate Spirit's user profile to your *existing* project
-and you are using the default Django's user model, check out the [Spirit-User-Profile](https://github.com/nitely/Spirit-User-Profile) app.
 
 ## Installing (Advanced)
 

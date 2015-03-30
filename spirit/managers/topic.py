@@ -52,7 +52,7 @@ class TopicQuerySet(models.QuerySet):
         return self.prefetch_related(prefetch)
 
     def get_public_or_404(self, pk, user):
-        if user.is_authenticated() and user.is_moderator:
+        if user.is_authenticated() and user.st.is_moderator:
             return get_object_or_404(self.public()
                                      .select_related('category__parent'),
                                      pk=pk)
@@ -62,7 +62,7 @@ class TopicQuerySet(models.QuerySet):
                                      pk=pk)
 
     def for_update_or_404(self, pk, user):
-        if user.is_moderator:
+        if user.st.is_moderator:
             return get_object_or_404(self.public(), pk=pk)
         else:
             return get_object_or_404(self.visible().opened(), pk=pk, user=user)

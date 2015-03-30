@@ -12,7 +12,7 @@ from django.test.utils import override_settings
 from django.template import Template, Context
 from django.utils import translation
 from django.utils import timezone
-from django.contrib.auth.models import AnonymousUser, User
+from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.conf import settings
@@ -22,6 +22,7 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.utils.timezone import utc
 from django.utils.http import urlunquote
+from django.contrib.auth import get_user_model
 
 from spirit.models.category import Category
 from spirit.utils.forms import NestedModelChoiceField
@@ -36,6 +37,9 @@ from spirit.templatetags.tags.utils import time as ttags_utils
 from . import utils as test_utils
 from spirit.templatetags.tags.utils.messages import render_messages
 from spirit.utils.markdown import Markdown, quotify
+
+
+User = get_user_model()
 
 
 class UtilsTests(TestCase):
@@ -242,6 +246,10 @@ class UtilsTimezoneTests(TestCase):
 
 class UtilsDecoratorsTests(TestCase):
 
+    def setUp(self):
+        cache.clear()
+        self.user = test_utils.create_user()
+
     def test_moderator_required(self):
         """
         Tests the user is logged in and is also a moderator
@@ -255,11 +263,11 @@ class UtilsDecoratorsTests(TestCase):
         req.user = AnonymousUser()
         self.assertIsInstance(view(req), HttpResponseRedirect)
 
-        req.user = User()
-        req.user.is_moderator = False
+        req.user = self.user
+        req.user.st.is_moderator = False
         self.assertRaises(PermissionDenied, view, req)
 
-        req.user.is_moderator = True
+        req.user.st.is_moderator = True
         self.assertIsNone(view(req))
 
     def test_administrator_required(self):
@@ -275,11 +283,11 @@ class UtilsDecoratorsTests(TestCase):
         req.user = AnonymousUser()
         self.assertIsInstance(view(req), HttpResponseRedirect)
 
-        req.user = User()
-        req.user.is_administrator = False
+        req.user = self.user
+        req.user.st.is_administrator = False
         self.assertRaises(PermissionDenied, view, req)
 
-        req.user.is_administrator = True
+        req.user.st.is_administrator = True
         self.assertIsNone(view(req))
 
 
@@ -287,7 +295,7 @@ class UtilsMarkdownTests(TestCase):
 
     def setUp(self):
         cache.clear()
-        self.user = test_utils.create_user(username="nitely", slug="nitely")
+        self.user = test_utils.create_user(username="nitely")
         self.user2 = test_utils.create_user(username="esteban")
         self.user3 = test_utils.create_user(username="áéíóú")
 
@@ -302,9 +310,9 @@ class UtilsMarkdownTests(TestCase):
                                      '<a class="comment-mention" href="%s">@esteban</a>,'
                                      '<a class="comment-mention" href="%s">@\xe1\xe9\xed\xf3\xfa</a>, '
                                      '@fakeone</p>' %
-                                     (self.user.get_absolute_url(),
-                                      self.user2.get_absolute_url(),
-                                      self.user3.get_absolute_url()))
+                                     (self.user.st.get_absolute_url(),
+                                      self.user2.st.get_absolute_url(),
+                                      self.user3.st.get_absolute_url()))
 
     @override_settings(ST_MENTIONS_PER_COMMENT=2)
     def test_markdown_mentions_limit(self):
@@ -463,7 +471,7 @@ class UtilsUserTests(TestCase):
         """
         Validate if user can be activated
         """
-        self.user.is_verified = False
+        self.user.st.is_verified = False
 
         activation_token = UserActivationTokenGenerator()
         token = activation_token.generate(self.user)
@@ -471,7 +479,7 @@ class UtilsUserTests(TestCase):
         self.assertFalse(activation_token.is_valid(self.user, "bad token"))
 
         # Invalid after verification
-        self.user.is_verified = True
+        self.user.st.is_verified = True
         self.assertFalse(activation_token.is_valid(self.user, token))
 
         # Invalid for different user

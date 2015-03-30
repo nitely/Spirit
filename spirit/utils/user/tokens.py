@@ -38,7 +38,7 @@ class TokenGenerator(object):
 class UserActivationTokenGenerator(TokenGenerator):
 
     def _uid(self, user):
-        return ";".join((smart_text(user.pk), smart_text(user.is_verified)))
+        return ";".join((smart_text(user.pk), smart_text(user.st.is_verified)))
 
 
 class UserEmailChangeTokenGenerator(TokenGenerator):

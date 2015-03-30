@@ -23,7 +23,8 @@ from ..utils.paginator import yt_paginate
 from ..models.topic import Topic
 from ..models.comment import Comment
 
-from ..forms.user import UserProfileForm, RegistrationForm, LoginForm, EmailChangeForm, ResendActivationForm
+from ..forms.user import UserProfileForm, RegistrationForm, \
+    LoginForm, EmailChangeForm, ResendActivationForm, UserForm
 
 
 User = get_user_model()
@@ -34,7 +35,7 @@ User = get_user_model()
 def custom_login(request, **kwargs):
     # Current Django 1.5 login view does not redirect somewhere if the user is logged in
     if request.user.is_authenticated():
-        return redirect(request.GET.get('next', request.user.get_absolute_url()))
+        return redirect(request.GET.get('next', request.user.st.get_absolute_url()))
 
     if request.is_limited and request.method == "POST":
         return redirect(request.get_full_path())
@@ -95,7 +96,7 @@ def registration_activation(request, pk, token):
     activation = UserActivationTokenGenerator()
 
     if activation.is_valid(user, token):
-        user.is_verified = True
+        user.st.is_verified = True
         user.is_active = True
         user.save()
         messages.info(request, _("Your account has been activated!"))
@@ -131,16 +132,22 @@ def resend_activation_email(request):
 @login_required
 def profile_update(request):
     if request.method == 'POST':
-        form = UserProfileForm(data=request.POST, instance=request.user)
+        uform = UserForm(data=request.POST, instance=request.user)
+        form = UserProfileForm(data=request.POST, instance=request.user.st)
 
-        if form.is_valid():
+        if uform.is_valid() and form.is_valid():
+            uform.save()
             form.save()
             messages.info(request, _("Your profile has been updated!"))
             return redirect(reverse('spirit:profile-update'))
     else:
-        form = UserProfileForm(instance=request.user)
+        uform = UserForm(instance=request.user)
+        form = UserProfileForm(instance=request.user.st)
 
-    context = {'form': form, }
+    context = {
+        'form': form,
+        'uform': uform
+    }
 
     return render(request, 'spirit/user/profile_update.html', context)
 
@@ -196,8 +203,8 @@ def email_change_confirm(request, token):
 def profile_topics(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
-    if p_user.slug != slug:
-        url = reverse("spirit:profile-topics", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+    if p_user.st.slug != slug:
+        url = reverse("spirit:profile-topics", kwargs={'pk': p_user.pk, 'slug': p_user.st.slug})
         return HttpResponsePermanentRedirect(url)
 
     topics = Topic.objects\
@@ -225,8 +232,8 @@ def profile_topics(request, pk, slug):
 def profile_comments(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
-    if p_user.slug != slug:
-        url = reverse("spirit:profile-detail", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+    if p_user.st.slug != slug:
+        url = reverse("spirit:profile-detail", kwargs={'pk': p_user.pk, 'slug': p_user.st.slug})
         return HttpResponsePermanentRedirect(url)
 
     comments = Comment.objects\
@@ -251,8 +258,8 @@ def profile_comments(request, pk, slug):
 def profile_likes(request, pk, slug):
     p_user = get_object_or_404(User, pk=pk)
 
-    if p_user.slug != slug:
-        url = reverse("spirit:profile-likes", kwargs={'pk': p_user.pk, 'slug': p_user.slug})
+    if p_user.st.slug != slug:
+        url = reverse("spirit:profile-likes", kwargs={'pk': p_user.pk, 'slug': p_user.st.slug})
         return HttpResponsePermanentRedirect(url)
 
     comments = Comment.objects\

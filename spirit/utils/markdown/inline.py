@@ -71,7 +71,7 @@ class InlineLexer(mistune.InlineLexer):
         # Already mentioned?
         if username in self.mentions:
             user = self.mentions[username]
-            return self.renderer.mention(username, user.get_absolute_url())
+            return self.renderer.mention(username, user.st.get_absolute_url())
 
         # Mentions limiter
         if self._mention_count >= settings.ST_MENTIONS_PER_COMMENT:
@@ -87,4 +87,4 @@ class InlineLexer(mistune.InlineLexer):
             return m.group(0)
 
         self.mentions[username] = user
-        return self.renderer.mention(username, user.get_absolute_url())
+        return self.renderer.mention(username, user.st.get_absolute_url())

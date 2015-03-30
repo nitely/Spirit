@@ -11,4 +11,4 @@ from .. import register
 @register.simple_tag()
 def get_avatar_color(user):
     # returns 0-215
-    return smart_text(int(215 * math.log10(user.id)))
+    return smart_text(int(215 * math.log10(user.pk)))

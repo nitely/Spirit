@@ -10,17 +10,24 @@ from django.contrib.auth import get_user_model
 
 from spirit.models.category import Category
 from spirit.models.comment_flag import CommentFlag
+from spirit.models.user import UserProfile
 
 
 User = get_user_model()
 
 
-class UserEditForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "location",
-                  "timezone", "is_administrator", "is_moderator", "is_active")
+        fields = ("username", "email", "is_active")
+
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ("location", "timezone", "is_administrator", "is_moderator")
 
 
 class CategoryForm(forms.ModelForm):

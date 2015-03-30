@@ -10,7 +10,6 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.core.exceptions import PermissionDenied
-from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -29,6 +28,7 @@ from spirit.utils import markdown
 from spirit.views.comment import comment_delete
 from spirit.models.topic import Topic
 from spirit.models.category import Category
+from spirit.models.user import UserProfile
 
 
 User = get_user_model()
@@ -221,7 +221,7 @@ class CommentViewTest(TestCase):
         """
         moderators can update other people comments
         """
-        User.objects.filter(pk=self.user.pk).update(is_moderator=True)
+        UserProfile.objects.filter(user__pk=self.user.pk).update(is_moderator=True)
         user = utils.create_user()
         comment = utils.create_comment(user=user, topic=self.topic)
 
@@ -237,7 +237,7 @@ class CommentViewTest(TestCase):
         """
         moderators can not update comments in private topics they has no access
         """
-        User.objects.filter(pk=self.user.pk).update(is_moderator=True)
+        UserProfile.objects.filter(user__pk=self.user.pk).update(is_moderator=True)
         user = utils.create_user()
         topic_private = utils.create_private_topic()
         comment = utils.create_comment(user=user, topic=topic_private.topic)
@@ -270,15 +270,17 @@ class CommentViewTest(TestCase):
 
     def test_comment_delete_permission_denied_to_non_moderator(self):
         req = RequestFactory().get('/')
-        req.user = UserModel()
-        req.user.is_moderator = False
+        req.user = self.user
+        req.user.st.is_moderator = False
         self.assertRaises(PermissionDenied, comment_delete, req)
 
     def test_comment_delete(self):
         """
         comment delete
         """
-        self.user = utils.create_user(is_moderator=True)
+        self.user = utils.create_user()
+        self.user.st.is_moderator = True
+        self.user.st.save()
         comment = utils.create_comment(user=self.user, topic=self.topic)
 
         utils.login(self)
@@ -295,7 +297,9 @@ class CommentViewTest(TestCase):
         """
         comment undelete
         """
-        self.user = utils.create_user(is_moderator=True)
+        self.user = utils.create_user()
+        self.user.st.is_moderator = True
+        self.user.st.save()
         comment = utils.create_comment(user=self.user, topic=self.topic, is_removed=True)
 
         utils.login(self)
@@ -313,7 +317,7 @@ class CommentViewTest(TestCase):
         comment move to another topic
         """
         utils.login(self)
-        self.user.is_moderator = True
+        self.user.st.is_moderator = True
         self.user.save()
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)
@@ -343,7 +347,7 @@ class CommentViewTest(TestCase):
         comment_moved.connect(comment_moved_handler)
 
         utils.login(self)
-        self.user.is_moderator = True
+        self.user.st.is_moderator = True
         self.user.save()
 
         comment = utils.create_comment(user=self.user, topic=self.topic)

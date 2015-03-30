@@ -18,7 +18,7 @@ def moderator_required(view_func):
             return redirect_to_login(next=request.get_full_path(),
                                      login_url=settings.LOGIN_URL)
 
-        if not user.is_moderator:
+        if not user.st.is_moderator:
             raise PermissionDenied
 
         return view_func(request, *args, **kwargs)
@@ -35,7 +35,7 @@ def administrator_required(view_func):
             return redirect_to_login(next=request.get_full_path(),
                                      login_url=settings.LOGIN_URL)
 
-        if not user.is_administrator:
+        if not user.st.is_administrator:
             raise PermissionDenied
 
         return view_func(request, *args, **kwargs)
@@ -48,7 +48,7 @@ def guest_only(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated():
-            return redirect(request.GET.get('next', request.user.get_absolute_url()))
+            return redirect(request.GET.get('next', request.user.st.get_absolute_url()))
 
         return view_func(request, *args, **kwargs)
 

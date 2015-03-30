@@ -26,14 +26,14 @@
 
             {{ topic.title }}
 
-            {% if user.is_moderator %}
+            {% if user.st.is_moderator %}
                 <a class="head-edit-link" href="{% url "spirit:topic-update" topic.pk %}"><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
             {% elif user.pk == topic.user.pk and not topic.is_closed %}
                 <a class="head-edit-link" href="{% url "spirit:topic-update" topic.pk %}"><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
             {% endif %}
         </h1>
 
-        {% if user.is_moderator %}
+        {% if user.st.is_moderator %}
             <div class="topic-moderation js-tabs-container">
                 <a class="dropdown-button js-tab" href="#" data-related=".js-mod-content"><i class="fa fa-cogs"></i></a>
 
@@ -120,7 +120,7 @@
                     } );
 
 
-                    {% if user.is_moderator %}
+                    {% if user.st.is_moderator %}
                         $('.js-show-move-comments').move_comments( {
                             csrfToken: "{{ csrf_token }}",
                             target: "{% url "spirit:comment-move" topic.pk %}",

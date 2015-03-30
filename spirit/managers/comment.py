@@ -48,7 +48,7 @@ class CommentQuerySet(models.QuerySet):
         return self.unremoved()._access(user=user)
 
     def for_update_or_404(self, pk, user):
-        if user.is_moderator:
+        if user.st.is_moderator:
             return get_object_or_404(self._access(user=user), pk=pk)
         else:
             return get_object_or_404(self.for_access(user), user=user, pk=pk)

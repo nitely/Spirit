@@ -36,7 +36,7 @@
         <script src="{% static "spirit/scripts/notification.js" %}"></script>
     {% endif %}
 
-    {% if user.is_moderator %}
+    {% if user.st.is_moderator %}
         <script src="{% static "spirit/scripts/move_comments.js" %}"></script>
     {% endif %}
 

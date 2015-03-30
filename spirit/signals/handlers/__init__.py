@@ -7,3 +7,4 @@ from . import topic
 from . import topic_notification
 from . import topic_poll
 from . import topic_unread
+from . import user

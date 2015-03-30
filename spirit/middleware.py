@@ -10,6 +10,8 @@ from django.contrib.auth import logout
 from django.core.urlresolvers import resolve
 from django.contrib.auth.views import redirect_to_login
 
+from .models.user import UserProfile
+
 
 User = get_user_model()
 
@@ -25,7 +27,7 @@ class TimezoneMiddleware(object):
 
     def process_request(self, request):
         if request.user.is_authenticated():
-            timezone.activate(request.user.timezone)
+            timezone.activate(request.user.st.timezone)
         else:
             timezone.deactivate()
 
@@ -38,10 +40,10 @@ class LastIPMiddleware(object):
 
         last_ip = request.META['REMOTE_ADDR'].strip()
 
-        if request.user.last_ip == last_ip:
+        if request.user.st.last_ip == last_ip:
             return
 
-        User.objects.filter(pk=request.user.pk)\
+        UserProfile.objects.filter(user__pk=request.user.pk)\
             .update(last_ip=last_ip)
 
 
@@ -52,12 +54,12 @@ class LastSeenMiddleware(object):
             return
 
         threshold = settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60
-        delta = timezone.now() - request.user.last_seen
+        delta = timezone.now() - request.user.st.last_seen
 
         if delta.seconds < threshold:
             return
 
-        User.objects.filter(pk=request.user.pk)\
+        UserProfile.objects.filter(user__pk=request.user.pk)\
             .update(last_seen=timezone.now())
 
 

@@ -11,9 +11,47 @@ from django.core.mail import send_mail
 from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.conf import settings
 
 from spirit.utils.timezone import TIMEZONE_CHOICES
 from spirit.utils.models import AutoSlugField
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_("profile"), related_name='st')
+
+    slug = AutoSlugField(populate_from="user.username", db_index=False, blank=True)
+    location = models.CharField(_("location"), max_length=75, blank=True)
+    last_seen = models.DateTimeField(_("last seen"), auto_now=True)
+    last_ip = models.GenericIPAddressField(_("last ip"), blank=True, null=True)
+    timezone = models.CharField(_("time zone"), max_length=32, choices=TIMEZONE_CHOICES, default='UTC')
+    is_administrator = models.BooleanField(_('administrator status'), default=False)
+    is_moderator = models.BooleanField(_('moderator status'), default=False)
+    is_verified = models.BooleanField(_('verified'), default=False,
+                                      help_text=_('Designates whether the user has verified his '
+                                                  'account by email or by other means. Un-select this '
+                                                  'to let the user activate his account.'))
+
+    topic_count = models.PositiveIntegerField(_("topic count"), default=0)
+    comment_count = models.PositiveIntegerField(_("comment count"), default=0)
+
+    class Meta:
+        verbose_name = _("forum profile")
+        verbose_name_plural = _("forum profiles")
+
+    def save(self, *args, **kwargs):
+        if self.user.is_superuser:
+            self.is_administrator = True
+
+        if self.is_administrator:
+            self.is_moderator = True
+
+        super(UserProfile, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('spirit:profile-detail', kwargs={'pk': self.pk,
+                                                        'slug': self.slug})
+
 
 
 class AbstractForumUser(models.Model):
@@ -46,12 +84,6 @@ class AbstractForumUser(models.Model):
 
 
 class AbstractUser(AbstractBaseUser, PermissionsMixin, AbstractForumUser):
-    # almost verbatim copy from the auth user model
-    # adds email(unique=True, blank=False, max_length=254)
-
-    # TODO: Django 1.8 sets email to max_length=254, so there is no point in keeping this,
-    # uniqueness can be checked at app level, although it's better to have a db index (for login)
-    # this should be change to the good old OneToOneField.
     username = models.CharField(_("username"), max_length=30, unique=True, db_index=True,
                                 help_text=_('Required. 30 characters or fewer. Letters, numbers and '
                                             '@/./+/-/_ characters'),

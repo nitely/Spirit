@@ -31,7 +31,11 @@ class AutoSlugField(SlugField):
         if default or not add or not self.populate_from:
             return default
 
-        value = getattr(instance, self.populate_from)
+        inst = instance
+
+        for attr in self.populate_from.split('.'):
+            value = getattr(inst, attr)
+            inst = value
 
         if value is None:
             return default

@@ -55,8 +55,6 @@ CACHES = {
     },
 }
 
-AUTH_USER_MODEL = 'spirit.User'
-
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'spirit.backends.user.EmailAuthBackend',

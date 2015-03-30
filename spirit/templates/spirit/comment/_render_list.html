@@ -17,7 +17,7 @@
                         <div class="comment-info">
 
                             <div class="comment-username">
-                                <a class="username{% if c.user.is_administrator %} is-admin{% elif c.user.is_moderator %} is-mod{% endif %}" href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a><span class="comment-realname">{{ c.user.get_full_name }}</span>
+                                <a class="username{% if c.user.st.is_administrator %} is-admin{% elif c.user.st.is_moderator %} is-mod{% endif %}" href="{{ c.user.st.get_absolute_url }}">{{ c.user.username }}</a><span class="comment-realname">{{ c.user.get_full_name }}</span>
                             </div>
 
                             <ul class="comment-date">
@@ -43,7 +43,7 @@
                 {% if not c.action %}
                     <ul class="comment-actions">
                         {% if user.is_authenticated %}
-                            {% if user.is_moderator %}
+                            {% if user.st.is_moderator %}
                                 <li><a href="{% url "spirit:comment-delete" c.pk %}"><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
                             {% endif %}
 
@@ -63,7 +63,7 @@
                                 {% endifnotequal %}
                             {% endif %}
 
-                            {% if user.is_moderator or c.user.pk == user.pk %}
+                            {% if user.st.is_moderator or c.user.pk == user.pk %}
                                 <li><a href="{% url "spirit:comment-update" pk=c.pk %}" >{% trans "edit" %}</a></li>
                             {% endif %}
 
@@ -97,14 +97,14 @@
                 <div class="comment-media">
                     <div class="comment-img">
                         <div class="comment-removed">
-                            <a href="{{ c.user.get_absolute_url }}">{{ c.user.username }}</a>
+                            <a href="{{ c.user.st.get_absolute_url }}">{{ c.user.username }}</a>
                         </div>
                     </div>
 
                     <div class="comment-body">
 
                         <div class="comment-text">
-                            {% if user.is_moderator %}
+                            {% if user.st.is_moderator %}
                                 {{ c.comment_html|safe }}
                             {% else %}
                                 {% trans "This comment was deleted" %}.
@@ -113,7 +113,7 @@
                     </div>
                 </div>
 
-                {% if user.is_moderator %}
+                {% if user.st.is_moderator %}
                     <ul class="comment-actions">
                         <li><a href="{% url "spirit:comment-undelete" c.pk %}"><i class="fa fa-times"></i> {% trans "undelete" %}</a></li>
                     </ul>

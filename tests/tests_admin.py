@@ -6,7 +6,6 @@ from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
-from django.contrib.auth.models import User as UserModel
 from django.contrib.auth import get_user_model
 
 from djconfig.utils import override_djconfig
@@ -16,7 +15,7 @@ from . import utils
 from spirit.views.admin import user, category, comment_flag, config, index, topic
 from spirit.models.category import Category
 from spirit.models.comment_flag import CommentFlag, Flag
-from spirit.forms.admin import UserEditForm, CategoryForm, BasicConfigForm, CommentFlagForm
+from spirit.forms.admin import UserForm, CategoryForm, BasicConfigForm, CommentFlagForm, UserProfileForm
 
 
 User = get_user_model()
@@ -26,14 +25,16 @@ class AdminViewTest(TestCase):
 
     def setUp(self):
         cache.clear()
-        self.user = utils.create_user(is_administrator=True)
+        self.user = utils.create_user()
+        self.user.st.is_administrator = True
+        self.user.st.save()
         self.category = utils.create_category()
         self.topic = utils.create_topic(self.category, user=self.user)
 
     def test_permission_denied_to_non_admin(self):
         req = RequestFactory().get('/')
-        req.user = UserModel()
-        req.user.is_administrator = False
+        req.user = self.user
+        req.user.st.is_administrator = False
 
         self.assertRaises(PermissionDenied, category.category_list, req)
         self.assertRaises(PermissionDenied, category.category_create, req)
@@ -104,7 +105,9 @@ class AdminViewTest(TestCase):
         """
         List of admins paginated
         """
-        user2 = utils.create_user(is_administrator=True)
+        user2 = utils.create_user()
+        user2.st.is_administrator = True
+        user2.st.save()
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin-user-admins'))
@@ -114,7 +117,10 @@ class AdminViewTest(TestCase):
         """
         List of mods
         """
-        mod = utils.create_user(is_moderator=True)
+        mod = utils.create_user()
+        mod.st.is_moderator = True
+        mod.st.save()
+
         utils.login(self)
         response = self.client.get(reverse('spirit:admin-user-mods'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [mod, ]))
@@ -124,12 +130,17 @@ class AdminViewTest(TestCase):
         """
         List of mods paginated
         """
-        utils.create_user(is_moderator=True)
-        mod = utils.create_user(is_moderator=True)
+        mod = utils.create_user()
+        mod.st.is_moderator = True
+        mod.st.save()
+
+        mod2 = utils.create_user()
+        mod2.st.is_moderator = True
+        mod2.st.save()
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin-user-mods'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [mod, ]))
+        self.assertQuerysetEqual(response.context['users'], map(repr, [mod2, ]))
 
     def test_user_unactive(self):
         """
@@ -387,7 +398,10 @@ class AdminFormTest(TestCase):
                      "is_administrator": True,
                      "is_moderator": True,
                      "is_active": True}
-        form = UserEditForm(data=form_data)
+        form = UserForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+
+        form = UserProfileForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
     def test_category(self):

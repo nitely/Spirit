@@ -12,7 +12,7 @@ from djconfig import config
 from ...utils.paginator import yt_paginate
 from spirit.utils.decorators import administrator_required
 
-from spirit.forms.admin import UserEditForm
+from spirit.forms.admin import UserForm, UserProfileForm
 
 
 User = get_user_model()
@@ -23,16 +23,22 @@ def user_edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
     if request.method == 'POST':
-        form = UserEditForm(data=request.POST, instance=user)
+        uform = UserForm(data=request.POST, instance=user)
+        form = UserProfileForm(data=request.POST, instance=user.st)
 
-        if form.is_valid():
+        if uform.is_valid() and form.is_valid():
+            uform.save()
             form.save()
             messages.info(request, _("This profile has been updated!"))
             return redirect(request.GET.get("next", request.get_full_path()))
     else:
-        form = UserEditForm(instance=user)
+        uform = UserForm(instance=user)
+        form = UserProfileForm(instance=user.st)
 
-    context = {'form': form, }
+    context = {
+        'form': form,
+        'uform': uform
+        }
 
     return render(request, 'spirit/admin/user/user_edit.html', context)
 
@@ -40,7 +46,7 @@ def user_edit(request, user_id):
 @administrator_required
 def user_list(request):
     users = yt_paginate(
-        User.objects.all(),
+        User.objects.all().order_by('-date_joined', '-pk'),
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )
@@ -51,7 +57,7 @@ def user_list(request):
 @administrator_required
 def user_admins(request):
     users = yt_paginate(
-        User.objects.filter(is_administrator=True),
+        User.objects.filter(st__is_administrator=True).order_by('-date_joined', '-pk'),
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )
@@ -62,7 +68,7 @@ def user_admins(request):
 @administrator_required
 def user_mods(request):
     users = yt_paginate(
-        User.objects.filter(is_moderator=True, is_administrator=False),
+        User.objects.filter(st__is_moderator=True, st__is_administrator=False).order_by('-date_joined', '-pk'),
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )
@@ -73,7 +79,7 @@ def user_mods(request):
 @administrator_required
 def user_unactive(request):
     users = yt_paginate(
-        User.objects.filter(is_active=False),
+        User.objects.filter(is_active=False).order_by('-date_joined', '-pk'),
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )

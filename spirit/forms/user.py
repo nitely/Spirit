@@ -9,6 +9,8 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.template import defaultfilters
 
+from ..models.user import UserProfile
+
 
 User = get_user_model()
 
@@ -22,7 +24,7 @@ class RegistrationForm(UserCreationForm):
         fields = ("username", "email")
 
     def clean_honeypot(self):
-        """Check that nothing's been entered into the honeypot."""
+        """Check that nothing has been entered into the honeypot."""
         value = self.cleaned_data["honeypot"]
 
         if value:
@@ -41,16 +43,25 @@ class RegistrationForm(UserCreationForm):
 
         raise forms.ValidationError(_("The username is taken."))
 
+    # TODO: check email is unique
+
     def save(self, commit=True):
         self.instance.is_active = False
         return super(RegistrationForm, self).save(commit)
 
 
-class UserProfileForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "location", "timezone")
+        fields = ("first_name", "last_name")
+
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ("location", "timezone")
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -108,7 +119,7 @@ class ResendActivationForm(forms.Form):
         except User.DoesNotExist:
             raise forms.ValidationError(_("The provided email does not exists."))
 
-        if self.user.is_verified:
+        if self.user.st.is_verified:
             raise forms.ValidationError(_("This account is verified, try logging-in."))
 
         return email
