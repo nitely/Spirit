@@ -6,9 +6,15 @@ from django.conf import settings
 
 
 def migrate_users(apps, schema_editor):
-    UserOld = apps.get_model(settings.OLD_AUTH_USER_MODEL)
+    UserOld = apps.get_model(settings.AUTH_USER_MODEL)
     UserProfile = apps.get_model('spirit', 'UserProfile')
     profiles = []
+
+    # Check if this is the old custom spirit user model
+    if not hasattr(UserOld, 'is_moderator') \
+            or not hasattr(UserOld, 'last_seen') \
+            or not hasattr(UserOld, 'is_verified'):
+        return
 
     for user in UserOld.objects.all():
         st = UserProfile()
