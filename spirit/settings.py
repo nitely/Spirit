@@ -60,6 +60,8 @@ AUTHENTICATION_BACKENDS = (
     'spirit.backends.user.EmailAuthBackend',
 )
 
+OLD_AUTH_USER_MODEL = 'spirit.User'
+
 LOGIN_URL = 'spirit:user-login'
 LOGIN_REDIRECT_URL = 'spirit:profile-update'
 
