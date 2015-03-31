@@ -12,10 +12,11 @@ User = get_user_model()
 class EmailAuthBackend(ModelBackend):
 
     def authenticate(self, username=None, password=None, **kwargs):
+        # TODO: authenticate when multiple users are returned
         try:
             user = User._default_manager.get(email=username)
 
             if user.check_password(password):
                 return user
-        except User.DoesNotExist:
+        except (User.DoesNotExist, User.MultipleObjectsReturned):
             pass

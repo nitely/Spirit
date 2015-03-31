@@ -188,6 +188,7 @@ def profile_email_change(request):
 
 @login_required
 def email_change_confirm(request, token):
+    # TODO: check the email is unique, form
     user = request.user
     email_change = UserEmailChangeTokenGenerator()
 

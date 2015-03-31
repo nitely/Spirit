@@ -33,17 +33,28 @@ class RegistrationForm(UserCreationForm):
         return value
 
     def clean_username(self):
-        # Override
         username = self.cleaned_data["username"]
 
-        try:
-            User._default_manager.get(username=username)
-        except User.DoesNotExist:
-            return username
+        is_taken = User._default_manager\
+            .filter(username=username)\
+            .exists()
 
-        raise forms.ValidationError(_("The username is taken."))
+        if is_taken:
+            raise forms.ValidationError(_("The username is taken."))
 
-    # TODO: check email is unique
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+
+        is_taken = User._default_manager\
+            .filter(email=email)\
+            .exists()
+
+        if is_taken:
+            raise forms.ValidationError(_("The email is taken."))
+
+        return email
 
     def save(self, commit=True):
         self.instance.is_active = False
@@ -90,16 +101,19 @@ class EmailChangeForm(forms.Form):
         password = self.cleaned_data["password"]
 
         if not self.user.check_password(password):
-            raise forms.ValidationError(_("Your password was entered incorrectly. "
-                                          "Please enter it again."))
+            raise forms.ValidationError(_("The provided password is incorrect."))
 
         return password
 
     def clean_email(self):
         email = self.cleaned_data["email"]
 
-        if email == self.user.email:
-            raise forms.ValidationError(_("Try a different email."))
+        is_taken = User._default_manager\
+            .filter(email=email)\
+            .exists()
+
+        if is_taken:
+            raise forms.ValidationError(_("The email is taken."))
 
         return email
 
@@ -118,6 +132,18 @@ class ResendActivationForm(forms.Form):
             self.user = User.objects.get(email=email)
         except User.DoesNotExist:
             raise forms.ValidationError(_("The provided email does not exists."))
+        except User.MultipleObjectsReturned:
+            # TODO: refactor!
+            users = User.objects\
+                .filter(email=email, st__is_verified=False)\
+                .order_by('-pk')
+
+            users = users[:1]  # Limit to the first found.
+
+            if not len(users):
+                raise forms.ValidationError(_("This account is verified, try logging-in."))
+
+            self.user = users[0]
 
         if self.user.st.is_verified:
             raise forms.ValidationError(_("This account is verified, try logging-in."))

@@ -29,6 +29,7 @@ def sender(request, subject, template_name, context, to):
     else:
         kwargs = {'to': to, }
 
+    # TODO: use EmailMultiAlternatives
     email = EmailMessage(subject, message, from_email, **kwargs)
 
     try:

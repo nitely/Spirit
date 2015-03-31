@@ -652,6 +652,17 @@ class UserFormTest(TestCase):
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('honeypot', form.cleaned_data)
 
+    def test_registration_email_duplication(self):
+        """
+        register, don't allow email duplication
+        """
+        utils.create_user(email='duplicated@bar.com')
+        form_data = {'username': 'foo', 'email': 'duplicated@bar.com',
+                     'password1': 'pass', 'password2': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
+        self.assertNotIn('email', form.cleaned_data)
+
     def test_profile(self):
         """
         edit user profile
@@ -684,6 +695,17 @@ class UserFormTest(TestCase):
         self.assertNotIn('email', form.cleaned_data)
         self.assertNotIn('password', form.cleaned_data)
 
+    def test_email_change_email_duplication(self):
+        """
+        email change, don't allow email duplication
+        """
+        utils.create_user(email="duplicated@bar.com")
+        user = utils.create_user(password="foo")
+        form_data = {'email': 'duplicated@bar.com', 'password': 'foo'}
+        form = EmailChangeForm(data=form_data, user=user)
+        self.assertEqual(form.is_valid(), False)
+        self.assertNotIn('email', form.cleaned_data)
+
     def test_resend_activation_email(self):
         """
         resend activation
@@ -702,6 +724,24 @@ class UserFormTest(TestCase):
         form = ResendActivationForm(form_data)
         self.assertFalse(form.is_valid())
 
+    def test_resend_activation_email_duplication(self):
+        """
+        Send email to the first *not verified* user found
+        """
+        utils.create_user(email="duplicated@bar.com")
+        user2 = utils.create_user(email="duplicated@bar.com")
+        user3 = utils.create_user(email="duplicated@bar.com")
+        form_data = {'email': 'duplicated@bar.com', }
+        form = ResendActivationForm(form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_user(), user3)
+
+        user3.st.is_verified = True
+        user3.st.save()
+        form = ResendActivationForm(form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_user(), user2)
+
 
 class UserBackendTest(TestCase):
 
@@ -712,6 +752,15 @@ class UserBackendTest(TestCase):
     def test_email_auth_backend(self):
         user = EmailAuthBackend().authenticate(username="foobar@bar.com", password="bar")
         self.assertEqual(user, self.user)
+
+    def test_email_auth_backend_email_duplication(self):
+        """
+        it should NOT authenticate when the email is not unique (current behaviour, sorry)
+        """
+        utils.create_user(email="duplicated@bar.com", password="foo")
+        utils.create_user(email="duplicated@bar.com", password="foo2")
+        user = EmailAuthBackend().authenticate(username="duplicated@bar.com", password="foo")
+        self.assertIsNone(user)
 
 
 class UserModelTest(TestCase):
