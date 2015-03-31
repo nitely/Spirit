@@ -31,6 +31,8 @@ ST_INITIAL_MIGRATION_DEPENDENCIES = []  # [('myuser', '0001_initial'), ]
 
 ST_UNICODE_SLUGS = True
 
+ST_UNIQUE_EMAILS = True
+
 #
 # Django & Spirit settings defined below...
 #
