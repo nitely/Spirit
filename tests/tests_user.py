@@ -4,10 +4,10 @@ from __future__ import unicode_literals
 
 import datetime
 
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, HASH_SESSION_KEY
 from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
@@ -444,6 +444,23 @@ class UserViewTest(TestCase):
         # get
         response = self.client.get(reverse('spirit:profile-password-change'))
         self.assertEqual(response.status_code, 200)
+
+    def test_profile_password_change_re_login(self):
+        """
+        Changing the password should invalidate the session
+        """
+        user = utils.create_user(password="foo")
+        utils.login(self, user=user, password="foo")
+        old_hash = self.client.session[HASH_SESSION_KEY]
+
+        form_data = {'old_password': 'foo',
+                     'new_password1': 'bar',
+                     'new_password2': 'bar'}
+        response = self.client.post(reverse('spirit:profile-password-change'), form_data)
+        expected_url = reverse("spirit:profile-update")
+        self.assertRedirects(response, expected_url, status_code=302)
+
+        self.assertNotEqual(old_hash, self.client.session[HASH_SESSION_KEY])
 
     def test_registration_activation(self):
         """
