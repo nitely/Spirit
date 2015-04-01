@@ -1,4 +1,9 @@
-# Spirit [![Build Status](https://travis-ci.org/nitely/Spirit.png)](https://travis-ci.org/nitely/Spirit) [![Coverage Status](https://coveralls.io/repos/nitely/Spirit/badge.png)](https://coveralls.io/r/nitely/Spirit)
+# Spirit
+
+[![Build Status](https://img.shields.io/travis/nitely/Spirit.svg?style=flat-square)](https://travis-ci.org/nitely/Spirit)
+[![Coverage Status](https://img.shields.io/coveralls/nitely/Spirit.svg?style=flat-square)](https://coveralls.io/r/nitely/Spirit)
+[![pypi](https://img.shields.io/pypi/v/django-spirit.svg?style=flat-square)](https://pypi.python.org/pypi/django-spirit)
+[licence](https://img.shields.io/pypi/l/django-spirit.svg?style=flat-square)
 
 Spirit is a Python based forum built using the Django framework.
 
@@ -68,12 +73,6 @@ Run:
     python manage.py collectstatic
     python manage.py rebuild_index --noinput
 
-## Contributing
-
-Feel free to check out the source code and submit pull requests.
-
-You may also report any bug or propose new features in the [issues tracker](https://github.com/nitely/Spirit/issues)
-
 ## Testing
 
 The `runtests.py` script enable you to run the test suite of spirit.
@@ -81,13 +80,6 @@ The `runtests.py` script enable you to run the test suite of spirit.
 - Type `./runtests.py` to run the test suite using the settings from the `tests` folder.
 - Type `./runtests.py example` to run the test suite using the settings from the `example` folder.
 
-## Copyright / License
+## License
 
-Copyright 2014 [Esteban Castro Borsani](https://github.com/nitely).
-
-Licensed under the [MIT License](https://github.com/nitely/Spirit/blob/master/LICENSE).
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+MIT
