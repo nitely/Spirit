@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.template import defaultfilters
+from django.conf import settings
 
 from ..models.user import UserProfile
 
@@ -15,7 +16,34 @@ from ..models.user import UserProfile
 User = get_user_model()
 
 
-class RegistrationForm(UserCreationForm):
+class EmailUniqueMixin(object):
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+
+        # TODO: test!
+        if not settings.ST_UNIQUE_EMAILS:
+            return email
+
+        is_taken = User._default_manager\
+            .filter(email=email)\
+            .exists()
+
+        if is_taken:
+            raise forms.ValidationError(_("The email is taken."))
+
+        return email
+
+    def get_email(self):
+        return self.cleaned_data["email"]
+
+
+class EmailCheckForm(EmailUniqueMixin, forms.Form):
+    # TODO: test!
+    email = forms.CharField(label=_("Email"), widget=forms.EmailInput, max_length=254)
+
+
+class RegistrationForm(EmailUniqueMixin, UserCreationForm):
 
     honeypot = forms.CharField(label=_("Leave blank"), required=False)
 
@@ -44,21 +72,14 @@ class RegistrationForm(UserCreationForm):
 
         return username
 
-    def clean_email(self):
-        email = self.cleaned_data["email"]
-
-        is_taken = User._default_manager\
-            .filter(email=email)\
-            .exists()
-
-        if is_taken:
-            raise forms.ValidationError(_("The email is taken."))
-
-        return email
-
     def save(self, commit=True):
         self.instance.is_active = False
         return super(RegistrationForm, self).save(commit)
+
+
+class LoginForm(AuthenticationForm):
+
+    username = forms.CharField(label=_("Username or Email"), max_length=254)
 
 
 class UserForm(forms.ModelForm):
@@ -83,14 +104,9 @@ class UserProfileForm(forms.ModelForm):
         }
 
 
-class LoginForm(AuthenticationForm):
+class EmailChangeForm(EmailUniqueMixin, forms.Form):
 
-    username = forms.CharField(label=_("Username or Email"), max_length=254)
-
-
-class EmailChangeForm(forms.Form):
-
-    email = forms.CharField(label=_("Email"), widget=forms.EmailInput)
+    email = forms.CharField(label=_("Email"), widget=forms.EmailInput, max_length=254)
     password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
 
     def __init__(self, user=None, *args, **kwargs):
@@ -104,21 +120,6 @@ class EmailChangeForm(forms.Form):
             raise forms.ValidationError(_("The provided password is incorrect."))
 
         return password
-
-    def clean_email(self):
-        email = self.cleaned_data["email"]
-
-        is_taken = User._default_manager\
-            .filter(email=email)\
-            .exists()
-
-        if is_taken:
-            raise forms.ValidationError(_("The email is taken."))
-
-        return email
-
-    def get_email(self):
-        return self.cleaned_data["email"]
 
 
 class ResendActivationForm(forms.Form):

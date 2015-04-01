@@ -24,7 +24,7 @@ from ..models.topic import Topic
 from ..models.comment import Comment
 
 from ..forms.user import UserProfileForm, RegistrationForm, \
-    LoginForm, EmailChangeForm, ResendActivationForm, UserForm
+    LoginForm, EmailChangeForm, ResendActivationForm, UserForm, EmailCheckForm
 
 
 User = get_user_model()
@@ -189,14 +189,20 @@ def profile_email_change(request):
 
 @login_required
 def email_change_confirm(request, token):
-    # TODO: check the email is unique, form
     user = request.user
     email_change = UserEmailChangeTokenGenerator()
 
     if email_change.is_valid(user, token):
-        user.email = email_change.get_email()
-        user.save()
-        messages.info(request, _("Your email has been changed!"))
+        email = email_change.get_email()
+        form = EmailCheckForm(data={'email': email, })
+
+        if form.is_valid():
+            # TODO: test!
+            user.email = form.get_email()
+            user.save()
+            messages.info(request, _("Your email has been changed!"))
+        else:
+            messages.error(request, _("Sorry, we were not able to change your email."))
 
     return redirect(reverse('spirit:profile-update'))
 
