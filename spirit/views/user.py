@@ -197,13 +197,12 @@ def email_change_confirm(request, token):
         form = EmailCheckForm(data={'email': email, })
 
         if form.is_valid():
-            # TODO: test!
             user.email = form.get_email()
             user.save()
             messages.info(request, _("Your email has been changed!"))
-        else:
-            messages.error(request, _("Sorry, we were not able to change your email."))
+            return redirect(reverse('spirit:profile-update'))
 
+    messages.error(request, _("Sorry, we were not able to change your email."))
     return redirect(reverse('spirit:profile-update'))
 
 

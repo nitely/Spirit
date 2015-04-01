@@ -521,6 +521,30 @@ class UserViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
 
+    def test_email_change_duplicated(self):
+        """
+        email should be unique
+        """
+        utils.login(self)
+        utils.create_user(email="duplicated@bar.com")
+        new_email = "duplicated@bar.com"
+        old_email = self.user.email
+        token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
+        self.client.get(reverse('spirit:email-change-confirm', kwargs={'token': token}))
+        self.assertEqual(User.objects.get(pk=self.user.pk).email, old_email)
+
+    @override_settings(ST_UNIQUE_EMAILS=False)
+    def test_email_change_duplicated_allowed(self):
+        """
+        Duplicated email allowed
+        """
+        utils.login(self)
+        utils.create_user(email="duplicated@bar.com")
+        new_email = "duplicated@bar.com"
+        token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
+        self.client.get(reverse('spirit:email-change-confirm', kwargs={'token': token}))
+        self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
+
     def test_profile_email_change(self):
         """
         email change
