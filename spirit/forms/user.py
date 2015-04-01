@@ -21,7 +21,6 @@ class EmailUniqueMixin(object):
     def clean_email(self):
         email = self.cleaned_data["email"]
 
-        # TODO: test!
         if not settings.ST_UNIQUE_EMAILS:
             return email
 
@@ -39,7 +38,7 @@ class EmailUniqueMixin(object):
 
 
 class EmailCheckForm(EmailUniqueMixin, forms.Form):
-    # TODO: test!
+
     email = forms.CharField(label=_("Email"), widget=forms.EmailInput, max_length=254)
 
 

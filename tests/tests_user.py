@@ -4,19 +4,21 @@ from __future__ import unicode_literals
 
 import datetime
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.contrib.auth import get_user_model, HASH_SESSION_KEY
 from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
+from django.test.utils import override_settings
 
 from djconfig.utils import override_djconfig
 
 from . import utils
 
-from spirit.forms.user import RegistrationForm, UserProfileForm, EmailChangeForm, ResendActivationForm, UserForm
+from spirit.forms.user import RegistrationForm, UserProfileForm, \
+    EmailChangeForm, ResendActivationForm, UserForm, EmailCheckForm
 from spirit.backends.user import EmailAuthBackend
 from spirit.models.comment_like import CommentLike
 from spirit.utils.user.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
@@ -680,6 +682,17 @@ class UserFormTest(TestCase):
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('email', form.cleaned_data)
 
+    @override_settings(ST_UNIQUE_EMAILS=False)
+    def test_registration_email_duplication_allowed(self):
+        """
+        Duplicated email allowed
+        """
+        utils.create_user(email='duplicated@bar.com')
+        form_data = {'username': 'foo', 'email': 'duplicated@bar.com',
+                     'password1': 'pass', 'password2': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+
     def test_profile(self):
         """
         edit user profile
@@ -723,6 +736,17 @@ class UserFormTest(TestCase):
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('email', form.cleaned_data)
 
+    @override_settings(ST_UNIQUE_EMAILS=False)
+    def test_email_change_email_duplication_allowed(self):
+        """
+        Duplicated email allowed
+        """
+        utils.create_user(email="duplicated@bar.com")
+        user = utils.create_user(password="foo")
+        form_data = {'email': 'duplicated@bar.com', 'password': 'foo'}
+        form = EmailChangeForm(data=form_data, user=user)
+        self.assertEqual(form.is_valid(), True)
+
     def test_resend_activation_email(self):
         """
         resend activation
@@ -758,6 +782,31 @@ class UserFormTest(TestCase):
         form = ResendActivationForm(form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.get_user(), user2)
+
+    def test_email_check(self):
+        """
+        Check it's an email
+        """
+        # Unique email
+        form_data = {'email': 'unique@bar.com', }
+        form = EmailCheckForm(form_data)
+        self.assertTrue(form.is_valid())
+
+        # Duplicated email
+        utils.create_user(email="duplicated@bar.com")
+        form_data['email'] = "duplicated@bar.com"
+        form = EmailCheckForm(form_data)
+        self.assertFalse(form.is_valid())
+
+    @override_settings(ST_UNIQUE_EMAILS=False)
+    def test_email_check_non_unique(self):
+        """
+        Duplicated email allowed
+        """
+        utils.create_user(email="duplicated@bar.com")
+        form_data = {'email': 'duplicated@bar.com', }
+        form = EmailCheckForm(form_data)
+        self.assertTrue(form.is_valid())
 
 
 class UserBackendTest(TestCase):
