@@ -19,7 +19,7 @@ def comment_history_detail(request, comment_id):
 
     comments = CommentHistory.objects\
         .filter(comment_fk=comment)\
-        .select_related('comment_fk__user')\
+        .select_related('comment_fk__user__st')\
         .order_by('date', 'pk')
 
     comments = yt_paginate(

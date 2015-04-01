@@ -220,7 +220,7 @@ def profile_topics(request, pk, slug):
         .with_bookmarks(user=request.user)\
         .filter(user=p_user)\
         .order_by('-date', '-pk')\
-        .select_related('user')
+        .select_related('user__st')
 
     topics = yt_paginate(
         topics,

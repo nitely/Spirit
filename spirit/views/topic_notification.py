@@ -59,7 +59,7 @@ def notification_ajax(request):
     notifications = TopicNotification.objects\
         .for_access(request.user)\
         .order_by("is_read", "-date")\
-        .select_related('comment__user', 'comment__topic')
+        .select_related('comment__user__st', 'comment__topic')
 
     notifications = notifications[:settings.ST_NOTIFICATIONS_PER_PAGE]
 
