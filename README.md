@@ -67,6 +67,9 @@ Visit (http://127.0.0.1:8000/)
 
 ## Updating
 
+> *Upgrading from v0.1.x?* make sure you change `url(r'^', include(urls, namespace="spirit", app_name="spirit")),` to `url(r'^', include('spirit.urls')),` in your *urls.py*.
+> The way settings used to import your local_settings.py has changed, so check that out.
+
 Run:
 
     pip install -r requirements.txt
