@@ -3,10 +3,9 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-
 from haystack import indexes
 
-from spirit.models.topic import Topic
+from spirit.apps.topic.models import Topic
 
 
 class TopicIndex(indexes.SearchIndex, indexes.Indexable):

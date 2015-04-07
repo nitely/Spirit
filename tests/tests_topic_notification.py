@@ -5,25 +5,22 @@ from __future__ import unicode_literals
 import json
 import datetime
 
-from django.test import TestCase, TransactionTestCase, RequestFactory
+from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.template import Template, Context
 from django.utils import timezone
-from django.conf import settings
-
 from djconfig.utils import override_djconfig
 
 from . import utils
-from spirit.models.topic_private import TopicPrivate
-
-from spirit.models.topic_notification import TopicNotification, COMMENT, MENTION
-from spirit.signals.comment import comment_posted
-from spirit.signals.topic import topic_viewed
-from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
-from spirit.forms.topic_notification import NotificationCreationForm, NotificationForm
-from spirit.templatetags.tags.topic_notification import render_notification_form, has_topic_notifications
+from spirit.apps.topic.private.models import TopicPrivate
+from spirit.apps.topic.notification.models import TopicNotification, COMMENT, MENTION
+from spirit.apps.comment.signals import comment_posted
+from spirit.apps.topic.signals import topic_viewed
+from spirit.apps.topic.private.signals import topic_private_post_create, topic_private_access_pre_create
+from spirit.apps.topic.notification.forms import NotificationCreationForm, NotificationForm
+from spirit.apps.topic.notification.tags import render_notification_form, has_topic_notifications
 
 
 @override_settings(ST_NOTIFICATIONS_PER_PAGE=1)

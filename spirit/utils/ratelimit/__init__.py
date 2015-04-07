@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from .ratelimit import RateLimit
+from spirit.utils.ratelimit.ratelimit import RateLimit
 
 __all__ = ['RateLimit']

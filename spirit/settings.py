@@ -59,7 +59,7 @@ CACHES = {
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'spirit.backends.user.EmailAuthBackend',
+    'spirit.apps.user.backends.EmailAuthBackend',
 )
 
 LOGIN_URL = 'spirit:user-login'

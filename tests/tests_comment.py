@@ -17,18 +17,17 @@ from django.test.utils import override_settings
 from django.utils.six import BytesIO
 
 from . import utils
-
-from spirit.models.comment import Comment
-from spirit.signals.comment_like import comment_like_post_create, comment_like_post_delete
-from spirit.signals.topic_moderate import topic_post_moderate
-from spirit.forms.comment import CommentForm, CommentMoveForm, CommentImageForm
-from spirit.signals.comment import comment_post_update, comment_posted, comment_pre_update, comment_moved
-from spirit.templatetags.tags.comment import render_comments_form
+from spirit.apps.comment.models import Comment
+from spirit.apps.comment.like.signals import comment_like_post_create, comment_like_post_delete
+from spirit.apps.topic.moderate.signals import topic_post_moderate
+from spirit.apps.comment.forms import CommentForm, CommentMoveForm, CommentImageForm
+from spirit.apps.comment.signals import comment_post_update, comment_posted, comment_pre_update, comment_moved
+from spirit.apps.comment.tags import render_comments_form
 from spirit.utils import markdown
-from spirit.views.comment import comment_delete
-from spirit.models.topic import Topic
-from spirit.models.category import Category
-from spirit.models.user import UserProfile
+from spirit.apps.comment.views import comment_delete
+from spirit.apps.topic.models import Topic
+from spirit.apps.category.models import Category
+from spirit.apps.user.models import UserProfile
 
 
 User = get_user_model()

@@ -10,13 +10,12 @@ from django.http import Http404
 from django.core.paginator import Page, Paginator
 
 from . import utils
-
-from spirit.models.comment import Comment
+from spirit.apps.comment.models import Comment
 from spirit.utils.paginator.yt_paginator import YTPaginator, InvalidPage, YTPage
 from spirit.utils import paginator
 from spirit.utils.paginator import infinite_paginator, paginate, yt_paginate
-from spirit.templatetags.tags.utils.paginator import render_paginator
-from spirit.templatetags.tags.utils import paginator as ttag_paginator
+from spirit.utils.tags.paginator import render_paginator
+from spirit.utils.tags import paginator as ttag_paginator
 
 
 class UtilsPaginatorTest(TestCase):

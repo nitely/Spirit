@@ -8,11 +8,9 @@ from django.template import Template, Context
 from django.core.cache import cache
 
 from . import utils
-
-from spirit.models import Comment
-from spirit.models.comment_like import CommentLike
-from spirit.forms.comment_like import LikeForm
-from spirit.templatetags.tags.comment_like import render_like_form
+from spirit.apps.comment.like.models import CommentLike
+from spirit.apps.comment.like.forms import LikeForm
+from spirit.apps.comment.like.tags import render_like_form
 
 
 class LikeViewTest(TestCase):

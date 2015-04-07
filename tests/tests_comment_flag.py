@@ -7,9 +7,8 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
 from . import utils
-
-from spirit.models.comment_flag import Flag, CommentFlag
-from spirit.forms.comment_flag import FlagForm
+from spirit.apps.comment.flag.models import Flag, CommentFlag
+from spirit.apps.comment.flag.forms import FlagForm
 
 
 class FlagViewTest(TestCase):

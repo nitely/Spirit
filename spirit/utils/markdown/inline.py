@@ -9,10 +9,9 @@ import os
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.staticfiles.storage import staticfiles_storage
-
 import mistune
 
-from .utils.emoji import emojis
+from spirit.utils.markdown.utils.emoji import emojis
 
 
 User = get_user_model()

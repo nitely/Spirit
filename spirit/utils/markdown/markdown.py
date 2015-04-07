@@ -6,7 +6,7 @@ import mistune
 
 from .block import BlockLexer
 from .inline import InlineLexer
-from .renderer import Renderer
+from spirit.utils.markdown.renderer import Renderer
 
 
 class Markdown(mistune.Markdown):

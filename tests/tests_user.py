@@ -12,20 +12,18 @@ from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
 from django.test.utils import override_settings
-
 from djconfig.utils import override_djconfig
 
 from . import utils
-
-from spirit.forms.user import RegistrationForm, UserProfileForm, \
+from spirit.apps.user.forms import RegistrationForm, UserProfileForm, \
     EmailChangeForm, ResendActivationForm, UserForm, EmailCheckForm
-from spirit.backends.user import EmailAuthBackend
-from spirit.models.comment_like import CommentLike
-from spirit.utils.user.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
-from spirit.models.user import UserProfile
-from spirit.models.topic import Topic
-from spirit.models.comment import Comment
-from spirit.models.comment_bookmark import CommentBookmark
+from spirit.apps.user.backends import EmailAuthBackend
+from spirit.apps.comment.like.models import CommentLike
+from spirit.apps.user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from spirit.apps.user.models import UserProfile
+from spirit.apps.topic.models import Topic
+from spirit.apps.comment.models import Comment
+from spirit.apps.comment.bookmark.models import CommentBookmark
 
 
 User = get_user_model()

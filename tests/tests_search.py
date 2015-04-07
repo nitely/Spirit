@@ -8,15 +8,13 @@ from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
 from django.core.management import call_command
-
 from haystack.query import SearchQuerySet
 from djconfig.utils import override_djconfig
 
 from . import utils
-
-from spirit.models.topic import Topic
-from spirit.forms.search import BasicSearchForm, AdvancedSearchForm
-from spirit.templatetags.tags.search import render_search_form
+from spirit.apps.topic.models import Topic
+from spirit.apps.search.forms import BasicSearchForm, AdvancedSearchForm
+from spirit.apps.search.tags import render_search_form
 from spirit.search_indexes import TopicIndex
 
 

@@ -9,11 +9,10 @@ from django.contrib.auth import get_user_model
 from django.template import Template, Context
 
 from . import utils
-
-from spirit.models.topic_poll import TopicPoll, TopicPollChoice, TopicPollVote
-from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet, TopicPollVoteManyForm
-from spirit.signals.topic_poll import topic_poll_post_vote, topic_poll_pre_vote
-from spirit.templatetags.tags.topic_poll import render_poll_form
+from spirit.apps.topic.poll.models import TopicPoll, TopicPollChoice, TopicPollVote
+from spirit.apps.topic.poll.forms import TopicPollForm, TopicPollChoiceFormSet, TopicPollVoteManyForm
+from spirit.apps.topic.poll.signals import topic_poll_post_vote, topic_poll_pre_vote
+from spirit.apps.topic.poll.tags import render_poll_form
 
 
 User = get_user_model()

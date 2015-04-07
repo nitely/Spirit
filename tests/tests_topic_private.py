@@ -11,21 +11,19 @@ from django.template import Template, Context
 from django.conf import settings
 from django.utils import six
 from django.utils import timezone
-
 from djconfig.utils import override_djconfig
 
 from . import utils
-
-from spirit.models.category import Category
-from spirit.models.topic_private import TopicPrivate
-from spirit.forms.topic_private import TopicForPrivateForm, TopicPrivateInviteForm,\
+from spirit.apps.category.models import Category
+from spirit.apps.topic.private.models import TopicPrivate
+from spirit.apps.topic.private.forms import TopicForPrivateForm, TopicPrivateInviteForm,\
     TopicPrivateManyForm, TopicPrivateJoinForm
-from spirit.templatetags.tags.topic_private import render_invite_form
-from spirit.views.topic_private import comment_posted
-from spirit.models.comment import Comment
-from spirit.signals.topic_private import topic_private_post_create, topic_private_access_pre_create
-from spirit.models.topic import Topic
-from spirit.models.comment_bookmark import CommentBookmark
+from spirit.apps.topic.private.tags import render_invite_form
+from spirit.apps.topic.private.views import comment_posted
+from spirit.apps.comment.models import Comment
+from spirit.apps.topic.private.signals import topic_private_post_create, topic_private_access_pre_create
+from spirit.apps.topic.models import Topic
+from spirit.apps.comment.bookmark.models import CommentBookmark
 
 
 class TopicPrivateViewTest(TestCase):

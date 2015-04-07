@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.conf import settings
@@ -10,7 +9,7 @@ from django.contrib.auth import logout
 from django.core.urlresolvers import resolve
 from django.contrib.auth.views import redirect_to_login
 
-from .models.user import UserProfile
+from spirit.apps.user.models import UserProfile
 
 
 User = get_user_model()

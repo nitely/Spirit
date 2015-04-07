@@ -9,20 +9,18 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
-
 from djconfig.utils import override_djconfig
 
 from . import utils
-
-from spirit.models.comment import MOVED
-from spirit.models.topic import Topic
-from spirit.signals.comment import comment_posted, comment_moved
-from spirit.signals.topic import topic_viewed
-from spirit.forms.topic import TopicForm
-from spirit.signals.topic_moderate import topic_post_moderate
-from spirit.models.comment import Comment
-from spirit.models.comment_bookmark import CommentBookmark
-from spirit.forms.topic_poll import TopicPollForm, TopicPollChoiceFormSet
+from spirit.apps.comment.models import MOVED
+from spirit.apps.topic.models import Topic
+from spirit.apps.comment.signals import comment_posted, comment_moved
+from spirit.apps.topic.signals import topic_viewed
+from spirit.apps.topic.forms import TopicForm
+from spirit.apps.topic.moderate.signals import topic_post_moderate
+from spirit.apps.comment.models import Comment
+from spirit.apps.comment.bookmark.models import CommentBookmark
+from spirit.apps.topic.poll.forms import TopicPollForm, TopicPollChoiceFormSet
 
 
 class TopicViewTest(TestCase):

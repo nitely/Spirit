@@ -7,10 +7,9 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 
 from . import utils
-
-from spirit.models.comment import CLOSED, UNCLOSED, PINNED, UNPINNED
-from spirit.models.topic import Topic
-from spirit.signals.topic_moderate import topic_post_moderate
+from spirit.apps.comment.models import CLOSED, UNCLOSED, PINNED, UNPINNED
+from spirit.apps.topic.models import Topic
+from spirit.apps.topic.moderate.signals import topic_post_moderate
 
 
 class TopicViewTest(TestCase):

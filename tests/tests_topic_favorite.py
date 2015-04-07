@@ -7,9 +7,8 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
 from . import utils
-
-from spirit.models.topic_favorite import TopicFavorite
-from spirit.forms.topic_favorite import FavoriteForm
+from spirit.apps.topic.favorite.models import TopicFavorite
+from spirit.apps.topic.favorite.forms import FavoriteForm
 
 
 class FavoriteViewTest(TestCase):

@@ -24,18 +24,17 @@ from django.utils.timezone import utc
 from django.utils.http import urlunquote
 from django.contrib.auth import get_user_model
 
-from spirit.models.category import Category
+from spirit.apps.category.models import Category
 from spirit.utils.forms import NestedModelChoiceField
 from spirit.utils.timezone import TIMEZONE_CHOICES
 from spirit.utils.decorators import moderator_required, administrator_required
-from spirit.utils.user.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
-from spirit.utils.user.email import send_activation_email, send_email_change_email, sender
-from spirit.utils.user import email
-
+from spirit.apps.user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from spirit.apps.user.utils.email import send_activation_email, send_email_change_email, sender
+from spirit.apps.user.utils import email
 from spirit import utils as spirit_utils
-from spirit.templatetags.tags.utils import time as ttags_utils
+from spirit.utils.tags import time as ttags_utils
 from . import utils as test_utils
-from spirit.templatetags.tags.utils.messages import render_messages
+from spirit.utils.tags.messages import render_messages
 from spirit.utils.markdown import Markdown, quotify
 
 

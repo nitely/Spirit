@@ -7,15 +7,18 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
-
 from djconfig.utils import override_djconfig
 
 from . import utils
-
-from spirit.views.admin import user, category, comment_flag, config, index, topic
-from spirit.models.category import Category
-from spirit.models.comment_flag import CommentFlag, Flag
-from spirit.forms.admin import UserForm, CategoryForm, BasicConfigForm, CommentFlagForm, UserProfileForm
+from spirit.apps.admin.views import dashboard
+from spirit.apps.admin import views
+from spirit.apps.category.admin import views as category_views
+from spirit.apps.comment.flag.admin import views as flag_views
+from spirit.apps.topic.admin import views as topic_views
+from spirit.apps.user.admin import views as user_views
+from spirit.apps.category.models import Category
+from spirit.apps.comment.flag.models import CommentFlag, Flag
+from spirit.apps.admin.forms import UserForm, CategoryForm, BasicConfigForm, CommentFlagForm, UserProfileForm
 
 
 User = get_user_model()
@@ -36,27 +39,27 @@ class AdminViewTest(TestCase):
         req.user = self.user
         req.user.st.is_administrator = False
 
-        self.assertRaises(PermissionDenied, category.category_list, req)
-        self.assertRaises(PermissionDenied, category.category_create, req)
-        self.assertRaises(PermissionDenied, category.category_update, req)
+        self.assertRaises(PermissionDenied, category_views.category_list, req)
+        self.assertRaises(PermissionDenied, category_views.category_create, req)
+        self.assertRaises(PermissionDenied, category_views.category_update, req)
 
-        self.assertRaises(PermissionDenied, comment_flag.flag_closed, req)
-        self.assertRaises(PermissionDenied, comment_flag.flag_open, req)
-        self.assertRaises(PermissionDenied, comment_flag.flag_detail, req)
+        self.assertRaises(PermissionDenied, flag_views.flag_closed, req)
+        self.assertRaises(PermissionDenied, flag_views.flag_open, req)
+        self.assertRaises(PermissionDenied, flag_views.flag_detail, req)
 
-        self.assertRaises(PermissionDenied, config.config_basic, req)
+        self.assertRaises(PermissionDenied, views.config_basic, req)
 
-        self.assertRaises(PermissionDenied, index.dashboard, req)
+        self.assertRaises(PermissionDenied, dashboard, req)
 
-        self.assertRaises(PermissionDenied, topic.topic_deleted, req)
-        self.assertRaises(PermissionDenied, topic.topic_closed, req)
-        self.assertRaises(PermissionDenied, topic.topic_pinned, req)
+        self.assertRaises(PermissionDenied, topic_views.topic_deleted, req)
+        self.assertRaises(PermissionDenied, topic_views.topic_closed, req)
+        self.assertRaises(PermissionDenied, topic_views.topic_pinned, req)
 
-        self.assertRaises(PermissionDenied, user.user_edit, req)
-        self.assertRaises(PermissionDenied, user.user_list, req)
-        self.assertRaises(PermissionDenied, user.user_admins, req)
-        self.assertRaises(PermissionDenied, user.user_mods, req)
-        self.assertRaises(PermissionDenied, user.user_unactive, req)
+        self.assertRaises(PermissionDenied, user_views.user_edit, req)
+        self.assertRaises(PermissionDenied, user_views.user_list, req)
+        self.assertRaises(PermissionDenied, user_views.user_admins, req)
+        self.assertRaises(PermissionDenied, user_views.user_mods, req)
+        self.assertRaises(PermissionDenied, user_views.user_unactive, req)
 
     def test_user_edit(self):
         """

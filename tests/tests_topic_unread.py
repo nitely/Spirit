@@ -3,16 +3,14 @@
 from __future__ import unicode_literals
 
 from django.core.cache import cache
-from django.test import TestCase, TransactionTestCase, RequestFactory
+from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
-from django.conf import settings
 
 from . import utils
-
-from spirit.models.topic_unread import TopicUnread
-from spirit.signals.topic import topic_viewed
-from spirit.signals.comment import comment_posted
-from spirit.models.comment_bookmark import CommentBookmark
+from spirit.apps.topic.unread.models import TopicUnread
+from spirit.apps.topic.signals import topic_viewed
+from spirit.apps.comment.signals import comment_posted
+from spirit.apps.comment.bookmark.models import CommentBookmark
 
 
 class TopicUnreadViewTest(TestCase):
