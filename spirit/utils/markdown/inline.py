@@ -81,7 +81,9 @@ class InlineLexer(mistune.InlineLexer):
 
         # New mention
         try:
-            user = User.objects.get(username=username)
+            user = User.objects\
+                .select_related('st')\
+                .get(username=username)
         except User.DoesNotExist:
             return m.group(0)
 

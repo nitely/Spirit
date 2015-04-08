@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
+from __future__ import unicode_literals
 
 import os
 from setuptools import setup, find_packages
+
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 REQUIREMENTS = open(os.path.join(os.path.dirname(__file__), 'requirements.txt')).read()

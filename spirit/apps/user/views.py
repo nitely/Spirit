@@ -125,6 +125,7 @@ def resend_activation_email(request):
 
     return render(request, 'spirit/user/activation_resend.html', context)
 
+# TODO: decouple profile from user but maintain the url schema coz I like it that way
 
 @login_required
 def profile_update(request):
