@@ -3,6 +3,7 @@
 
 * Requires Django 1.8 (support for 1.7 has been dropped).
 * Drops the custom `AUTH_USER_MODEL`.
+* Deprecated `AbstractForumUser` and `AbstractUser`. They will be removed in future releases.
 
 0.2.0
 ==================
