@@ -64,6 +64,8 @@ Visit (http://127.0.0.1:8000/)
 > * Change `spirit.models.AbstractUser` to `django.contrib.auth.models.AbstractUser` in your custom user model (if you have one).
 >
 > *Deprecation notice:* `AbstractForumUser` and `AbstractUser` will no longer exist in future releases.
+>
+> * Run `python manage.py migrate djconfig --fake-initial`
 
 Run:
 
