@@ -35,7 +35,7 @@ def config_basic(request):
 
     context = {'form': form, }
 
-    return render(request, 'spirit/admin/config/config_basic.html', context)
+    return render(request, 'spirit/admin/config_basic.html', context)
 
 
 @administrator_required
@@ -51,4 +51,4 @@ def dashboard(request):
         'likes_count': CommentLike.objects.all().count()
     }
 
-    return render(request, 'spirit/admin/index/dashboard.html', context)
+    return render(request, 'spirit/admin/dashboard.html', context)

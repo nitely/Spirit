@@ -2,15 +2,15 @@
 
 {% load spirit_tags i18n %}
 
-{% block title %}{% trans "Closed topics" %}{% endblock %}
+{% block title %}{% trans "Deleted Topics" %}{% endblock %}
 
 {% block content %}
 
     {% include "spirit/admin/_side_menu.html" with active="topics" %}
 
-    <h1 class="headline">{% trans "Closed topics" %}</h1>
+    <h1 class="headline">{% trans "Deleted topics" %}</h1>
     
-    {% include "spirit/admin/topic/_tabs.html" with active_tab="closed" %}
+    {% include "spirit/topic/admin/_tabs.html" with active_tab="deleted" %}
     
     {% include "spirit/topic/_render_list.html" %}
 

@@ -19,7 +19,7 @@ def topic_deleted(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'topics': topics, }
-    return render(request, 'spirit/admin/topic/topic_deleted.html', context)
+    return render(request, 'spirit/topic/admin/deleted.html', context)
 
 
 @administrator_required
@@ -30,7 +30,7 @@ def topic_closed(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'topics': topics, }
-    return render(request, 'spirit/admin/topic/topic_closed.html', context)
+    return render(request, 'spirit/topic/admin/closed.html', context)
 
 
 @administrator_required
@@ -42,4 +42,4 @@ def topic_pinned(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'topics': topics, }
-    return render(request, 'spirit/admin/topic/topic_pinned.html', context)
+    return render(request, 'spirit/topic/admin/pinned.html', context)

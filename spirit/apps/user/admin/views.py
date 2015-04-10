@@ -38,7 +38,7 @@ def user_edit(request, user_id):
         'uform': uform
         }
 
-    return render(request, 'spirit/admin/user/user_edit.html', context)
+    return render(request, 'spirit/user/admin/edit.html', context)
 
 
 @administrator_required
@@ -49,7 +49,7 @@ def user_list(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'users': users, }
-    return render(request, 'spirit/admin/user/user_list.html', context)
+    return render(request, 'spirit/user/admin/list.html', context)
 
 
 @administrator_required
@@ -60,7 +60,7 @@ def user_admins(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'users': users, }
-    return render(request, 'spirit/admin/user/user_admins.html', context)
+    return render(request, 'spirit/user/admin/admins.html', context)
 
 
 @administrator_required
@@ -71,7 +71,7 @@ def user_mods(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'users': users, }
-    return render(request, 'spirit/admin/user/user_mods.html', context)
+    return render(request, 'spirit/user/admin/mods.html', context)
 
 
 @administrator_required
@@ -82,4 +82,4 @@ def user_unactive(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'users': users, }
-    return render(request, 'spirit/admin/user/user_unactive.html', context)
+    return render(request, 'spirit/user/admin/unactive.html', context)

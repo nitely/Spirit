@@ -43,11 +43,11 @@ def category_detail(request, pk, slug):
         'topics': topics
     }
 
-    return render(request, 'spirit/category/category_detail.html', context)
+    return render(request, 'spirit/category/detail.html', context)
 
 
 class CategoryList(ListView):
 
-    template_name = 'spirit/category/category_list.html'
+    template_name = 'spirit/category/list.html'
     context_object_name = "categories"
     queryset = Category.objects.visible().parents()

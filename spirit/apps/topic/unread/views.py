@@ -30,4 +30,4 @@ def topic_unread_list(request):
         'next_page_pk': next_page_pk
     }
 
-    return render(request, 'spirit/topic_unread/list.html', context)
+    return render(request, 'spirit/topic/unread/list.html', context)

@@ -22,7 +22,7 @@ def flag_open(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'flags': flags, }
-    return render(request, 'spirit/admin/comment_flag/flag_open.html', context)
+    return render(request, 'spirit/comment/flag/admin/open.html', context)
 
 
 @administrator_required
@@ -33,7 +33,7 @@ def flag_closed(request):
         page_number=request.GET.get('page', 1)
     )
     context = {'flags': flags, }
-    return render(request, 'spirit/admin/comment_flag/flag_closed.html', context)
+    return render(request, 'spirit/comment/flag/admin/closed.html', context)
 
 
 @administrator_required
@@ -62,4 +62,4 @@ def flag_detail(request, pk):
         'form': form
     }
 
-    return render(request, 'spirit/admin/comment_flag/flag_detail.html', context)
+    return render(request, 'spirit/comment/flag/admin/detail.html', context)

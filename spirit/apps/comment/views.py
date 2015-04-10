@@ -46,7 +46,7 @@ def comment_publish(request, topic_id, pk=None):
         'topic': topic
     }
 
-    return render(request, 'spirit/comment/comment_publish.html', context)
+    return render(request, 'spirit/comment/publish.html', context)
 
 
 @login_required
@@ -66,7 +66,7 @@ def comment_update(request, pk):
 
     context = {'form': form, }
 
-    return render(request, 'spirit/comment/comment_update.html', context)
+    return render(request, 'spirit/comment/update.html', context)
 
 
 @moderator_required
@@ -81,7 +81,7 @@ def comment_delete(request, pk, remove=True):
 
     context = {'comment': comment, }
 
-    return render(request, 'spirit/comment/comment_moderate.html', context)
+    return render(request, 'spirit/comment/moderate.html', context)
 
 
 @require_POST

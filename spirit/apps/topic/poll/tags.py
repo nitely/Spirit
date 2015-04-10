@@ -8,7 +8,7 @@ from spirit.templatetags.registry import register
 from spirit.apps.topic.poll.forms import TopicPollVoteManyForm
 
 
-@register.inclusion_tag('spirit/topic_poll/_form.html')
+@register.inclusion_tag('spirit/topic/poll/_form.html')
 def render_poll_form(topic, user, next=None):
     try:
         poll = topic.poll

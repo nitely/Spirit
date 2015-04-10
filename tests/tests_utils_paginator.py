@@ -205,7 +205,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
                                             "page_var": 'page',
                                             "hashtag": '',
                                             "extra_query": ''})
-            self.assertEqual(template, "spirit/paginator/_yt_paginator.html")
+            self.assertEqual(template, "spirit/utils/paginator/_yt_paginator.html")
         finally:
             ttag_paginator.render_to_string = org_render
 
@@ -225,7 +225,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
                                             "page_var": 'foo_page',
                                             "hashtag": '#c20',
                                             "extra_query": '&extra=foo'})
-            self.assertEqual(template, "spirit/paginator/_yt_paginator.html")
+            self.assertEqual(template, "spirit/utils/paginator/_yt_paginator.html")
         finally:
             ttag_paginator.render_to_string = org_render
 
@@ -282,7 +282,7 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
                                             "page_var": 'page',
                                             "hashtag": '',
                                             "extra_query": ''})
-            self.assertEqual(template, "spirit/paginator/_paginator.html")
+            self.assertEqual(template, "spirit/utils/paginator/_paginator.html")
         finally:
             ttag_paginator.render_to_string = org_render
 
@@ -302,6 +302,6 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
                                             "page_var": 'foo_page',
                                             "hashtag": '#c20',
                                             "extra_query": '&extra=foo'})
-            self.assertEqual(template, "spirit/paginator/_paginator.html")
+            self.assertEqual(template, "spirit/utils/paginator/_paginator.html")
         finally:
             ttag_paginator.render_to_string = org_render

@@ -36,7 +36,7 @@ def like_create(request, comment_id):
         'comment': comment
     }
 
-    return render(request, 'spirit/comment_like/like_create.html', context)
+    return render(request, 'spirit/comment/like/create.html', context)
 
 
 @login_required
@@ -55,4 +55,4 @@ def like_delete(request, pk):
 
     context = {'like': like, }
 
-    return render(request, 'spirit/comment_like/like_delete.html', context)
+    return render(request, 'spirit/comment/like/delete.html', context)

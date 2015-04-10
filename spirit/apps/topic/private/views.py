@@ -65,7 +65,7 @@ def private_publish(request, user_id=None):
         'tpform': tpform
     }
 
-    return render(request, 'spirit/topic_private/private_publish.html', context)
+    return render(request, 'spirit/topic/private/publish.html', context)
 
 
 @login_required
@@ -97,7 +97,7 @@ def private_detail(request, topic_id, slug):
         'comments': comments,
     }
 
-    return render(request, 'spirit/topic_private/private_detail.html', context)
+    return render(request, 'spirit/topic/private/detail.html', context)
 
 
 @login_required
@@ -131,7 +131,7 @@ def private_access_delete(request, pk):
 
     context = {'topic_private': topic_private, }
 
-    return render(request, 'spirit/topic_private/private_delete.html', context)
+    return render(request, 'spirit/topic/private/delete.html', context)
 
 
 @login_required
@@ -155,7 +155,7 @@ def private_join(request, topic_id):
         'form': form
     }
 
-    return render(request, 'spirit/topic_private/private_join.html', context)
+    return render(request, 'spirit/topic/private/join.html', context)
 
 
 @login_required
@@ -172,7 +172,7 @@ def private_list(request):
 
     context = {'topics': topics, }
 
-    return render(request, 'spirit/topic_private/private_list.html', context)
+    return render(request, 'spirit/topic/private/list.html', context)
 
 
 @login_required
@@ -192,4 +192,4 @@ def private_created_list(request):
 
     context = {'topics': topics, }
 
-    return render(request, 'spirit/topic_private/private_created_list.html', context)
+    return render(request, 'spirit/topic/private/created_list.html', context)

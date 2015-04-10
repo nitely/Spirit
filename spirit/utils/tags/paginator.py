@@ -33,8 +33,8 @@ def render_paginator(context, page, page_var='page', hashtag=''):
     }
 
     if isinstance(page, Page):
-        template = "spirit/paginator/_paginator.html"
+        template = "spirit/utils/paginator/_paginator.html"
     else:
-        template = "spirit/paginator/_yt_paginator.html"
+        template = "spirit/utils/paginator/_yt_paginator.html"
 
     return render_to_string(template, new_context)

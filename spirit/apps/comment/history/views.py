@@ -29,4 +29,4 @@ def comment_history_detail(request, comment_id):
 
     context = {'comments': comments, }
 
-    return render(request, 'spirit/comment_history/detail.html', context)
+    return render(request, 'spirit/comment/history/detail.html', context)

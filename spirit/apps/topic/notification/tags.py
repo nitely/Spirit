@@ -13,7 +13,7 @@ def has_topic_notifications(user):
     return TopicNotification.objects.for_access(user=user).unread().exists()
 
 
-@register.inclusion_tag('spirit/topic_notification/_form.html')
+@register.inclusion_tag('spirit/topic/notification/_form.html')
 def render_notification_form(user, topic, next=None):
     # TODO: remove form and use notification_activate and notification_deactivate ?
     try:

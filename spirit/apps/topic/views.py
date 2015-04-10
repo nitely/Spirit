@@ -64,7 +64,7 @@ def topic_publish(request, category_id=None):
         'pformset': pformset
     }
 
-    return render(request, 'spirit/topic/topic_publish.html', context)
+    return render(request, 'spirit/topic/publish.html', context)
 
 
 @login_required
@@ -87,7 +87,7 @@ def topic_update(request, pk):
 
     context = {'form': form, }
 
-    return render(request, 'spirit/topic/topic_update.html', context)
+    return render(request, 'spirit/topic/update.html', context)
 
 
 def topic_detail(request, pk, slug):
@@ -114,7 +114,7 @@ def topic_detail(request, pk, slug):
         'comments': comments
     }
 
-    return render(request, 'spirit/topic/topic_detail.html', context)
+    return render(request, 'spirit/topic/detail.html', context)
 
 
 def topic_active_list(request):
@@ -139,4 +139,4 @@ def topic_active_list(request):
         'topics': topics
     }
 
-    return render(request, 'spirit/topic/topics_active.html', context)
+    return render(request, 'spirit/topic/active.html', context)

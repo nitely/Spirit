@@ -87,7 +87,7 @@ def notification_list_unread(request):
         'next_page_pk': next_page_pk
     }
 
-    return render(request, 'spirit/topic_notification/list_unread.html', context)
+    return render(request, 'spirit/topic/notification/list_unread.html', context)
 
 
 @login_required
@@ -100,4 +100,4 @@ def notification_list(request):
 
     context = {'notifications': notifications, }
 
-    return render(request, 'spirit/topic_notification/list.html', context)
+    return render(request, 'spirit/topic/notification/list.html', context)
