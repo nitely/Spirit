@@ -11,8 +11,6 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 
 ## Requirements
 
-Spirit requires the following software to be installed:
-
 * Python 2.7, 3.3 or 3.4 (recommended)
 * Django 1.8
 * PostgreSQL or MySQL or Oracle Database
@@ -39,8 +37,6 @@ Run:
     python manage.py createcachetable spirit_cache
     python manage.py collectstatic
 
-> **Note:**
->
 > You will need to setup a search engine,
 > Spirit is configured to work with [Woosh](https://bitbucket.org/mchaput/whoosh/wiki/Home) by default.
 >
@@ -53,12 +49,12 @@ Start a development server:
 
 Visit (http://127.0.0.1:8000/)
 
-> **Note:** On production, you would rather run Spirit on a real web server. ie: gunicorn + Nginx.
+> On production, you would rather run Spirit on a real web server. ie: gunicorn + Nginx.
 > Running Spirit on a [virtualenv](http://www.virtualenv.org) is adviced.
 
 ## Updating
 
-> *Note:* If you are *upgrading* from any release *previous to v0.3*:
+> If you are *upgrading* from any release *previous to v0.3*:
 > * Run `python manage.py migrate djconfig --fake-initial`
 > * Add `AUTH_USER_MODEL = 'spirit.User'` (or your custom user model) to your `settings.py`.
 > * Remove the `AbstractForumUser` from your custom user model (if you have one).
