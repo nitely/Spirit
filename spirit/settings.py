@@ -103,17 +103,8 @@ INSTALLED_APPS += (
     'djconfig',
 )
 
-DJC_BACKEND = 'djconfig'
-
-CACHES.update({
-    'djconfig': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-config',
-    },
-})
-
 MIDDLEWARE_CLASSES += (
-    'djconfig.middleware.DjConfigLocMemMiddleware',
+    'djconfig.middleware.DjConfigMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += (
