@@ -34,10 +34,10 @@ MIDDLEWARE_CLASSES += (
 )
 
 # same here
-TEMPLATE_CONTEXT_PROCESSORS += (
+TEMPLATES[0]['OPTIONS']['context_processors'] += [
     # 'my_template_proc1',
     # 'my_template_proc2',
-)
+]
 
 # same here (we update the Spirit caches)
 CACHES.update({

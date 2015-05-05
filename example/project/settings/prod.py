@@ -13,8 +13,6 @@ from .base import *
 
 DEBUG = False
 
-TEMPLATE_DEBUG = False
-
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (('John', 'john@example.com'), )
 
@@ -57,9 +55,10 @@ LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # Keep templates in memory
-TEMPLATE_LOADERS = (
+del TEMPLATES[0]['APP_DIRS']
+TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', (
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
     )),
-)
+]
