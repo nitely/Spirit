@@ -20,7 +20,7 @@ class TopicPoll(models.Model):
     class Meta:
         verbose_name = _("topic poll")
         verbose_name_plural = _("topics polls")
-        db_table = 'spirit_poll_topicpoll'
+        db_table = 'spirit_poll_topicpoll'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         return "poll at topic #%s" % self.topic.pk
@@ -45,7 +45,7 @@ class TopicPollChoice(models.Model):
         #unique_together = ('poll', 'description')
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
-        db_table = 'spirit_poll_topicpollchoice'
+        db_table = 'spirit_poll_topicpollchoice'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         return "poll choice %s at topic #%s" % (self.pk, self.poll.topic.pk)
@@ -63,7 +63,7 @@ class TopicPollVote(models.Model):
         unique_together = ('user', 'choice')
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")
-        db_table = 'spirit_poll_topicpollvote'
+        db_table = 'spirit_poll_topicpollvote'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         return "poll vote %s" % self.pk

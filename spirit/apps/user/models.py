@@ -38,7 +38,7 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = _("forum profile")
         verbose_name_plural = _("forum profiles")
-        db_table = 'spirit_user_userprofile'
+        db_table = 'spirit_user_userprofile'  # TODO: remove in Spirit 0.4
 
     def save(self, *args, **kwargs):
         if self.user.is_superuser:
@@ -135,4 +135,4 @@ class User(AbstractUser):
         ordering = ['-date_joined', '-pk']
         verbose_name = _('user')
         verbose_name_plural = _('users')
-        db_table = 'spirit_user_user'
+        db_table = 'spirit_user_user'  # TODO: remove in Spirit 0.4

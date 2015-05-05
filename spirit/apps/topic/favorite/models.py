@@ -21,7 +21,7 @@ class TopicFavorite(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("favorite")
         verbose_name_plural = _("favorites")
-        db_table = 'spirit_favorite_topicfavorite'
+        db_table = 'spirit_favorite_topicfavorite'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         return "%s bookmarked %s" % (self.user, self.topic)

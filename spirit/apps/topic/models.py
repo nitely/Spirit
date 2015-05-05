@@ -37,7 +37,7 @@ class Topic(models.Model):
         ordering = ['-last_active', '-pk']
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
-        db_table = 'spirit_topic_topic'
+        db_table = 'spirit_topic_topic'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         return self.title

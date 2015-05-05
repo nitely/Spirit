@@ -48,7 +48,7 @@ class Comment(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
-        db_table = 'spirit_comment_comment'
+        db_table = 'spirit_comment_comment'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         return "%s: %s..." % (self.user.username, self.comment[:50])

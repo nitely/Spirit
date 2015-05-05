@@ -25,7 +25,7 @@ class TopicPrivate(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("private topic")
         verbose_name_plural = _("private topics")
-        db_table = 'spirit_private_topicprivate'
+        db_table = 'spirit_private_topicprivate'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         return "%s participes in %s" % (self.user, self.topic)

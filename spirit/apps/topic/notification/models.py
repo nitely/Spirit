@@ -38,7 +38,7 @@ class TopicNotification(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("topic notification")
         verbose_name_plural = _("topics notification")
-        db_table = 'spirit_notification_topicnotification'
+        db_table = 'spirit_notification_topicnotification'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         return "%s in %s" % (self.user, self.topic)

@@ -32,7 +32,7 @@ class Category(models.Model):
         ordering = ['title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
-        db_table = 'spirit_category_category'
+        db_table = 'spirit_category_category'  # TODO: remove in Spirit 0.4
 
     def __str__(self):
         if self.parent:
