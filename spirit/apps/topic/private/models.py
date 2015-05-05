@@ -25,6 +25,7 @@ class TopicPrivate(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("private topic")
         verbose_name_plural = _("private topics")
+        db_table = 'spirit_private_topicprivate'
 
     def __str__(self):
         return "%s participes in %s" % (self.user, self.topic)

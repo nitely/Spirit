@@ -23,6 +23,7 @@ class CommentBookmark(models.Model):
         unique_together = ('user', 'topic')
         verbose_name = _("comment bookmark")
         verbose_name_plural = _("comments bookmarks")
+        db_table = 'spirit_bookmark_commentbookmark'
 
     def __str__(self):
         return "%s bookmarked comment %s in %s" \

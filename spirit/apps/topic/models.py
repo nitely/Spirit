@@ -37,6 +37,7 @@ class Topic(models.Model):
         ordering = ['-last_active', '-pk']
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
+        db_table = 'spirit_topic_topic'
 
     def __str__(self):
         return self.title
@@ -53,7 +54,7 @@ class Topic(models.Model):
 
     @property
     def bookmark(self):
-        # *bookmarks* is dinamically created by manager.with_bookmarks()
+        # *bookmarks* is dynamically created by manager.with_bookmarks()
         try:
             assert len(self.bookmarks) <= 1, "Panic, too many bookmarks"
             return self.bookmarks[0]

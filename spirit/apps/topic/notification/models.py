@@ -38,6 +38,7 @@ class TopicNotification(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("topic notification")
         verbose_name_plural = _("topics notification")
+        db_table = 'spirit_notification_topicnotification'
 
     def __str__(self):
         return "%s in %s" % (self.user, self.topic)

@@ -27,6 +27,7 @@ class CommentFlag(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("comment flag")
         verbose_name_plural = _("comments flags")
+        db_table = 'spirit_flag_commentflag'
 
     def __str__(self):
         return "%s flagged" % self.comment
@@ -50,6 +51,7 @@ class Flag(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("flag")
         verbose_name_plural = _("flags")
+        db_table = 'spirit_flag_flag'
 
     def __str__(self):
         return "%s flagged %s" % (self.user, self.comment)

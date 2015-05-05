@@ -22,6 +22,7 @@ class TopicUnread(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("topic unread")
         verbose_name_plural = _("topics unread")
+        db_table = 'spirit_unread_topicunread'
 
     def __str__(self):
         return "%s read %s" % (self.user, self.topic)
