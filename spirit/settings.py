@@ -58,7 +58,7 @@ CACHES = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
+    'spirit.apps.user.backends.UsernameAuthBackend',
     'spirit.apps.user.backends.EmailAuthBackend',
 )
 
@@ -84,9 +84,6 @@ MIDDLEWARE_CLASSES = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            # insert your TEMPLATE_DIRS here
-        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
