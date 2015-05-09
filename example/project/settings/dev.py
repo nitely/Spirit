@@ -16,6 +16,8 @@ DEBUG = True
 
 TEMPLATES[0]['OPTIONS']['debug'] = True
 
+ADMINS = (('John', 'john@example.com'), )  # Log email to console when DEBUG = False
+
 SECRET_KEY = "DEV"
 
 ALLOWED_HOSTS = ['127.0.0.1', ]

@@ -12,18 +12,18 @@ from django.template.loader import render_to_string
 from spirit.apps.user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 def sender(request, subject, template_name, context, to):
     site = get_current_site(request)
-    context.update({'site_name': site.name,
-                    'domain': site.domain,
-                    'protocol': 'https' if request.is_secure() else 'http'})
+    context.update({
+        'site_name': site.name,
+        'domain': site.domain,
+        'protocol': 'https' if request.is_secure() else 'http'
+    })
     message = render_to_string(template_name, context)
-    from_email = "%(site_name)s <%(name)s@%(domain)s>" % {'name': "noreply",
-                                                          'domain': site.domain,
-                                                          'site_name': site.name}
+    from_email = "{site_name} <{name}@{domain}>".format(name="noreply", domain=site.domain, site_name=site.name)
 
     if len(to) > 1:
         kwargs = {'bcc': to, }
@@ -36,7 +36,7 @@ def sender(request, subject, template_name, context, to):
     try:
         email.send()
     except SMTPException as err:
-        logger.error(err)
+        logger.exception(err)
 
 
 def send_activation_email(request, user):
