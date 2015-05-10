@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.conf.urls import patterns, include, url
 
 
-urls = patterns(
+_urls = patterns(
     '',
 
     url(r'^$', 'spirit.apps.topic.views.topic_active_list', name='index'),
@@ -29,4 +29,4 @@ urls = patterns(
     url(r'^comment/like/', include('spirit.apps.comment.like.urls')),
     )
 
-urlpatterns = patterns('', url(r'^', include(urls, namespace="spirit", app_name="spirit")))
+urlpatterns = patterns('', url(r'^', include(_urls, namespace="spirit", app_name="spirit")))

@@ -75,7 +75,7 @@ class CommentImageForm(forms.Form):
         self.user = user
 
     def clean_image(self):
-        image = self.cleaned_data["image"]
+        image = self.cleaned_data['image']
         image.format = Image.open(image).format.lower()
         image.seek(0)
 
@@ -86,7 +86,7 @@ class CommentImageForm(forms.Form):
         return image
 
     def save(self):
-        image = self.cleaned_data["image"]
+        image = self.cleaned_data['image']
         hash = hashlib.md5(image.read()).hexdigest()
         image.name = "".join((hash, ".", image.format))
         upload_to = os.path.join('spirit', 'images', str(self.user.pk))
@@ -94,7 +94,7 @@ class CommentImageForm(forms.Form):
         media_path = os.path.join(settings.MEDIA_ROOT, upload_to)
         utils.mkdir_p(media_path)
 
-        with open(os.path.join(media_path, image.name), "wb") as fh:
+        with open(os.path.join(media_path, image.name), 'wb') as fh:
             image.seek(0)
             fh.write(image.read())
             image.close()

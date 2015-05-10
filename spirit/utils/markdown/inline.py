@@ -75,9 +75,9 @@ class InlineLexer(mistune.InlineLexer):
         # Mentions limiter
         if self._mention_count >= settings.ST_MENTIONS_PER_COMMENT:
             return m.group(0)
-        else:
-            # We increase this before doing the query to avoid abuses
-            self._mention_count += 1
+
+        # We increase this before doing the query to avoid abuses
+        self._mention_count += 1
 
         # New mention
         try:

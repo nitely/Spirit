@@ -34,7 +34,7 @@ Run:
 
     pip install -r requirements.txt
     python manage.py migrate
-    python manage.py createcachetable spirit_cache
+    python manage.py createcachetable
     python manage.py collectstatic
 
 > You will need to setup a search engine,
