@@ -2,14 +2,14 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+
+from . import views
 
 
-urlpatterns = patterns(
-    "spirit.apps.topic.admin.views",
-
-    url(r'^$', 'topic_deleted', name='admin-topic'),
-    url(r'^deleted/$', 'topic_deleted', name='admin-topic-deleted'),
-    url(r'^closed/$', 'topic_closed', name='admin-topic-closed'),
-    url(r'^pinned/$', 'topic_pinned', name='admin-topic-pinned'),
-    )
+urlpatterns = [
+    url(r'^$', views.topic_deleted, name='admin-topic'),
+    url(r'^deleted/$', views.topic_deleted, name='admin-topic-deleted'),
+    url(r'^closed/$', views.topic_closed, name='admin-topic-closed'),
+    url(r'^pinned/$', views.topic_pinned, name='admin-topic-pinned'),
+]

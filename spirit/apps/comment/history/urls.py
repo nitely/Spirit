@@ -2,10 +2,11 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+
+from . import views
 
 
-urlpatterns = patterns(
-    "spirit.apps.comment.history.views",
-    url(r'^(?P<comment_id>\d+)/$', 'comment_history_detail', name='comment-history'),
-    )
+urlpatterns = [
+    url(r'^(?P<comment_id>\d+)/$', views.comment_history_detail, name='comment-history'),
+]

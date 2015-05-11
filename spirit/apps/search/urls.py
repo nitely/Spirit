@@ -2,15 +2,14 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
-from spirit.apps.search.views import SearchView
 from spirit.apps.search.forms import AdvancedSearchForm
+from . import views
 
 
-urlpatterns = patterns(
-    "",
-    url(r'^$', login_required(SearchView(template='spirit/search/search.html', form_class=AdvancedSearchForm)),
+urlpatterns = [
+    url(r'^$', login_required(views.SearchView(template='spirit/search/search.html', form_class=AdvancedSearchForm)),
         name='search'),
-    )
+]

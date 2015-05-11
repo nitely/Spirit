@@ -2,16 +2,14 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-from spirit.apps.category.views import CategoryList
+from . import views
 
 
-urlpatterns = patterns(
-    "spirit.apps.category.views",
+urlpatterns = [
+    url(r'^$', views.CategoryList.as_view(), name='category-list'),
 
-    url(r'^$', CategoryList.as_view(), name='category-list'),
-
-    url(r'^(?P<pk>\d+)/$', 'category_detail', kwargs={'slug': "", }, name='category-detail'),
-    url(r'^(?P<pk>\d+)/(?P<slug>[\w-]+)/$', 'category_detail', name='category-detail'),
-    )
+    url(r'^(?P<pk>\d+)/$', views.category_detail, kwargs={'slug': "", }, name='category-detail'),
+    url(r'^(?P<pk>\d+)/(?P<slug>[\w-]+)/$', views.category_detail, name='category-detail'),
+]

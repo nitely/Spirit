@@ -2,11 +2,12 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+
+from . import views
 
 
-urlpatterns = patterns(
-    "spirit.apps.comment.bookmark.views",
-    url(r'^(?P<topic_id>\d+)/create/$', 'bookmark_create', name='bookmark-create'),
-    url(r'^(?P<topic_id>\d+)/find/$', 'bookmark_find', name='bookmark-find'),
-    )
+urlpatterns = [
+    url(r'^(?P<topic_id>\d+)/create/$', views.bookmark_create, name='bookmark-create'),
+    url(r'^(?P<topic_id>\d+)/find/$', views.bookmark_find, name='bookmark-find'),
+]

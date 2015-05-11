@@ -2,10 +2,11 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+
+from . import views
 
 
-urlpatterns = patterns(
-    "spirit.apps.topic.unread.views",
-    url(r'^$', 'topic_unread_list', name='topic-unread-list'),
-    )
+urlpatterns = [
+    url(r'^$', views.topic_unread_list, name='topic-unread-list'),
+]
