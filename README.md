@@ -13,7 +13,7 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 
 * Python 2.7, 3.3 or 3.4 (recommended)
 * Django 1.8
-* PostgreSQL or MySQL or Oracle Database
+* PostgreSQL (recommended) or MySQL or Oracle Database
 
 ## Dependencies
 
