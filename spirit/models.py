@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+# TODO: remove in Spirit 0.4
 from .apps.category.models import Category
 from .apps.comment.models import Comment
 from .apps.comment.history.models import CommentHistory

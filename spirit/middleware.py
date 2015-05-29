@@ -86,16 +86,17 @@ class PrivateForumMiddleware(object):
         if resolver_match.app_name != 'spirit':
             return
 
-        # Namespacing /user/ would be better but breaks current urls namespace.
-        url_whitelist = {'user-login',
-                         'user-logout',
-                         'user-register',
-                         'resend-activation',
-                         'registration-activation',
-                         'password-reset',
-                         'password-reset-done',
-                         'password-reset-confirm',
-                         'password-reset-complete'}
+        url_whitelist = {
+            'user-login',
+            'user-logout',
+            'user-register',
+            'resend-activation',
+            'registration-activation',
+            'password-reset',
+            'password-reset-done',
+            'password-reset-confirm',
+            'password-reset-complete'
+        }
 
         if resolver_match.url_name in url_whitelist:
             return
