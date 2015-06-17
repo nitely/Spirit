@@ -24,7 +24,7 @@ def user_edit(request, user_id):
         uform = UserForm(data=request.POST, instance=user)
         form = UserProfileForm(data=request.POST, instance=user.st)
 
-        if uform.is_valid() and form.is_valid():
+        if all([uform.is_valid(), form.is_valid()]):
             uform.save()
             form.save()
             messages.info(request, _("This profile has been updated!"))
@@ -36,7 +36,7 @@ def user_edit(request, user_id):
     context = {
         'form': form,
         'uform': uform
-        }
+    }
 
     return render(request, 'spirit/user/admin/edit.html', context)
 

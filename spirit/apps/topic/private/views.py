@@ -37,7 +37,7 @@ def private_publish(request, user_id=None):
         cform = CommentForm(user=request.user, data=request.POST)
         tpform = TopicPrivateManyForm(user=request.user, data=request.POST)
 
-        if not request.is_limited and tform.is_valid() and cform.is_valid() and tpform.is_valid():
+        if not request.is_limited and all([tform.is_valid(), cform.is_valid(), tpform.is_valid()]):  # TODO: test!
             # wrap in transaction.atomic?
             topic = tform.save()
             cform.topic = topic
@@ -47,7 +47,6 @@ def private_publish(request, user_id=None):
             topics_private = tpform.save_m2m()
             topic_private_post_create.send(sender=TopicPrivate, topics_private=topics_private, comment=comment)
             return redirect(topic.get_absolute_url())
-
     else:
         tform = TopicForPrivateForm()
         cform = CommentForm()

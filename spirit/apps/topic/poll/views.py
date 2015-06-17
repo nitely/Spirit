@@ -23,7 +23,7 @@ def poll_update(request, pk):
         form = TopicPollForm(data=request.POST, instance=poll)
         formset = TopicPollChoiceFormSet(data=request.POST, instance=poll)
 
-        if form.is_valid() and formset.is_valid():
+        if all([form.is_valid(), formset.is_valid()]):  # TODO: test!
             poll = form.save()
             formset.save()
             return redirect(request.POST.get('next', poll.get_absolute_url()))

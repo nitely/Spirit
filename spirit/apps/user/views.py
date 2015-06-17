@@ -34,7 +34,7 @@ def custom_login(request, **kwargs):
     if request.user.is_authenticated():
         return redirect(request.GET.get('next', request.user.st.get_absolute_url()))
 
-    if request.is_limited and request.method == "POST":
+    if request.method == "POST" and request.is_limited:
         return redirect(request.get_full_path())
 
     return login_view(request, authentication_form=LoginForm, **kwargs)
@@ -54,7 +54,7 @@ def custom_logout(request, **kwargs):
 
 @ratelimit(field='email', rate='5/5m')
 def custom_reset_password(request, **kwargs):
-    if request.is_limited and request.method == "POST":
+    if request.method == "POST" and request.is_limited:
         return redirect(reverse("spirit:password-reset"))
 
     return password_reset(request, **kwargs)
@@ -133,7 +133,7 @@ def profile_update(request):
         uform = UserForm(data=request.POST, instance=request.user)
         form = UserProfileForm(data=request.POST, instance=request.user.st)
 
-        if uform.is_valid() and form.is_valid():
+        if all([uform.is_valid(), form.is_valid()]):  # TODO: test!
             uform.save()
             form.save()
             messages.info(request, _("Your profile has been updated!"))

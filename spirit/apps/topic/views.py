@@ -34,8 +34,8 @@ def topic_publish(request, category_id=None):
         pform = TopicPollForm(data=request.POST)
         pformset = TopicPollChoiceFormSet(can_delete=False, data=request.POST)
 
-        if not request.is_limited and form.is_valid() and cform.is_valid() \
-                and pform.is_valid() and pformset.is_valid():
+        if not request.is_limited and all([form.is_valid(), cform.is_valid(),
+                                           pform.is_valid(), pformset.is_valid()]):  # TODO: test!
             # wrap in transaction.atomic?
             topic = form.save()
 
