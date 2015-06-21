@@ -4,12 +4,12 @@ from __future__ import unicode_literals
 
 from django.conf.urls import patterns, url
 
+from . import views
 
-urlpatterns = patterns(
-    "spirit.apps.category.admin.views",
 
-    url(r'^$', 'category_list', name='admin-category'),
-    url(r'^list/$', 'category_list', name='admin-category-list'),
-    url(r'^create/$', 'category_create', name='admin-category-create'),
-    url(r'^update/(?P<category_id>\d+)/$', 'category_update', name='admin-category-update'),
-    )
+urlpatterns = patterns([
+    url(r'^$', views.category_list, name='admin-category'),
+    url(r'^list/$', views.category_list, name='admin-category-list'),
+    url(r'^create/$', views.category_create, name='admin-category-create'),
+    url(r'^update/(?P<category_id>\d+)/$', views.category_update, name='admin-category-update'),
+])
