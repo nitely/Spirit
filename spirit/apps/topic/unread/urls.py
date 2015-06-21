@@ -8,5 +8,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.topic_unread_list, name='topic-unread-list'),
+    url(r'^$', views.index, name='topic-unread-list'),
 ]

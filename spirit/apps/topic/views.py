@@ -23,7 +23,7 @@ from .signals import topic_viewed
 
 @login_required
 @ratelimit(rate='1/10s')
-def topic_publish(request, category_id=None):
+def publish(request, category_id=None):
     if category_id:
         get_object_or_404(Category.objects.visible(),
                           pk=category_id)
@@ -68,7 +68,7 @@ def topic_publish(request, category_id=None):
 
 
 @login_required
-def topic_update(request, pk):
+def update(request, pk):
     topic = Topic.objects.for_update_or_404(pk, request.user)
 
     if request.method == 'POST':
@@ -90,7 +90,7 @@ def topic_update(request, pk):
     return render(request, 'spirit/topic/update.html', context)
 
 
-def topic_detail(request, pk, slug):
+def detail(request, pk, slug):
     topic = Topic.objects.get_public_or_404(pk, request.user)
 
     if topic.slug != slug:
@@ -117,7 +117,7 @@ def topic_detail(request, pk, slug):
     return render(request, 'spirit/topic/detail.html', context)
 
 
-def topic_active_list(request):
+def index_active(request):
     categories = Category.objects\
         .visible()\
         .parents()

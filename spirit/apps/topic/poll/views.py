@@ -16,7 +16,7 @@ from .signals import topic_poll_pre_vote, topic_poll_post_vote
 
 
 @login_required
-def poll_update(request, pk):
+def update(request, pk):
     poll = get_object_or_404(TopicPoll, pk=pk, topic__user=request.user)
 
     if request.method == 'POST':
@@ -40,7 +40,7 @@ def poll_update(request, pk):
 
 
 @login_required
-def poll_close(request, pk):
+def close(request, pk):
     poll = get_object_or_404(TopicPoll, pk=pk, topic__user=request.user)
 
     if request.method == 'POST':
@@ -56,7 +56,7 @@ def poll_close(request, pk):
 
 
 @require_POST
-def poll_vote(request, pk):
+def vote(request, pk):
     # TODO: check if user has access to this topic/poll
     poll = get_object_or_404(TopicPoll, pk=pk)
 

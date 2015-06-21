@@ -15,7 +15,7 @@ from ..models import CommentFlag, Flag
 
 
 @administrator_required
-def flag_open(request):
+def opened(request):
     flags = yt_paginate(
         CommentFlag.objects.filter(is_closed=False),
         per_page=config.comments_per_page,
@@ -26,7 +26,7 @@ def flag_open(request):
 
 
 @administrator_required
-def flag_closed(request):
+def closed(request):
     flags = yt_paginate(
         CommentFlag.objects.filter(is_closed=True),
         per_page=config.comments_per_page,
@@ -37,7 +37,7 @@ def flag_closed(request):
 
 
 @administrator_required
-def flag_detail(request, pk):
+def detail(request, pk):
     flag = get_object_or_404(CommentFlag, pk=pk)
 
     if request.method == 'POST':

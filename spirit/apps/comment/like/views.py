@@ -14,7 +14,7 @@ from .signals import comment_like_post_create, comment_like_post_delete
 
 
 @login_required
-def like_create(request, comment_id):
+def create(request, comment_id):
     comment = get_object_or_404(Comment.objects.exclude(user=request.user), pk=comment_id)
 
     if request.method == 'POST':
@@ -40,7 +40,7 @@ def like_create(request, comment_id):
 
 
 @login_required
-def like_delete(request, pk):
+def delete(request, pk):
     like = get_object_or_404(CommentLike, pk=pk, user=request.user)
 
     if request.method == 'POST':

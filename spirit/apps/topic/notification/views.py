@@ -23,7 +23,7 @@ from .forms import NotificationForm, NotificationCreationForm
 
 @require_POST
 @login_required
-def notification_create(request, topic_id):
+def create(request, topic_id):
     topic = get_object_or_404(Topic.objects.for_access(request.user),
                               pk=topic_id)
     form = NotificationCreationForm(user=request.user, topic=topic, data=request.POST)
@@ -38,7 +38,7 @@ def notification_create(request, topic_id):
 
 @require_POST
 @login_required
-def notification_update(request, pk):
+def update(request, pk):
     notification = get_object_or_404(TopicNotification, pk=pk, user=request.user)
     form = NotificationForm(data=request.POST, instance=notification)
 
@@ -51,7 +51,7 @@ def notification_update(request, pk):
 
 
 @login_required
-def notification_ajax(request):
+def list_ajax(request):
     if not request.is_ajax():
         return Http404()
 
@@ -71,7 +71,7 @@ def notification_ajax(request):
 
 
 @login_required
-def notification_list_unread(request):
+def list_unread(request):
     notifications = TopicNotification.objects\
         .for_access(request.user)\
         .filter(is_read=False)
@@ -92,7 +92,7 @@ def notification_list_unread(request):
 
 
 @login_required
-def notification_list(request):
+def index(request):
     notifications = yt_paginate(
         TopicNotification.objects.for_access(request.user),
         per_page=config.topics_per_page,

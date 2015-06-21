@@ -20,7 +20,7 @@ from .signals import comment_posted, comment_pre_update, comment_post_update, co
 
 @login_required
 @ratelimit(rate='1/10s')
-def comment_publish(request, topic_id, pk=None):
+def publish(request, topic_id, pk=None):
     topic = get_object_or_404(Topic.objects.opened().for_access(request.user),
                               pk=topic_id)
 
@@ -50,7 +50,7 @@ def comment_publish(request, topic_id, pk=None):
 
 
 @login_required
-def comment_update(request, pk):
+def update(request, pk):
     comment = Comment.objects.for_update_or_404(pk, request.user)
 
     if request.method == 'POST':
@@ -70,7 +70,7 @@ def comment_update(request, pk):
 
 
 @moderator_required
-def comment_delete(request, pk, remove=True):
+def delete(request, pk, remove=True):
     comment = get_object_or_404(Comment, pk=pk)
 
     if request.method == 'POST':
@@ -86,7 +86,7 @@ def comment_delete(request, pk, remove=True):
 
 @require_POST
 @moderator_required
-def comment_move(request, topic_id):
+def move(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     form = CommentMoveForm(topic=topic, data=request.POST)
 
@@ -103,7 +103,7 @@ def comment_move(request, topic_id):
     return redirect(request.POST.get('next', topic.get_absolute_url()))
 
 
-def comment_find(request, pk):
+def find(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment_number = Comment.objects.filter(topic=comment.topic, date__lte=comment.date).count()
     url = paginator.get_url(comment.topic.get_absolute_url(),
@@ -115,7 +115,7 @@ def comment_find(request, pk):
 
 @require_POST
 @login_required
-def comment_image_upload_ajax(request):
+def image_upload_ajax(request):
     if not request.is_ajax():
         return Http404()
 

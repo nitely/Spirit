@@ -12,7 +12,7 @@ from ..models import Comment
 
 
 @login_required
-def comment_history_detail(request, comment_id):
+def detail(request, comment_id):
     comment = get_object_or_404(Comment.objects.for_access(request.user),
                                 pk=comment_id)
 

@@ -8,8 +8,8 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.category_list, name='admin-category'),
-    url(r'^list/$', views.category_list, name='admin-category-list'),
-    url(r'^create/$', views.category_create, name='admin-category-create'),
-    url(r'^update/(?P<category_id>\d+)/$', views.category_update, name='admin-category-update'),
+    url(r'^$', views.index, name='admin-category'),
+    url(r'^list/$', views.index, name='admin-category-list'),
+    url(r'^create/$', views.create, name='admin-category-create'),
+    url(r'^update/(?P<category_id>\d+)/$', views.update, name='admin-category-update'),
 ]

@@ -143,9 +143,10 @@ class UtilsRateLimitTests(TestCase):
         def one(request):
             pass
 
-        one(req)
-        rl_cache = get_cache(settings.ST_RATELIMIT_CACHE)
         key_part = '%s.%s:user:%d' % (one.__module__, one.__name__, req.user.pk)
         key_hash = hashlib.sha1(key_part.encode('utf-8')).hexdigest()
         key = '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
+
+        one(req)
+        rl_cache = get_cache(settings.ST_RATELIMIT_CACHE)
         self.assertIsNotNone(rl_cache.get(key))

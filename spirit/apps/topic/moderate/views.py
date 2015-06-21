@@ -12,7 +12,7 @@ from ..models import Topic
 from .signals import topic_post_moderate
 
 
-class TopicModerateBase(View):
+class BaseView(View):
 
     action = None
     field_name = None
@@ -48,57 +48,57 @@ class TopicModerateBase(View):
     def dispatch(self, *args, **kwargs):
         self.check_configuration()
         self.topic = get_object_or_404(Topic, pk=kwargs['pk'])
-        return super(TopicModerateBase, self).dispatch(*args, **kwargs)
+        return super(BaseView, self).dispatch(*args, **kwargs)
 
 
-class TopicModerateDelete(TopicModerateBase):
+class DeleteView(BaseView):
 
     field_name = 'is_removed'
     to_value = True
 
 
-class TopicModerateUnDelete(TopicModerateBase):
+class UnDeleteView(BaseView):
 
     field_name = 'is_removed'
     to_value = False
 
 
-class TopicModerateLock(TopicModerateBase):
+class LockView(BaseView):
 
     action = CLOSED
     field_name = 'is_closed'
     to_value = True
 
 
-class TopicModerateUnLock(TopicModerateBase):
+class UnLockView(BaseView):
 
     action = UNCLOSED
     field_name = 'is_closed'
     to_value = False
 
 
-class TopicModeratePin(TopicModerateBase):
+class PinView(BaseView):
 
     action = PINNED
     field_name = 'is_pinned'
     to_value = True
 
 
-class TopicModerateUnPin(TopicModerateBase):
+class UnPinView(BaseView):
 
     action = UNPINNED
     field_name = 'is_pinned'
     to_value = False
 
 
-class TopicModerateGlobalPin(TopicModerateBase):
+class GlobalPinView(BaseView):
 
     action = PINNED
     field_name = 'is_globally_pinned'
     to_value = True
 
 
-class TopicModerateGlobalUnPin(TopicModerateBase):
+class GlobalUnPinView(BaseView):
 
     action = UNPINNED
     field_name = 'is_globally_pinned'

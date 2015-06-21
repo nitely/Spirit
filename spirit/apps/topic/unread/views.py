@@ -10,7 +10,7 @@ from ..models import Topic
 
 
 @login_required
-def topic_unread_list(request):
+def index(request):
     # TODO: add button to clean up read topics? or read all?
     # redirect to first page if empty
 

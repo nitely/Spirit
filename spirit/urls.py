@@ -24,7 +24,7 @@ import spirit.apps.comment.like.urls
 
 
 pattern_list = [
-    url(r'^$', spirit.apps.topic.views.topic_active_list, name='index'),
+    url(r'^$', spirit.apps.topic.views.index_active, name='index'),
     url(r'^st/admin/', include(spirit.apps.admin.urls)),
     url(r'^user/', include(spirit.apps.user.urls)),
     url(r'^search/', include(spirit.apps.search.urls)),

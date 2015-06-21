@@ -10,7 +10,7 @@ from .forms import FlagForm
 
 
 @login_required
-def flag_create(request, comment_id):
+def create(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
 
     if request.method == 'POST':

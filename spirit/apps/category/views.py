@@ -13,7 +13,7 @@ from ..topic.models import Topic
 from .models import Category
 
 
-def category_detail(request, pk, slug):
+def detail(request, pk, slug):
     category = get_object_or_404(Category.objects.visible(),
                                  pk=pk)
 
@@ -46,7 +46,7 @@ def category_detail(request, pk, slug):
     return render(request, 'spirit/category/detail.html', context)
 
 
-class CategoryList(ListView):
+class IndexView(ListView):
 
     template_name = 'spirit/category/list.html'
     context_object_name = "categories"

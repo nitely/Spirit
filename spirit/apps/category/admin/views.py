@@ -17,14 +17,14 @@ User = get_user_model()
 
 
 @administrator_required
-def category_list(request):
+def index(request):
     categories = Category.objects.filter(parent=None, is_private=False)
     context = {'categories': categories, }
     return render(request, 'spirit/category/admin/list.html', context)
 
 
 @administrator_required
-def category_create(request):
+def create(request):
     if request.method == 'POST':
         form = CategoryForm(data=request.POST)
 
@@ -40,7 +40,7 @@ def category_create(request):
 
 
 @administrator_required
-def category_update(request, category_id):
+def update(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
     if request.method == 'POST':

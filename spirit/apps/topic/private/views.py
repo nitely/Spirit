@@ -31,7 +31,7 @@ User = get_user_model()
 
 @login_required
 @ratelimit(rate='1/10s')
-def private_publish(request, user_id=None):
+def publish(request, user_id=None):
     if request.method == 'POST':
         tform = TopicForPrivateForm(user=request.user, data=request.POST)
         cform = CommentForm(user=request.user, data=request.POST)
@@ -68,7 +68,7 @@ def private_publish(request, user_id=None):
 
 
 @login_required
-def private_detail(request, topic_id, slug):
+def detail(request, topic_id, slug):
     topic_private = get_object_or_404(TopicPrivate.objects.select_related('topic'),
                                       topic_id=topic_id,
                                       user=request.user)
@@ -101,7 +101,7 @@ def private_detail(request, topic_id, slug):
 
 @login_required
 @require_POST
-def private_access_create(request, topic_id):
+def create_access(request, topic_id):
     topic_private = TopicPrivate.objects.for_create_or_404(topic_id, request.user)
     form = TopicPrivateInviteForm(topic=topic_private.topic, data=request.POST)
 
@@ -117,7 +117,7 @@ def private_access_create(request, topic_id):
 
 
 @login_required
-def private_access_delete(request, pk):
+def delete_access(request, pk):
     topic_private = TopicPrivate.objects.for_delete_or_404(pk, request.user)
 
     if request.method == 'POST':
@@ -134,7 +134,7 @@ def private_access_delete(request, pk):
 
 
 @login_required
-def private_join(request, topic_id):
+def join_in(request, topic_id):
     # This is for topic creators who left their own topics and want to join again
     topic = get_object_or_404(Topic, pk=topic_id, user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
 
@@ -158,7 +158,7 @@ def private_join(request, topic_id):
 
 
 @login_required
-def private_list(request):
+def index(request):
     topics = Topic.objects\
         .with_bookmarks(user=request.user)\
         .filter(topics_private__user=request.user)
@@ -175,7 +175,7 @@ def private_list(request):
 
 
 @login_required
-def private_created_list(request):
+def index_author(request):
     # Show created topics but exclude those the user is participating on
     # TODO: show all, show join link in those the user is not participating
     # TODO: move to manager

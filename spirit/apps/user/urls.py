@@ -51,5 +51,5 @@ urlpatterns = [
     url(r'^likes/(?P<pk>\d+)/$', views.profile_likes, kwargs={'slug': "", }, name='profile-likes'),
     url(r'^likes/(?P<pk>\d+)/(?P<slug>[\w-]+)/$', views.profile_likes, name='profile-likes'),
 
-    url(r'^menu/$', views.user_menu, name='user-menu'),
+    url(r'^menu/$', views.menu, name='user-menu'),
 ]

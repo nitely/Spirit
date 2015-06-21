@@ -8,6 +8,6 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^(?P<topic_id>\d+)/create/$', views.favorite_create, name='favorite-create'),
-    url(r'^(?P<pk>\d+)/delete/$', views.favorite_delete, name='favorite-delete'),
+    url(r'^(?P<topic_id>\d+)/create/$', views.create, name='favorite-create'),
+    url(r'^(?P<pk>\d+)/delete/$', views.delete, name='favorite-delete'),
 ]

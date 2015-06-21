@@ -16,7 +16,7 @@ from ..models import Topic
 
 @require_POST
 @login_required
-def favorite_create(request, topic_id):
+def create(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     form = FavoriteForm(user=request.user, topic=topic, data=request.POST)
 
@@ -30,7 +30,7 @@ def favorite_create(request, topic_id):
 
 @require_POST
 @login_required
-def favorite_delete(request, pk):
+def delete(request, pk):
     favorite = get_object_or_404(TopicFavorite, pk=pk, user=request.user)
     favorite.delete()
     return redirect(request.POST.get('next', favorite.topic.get_absolute_url()))

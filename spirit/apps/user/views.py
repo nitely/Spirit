@@ -287,5 +287,5 @@ def profile_likes(request, pk, slug):
 
 
 @login_required
-def user_menu(request):
+def menu(request):
     return render(request, 'spirit/user/menu.html')

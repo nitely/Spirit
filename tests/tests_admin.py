@@ -42,27 +42,27 @@ class AdminViewTest(TestCase):
         req.user = self.user
         req.user.st.is_administrator = False
 
-        self.assertRaises(PermissionDenied, category_views.category_list, req)
-        self.assertRaises(PermissionDenied, category_views.category_create, req)
-        self.assertRaises(PermissionDenied, category_views.category_update, req)
+        self.assertRaises(PermissionDenied, category_views.index, req)
+        self.assertRaises(PermissionDenied, category_views.create, req)
+        self.assertRaises(PermissionDenied, category_views.update, req)
 
-        self.assertRaises(PermissionDenied, flag_views.flag_closed, req)
-        self.assertRaises(PermissionDenied, flag_views.flag_open, req)
-        self.assertRaises(PermissionDenied, flag_views.flag_detail, req)
+        self.assertRaises(PermissionDenied, flag_views.closed, req)
+        self.assertRaises(PermissionDenied, flag_views.opened, req)
+        self.assertRaises(PermissionDenied, flag_views.detail, req)
 
         self.assertRaises(PermissionDenied, views.config_basic, req)
 
         self.assertRaises(PermissionDenied, dashboard, req)
 
-        self.assertRaises(PermissionDenied, topic_views.topic_deleted, req)
-        self.assertRaises(PermissionDenied, topic_views.topic_closed, req)
-        self.assertRaises(PermissionDenied, topic_views.topic_pinned, req)
+        self.assertRaises(PermissionDenied, topic_views.deleted, req)
+        self.assertRaises(PermissionDenied, topic_views.closed, req)
+        self.assertRaises(PermissionDenied, topic_views.pinned, req)
 
-        self.assertRaises(PermissionDenied, user_views.user_edit, req)
-        self.assertRaises(PermissionDenied, user_views.user_list, req)
-        self.assertRaises(PermissionDenied, user_views.user_admins, req)
-        self.assertRaises(PermissionDenied, user_views.user_mods, req)
-        self.assertRaises(PermissionDenied, user_views.user_unactive, req)
+        self.assertRaises(PermissionDenied, user_views.edit, req)
+        self.assertRaises(PermissionDenied, user_views.index, req)
+        self.assertRaises(PermissionDenied, user_views.admins, req)
+        self.assertRaises(PermissionDenied, user_views.mods, req)
+        self.assertRaises(PermissionDenied, user_views.unactive, req)
 
     def test_user_edit(self):
         """

@@ -15,7 +15,7 @@ from .forms import BookmarkForm
 
 @require_POST
 @login_required
-def bookmark_create(request, topic_id):
+def create(request, topic_id):
     if not request.is_ajax():
         return Http404()
 
@@ -30,7 +30,7 @@ def bookmark_create(request, topic_id):
 
 
 @login_required
-def bookmark_find(request, topic_id):
+def find(request, topic_id):
     # TODO: test!, this aint used yet.
     bookmark = BookmarkForm.objects.filter(user=request.user, topic_id=topic_id)
 

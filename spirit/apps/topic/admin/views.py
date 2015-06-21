@@ -11,7 +11,7 @@ from ..models import Topic
 
 
 @administrator_required
-def topic_deleted(request):
+def deleted(request):
     # Private topics cant be deleted, closed or pinned so we are ok
     topics = yt_paginate(
         Topic.objects.filter(is_removed=True),
@@ -23,7 +23,7 @@ def topic_deleted(request):
 
 
 @administrator_required
-def topic_closed(request):
+def closed(request):
     topics = yt_paginate(
         Topic.objects.filter(is_closed=True),
         per_page=config.topics_per_page,
@@ -34,7 +34,7 @@ def topic_closed(request):
 
 
 @administrator_required
-def topic_pinned(request):
+def pinned(request):
     topics = Topic.objects.filter(is_pinned=True) | Topic.objects.filter(is_globally_pinned=True)
     topics = yt_paginate(
         topics,

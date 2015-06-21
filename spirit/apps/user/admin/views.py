@@ -17,7 +17,7 @@ User = get_user_model()
 
 
 @administrator_required
-def user_edit(request, user_id):
+def edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
     if request.method == 'POST':
@@ -42,44 +42,35 @@ def user_edit(request, user_id):
 
 
 @administrator_required
-def user_list(request):
+def _index(request, queryset, template):
     users = yt_paginate(
-        User.objects.all().order_by('-date_joined', '-pk'),
+        queryset.order_by('-date_joined', '-pk'),
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )
     context = {'users': users, }
-    return render(request, 'spirit/user/admin/list.html', context)
+    return render(request, template, context)
 
 
-@administrator_required
-def user_admins(request):
-    users = yt_paginate(
-        User.objects.filter(st__is_administrator=True).order_by('-date_joined', '-pk'),
-        per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
-    )
-    context = {'users': users, }
-    return render(request, 'spirit/user/admin/admins.html', context)
+def index(request):
+    queryset = User.objects.all()
+    template = 'spirit/user/admin/list.html'
+    return _index(request, queryset=queryset, template=template)
 
 
-@administrator_required
-def user_mods(request):
-    users = yt_paginate(
-        User.objects.filter(st__is_moderator=True, st__is_administrator=False).order_by('-date_joined', '-pk'),
-        per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
-    )
-    context = {'users': users, }
-    return render(request, 'spirit/user/admin/mods.html', context)
+def admins(request):
+    queryset = User.objects.filter(st__is_administrator=True)
+    template = 'spirit/user/admin/admins.html'
+    return _index(request, queryset=queryset, template=template)
 
 
-@administrator_required
-def user_unactive(request):
-    users = yt_paginate(
-        User.objects.filter(is_active=False).order_by('-date_joined', '-pk'),
-        per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
-    )
-    context = {'users': users, }
-    return render(request, 'spirit/user/admin/unactive.html', context)
+def mods(request):
+    queryset = User.objects.filter(st__is_moderator=True, st__is_administrator=False)
+    template = 'spirit/user/admin/mods.html'
+    return _index(request, queryset=queryset, template=template)
+
+
+def unactive(request):
+    queryset = User.objects.filter(is_active=False)
+    template = 'spirit/user/admin/unactive.html'
+    return _index(request, queryset=queryset, template=template)
