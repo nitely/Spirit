@@ -53,24 +53,32 @@ def _index(request, queryset, template):
 
 
 def index(request):
-    queryset = User.objects.all()
-    template = 'spirit/user/admin/list.html'
-    return _index(request, queryset=queryset, template=template)
+    return _index(
+        request,
+        queryset=User.objects.all(),
+        template='spirit/user/admin/list.html'
+    )
 
 
 def admins(request):
-    queryset = User.objects.filter(st__is_administrator=True)
-    template = 'spirit/user/admin/admins.html'
-    return _index(request, queryset=queryset, template=template)
+    return _index(
+        request,
+        queryset=User.objects.filter(st__is_administrator=True),
+        template='spirit/user/admin/admins.html'
+    )
 
 
 def mods(request):
-    queryset = User.objects.filter(st__is_moderator=True, st__is_administrator=False)
-    template = 'spirit/user/admin/mods.html'
-    return _index(request, queryset=queryset, template=template)
+    return _index(
+        request,
+        queryset=User.objects.filter(st__is_moderator=True, st__is_administrator=False),
+        template='spirit/user/admin/mods.html'
+    )
 
 
 def unactive(request):
-    queryset = User.objects.filter(is_active=False)
-    template = 'spirit/user/admin/unactive.html'
-    return _index(request, queryset=queryset, template=template)
+    return _index(
+        request,
+        queryset=User.objects.filter(is_active=False),
+        template='spirit/user/admin/unactive.html'
+    )
