@@ -8,13 +8,13 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
 
 import spirit
-from spirit.apps.category.models import Category
-from spirit.apps.comment.flag.models import CommentFlag
-from spirit.apps.comment.like.models import CommentLike
-from spirit.apps.comment.models import Comment
-from spirit.apps.topic.models import Topic
-from spirit.utils.decorators import administrator_required
-from spirit.apps.admin.forms import BasicConfigForm
+from ..category.models import Category
+from ..comment.flag.models import CommentFlag
+from ..comment.like.models import CommentLike
+from ..comment.models import Comment
+from ..topic.models import Topic
+from ...utils.decorators import administrator_required
+from .forms import BasicConfigForm
 
 
 User = get_user_model()
@@ -40,7 +40,7 @@ def config_basic(request):
 
 @administrator_required
 def dashboard(request):
-    # Strongly unaccurate counters below...
+    # Strongly inaccurate counters below...
     context = {
         'version': spirit.__version__,
         'category_count': Category.objects.all().count() - 1,  # - private

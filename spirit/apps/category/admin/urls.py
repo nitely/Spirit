@@ -7,9 +7,9 @@ from django.conf.urls import patterns, url
 from . import views
 
 
-urlpatterns = patterns([
+urlpatterns = [
     url(r'^$', views.category_list, name='admin-category'),
     url(r'^list/$', views.category_list, name='admin-category-list'),
     url(r'^create/$', views.category_create, name='admin-category-create'),
     url(r'^update/(?P<category_id>\d+)/$', views.category_update, name='admin-category-update'),
-])
+]
