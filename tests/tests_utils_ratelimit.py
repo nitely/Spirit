@@ -2,10 +2,14 @@
 
 from __future__ import unicode_literals
 
+import hashlib
+
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages.storage.fallback import FallbackStorage
+from django.conf import settings
+from django.core.cache import get_cache
 
 from spirit.utils.ratelimit import RateLimit
 from spirit.utils.ratelimit.decorators import ratelimit
@@ -115,3 +119,33 @@ class UtilsRateLimitTests(TestCase):
         self.assertFalse(two(req))
         self.assertFalse(two(req))
         self.assertTrue(two(req))
+
+    def test_rate_limit_hash_key(self):
+        """
+        Keys should be stored as hashes
+        """
+        req = RequestFactory().post('/')
+        req.user = User()
+        req.user.pk = 1
+        RateLimit(req, 'func_name')
+        rl_cache = get_cache(settings.ST_RATELIMIT_CACHE)
+        self.assertIsNotNone(rl_cache.get('srl:02b3cee0bd2a40ec0fca9b1bef06fb560a081673'))
+
+    def test_rate_limit_unique_key(self):
+        """
+        Keys should contain the full module path and function name
+        """
+        req = RequestFactory().post('/')
+        req.user = User()
+        req.user.pk = 1
+
+        @ratelimit(rate='1/m')
+        def one(request):
+            pass
+
+        one(req)
+        rl_cache = get_cache(settings.ST_RATELIMIT_CACHE)
+        key_part = '%s.%s:user:%d' % (one.__module__, one.__name__, req.user.pk)
+        key_hash = hashlib.sha1(key_part.encode('utf-8')).hexdigest()
+        key = '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
+        self.assertIsNotNone(rl_cache.get(key))

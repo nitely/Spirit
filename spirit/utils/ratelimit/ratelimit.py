@@ -16,9 +16,9 @@ TIME_DICT = {
 
 class RateLimit:
 
-    def __init__(self, request, func_name, method=None, field=None, rate='5/5m'):
+    def __init__(self, request, uid, method=None, field=None, rate='5/5m'):
         self.request = request
-        self.func_name = func_name
+        self.uid = uid
         self.method = method or ['POST', ]
         self.limit = None
         self.time = None
@@ -43,7 +43,12 @@ class RateLimit:
 
         return limit, time
 
-    def _get_keys(self, field):
+    def _make_cache_key(self, key):
+        key_uid = '%s:%s' % (self.uid, key)
+        key_hash = hashlib.sha1(key_uid.encode('utf-8')).hexdigest()
+        return '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
+
+    def _get_keys(self, field=None):
         keys = []
 
         if self.request.user.is_authenticated():
@@ -55,10 +60,9 @@ class RateLimit:
             field_value = getattr(self.request, self.request.method).get(field, '')
 
             if field_value:
-                field_value = hashlib.sha1(field_value.encode('utf-8')).hexdigest()
                 keys.append('field:%s:%s' % (field, field_value))
 
-        return ['%s:%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, self.func_name, k) for k in keys]
+        return [self._make_cache_key(k) for k in keys]
 
     def _incr_cache(self):
         if not self.cache_keys:

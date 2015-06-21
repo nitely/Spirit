@@ -17,7 +17,8 @@ def ratelimit(method=None, field=None, rate='5/5m'):
     def decorator(func):
         @functools.wraps(func)
         def wrapper(request, *args, **kwargs):
-            rl = RateLimit(request, func.__name__, method=method, field=field, rate=rate)
+            uid = '.'.join((func.__module__, func.__name__))
+            rl = RateLimit(request, uid, method=method, field=field, rate=rate)
             request.is_limited = rl.is_limited()
 
             if request.is_limited:
