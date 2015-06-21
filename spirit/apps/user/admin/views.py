@@ -10,7 +10,7 @@ from djconfig import config
 
 from spirit.utils.paginator import yt_paginate
 from spirit.utils.decorators import administrator_required
-from ...admin.forms import UserForm, UserProfileForm
+from .forms import UserForm, UserProfileForm
 
 
 User = get_user_model()

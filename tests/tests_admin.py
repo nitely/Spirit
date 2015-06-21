@@ -18,7 +18,10 @@ from spirit.apps.topic.admin import views as topic_views
 from spirit.apps.user.admin import views as user_views
 from spirit.apps.category.models import Category
 from spirit.apps.comment.flag.models import CommentFlag, Flag
-from spirit.apps.admin.forms import UserForm, CategoryForm, BasicConfigForm, CommentFlagForm, UserProfileForm
+from spirit.apps.admin.forms import BasicConfigForm
+from spirit.apps.comment.flag.admin.forms import CommentFlagForm
+from spirit.apps.user.admin.forms import UserForm, UserProfileForm
+from spirit.apps.category.admin.forms import CategoryForm
 
 
 User = get_user_model()

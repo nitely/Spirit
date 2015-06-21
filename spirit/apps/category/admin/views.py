@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 
 from spirit.utils.decorators import administrator_required
 from ..models import Category
-from ...admin.forms import CategoryForm
+from .forms import CategoryForm
 
 
 User = get_user_model()
