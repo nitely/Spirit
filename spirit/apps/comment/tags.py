@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 from django.utils.translation import ugettext as _
 
 from spirit.templatetags.registry import register
-from spirit.apps.comment.forms import CommentForm
-from spirit.apps.comment.models import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
+from .forms import CommentForm
+from .models import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
 
 
 @register.inclusion_tag('spirit/comment/_form.html')

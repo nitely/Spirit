@@ -7,7 +7,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.apps.topic.private.managers import TopicPrivateQuerySet
+from .managers import TopicPrivateQuerySet
 
 
 @python_2_unicode_compatible

@@ -9,8 +9,8 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 
 from spirit.utils.decorators import administrator_required
-from spirit.apps.category.models import Category
-from spirit.apps.admin.forms import CategoryForm
+from ..models import Category
+from ...admin.forms import CategoryForm
 
 
 User = get_user_model()

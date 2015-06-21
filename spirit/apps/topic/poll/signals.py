@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.db.models import F
 from django.dispatch import Signal
 
-from spirit.models import TopicPollChoice
+from .models import TopicPollChoice
 
 
 topic_poll_pre_vote = Signal(providing_args=['poll, user'])

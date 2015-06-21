@@ -6,7 +6,7 @@ from django.db.models import F
 from django.utils import timezone
 from django.dispatch import Signal
 
-from spirit.models import Topic
+from .models import Topic
 from spirit.apps.comment.signals import comment_posted, comment_moved
 
 

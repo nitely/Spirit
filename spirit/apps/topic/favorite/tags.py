@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from spirit.templatetags.registry import register
-from spirit.apps.topic.favorite.models import TopicFavorite
-from spirit.apps.topic.favorite.forms import FavoriteForm
+from .models import TopicFavorite
+from .forms import FavoriteForm
 
 
 @register.inclusion_tag('spirit/topic/favorite/_form.html')

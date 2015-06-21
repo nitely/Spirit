@@ -7,9 +7,9 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 
-from spirit.apps.category.models import Category
-from spirit.apps.comment.flag.models import CommentFlag
-from spirit.apps.user.models import UserProfile
+from ..category.models import Category
+from ..comment.flag.models import CommentFlag
+from ..user.models import UserProfile
 
 
 User = get_user_model()

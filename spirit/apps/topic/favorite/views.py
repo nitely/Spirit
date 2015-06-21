@@ -8,10 +8,10 @@ from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 
-from spirit.apps.topic.models import Topic
 from spirit import utils
-from spirit.apps.topic.favorite.models import TopicFavorite
-from spirit.apps.topic.favorite.forms import FavoriteForm
+from .models import TopicFavorite
+from .forms import FavoriteForm
+from ..models import Topic
 
 
 @require_POST

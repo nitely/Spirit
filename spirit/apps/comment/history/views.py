@@ -7,8 +7,8 @@ from django.shortcuts import render, get_object_or_404
 from djconfig import config
 
 from spirit.utils.paginator import yt_paginate
-from spirit.apps.comment.history.models import CommentHistory
-from spirit.apps.comment.models import Comment
+from .models import CommentHistory
+from ..models import Comment
 
 
 @login_required

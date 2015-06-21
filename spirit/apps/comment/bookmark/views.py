@@ -9,8 +9,8 @@ from django.views.decorators.http import require_POST
 from django.http import Http404
 
 from spirit.utils import json_response
-from spirit.apps.topic.models import Topic
-from spirit.apps.comment.bookmark.forms import BookmarkForm
+from ...topic.models import Topic
+from .forms import BookmarkForm
 
 
 @require_POST

@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.template import defaultfilters
 from django.conf import settings
 
-from spirit.apps.user.models import UserProfile
+from .models import UserProfile
 
 
 User = get_user_model()

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.apps.topic.notification.managers import TopicNotificationQuerySet
+from .managers import TopicNotificationQuerySet
 
 
 UNDEFINED, MENTION, COMMENT = range(3)

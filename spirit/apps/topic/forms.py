@@ -6,8 +6,8 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from spirit.utils.forms import NestedModelChoiceField
-from spirit.apps.category.models import Category
-from spirit.apps.topic.models import Topic
+from ..category.models import Category
+from .models import Topic
 
 
 class TopicForm(forms.ModelForm):

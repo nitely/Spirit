@@ -10,12 +10,12 @@ from django.http import Http404
 from djconfig import config
 
 from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.apps.topic.models import Topic
 from spirit.utils.decorators import moderator_required
 from spirit.utils import json_response, render_form_errors, paginator, markdown
-from spirit.apps.comment.models import Comment
-from spirit.apps.comment.forms import CommentForm, CommentMoveForm, CommentImageForm
-from spirit.apps.comment.signals import comment_posted, comment_pre_update, comment_post_update, comment_moved
+from ..topic.models import Topic
+from .models import Comment
+from .forms import CommentForm, CommentMoveForm, CommentImageForm
+from .signals import comment_posted, comment_pre_update, comment_post_update, comment_moved
 
 
 @login_required

@@ -9,7 +9,7 @@ from django.contrib.sites.models import get_current_site
 from django.utils.translation import ugettext as _
 from django.template.loader import render_to_string
 
-from spirit.apps.user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from .tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 
 
 logger = logging.getLogger('django')

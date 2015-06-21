@@ -7,10 +7,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
-from spirit.apps.topic.models import Topic
-from spirit.apps.category.models import Category
 from spirit.utils.widgets import MultipleInput
-from spirit.apps.topic.private.models import TopicPrivate
+from ...topic.models import Topic
+from ...category.models import Category
+from .models import TopicPrivate
 
 
 User = get_user_model()

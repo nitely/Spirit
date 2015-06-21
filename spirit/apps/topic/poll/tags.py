@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from spirit.templatetags.registry import register
-from spirit.apps.topic.poll.forms import TopicPollVoteManyForm
+from .forms import TopicPollVoteManyForm
 
 
 @register.inclusion_tag('spirit/topic/poll/_form.html')

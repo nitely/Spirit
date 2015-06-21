@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 from django.db.models import F
 from django.dispatch import Signal
 
-from spirit.models import Comment
-from spirit.apps.comment.like.signals import comment_like_post_create, comment_like_post_delete
+from .models import Comment
+from .like.signals import comment_like_post_create, comment_like_post_delete
 from spirit.apps.topic.moderate.signals import topic_post_moderate
 
 

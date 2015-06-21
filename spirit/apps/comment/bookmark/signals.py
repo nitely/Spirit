@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 from djconfig import config
 
-from spirit.apps.comment.bookmark.models import CommentBookmark
-from spirit.apps.topic.signals import topic_viewed
+from .models import CommentBookmark
+from ...topic.signals import topic_viewed
 
 
 def topic_page_viewed_handler(sender, request, topic, **kwargs):

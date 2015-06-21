@@ -10,10 +10,10 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from spirit.apps.comment.models import Comment
-from spirit.apps.topic.models import Topic
 from spirit import utils
 from spirit.utils.markdown import Markdown
+from .models import Comment
+from ..topic.models import Topic
 
 
 class CommentForm(forms.ModelForm):

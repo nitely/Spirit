@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 from spirit.templatetags.registry import register
 
-from spirit.apps.topic.notification.models import TopicNotification
-from spirit.apps.topic.notification.forms import NotificationForm
+from .models import TopicNotification
+from .forms import NotificationForm
 
 
 @register.assignment_tag()

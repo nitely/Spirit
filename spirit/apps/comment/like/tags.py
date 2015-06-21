@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from spirit.templatetags.registry import register
-from spirit.apps.comment.like.forms import LikeForm
+from .forms import LikeForm
 
 
 @register.inclusion_tag('spirit/comment/like/_form.html')

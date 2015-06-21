@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_text
 from django.core.exceptions import ValidationError
 
-from spirit.apps.topic.poll.models import TopicPollChoice, TopicPoll, TopicPollVote
+from .models import TopicPollChoice, TopicPoll, TopicPollVote
 
 
 class TopicPollForm(forms.ModelForm):

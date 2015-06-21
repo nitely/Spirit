@@ -15,12 +15,12 @@ from django.http import HttpResponsePermanentRedirect
 from djconfig import config
 
 from spirit.utils.ratelimit.decorators import ratelimit
+from spirit.utils.paginator import yt_paginate
 from .utils.email import send_activation_email, send_email_change_email
 from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
-from spirit.utils.paginator import yt_paginate
-from spirit.apps.topic.models import Topic
-from spirit.apps.comment.models import Comment
-from spirit.apps.user.forms import UserProfileForm, RegistrationForm, \
+from ..topic.models import Topic
+from ..comment.models import Comment
+from .forms import UserProfileForm, RegistrationForm, \
     LoginForm, EmailChangeForm, ResendActivationForm, UserForm, EmailCheckForm
 
 

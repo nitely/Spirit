@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import IntegrityError
 from django.utils import timezone
 
-from spirit.apps.comment.flag.models import Flag, CommentFlag
+from .models import Flag, CommentFlag
 
 
 class FlagForm(forms.ModelForm):

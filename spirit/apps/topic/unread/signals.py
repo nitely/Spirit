@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.utils import timezone
 from django.db import IntegrityError
 
-from spirit.models import TopicUnread
+from .models import TopicUnread
 from spirit.apps.comment.signals import comment_posted
 from spirit.apps.topic.signals import topic_viewed
 

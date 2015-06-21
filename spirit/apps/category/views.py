@@ -9,8 +9,8 @@ from django.shortcuts import get_object_or_404
 from djconfig import config
 
 from spirit.utils.paginator import yt_paginate
-from spirit.apps.topic.models import Topic
-from spirit.apps.category.models import Category
+from ..topic.models import Topic
+from .models import Category
 
 
 def category_detail(request, pk, slug):

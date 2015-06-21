@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from spirit.models import CommentHistory
+from .models import CommentHistory
 from spirit.apps.comment.signals import comment_pre_update, comment_post_update
 
 

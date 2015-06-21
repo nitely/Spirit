@@ -10,8 +10,8 @@ from djconfig import config
 
 from spirit.utils.paginator import yt_paginate
 from spirit.utils.decorators import administrator_required
-from spirit.apps.comment.flag.models import CommentFlag, Flag
 from spirit.apps.admin.forms import CommentFlagForm
+from ..models import CommentFlag, Flag
 
 
 @administrator_required

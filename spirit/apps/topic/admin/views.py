@@ -7,7 +7,7 @@ from djconfig import config
 
 from spirit.utils.paginator import yt_paginate
 from spirit.utils.decorators import administrator_required
-from spirit.apps.topic.models import Topic
+from ..models import Topic
 
 
 @administrator_required

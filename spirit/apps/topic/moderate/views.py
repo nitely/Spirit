@@ -7,9 +7,9 @@ from django.views.generic import View
 from django.utils.decorators import method_decorator
 
 from spirit.utils.decorators import moderator_required
-from spirit.apps.comment.models import CLOSED, UNCLOSED, PINNED, UNPINNED
-from spirit.apps.topic.models import Topic
-from spirit.apps.topic.moderate.signals import topic_post_moderate
+from ...comment.models import CLOSED, UNCLOSED, PINNED, UNPINNED
+from ..models import Topic
+from .signals import topic_post_moderate
 
 
 class TopicModerateBase(View):

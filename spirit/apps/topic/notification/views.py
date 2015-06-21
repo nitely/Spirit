@@ -13,11 +13,12 @@ from django.contrib import messages
 from djconfig import config
 
 from spirit import utils
-from spirit.apps.topic.models import Topic
 from spirit.utils.paginator import yt_paginate
 from spirit.utils.paginator.infinite_paginator import paginate
-from spirit.apps.topic.notification.models import TopicNotification
-from spirit.apps.topic.notification.forms import NotificationForm, NotificationCreationForm
+from ...topic.models import Topic
+from .models import TopicNotification
+from .forms import NotificationForm, NotificationCreationForm
+
 
 
 @require_POST

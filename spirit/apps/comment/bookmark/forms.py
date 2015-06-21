@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django import forms
 
-from spirit.apps.comment.bookmark.models import CommentBookmark
+from .models import CommentBookmark
 
 
 class BookmarkForm(forms.ModelForm):

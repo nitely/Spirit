@@ -6,11 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 
-from spirit.apps.comment.models import Comment
-from spirit.apps.comment.like.models import CommentLike
-from spirit.apps.comment.like.forms import LikeForm
-from spirit.apps.comment.like.signals import comment_like_post_create, comment_like_post_delete
 from spirit.utils import json_response
+from ..models import Comment
+from .models import CommentLike
+from .forms import LikeForm
+from .signals import comment_like_post_create, comment_like_post_delete
 
 
 @login_required

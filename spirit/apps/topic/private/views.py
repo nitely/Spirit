@@ -15,15 +15,15 @@ from djconfig import config
 from spirit import utils
 from spirit.utils.paginator import paginate, yt_paginate
 from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.apps.comment.forms import CommentForm
-from spirit.apps.comment.signals import comment_posted
-from spirit.apps.comment.models import Comment
-from spirit.apps.topic.models import Topic
-from spirit.apps.topic.signals import topic_viewed
-from spirit.apps.topic.private.models import TopicPrivate
-from spirit.apps.topic.private.forms import TopicPrivateManyForm, TopicForPrivateForm,\
+from ...comment.forms import CommentForm
+from ...comment.signals import comment_posted
+from ...comment.models import Comment
+from ..models import Topic
+from ..signals import topic_viewed
+from .models import TopicPrivate
+from .forms import TopicPrivateManyForm, TopicForPrivateForm,\
     TopicPrivateJoinForm, TopicPrivateInviteForm
-from spirit.apps.topic.private.signals import topic_private_post_create, topic_private_access_pre_create
+from .signals import topic_private_post_create, topic_private_access_pre_create
 
 
 User = get_user_model()

@@ -6,7 +6,7 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from django.db.models import Q, Prefetch
 
-from spirit.apps.comment.like.models import CommentLike
+from .like.models import CommentLike
 
 
 class CommentQuerySet(models.QuerySet):

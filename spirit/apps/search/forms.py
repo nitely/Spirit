@@ -8,8 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 from haystack.query import EmptySearchQuerySet
 
-from spirit.apps.topic.models import Topic
-from spirit.apps.category.models import Category
+from ..topic.models import Topic
+from ..category.models import Category
 
 
 class BaseSearchForm(SearchForm):

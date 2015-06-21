@@ -9,16 +9,16 @@ from djconfig import config
 
 from spirit.utils.paginator import paginate, yt_paginate
 from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.apps.category.models import Category
-from spirit.apps.comment.models import MOVED
-from spirit.apps.comment.forms import CommentForm
-from spirit.apps.comment.signals import comment_posted
-from spirit.apps.topic.poll.forms import TopicPollForm, TopicPollChoiceFormSet
-from spirit.apps.comment.models import Comment
-from spirit.apps.topic.models import Topic
-from spirit.apps.topic.forms import TopicForm
-from spirit.apps.topic.signals import topic_viewed
-from spirit.apps.topic.moderate.signals import topic_post_moderate
+from ..category.models import Category
+from ..comment.models import MOVED
+from ..comment.forms import CommentForm
+from ..comment.signals import comment_posted
+from ..comment.models import Comment
+from .poll.forms import TopicPollForm, TopicPollChoiceFormSet
+from .moderate.signals import topic_post_moderate
+from .models import Topic
+from .forms import TopicForm
+from .signals import topic_viewed
 
 
 @login_required

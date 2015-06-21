@@ -10,9 +10,9 @@ from django.contrib.auth.views import redirect_to_login
 from django.conf import settings
 
 from spirit import utils
-from spirit.apps.topic.poll.models import TopicPoll
-from spirit.apps.topic.poll.forms import TopicPollChoiceFormSet, TopicPollForm, TopicPollVoteManyForm
-from spirit.apps.topic.poll.signals import topic_poll_pre_vote, topic_poll_post_vote
+from .models import TopicPoll
+from .forms import TopicPollChoiceFormSet, TopicPollForm, TopicPollVoteManyForm
+from .signals import topic_poll_pre_vote, topic_poll_post_vote
 
 
 @login_required

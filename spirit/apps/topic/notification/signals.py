@@ -5,10 +5,10 @@ from __future__ import unicode_literals
 from django.utils import timezone
 from django.db import IntegrityError, transaction
 
-from spirit.apps.topic.notification.models import TopicNotification, COMMENT, MENTION
-from spirit.apps.comment.signals import comment_posted
-from spirit.apps.topic.private.signals import topic_private_post_create, topic_private_access_pre_create
-from spirit.apps.topic.signals import topic_viewed
+from ...comment.signals import comment_posted
+from ..private.signals import topic_private_post_create, topic_private_access_pre_create
+from ..signals import topic_viewed
+from .models import TopicNotification, COMMENT, MENTION
 
 
 def notification_comment_posted_handler(sender, comment, **kwargs):
