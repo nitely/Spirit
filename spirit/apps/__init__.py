@@ -6,6 +6,7 @@ from django.apps import AppConfig
 
 
 class SpiritConfig(AppConfig):
+    # TODO: remove this in spirit 0.4
 
     name = 'spirit'
     verbose_name = "Spirit"
@@ -21,4 +22,14 @@ class SpiritConfig(AppConfig):
         djconfig.register(BasicConfigForm)
 
     def register_signals(self):
-        from .. import signals
+        from .comment import signals as comment
+        from .comment.bookmark import signals as bookmark
+        from .comment.history import signals as history
+        from .comment.like import signals as like
+        from .topic import signals as topic
+        from .topic.moderate import signals as moderate
+        from .topic.notification import signals as notification
+        from .topic.poll import signals as poll
+        from .topic.private import signals as private
+        from .topic.unread import signals as unread
+        from .user import signals as user

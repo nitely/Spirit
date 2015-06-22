@@ -6,8 +6,8 @@ from django.utils import timezone
 from django.db import IntegrityError
 
 from .models import TopicUnread
-from spirit.apps.comment.signals import comment_posted
-from spirit.apps.topic.signals import topic_viewed
+from ...comment.signals import comment_posted
+from ..signals import topic_viewed
 
 
 def topic_page_viewed_handler(sender, request, topic, **kwargs):

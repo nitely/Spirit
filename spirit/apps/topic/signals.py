@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.dispatch import Signal
 
 from .models import Topic
-from spirit.apps.comment.signals import comment_posted, comment_moved
+from ..comment.signals import comment_posted, comment_moved
 
 
 topic_viewed = Signal(providing_args=['request', 'topic'])

@@ -7,7 +7,7 @@ from django.dispatch import Signal
 
 from .models import Comment
 from .like.signals import comment_like_post_create, comment_like_post_delete
-from spirit.apps.topic.moderate.signals import topic_post_moderate
+from ..topic.moderate.signals import topic_post_moderate
 
 
 comment_posted = Signal(providing_args=['comment', 'mentions'])
