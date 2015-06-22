@@ -11,35 +11,36 @@ from ..models import Topic
 
 
 @administrator_required
+def _index(request, queryset, template):
+    topics = yt_paginate(
+        queryset,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get('page', 1)
+    )
+    context = {'topics': topics, }
+    return render(request, template, context)
+
+
 def deleted(request):
     # Private topics cant be deleted, closed or pinned so we are ok
-    topics = yt_paginate(
-        Topic.objects.filter(is_removed=True),
-        per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
+    return _index(
+        request,
+        queryset=Topic.objects.filter(is_removed=True),
+        template='spirit/topic/admin/deleted.html'
     )
-    context = {'topics': topics, }
-    return render(request, 'spirit/topic/admin/deleted.html', context)
 
 
-@administrator_required
 def closed(request):
-    topics = yt_paginate(
-        Topic.objects.filter(is_closed=True),
-        per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
+    return _index(
+        request,
+        queryset=Topic.objects.filter(is_closed=True),
+        template='spirit/topic/admin/closed.html'
     )
-    context = {'topics': topics, }
-    return render(request, 'spirit/topic/admin/closed.html', context)
 
 
-@administrator_required
 def pinned(request):
-    topics = Topic.objects.filter(is_pinned=True) | Topic.objects.filter(is_globally_pinned=True)
-    topics = yt_paginate(
-        topics,
-        per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
+    return _index(
+        request,
+        queryset=Topic.objects.filter(is_pinned=True) | Topic.objects.filter(is_globally_pinned=True),
+        template='spirit/topic/admin/pinned.html'
     )
-    context = {'topics': topics, }
-    return render(request, 'spirit/topic/admin/pinned.html', context)
