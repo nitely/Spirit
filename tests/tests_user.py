@@ -15,8 +15,8 @@ from django.test.utils import override_settings
 from djconfig.utils import override_djconfig
 
 from . import utils
-from spirit.apps.user.forms import RegistrationForm, UserProfileForm, \
-    EmailChangeForm, ResendActivationForm, UserForm, EmailCheckForm
+from spirit.apps.user.forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
+from spirit.apps.user.auth.forms import RegistrationForm, ResendActivationForm
 from spirit.apps.user.backends import EmailAuthBackend
 from spirit.apps.comment.like.models import CommentLike
 from spirit.apps.user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
@@ -384,28 +384,29 @@ class UserViewTest(TestCase):
         """
         form_data = {'username': self.user.email, 'password': "badpassword"}
 
-        for attempt in range(6):
-            if attempt < 5:
-                url = reverse('spirit:user-login')
-                response = self.client.post(url, form_data)
-                self.assertTemplateUsed(response, 'spirit/user/login.html')
-            else:
-                url = reverse('spirit:user-login') + "?next=/path/"
-                response = self.client.post(url, form_data)
-                self.assertRedirects(response, url, status_code=302)
+        for attempt in range(5):
+            url = reverse('spirit:user-login')
+            response = self.client.post(url, form_data)
+            self.assertTemplateUsed(response, 'spirit/user/auth/login.html')
+
+        url = reverse('spirit:user-login') + "?next=/path/"
+        response = self.client.post(url, form_data)
+        self.assertRedirects(response, url, status_code=302)
 
     def test_custom_reset_password(self):
         """
         test rate limit 5/5m
         """
         form_data = {'email': "bademail@bad.com", }
-        for attempt in range(6):
+
+        for attempt in range(5):
             response = self.client.post(reverse('spirit:password-reset'), form_data)
-            if attempt < 5:
-                expected_url = reverse("spirit:password-reset-done")
-            else:
-                expected_url = reverse("spirit:password-reset")
+            expected_url = reverse("spirit:password-reset-done")
             self.assertRedirects(response, expected_url, status_code=302)
+
+        response = self.client.post(reverse('spirit:password-reset'), form_data)
+        expected_url = reverse("spirit:password-reset")
+        self.assertRedirects(response, expected_url, status_code=302)
 
     def test_password_reset_confirm(self):
         """
