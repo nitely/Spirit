@@ -101,85 +101,74 @@ def email_change_confirm(request, token):
 
 
 @login_required
-def topics(request, pk, slug):
+def _lists(request, pk, slug, queryset, template, reverse_to, context_name, per_page):
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.st.slug != slug:
-        url = reverse("spirit:profile-topics", kwargs={'pk': p_user.pk, 'slug': p_user.st.slug})
+        url = reverse(reverse_to, kwargs={'pk': p_user.pk, 'slug': p_user.st.slug})
         return HttpResponsePermanentRedirect(url)
 
-    topics = Topic.objects\
+    items = yt_paginate(
+        queryset,
+        per_page=per_page,
+        page_number=request.GET.get('page', 1)
+    )
+
+    context = {
+        'p_user': p_user,
+        context_name: items
+    }
+
+    return render(request, template, context)
+
+
+def topics(request, pk, slug):
+    user_topics = Topic.objects\
         .visible()\
         .with_bookmarks(user=request.user)\
-        .filter(user=p_user)\
+        .filter(user_id=pk)\
         .order_by('-date', '-pk')\
         .select_related('user__st')
 
-    topics = yt_paginate(
-        topics,
-        per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
+    return _lists(
+        request, pk, slug,
+        queryset=user_topics,
+        template='spirit/user/profile_topics.html',
+        reverse_to="spirit:profile-topics",
+        context_name='topics',
+        per_page=config.topics_per_page
     )
 
-    context = {
-        'p_user': p_user,
-        'topics': topics
-    }
 
-    return render(request, 'spirit/user/profile_topics.html', context)
-
-
-@login_required
 def comments(request, pk, slug):
-    p_user = get_object_or_404(User, pk=pk)
-
-    if p_user.st.slug != slug:
-        url = reverse("spirit:profile-detail", kwargs={'pk': p_user.pk, 'slug': p_user.st.slug})
-        return HttpResponsePermanentRedirect(url)
-
-    comments = Comment.objects\
+    user_comments = Comment.objects\
         .visible()\
-        .filter(user=p_user)
+        .filter(user_id=pk)
 
-    comments = yt_paginate(
-        comments,
+    return _lists(
+        request, pk, slug,
+        queryset=user_comments,
+        template='spirit/user/profile_comments.html',
+        reverse_to="spirit:profile-detail",
+        context_name='comments',
         per_page=config.comments_per_page,
-        page_number=request.GET.get('page', 1)
     )
 
-    context = {
-        'p_user': p_user,
-        'comments': comments
-    }
 
-    return render(request, 'spirit/user/profile_comments.html', context)
-
-
-@login_required
 def likes(request, pk, slug):
-    p_user = get_object_or_404(User, pk=pk)
-
-    if p_user.st.slug != slug:
-        url = reverse("spirit:profile-likes", kwargs={'pk': p_user.pk, 'slug': p_user.st.slug})
-        return HttpResponsePermanentRedirect(url)
-
-    comments = Comment.objects\
+    user_comments = Comment.objects\
         .visible()\
-        .filter(comment_likes__user=p_user)\
+        .filter(comment_likes__user_id=pk)\
         .order_by('-comment_likes__date', '-pk')
 
-    comments = yt_paginate(
-        comments,
+    return _lists(
+        request, pk, slug,
+        queryset=user_comments,
+        template='spirit/user/profile_likes.html',
+        reverse_to="spirit:profile-likes",
+        context_name='comments',
         per_page=config.comments_per_page,
-        page_number=request.GET.get('page', 1)
     )
-
-    context = {
-        'p_user': p_user,
-        'comments': comments
-    }
-
-    return render(request, 'spirit/user/profile_likes.html', context)
 
 
 @login_required
