@@ -39,6 +39,30 @@ class UserViewTest(TestCase):
         self.topic = utils.create_topic(self.category, user=self.user2)
         self.topic2 = utils.create_topic(self.category)
 
+    def test_user_views_denied_to_non_logged_users(self):
+        """
+        profile user's topics, comments, likes should not be seen by guests
+        """
+        pk = self.user.pk
+        slug = self.user.st.slug
+
+        response = self.client.get(reverse('spirit:profile-topics', kwargs={'pk': pk, 'slug': slug}))
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('spirit:profile-detail', kwargs={'pk': pk, 'slug': slug}))
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('spirit:profile-likes', kwargs={'pk': pk, 'slug': slug}))
+        self.assertEqual(response.status_code, 302)
+
+        response = self.client.get(reverse('spirit:profile-update'))
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('spirit:profile-password-change'))
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('spirit:profile-email-change'))
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('spirit:email-change-confirm', kwargs={'token': "foo"}))
+        self.assertEqual(response.status_code, 302)
+
+
     def test_login_email(self):
         """
         try to login by email

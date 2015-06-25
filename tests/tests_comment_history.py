@@ -99,6 +99,14 @@ class CommentHistoryViewTest(TestCase):
         response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))
         self.assertEqual(response.status_code, 404)
 
+    def test_comment_history_detail_denied_to_non_logged_users(self):
+        """
+        history should not be seen by guests
+        """
+        comment = utils.create_comment(user=self.user, topic=self.topic)
+        response = self.client.get(reverse('spirit:comment-history', kwargs={'comment_id': comment.pk, }))
+        self.assertEqual(response.status_code, 302)
+
 
 class CommentHistorySignalTest(TestCase):
 

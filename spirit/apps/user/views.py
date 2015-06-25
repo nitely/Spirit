@@ -134,7 +134,7 @@ def topics(request, pk, slug):
         request, pk, slug,
         queryset=user_topics,
         template='spirit/user/profile_topics.html',
-        reverse_to="spirit:profile-topics",
+        reverse_to='spirit:profile-topics',
         context_name='topics',
         per_page=config.topics_per_page
     )
@@ -149,7 +149,7 @@ def comments(request, pk, slug):
         request, pk, slug,
         queryset=user_comments,
         template='spirit/user/profile_comments.html',
-        reverse_to="spirit:profile-detail",
+        reverse_to='spirit:profile-detail',
         context_name='comments',
         per_page=config.comments_per_page,
     )
@@ -165,7 +165,7 @@ def likes(request, pk, slug):
         request, pk, slug,
         queryset=user_comments,
         template='spirit/user/profile_likes.html',
-        reverse_to="spirit:profile-likes",
+        reverse_to='spirit:profile-likes',
         context_name='comments',
         per_page=config.comments_per_page,
     )
