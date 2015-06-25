@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from ..category.managers import CategoryQuerySet
+from .managers import CategoryQuerySet
 from spirit.utils.models import AutoSlugField
 
 

@@ -84,10 +84,10 @@ def email_change(request):
 @login_required
 def email_change_confirm(request, token):
     user = request.user
-    email_change = UserEmailChangeTokenGenerator()
+    user_email_change = UserEmailChangeTokenGenerator()
 
-    if email_change.is_valid(user, token):
-        email = email_change.get_email()
+    if user_email_change.is_valid(user, token):
+        email = user_email_change.get_email()
         form = EmailCheckForm(data={'email': email, })
 
         if form.is_valid():

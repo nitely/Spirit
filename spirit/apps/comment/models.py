@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from spirit.apps.comment.managers import CommentQuerySet
+from .managers import CommentQuerySet
 
 
 COMMENT_MAX_LEN = 3000  # changing this needs migration
