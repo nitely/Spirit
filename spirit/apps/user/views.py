@@ -9,16 +9,17 @@ from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.utils.translation import ugettext as _
+
 from django.http import HttpResponsePermanentRedirect
+
 from djconfig import config
 
-from spirit.utils.paginator import yt_paginate
+from spirit.apps.core.utils.paginator import yt_paginate
 from .utils.email import send_email_change_email
 from .utils.tokens import UserEmailChangeTokenGenerator
 from ..topic.models import Topic
 from ..comment.models import Comment
 from .forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
-
 
 User = get_user_model()
 
@@ -101,7 +102,7 @@ def email_change_confirm(request, token):
 
 
 @login_required
-def _lists(request, pk, slug, queryset, template, reverse_to, context_name, per_page):
+def _activity(request, pk, slug, queryset, template, reverse_to, context_name, per_page):
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.st.slug != slug:
@@ -130,7 +131,7 @@ def topics(request, pk, slug):
         .order_by('-date', '-pk')\
         .select_related('user__st')
 
-    return _lists(
+    return _activity(
         request, pk, slug,
         queryset=user_topics,
         template='spirit/user/profile_topics.html',
@@ -145,7 +146,7 @@ def comments(request, pk, slug):
         .visible()\
         .filter(user_id=pk)
 
-    return _lists(
+    return _activity(
         request, pk, slug,
         queryset=user_comments,
         template='spirit/user/profile_comments.html',
@@ -161,7 +162,7 @@ def likes(request, pk, slug):
         .filter(comment_likes__user_id=pk)\
         .order_by('-comment_likes__date', '-pk')
 
-    return _lists(
+    return _activity(
         request, pk, slug,
         queryset=user_comments,
         template='spirit/user/profile_likes.html',

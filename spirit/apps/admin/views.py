@@ -13,9 +13,8 @@ from ..comment.flag.models import CommentFlag
 from ..comment.like.models import CommentLike
 from ..comment.models import Comment
 from ..topic.models import Topic
-from ...utils.decorators import administrator_required
+from spirit.apps.core.utils.decorators import administrator_required
 from .forms import BasicConfigForm
-
 
 User = get_user_model()
 

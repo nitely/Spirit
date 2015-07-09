@@ -23,12 +23,11 @@ from spirit.apps.topic.moderate.signals import topic_post_moderate
 from spirit.apps.comment.forms import CommentForm, CommentMoveForm, CommentImageForm
 from spirit.apps.comment.signals import comment_post_update, comment_posted, comment_pre_update, comment_moved
 from spirit.apps.comment.tags import render_comments_form
-from spirit.utils import markdown
+from spirit.apps.core.utils import markdown
 from spirit.apps.comment.views import delete as comment_delete
 from spirit.apps.topic.models import Topic
 from spirit.apps.category.models import Category
 from spirit.apps.user.models import UserProfile
-
 
 User = get_user_model()
 

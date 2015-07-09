@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-from spirit.templatetags.registry import register
+from spirit.apps.core.tags.registry import register
 from .forms import TopicPollVoteManyForm
 
 

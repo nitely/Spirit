@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from spirit.utils.forms import NestedModelChoiceField
+from spirit.apps.core.utils.forms import NestedModelChoiceField
 from ..category.models import Category
 from .models import Topic
 

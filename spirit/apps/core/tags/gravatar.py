@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import hashlib
 
 from django.utils.http import urlencode, urlquote
 
-from spirit.templatetags.registry import register
+from spirit.apps.core.tags.registry import register
 
 
 @register.simple_tag()

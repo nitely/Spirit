@@ -17,7 +17,7 @@ from djconfig.utils import override_djconfig
 from . import utils
 from spirit.apps.user.forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
 from spirit.apps.user.auth.forms import RegistrationForm, ResendActivationForm
-from spirit.apps.user.backends import EmailAuthBackend
+from spirit.apps.user.auth.backends import EmailAuthBackend
 from spirit.apps.comment.like.models import CommentLike
 from spirit.apps.user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 from spirit.apps.user.models import UserProfile
@@ -61,7 +61,6 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('spirit:email-change-confirm', kwargs={'token': "foo"}))
         self.assertEqual(response.status_code, 302)
-
 
     def test_login_email(self):
         """

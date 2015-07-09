@@ -5,17 +5,19 @@ from __future__ import unicode_literals
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.template import Template, Context
+
 from django.test.utils import override_settings
 from django.http import Http404
+
 from django.core.paginator import Page, Paginator
 
 from . import utils
 from spirit.apps.comment.models import Comment
-from spirit.utils.paginator.yt_paginator import YTPaginator, InvalidPage, YTPage
-from spirit.utils import paginator
-from spirit.utils.paginator import infinite_paginator, paginate, yt_paginate
-from spirit.utils.tags.paginator import render_paginator
-from spirit.utils.tags import paginator as ttag_paginator
+import spirit.apps.core.utils.paginator
+from spirit.apps.core.utils.paginator import YTPaginator, InvalidPage, YTPage
+from spirit.apps.core.utils.paginator import infinite_paginator, paginate, yt_paginate
+from spirit.apps.core.tags.paginator import render_paginator
+from spirit.apps.core.tags import paginator as ttag_paginator
 
 
 class UtilsPaginatorTest(TestCase):
@@ -26,13 +28,13 @@ class UtilsPaginatorTest(TestCase):
     def test_paginator_page(self):
         per_page = 15
         obj_number = 1
-        self.assertEqual(paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
+        self.assertEqual(spirit.apps.core.utils.paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
         obj_number = per_page
-        self.assertEqual(paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
+        self.assertEqual(spirit.apps.core.utils.paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
         obj_number = per_page - 1
-        self.assertEqual(paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
+        self.assertEqual(spirit.apps.core.utils.paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
         obj_number = per_page + 1
-        self.assertEqual(paginator.get_page_number(obj_number=obj_number, per_page=per_page), 2)
+        self.assertEqual(spirit.apps.core.utils.paginator.get_page_number(obj_number=obj_number, per_page=per_page), 2)
 
     def test_paginator_url(self):
         per_page = 15
@@ -40,13 +42,13 @@ class UtilsPaginatorTest(TestCase):
         page_var = "page"
         url = "/path/"
         first_page = url + '#c' + str(obj_number)
-        self.assertEqual(paginator.get_url(url, obj_number, per_page, page_var), first_page)
+        self.assertEqual(spirit.apps.core.utils.paginator.get_url(url, obj_number, per_page, page_var), first_page)
         obj_number = 16
         expected = '%(url)s?%(page_var)s=%(page_num)s#c%(obj_number)s' % {'url': url,
                                                                           'page_var': page_var,
                                                                           'page_num': 2,
                                                                           'obj_number': obj_number}
-        self.assertEqual(paginator.get_url(url, obj_number, per_page, page_var), expected)
+        self.assertEqual(spirit.apps.core.utils.paginator.get_url(url, obj_number, per_page, page_var), expected)
 
 
 class UtilsInfinitePaginatorTest(TestCase):

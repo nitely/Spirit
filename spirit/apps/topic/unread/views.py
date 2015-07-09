@@ -3,9 +3,10 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+
 from django.contrib.auth.decorators import login_required
 
-from spirit.utils.paginator.infinite_paginator import paginate
+from spirit.apps.core.utils.paginator.infinite_paginator import paginate
 from ..models import Topic
 
 

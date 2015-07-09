@@ -9,10 +9,10 @@ from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
 from django.conf import settings
 
-from spirit import utils
 from .models import TopicPoll
 from .forms import TopicPollChoiceFormSet, TopicPollForm, TopicPollVoteManyForm
 from .signals import topic_poll_pre_vote, topic_poll_post_vote
+import spirit.apps.core.utils
 
 
 @login_required
@@ -72,5 +72,5 @@ def vote(request, pk):
         topic_poll_post_vote.send(sender=poll.__class__, poll=poll, user=request.user)
         return redirect(request.POST.get('next', poll.get_absolute_url()))
 
-    messages.error(request, utils.render_form_errors(form))
+    messages.error(request, spirit.apps.core.utils.render_form_errors(form))
     return redirect(request.POST.get('next', poll.get_absolute_url()))

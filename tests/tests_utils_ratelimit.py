@@ -11,8 +11,8 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 from django.conf import settings
 from django.core.cache import get_cache
 
-from spirit.utils.ratelimit import RateLimit
-from spirit.utils.ratelimit.decorators import ratelimit
+from spirit.apps.core.utils.ratelimit import RateLimit
+from spirit.apps.core.utils.ratelimit.decorators import ratelimit
 
 
 def setup_request_factory_messages(req):

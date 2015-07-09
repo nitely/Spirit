@@ -8,10 +8,10 @@ from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 
-from spirit import utils
 from .models import TopicFavorite
 from .forms import FavoriteForm
 from ..models import Topic
+import spirit.apps.core.utils
 
 
 @require_POST
@@ -23,7 +23,7 @@ def create(request, topic_id):
     if form.is_valid():
         form.save()
     else:
-        messages.error(request, utils.render_form_errors(form))
+        messages.error(request, spirit.apps.core.utils.render_form_errors(form))
 
     return redirect(request.POST.get('next', topic.get_absolute_url()))
 

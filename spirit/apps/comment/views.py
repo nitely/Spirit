@@ -6,12 +6,17 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
-from django.http import Http404
-from djconfig import config
 
-from spirit.utils.ratelimit.decorators import ratelimit
-from spirit.utils.decorators import moderator_required
-from spirit.utils import json_response, render_form_errors, paginator, markdown
+from django.http import Http404
+
+from djconfig import config
+import spirit.apps.core.utils.paginator
+
+from spirit.apps.core.utils.ratelimit.decorators import ratelimit
+from spirit.apps.core.utils.decorators import moderator_required
+from spirit.apps.core.utils import markdown
+from spirit.apps.core.utils import render_form_errors
+from spirit.apps.core.utils import json_response
 from ..topic.models import Topic
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
@@ -74,7 +79,8 @@ def delete(request, pk, remove=True):
     comment = get_object_or_404(Comment, pk=pk)
 
     if request.method == 'POST':
-        Comment.objects.filter(pk=pk)\
+        Comment.objects\
+            .filter(pk=pk)\
             .update(is_removed=remove)
 
         return redirect(comment.get_absolute_url())
@@ -106,7 +112,7 @@ def move(request, topic_id):
 def find(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment_number = Comment.objects.filter(topic=comment.topic, date__lte=comment.date).count()
-    url = paginator.get_url(comment.topic.get_absolute_url(),
+    url = spirit.apps.core.utils.paginator.get_url(comment.topic.get_absolute_url(),
                             comment_number,
                             config.comments_per_page,
                             'page')

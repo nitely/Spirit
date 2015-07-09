@@ -13,8 +13,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.conf import settings
 
-from spirit.utils.timezone import TIMEZONE_CHOICES
-from spirit.utils.models import AutoSlugField
+from spirit.apps.core.utils.timezone import TIMEZONE_CHOICES
+from spirit.apps.core.utils.models import AutoSlugField
 
 
 class UserProfile(models.Model):

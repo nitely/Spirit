@@ -4,11 +4,14 @@ from __future__ import unicode_literals
 
 from django.views.generic import ListView
 from django.shortcuts import render
+
 from django.http import HttpResponsePermanentRedirect
+
 from django.shortcuts import get_object_or_404
+
 from djconfig import config
 
-from spirit.utils.paginator import yt_paginate
+from spirit.apps.core.utils.paginator import yt_paginate
 from ..topic.models import Topic
 from .models import Category
 

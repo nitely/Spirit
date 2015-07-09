@@ -11,8 +11,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.staticfiles.storage import staticfiles_storage
 import mistune
 
-from spirit.utils.markdown.utils.emoji import emojis
-
+from spirit.apps.core.utils.markdown.utils.emoji import emojis
 
 User = get_user_model()
 

@@ -15,7 +15,7 @@ from . import utils
 from spirit.apps.topic.models import Topic
 from spirit.apps.search.forms import BasicSearchForm, AdvancedSearchForm
 from spirit.apps.search.tags import render_search_form
-from spirit.search_indexes import TopicIndex
+from spirit.apps.search.search_indexes import TopicIndex
 
 
 HAYSTACK_TEST = {

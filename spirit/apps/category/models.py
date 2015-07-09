@@ -9,7 +9,7 @@ from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
 from .managers import CategoryQuerySet
-from spirit.utils.models import AutoSlugField
+from spirit.apps.core.utils.models import AutoSlugField
 
 
 @python_2_unicode_compatible

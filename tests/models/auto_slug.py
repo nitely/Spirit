@@ -2,7 +2,7 @@
 
 from django.db import models
 
-from spirit.utils.models import AutoSlugField
+from spirit.apps.core.utils.models import AutoSlugField
 
 
 class AutoSlugModel(models.Model):

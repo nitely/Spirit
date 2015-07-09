@@ -12,9 +12,9 @@ from django.conf import settings
 from django.contrib import messages
 from djconfig import config
 
-from spirit import utils
-from spirit.utils.paginator import yt_paginate
-from spirit.utils.paginator.infinite_paginator import paginate
+import spirit.apps.core.utils
+from spirit.apps.core.utils.paginator import yt_paginate
+from spirit.apps.core.utils.paginator.infinite_paginator import paginate
 from ...topic.models import Topic
 from .models import TopicNotification
 from .forms import NotificationForm, NotificationCreationForm
@@ -31,7 +31,7 @@ def create(request, topic_id):
     if form.is_valid():
         form.save()
     else:
-        messages.error(request, utils.render_form_errors(form))
+        messages.error(request, spirit.apps.core.utils.render_form_errors(form))
 
     return redirect(request.POST.get('next', topic.get_absolute_url()))
 
@@ -45,7 +45,7 @@ def update(request, pk):
     if form.is_valid():
         form.save()
     else:
-        messages.error(request, utils.render_form_errors(form))
+        messages.error(request, spirit.apps.core.utils.render_form_errors(form))
 
     return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
 

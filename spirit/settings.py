@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'spirit',
+    'spirit.apps.core',
     # 'spirit.tests'
 )
 
@@ -58,8 +59,8 @@ CACHES = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'spirit.apps.user.backends.UsernameAuthBackend',
-    'spirit.apps.user.backends.EmailAuthBackend',
+    'spirit.apps.user.auth.backends.UsernameAuthBackend',
+    'spirit.apps.user.auth.backends.EmailAuthBackend',
 )
 
 LOGIN_URL = 'spirit:user-login'

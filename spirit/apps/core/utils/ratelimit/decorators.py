@@ -7,7 +7,7 @@ import functools
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 
-from spirit.utils.ratelimit.ratelimit import RateLimit
+from spirit.apps.core.utils.ratelimit.ratelimit import RateLimit
 
 
 __all__ = ['ratelimit', ]

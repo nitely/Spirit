@@ -12,9 +12,9 @@ from django.http import HttpResponsePermanentRedirect
 from django.conf import settings
 from djconfig import config
 
-from spirit import utils
-from spirit.utils.paginator import paginate, yt_paginate
-from spirit.utils.ratelimit.decorators import ratelimit
+import spirit.apps.core.utils
+from spirit.apps.core.utils.paginator import paginate, yt_paginate
+from spirit.apps.core.utils.ratelimit.decorators import ratelimit
 from ...comment.forms import CommentForm
 from ...comment.signals import comment_posted
 from ...comment.models import Comment
@@ -24,7 +24,6 @@ from .models import TopicPrivate
 from .forms import TopicPrivateManyForm, TopicForPrivateForm,\
     TopicPrivateJoinForm, TopicPrivateInviteForm
 from .signals import topic_private_post_create, topic_private_access_pre_create
-
 
 User = get_user_model()
 
@@ -111,7 +110,7 @@ def create_access(request, topic_id):
                                              user=form.cleaned_data['user'])
         form.save()
     else:
-        messages.error(request, utils.render_form_errors(form))
+        messages.error(request, spirit.apps.core.utils.render_form_errors(form))
 
     return redirect(request.POST.get('next', topic_private.get_absolute_url()))
 

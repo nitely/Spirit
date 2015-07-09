@@ -2,11 +2,11 @@
 
 from __future__ import unicode_literals
 
-from django.utils.http import urlencode
+from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
-from django.core.paginator import Paginator, InvalidPage
+from django.utils.http import urlencode
 
-from spirit.utils.paginator.yt_paginator import YTPaginator
+from .yt_paginator import YTPaginator, YTPage
 
 
 def get_page_number(obj_number, per_page):

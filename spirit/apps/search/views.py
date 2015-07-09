@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from haystack.views import SearchView as BaseSearchView
 from djconfig import config
 
-from spirit.utils.paginator import yt_paginate
+from spirit.apps.core.utils.paginator import yt_paginate
 
 
 class SearchView(BaseSearchView):

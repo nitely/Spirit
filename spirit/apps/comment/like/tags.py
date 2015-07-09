@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from spirit.templatetags.registry import register
+from spirit.apps.core.tags.registry import register
 from .forms import LikeForm
 
 

@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from djconfig import config
 
-from spirit.utils.paginator import yt_paginate
-from spirit.utils.decorators import administrator_required
+from spirit.apps.core.utils.paginator import yt_paginate
+from spirit.apps.core.utils.decorators import administrator_required
 from ..models import Topic
 
 

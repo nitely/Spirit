@@ -4,11 +4,13 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+
 from django.http import HttpResponsePermanentRedirect
+
 from djconfig import config
 
-from spirit.utils.paginator import paginate, yt_paginate
-from spirit.utils.ratelimit.decorators import ratelimit
+from spirit.apps.core.utils.paginator import paginate, yt_paginate
+from spirit.apps.core.utils.ratelimit.decorators import ratelimit
 from ..category.models import Category
 from ..comment.models import MOVED
 from ..comment.forms import CommentForm

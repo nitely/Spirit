@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 
-import spirit.utils.models
+import spirit.apps.core.utils.models
 
 
 class Migration(migrations.Migration):
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='AutoSlugBadPopulateFromModel',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('slug', spirit.utils.models.AutoSlugField(populate_from=b'bad')),
+                ('slug', spirit.apps.core.utils.models.AutoSlugField(populate_from=b'bad')),
             ],
             options={
             },
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
             name='AutoSlugDefaultModel',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('slug', spirit.utils.models.AutoSlugField(default=b'foo')),
+                ('slug', spirit.apps.core.utils.models.AutoSlugField(default=b'foo')),
             ],
             options={
             },
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
             name='AutoSlugModel',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('slug', spirit.utils.models.AutoSlugField()),
+                ('slug', spirit.apps.core.utils.models.AutoSlugField()),
             ],
             options={
             },
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=255, blank=True)),
-                ('slug', spirit.utils.models.AutoSlugField(populate_from=b'title')),
+                ('slug', spirit.apps.core.utils.models.AutoSlugField(populate_from=b'title')),
             ],
             options={
             },

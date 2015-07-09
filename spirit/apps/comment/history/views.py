@@ -3,10 +3,12 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render, get_object_or_404
+
 from djconfig import config
 
-from spirit.utils.paginator import yt_paginate
+from spirit.apps.core.utils.paginator import yt_paginate
 from .models import CommentHistory
 from ..models import Comment
 
