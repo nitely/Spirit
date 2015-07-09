@@ -4,6 +4,12 @@
 * Requires Django 1.8 (support for 1.7 has been dropped).
 * Drops the custom `AUTH_USER_MODEL`.
 * Deprecated `AbstractForumUser` and `AbstractUser`. They will be removed in future releases.
+* Moved `spirit.middleware.XForwardedForMiddleware` to `spirit.core.middleware.XForwardedForMiddleware`.
+* Moved `spirit.middleware.TimezoneMiddleware` to `spirit.user.middleware.TimezoneMiddleware`.
+* Moved `spirit.middleware.LastIPMiddleware` to `spirit.user.middleware.LastIPMiddleware`.
+* Moved `spirit.middleware.LastSeenMiddleware` to `spirit.user.middleware.LastSeenMiddleware`.
+* Moved `spirit.middleware.ActiveUserMiddleware` to `spirit.user.middleware.ActiveUserMiddleware`.
+* Moved `spirit.middleware.PrivateForumMiddleware` to `spirit.core.middleware.PrivateForumMiddleware`.
 
 0.2.0
 ==================
