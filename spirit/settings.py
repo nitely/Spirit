@@ -74,12 +74,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'spirit.middleware.XForwardedForMiddleware',
-    'spirit.middleware.TimezoneMiddleware',
-    'spirit.middleware.LastIPMiddleware',
-    'spirit.middleware.LastSeenMiddleware',
-    'spirit.middleware.ActiveUserMiddleware',
-    'spirit.middleware.PrivateForumMiddleware',
+    # 'spirit.apps.core.middleware.XForwardedForMiddleware',
+    'spirit.apps.user.middleware.TimezoneMiddleware',
+    'spirit.apps.user.middleware.LastIPMiddleware',
+    'spirit.apps.user.middleware.LastSeenMiddleware',
+    'spirit.apps.user.middleware.ActiveUserMiddleware',
+    'spirit.apps.core.middleware.PrivateForumMiddleware',
 )
 
 TEMPLATES = [
