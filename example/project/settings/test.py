@@ -13,7 +13,7 @@ from .base import *
 SECRET_KEY = "TEST"
 
 INSTALLED_APPS += (
-    'tests',
+    'spirit.core.tests',
 )
 
 DATABASES = {
