@@ -170,7 +170,7 @@ def index(request):
 
     context = {'topics': topics, }
 
-    return render(request, 'spirit/topic/private/list.html', context)
+    return render(request, 'spirit/topic/private/index.html', context)
 
 
 @login_required
@@ -190,4 +190,4 @@ def index_author(request):
 
     context = {'topics': topics, }
 
-    return render(request, 'spirit/topic/private/created_list.html', context)
+    return render(request, 'spirit/topic/private/index_author.html', context)

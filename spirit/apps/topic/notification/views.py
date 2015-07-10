@@ -51,7 +51,7 @@ def update(request, pk):
 
 
 @login_required
-def list_ajax(request):
+def index_ajax(request):
     if not request.is_ajax():
         return Http404()
 
@@ -62,22 +62,33 @@ def list_ajax(request):
 
     notifications = notifications[:settings.ST_NOTIFICATIONS_PER_PAGE]
 
-    notifications = [{'user': n.comment.user.username, 'action': n.action,
-                      'title': n.comment.topic.title, 'url': n.get_absolute_url(),
-                      'is_read': n.is_read}
-                     for n in notifications]
+    notifications = [
+        {
+            'user': n.comment.user.username,
+            'action': n.action,
+            'title': n.comment.topic.title,
+            'url': n.get_absolute_url(),
+            'is_read': n.is_read
+        }
+        for n in notifications
+    ]
 
     return HttpResponse(json.dumps({'n': notifications, }), content_type="application/json")
 
 
 @login_required
-def list_unread(request):
+def index_unread(request):
     notifications = TopicNotification.objects\
         .for_access(request.user)\
         .filter(is_read=False)
 
-    page = paginate(request, query_set=notifications, lookup_field="date",
-                    page_var='notif', per_page=settings.ST_NOTIFICATIONS_PER_PAGE)
+    page = paginate(
+        request,
+        query_set=notifications,
+        lookup_field='date',
+        page_var='notif',
+        per_page=settings.ST_NOTIFICATIONS_PER_PAGE
+    )
     next_page_pk = None
 
     if page:
@@ -88,7 +99,7 @@ def list_unread(request):
         'next_page_pk': next_page_pk
     }
 
-    return render(request, 'spirit/topic/notification/list_unread.html', context)
+    return render(request, 'spirit/topic/notification/index_unread.html', context)
 
 
 @login_required
@@ -101,4 +112,4 @@ def index(request):
 
     context = {'notifications': notifications, }
 
-    return render(request, 'spirit/topic/notification/list.html', context)
+    return render(request, 'spirit/topic/notification/index.html', context)

@@ -19,7 +19,7 @@ User = get_user_model()
 def index(request):
     categories = Category.objects.filter(parent=None, is_private=False)
     context = {'categories': categories, }
-    return render(request, 'spirit/category/admin/list.html', context)
+    return render(request, 'spirit/category/admin/index.html', context)
 
 
 @administrator_required

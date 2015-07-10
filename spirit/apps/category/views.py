@@ -51,6 +51,6 @@ def detail(request, pk, slug):
 
 class IndexView(ListView):
 
-    template_name = 'spirit/category/list.html'
+    template_name = 'spirit/category/index.html'
     context_object_name = "categories"
     queryset = Category.objects.visible().parents()
