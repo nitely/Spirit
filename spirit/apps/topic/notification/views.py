@@ -10,6 +10,8 @@ from django.views.decorators.http import require_POST
 from django.http import Http404, HttpResponse
 from django.conf import settings
 from django.contrib import messages
+from django.utils.html import escape
+
 from djconfig import config
 
 import spirit.apps.core.utils
@@ -64,9 +66,9 @@ def index_ajax(request):
 
     notifications = [
         {
-            'user': n.comment.user.username,
+            'user': escape(n.comment.user.username),
             'action': n.action,
-            'title': n.comment.topic.title,
+            'title': escape(n.comment.topic.title),
             'url': n.get_absolute_url(),
             'is_read': n.is_read
         }

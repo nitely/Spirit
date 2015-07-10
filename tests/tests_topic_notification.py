@@ -213,6 +213,35 @@ class TopicNotificationViewTest(TestCase):
         self.assertFalse(res['n'][0]['is_read'])
         self.assertTrue(res['n'][1]['is_read'])
 
+    def test_topic_notification_ajax_escape(self):
+        """
+        The receive username and topic title should be escaped
+        """
+        user = utils.create_user(username="<>taggy")
+        topic = utils.create_topic(self.category, title="<tag>Have you met Ted?</tag>")
+        notification = TopicNotification.objects.create(
+            user=self.user,
+            topic=topic,
+            comment=utils.create_comment(topic=topic, user=user),
+            is_active=True,
+            action=COMMENT
+        )
+
+        utils.login(self)
+        response = self.client.get(
+            reverse('spirit:topic-notification-ajax'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        res = json.loads(response.content.decode('utf-8'))
+        expected = {
+            'user': "&lt;&gt;taggy",
+            'action': notification.action,
+            'title': "&lt;tag&gt;Have you met Ted?&lt;/tag&gt;",
+            'url': notification.get_absolute_url(),
+            'is_read': notification.is_read
+        }
+        self.assertDictEqual(res['n'][0], expected)
+
     def test_topic_notification_create(self):
         """
         create notification
