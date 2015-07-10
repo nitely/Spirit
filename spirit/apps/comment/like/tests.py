@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.core.cache import cache
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.comment.like.models import CommentLike
 from spirit.apps.comment.like.forms import LikeForm
 from spirit.apps.comment.like.tags import render_like_form

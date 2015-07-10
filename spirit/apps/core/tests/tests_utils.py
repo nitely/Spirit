@@ -34,7 +34,7 @@ from spirit.apps.user.utils.tokens import UserActivationTokenGenerator, UserEmai
 from spirit.apps.user.utils.email import send_activation_email, send_email_change_email, sender
 from spirit.apps.user.utils import email
 from spirit.apps.core.tags import time as ttags_utils
-from . import utils as test_utils
+from spirit.apps.core.tests import utils as test_utils
 from spirit.apps.core.tags.messages import render_messages
 from spirit.apps.core.utils.markdown import Markdown, quotify
 

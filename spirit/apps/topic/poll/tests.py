@@ -8,12 +8,11 @@ from django.core.cache import cache
 from django.contrib.auth import get_user_model
 from django.template import Template, Context
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.topic.poll.models import TopicPoll, TopicPollChoice, TopicPollVote
 from spirit.apps.topic.poll.forms import TopicPollForm, TopicPollChoiceFormSet, TopicPollVoteManyForm
 from spirit.apps.topic.poll.signals import topic_poll_post_vote, topic_poll_pre_vote
 from spirit.apps.topic.poll.tags import render_poll_form
-
 
 User = get_user_model()
 

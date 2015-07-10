@@ -12,9 +12,10 @@ from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
 from django.test.utils import override_settings
+from django.core.urlresolvers import NoReverseMatch
 from djconfig.utils import override_djconfig
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.user.forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
 from spirit.apps.user.auth.forms import RegistrationForm, ResendActivationForm
 from spirit.apps.user.auth.backends import EmailAuthBackend
@@ -441,12 +442,18 @@ class UserViewTest(TestCase):
 
     def test_admin_login(self):
         """
-        redirect to regular user login
-        if fails, make sure you added:
+        Redirect to regular user login (optional)
+        make sure you added:
         admin.site.login = login_required(admin.site.login)
         to urls.py (the one in your project's root)
         """
-        response = self.client.get(reverse('admin:login'))
+        # TODO: document that devs should be doing this.
+        try:
+            url = reverse('admin:login')
+        except NoReverseMatch:
+            return
+
+        response = self.client.get(url)
         expected_url = reverse("spirit:user-login") + "?next=" + reverse('admin:login')
         self.assertRedirects(response, expected_url, status_code=302)
 

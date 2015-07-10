@@ -10,7 +10,7 @@ from django.core.cache import cache
 from django.utils import timezone
 from djconfig.utils import override_djconfig
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.topic.models import Topic
 from spirit.apps.comment.bookmark.models import CommentBookmark
 

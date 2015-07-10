@@ -5,13 +5,11 @@ from __future__ import unicode_literals
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.template import Template, Context
-
 from django.test.utils import override_settings
 from django.http import Http404
-
 from django.core.paginator import Page, Paginator
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.comment.models import Comment
 import spirit.apps.core.utils.paginator
 from spirit.apps.core.utils.paginator import YTPaginator, InvalidPage, YTPage

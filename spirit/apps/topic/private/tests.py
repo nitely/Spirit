@@ -13,7 +13,7 @@ from django.utils import six
 from django.utils import timezone
 from djconfig.utils import override_djconfig
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.category.models import Category
 from spirit.apps.topic.private.models import TopicPrivate
 from spirit.apps.topic.private.forms import TopicForPrivateForm, TopicPrivateInviteForm,\

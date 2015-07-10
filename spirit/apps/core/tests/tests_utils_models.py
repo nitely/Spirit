@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 
-from .models.auto_slug import AutoSlugPopulateFromModel, AutoSlugModel, AutoSlugDefaultModel, \
+from spirit.apps.core.tests.models import AutoSlugPopulateFromModel, AutoSlugModel, AutoSlugDefaultModel, \
     AutoSlugBadPopulateFromModel
 
 

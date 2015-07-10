@@ -6,7 +6,7 @@ from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.topic.unread.models import TopicUnread
 from spirit.apps.topic.signals import topic_viewed
 from spirit.apps.comment.signals import comment_posted

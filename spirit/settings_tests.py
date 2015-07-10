@@ -13,10 +13,10 @@ from spirit.settings import *
 SECRET_KEY = 'TEST'
 
 INSTALLED_APPS += (
-    'tests',
+    'spirit.apps.core.tests',
 )
 
-ROOT_URLCONF = 'tests.urls'
+ROOT_URLCONF = 'spirit.urls'
 
 USE_TZ = True
 

@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.comment.models import CLOSED, UNCLOSED, PINNED, UNPINNED
 from spirit.apps.topic.models import Topic
 from spirit.apps.topic.moderate.signals import topic_post_moderate

@@ -16,7 +16,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
 from django.utils.six import BytesIO
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.comment.models import Comment
 from spirit.apps.comment.like.signals import comment_like_post_create, comment_like_post_delete
 from spirit.apps.topic.moderate.signals import topic_post_moderate

@@ -8,7 +8,7 @@ from django.template import Template, Context
 from django.core.cache import cache
 from djconfig import config
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.comment.bookmark.models import CommentBookmark
 from spirit.apps.topic.signals import topic_viewed
 from spirit.apps.comment.bookmark.forms import BookmarkForm

@@ -11,12 +11,11 @@ from django.core.management import call_command
 from haystack.query import SearchQuerySet
 from djconfig.utils import override_djconfig
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.topic.models import Topic
 from spirit.apps.search.forms import BasicSearchForm, AdvancedSearchForm
 from spirit.apps.search.tags import render_search_form
 from spirit.apps.search.search_indexes import TopicIndex
-
 
 HAYSTACK_TEST = {
     'default': {

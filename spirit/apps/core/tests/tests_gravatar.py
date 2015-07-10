@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.template import Template, Context
 
-from . import utils
+from spirit.apps.core.tests import utils
 
 
 class GravatarTemplateTagTests(TestCase):

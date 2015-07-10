@@ -13,7 +13,7 @@ from django.template import Template, Context
 from django.utils import timezone
 from djconfig.utils import override_djconfig
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.topic.private.models import TopicPrivate
 from spirit.apps.topic.notification.models import TopicNotification, COMMENT, MENTION
 from spirit.apps.comment.signals import comment_posted

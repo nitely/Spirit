@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.comment.flag.models import Flag, CommentFlag
 from spirit.apps.comment.flag.forms import FlagForm
 

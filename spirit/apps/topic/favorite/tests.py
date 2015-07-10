@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.topic.favorite.models import TopicFavorite
 from spirit.apps.topic.favorite.forms import FavoriteForm
 

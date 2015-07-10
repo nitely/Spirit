@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from djconfig.utils import override_djconfig
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.comment.models import MOVED
 from spirit.apps.topic.models import Topic
 from spirit.apps.comment.signals import comment_posted, comment_moved

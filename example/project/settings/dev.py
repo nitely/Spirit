@@ -15,6 +15,7 @@ from .base import *
 DEBUG = True
 
 TEMPLATES[0]['OPTIONS']['debug'] = True
+# TEMPLATES[0]['OPTIONS']['string_if_invalid'] = '{{ %s }}'  # Some Django templates relies on this being the default
 
 ADMINS = (('John', 'john@example.com'), )  # Log email to console when DEBUG = False
 

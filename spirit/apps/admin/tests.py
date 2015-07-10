@@ -9,7 +9,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from djconfig.utils import override_djconfig
 
-from . import utils
+from spirit.apps.core.tests import utils
 from spirit.apps.admin.views import dashboard
 from spirit.apps.admin import views
 from spirit.apps.category.admin import views as category_views
@@ -22,7 +22,6 @@ from spirit.apps.admin.forms import BasicConfigForm
 from spirit.apps.comment.flag.admin.forms import CommentFlagForm
 from spirit.apps.user.admin.forms import UserForm, UserProfileForm
 from spirit.apps.category.admin.forms import CategoryForm
-
 
 User = get_user_model()
 
