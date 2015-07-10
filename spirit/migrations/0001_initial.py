@@ -9,7 +9,7 @@ import django.utils.timezone
 from django.conf import settings
 import django.core.validators
 
-import spirit.apps.core.utils.models
+import spirit.core.utils.models
 
 
 class Migration(migrations.Migration):
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(max_length=128, verbose_name='password')),
                 ('last_login', models.DateTimeField(default=django.utils.timezone.now, verbose_name='last login')),
                 ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('slug', spirit.apps.core.utils.models.AutoSlugField(db_index=False, populate_from=b'username', blank=True)),
+                ('slug', spirit.core.utils.models.AutoSlugField(db_index=False, populate_from=b'username', blank=True)),
                 ('location', models.CharField(max_length=75, verbose_name='location', blank=True)),
                 ('last_seen', models.DateTimeField(auto_now=True, verbose_name='last seen')),
                 ('last_ip', models.GenericIPAddressField(null=True, verbose_name='last ip', blank=True)),
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=75, verbose_name='title')),
-                ('slug', spirit.apps.core.utils.models.AutoSlugField(db_index=False, populate_from=b'title', blank=True)),
+                ('slug', spirit.core.utils.models.AutoSlugField(db_index=False, populate_from=b'title', blank=True)),
                 ('description', models.CharField(max_length=255, verbose_name='description', blank=True)),
                 ('is_closed', models.BooleanField(default=False, verbose_name='closed')),
                 ('is_removed', models.BooleanField(default=False, verbose_name='removed')),
@@ -176,7 +176,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=75, verbose_name='title')),
-                ('slug', spirit.apps.core.utils.models.AutoSlugField(db_index=False, populate_from=b'title', blank=True)),
+                ('slug', spirit.core.utils.models.AutoSlugField(db_index=False, populate_from=b'title', blank=True)),
                 ('date', models.DateTimeField(auto_now_add=True, verbose_name='date')),
                 ('last_active', models.DateTimeField(auto_now_add=True, verbose_name='last active')),
                 ('is_pinned', models.BooleanField(default=False, verbose_name='pinned')),

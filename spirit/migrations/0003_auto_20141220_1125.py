@@ -6,7 +6,7 @@ import re
 from django.db import models, migrations
 import django.core.validators
 
-import spirit.apps.core.utils.models
+import spirit.core.utils.models
 
 
 class Migration(migrations.Migration):
@@ -19,13 +19,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='slug',
-            field=spirit.apps.core.utils.models.AutoSlugField(blank=True, populate_from='title', db_index=False),
+            field=spirit.core.utils.models.AutoSlugField(blank=True, populate_from='title', db_index=False),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='topic',
             name='slug',
-            field=spirit.apps.core.utils.models.AutoSlugField(blank=True, populate_from='title', db_index=False),
+            field=spirit.core.utils.models.AutoSlugField(blank=True, populate_from='title', db_index=False),
             preserve_default=True,
         ),
         migrations.AlterField(
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='slug',
-            field=spirit.apps.core.utils.models.AutoSlugField(blank=True, populate_from='username', db_index=False),
+            field=spirit.core.utils.models.AutoSlugField(blank=True, populate_from='username', db_index=False),
             preserve_default=True,
         ),
         migrations.AlterField(

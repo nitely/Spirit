@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'spirit',
-    'spirit.apps.core',
+    'spirit.core',
     # 'spirit.tests'
 )
 
@@ -59,8 +59,8 @@ CACHES = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'spirit.apps.user.auth.backends.UsernameAuthBackend',
-    'spirit.apps.user.auth.backends.EmailAuthBackend',
+    'spirit.user.auth.backends.UsernameAuthBackend',
+    'spirit.user.auth.backends.EmailAuthBackend',
 )
 
 LOGIN_URL = 'spirit:user-login'
@@ -74,12 +74,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'spirit.apps.core.middleware.XForwardedForMiddleware',
-    'spirit.apps.user.middleware.TimezoneMiddleware',
-    'spirit.apps.user.middleware.LastIPMiddleware',
-    'spirit.apps.user.middleware.LastSeenMiddleware',
-    'spirit.apps.user.middleware.ActiveUserMiddleware',
-    'spirit.apps.core.middleware.PrivateForumMiddleware',
+    # 'spirit.core.middleware.XForwardedForMiddleware',
+    'spirit.user.middleware.TimezoneMiddleware',
+    'spirit.user.middleware.LastIPMiddleware',
+    'spirit.user.middleware.LastSeenMiddleware',
+    'spirit.user.middleware.ActiveUserMiddleware',
+    'spirit.core.middleware.PrivateForumMiddleware',
 )
 
 TEMPLATES = [

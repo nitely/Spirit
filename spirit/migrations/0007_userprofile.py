@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 from django.conf import settings
 
-import spirit.apps.core.utils.models
+import spirit.core.utils.models
 
 
 class Migration(migrations.Migration):
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('slug', spirit.apps.core.utils.models.AutoSlugField(db_index=False, blank=True, populate_from='user.username')),
+                ('slug', spirit.core.utils.models.AutoSlugField(db_index=False, blank=True, populate_from='user.username')),
                 ('location', models.CharField(blank=True, verbose_name='location', max_length=75)),
                 ('last_seen', models.DateTimeField(auto_now=True, verbose_name='last seen')),
                 ('last_ip', models.GenericIPAddressField(blank=True, verbose_name='last ip', null=True)),
