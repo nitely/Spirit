@@ -17,7 +17,7 @@ class MultipleInput(forms.TextInput):
 
     def render(self, name, value, attrs=None, choices=()):
         if value:
-            value = ','.join([force_text(v) for v in value])
+            value = ','.join(force_text(v) for v in value)
         else:
             value = ''
 

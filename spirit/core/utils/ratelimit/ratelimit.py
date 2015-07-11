@@ -25,7 +25,7 @@ class RateLimit:
         self.cache_keys = []
         self.cache_values = {}
 
-        if self.request.method in [m.upper() for m in self.method]\
+        if self.request.method in (m.upper() for m in self.method)\
                 and settings.ST_RATELIMIT_ENABLE:
             self.limit, self.time = self.split_rate(rate)
             self.cache_keys = self._get_keys(field)
