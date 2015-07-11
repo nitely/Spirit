@@ -9,12 +9,11 @@ from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.utils.translation import ugettext as _
-
 from django.http import HttpResponsePermanentRedirect
 
 from djconfig import config
 
-from spirit.core.utils.paginator import yt_paginate
+from ..core.utils.paginator import yt_paginate
 from .utils.email import send_email_change_email
 from .utils.tokens import UserEmailChangeTokenGenerator
 from ..topic.models import Topic

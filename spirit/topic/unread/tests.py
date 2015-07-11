@@ -6,11 +6,11 @@ from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 
-from spirit.core.tests import utils
-from spirit.topic.unread.models import TopicUnread
-from spirit.topic.signals import topic_viewed
-from spirit.comment.signals import comment_posted
-from spirit.comment.bookmark.models import CommentBookmark
+from ...core.tests import utils
+from .models import TopicUnread
+from ..signals import topic_viewed
+from ...comment.signals import comment_posted
+from ...comment.bookmark.models import CommentBookmark
 
 
 class TopicUnreadViewTest(TestCase):

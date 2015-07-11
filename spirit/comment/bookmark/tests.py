@@ -6,12 +6,13 @@ from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.core.cache import cache
+
 from djconfig import config
 
-from spirit.core.tests import utils
-from spirit.comment.bookmark.models import CommentBookmark
-from spirit.topic.signals import topic_viewed
-from spirit.comment.bookmark.forms import BookmarkForm
+from ...core.tests import utils
+from ...topic.signals import topic_viewed
+from .models import CommentBookmark
+from .forms import BookmarkForm
 
 
 class CommentBookmarkViewTest(TestCase):

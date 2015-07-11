@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 
-from spirit.core.utils.decorators import moderator_required
+from ...core.utils.decorators import moderator_required
 from ...comment.models import CLOSED, UNCLOSED, PINNED, UNPINNED
 from ..models import Topic
 from .signals import topic_post_moderate

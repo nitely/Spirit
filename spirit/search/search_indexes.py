@@ -6,7 +6,7 @@ from django.conf import settings
 
 from haystack import indexes
 
-from spirit.topic.models import Topic
+from ..topic.models import Topic
 
 
 class TopicIndex(indexes.SearchIndex, indexes.Indexable):

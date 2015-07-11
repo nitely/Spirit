@@ -2,9 +2,10 @@
 
 from __future__ import unicode_literals
 
-from djconfig.forms import ConfigForm
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+
+from djconfig.forms import ConfigForm
 
 
 class BasicConfigForm(ConfigForm):

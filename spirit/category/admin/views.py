@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 
-from spirit.core.utils.decorators import administrator_required
+from ...core.utils.decorators import administrator_required
 from ..models import Category
 from .forms import CategoryForm
 

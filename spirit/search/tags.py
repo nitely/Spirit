@@ -2,8 +2,8 @@
 
 from __future__ import unicode_literals
 
-from spirit.core.tags.registry import register
-from spirit.search.forms import BasicSearchForm
+from ..core.tags.registry import register
+from .forms import BasicSearchForm
 
 
 @register.inclusion_tag('spirit/search/_form.html')
@@ -14,7 +14,7 @@ def render_search_form():
 
 @register.assignment_tag()
 def get_topics_from_search_result(results):
-    # TODO: move to view
+    # TODO: move to view, use iter
     # Since Im only indexing Topics this is ok.
     topics = [r.object for r in results]
     return topics

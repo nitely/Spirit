@@ -5,7 +5,7 @@ import hashlib
 
 from django.utils.http import urlencode, urlquote
 
-from spirit.core.tags.registry import register
+from .registry import register
 
 
 @register.simple_tag()

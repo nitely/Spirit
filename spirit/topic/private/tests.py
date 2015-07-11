@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import datetime
 
 from django.test import TestCase
@@ -11,19 +10,20 @@ from django.template import Template, Context
 from django.conf import settings
 from django.utils import six
 from django.utils import timezone
+
 from djconfig.utils import override_djconfig
 
-from spirit.core.tests import utils
-from spirit.category.models import Category
-from spirit.topic.private.models import TopicPrivate
-from spirit.topic.private.forms import TopicForPrivateForm, TopicPrivateInviteForm,\
+from ...core.tests import utils
+from ...category.models import Category
+from .models import TopicPrivate
+from .forms import TopicForPrivateForm, TopicPrivateInviteForm,\
     TopicPrivateManyForm, TopicPrivateJoinForm
-from spirit.topic.private.tags import render_invite_form
-from spirit.topic.private.views import comment_posted
-from spirit.comment.models import Comment
-from spirit.topic.private.signals import topic_private_post_create, topic_private_access_pre_create
-from spirit.topic.models import Topic
-from spirit.comment.bookmark.models import CommentBookmark
+from .tags import render_invite_form
+from .views import comment_posted
+from ...comment.models import Comment
+from .signals import topic_private_post_create, topic_private_access_pre_create
+from ..models import Topic
+from ...comment.bookmark.models import CommentBookmark
 
 
 class TopicPrivateViewTest(TestCase):

@@ -5,13 +5,12 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib import messages
-
 from django.utils.translation import ugettext as _
 
 from djconfig import config
 
-from spirit.core.utils.paginator import yt_paginate
-from spirit.core.utils.decorators import administrator_required
+from ...core.utils.paginator import yt_paginate
+from ...core.utils.decorators import administrator_required
 from .forms import UserForm, UserProfileForm
 
 User = get_user_model()

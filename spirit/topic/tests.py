@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import datetime
 
 from django.test import TestCase, RequestFactory
@@ -9,18 +8,19 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
+
 from djconfig.utils import override_djconfig
 
-from spirit.core.tests import utils
-from spirit.comment.models import MOVED
-from spirit.topic.models import Topic
-from spirit.comment.signals import comment_posted, comment_moved
-from spirit.topic.signals import topic_viewed
-from spirit.topic.forms import TopicForm
-from spirit.topic.moderate.signals import topic_post_moderate
-from spirit.comment.models import Comment
-from spirit.comment.bookmark.models import CommentBookmark
-from spirit.topic.poll.forms import TopicPollForm, TopicPollChoiceFormSet
+from ..core.tests import utils
+from ..comment.models import MOVED
+from .models import Topic
+from ..comment.signals import comment_posted, comment_moved
+from .signals import topic_viewed
+from .forms import TopicForm
+from .moderate.signals import topic_post_moderate
+from ..comment.models import Comment
+from ..comment.bookmark.models import CommentBookmark
+from .poll.forms import TopicPollForm, TopicPollChoiceFormSet
 
 
 class TopicViewTest(TestCase):

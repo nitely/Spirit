@@ -11,7 +11,6 @@ from django.template.loader import render_to_string
 
 from .tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 
-
 logger = logging.getLogger('django')
 
 

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.utils.translation import ugettext as _
 
-from spirit.core.tags.registry import register
+from ..core.tags.registry import register
 from .forms import CommentForm
 from .models import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
 

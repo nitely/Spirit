@@ -9,7 +9,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from ..forms import EmailUniqueMixin
 
-
 User = get_user_model()
 
 

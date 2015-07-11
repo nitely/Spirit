@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
-from spirit.core.utils.widgets import MultipleInput
+from ...core.utils.widgets import MultipleInput
 from ...topic.models import Topic
 from ...category.models import Category
 from .models import TopicPrivate

@@ -10,11 +10,12 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import HttpResponsePermanentRedirect
 from django.conf import settings
+
 from djconfig import config
 
-import spirit.core.utils
-from spirit.core.utils.paginator import paginate, yt_paginate
-from spirit.core.utils.ratelimit.decorators import ratelimit
+from ...core import utils
+from ...core.utils.paginator import paginate, yt_paginate
+from ...core.utils.ratelimit.decorators import ratelimit
 from ...comment.forms import CommentForm
 from ...comment.signals import comment_posted
 from ...comment.models import Comment
@@ -110,7 +111,7 @@ def create_access(request, topic_id):
                                              user=form.cleaned_data['user'])
         form.save()
     else:
-        messages.error(request, spirit.core.utils.render_form_errors(form))
+        messages.error(request, utils.render_form_errors(form))
 
     return redirect(request.POST.get('next', topic_private.get_absolute_url()))
 

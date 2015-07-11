@@ -6,10 +6,10 @@ from django.test import TestCase
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 
-from spirit.core.tests import utils
-from spirit.comment.models import CLOSED, UNCLOSED, PINNED, UNPINNED
-from spirit.topic.models import Topic
-from spirit.topic.moderate.signals import topic_post_moderate
+from ...core.tests import utils
+from ...comment.models import CLOSED, UNCLOSED, PINNED, UNPINNED
+from ..models import Topic
+from .signals import topic_post_moderate
 
 
 class TopicViewTest(TestCase):

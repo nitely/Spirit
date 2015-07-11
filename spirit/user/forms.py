@@ -11,7 +11,6 @@ from django.conf import settings
 
 from .models import UserProfile
 
-
 User = get_user_model()
 
 

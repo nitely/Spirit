@@ -8,14 +8,15 @@ from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
 from django.core.management import call_command
+
 from haystack.query import SearchQuerySet
 from djconfig.utils import override_djconfig
 
-from spirit.core.tests import utils
-from spirit.topic.models import Topic
-from spirit.search.forms import BasicSearchForm, AdvancedSearchForm
-from spirit.search.tags import render_search_form
-from spirit.search.search_indexes import TopicIndex
+from ..core.tests import utils
+from ..topic.models import Topic
+from .forms import BasicSearchForm, AdvancedSearchForm
+from .tags import render_search_form
+from .search_indexes import TopicIndex
 
 HAYSTACK_TEST = {
     'default': {

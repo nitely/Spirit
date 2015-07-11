@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.template.loader import render_to_string
 from django.core.paginator import Page
 
-from spirit.core.tags.registry import register
+from .registry import register
 
 
 @register.simple_tag(takes_context=True)

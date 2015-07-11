@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import json
 
 from django.contrib.auth.decorators import login_required
@@ -14,13 +13,12 @@ from django.utils.html import escape
 
 from djconfig import config
 
-import spirit.core.utils
-from spirit.core.utils.paginator import yt_paginate
-from spirit.core.utils.paginator.infinite_paginator import paginate
+from ...core import utils
+from ...core.utils.paginator import yt_paginate
+from ...core.utils.paginator.infinite_paginator import paginate
 from ...topic.models import Topic
 from .models import TopicNotification
 from .forms import NotificationForm, NotificationCreationForm
-
 
 
 @require_POST
@@ -33,7 +31,7 @@ def create(request, topic_id):
     if form.is_valid():
         form.save()
     else:
-        messages.error(request, spirit.core.utils.render_form_errors(form))
+        messages.error(request, utils.render_form_errors(form))
 
     return redirect(request.POST.get('next', topic.get_absolute_url()))
 
@@ -47,7 +45,7 @@ def update(request, pk):
     if form.is_valid():
         form.save()
     else:
-        messages.error(request, spirit.core.utils.render_form_errors(form))
+        messages.error(request, utils.render_form_errors(form))
 
     return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
 

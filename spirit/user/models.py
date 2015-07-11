@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import re
 
 from django.db import models
@@ -13,8 +12,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.conf import settings
 
-from spirit.core.utils.timezone import TIMEZONE_CHOICES
-from spirit.core.utils.models import AutoSlugField
+from ..core.utils.timezone import TIMEZONE_CHOICES
+from ..core.utils.models import AutoSlugField
 
 
 class UserProfile(models.Model):

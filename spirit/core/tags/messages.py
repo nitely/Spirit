@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 from django.contrib.messages import constants
 
-from spirit.core.tags.registry import register
+from .registry import register
 
 
 TAGS = {

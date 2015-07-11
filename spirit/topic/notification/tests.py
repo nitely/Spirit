@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import json
 import datetime
 
@@ -11,16 +10,17 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.template import Template, Context
 from django.utils import timezone
+
 from djconfig.utils import override_djconfig
 
-from spirit.core.tests import utils
-from spirit.topic.private.models import TopicPrivate
-from spirit.topic.notification.models import TopicNotification, COMMENT, MENTION
-from spirit.comment.signals import comment_posted
-from spirit.topic.signals import topic_viewed
-from spirit.topic.private.signals import topic_private_post_create, topic_private_access_pre_create
-from spirit.topic.notification.forms import NotificationCreationForm, NotificationForm
-from spirit.topic.notification.tags import render_notification_form, has_topic_notifications
+from ...core.tests import utils
+from ..private.models import TopicPrivate
+from .models import TopicNotification, COMMENT, MENTION
+from ...comment.signals import comment_posted
+from ..signals import topic_viewed
+from ..private.signals import topic_private_post_create, topic_private_access_pre_create
+from .forms import NotificationCreationForm, NotificationForm
+from .tags import render_notification_form, has_topic_notifications
 
 
 @override_settings(ST_NOTIFICATIONS_PER_PAGE=1)

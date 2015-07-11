@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import hashlib
 
 from django.core.cache import cache
@@ -11,8 +10,8 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 from django.conf import settings
 from django.core.cache import get_cache
 
-from spirit.core.utils.ratelimit import RateLimit
-from spirit.core.utils.ratelimit.decorators import ratelimit
+from ..utils.ratelimit import RateLimit
+from ..utils.ratelimit.decorators import ratelimit
 
 
 def setup_request_factory_messages(req):

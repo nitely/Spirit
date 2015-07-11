@@ -6,9 +6,9 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
-from spirit.core.tests import utils
-from spirit.comment.flag.models import Flag, CommentFlag
-from spirit.comment.flag.forms import FlagForm
+from ...core.tests import utils
+from .models import Flag, CommentFlag
+from .forms import FlagForm
 
 
 class FlagViewTest(TestCase):

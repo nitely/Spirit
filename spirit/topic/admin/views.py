@@ -3,10 +3,11 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+
 from djconfig import config
 
-from spirit.core.utils.paginator import yt_paginate
-from spirit.core.utils.decorators import administrator_required
+from ...core.utils.paginator import yt_paginate
+from ...core.utils.decorators import administrator_required
 from ..models import Topic
 
 

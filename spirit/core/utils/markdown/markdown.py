@@ -4,9 +4,9 @@ from __future__ import unicode_literals
 
 import mistune
 
-from spirit.core.utils.markdown.block import BlockLexer
-from spirit.core.utils.markdown.inline import InlineLexer
-from spirit.core.utils.markdown.renderer import Renderer
+from .block import BlockLexer
+from .inline import InlineLexer
+from .renderer import Renderer
 
 
 class Markdown(mistune.Markdown):

@@ -9,7 +9,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
 
-from spirit.core.utils.ratelimit.decorators import ratelimit
+from ...core.utils.ratelimit.decorators import ratelimit
 from ..utils.email import send_activation_email
 from ..utils.tokens import UserActivationTokenGenerator
 from .forms import RegistrationForm, LoginForm, ResendActivationForm

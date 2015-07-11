@@ -16,18 +16,18 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
 from django.utils.six import BytesIO
 
-from spirit.core.tests import utils
-from spirit.comment.models import Comment
-from spirit.comment.like.signals import comment_like_post_create, comment_like_post_delete
-from spirit.topic.moderate.signals import topic_post_moderate
-from spirit.comment.forms import CommentForm, CommentMoveForm, CommentImageForm
-from spirit.comment.signals import comment_post_update, comment_posted, comment_pre_update, comment_moved
-from spirit.comment.tags import render_comments_form
-from spirit.core.utils import markdown
-from spirit.comment.views import delete as comment_delete
-from spirit.topic.models import Topic
-from spirit.category.models import Category
-from spirit.user.models import UserProfile
+from ..core.tests import utils
+from .models import Comment
+from .like.signals import comment_like_post_create, comment_like_post_delete
+from ..topic.moderate.signals import topic_post_moderate
+from .forms import CommentForm, CommentMoveForm, CommentImageForm
+from .signals import comment_post_update, comment_posted, comment_pre_update, comment_moved
+from .tags import render_comments_form
+from ..core.utils import markdown
+from .views import delete as comment_delete
+from ..topic.models import Topic
+from ..category.models import Category
+from ..user.models import UserProfile
 
 User = get_user_model()
 

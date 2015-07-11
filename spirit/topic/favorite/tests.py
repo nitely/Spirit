@@ -6,9 +6,9 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 
-from spirit.core.tests import utils
-from spirit.topic.favorite.models import TopicFavorite
-from spirit.topic.favorite.forms import FavoriteForm
+from ...core.tests import utils
+from .models import TopicFavorite
+from .forms import FavoriteForm
 
 
 class FavoriteViewTest(TestCase):

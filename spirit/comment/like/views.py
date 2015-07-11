@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 
-from spirit.core.utils import json_response
+from ...core.utils import json_response
 from ..models import Comment
 from .models import CommentLike
 from .forms import LikeForm

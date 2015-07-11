@@ -8,11 +8,12 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils import timezone
+
 from djconfig.utils import override_djconfig
 
-from spirit.core.tests import utils
-from spirit.topic.models import Topic
-from spirit.comment.bookmark.models import CommentBookmark
+from ..core.tests import utils
+from ..topic.models import Topic
+from ..comment.bookmark.models import CommentBookmark
 
 
 class CategoryViewTest(TestCase):

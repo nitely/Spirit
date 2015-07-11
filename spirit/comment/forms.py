@@ -10,8 +10,8 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-import spirit.core.utils
-from spirit.core.utils.markdown import Markdown
+from ..core import utils
+from ..core.utils.markdown import Markdown
 from .models import Comment
 from ..topic.models import Topic
 
@@ -92,7 +92,7 @@ class CommentImageForm(forms.Form):
         upload_to = os.path.join('spirit', 'images', str(self.user.pk))
         image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name).replace("\\", "/")
         media_path = os.path.join(settings.MEDIA_ROOT, upload_to)
-        spirit.core.utils.mkdir_p(media_path)
+        utils.mkdir_p(media_path)
 
         with open(os.path.join(media_path, image.name), 'wb') as fh:
             image.seek(0)

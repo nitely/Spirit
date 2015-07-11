@@ -2,13 +2,13 @@
 
 from __future__ import unicode_literals
 
-from spirit.comment import tags as comment
-from spirit.comment.like import tags as comment_like
-from spirit.search import tags as search
-from spirit.topic.favorite import tags as topic_favorite
-from spirit.topic.notification import tags as topic_notification
-from spirit.topic.poll import tags as topic_poll
-from spirit.topic.private import tags as topic_private
+from ...comment import tags as comment
+from ...comment.like import tags as comment_like
+from ...search import tags as search
+from ...topic.favorite import tags as topic_favorite
+from ...topic.notification import tags as topic_notification
+from ...topic.poll import tags as topic_poll
+from ...topic.private import tags as topic_private
 from ..tags import avatar
 from ..tags import gravatar
 from ..tags import messages

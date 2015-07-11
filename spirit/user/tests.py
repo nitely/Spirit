@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import datetime
 
 from django.test import TestCase
@@ -13,19 +12,19 @@ from django.utils.translation import ugettext as _
 from django.utils import timezone
 from django.test.utils import override_settings
 from django.core.urlresolvers import NoReverseMatch
+
 from djconfig.utils import override_djconfig
 
-from spirit.core.tests import utils
-from spirit.user.forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
-from spirit.user.auth.forms import RegistrationForm, ResendActivationForm
-from spirit.user.auth.backends import EmailAuthBackend
-from spirit.comment.like.models import CommentLike
-from spirit.user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
-from spirit.user.models import UserProfile
-from spirit.topic.models import Topic
-from spirit.comment.models import Comment
-from spirit.comment.bookmark.models import CommentBookmark
-
+from ..core.tests import utils
+from .forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
+from .auth.forms import RegistrationForm, ResendActivationForm
+from .auth.backends import EmailAuthBackend
+from ..comment.like.models import CommentLike
+from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from .models import UserProfile
+from ..topic.models import Topic
+from ..comment.models import Comment
+from ..comment.bookmark.models import CommentBookmark
 
 User = get_user_model()
 

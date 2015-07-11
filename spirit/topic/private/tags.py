@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from spirit.core.tags.registry import register
+from ...core.tags.registry import register
 from .forms import TopicPrivateInviteForm
 
 

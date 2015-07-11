@@ -2,8 +2,7 @@
 
 from __future__ import unicode_literals
 
-from spirit.core.tags.registry import register
-
+from ...core.tags.registry import register
 from .models import TopicNotification
 from .forms import NotificationForm
 

@@ -7,7 +7,7 @@ from django.template import defaultfilters
 from django.utils.translation import ugettext as _
 from django.utils.timezone import is_aware, utc
 
-from spirit.core.tags.registry import register
+from .registry import register
 
 
 @register.filter(expects_localtime=True)

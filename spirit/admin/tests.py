@@ -7,21 +7,22 @@ from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
+
 from djconfig.utils import override_djconfig
 
-from spirit.core.tests import utils
-from spirit.admin.views import dashboard
-from spirit.admin import views
-from spirit.category.admin import views as category_views
-from spirit.comment.flag.admin import views as flag_views
-from spirit.topic.admin import views as topic_views
-from spirit.user.admin import views as user_views
-from spirit.category.models import Category
-from spirit.comment.flag.models import CommentFlag, Flag
-from spirit.admin.forms import BasicConfigForm
-from spirit.comment.flag.admin.forms import CommentFlagForm
-from spirit.user.admin.forms import UserForm, UserProfileForm
-from spirit.category.admin.forms import CategoryForm
+from ..core.tests import utils
+from ..admin.views import dashboard
+from ..admin import views
+from ..category.admin import views as category_views
+from ..comment.flag.admin import views as flag_views
+from ..topic.admin import views as topic_views
+from ..user.admin import views as user_views
+from ..category.models import Category
+from ..comment.flag.models import CommentFlag, Flag
+from ..admin.forms import BasicConfigForm
+from ..comment.flag.admin.forms import CommentFlagForm
+from ..user.admin.forms import UserForm, UserProfileForm
+from ..category.admin.forms import CategoryForm
 
 User = get_user_model()
 

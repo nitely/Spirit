@@ -6,7 +6,7 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from django.db.models import Q, Prefetch
 
-from spirit.comment.bookmark.models import CommentBookmark
+from ..comment.bookmark.models import CommentBookmark
 
 
 class TopicQuerySet(models.QuerySet):

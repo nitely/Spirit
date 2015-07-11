@@ -5,11 +5,12 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
+
 from djconfig.utils import override_djconfig
 
-from spirit.core.tests import utils
-from spirit.comment.history.models import CommentHistory
-from spirit.comment.signals import comment_pre_update, comment_post_update
+from ...core.tests import utils
+from .models import CommentHistory
+from .signals import comment_pre_update, comment_post_update
 
 
 class CommentHistoryViewTest(TestCase):

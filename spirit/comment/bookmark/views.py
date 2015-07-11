@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 from django.http import Http404
 
-from spirit.core.utils import json_response
+from ...core.utils import json_response
 from ...topic.models import Topic
 from .forms import BookmarkForm
 

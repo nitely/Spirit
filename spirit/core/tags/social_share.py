@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.utils.http import urlencode
 
-from spirit.core.tags.registry import register
+from .registry import register
 
 
 FACEBOOK_URL = "http://www.facebook.com/sharer.php?%s"

@@ -5,11 +5,10 @@ from __future__ import unicode_literals
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
-from spirit.topic.models import Topic
-from spirit.category.models import Category
-from spirit.comment.models import Comment
-from spirit.topic.private.models import TopicPrivate
-
+from ...topic.models import Topic
+from ...category.models import Category
+from ...comment.models import Comment
+from ...topic.private.models import TopicPrivate
 
 User = get_user_model()
 

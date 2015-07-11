@@ -7,10 +7,10 @@ from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.core.cache import cache
 
-from spirit.core.tests import utils
-from spirit.comment.like.models import CommentLike
-from spirit.comment.like.forms import LikeForm
-from spirit.comment.like.tags import render_like_form
+from ...core.tests import utils
+from .models import CommentLike
+from .forms import LikeForm
+from .tags import render_like_form
 
 
 class LikeViewTest(TestCase):

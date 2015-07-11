@@ -11,7 +11,7 @@ from django.contrib import messages
 from .models import TopicFavorite
 from .forms import FavoriteForm
 from ..models import Topic
-import spirit.core.utils
+from ...core import utils
 
 
 @require_POST
@@ -23,7 +23,7 @@ def create(request, topic_id):
     if form.is_valid():
         form.save()
     else:
-        messages.error(request, spirit.core.utils.render_form_errors(form))
+        messages.error(request, utils.render_form_errors(form))
 
     return redirect(request.POST.get('next', topic.get_absolute_url()))
 

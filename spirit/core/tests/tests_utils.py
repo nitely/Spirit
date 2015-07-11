@@ -24,19 +24,18 @@ from django.utils.timezone import utc
 from django.utils.http import urlunquote
 from django.contrib.auth import get_user_model
 
-from spirit.category.models import Category
-import spirit.core.utils
-from spirit.core.utils.forms import NestedModelChoiceField
-from spirit.core.utils.timezone import TIMEZONE_CHOICES
-from spirit.core.utils.decorators import moderator_required, administrator_required
-import spirit.core.utils
-from spirit.user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
-from spirit.user.utils.email import send_activation_email, send_email_change_email, sender
-from spirit.user.utils import email
-from spirit.core.tags import time as ttags_utils
-from spirit.core.tests import utils as test_utils
-from spirit.core.tags.messages import render_messages
-from spirit.core.utils.markdown import Markdown, quotify
+from ...category.models import Category
+from .. import utils
+from ..utils.forms import NestedModelChoiceField
+from ..utils.timezone import TIMEZONE_CHOICES
+from ..utils.decorators import moderator_required, administrator_required
+from ...user.utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from ...user.utils.email import send_activation_email, send_email_change_email, sender
+from ...user.utils import email
+from ..tags import time as ttags_utils
+from ..tests import utils as test_utils
+from ..tags.messages import render_messages
+from ..utils.markdown import Markdown, quotify
 
 User = get_user_model()
 
@@ -55,7 +54,7 @@ class UtilsTests(TestCase):
             hidden_fields = [{'errors': "error2", }, ]
             visible_fields = [{'errors': "error3", }, ]
 
-        res = spirit.core.utils.render_form_errors(MockForm())
+        res = utils.render_form_errors(MockForm())
         lines = [line.strip() for line in res.splitlines()]
         self.assertEqual("".join(lines), '<ul class="errorlist"><li>error1</li><li>error2</li><li>error3</li></ul>')
 
@@ -63,16 +62,16 @@ class UtilsTests(TestCase):
         """
         return json_response
         """
-        res = spirit.core.utils.json_response()
+        res = utils.json_response()
         self.assertIsInstance(res, HttpResponse)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res['Content-Type'], 'application/json')
         self.assertDictEqual(json.loads(res.content.decode('utf-8')), {})
 
-        res = spirit.core.utils.json_response({"foo": "bar", })
+        res = utils.json_response({"foo": "bar", })
         self.assertDictEqual(json.loads(res.content.decode('utf-8')), {"foo": "bar", })
 
-        res = spirit.core.utils.json_response(status=404)
+        res = utils.json_response(status=404)
         self.assertEqual(res.status_code, 404)
 
     def test_mkdir_p(self):
@@ -80,11 +79,11 @@ class UtilsTests(TestCase):
         mkdir -p
         """
         # Empty path should raise an exception
-        self.assertRaises(OSError, spirit.core.utils.mkdir_p, "")
+        self.assertRaises(OSError, utils.mkdir_p, "")
 
         # Try to create an existing dir should do nothing
         self.assertTrue(os.path.isdir(settings.BASE_DIR))
-        spirit.core.utils.mkdir_p(settings.BASE_DIR)
+        utils.mkdir_p(settings.BASE_DIR)
 
         # Create path tree
         # setup
@@ -93,7 +92,7 @@ class UtilsTests(TestCase):
         self.assertFalse(os.path.isdir(sub_path))
         self.assertFalse(os.path.isdir(path))
         # test
-        spirit.core.utils.mkdir_p(sub_path)
+        utils.mkdir_p(sub_path)
         self.assertTrue(os.path.isdir(sub_path))
         # clean up
         os.rmdir(sub_path)

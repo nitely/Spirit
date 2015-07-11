@@ -5,7 +5,7 @@ import math
 
 from django.utils.encoding import smart_text
 
-from spirit.core.tags.registry import register
+from .registry import register
 
 
 @register.simple_tag()
