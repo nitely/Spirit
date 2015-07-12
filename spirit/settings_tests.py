@@ -12,9 +12,9 @@ from spirit.settings import *
 
 SECRET_KEY = 'TEST'
 
-INSTALLED_APPS += (
+INSTALLED_APPS += [
     'spirit.core.tests',
-)
+]
 
 ROOT_URLCONF = 'spirit.urls'
 
@@ -42,9 +42,9 @@ CACHES.update({
 })
 
 # speedup tests requiring login
-PASSWORD_HASHERS = (
+PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.MD5PasswordHasher',
-)
+]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

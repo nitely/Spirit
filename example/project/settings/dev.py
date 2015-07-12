@@ -23,9 +23,9 @@ SECRET_KEY = "DEV"
 
 ALLOWED_HOSTS = ['127.0.0.1', ]
 
-INSTALLED_APPS += (
+INSTALLED_APPS.extend([
     'debug_toolbar',
-)
+])
 
 DATABASES = {
     'default': {
@@ -40,8 +40,8 @@ CACHES.update({
     },
 })
 
-PASSWORD_HASHERS = (
+PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.MD5PasswordHasher',
-)
+]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

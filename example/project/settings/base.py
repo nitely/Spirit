@@ -10,34 +10,33 @@ import sys
 
 from spirit.settings import *
 
-# You may override spirit settings below...
+# You may override or extend spirit settings below...
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # Application definition
 
-# Extend the Spirit installed apps (notice the plus sign)
-# Check out the spirit.settings.py so you do not end up with duplicate apps.
-INSTALLED_APPS += (
+# Extend the Spirit installed apps.
+# Check out the spirit.settings.py so you do not end up with duplicated apps.
+INSTALLED_APPS.extend([
     # 'my_app1',
     # 'my_app2',
-)
+])
 
 # same here, check out the spirit.settings.py
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE_CLASSES.extend([
     # 'my_middleware1',
     # 'my_middleware2',
-)
+])
 
 # same here
-TEMPLATES[0]['OPTIONS']['context_processors'] += [
+TEMPLATES[0]['OPTIONS']['context_processors'].extend([
     # 'my_template_proc1',
     # 'my_template_proc2',
-]
+])
 
 # same here (we update the Spirit caches)
 CACHES.update({

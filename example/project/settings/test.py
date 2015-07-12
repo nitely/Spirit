@@ -12,9 +12,9 @@ from .base import *
 
 SECRET_KEY = "TEST"
 
-INSTALLED_APPS += (
+INSTALLED_APPS.extend([
     'spirit.core.tests',
-)
+])
 
 DATABASES = {
     'default': {
@@ -25,6 +25,6 @@ DATABASES = {
 
 ROOT_URLCONF = 'example.project.urls'
 
-PASSWORD_HASHERS = (
+PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.MD5PasswordHasher',
-)
+]

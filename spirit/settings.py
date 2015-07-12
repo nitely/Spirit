@@ -37,9 +37,7 @@ ST_UNIQUE_EMAILS = True
 # Django & Spirit settings defined below...
 #
 
-# TODO: change all tuples to list so we can do .extend(arg1, arag2, ...)
-
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,8 +47,8 @@ INSTALLED_APPS = (
 
     'spirit',
     'spirit.core',
-    # 'spirit.tests'
-)
+    # 'spirit.core.tests'
+]
 
 # python manage.py createcachetable
 CACHES = {
@@ -60,15 +58,15 @@ CACHES = {
     },
 }
 
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'spirit.user.auth.backends.UsernameAuthBackend',
     'spirit.user.auth.backends.EmailAuthBackend',
-)
+]
 
 LOGIN_URL = 'spirit:user:auth:login'
 LOGIN_REDIRECT_URL = 'spirit:user:update'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -82,7 +80,7 @@ MIDDLEWARE_CLASSES = (
     'spirit.user.middleware.LastSeenMiddleware',
     'spirit.user.middleware.ActiveUserMiddleware',
     'spirit.core.middleware.PrivateForumMiddleware',
-)
+]
 
 TEMPLATES = [
     {
@@ -110,13 +108,13 @@ TEMPLATES = [
 
 # django-djconfig
 
-INSTALLED_APPS += (
+INSTALLED_APPS += [
     'djconfig',
-)
+]
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE_CLASSES += [
     'djconfig.middleware.DjConfigMiddleware',
-)
+]
 
 TEMPLATES[0]['OPTIONS']['context_processors'] += [
     'djconfig.context_processors.config',
@@ -124,9 +122,9 @@ TEMPLATES[0]['OPTIONS']['context_processors'] += [
 
 # django-haystack
 
-INSTALLED_APPS += (
+INSTALLED_APPS += [
     'haystack',
-)
+]
 
 HAYSTACK_CONNECTIONS = {
     'default': {

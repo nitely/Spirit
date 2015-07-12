@@ -23,11 +23,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['.example.com', ]
 
-# Extend the Spirit installed apps (notice the plus sign)
+# Extend the Spirit installed apps
 # Check out the .base.py file for more examples
-INSTALLED_APPS += (
+INSTALLED_APPS.extend([
     # 'my_app1',
-)
+])
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
@@ -44,12 +44,12 @@ DATABASES = {
 # These are all the languages Spirit provides.
 # https://www.transifex.com/projects/p/spirit/
 gettext_noop = lambda s: s
-LANGUAGES = (
+LANGUAGES = [
     ('de', gettext_noop('German')),
     ('en', gettext_noop('English')),
     ('es', gettext_noop('Spanish')),
     ('sv', gettext_noop('Swedish')),
-)
+]
 
 # Default language
 LANGUAGE_CODE = 'en'

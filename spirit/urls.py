@@ -10,17 +10,7 @@ import spirit.user.urls
 import spirit.search.urls
 import spirit.category.urls
 import spirit.topic.urls
-import spirit.topic.moderate.urls
-import spirit.topic.unread.urls
-import spirit.topic.notification.urls
-import spirit.topic.favorite.urls
-import spirit.topic.private.urls
-import spirit.topic.poll.urls
 import spirit.comment.urls
-import spirit.comment.bookmark.urls
-import spirit.comment.flag.urls
-import spirit.comment.history.urls
-import spirit.comment.like.urls
 
 
 patterns = [
