@@ -77,7 +77,7 @@ class SearchViewTest(TestCase):
         advanced search by topic
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:search'))
+        response = self.client.get(reverse('spirit:search:search'))
         self.assertEqual(response.status_code, 200)
 
     def test_advanced_search_topics(self):
@@ -86,7 +86,7 @@ class SearchViewTest(TestCase):
         """
         utils.login(self)
         data = {'q': 'spirit search', }
-        response = self.client.get(reverse('spirit:search'),
+        response = self.client.get(reverse('spirit:search:search'),
                                    data)
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual([s.object for s in response.context['page']], map(repr, [self.topic, ]))
@@ -98,7 +98,7 @@ class SearchViewTest(TestCase):
         """
         utils.login(self)
         data = {'q': 'foo', }
-        response = self.client.get(reverse('spirit:search'),
+        response = self.client.get(reverse('spirit:search:search'),
                                    data)
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual([s.object for s in response.context['page']], map(repr, [self.topic2, ]))
@@ -110,12 +110,12 @@ class SearchViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         data = {'q': 'spirit search', 'category': category.pk}
-        response = self.client.get(reverse('spirit:search'),
+        response = self.client.get(reverse('spirit:search:search'),
                                    data)
         self.assertQuerysetEqual(response.context['page'], [])
 
         data['category'] = self.category.pk
-        response = self.client.get(reverse('spirit:search'),
+        response = self.client.get(reverse('spirit:search:search'),
                                    data)
         self.assertEqual(len(response.context['page']), 1)
 

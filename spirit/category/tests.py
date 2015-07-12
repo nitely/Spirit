@@ -30,7 +30,7 @@ class CategoryViewTest(TestCase):
         """
         should display all categories
         """
-        response = self.client.get(reverse('spirit:category-list'))
+        response = self.client.get(reverse('spirit:category:index'))
         self.assertQuerysetEqual(
             response.context['categories'],
             ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)]
@@ -48,7 +48,7 @@ class CategoryViewTest(TestCase):
         Topic.objects.filter(pk=topic.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
         Topic.objects.filter(pk=topic3.pk).update(last_active=timezone.now() - datetime.timedelta(days=5))
 
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [repr(topic2), repr(topic3), repr(topic)])
 
@@ -62,7 +62,7 @@ class CategoryViewTest(TestCase):
         # show pinned first
         Topic.objects.filter(pk=topic_a.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
 
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_a, topic_b, ]))
 
@@ -78,7 +78,7 @@ class CategoryViewTest(TestCase):
         # show globally pinned first
         Topic.objects.filter(pk=topic_d.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
 
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': category.pk,
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': category.pk,
                                                                              'slug': category.slug}))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_d, topic_b, topic_c, topic_a]))
 
@@ -91,7 +91,7 @@ class CategoryViewTest(TestCase):
         utils.create_topic(category=self.category_1, is_removed=True)
         utils.create_topic(category=self.category_2)
 
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [])
 
@@ -99,14 +99,14 @@ class CategoryViewTest(TestCase):
         """
         invalid category
         """
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': str(99), }))
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': str(99), }))
         self.assertEqual(response.status_code, 404)
 
     def test_category_detail_view_invalid_slug(self):
         """
         invalid slug
         """
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': 'bar'}))
         self.assertRedirects(response, self.category_1.get_absolute_url(), status_code=301)
 
@@ -114,7 +114,7 @@ class CategoryViewTest(TestCase):
         """
         no slug
         """
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': ''}))
         self.assertRedirects(response, self.category_1.get_absolute_url(), status_code=301)
 
@@ -124,7 +124,7 @@ class CategoryViewTest(TestCase):
         """
         utils.create_topic(category=self.category_1)
         topic2 = utils.create_topic(category=self.subcategory_1, title="topic_subcat1")
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.subcategory_1.pk,
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.subcategory_1.pk,
                                                                              'slug': self.subcategory_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [repr(topic2), ])
         self.assertQuerysetEqual(response.context['categories'], [])
@@ -137,7 +137,7 @@ class CategoryViewTest(TestCase):
         topic = utils.create_topic(category=self.category_1)
         bookmark = CommentBookmark.objects.create(topic=topic, user=self.user)
 
-        response = self.client.get(reverse('spirit:category-detail',
+        response = self.client.get(reverse('spirit:category:detail',
                                            kwargs={'pk': self.category_1.pk,
                                                    'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])
@@ -151,6 +151,6 @@ class CategoryViewTest(TestCase):
         utils.create_topic(category=self.category_1)
         topic = utils.create_topic(category=self.category_1)
 
-        response = self.client.get(reverse('spirit:category-detail', kwargs={'pk': self.category_1.pk,
+        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
         self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])

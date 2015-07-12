@@ -27,9 +27,9 @@
             {{ topic.title }}
 
             {% if user.st.is_moderator %}
-                <a class="head-edit-link" href="{% url "spirit:topic-update" topic.pk %}"><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
+                <a class="head-edit-link" href="{% url "spirit:topic:update" topic.pk %}"><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
             {% elif user.pk == topic.user.pk and not topic.is_closed %}
-                <a class="head-edit-link" href="{% url "spirit:topic-update" topic.pk %}"><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
+                <a class="head-edit-link" href="{% url "spirit:topic:update" topic.pk %}"><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
             {% endif %}
         </h1>
 
@@ -42,27 +42,27 @@
                         <li><a class="menu-link js-show-move-comments" href="#" ><i class="fa fa-comments"></i> {% trans "Select comments to move" %}</a></li>
 
                         {% if topic.is_removed %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-undelete" topic.pk %}" ><i class="fa fa-trash-o"></i> {% trans "Undelete topic" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic:moderate:undelete" topic.pk %}" ><i class="fa fa-trash-o"></i> {% trans "Undelete topic" %}</a></li>
                         {% else %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-delete" topic.pk %}" ><i class="fa fa-trash-o"></i> {% trans "Delete topic" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic:moderate:delete" topic.pk %}" ><i class="fa fa-trash-o"></i> {% trans "Delete topic" %}</a></li>
                         {% endif %}
 
                         {% if topic.is_closed %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-unlock" topic.pk %}" ><i class="fa fa-unlock"></i> {% trans "Open topic" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic:moderate:unlock" topic.pk %}" ><i class="fa fa-unlock"></i> {% trans "Open topic" %}</a></li>
                         {% else %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-lock" topic.pk %}" ><i class="fa fa-lock"></i> {% trans "Close topic" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic:moderate:lock" topic.pk %}" ><i class="fa fa-lock"></i> {% trans "Close topic" %}</a></li>
                         {% endif %}
 
                         {% if topic.is_pinned %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-unpin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic:moderate:unpin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic" %}</a></li>
                         {% else %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic:moderate:pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic" %}</a></li>
                         {% endif %}
 
                         {% if topic.is_globally_pinned %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-global-unpin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic:moderate:global-unpin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a></li>
                         {% else %}
-                            <li><a class="menu-link js-post" href="{% url "spirit:topic-global-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic globally" %}</a></li>
+                            <li><a class="menu-link js-post" href="{% url "spirit:topic:moderate:global-pin" topic.pk %}" ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic globally" %}</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -89,7 +89,7 @@
                 {% if user.is_authenticated %}
                     {% render_notification_form user=user topic=topic %}
                 {% elif not topic.is_closed %}
-                    <a class="button" href="{% url "spirit:comment-publish" topic_id=topic.pk %}">{% trans "Reply" %}</a>
+                    <a class="button" href="{% url "spirit:comment:publish" topic_id=topic.pk %}">{% trans "Reply" %}</a>
                 {% endif %}
             </div>
         </div>
@@ -116,14 +116,14 @@
 
                     $( ".comment" ).bookmark( {
                         csrfToken: "{{ csrf_token }}",
-                        target: "{% url "spirit:bookmark-create" topic.pk %}",
+                        target: "{% url "spirit:comment:bookmark:create" topic.pk %}",
                     } );
 
 
                     {% if user.st.is_moderator %}
                         $('.js-show-move-comments').move_comments( {
                             csrfToken: "{{ csrf_token }}",
-                            target: "{% url "spirit:comment-move" topic.pk %}",
+                            target: "{% url "spirit:comment:move" topic.pk %}",
                         } );
                     {% endif %}
 

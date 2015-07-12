@@ -31,7 +31,7 @@ class TopicPollViewTest(TestCase):
         """
         User must be logged in
         """
-        response = self.client.get(reverse('spirit:poll-update', kwargs={'pk': 1, }))
+        response = self.client.get(reverse('spirit:topic:poll:update', kwargs={'pk': 1, }))
         self.assertEqual(response.status_code, 302)
 
     def test_poll_update_wrong_user(self):
@@ -40,7 +40,7 @@ class TopicPollViewTest(TestCase):
         """
         utils.login(self)
         poll = TopicPoll.objects.create(topic=self.topic2)
-        response = self.client.get(reverse('spirit:poll-update', kwargs={'pk': poll.pk, }))
+        response = self.client.get(reverse('spirit:topic:poll:update', kwargs={'pk': poll.pk, }))
         self.assertEqual(response.status_code, 404)
 
     def test_poll_update_get(self):
@@ -49,7 +49,7 @@ class TopicPollViewTest(TestCase):
         """
         utils.login(self)
         poll = TopicPoll.objects.create(topic=self.topic)
-        response = self.client.get(reverse('spirit:poll-update', kwargs={'pk': poll.pk, }))
+        response = self.client.get(reverse('spirit:topic:poll:update', kwargs={'pk': poll.pk, }))
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['form'], TopicPollForm)
         self.assertIsInstance(response.context['formset'], TopicPollChoiceFormSet)
@@ -64,7 +64,7 @@ class TopicPollViewTest(TestCase):
                      'choices-0-description': 'op1', 'choices-0-poll': poll.pk,
                      'choices-1-description': 'op2', 'choices-1-poll': poll.pk,
                      'choice_limit': 2}
-        response = self.client.post(reverse('spirit:poll-update', kwargs={'pk': poll.pk, }),
+        response = self.client.post(reverse('spirit:topic:poll:update', kwargs={'pk': poll.pk, }),
                                     form_data)
         expected_url = poll.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
@@ -78,7 +78,7 @@ class TopicPollViewTest(TestCase):
         utils.login(self)
         poll = TopicPoll.objects.create(topic=self.topic)
         form_data = {'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0}
-        response = self.client.post(reverse('spirit:poll-update', kwargs={'pk': poll.pk, }),
+        response = self.client.post(reverse('spirit:topic:poll:update', kwargs={'pk': poll.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['form'], TopicPollForm)
@@ -89,7 +89,7 @@ class TopicPollViewTest(TestCase):
         User must be logged in
         """
         poll = TopicPoll.objects.create(topic=self.topic)
-        response = self.client.get(reverse('spirit:poll-close', kwargs={'pk': poll.pk, }))
+        response = self.client.get(reverse('spirit:topic:poll:close', kwargs={'pk': poll.pk, }))
         self.assertEqual(response.status_code, 302)
 
     def test_poll_close_wrong_user(self):
@@ -98,7 +98,7 @@ class TopicPollViewTest(TestCase):
         """
         utils.login(self)
         poll = TopicPoll.objects.create(topic=self.topic2)
-        response = self.client.get(reverse('spirit:poll-close', kwargs={'pk': poll.pk, }))
+        response = self.client.get(reverse('spirit:topic:poll:close', kwargs={'pk': poll.pk, }))
         self.assertEqual(response.status_code, 404)
 
     def test_poll_close_get(self):
@@ -107,7 +107,7 @@ class TopicPollViewTest(TestCase):
         """
         utils.login(self)
         poll = TopicPoll.objects.create(topic=self.topic)
-        response = self.client.get(reverse('spirit:poll-close', kwargs={'pk': poll.pk, }))
+        response = self.client.get(reverse('spirit:topic:poll:close', kwargs={'pk': poll.pk, }))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['poll'].pk, poll.pk)
 
@@ -118,14 +118,14 @@ class TopicPollViewTest(TestCase):
         utils.login(self)
         poll = TopicPoll.objects.create(topic=self.topic)
         form_data = {}
-        response = self.client.post(reverse('spirit:poll-close', kwargs={'pk': poll.pk, }),
+        response = self.client.post(reverse('spirit:topic:poll:close', kwargs={'pk': poll.pk, }),
                                     form_data)
         expected_url = poll.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(TopicPoll.objects.get(pk=poll.pk).is_closed)
 
         # Open
-        response = self.client.post(reverse('spirit:poll-close', kwargs={'pk': poll.pk, }),
+        response = self.client.post(reverse('spirit:topic:poll:close', kwargs={'pk': poll.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 302)
         self.assertFalse(TopicPoll.objects.get(pk=poll.pk).is_closed)
@@ -136,9 +136,9 @@ class TopicPollViewTest(TestCase):
         """
         poll = TopicPoll.objects.create(topic=self.topic)
         form_data = {}
-        response = self.client.post(reverse('spirit:poll-vote', kwargs={'pk': poll.pk, }),
+        response = self.client.post(reverse('spirit:topic:poll:vote', kwargs={'pk': poll.pk, }),
                                     form_data)
-        expected_url = reverse('spirit:user-login') + "?next=" + poll.get_absolute_url()
+        expected_url = reverse('spirit:user:auth:login') + "?next=" + poll.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
 
     def test_poll_vote_get(self):
@@ -148,7 +148,7 @@ class TopicPollViewTest(TestCase):
         """
         utils.login(self)
         poll = TopicPoll.objects.create(topic=self.topic)
-        response = self.client.get(reverse('spirit:poll-vote', kwargs={'pk': poll.pk, }))
+        response = self.client.get(reverse('spirit:topic:poll:vote', kwargs={'pk': poll.pk, }))
         self.assertEqual(response.status_code, 405)
 
     def test_poll_vote_post(self):
@@ -159,7 +159,7 @@ class TopicPollViewTest(TestCase):
         poll = TopicPoll.objects.create(topic=self.topic)
         choice = TopicPollChoice.objects.create(poll=poll, description="op1")
         form_data = {'choices': choice.pk, }
-        response = self.client.post(reverse('spirit:poll-vote', kwargs={'pk': poll.pk, }),
+        response = self.client.post(reverse('spirit:topic:poll:vote', kwargs={'pk': poll.pk, }),
                                     form_data)
         expected_url = poll.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
@@ -172,7 +172,7 @@ class TopicPollViewTest(TestCase):
         utils.login(self)
         poll = TopicPoll.objects.create(topic=self.topic)
         form_data = {}
-        response = self.client.post(reverse('spirit:poll-vote', kwargs={'pk': poll.pk, }),
+        response = self.client.post(reverse('spirit:topic:poll:vote', kwargs={'pk': poll.pk, }),
                                     form_data, follow=True)
         expected_url = poll.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
@@ -196,7 +196,7 @@ class TopicPollViewTest(TestCase):
         poll = TopicPoll.objects.create(topic=self.topic)
         choice = TopicPollChoice.objects.create(poll=poll, description="op1")
         form_data = {'choices': choice.pk, }
-        response = self.client.post(reverse('spirit:poll-vote', kwargs={'pk': poll.pk, }),
+        response = self.client.post(reverse('spirit:topic:poll:vote', kwargs={'pk': poll.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(repr(self._poll), repr(poll))

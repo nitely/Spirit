@@ -34,7 +34,7 @@ def custom_login(request, **kwargs):
 def custom_logout(request, **kwargs):
     # Currently, Django 1.6 uses GET to log out
     if not request.user.is_authenticated():
-        return redirect(request.GET.get('next', reverse('spirit:user-login')))
+        return redirect(request.GET.get('next', reverse('spirit:user:auth:login')))
 
     if request.method == 'POST':
         return logout(request, **kwargs)
@@ -43,9 +43,9 @@ def custom_logout(request, **kwargs):
 
 
 @ratelimit(field='email', rate='5/5m')
-def custom_reset_password(request, **kwargs):
+def custom_password_reset(request, **kwargs):
     if request.method == "POST" and request.is_limited:
-        return redirect(reverse("spirit:password-reset"))
+        return redirect(reverse("spirit:user:auth:password-reset"))
 
     return password_reset(request, **kwargs)
 
@@ -54,7 +54,7 @@ def custom_reset_password(request, **kwargs):
 # TODO: @guest_only
 def register(request):
     if request.user.is_authenticated():
-        return redirect(request.GET.get('next', reverse('spirit:profile-update')))
+        return redirect(request.GET.get('next', reverse('spirit:user:update')))
 
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
@@ -67,9 +67,9 @@ def register(request):
             # TODO: email-less activation
             # if not settings.REGISTER_EMAIL_ACTIVATION_REQUIRED:
             # login(request, user)
-            # return redirect(request.GET.get('next', reverse('spirit:profile-update')))
+            # return redirect(request.GET.get('next', reverse('spirit:user:update')))
 
-            return redirect(reverse('spirit:user-login'))
+            return redirect(reverse('spirit:user:auth:login'))
     else:
         form = RegistrationForm()
 
@@ -88,14 +88,14 @@ def registration_activation(request, pk, token):
         user.save()
         messages.info(request, _("Your account has been activated!"))
 
-    return redirect(reverse('spirit:user-login'))
+    return redirect(reverse('spirit:user:auth:login'))
 
 
 @ratelimit(field='email', rate='5/5m')
 # TODO: @guest_only
 def resend_activation_email(request):
     if request.user.is_authenticated():
-        return redirect(request.GET.get('next', reverse('spirit:profile-update')))
+        return redirect(request.GET.get('next', reverse('spirit:user:update')))
 
     if request.method == 'POST':
         form = ResendActivationForm(data=request.POST)
@@ -107,7 +107,7 @@ def resend_activation_email(request):
         # TODO: show if is_valid only
         messages.info(request, _("If you don't receive an email, please make sure you've entered "
                                  "the address you registered with, and check your spam folder."))
-        return redirect(reverse('spirit:user-login'))
+        return redirect(reverse('spirit:user:auth:login'))
     else:
         form = ResendActivationForm()
 

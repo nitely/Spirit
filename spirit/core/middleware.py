@@ -28,20 +28,12 @@ class PrivateForumMiddleware(object):
         if resolver_match.app_name != 'spirit':
             return
 
-        url_whitelist = {
-            'user-login',
-            'user-logout',
-            'user-register',
-            'resend-activation',
-            'registration-activation',
-            'password-reset',
-            'password-reset-done',
-            'password-reset-confirm',
-            'password-reset-complete'
-        }
+        full_namespace = ':'.join(resolver_match.namespaces)
 
-        if resolver_match.url_name in url_whitelist:
+        if full_namespace != 'spirit:user:auth':
             return
 
-        return redirect_to_login(next=request.get_full_path(),
-                                 login_url=settings.LOGIN_URL)
+        return redirect_to_login(
+            next=request.get_full_path(),
+            login_url=settings.LOGIN_URL
+        )

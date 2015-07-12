@@ -28,7 +28,7 @@ class LikeViewTest(TestCase):
         """
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:like-create', kwargs={'comment_id': self.comment.pk, }),
+        response = self.client.post(reverse('spirit:comment:like:create', kwargs={'comment_id': self.comment.pk, }),
                                     form_data)
         self.assertRedirects(response, self.comment.get_absolute_url(), status_code=302, target_status_code=302)
         self.assertEqual(len(CommentLike.objects.all()), 1)
@@ -39,7 +39,7 @@ class LikeViewTest(TestCase):
         """
         utils.login(self)
         form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:like-create', kwargs={'comment_id': self.comment.pk, }),
+        response = self.client.post(reverse('spirit:comment:like:create', kwargs={'comment_id': self.comment.pk, }),
                                     form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
 
@@ -50,7 +50,7 @@ class LikeViewTest(TestCase):
         CommentLike.objects.create(user=self.user, comment=self.comment)
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:like-create', kwargs={'comment_id': self.comment.pk, }),
+        response = self.client.post(reverse('spirit:comment:like:create', kwargs={'comment_id': self.comment.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 200)
 
@@ -61,7 +61,7 @@ class LikeViewTest(TestCase):
         utils.login(self)
         like = CommentLike.objects.create(user=self.user, comment=self.comment)
         form_data = {}
-        response = self.client.post(reverse('spirit:like-delete', kwargs={'pk': like.pk, }),
+        response = self.client.post(reverse('spirit:comment:like:delete', kwargs={'pk': like.pk, }),
                                     form_data)
         self.assertRedirects(response, self.comment.get_absolute_url(), status_code=302, target_status_code=302)
         self.assertEqual(len(CommentLike.objects.all()), 0)
@@ -73,7 +73,7 @@ class LikeViewTest(TestCase):
         utils.login(self)
         like = CommentLike.objects.create(user=self.user, comment=self.comment)
         form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:like-delete', kwargs={'pk': like.pk, }),
+        response = self.client.post(reverse('spirit:comment:like:delete', kwargs={'pk': like.pk, }),
                                     form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
 

@@ -49,7 +49,7 @@ class UserProfile(models.Model):
         super(UserProfile, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('spirit:profile-detail', kwargs={'pk': self.pk,
+        return reverse('spirit:user:detail', kwargs={'pk': self.pk,
                                                         'slug': self.slug})
 
 
@@ -112,7 +112,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, AbstractForumUser):
         abstract = True
 
     def get_absolute_url(self):
-        return reverse('spirit:profile-detail', kwargs={'pk': self.pk,
+        return reverse('spirit:user:detail', kwargs={'pk': self.pk,
                                                         'slug': self.slug})
 
     def get_full_name(self):

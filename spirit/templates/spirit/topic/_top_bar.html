@@ -16,7 +16,7 @@
                     {% if category.parent %}
                         <li><a class="menu-link" href="{{ category.parent.get_absolute_url }}" >{% trans "All Subcategories" %}</a></li>
                     {% else %}
-                        <li><a class="menu-link" href="{% url "spirit:topic-active" %}" >{% trans "All Categories" %}</a></li>
+                        <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}" >{% trans "All Categories" %}</a></li>
                     {% endif %}
 				</ul>
 			</div>
@@ -24,9 +24,9 @@
 
         <div class="new-topic">
             {% if category %}
-                <a class="button" href="{% url "spirit:topic-publish" category.pk %}">{% trans "Create Topic" %}</a>
+                <a class="button" href="{% url "spirit:topic:publish" category.pk %}">{% trans "Create Topic" %}</a>
             {% else %}
-                <a class="button" href="{% url "spirit:topic-publish" %}">{% trans "Create Topic" %}</a>
+                <a class="button" href="{% url "spirit:topic:publish" %}">{% trans "Create Topic" %}</a>
             {% endif %}
 		</div>
 	</div>

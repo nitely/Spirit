@@ -1,9 +1,9 @@
 {% load i18n %}
 
 {% if notification %}
-    <form method="post" action="{% url "spirit:topic-notification-update" notification.pk %}">
+    <form method="post" action="{% url "spirit:topic:notification:update" notification.pk %}">
 {% else %}
-    <form method="post" action="{% url "spirit:topic-notification-create" topic_id %}">
+    <form method="post" action="{% url "spirit:topic:notification:create" topic_id %}">
 {% endif %}
     {% csrf_token %}
     {% include "spirit/_form.html" %}

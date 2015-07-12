@@ -25,7 +25,7 @@ def detail(request, pk):
         if form.is_valid():
             form.save()
             messages.info(request, _("The flag has been moderated!"))
-            return redirect(reverse("spirit:admin-flag"))
+            return redirect(reverse("spirit:admin:flag:index"))
     else:
         form = CommentFlagForm(instance=flag)
 

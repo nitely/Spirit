@@ -10,7 +10,7 @@
 
     <h1 class="headline">{% trans "Category list" %}</h1>
 
-    <a class="button" href="{% url "spirit:admin-category-create" %}">{% trans "Create Category" %}</a>
+    <a class="button" href="{% url "spirit:admin:category:create" %}">{% trans "Create Category" %}</a>
 
     <div class="rows">
 
@@ -26,7 +26,7 @@
                     <i class="fa fa-lock"></i>
                 {% endif %}
 
-                <a class="row-edit" href="{% url "spirit:admin-category-update" category_id=c.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
+                <a class="row-edit" href="{% url "spirit:admin:category:update" category_id=c.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
             </div>
 
             {% for subc in c.category_set.all %}
@@ -41,7 +41,7 @@
                         <i class="fa fa-lock"></i>
                     {% endif %}
 
-                    <a class="row-edit" href="{% url "spirit:admin-category-update" category_id=subc.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
+                    <a class="row-edit" href="{% url "spirit:admin:category:update" category_id=subc.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
                 </div>
             {% endfor %}
         {% endfor %}

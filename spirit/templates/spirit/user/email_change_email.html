@@ -3,7 +3,7 @@
 
 {% trans "Please go to the following link to confirm your email change:" %}
 
-{{ protocol }}://{{ domain }}{% url 'spirit:email-change-confirm' token=token %}
+{{ protocol }}://{{ domain }}{% url 'spirit:user:email-change-confirm' token=token %}
 
 {% trans "Thanks for using our site!" %}
 

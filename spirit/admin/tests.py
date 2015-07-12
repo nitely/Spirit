@@ -60,9 +60,9 @@ class AdminViewTest(TestCase):
 
         self.assertRaises(PermissionDenied, user_views.edit, req)
         self.assertRaises(PermissionDenied, user_views.index, req)
-        self.assertRaises(PermissionDenied, user_views.admins, req)
-        self.assertRaises(PermissionDenied, user_views.mods, req)
-        self.assertRaises(PermissionDenied, user_views.unactive, req)
+        self.assertRaises(PermissionDenied, user_views.index_admins, req)
+        self.assertRaises(PermissionDenied, user_views.index_mods, req)
+        self.assertRaises(PermissionDenied, user_views.index_unactive, req)
 
     def test_user_edit(self):
         """
@@ -71,12 +71,12 @@ class AdminViewTest(TestCase):
         utils.login(self)
         form_data = {"username": "fooedit", "email": "foo@bar.com", "location": "Bs As",
                      "timezone": "UTC", "is_administrator": True, "is_moderator": True, "is_active": True}
-        response = self.client.post(reverse('spirit:admin-user-edit', kwargs={'user_id': self.user.pk, }),
+        response = self.client.post(reverse('spirit:admin:user:edit', kwargs={'user_id': self.user.pk, }),
                                     form_data)
-        expected_url = reverse('spirit:admin-user-edit', kwargs={'user_id': self.user.pk, })
+        expected_url = reverse('spirit:admin:user:edit', kwargs={'user_id': self.user.pk, })
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:admin-user-edit', kwargs={'user_id': self.user.pk, }))
+        response = self.client.get(reverse('spirit:admin:user:edit', kwargs={'user_id': self.user.pk, }))
         self.assertEqual(response.status_code, 200)
 
     def test_user_list(self):
@@ -84,7 +84,7 @@ class AdminViewTest(TestCase):
         List of all users
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-user-list'))
+        response = self.client.get(reverse('spirit:admin:user:index'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [self.user, ]))
 
     @override_djconfig(topics_per_page=1)
@@ -95,7 +95,7 @@ class AdminViewTest(TestCase):
         user2 = utils.create_user()
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-user-list'))
+        response = self.client.get(reverse('spirit:admin:user:index'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [user2, ]))
 
     def test_user_admins(self):
@@ -103,7 +103,7 @@ class AdminViewTest(TestCase):
         List of admins
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-user-admins'))
+        response = self.client.get(reverse('spirit:admin:user:index-admins'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [self.user, ]))
 
     @override_djconfig(topics_per_page=1)
@@ -116,7 +116,7 @@ class AdminViewTest(TestCase):
         user2.st.save()
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-user-admins'))
+        response = self.client.get(reverse('spirit:admin:user:index-admins'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [user2, ]))
 
     def test_user_mods(self):
@@ -128,7 +128,7 @@ class AdminViewTest(TestCase):
         mod.st.save()
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-user-mods'))
+        response = self.client.get(reverse('spirit:admin:user:index-mods'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [mod, ]))
 
     @override_djconfig(topics_per_page=1)
@@ -145,7 +145,7 @@ class AdminViewTest(TestCase):
         mod2.st.save()
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-user-mods'))
+        response = self.client.get(reverse('spirit:admin:user:index-mods'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [mod2, ]))
 
     def test_user_unactive(self):
@@ -155,7 +155,7 @@ class AdminViewTest(TestCase):
         unactive = utils.create_user()
         User.objects.filter(pk=unactive.pk).update(is_active=False)
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-user-unactive'))
+        response = self.client.get(reverse('spirit:admin:user:index-unactive'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [unactive, ]))
 
     @override_djconfig(topics_per_page=1)
@@ -169,12 +169,12 @@ class AdminViewTest(TestCase):
         User.objects.filter(pk=unactive2.pk).update(is_active=False)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-user-unactive'))
+        response = self.client.get(reverse('spirit:admin:user:index-unactive'))
         self.assertQuerysetEqual(response.context['users'], map(repr, [unactive2, ]))
 
     def test_index_dashboard(self):
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-topic'))
+        response = self.client.get(reverse('spirit:admin:topic:index'))
         self.assertEqual(response.status_code, 200)
 
     def test_topic_deleted(self):
@@ -183,7 +183,7 @@ class AdminViewTest(TestCase):
         """
         topic_ = utils.create_topic(self.category, is_removed=True)
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-topic-deleted'))
+        response = self.client.get(reverse('spirit:admin:topic:deleted'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
 
     @override_djconfig(topics_per_page=1)
@@ -195,7 +195,7 @@ class AdminViewTest(TestCase):
         topic_ = utils.create_topic(self.category, is_removed=True)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-topic-deleted'))
+        response = self.client.get(reverse('spirit:admin:topic:deleted'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
 
     def test_topic_closed(self):
@@ -204,7 +204,7 @@ class AdminViewTest(TestCase):
         """
         topic_ = utils.create_topic(self.category, is_closed=True)
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-topic-closed'))
+        response = self.client.get(reverse('spirit:admin:topic:closed'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
 
     @override_djconfig(topics_per_page=1)
@@ -215,7 +215,7 @@ class AdminViewTest(TestCase):
         utils.create_topic(self.category, is_closed=True)
         topic_ = utils.create_topic(self.category, is_closed=True)
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-topic-closed'))
+        response = self.client.get(reverse('spirit:admin:topic:closed'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
 
     def test_topic_pinned(self):
@@ -224,7 +224,7 @@ class AdminViewTest(TestCase):
         """
         topic_ = utils.create_topic(self.category, is_pinned=True)
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-topic-pinned'))
+        response = self.client.get(reverse('spirit:admin:topic:pinned'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
 
     @override_djconfig(topics_per_page=1)
@@ -235,7 +235,7 @@ class AdminViewTest(TestCase):
         utils.create_topic(self.category, is_pinned=True)
         topic_ = utils.create_topic(self.category, is_pinned=True)
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-topic-pinned'))
+        response = self.client.get(reverse('spirit:admin:topic:pinned'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
 
     def test_category_list(self):
@@ -245,7 +245,7 @@ class AdminViewTest(TestCase):
         utils.create_category(parent=self.category)
         categories = Category.objects.filter(is_private=False, parent=None)
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-category-list'))
+        response = self.client.get(reverse('spirit:admin:category:index'))
         self.assertQuerysetEqual(response.context['categories'], map(repr, categories))
 
     def test_category_create(self):
@@ -254,12 +254,12 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         form_data = {"parent": "", "title": "foo", "description": "", "is_closed": False, "is_removed": False}
-        response = self.client.post(reverse('spirit:admin-category-create'),
+        response = self.client.post(reverse('spirit:admin:category:create'),
                                     form_data)
-        expected_url = reverse("spirit:admin-category-list")
+        expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:admin-category-create'))
+        response = self.client.get(reverse('spirit:admin:category:create'))
         self.assertEqual(response.status_code, 200)
 
     def test_category_update(self):
@@ -268,12 +268,12 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         form_data = {"parent": "", "title": "foo", "description": "", "is_closed": False, "is_removed": False}
-        response = self.client.post(reverse('spirit:admin-category-update', kwargs={"category_id": self.category.pk, }),
+        response = self.client.post(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
                                     form_data)
-        expected_url = reverse("spirit:admin-category-list")
+        expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:admin-category-update', kwargs={"category_id": self.category.pk, }))
+        response = self.client.get(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }))
         self.assertEqual(response.status_code, 200)
 
     def test_config_basic(self):
@@ -282,12 +282,12 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         form_data = {"site_name": "foo", "site_description": "bar", "comments_per_page": 10, "topics_per_page": 10}
-        response = self.client.post(reverse('spirit:admin-config-basic'),
+        response = self.client.post(reverse('spirit:admin:config-basic'),
                                     form_data)
-        expected_url = reverse('spirit:admin-config-basic')
+        expected_url = reverse('spirit:admin:config-basic')
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:admin-config-basic'))
+        response = self.client.get(reverse('spirit:admin:config-basic'))
         self.assertEqual(response.status_code, 200)
 
     def test_flag_open(self):
@@ -300,7 +300,7 @@ class AdminViewTest(TestCase):
         flag_ = CommentFlag.objects.create(comment=comment)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-flag-open'))
+        response = self.client.get(reverse('spirit:admin:flag:opened'))
         self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
 
     @override_djconfig(comments_per_page=1)
@@ -314,7 +314,7 @@ class AdminViewTest(TestCase):
         flag_ = CommentFlag.objects.create(comment=comment)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-flag-open'))
+        response = self.client.get(reverse('spirit:admin:flag:opened'))
         self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
 
     def test_flag_closed(self):
@@ -327,7 +327,7 @@ class AdminViewTest(TestCase):
         CommentFlag.objects.create(comment=comment)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-flag-closed'))
+        response = self.client.get(reverse('spirit:admin:flag:closed'))
         self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_closed, ]))
 
     @override_djconfig(comments_per_page=1)
@@ -341,7 +341,7 @@ class AdminViewTest(TestCase):
         flag_closed = CommentFlag.objects.create(comment=comment, is_closed=True)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-flag-closed'))
+        response = self.client.get(reverse('spirit:admin:flag:closed'))
         self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_closed, ]))
 
     def test_flag_detail(self):
@@ -358,12 +358,12 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         form_data = {"is_closed": True, }
-        response = self.client.post(reverse('spirit:admin-flag-detail', kwargs={'pk': comment_flag.pk, }),
+        response = self.client.post(reverse('spirit:admin:flag:detail', kwargs={'pk': comment_flag.pk, }),
                                     form_data)
-        expected_url = reverse('spirit:admin-flag')
+        expected_url = reverse('spirit:admin:flag:index')
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:admin-flag-detail', kwargs={'pk': comment_flag.pk, }))
+        response = self.client.get(reverse('spirit:admin:flag:detail', kwargs={'pk': comment_flag.pk, }))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(repr(response.context['flag']), repr(comment_flag))
         self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
@@ -380,7 +380,7 @@ class AdminViewTest(TestCase):
         flag_ = Flag.objects.create(comment=comment, user=self.user, reason=0)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin-flag-detail', kwargs={'pk': comment_flag.pk, }))
+        response = self.client.get(reverse('spirit:admin:flag:detail', kwargs={'pk': comment_flag.pk, }))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
 

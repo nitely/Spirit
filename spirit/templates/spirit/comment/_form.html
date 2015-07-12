@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form action="{% url "spirit:comment-publish" topic_id %}" method="post" class="js-reply">
+<form action="{% url "spirit:comment:publish" topic_id %}" method="post" class="js-reply">
     {% csrf_token %}
     {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
 

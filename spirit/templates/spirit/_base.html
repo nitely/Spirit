@@ -52,8 +52,8 @@
 
         {% if user.is_authenticated %}
             $.notification( {
-                notificationUrl: "{% url "spirit:topic-notification-ajax" %}",
-                notificationListUrl: "{% url "spirit:topic-notification-list-unread" %}",
+                notificationUrl: "{% url "spirit:topic:notification:index-ajax" %}",
+                notificationListUrl: "{% url "spirit:topic:notification:index-unread" %}",
                 mentionTxt: "{% trans "{user} has mention you on {topic}" %}",
                 commentTxt: "{% trans "{user} has commented on {topic}" %}",
                 showAll: "{% trans "Show all" %}",

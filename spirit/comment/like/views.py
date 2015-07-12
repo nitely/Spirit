@@ -48,7 +48,7 @@ def delete(request, pk):
         comment_like_post_delete.send(sender=like.__class__, comment=like.comment)
 
         if request.is_ajax():
-            url = reverse('spirit:like-create', kwargs={'comment_id': like.comment.pk, })
+            url = reverse('spirit:comment:like:create', kwargs={'comment_id': like.comment.pk, })
             return json_response({'url_create': url, })
 
         return redirect(request.POST.get('next', like.comment.get_absolute_url()))

@@ -8,5 +8,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^(?P<comment_id>\d+)/create/$', views.create, name='flag-create'),
+    url(r'^(?P<comment_id>\d+)/create/$', views.create, name='create'),
 ]

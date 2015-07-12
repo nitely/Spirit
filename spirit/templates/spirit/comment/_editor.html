@@ -29,7 +29,7 @@
 
         $( '.js-reply' ).find( 'textarea' ).editor_image_upload( {
 			csrfToken: "{{ csrf_token }}",
-			target: "{% url "spirit:comment-image-upload-ajax" %}",
+			target: "{% url "spirit:comment:image-upload-ajax" %}",
 			placeholderText: "{% trans "uploading {image_name}" %}"
 		} )
         .editor( {

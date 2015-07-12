@@ -37,6 +37,8 @@ ST_UNIQUE_EMAILS = True
 # Django & Spirit settings defined below...
 #
 
+# TODO: change all tuples to list so we can do .extend(arg1, arag2, ...)
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -63,8 +65,8 @@ AUTHENTICATION_BACKENDS = (
     'spirit.user.auth.backends.EmailAuthBackend',
 )
 
-LOGIN_URL = 'spirit:user-login'
-LOGIN_REDIRECT_URL = 'spirit:profile-update'
+LOGIN_URL = 'spirit:user:auth:login'
+LOGIN_REDIRECT_URL = 'spirit:user:update'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

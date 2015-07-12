@@ -10,6 +10,8 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', login_required(views.SearchView(template='spirit/search/search.html', form_class=AdvancedSearchForm)),
-        name='search'),
+    url(r'^$', login_required(views.SearchView(
+        template='spirit/search/search.html',
+        form_class=AdvancedSearchForm)
+    ), name='search'),
 ]

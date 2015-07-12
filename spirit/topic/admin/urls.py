@@ -8,8 +8,8 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.deleted, name='admin-topic'),
-    url(r'^deleted/$', views.deleted, name='admin-topic-deleted'),
-    url(r'^closed/$', views.closed, name='admin-topic-closed'),
-    url(r'^pinned/$', views.pinned, name='admin-topic-pinned'),
+    url(r'^$', views.deleted, name='index'),
+    url(r'^deleted/$', views.deleted, name='deleted'),
+    url(r'^closed/$', views.closed, name='closed'),
+    url(r'^pinned/$', views.pinned, name='pinned'),
 ]

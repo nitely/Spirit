@@ -18,9 +18,9 @@
     </div>
 
     <div class="login-links">
-		<a class="login-link" href="{% url "spirit:user-register" %}">{% trans "Create an account" %}</a>
-		<a class="login-link" href="{% url "spirit:password-reset" %}">{% trans "I don't know my password" %}</a>
-        <a class="login-link" href="{% url "spirit:resend-activation" %}">{% trans "Resend activation email" %}</a>
+		<a class="login-link" href="{% url "spirit:user:auth:register" %}">{% trans "Create an account" %}</a>
+		<a class="login-link" href="{% url "spirit:user:auth:password-reset" %}">{% trans "I don't know my password" %}</a>
+        <a class="login-link" href="{% url "spirit:user:auth:resend-activation" %}">{% trans "Resend activation email" %}</a>
 	</div>
 
 {% endblock %}

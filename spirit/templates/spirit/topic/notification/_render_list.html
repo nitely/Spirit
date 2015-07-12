@@ -2,8 +2,8 @@
 
         {% for n in notifications %}
             <div class="row">
-                {% url "spirit:profile-detail" pk=n.comment.user.pk slug=n.comment.user.st.slug as url_profile %}
-                {% url "spirit:comment-find" pk=n.comment.pk as url_topic %}
+                {% url "spirit:user:detail" pk=n.comment.user.pk slug=n.comment.user.st.slug as url_profile %}
+                {% url "spirit:comment:find" pk=n.comment.pk as url_topic %}
 
                 {% if n.is_comment %}
                     {% blocktrans with username=n.comment.user.username topic_title=n.topic.title %}<a href="{{ url_profile }}">{{ username }}</a> has commented on <a href="{{ url_topic }}">{{ topic_title }}</a>{% endblocktrans %}

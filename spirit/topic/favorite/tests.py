@@ -26,7 +26,7 @@ class FavoriteViewTest(TestCase):
         """
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:favorite-create', kwargs={'topic_id': self.topic.pk, }),
+        response = self.client.post(reverse('spirit:topic:favorite:create', kwargs={'topic_id': self.topic.pk, }),
                                     form_data)
         self.assertRedirects(response, self.topic.get_absolute_url(), status_code=302)
         self.assertEqual(len(TopicFavorite.objects.all()), 1)
@@ -37,7 +37,7 @@ class FavoriteViewTest(TestCase):
         """
         utils.login(self)
         form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:favorite-create', kwargs={'topic_id': self.topic.pk, }),
+        response = self.client.post(reverse('spirit:topic:favorite:create', kwargs={'topic_id': self.topic.pk, }),
                                     form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
 
@@ -48,7 +48,7 @@ class FavoriteViewTest(TestCase):
         TopicFavorite.objects.create(user=self.user, topic=self.topic)
         utils.login(self)
         form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:favorite-create', kwargs={'topic_id': self.topic.pk, }),
+        response = self.client.post(reverse('spirit:topic:favorite:create', kwargs={'topic_id': self.topic.pk, }),
                                     form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
         self.assertEqual(len(TopicFavorite.objects.all()), 1)
@@ -60,7 +60,7 @@ class FavoriteViewTest(TestCase):
         utils.login(self)
         favorite = TopicFavorite.objects.create(user=self.user, topic=self.topic)
         form_data = {}
-        response = self.client.post(reverse('spirit:favorite-delete', kwargs={'pk': favorite.pk, }),
+        response = self.client.post(reverse('spirit:topic:favorite:delete', kwargs={'pk': favorite.pk, }),
                                     form_data)
         self.assertRedirects(response, self.topic.get_absolute_url(), status_code=302)
         self.assertEqual(len(TopicFavorite.objects.all()), 0)
@@ -72,7 +72,7 @@ class FavoriteViewTest(TestCase):
         utils.login(self)
         favorite = TopicFavorite.objects.create(user=self.user, topic=self.topic)
         form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:favorite-delete', kwargs={'pk': favorite.pk, }),
+        response = self.client.post(reverse('spirit:topic:favorite:delete', kwargs={'pk': favorite.pk, }),
                                     form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
         self.assertEqual(len(TopicFavorite.objects.all()), 0)

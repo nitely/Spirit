@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form method="get" action="{% url "spirit:search" %}">
+<form method="get" action="{% url "spirit:search:search" %}">
     {% include "spirit/_form.html" %}
 
     <input class="button" type="submit" value="{% trans "Search" %}" />

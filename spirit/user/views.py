@@ -33,7 +33,7 @@ def update(request):
             uform.save()
             form.save()
             messages.info(request, _("Your profile has been updated!"))
-            return redirect(reverse('spirit:profile-update'))
+            return redirect(reverse('spirit:user:update'))
     else:
         uform = UserForm(instance=request.user)
         form = UserProfileForm(instance=request.user.st)
@@ -55,7 +55,7 @@ def password_change(request):
             form.save()
             update_session_auth_hash(request, form.user)
             messages.info(request, _("Your password has been changed!"))
-            return redirect(reverse('spirit:profile-update'))
+            return redirect(reverse('spirit:user:update'))
     else:
         form = PasswordChangeForm(user=request.user)
 
@@ -72,7 +72,7 @@ def email_change(request):
         if form.is_valid():
             send_email_change_email(request, request.user, form.get_email())
             messages.info(request, _("We have sent you an email so you can confirm the change!"))
-            return redirect(reverse('spirit:profile-update'))
+            return redirect(reverse('spirit:user:update'))
     else:
         form = EmailChangeForm()
 
@@ -94,10 +94,10 @@ def email_change_confirm(request, token):
             user.email = form.get_email()
             user.save()
             messages.info(request, _("Your email has been changed!"))
-            return redirect(reverse('spirit:profile-update'))
+            return redirect(reverse('spirit:user:update'))
 
     messages.error(request, _("Sorry, we were not able to change your email."))
-    return redirect(reverse('spirit:profile-update'))
+    return redirect(reverse('spirit:user:update'))
 
 
 @login_required
@@ -134,7 +134,7 @@ def topics(request, pk, slug):
         request, pk, slug,
         queryset=user_topics,
         template='spirit/user/profile_topics.html',
-        reverse_to='spirit:profile-topics',
+        reverse_to='spirit:user:topics',
         context_name='topics',
         per_page=config.topics_per_page
     )
@@ -149,7 +149,7 @@ def comments(request, pk, slug):
         request, pk, slug,
         queryset=user_comments,
         template='spirit/user/profile_comments.html',
-        reverse_to='spirit:profile-detail',
+        reverse_to='spirit:user:detail',
         context_name='comments',
         per_page=config.comments_per_page,
     )
@@ -165,7 +165,7 @@ def likes(request, pk, slug):
         request, pk, slug,
         queryset=user_comments,
         template='spirit/user/profile_likes.html',
-        reverse_to='spirit:profile-likes',
+        reverse_to='spirit:user:likes',
         context_name='comments',
         per_page=config.comments_per_page,
     )

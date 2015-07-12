@@ -6,7 +6,7 @@
 
     {% for f in flags %}
         <div class="row">
-            <a href="{{ f.comment.get_absolute_url }}">{{ f.comment.topic.title }}</a> <a class="row-edit" href="{% url "spirit:admin-flag-detail" pk=f.pk %}"><i class="fa fa-cog"></i> {% trans "moderate" %}</a>
+            <a href="{{ f.comment.get_absolute_url }}">{{ f.comment.topic.title }}</a> <a class="row-edit" href="{% url "spirit:admin:flag:detail" pk=f.pk %}"><i class="fa fa-cog"></i> {% trans "moderate" %}</a>
         </div>
     {% endfor %}
 

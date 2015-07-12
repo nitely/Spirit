@@ -26,4 +26,4 @@ class CommentHistory(models.Model):
         return "%s: %s..." % (self.comment_fk.user.username, self.comment_html[:50])
 
     def get_absolute_url(self):
-        return reverse('spirit:comment-history', kwargs={'pk': str(self.id), })
+        return reverse('spirit:comment:history:detail', kwargs={'pk': str(self.id), })

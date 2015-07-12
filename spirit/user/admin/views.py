@@ -60,7 +60,7 @@ def index(request):
     )
 
 
-def admins(request):
+def index_admins(request):
     return _index(
         request,
         queryset=User.objects.filter(st__is_administrator=True),
@@ -68,7 +68,7 @@ def admins(request):
     )
 
 
-def mods(request):
+def index_mods(request):
     return _index(
         request,
         queryset=User.objects.filter(st__is_moderator=True, st__is_administrator=False),
@@ -76,7 +76,7 @@ def mods(request):
     )
 
 
-def unactive(request):
+def index_unactive(request):
     return _index(
         request,
         queryset=User.objects.filter(is_active=False),

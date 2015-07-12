@@ -23,29 +23,17 @@ import spirit.comment.history.urls
 import spirit.comment.like.urls
 
 
-pattern_list = [
+patterns = [
     url(r'^$', spirit.topic.views.index_active, name='index'),
-    url(r'^st/admin/', include(spirit.admin.urls)),
-    url(r'^user/', include(spirit.user.urls)),
-    url(r'^search/', include(spirit.search.urls)),
-    url(r'^category/', include(spirit.category.urls)),
-
-    url(r'^topic/', include(spirit.topic.urls)),
-    url(r'^topic/moderate/', include(spirit.topic.moderate.urls)),
-    url(r'^topic/unread/', include(spirit.topic.unread.urls)),
-    url(r'^topic/notification/', include(spirit.topic.notification.urls)),
-    url(r'^topic/favorite/', include(spirit.topic.favorite.urls)),
-    url(r'^topic/private/', include(spirit.topic.private.urls)),
-    url(r'^topic/poll/', include(spirit.topic.poll.urls)),
-
-    url(r'^comment/', include(spirit.comment.urls)),
-    url(r'^comment/bookmark/', include(spirit.comment.bookmark.urls)),
-    url(r'^comment/flag/', include(spirit.comment.flag.urls)),
-    url(r'^comment/history/', include(spirit.comment.history.urls)),
-    url(r'^comment/like/', include(spirit.comment.like.urls)),
+    url(r'^st/admin/', include(spirit.admin.urls, namespace='admin')),
+    url(r'^user/', include(spirit.user.urls, namespace='user')),
+    url(r'^search/', include(spirit.search.urls, namespace='search')),
+    url(r'^category/', include(spirit.category.urls, namespace='category')),
+    url(r'^topic/', include(spirit.topic.urls, namespace='topic')),
+    url(r'^comment/', include(spirit.comment.urls, namespace='comment')),
 ]
 
 
 urlpatterns = [
-    url(r'^', include(pattern_list, namespace="spirit", app_name="spirit")),
+    url(r'^', include(patterns, namespace='spirit', app_name='spirit')),
 ]

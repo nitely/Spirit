@@ -51,7 +51,7 @@ class TopicNotificationViewTest(TestCase):
         topic notification list
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-notification-list'))
+        response = self.client.get(reverse('spirit:topic:notification:index'))
         self.assertQuerysetEqual(response.context['notifications'], map(repr, [self.topic_notification, ]))
 
     @override_djconfig(topics_per_page=1)
@@ -66,7 +66,7 @@ class TopicNotificationViewTest(TestCase):
                                                                action=COMMENT)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-notification-list'))
+        response = self.client.get(reverse('spirit:topic:notification:index'))
         self.assertQuerysetEqual(response.context['notifications'], map(repr, [topic_notification2, ]))
 
     def test_topic_notification_list_show_private_topic(self):
@@ -80,15 +80,15 @@ class TopicNotificationViewTest(TestCase):
                                                        comment=self.comment, is_active=True, action=COMMENT)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-notification-list'))
+        response = self.client.get(reverse('spirit:topic:notification:index'))
         self.assertQuerysetEqual(response.context['notifications'], map(repr, [topic_notif, ]))
 
         # list unread should behave the same
-        response = self.client.get(reverse('spirit:topic-notification-list-unread'))
+        response = self.client.get(reverse('spirit:topic:notification:index-unread'))
         self.assertQuerysetEqual(response.context['page'], map(repr, [topic_notif, ]))
 
         # ajax list should behave the same
-        response = self.client.get(reverse('spirit:topic-notification-ajax'),
+        response = self.client.get(reverse('spirit:topic:notification:index-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 1)
@@ -121,15 +121,15 @@ class TopicNotificationViewTest(TestCase):
         self.assertEqual(len(TopicNotification.objects.filter(user=self.user, is_active=True, is_read=False)), 5)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-notification-list'))
+        response = self.client.get(reverse('spirit:topic:notification:index'))
         self.assertQuerysetEqual(response.context['notifications'], [])
 
         # list unread should behave the same
-        response = self.client.get(reverse('spirit:topic-notification-list-unread'))
+        response = self.client.get(reverse('spirit:topic:notification:index-unread'))
         self.assertQuerysetEqual(response.context['page'], [])
 
         # ajax list should behave the same
-        response = self.client.get(reverse('spirit:topic-notification-ajax'),
+        response = self.client.get(reverse('spirit:topic:notification:index-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 0)
@@ -146,11 +146,11 @@ class TopicNotificationViewTest(TestCase):
                                                               action=COMMENT)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-notification-list-unread'))
+        response = self.client.get(reverse('spirit:topic:notification:index-unread'))
         self.assertQuerysetEqual(response.context['page'], map(repr, [topic_notification, self.topic_notification]))
 
         # fake next page
-        response = self.client.get(reverse('spirit:topic-notification-list-unread') + "?notif=" + str(topic_notification.pk))
+        response = self.client.get(reverse('spirit:topic:notification:index-unread') + "?notif=" + str(topic_notification.pk))
         self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic_notification, ]))
 
     def test_topic_notification_ajax(self):
@@ -158,7 +158,7 @@ class TopicNotificationViewTest(TestCase):
         get notifications
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-notification-ajax'),
+        response = self.client.get(reverse('spirit:topic:notification:index-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 1)
@@ -183,7 +183,7 @@ class TopicNotificationViewTest(TestCase):
                                          is_active=True, action=COMMENT)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-notification-ajax'),
+        response = self.client.get(reverse('spirit:topic:notification:index-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         res = json.loads(response.content.decode('utf-8'))
         self.assertGreater(TopicNotification.objects.filter(user=self.user).count(), 1)
@@ -207,7 +207,7 @@ class TopicNotificationViewTest(TestCase):
         TopicNotification.objects.filter(pk=self.topic_notification.pk).update(is_read=False, date=old_date)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-notification-ajax'),
+        response = self.client.get(reverse('spirit:topic:notification:index-ajax'),
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         res = json.loads(response.content.decode('utf-8'))
         self.assertFalse(res['n'][0]['is_read'])
@@ -229,7 +229,7 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(
-            reverse('spirit:topic-notification-ajax'),
+            reverse('spirit:topic:notification:index-ajax'),
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
         res = json.loads(response.content.decode('utf-8'))
@@ -250,7 +250,7 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         form_data = {'is_active': True, }
-        response = self.client.post(reverse('spirit:topic-notification-create', kwargs={'topic_id': self.topic.pk, }),
+        response = self.client.post(reverse('spirit:topic:notification:create', kwargs={'topic_id': self.topic.pk, }),
                                     form_data)
         self.assertRedirects(response, self.topic.get_absolute_url(), status_code=302)
         self.assertEqual(len(TopicNotification.objects.all()), 1)
@@ -264,7 +264,7 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         form_data = {'is_active': True, }
-        response = self.client.post(reverse('spirit:topic-notification-create', kwargs={'topic_id': private.topic.pk, }),
+        response = self.client.post(reverse('spirit:topic:notification:create', kwargs={'topic_id': private.topic.pk, }),
                                     form_data)
         self.assertRedirects(response, private.topic.get_absolute_url(), status_code=302)
         self.assertEqual(len(TopicNotification.objects.all()), 1)
@@ -277,7 +277,7 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         form_data = {'is_active': True, }
-        response = self.client.post(reverse('spirit:topic-notification-create', kwargs={'topic_id': private.topic.pk, }),
+        response = self.client.post(reverse('spirit:topic:notification:create', kwargs={'topic_id': private.topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 404)
 
@@ -287,7 +287,7 @@ class TopicNotificationViewTest(TestCase):
         """
         utils.login(self)
         form_data = {'is_active': True, }
-        response = self.client.post(reverse('spirit:topic-notification-update',
+        response = self.client.post(reverse('spirit:topic:notification:update',
                                             kwargs={'pk': self.topic_notification.pk, }),
                                     form_data)
         self.assertRedirects(response, self.topic.get_absolute_url(), status_code=302)
@@ -303,7 +303,7 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic-notification-update', kwargs={'pk': notification.pk, }),
+        response = self.client.post(reverse('spirit:topic:notification:update', kwargs={'pk': notification.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 404)
 

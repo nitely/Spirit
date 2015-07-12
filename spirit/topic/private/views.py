@@ -124,7 +124,7 @@ def delete_access(request, pk):
         topic_private.delete()
 
         if request.user.pk == topic_private.user_id:
-            return redirect(reverse("spirit:private-list"))
+            return redirect(reverse("spirit:topic:private:index"))
 
         return redirect(request.POST.get('next', topic_private.get_absolute_url()))
 

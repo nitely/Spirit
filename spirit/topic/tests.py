@@ -37,7 +37,7 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk,
                      'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
-        response = self.client.post(reverse('spirit:topic-publish'),
+        response = self.client.post(reverse('spirit:topic:publish'),
                                     form_data)
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
@@ -47,12 +47,12 @@ class TopicViewTest(TestCase):
         self.assertRaises(ObjectDoesNotExist, lambda: topic.poll)
 
         # ratelimit
-        response = self.client.post(reverse('spirit:topic-publish'),
+        response = self.client.post(reverse('spirit:topic:publish'),
                                     form_data)
         self.assertEqual(response.status_code, 200)
 
         # get
-        response = self.client.get(reverse('spirit:topic-publish'))
+        response = self.client.get(reverse('spirit:topic:publish'))
         self.assertEqual(response.status_code, 200)
 
     def test_topic_publish_long_title(self):
@@ -64,7 +64,7 @@ class TopicViewTest(TestCase):
         title = "a" * 255
         form_data = {'comment': 'foo', 'title': title, 'category': category.pk,
                      'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
-        response = self.client.post(reverse('spirit:topic-publish'),
+        response = self.client.post(reverse('spirit:topic:publish'),
                                     form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(Topic.objects.all()), 1)
@@ -78,14 +78,14 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk,
                      'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
-        response = self.client.post(reverse('spirit:topic-publish', kwargs={'category_id': category.pk, }),
+        response = self.client.post(reverse('spirit:topic:publish', kwargs={'category_id': category.pk, }),
                                     form_data)
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
 
         # ratelimit
-        response = self.client.post(reverse('spirit:topic-publish', kwargs={'category_id': category.pk, }),
+        response = self.client.post(reverse('spirit:topic:publish', kwargs={'category_id': category.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 200)
 
@@ -98,7 +98,7 @@ class TopicViewTest(TestCase):
         subcategory = utils.create_subcategory(category)
         form_data = {'comment': 'foo', 'title': 'foobar', 'category': subcategory.pk,
                      'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
-        response = self.client.post(reverse('spirit:topic-publish', kwargs={'category_id': subcategory.pk, }),
+        response = self.client.post(reverse('spirit:topic:publish', kwargs={'category_id': subcategory.pk, }),
                                     form_data)
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
@@ -109,7 +109,7 @@ class TopicViewTest(TestCase):
         invalid topic category
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-publish', kwargs={'category_id': str(99), }))
+        response = self.client.get(reverse('spirit:topic:publish', kwargs={'category_id': str(99), }))
         self.assertEqual(response.status_code, 404)
 
     def test_topic_publish_comment_posted_signals(self):
@@ -125,7 +125,7 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         form_data = {'title': 'foobar', 'category': category.pk, 'comment': 'foo',
                      'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
-        response = self.client.post(reverse('spirit:topic-publish'),
+        response = self.client.post(reverse('spirit:topic:publish'),
                                     form_data)
         self.assertEqual(response.status_code, 302)
         comment = Comment.objects.last()
@@ -142,7 +142,7 @@ class TopicViewTest(TestCase):
                      'choices-0-description': 'op1', 'choices-0-poll': "",
                      'choices-1-description': 'op2', 'choices-1-poll': "",
                      'choice_limit': 2}
-        response = self.client.post(reverse('spirit:topic-publish'),
+        response = self.client.post(reverse('spirit:topic:publish'),
                                     form_data)
         self.assertEqual(response.status_code, 302)
         topic = Topic.objects.last()
@@ -150,7 +150,7 @@ class TopicViewTest(TestCase):
         self.assertEqual(len(topic.poll.choices.all()), 2)
 
         # get
-        response = self.client.get(reverse('spirit:topic-publish'))
+        response = self.client.get(reverse('spirit:topic:publish'))
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['pform'], TopicPollForm)
         self.assertIsInstance(response.context['pformset'], TopicPollChoiceFormSet)
@@ -163,7 +163,7 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category=category, user=self.user)
         form_data = {'title': 'foobar', }
-        response = self.client.post(reverse('spirit:topic-update', kwargs={'pk': topic.pk, }),
+        response = self.client.post(reverse('spirit:topic:update', kwargs={'pk': topic.pk, }),
                                     form_data)
         self.assertRedirects(response, topic.get_absolute_url(), status_code=302)
 
@@ -183,7 +183,7 @@ class TopicViewTest(TestCase):
         topic = utils.create_topic(category=category, user=self.user)
         category2 = utils.create_category()
         form_data = {'title': 'foobar', 'category': category2.pk}
-        self.client.post(reverse('spirit:topic-update', kwargs={'pk': topic.pk, }),
+        self.client.post(reverse('spirit:topic:update', kwargs={'pk': topic.pk, }),
                          form_data)
         self.assertSequenceEqual(self._moderate, [repr(self.user), repr(Topic.objects.get(pk=topic.pk)), MOVED])
 
@@ -195,7 +195,7 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category=category)
         form_data = {'title': 'foobar', }
-        response = self.client.post(reverse('spirit:topic-update', kwargs={'pk': topic.pk, }),
+        response = self.client.post(reverse('spirit:topic:update', kwargs={'pk': topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 404)
 
@@ -213,7 +213,7 @@ class TopicViewTest(TestCase):
         comment2 = utils.create_comment(topic=topic)
         utils.create_comment(topic=topic2)
 
-        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+        response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], topic)
         self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
@@ -232,7 +232,7 @@ class TopicViewTest(TestCase):
         comment2 = utils.create_comment(topic=topic)
         utils.create_comment(topic=topic)  # comment3
 
-        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+        response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
 
@@ -248,7 +248,7 @@ class TopicViewTest(TestCase):
 
         category = utils.create_category()
         topic = utils.create_topic(category=category, user=self.user)
-        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+        response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertSequenceEqual(self._viewed, [response.context['request'], repr(topic)])
 
@@ -259,7 +259,7 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         topic = utils.create_topic(category=category)
-        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk,
+        response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk,
                                                                           'slug': 'bar'}))
         self.assertRedirects(response, topic.get_absolute_url(), status_code=301)
 
@@ -270,7 +270,7 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         topic = utils.create_topic(category=category)
-        response = self.client.get(reverse('spirit:topic-detail', kwargs={'pk': topic.pk,
+        response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk,
                                                                           'slug': ''}))
         self.assertRedirects(response, topic.get_absolute_url(), status_code=301)
 
@@ -286,7 +286,7 @@ class TopicViewTest(TestCase):
         Topic.objects.filter(pk=topic_a.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
         Topic.objects.filter(pk=topic_c.pk).update(last_active=timezone.now() - datetime.timedelta(days=5))
 
-        response = self.client.get(reverse('spirit:topic-active'))
+        response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_b, topic_c, topic_a]))
 
     def test_topic_active_view_pinned(self):
@@ -301,7 +301,7 @@ class TopicViewTest(TestCase):
         # show globally pinned first
         Topic.objects.filter(pk=topic_d.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
 
-        response = self.client.get(reverse('spirit:topic-active'))
+        response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_d, topic_c, topic_b, topic_a]))
 
     def test_topic_active_view_dont_show_private_or_removed(self):
@@ -318,7 +318,7 @@ class TopicViewTest(TestCase):
         utils.create_topic(category=subcategory)
         utils.create_topic(category=subcategory_removed)
 
-        response = self.client.get(reverse('spirit:topic-active'))
+        response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertQuerysetEqual(response.context['topics'], [])
 
     def test_topic_active_view_bookmark(self):
@@ -338,7 +338,7 @@ class TopicViewTest(TestCase):
         ten_days_ago = timezone.now() - datetime.timedelta(days=10)
         Topic.objects.filter(pk=topic2.pk).update(last_active=ten_days_ago)
 
-        response = self.client.get(reverse('spirit:topic-active'))
+        response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic, topic2]))
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
@@ -351,7 +351,7 @@ class TopicViewTest(TestCase):
         topic_a = utils.create_topic(category=category)
         topic_b = utils.create_topic(category=category, user=self.user, view_count=10)
 
-        response = self.client.get(reverse('spirit:topic-active'))
+        response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_b, ]))
 
 

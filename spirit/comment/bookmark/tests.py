@@ -30,7 +30,7 @@ class CommentBookmarkViewTest(TestCase):
         """
         utils.login(self)
         form_data = {'comment_number': 999, }
-        response = self.client.post(reverse('spirit:bookmark-create', kwargs={'topic_id': self.topic.pk, }),
+        response = self.client.post(reverse('spirit:comment:bookmark:create', kwargs={'topic_id': self.topic.pk, }),
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=form_data)
         self.assertEqual(response.status_code, 200)

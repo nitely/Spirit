@@ -22,7 +22,7 @@
 
                             <ul class="comment-date">
                                 {% if c.modified_count > 0 %}
-                                    <li><a href="{% url "spirit:comment-history" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
+                                    <li><a href="{% url "spirit:comment:history:detail" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
                                 {% endif %}
 
                                 <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
@@ -44,31 +44,31 @@
                     <ul class="comment-actions">
                         {% if user.is_authenticated %}
                             {% if user.st.is_moderator %}
-                                <li><a href="{% url "spirit:comment-delete" c.pk %}"><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
+                                <li><a href="{% url "spirit:comment:delete" c.pk %}"><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
                             {% endif %}
 
-                            <li><a href="{% url "spirit:flag-create" c.pk %}"><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
+                            <li><a href="{% url "spirit:comment:flag:create" c.pk %}"><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
                         {% endif %}
 
                         <li><a class="js-share" href="#" data-dialog=".js-share-{{ c.pk }}"><i class="fa fa-share"></i> {% trans "share" %}</a></li>
 
                         {% if user.is_authenticated %}
                             {% if c.like %}
-                                <li class="comment-like"><a class="js-like" href="{% url "spirit:like-delete" c.like.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
+                                <li class="comment-like"><a class="js-like" href="{% url "spirit:comment:like:delete" c.like.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
                             {% else %}
                                 {% ifnotequal c.user user  %}
-                                    <li class="comment-like"><a class="js-like" class="like" href="{% url "spirit:like-create" c.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
+                                    <li class="comment-like"><a class="js-like" class="like" href="{% url "spirit:comment:like:create" c.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
                                 {% else %}
                                     <li class="comment-like"><i class="fa fa-heart"></i> ({{ c.likes_count }})</li>
                                 {% endifnotequal %}
                             {% endif %}
 
                             {% if user.st.is_moderator or c.user.pk == user.pk %}
-                                <li><a href="{% url "spirit:comment-update" pk=c.pk %}" >{% trans "edit" %}</a></li>
+                                <li><a href="{% url "spirit:comment:update" pk=c.pk %}" >{% trans "edit" %}</a></li>
                             {% endif %}
 
                             {% ifnotequal c.user.pk user.pk %}
-                                <li><a href="{% url "spirit:comment-publish" topic_id=topic.pk pk=c.pk %}" >{% trans "quote" %}</a></li>
+                                <li><a href="{% url "spirit:comment:publish" topic_id=topic.pk pk=c.pk %}" >{% trans "quote" %}</a></li>
                                 <li><a href="#reply" >{% trans "reply" %}</a></li>
                             {% endifnotequal %}
                         {% endif %}
@@ -115,7 +115,7 @@
 
                 {% if user.st.is_moderator %}
                     <ul class="comment-actions">
-                        <li><a href="{% url "spirit:comment-undelete" c.pk %}"><i class="fa fa-times"></i> {% trans "undelete" %}</a></li>
+                        <li><a href="{% url "spirit:comment:undelete" c.pk %}"><i class="fa fa-times"></i> {% trans "undelete" %}</a></li>
                     </ul>
                 {% endif %}
 

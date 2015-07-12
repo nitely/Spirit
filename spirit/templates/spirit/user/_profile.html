@@ -28,22 +28,22 @@
 
     {% ifequal user.username p_user.username %}
         <div class="profile-preferences">
-            <a class="button" href="{% url "spirit:profile-update" %}"><i class="fa fa-cog"></i> {% trans "Preferences" %}</a>
+            <a class="button" href="{% url "spirit:user:update" %}"><i class="fa fa-cog"></i> {% trans "Preferences" %}</a>
         </div>
     {% else %}
         <div class="private-message">
-            <a class="button" href="{% url "spirit:private-publish" user_id=p_user.pk %}"><i class="fa fa-envelope"></i> {% trans "Private Message" %}</a>
+            <a class="button" href="{% url "spirit:topic:private:publish" user_id=p_user.pk %}"><i class="fa fa-envelope"></i> {% trans "Private Message" %}</a>
         </div>
     {% endifequal %}
 
     {% if user.st.is_administrator %}
         <div class="profile-preferences">
-            <a class="button" href="{% url "spirit:admin-user-edit" user_id=p_user.pk %}"><i class="fa fa-cog"></i> {% trans "Edit user" %}</a>
+            <a class="button" href="{% url "spirit:admin:user:edit" user_id=p_user.pk %}"><i class="fa fa-cog"></i> {% trans "Edit user" %}</a>
         </div>
     {% endif %}
 
     <ul class="tabs">
-		<li><a class="tab-link{% ifequal active_tab 0 %} is-selected{% endifequal %}" href="{% url "spirit:profile-detail" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Comments" %}</a></li><!--
-	 --><li><a class="tab-link{% ifequal active_tab 1 %} is-selected{% endifequal %}" href="{% url "spirit:profile-topics" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Topics" %}</a></li><!--
-	 --><li><a class="tab-link{% ifequal active_tab 2 %} is-selected{% endifequal %}" href="{% url "spirit:profile-likes" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Likes" %}</a></li>
+		<li><a class="tab-link{% ifequal active_tab 0 %} is-selected{% endifequal %}" href="{% url "spirit:user:detail" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Comments" %}</a></li><!--
+	 --><li><a class="tab-link{% ifequal active_tab 1 %} is-selected{% endifequal %}" href="{% url "spirit:user:topics" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Topics" %}</a></li><!--
+	 --><li><a class="tab-link{% ifequal active_tab 2 %} is-selected{% endifequal %}" href="{% url "spirit:user:likes" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Likes" %}</a></li>
 	</ul>

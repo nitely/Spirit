@@ -54,7 +54,7 @@ class Comment(models.Model):
         return "%s: %s..." % (self.user.username, self.comment[:50])
 
     def get_absolute_url(self):
-        return reverse('spirit:comment-find', kwargs={'pk': str(self.id), })
+        return reverse('spirit:comment:find', kwargs={'pk': str(self.id), })
 
     @property
     def like(self):

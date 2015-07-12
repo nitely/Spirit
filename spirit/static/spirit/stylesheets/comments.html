@@ -277,7 +277,7 @@ class Category(models.Model):
         verbose_name_plural = _(&quot;categories&quot;)
 
     def get_absolute_url(self):
-        return reverse('spirit:category-detail', kwargs={'pk': str(self.id), 'slug': self.slug})
+        return reverse('spirit:category:detail', kwargs={'pk': str(self.id), 'slug': self.slug})
 
     @property
     def is_subcategory(self):

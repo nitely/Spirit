@@ -26,7 +26,7 @@ class FlagViewTest(TestCase):
         """
         utils.login(self)
         form_data = {'reason': "0", }
-        response = self.client.post(reverse('spirit:flag-create', kwargs={'comment_id': self.comment.pk, }),
+        response = self.client.post(reverse('spirit:comment:flag:create', kwargs={'comment_id': self.comment.pk, }),
                                     form_data)
         self.assertRedirects(response, self.comment.get_absolute_url(), status_code=302, target_status_code=302)
         self.assertEqual(len(Flag.objects.all()), 1)

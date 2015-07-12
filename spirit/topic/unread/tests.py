@@ -38,11 +38,11 @@ class TopicUnreadViewTest(TestCase):
             .update(is_read=False)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-unread-list'))
+        response = self.client.get(reverse('spirit:topic:unread:index'))
         self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic2, self.topic]))
 
         # fake next page
-        response = self.client.get(reverse('spirit:topic-unread-list') + "?topic_id=" + str(self.topic2.pk))
+        response = self.client.get(reverse('spirit:topic:unread:index') + "?topic_id=" + str(self.topic2.pk))
         self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic, ]))
 
     def test_topic_unread_list_show_private_topic(self):
@@ -55,7 +55,7 @@ class TopicUnreadViewTest(TestCase):
         TopicUnread.objects.create(user=self.user, topic=topic_a.topic, is_read=False)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-unread-list'))
+        response = self.client.get(reverse('spirit:topic:unread:index'))
         self.assertQuerysetEqual(response.context['page'], map(repr, [topic_a.topic, ]))
 
     def test_topic_unread_list_dont_show_removed_or_no_access(self):
@@ -80,7 +80,7 @@ class TopicUnreadViewTest(TestCase):
         TopicUnread.objects.create(user=self.user, topic=topic_e, is_read=False)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-unread-list'))
+        response = self.client.get(reverse('spirit:topic:unread:index'))
         self.assertQuerysetEqual(response.context['page'], [])
 
     def test_topic_unread_list_invalid_topic_id(self):
@@ -89,7 +89,7 @@ class TopicUnreadViewTest(TestCase):
         """
         utils.login(self)
         last_pk = TopicUnread.objects.order_by("pk").last().pk
-        response = self.client.get(reverse('spirit:topic-unread-list') + "?topic_id=" + str(last_pk + 1))
+        response = self.client.get(reverse('spirit:topic:unread:index') + "?topic_id=" + str(last_pk + 1))
         self.assertEqual(response.status_code, 404)
 
     def test_topic_unread_list_empty_first_page(self):
@@ -97,7 +97,7 @@ class TopicUnreadViewTest(TestCase):
         empty first page
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-unread-list'))
+        response = self.client.get(reverse('spirit:topic:unread:index'))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['page'], [])
 
@@ -106,7 +106,7 @@ class TopicUnreadViewTest(TestCase):
         empty page, other than the first one
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-unread-list') + "?topic_id=" + str(self.topic.pk))
+        response = self.client.get(reverse('spirit:topic:unread:index') + "?topic_id=" + str(self.topic.pk))
         self.assertEqual(response.status_code, 404)
 
     def test_topic_unread_list_bookmarks(self):
@@ -119,7 +119,7 @@ class TopicUnreadViewTest(TestCase):
         bookmark = CommentBookmark.objects.create(topic=self.topic2, user=self.user)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic-unread-list'))
+        response = self.client.get(reverse('spirit:topic:unread:index'))
         self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic2, self.topic]))
         self.assertEqual(response.context['page'][0].bookmark, bookmark)
 

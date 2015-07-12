@@ -29,7 +29,7 @@ def create(request):
 
         if form.is_valid():
             form.save()
-            return redirect(reverse("spirit:admin-category-list"))
+            return redirect(reverse("spirit:admin:category:index"))
     else:
         form = CategoryForm()
 
@@ -48,7 +48,7 @@ def update(request, category_id):
         if form.is_valid():
             form.save()
             messages.info(request, _("The category has been updated!"))
-            return redirect(reverse("spirit:admin-category-list"))
+            return redirect(reverse("spirit:admin:category:index"))
     else:
         form = CategoryForm(instance=category)
 

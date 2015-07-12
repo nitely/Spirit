@@ -28,4 +28,4 @@ class CommentLike(models.Model):
         return "%s likes %s" % (self.user, self.comment)
 
     def get_delete_url(self):
-        return reverse('spirit:like-delete', kwargs={'pk': str(self.pk), })
+        return reverse('spirit:comment:like:delete', kwargs={'pk': str(self.pk), })

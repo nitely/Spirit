@@ -8,10 +8,9 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.index, name='admin-user'),
-    url(r'^edit/(?P<user_id>\d+)/$', views.edit, name='admin-user-edit'),
-    url(r'^list/$', views.index, name='admin-user-list'),
-    url(r'^admins/$', views.admins, name='admin-user-admins'),
-    url(r'^mods/$', views.mods, name='admin-user-mods'),
-    url(r'^unactive/$', views.unactive, name='admin-user-unactive'),
+    url(r'^$', views.index, name='index'),
+    url(r'^admins/$', views.index_admins, name='index-admins'),
+    url(r'^mods/$', views.index_mods, name='index-mods'),
+    url(r'^unactive/$', views.index_unactive, name='index-unactive'),
+    url(r'^edit/(?P<user_id>\d+)/$', views.edit, name='edit'),
 ]

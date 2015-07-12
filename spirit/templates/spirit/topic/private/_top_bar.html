@@ -10,13 +10,13 @@
 
 			<div class="tab-content js-tab-content js-categories-content">
 				<ul class="menu">
-                    <li><a class="menu-link" href="{% url "spirit:private-created-list" %}" >{% trans "Left" %}</a></li>
-                    <li><a class="menu-link" href="{% url "spirit:private-list" %}" >{% trans "Participating in" %}</a></li>
+                    <li><a class="menu-link" href="{% url "spirit:topic:private:index-author" %}" >{% trans "Left" %}</a></li>
+                    <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}" >{% trans "Participating in" %}</a></li>
 				</ul>
 			</div>
 		</div>
 
         <div class="new-topic">
-            <a class="button" href="{% url "spirit:private-publish" %}">{% trans "Create private topic" %}</a>
+            <a class="button" href="{% url "spirit:topic:private:publish" %}">{% trans "Create private topic" %}</a>
 		</div>
 	</div>
