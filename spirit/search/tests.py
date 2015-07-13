@@ -51,7 +51,7 @@ class SearchTopicIndexTest(TestCase):
         call_command("rebuild_index", interactive=False)
 
         sqs = SearchQuerySet().models(Topic)
-        self.assertQuerysetEqual([s.object for s in sqs], map(repr, [topic, ]))
+        self.assertEqual([s.object for s in sqs], [topic, ])
 
 
 class SearchViewTest(TestCase):
@@ -89,7 +89,7 @@ class SearchViewTest(TestCase):
         response = self.client.get(reverse('spirit:search:search'),
                                    data)
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual([s.object for s in response.context['page']], map(repr, [self.topic, ]))
+        self.assertEqual([s.object for s in response.context['page']], [self.topic, ])
 
     @override_djconfig(topics_per_page=1)
     def test_advanced_search_topics_paginate(self):
@@ -101,7 +101,7 @@ class SearchViewTest(TestCase):
         response = self.client.get(reverse('spirit:search:search'),
                                    data)
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual([s.object for s in response.context['page']], map(repr, [self.topic2, ]))
+        self.assertEqual([s.object for s in response.context['page']], [self.topic2, ])
 
     def test_advanced_search_in_category(self):
         """
@@ -112,7 +112,7 @@ class SearchViewTest(TestCase):
         data = {'q': 'spirit search', 'category': category.pk}
         response = self.client.get(reverse('spirit:search:search'),
                                    data)
-        self.assertQuerysetEqual(response.context['page'], [])
+        self.assertEqual(list(response.context['page']), [])
 
         data['category'] = self.category.pk
         response = self.client.get(reverse('spirit:search:search'),

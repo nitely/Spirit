@@ -17,7 +17,7 @@ from ..topic.models import Topic
 from .history.models import CommentHistory
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .signals import comment_posted, comment_pre_update, comment_moved
+from .signals import comment_posted, comment_moved
 
 
 @login_required
@@ -59,7 +59,6 @@ def update(request, pk):
         form = CommentForm(data=request.POST, instance=comment)
 
         if form.is_valid():
-            comment_pre_update.send(sender=comment.__class__, comment=Comment.objects.get(pk=comment.pk))
             comment_pre = Comment.objects.get(pk=comment.pk)
             CommentHistory.create_maybe(comment_pre)
             comment = form.save()

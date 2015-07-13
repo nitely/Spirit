@@ -199,10 +199,10 @@ class TopicPollViewTest(TestCase):
         response = self.client.post(reverse('spirit:topic:poll:vote', kwargs={'pk': poll.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(repr(self._poll), repr(poll))
-        self.assertEqual(repr(self._user), repr(self.user))
-        self.assertEqual(repr(self._poll2), repr(poll))
-        self.assertEqual(repr(self._user2), repr(self.user))
+        self.assertEqual(self._poll, poll)
+        self.assertEqual(self._user, self.user)
+        self.assertEqual(self._poll2, poll)
+        self.assertEqual(self._user2, self.user)
 
 
 class TopicPollFormTest(TestCase):

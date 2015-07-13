@@ -39,11 +39,11 @@ class TopicUnreadViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:unread:index'))
-        self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic2, self.topic]))
+        self.assertEqual(list(response.context['page']), [self.topic2, self.topic])
 
         # fake next page
         response = self.client.get(reverse('spirit:topic:unread:index') + "?topic_id=" + str(self.topic2.pk))
-        self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic, ]))
+        self.assertEqual(list(response.context['page']), [self.topic, ])
 
     def test_topic_unread_list_show_private_topic(self):
         """
@@ -56,7 +56,7 @@ class TopicUnreadViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:unread:index'))
-        self.assertQuerysetEqual(response.context['page'], map(repr, [topic_a.topic, ]))
+        self.assertEqual(list(response.context['page']), [topic_a.topic, ])
 
     def test_topic_unread_list_dont_show_removed_or_no_access(self):
         """
@@ -81,7 +81,7 @@ class TopicUnreadViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:unread:index'))
-        self.assertQuerysetEqual(response.context['page'], [])
+        self.assertEqual(list(response.context['page']), [])
 
     def test_topic_unread_list_invalid_topic_id(self):
         """
@@ -99,7 +99,7 @@ class TopicUnreadViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:unread:index'))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['page'], [])
+        self.assertEqual(list(response.context['page']), [])
 
     def test_topic_unread_list_empty_page(self):
         """
@@ -120,7 +120,7 @@ class TopicUnreadViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:unread:index'))
-        self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic2, self.topic]))
+        self.assertEqual(list(response.context['page']), [self.topic2, self.topic])
         self.assertEqual(response.context['page'][0].bookmark, bookmark)
 
 

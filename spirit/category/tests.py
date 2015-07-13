@@ -34,7 +34,7 @@ class CategoryViewTest(TestCase):
         should display all categories
         """
         response = self.client.get(reverse('spirit:category:index'))
-        self.assertListEqual(
+        self.assertEqual(
             list(response.context['categories']),
             [self.uncategorized, self.category_1, self.category_2]
         )
@@ -53,7 +53,7 @@ class CategoryViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
-        self.assertQuerysetEqual(response.context['topics'], [repr(topic2), repr(topic3), repr(topic)])
+        self.assertEqual(list(response.context['topics']), [topic2, topic3, topic])
 
     def test_category_detail_view_order(self):
         """
@@ -67,7 +67,7 @@ class CategoryViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_a, topic_b, ]))
+        self.assertEqual(list(response.context['topics']), [topic_a, topic_b, ])
 
     def test_category_detail_view_pinned(self):
         """
@@ -83,7 +83,7 @@ class CategoryViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': category.pk,
                                                                              'slug': category.slug}))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_d, topic_b, topic_c, topic_a]))
+        self.assertEqual(list(response.context['topics']), [topic_d, topic_b, topic_c, topic_a])
 
     def test_category_detail_view_removed_topics(self):
         """
@@ -96,7 +96,7 @@ class CategoryViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
-        self.assertQuerysetEqual(response.context['topics'], [])
+        self.assertEqual(list(response.context['topics']), [])
 
     def test_category_detail_view_invalid_category(self):
         """
@@ -129,8 +129,8 @@ class CategoryViewTest(TestCase):
         topic2 = utils.create_topic(category=self.subcategory_1, title="topic_subcat1")
         response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.subcategory_1.pk,
                                                                              'slug': self.subcategory_1.slug}))
-        self.assertQuerysetEqual(response.context['topics'], [repr(topic2), ])
-        self.assertQuerysetEqual(response.context['categories'], [])
+        self.assertEqual(list(response.context['topics']), [topic2, ])
+        self.assertEqual(list(response.context['categories']), [])
 
     def test_category_detail_view_bookmarks(self):
         """
@@ -143,7 +143,7 @@ class CategoryViewTest(TestCase):
         response = self.client.get(reverse('spirit:category:detail',
                                            kwargs={'pk': self.category_1.pk,
                                                    'slug': self.category_1.slug}))
-        self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])
+        self.assertEqual(list(response.context['topics']), [topic, ])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
@@ -156,4 +156,4 @@ class CategoryViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
-        self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])
+        self.assertEqual(list(response.context['topics']), [topic, ])

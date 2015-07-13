@@ -53,7 +53,7 @@ class TopicPrivateViewTest(TestCase):
         send publish_comment_posted signal
         """
         def comment_posted_handler(sender, comment, **kwargs):
-            self._comment = repr(comment)
+            self._comment = comment
         comment_posted.connect(comment_posted_handler)
 
         utils.login(self)
@@ -62,7 +62,7 @@ class TopicPrivateViewTest(TestCase):
                                     form_data)
         self.assertEqual(response.status_code, 302)
         comment = Comment.objects.last()
-        self.assertEqual(self._comment, repr(comment))
+        self.assertEqual(self._comment, comment)
 
     def test_private_publish_topic_private_post_create_signals(self):
         """
@@ -71,9 +71,9 @@ class TopicPrivateViewTest(TestCase):
         def topic_private_post_create_handler(sender, topics_private, comment, **kwargs):
             self.assertEqual(len(topics_private), 1)
             tp = topics_private[0]
-            self._topic = repr(tp.topic)
-            self._user = repr(tp.user)
-            self._comment = repr(comment)
+            self._topic = tp.topic
+            self._user = tp.user
+            self._comment = comment
         topic_private_post_create.connect(topic_private_post_create_handler)
 
         utils.login(self)
@@ -83,9 +83,9 @@ class TopicPrivateViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         topic_private = TopicPrivate.objects.last()
         topic_comment = Comment.objects.last()
-        self.assertEqual(self._topic, repr(topic_private.topic))
-        self.assertEqual(self._user, repr(self.user))
-        self.assertEqual(self._comment, repr(topic_comment))
+        self.assertEqual(self._topic, topic_private.topic)
+        self.assertEqual(self._user, self.user)
+        self.assertEqual(self._comment, topic_comment)
 
     def test_private_publish_user(self):
         """
@@ -113,7 +113,7 @@ class TopicPrivateViewTest(TestCase):
                                                                             'slug': private.topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], private.topic)
-        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
+        self.assertEqual(list(response.context['comments']), [comment1, comment2])
 
     @override_djconfig(comments_per_page=2)
     def test_private_detail_view_paginate(self):
@@ -131,7 +131,7 @@ class TopicPrivateViewTest(TestCase):
                                                                             'slug': private.topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], private.topic)
-        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
+        self.assertEqual(list(response.context['comments']), [comment1, comment2])
 
     def test_private_access_create(self):
         """
@@ -164,8 +164,8 @@ class TopicPrivateViewTest(TestCase):
         send topic_private_access_pre_create signal
         """
         def topic_private_access_pre_create_handler(sender, topic, user, **kwargs):
-            self._topic = repr(topic)
-            self._user = repr(user)
+            self._topic = topic
+            self._user = user
         topic_private_access_pre_create.connect(topic_private_access_pre_create_handler)
 
         utils.login(self)
@@ -174,8 +174,8 @@ class TopicPrivateViewTest(TestCase):
         response = self.client.post(reverse('spirit:topic:private:access-create', kwargs={'topic_id': private.topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(self._topic, repr(private.topic))
-        self.assertEqual(self._user, repr(self.user2))
+        self.assertEqual(self._topic, private.topic)
+        self.assertEqual(self._user, self.user2)
 
     def test_private_access_delete(self):
         """
@@ -228,7 +228,7 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:private:index'))
-        self.assertQuerysetEqual(response.context['topics'], [repr(private.topic), ])
+        self.assertEqual(list(response.context['topics']), [private.topic, ])
 
     def test_private_list_order_topics(self):
         """
@@ -243,8 +243,7 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:private:index'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [private_b.topic, private_c.topic,
-                                                                        private_a.topic]))
+        self.assertEqual(list(response.context['topics']), [private_b.topic, private_c.topic, private_a.topic])
 
     def test_private_list_bookmarks(self):
         """
@@ -255,7 +254,7 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:private:index'))
-        self.assertQuerysetEqual(response.context['topics'], [repr(private.topic), ])
+        self.assertEqual(list(response.context['topics']), [private.topic, ])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
@@ -268,7 +267,7 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:private:index'))
-        self.assertQuerysetEqual(response.context['topics'], [repr(private.topic), ])
+        self.assertEqual(list(response.context['topics']), [private.topic, ])
 
     def test_private_join(self):
         """
@@ -317,7 +316,7 @@ class TopicPrivateViewTest(TestCase):
         send topic_private_access_pre_create signal
         """
         def topic_private_access_pre_create_handler(sender, topic, user, **kwargs):
-            self._topic = repr(topic)
+            self._topic = topic
             self._user_pk = user.pk
         topic_private_access_pre_create.connect(topic_private_access_pre_create_handler)
 
@@ -329,7 +328,7 @@ class TopicPrivateViewTest(TestCase):
         response = self.client.post(reverse('spirit:topic:private:join', kwargs={'topic_id': private.topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(self._topic, repr(private.topic))
+        self.assertEqual(self._topic, private.topic)
         self.assertEqual(self._user_pk, self.user.pk)
 
     def test_private_created_list(self):
@@ -351,7 +350,7 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:private:index-author'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [private.topic, ]))
+        self.assertEqual(list(response.context['topics']), [private.topic, ])
 
     def test_private_created_list_order_topics(self):
         """
@@ -369,8 +368,7 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:private:index-author'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [private_b.topic, private_c.topic,
-                                                                        private_a.topic]))
+        self.assertEqual(list(response.context['topics']), [private_b.topic, private_c.topic, private_a.topic])
 
     @override_djconfig(topics_per_page=1)
     def test_private_created_list_paginate(self):
@@ -384,7 +382,7 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:private:index-author'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [private2.topic, ]))
+        self.assertEqual(list(response.context['topics']), [private2.topic, ])
 
 
 class TopicPrivateFormTest(TestCase):
@@ -415,12 +413,9 @@ class TopicPrivateFormTest(TestCase):
         topic = utils.create_topic(category=category, user=self.user)
         form.topic = topic
         privates_saved = form.save_m2m()
+        self.assertEqual(len(privates_saved), 2)
         privates = TopicPrivate.objects.all()
-        # django.utils.six will provide a method in django 1.8
-        if six.PY3:
-            self.assertCountEqual(map(repr, privates_saved), map(repr, privates))
-        else:
-            self.assertItemsEqual(map(repr, privates_saved), map(repr, privates))
+        self.assertEqual([p.user.pk for p in privates], [self.user2.pk, self.user.pk])
 
     def test_private_create(self):
         """
@@ -444,8 +439,8 @@ class TopicPrivateFormTest(TestCase):
         form = TopicPrivateJoinForm(user=self.user, topic=private.topic, data=form_data)
         self.assertTrue(form.is_valid())
         private_topic = form.save()
-        self.assertEqual(repr(private_topic.topic), repr(private.topic))
-        self.assertEqual(repr(private_topic.user), repr(private.user))
+        self.assertEqual(private_topic.topic, private.topic)
+        self.assertEqual(private_topic.user, private.user)
 
         # topic private exists
         private = utils.create_private_topic(user=self.user)
@@ -473,4 +468,4 @@ class TopicTemplateTagsTest(TestCase):
         context = render_invite_form(self.topic)
         self.assertEqual(context['next'], None)
         self.assertIsInstance(context['form'], TopicPrivateInviteForm)
-        self.assertEqual(repr(context['topic']), repr(self.topic))
+        self.assertEqual(context['topic'], self.topic)

@@ -136,8 +136,8 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['topics'], [repr(self.topic), ])
-        self.assertEqual(repr(response.context['p_user']), repr(self.user2))
+        self.assertEqual(list(response.context['topics']), [self.topic, ])
+        self.assertEqual(response.context['p_user'], self.user2)
 
     def test_profile_topics_order(self):
         """
@@ -156,7 +156,7 @@ class UserViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.st.slug}))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_b, topic_c, topic_a]))
+        self.assertEqual(list(response.context['topics']), [topic_b, topic_c, topic_a])
 
     def test_profile_topics_bookmarks(self):
         """
@@ -168,7 +168,7 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:user:topics",
                                            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['topics'], [repr(self.topic), ])
+        self.assertEqual(list(response.context['topics']), [self.topic, ])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
@@ -182,7 +182,7 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['topics'], [repr(topic), ])
+        self.assertEqual(list(response.context['topics']), [topic, ])
 
     def test_profile_topics_dont_show_removed_or_private(self):
         """
@@ -203,7 +203,7 @@ class UserViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.st.slug}))
-        self.assertQuerysetEqual(response.context['topics'], [])
+        self.assertEqual(list(response.context['topics']), [])
 
     def test_profile_topics_invalid_slug(self):
         """
@@ -226,8 +226,8 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['comments'], [repr(comment), ])
-        self.assertEqual(repr(response.context['p_user']), repr(self.user2))
+        self.assertEqual(list(response.context['comments']), [comment, ])
+        self.assertEqual(response.context['p_user'], self.user2)
 
     def test_profile_comments_order(self):
         """
@@ -243,7 +243,7 @@ class UserViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.st.slug}))
-        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment_b, comment_c, comment_a]))
+        self.assertEqual(list(response.context['comments']), [comment_b, comment_c, comment_a])
 
     @override_djconfig(comments_per_page=1)
     def test_profile_comments_paginate(self):
@@ -257,7 +257,7 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['comments'], [repr(comment), ])
+        self.assertEqual(list(response.context['comments']), [comment, ])
 
     def test_profile_comments_dont_show_removed_or_private(self):
         """
@@ -281,7 +281,7 @@ class UserViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
                                                                             'slug': self.user2.st.slug}))
-        self.assertQuerysetEqual(response.context['comments'], [])
+        self.assertEqual(list(response.context['comments']), [])
 
     def test_profile_comments_invalid_slug(self):
         """
@@ -306,8 +306,8 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
                                                                            'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['comments'], [repr(like.comment), ])
-        self.assertEqual(repr(response.context['p_user']), repr(self.user2))
+        self.assertEqual(list(response.context['comments']), [like.comment, ])
+        self.assertEqual(response.context['p_user'], self.user2)
 
     def test_profile_likes_order(self):
         """
@@ -326,7 +326,7 @@ class UserViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
                                                                            'slug': self.user2.st.slug}))
-        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment_b, comment_c, comment_a]))
+        self.assertEqual(list(response.context['comments']), [comment_b, comment_c, comment_a])
 
     def test_profile_likes_dont_show_removed_or_private(self):
         """
@@ -355,7 +355,7 @@ class UserViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
                                                                            'slug': self.user2.st.slug}))
-        self.assertQuerysetEqual(response.context['comments'], [])
+        self.assertEqual(list(response.context['comments']), [])
 
     def test_profile_likes_invalid_slug(self):
         """
@@ -382,7 +382,7 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
                                                                            'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['comments'], [repr(like.comment), ])
+        self.assertEqual(list(response.context['comments']), [like.comment, ])
 
     def test_profile_update(self):
         """

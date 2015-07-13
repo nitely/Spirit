@@ -117,7 +117,7 @@ class TopicViewTest(TestCase):
         send publish_comment_posted signal
         """
         def comment_posted_handler(sender, comment, **kwargs):
-            self._comment = repr(comment)
+            self._comment = comment
         comment_posted.connect(comment_posted_handler)
 
         utils.login(self)
@@ -129,7 +129,7 @@ class TopicViewTest(TestCase):
                                     form_data)
         self.assertEqual(response.status_code, 302)
         comment = Comment.objects.last()
-        self.assertEqual(self._comment, repr(comment))
+        self.assertEqual(self._comment, comment)
 
     def test_topic_publish_poll(self):
         """
@@ -172,7 +172,7 @@ class TopicViewTest(TestCase):
         POST, topic moved to category
         """
         def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-            self._moderate = [repr(user._wrapped), repr(topic), action]
+            self._moderate = [user._wrapped, topic, action]
         topic_post_moderate.connect(topic_post_moderate_handler)
 
         utils.login(self)
@@ -185,7 +185,7 @@ class TopicViewTest(TestCase):
         form_data = {'title': 'foobar', 'category': category2.pk}
         self.client.post(reverse('spirit:topic:update', kwargs={'pk': topic.pk, }),
                          form_data)
-        self.assertSequenceEqual(self._moderate, [repr(self.user), repr(Topic.objects.get(pk=topic.pk)), MOVED])
+        self.assertEqual(self._moderate, [self.user, Topic.objects.get(pk=topic.pk), MOVED])
 
     def test_topic_update_invalid_user(self):
         """
@@ -216,7 +216,7 @@ class TopicViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], topic)
-        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
+        self.assertEqual(list(response.context['comments']), [comment1, comment2])
 
     @override_djconfig(comments_per_page=2)
     def test_topic_detail_view_paginate(self):
@@ -234,14 +234,14 @@ class TopicViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment1, comment2]))
+        self.assertEqual(list(response.context['comments']), [comment1, comment2])
 
     def test_topic_detail_view_signals(self):
         """
         send topic view signal
         """
         def topic_viewed_handler(sender, request, topic, **kwargs):
-            self._viewed = [request, repr(topic), ]
+            self._viewed = [request, topic, ]
         topic_viewed.connect(topic_viewed_handler)
 
         utils.login(self)
@@ -250,7 +250,7 @@ class TopicViewTest(TestCase):
         topic = utils.create_topic(category=category, user=self.user)
         response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertSequenceEqual(self._viewed, [response.context['request'], repr(topic)])
+        self.assertEqual(self._viewed, [response.context['request'], topic])
 
     def test_topic_detail_view_invalid_slug(self):
         """
@@ -287,7 +287,7 @@ class TopicViewTest(TestCase):
         Topic.objects.filter(pk=topic_c.pk).update(last_active=timezone.now() - datetime.timedelta(days=5))
 
         response = self.client.get(reverse('spirit:topic:index-active'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_b, topic_c, topic_a]))
+        self.assertEqual(list(response.context['topics']), [topic_b, topic_c, topic_a])
 
     def test_topic_active_view_pinned(self):
         """
@@ -302,7 +302,7 @@ class TopicViewTest(TestCase):
         Topic.objects.filter(pk=topic_d.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
 
         response = self.client.get(reverse('spirit:topic:index-active'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_d, topic_c, topic_b, topic_a]))
+        self.assertEqual(list(response.context['topics']), [topic_d, topic_c, topic_b, topic_a])
 
     def test_topic_active_view_dont_show_private_or_removed(self):
         """
@@ -319,7 +319,7 @@ class TopicViewTest(TestCase):
         utils.create_topic(category=subcategory_removed)
 
         response = self.client.get(reverse('spirit:topic:index-active'))
-        self.assertQuerysetEqual(response.context['topics'], [])
+        self.assertEqual(list(response.context['topics']), [])
 
     def test_topic_active_view_bookmark(self):
         """
@@ -339,7 +339,7 @@ class TopicViewTest(TestCase):
         Topic.objects.filter(pk=topic2.pk).update(last_active=ten_days_ago)
 
         response = self.client.get(reverse('spirit:topic:index-active'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic, topic2]))
+        self.assertEqual(list(response.context['topics']), [topic, topic2])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
@@ -352,7 +352,7 @@ class TopicViewTest(TestCase):
         topic_b = utils.create_topic(category=category, user=self.user, view_count=10)
 
         response = self.client.get(reverse('spirit:topic:index-active'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_b, ]))
+        self.assertEqual(list(response.context['topics']), [topic_b, ])
 
 
 class TopicFormTest(TestCase):

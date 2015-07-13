@@ -21,7 +21,7 @@ from .models import Comment
 from .like.signals import comment_like_post_create, comment_like_post_delete
 from ..topic.moderate.signals import topic_post_moderate
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .signals import comment_post_update, comment_posted, comment_pre_update, comment_moved
+from .signals import comment_post_update, comment_posted, comment_moved
 from .tags import render_comments_form
 from ..core.utils import markdown
 from .views import delete as comment_delete
@@ -365,7 +365,7 @@ class CommentViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertListEqual(self._comments, [comment2, comment])
         self.assertEqual(self._comment_count, 2)
-        self.assertEqual(repr(self._topic_from), repr(self.topic))
+        self.assertEqual(self._topic_from, self.topic)
 
     def test_comment_find(self):
         """

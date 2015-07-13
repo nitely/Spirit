@@ -31,7 +31,7 @@ class CommentHistoryViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:comment:history:detail', kwargs={'comment_id': comment.pk, }))
-        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment_history, ]))
+        self.assertEqual(list(response.context['comments']), [comment_history, ])
 
     @override_djconfig(comments_per_page=1)
     def test_comment_history_detail_paginate(self):
@@ -44,7 +44,7 @@ class CommentHistoryViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:comment:history:detail', kwargs={'comment_id': comment.pk, }))
-        self.assertQuerysetEqual(response.context['comments'], map(repr, [comment_history, ]))
+        self.assertEqual(list(response.context['comments']), [comment_history, ])
 
     def test_comment_history_detail_private_topic(self):
         """

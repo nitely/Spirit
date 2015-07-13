@@ -52,7 +52,7 @@ class TopicNotificationViewTest(TestCase):
         """
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:notification:index'))
-        self.assertQuerysetEqual(response.context['notifications'], map(repr, [self.topic_notification, ]))
+        self.assertEqual(list(response.context['notifications']), [self.topic_notification, ])
 
     @override_djconfig(topics_per_page=1)
     def test_topic_notification_list_paginate(self):
@@ -67,7 +67,7 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:notification:index'))
-        self.assertQuerysetEqual(response.context['notifications'], map(repr, [topic_notification2, ]))
+        self.assertEqual(list(response.context['notifications']), [topic_notification2, ])
 
     def test_topic_notification_list_show_private_topic(self):
         """
@@ -81,11 +81,11 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:notification:index'))
-        self.assertQuerysetEqual(response.context['notifications'], map(repr, [topic_notif, ]))
+        self.assertEqual(list(response.context['notifications']), [topic_notif, ])
 
         # list unread should behave the same
         response = self.client.get(reverse('spirit:topic:notification:index-unread'))
-        self.assertQuerysetEqual(response.context['page'], map(repr, [topic_notif, ]))
+        self.assertEqual(list(response.context['page']), [topic_notif, ])
 
         # ajax list should behave the same
         response = self.client.get(reverse('spirit:topic:notification:index-ajax'),
@@ -122,11 +122,11 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:notification:index'))
-        self.assertQuerysetEqual(response.context['notifications'], [])
+        self.assertEqual(list(response.context['notifications']), [])
 
         # list unread should behave the same
         response = self.client.get(reverse('spirit:topic:notification:index-unread'))
-        self.assertQuerysetEqual(response.context['page'], [])
+        self.assertEqual(list(response.context['page']), [])
 
         # ajax list should behave the same
         response = self.client.get(reverse('spirit:topic:notification:index-ajax'),
@@ -147,11 +147,11 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:notification:index-unread'))
-        self.assertQuerysetEqual(response.context['page'], map(repr, [topic_notification, self.topic_notification]))
+        self.assertEqual(list(response.context['page']), [topic_notification, self.topic_notification])
 
         # fake next page
         response = self.client.get(reverse('spirit:topic:notification:index-unread') + "?notif=" + str(topic_notification.pk))
-        self.assertQuerysetEqual(response.context['page'], map(repr, [self.topic_notification, ]))
+        self.assertEqual(list(response.context['page']), [self.topic_notification, ])
 
     def test_topic_notification_ajax(self):
         """
@@ -421,7 +421,7 @@ class TopicNotificationSignalTest(TestCase):
         notification = TopicNotification.objects.get(user=private2.user, topic=private2.topic)
         self.assertTrue(notification.is_active)
         self.assertFalse(notification.is_read)
-        self.assertEqual(repr(notification.comment), repr(comment))
+        self.assertEqual(notification.comment, comment)
 
     def test_topic_private_access_pre_create_handler(self):
         """
@@ -436,7 +436,7 @@ class TopicNotificationSignalTest(TestCase):
         self.assertEqual(notification.action, COMMENT)
         self.assertTrue(notification.is_active)
         self.assertFalse(notification.is_read)
-        self.assertEqual(repr(notification.comment), repr(comment))
+        self.assertEqual(notification.comment, comment)
 
         # creating the access again should do nothing
         topic_private_access_pre_create.send(sender=private.__class__,

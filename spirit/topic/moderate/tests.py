@@ -57,7 +57,7 @@ class TopicViewTest(TestCase):
         topic lock
         """
         def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-            self._moderate = [repr(user._wrapped), repr(topic), action]
+            self._moderate = [user._wrapped, topic, action]
         topic_post_moderate.connect(topic_post_moderate_handler)
 
         utils.login(self)
@@ -72,14 +72,14 @@ class TopicViewTest(TestCase):
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_closed)
-        self.assertEqual(self._moderate, [repr(self.user), repr(topic), CLOSED])
+        self.assertEqual(self._moderate, [self.user, topic, CLOSED])
 
     def test_topic_moderate_unlock(self):
         """
         unlock topic
         """
         def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-            self._moderate = [repr(user._wrapped), repr(topic), action]
+            self._moderate = [user._wrapped, topic, action]
         topic_post_moderate.connect(topic_post_moderate_handler)
 
         utils.login(self)
@@ -94,14 +94,14 @@ class TopicViewTest(TestCase):
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_closed)
-        self.assertEqual(self._moderate, [repr(self.user), repr(topic), UNCLOSED])
+        self.assertEqual(self._moderate, [self.user, topic, UNCLOSED])
 
     def test_topic_moderate_pin(self):
         """
         topic pin
         """
         def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-            self._moderate = [repr(user._wrapped), repr(topic), action]
+            self._moderate = [user._wrapped, topic, action]
         topic_post_moderate.connect(topic_post_moderate_handler)
 
         utils.login(self)
@@ -116,14 +116,14 @@ class TopicViewTest(TestCase):
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_pinned)
-        self.assertEqual(self._moderate, [repr(self.user), repr(topic), PINNED])
+        self.assertEqual(self._moderate, [self.user, topic, PINNED])
 
     def test_topic_moderate_unpin(self):
         """
         topic unpin
         """
         def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-            self._moderate = [repr(user._wrapped), repr(topic), action]
+            self._moderate = [user._wrapped, topic, action]
         topic_post_moderate.connect(topic_post_moderate_handler)
 
         utils.login(self)
@@ -138,14 +138,14 @@ class TopicViewTest(TestCase):
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_pinned)
-        self.assertEqual(self._moderate, [repr(self.user), repr(topic), UNPINNED])
+        self.assertEqual(self._moderate, [self.user, topic, UNPINNED])
 
     def test_topic_moderate_global_pin(self):
         """
         topic pin
         """
         def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-            self._moderate = [repr(user._wrapped), repr(topic), action]
+            self._moderate = [user._wrapped, topic, action]
         topic_post_moderate.connect(topic_post_moderate_handler)
 
         utils.login(self)
@@ -160,14 +160,14 @@ class TopicViewTest(TestCase):
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_globally_pinned)
-        self.assertEqual(self._moderate, [repr(self.user), repr(topic), PINNED])
+        self.assertEqual(self._moderate, [self.user, topic, PINNED])
 
     def test_topic_moderate_global_unpin(self):
         """
         topic unpin
         """
         def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-            self._moderate = [repr(user._wrapped), repr(topic), action]
+            self._moderate = [user._wrapped, topic, action]
         topic_post_moderate.connect(topic_post_moderate_handler)
 
         utils.login(self)
@@ -182,4 +182,4 @@ class TopicViewTest(TestCase):
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_globally_pinned)
-        self.assertEqual(self._moderate, [repr(self.user), repr(topic), UNPINNED])
+        self.assertEqual(self._moderate, [self.user, topic, UNPINNED])

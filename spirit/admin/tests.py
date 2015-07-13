@@ -85,7 +85,7 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:user:index'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [self.user, ]))
+        self.assertEqual(list(response.context['users']), [self.user, ])
 
     @override_djconfig(topics_per_page=1)
     def test_user_list_paginate(self):
@@ -96,7 +96,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:user:index'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [user2, ]))
+        self.assertEqual(list(response.context['users']), [user2, ])
 
     def test_user_admins(self):
         """
@@ -104,7 +104,7 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:user:index-admins'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [self.user, ]))
+        self.assertEqual(list(response.context['users']), [self.user, ])
 
     @override_djconfig(topics_per_page=1)
     def test_user_admins_paginate(self):
@@ -117,7 +117,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:user:index-admins'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [user2, ]))
+        self.assertEqual(list(response.context['users']), [user2, ])
 
     def test_user_mods(self):
         """
@@ -129,7 +129,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:user:index-mods'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [mod, ]))
+        self.assertEqual(list(response.context['users']), [mod, ])
 
     @override_djconfig(topics_per_page=1)
     def test_user_mods_paginate(self):
@@ -146,7 +146,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:user:index-mods'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [mod2, ]))
+        self.assertEqual(list(response.context['users']), [mod2, ])
 
     def test_user_unactive(self):
         """
@@ -156,7 +156,7 @@ class AdminViewTest(TestCase):
         User.objects.filter(pk=unactive.pk).update(is_active=False)
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:user:index-unactive'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [unactive, ]))
+        self.assertEqual(list(response.context['users']), [unactive, ])
 
     @override_djconfig(topics_per_page=1)
     def test_user_unactive_paginate(self):
@@ -170,7 +170,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:user:index-unactive'))
-        self.assertQuerysetEqual(response.context['users'], map(repr, [unactive2, ]))
+        self.assertEqual(list(response.context['users']), [unactive2, ])
 
     def test_index_dashboard(self):
         utils.login(self)
@@ -184,7 +184,7 @@ class AdminViewTest(TestCase):
         topic_ = utils.create_topic(self.category, is_removed=True)
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:topic:deleted'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
+        self.assertEqual(list(response.context['topics']), [topic_, ])
 
     @override_djconfig(topics_per_page=1)
     def test_topic_deleted_paginate(self):
@@ -196,7 +196,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:topic:deleted'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
+        self.assertEqual(list(response.context['topics']), [topic_, ])
 
     def test_topic_closed(self):
         """
@@ -205,7 +205,7 @@ class AdminViewTest(TestCase):
         topic_ = utils.create_topic(self.category, is_closed=True)
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:topic:closed'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
+        self.assertEqual(list(response.context['topics']), [topic_, ])
 
     @override_djconfig(topics_per_page=1)
     def test_topic_closed_paginate(self):
@@ -216,7 +216,7 @@ class AdminViewTest(TestCase):
         topic_ = utils.create_topic(self.category, is_closed=True)
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:topic:closed'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
+        self.assertEqual(list(response.context['topics']), [topic_, ])
 
     def test_topic_pinned(self):
         """
@@ -225,7 +225,7 @@ class AdminViewTest(TestCase):
         topic_ = utils.create_topic(self.category, is_pinned=True)
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:topic:pinned'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
+        self.assertEqual(list(response.context['topics']), [topic_, ])
 
     @override_djconfig(topics_per_page=1)
     def test_topic_pinned_paginate(self):
@@ -236,7 +236,7 @@ class AdminViewTest(TestCase):
         topic_ = utils.create_topic(self.category, is_pinned=True)
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:topic:pinned'))
-        self.assertQuerysetEqual(response.context['topics'], map(repr, [topic_, ]))
+        self.assertEqual(list(response.context['topics']), [topic_, ])
 
     def test_category_list(self):
         """
@@ -246,7 +246,7 @@ class AdminViewTest(TestCase):
         categories = Category.objects.filter(is_private=False, parent=None)
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:category:index'))
-        self.assertQuerysetEqual(response.context['categories'], map(repr, categories))
+        self.assertEqual(list(response.context['categories']), list(categories))
 
     def test_category_create(self):
         """
@@ -301,7 +301,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:flag:opened'))
-        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
+        self.assertEqual(list(response.context['flags']), [flag_, ])
 
     @override_djconfig(comments_per_page=1)
     def test_flag_open_paginate(self):
@@ -315,7 +315,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:flag:opened'))
-        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
+        self.assertEqual(list(response.context['flags']), [flag_, ])
 
     def test_flag_closed(self):
         """
@@ -328,7 +328,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:flag:closed'))
-        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_closed, ]))
+        self.assertEqual(list(response.context['flags']), [flag_closed, ])
 
     @override_djconfig(comments_per_page=1)
     def test_flag_open_paginate(self):
@@ -342,7 +342,7 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:flag:closed'))
-        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_closed, ]))
+        self.assertEqual(list(response.context['flags']), [flag_closed, ])
 
     def test_flag_detail(self):
         """
@@ -365,8 +365,8 @@ class AdminViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:admin:flag:detail', kwargs={'pk': comment_flag.pk, }))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(repr(response.context['flag']), repr(comment_flag))
-        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
+        self.assertEqual(response.context['flag'], comment_flag)
+        self.assertEqual(list(response.context['flags']), [flag_, ])
 
     @override_djconfig(comments_per_page=1)
     def test_flag_detail_paginate(self):
@@ -382,7 +382,7 @@ class AdminViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:admin:flag:detail', kwargs={'pk': comment_flag.pk, }))
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context['flags'], map(repr, [flag_, ]))
+        self.assertEqual(list(response.context['flags']), [flag_, ])
 
 
 class AdminFormTest(TestCase):
@@ -484,4 +484,4 @@ class AdminFormTest(TestCase):
         form_data = {"is_closed": True, }
         form = CommentFlagForm(user=self.user, data=form_data, instance=comment_flag)
         self.assertEqual(form.is_valid(), True)
-        self.assertEqual(repr(form.save().moderator), repr(self.user))
+        self.assertEqual(form.save().moderator, self.user)
