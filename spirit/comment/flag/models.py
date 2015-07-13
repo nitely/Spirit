@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils import timezone
 
 
 REASON_CHOICES = (
@@ -20,7 +21,7 @@ class CommentFlag(models.Model):
     moderator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     comment = models.OneToOneField('spirit.Comment')
 
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
     is_closed = models.BooleanField(default=False)
 
     class Meta:
@@ -42,7 +43,7 @@ class Flag(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     comment = models.ForeignKey('spirit.Comment')
 
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
     reason = models.IntegerField(_("reason"), choices=REASON_CHOICES)
     body = models.TextField(_("body"), blank=True)
 

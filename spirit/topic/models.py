@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils import timezone
 
 from .managers import TopicQuerySet
 from ..core.utils.models import AutoSlugField
@@ -20,8 +21,8 @@ class Topic(models.Model):
 
     title = models.CharField(_("title"), max_length=255)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
-    date = models.DateTimeField(_("date"), auto_now_add=True)
-    last_active = models.DateTimeField(_("last active"), auto_now_add=True)
+    date = models.DateTimeField(_("date"), default=timezone.now)
+    last_active = models.DateTimeField(_("last active"), default=timezone.now)
 
     is_pinned = models.BooleanField(_("pinned"), default=False)
     is_globally_pinned = models.BooleanField(_("globally pinned"), default=False)

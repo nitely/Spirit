@@ -6,6 +6,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils import timezone
 
 from .managers import TopicPrivateQuerySet
 
@@ -16,7 +17,7 @@ class TopicPrivate(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     topic = models.ForeignKey('spirit.Topic', related_name='topics_private')
 
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
 
     objects = TopicPrivateQuerySet.as_manager()
 

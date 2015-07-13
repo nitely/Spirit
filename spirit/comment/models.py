@@ -7,6 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
+from django.db.models import F
+from django.utils import timezone
 
 from .managers import CommentQuerySet
 
@@ -34,7 +36,7 @@ class Comment(models.Model):
     comment = models.TextField(_("comment"), max_length=COMMENT_MAX_LEN)
     comment_html = models.TextField(_("comment html"))
     action = models.IntegerField(_("action"), choices=ACTION, default=COMMENT)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
     is_removed = models.BooleanField(default=False)
     is_modified = models.BooleanField(default=False)
     ip_address = models.GenericIPAddressField(blank=True, null=True)
@@ -50,17 +52,20 @@ class Comment(models.Model):
         verbose_name_plural = _("comments")
         db_table = 'spirit_comment_comment'  # TODO: remove in Spirit 0.4
 
-    def __str__(self):
-        return "%s: %s..." % (self.user.username, self.comment[:50])
-
     def get_absolute_url(self):
         return reverse('spirit:comment:find', kwargs={'pk': str(self.id), })
 
     @property
     def like(self):
         # *likes* is dynamically created by manager.with_likes()
+        assert len(self.likes) <= 1, "Panic, too many likes"
+
         try:
-            assert len(self.likes) <= 1, "Panic, too many likes"
             return self.likes[0]
         except (AttributeError, IndexError):
             return
+
+    def increase_modified_count(self):
+        Comment.objects\
+            .filter(pk=self.pk)\
+            .update(modified_count=F('modified_count') + 1)

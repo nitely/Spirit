@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils import timezone
 
 
 @python_2_unicode_compatible
@@ -15,7 +16,7 @@ class CommentLike(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     comment = models.ForeignKey('spirit.Comment', related_name='comment_likes')
 
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         unique_together = ('user', 'comment')
