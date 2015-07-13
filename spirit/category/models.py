@@ -6,13 +6,11 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.utils.encoding import python_2_unicode_compatible
 
 from .managers import CategoryQuerySet
 from ..core.utils.models import AutoSlugField
 
 
-@python_2_unicode_compatible
 class Category(models.Model):
 
     parent = models.ForeignKey('self', verbose_name=_("category parent"), null=True, blank=True)
@@ -33,12 +31,6 @@ class Category(models.Model):
         verbose_name = _("category")
         verbose_name_plural = _("categories")
         db_table = 'spirit_category_category'  # TODO: remove in Spirit 0.4
-
-    def __str__(self):
-        if self.parent:
-            return "%s, %s" % (self.parent.title, self.title)
-        else:
-            return self.title
 
     def get_absolute_url(self):
         if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:

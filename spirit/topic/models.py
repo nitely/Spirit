@@ -6,14 +6,12 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 
 from .managers import TopicQuerySet
 from ..core.utils.models import AutoSlugField
 
 
-@python_2_unicode_compatible
 class Topic(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -39,9 +37,6 @@ class Topic(models.Model):
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
         db_table = 'spirit_topic_topic'  # TODO: remove in Spirit 0.4
-
-    def __str__(self):
-        return self.title
 
     def get_absolute_url(self):
         if self.category_id == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:

@@ -6,7 +6,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.utils.encoding import python_2_unicode_compatible
 from django.db.models import F
 from django.utils import timezone
 
@@ -27,7 +26,6 @@ ACTION = (
 )
 
 
-@python_2_unicode_compatible
 class Comment(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))

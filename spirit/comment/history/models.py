@@ -5,11 +5,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 
 
-@python_2_unicode_compatible
 class CommentHistory(models.Model):
 
     comment_fk = models.ForeignKey('spirit.Comment', verbose_name=_("original comment"))

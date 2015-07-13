@@ -5,11 +5,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 
 
-@python_2_unicode_compatible
 class TopicPoll(models.Model):
 
     topic = models.OneToOneField('spirit.Topic', verbose_name=_("topic"), primary_key=True, related_name='poll')
@@ -23,9 +21,6 @@ class TopicPoll(models.Model):
         verbose_name_plural = _("topics polls")
         db_table = 'spirit_poll_topicpoll'  # TODO: remove in Spirit 0.4
 
-    def __str__(self):
-        return "poll at topic #%s" % self.topic.pk
-
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
 
@@ -34,7 +29,6 @@ class TopicPoll(models.Model):
         return self.choice_limit > 1
 
 
-@python_2_unicode_compatible
 class TopicPollChoice(models.Model):
 
     poll = models.ForeignKey(TopicPoll, verbose_name=_("poll"), related_name='choices')
@@ -48,11 +42,7 @@ class TopicPollChoice(models.Model):
         verbose_name_plural = _("poll choices")
         db_table = 'spirit_poll_topicpollchoice'  # TODO: remove in Spirit 0.4
 
-    def __str__(self):
-        return "poll choice %s at topic #%s" % (self.pk, self.poll.topic.pk)
 
-
-@python_2_unicode_compatible
 class TopicPollVote(models.Model):
 
     choice = models.ForeignKey(TopicPollChoice, verbose_name=_("poll choice"), related_name='votes')
@@ -65,6 +55,3 @@ class TopicPollVote(models.Model):
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")
         db_table = 'spirit_poll_topicpollvote'  # TODO: remove in Spirit 0.4
-
-    def __str__(self):
-        return "poll vote %s" % self.pk

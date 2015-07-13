@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 
 from .managers import TopicNotificationQuerySet
@@ -20,7 +19,6 @@ ACTION_CHOICES = (
 )
 
 
-@python_2_unicode_compatible
 class TopicNotification(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
@@ -40,9 +38,6 @@ class TopicNotification(models.Model):
         verbose_name = _("topic notification")
         verbose_name_plural = _("topics notification")
         db_table = 'spirit_notification_topicnotification'  # TODO: remove in Spirit 0.4
-
-    def __str__(self):
-        return "%s in %s" % (self.user, self.topic)
 
     def get_absolute_url(self):
         return self.comment.get_absolute_url()
