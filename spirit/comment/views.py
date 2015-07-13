@@ -60,9 +60,9 @@ def update(request, pk):
 
         if form.is_valid():
             comment_pre = Comment.objects.get(pk=comment.pk)
-            CommentHistory.create_maybe(comment_pre)
             comment = form.save()
             comment.increase_modified_count()
+            CommentHistory.create_maybe(comment_pre)
             CommentHistory.create(comment)
             return redirect(request.POST.get('next', comment.get_absolute_url()))
     else:

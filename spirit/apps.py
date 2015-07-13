@@ -25,7 +25,6 @@ class SpiritConfig(AppConfig):
         from .comment import signals as comment
         from .comment.bookmark import signals as bookmark
         from .topic import signals as topic
-        from .topic.moderate import signals as moderate
         from .topic.notification import signals as notification
         from .topic.poll import signals as poll
         from .topic.private import signals as private

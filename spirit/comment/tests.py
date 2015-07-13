@@ -18,7 +18,6 @@ from django.utils.six import BytesIO
 
 from ..core.tests import utils
 from .models import Comment
-from ..topic.moderate.signals import topic_post_moderate
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
 from .signals import comment_posted, comment_moved
 from .tags import render_comments_form
@@ -441,11 +440,11 @@ class CommentModelsTest(TestCase):
         comment.decrease_likes_count()
         self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 0)
 
-    def test_topic_post_moderate_handler(self):
+    def test_comment_create_moderation_action(self):
         """
         Create comment that tells what moderation action was made
         """
-        topic_post_moderate.send(sender=None, user=self.user, topic=self.topic, action=1)
+        Comment.create_moderation_action(user=self.user, topic=self.topic, action=1)
         self.assertEqual(Comment.objects.filter(user=self.user, topic=self.topic, action=1).count(), 1)
 
 

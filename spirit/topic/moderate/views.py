@@ -7,9 +7,8 @@ from django.views.generic import View
 from django.utils.decorators import method_decorator
 
 from ...core.utils.decorators import moderator_required
-from ...comment.models import CLOSED, UNCLOSED, PINNED, UNPINNED
+from ...comment.models import Comment, CLOSED, UNCLOSED, PINNED, UNPINNED
 from ..models import Topic
-from .signals import topic_post_moderate
 
 
 class BaseView(View):
@@ -24,16 +23,16 @@ class BaseView(View):
             .filter(**{'pk': pk, self.field_name: not_value})\
             .update(**{self.field_name: self.to_value, })
 
-    def send_signal(self, user, action):
-        topic_post_moderate.send(sender=self.topic.__class__, user=user,
-                                 topic=self.topic, action=action)
-
     def post(self, request, *args, **kwargs):
         pk = kwargs['pk']
         count = self.update(pk)
 
         if count and self.action is not None:
-            self.send_signal(request.user, self.action)
+            Comment.create_moderation_action(
+                user=request.user,
+                topic=self.topic,
+                action=self.action
+            )
 
         return redirect(request.POST.get('next', self.topic.get_absolute_url()))
 

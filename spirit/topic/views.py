@@ -16,7 +16,6 @@ from ..comment.forms import CommentForm
 from ..comment.signals import comment_posted
 from ..comment.models import Comment
 from .poll.forms import TopicPollForm, TopicPollChoiceFormSet
-from .moderate.signals import topic_post_moderate
 from .models import Topic
 from .forms import TopicForm
 from .signals import topic_viewed
@@ -80,7 +79,7 @@ def update(request, pk):
             topic = form.save()
 
             if topic.category_id != category_id:
-                topic_post_moderate.send(sender=topic.__class__, user=request.user, topic=topic, action=MOVED)
+                Comment.create_moderation_action(user=request.user, topic=topic, action=MOVED)
 
             return redirect(request.POST.get('next', topic.get_absolute_url()))
     else:

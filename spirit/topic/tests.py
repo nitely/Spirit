@@ -17,7 +17,6 @@ from .models import Topic
 from ..comment.signals import comment_posted, comment_moved
 from .signals import topic_viewed
 from .forms import TopicForm
-from .moderate.signals import topic_post_moderate
 from ..comment.models import Comment
 from ..comment.bookmark.models import CommentBookmark
 from .poll.forms import TopicPollForm, TopicPollChoiceFormSet
@@ -167,14 +166,10 @@ class TopicViewTest(TestCase):
                                     form_data)
         self.assertRedirects(response, topic.get_absolute_url(), status_code=302)
 
-    def test_topic_update_signal(self):
+    def test_topic_update_create_moderation_action(self):
         """
         POST, topic moved to category
         """
-        def topic_post_moderate_handler(sender, user, topic, action, **kwargs):
-            self._moderate = [user._wrapped, topic, action]
-        topic_post_moderate.connect(topic_post_moderate_handler)
-
         utils.login(self)
         self.user.st.is_moderator = True
         self.user.save()
@@ -185,7 +180,7 @@ class TopicViewTest(TestCase):
         form_data = {'title': 'foobar', 'category': category2.pk}
         self.client.post(reverse('spirit:topic:update', kwargs={'pk': topic.pk, }),
                          form_data)
-        self.assertEqual(self._moderate, [self.user, Topic.objects.get(pk=topic.pk), MOVED])
+        self.assertEqual(len(Comment.objects.filter(user=self.user, topic_id=topic.pk, action=MOVED)), 1)
 
     def test_topic_update_invalid_user(self):
         """

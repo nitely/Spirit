@@ -56,9 +56,8 @@ class Comment(models.Model):
     @property
     def like(self):
         # *likes* is dynamically created by manager.with_likes()
-        assert len(self.likes) <= 1, "Panic, too many likes"
-
         try:
+            assert len(self.likes) <= 1, "Panic, too many likes"
             return self.likes[0]
         except (AttributeError, IndexError):
             return
@@ -77,3 +76,14 @@ class Comment(models.Model):
         Comment.objects\
             .filter(pk=self.pk)\
             .update(likes_count=F('likes_count') - 1)
+
+    @classmethod
+    def create_moderation_action(cls, user, topic, action):
+        # TODO: better comment_html text (map to actions), use default language
+        return cls.objects.create(
+            user=user,
+            topic=topic,
+            action=action,
+            comment="action",
+            comment_html="action"
+        )
