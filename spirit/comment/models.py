@@ -67,3 +67,13 @@ class Comment(models.Model):
         Comment.objects\
             .filter(pk=self.pk)\
             .update(modified_count=F('modified_count') + 1)
+
+    def increase_likes_count(self):
+        Comment.objects\
+            .filter(pk=self.pk)\
+            .update(likes_count=F('likes_count') + 1)
+
+    def decrease_likes_count(self):
+        Comment.objects\
+            .filter(pk=self.pk)\
+            .update(likes_count=F('likes_count') - 1)

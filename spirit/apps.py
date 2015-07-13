@@ -24,7 +24,6 @@ class SpiritConfig(AppConfig):
     def register_signals(self):
         from .comment import signals as comment
         from .comment.bookmark import signals as bookmark
-        from .comment.like import signals as like
         from .topic import signals as topic
         from .topic.moderate import signals as moderate
         from .topic.notification import signals as notification

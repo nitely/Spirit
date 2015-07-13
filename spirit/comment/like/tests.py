@@ -8,6 +8,7 @@ from django.template import Template, Context
 from django.core.cache import cache
 
 from ...core.tests import utils
+from ..models import Comment
 from .models import CommentLike
 from .forms import LikeForm
 from .tags import render_like_form
@@ -54,6 +55,17 @@ class LikeViewTest(TestCase):
                                     form_data)
         self.assertEqual(response.status_code, 200)
 
+    def test_like_create_comment_increase_likes_count(self):
+        """
+        Should increase the comment's likes_count
+        """
+        utils.login(self)
+        form_data = {}
+        response = self.client.post(reverse('spirit:comment:like:create', kwargs={'comment_id': self.comment.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Comment.objects.get(pk=self.comment.pk).likes_count, 1)
+
     def test_like_delete(self):
         """
         delete like
@@ -76,6 +88,19 @@ class LikeViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment:like:delete', kwargs={'pk': like.pk, }),
                                     form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+
+    def test_like_delete_comment_decrease_likes_count(self):
+        """
+        Should decrease the comment's likes_count
+        """
+        utils.login(self)
+        comment = utils.create_comment(topic=self.topic, likes_count=1)
+        like = CommentLike.objects.create(user=self.user, comment=comment)
+        form_data = {}
+        response = self.client.post(reverse('spirit:comment:like:delete', kwargs={'pk': like.pk, }),
+                                    form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 0)
 
 
 class LikeFormTest(TestCase):

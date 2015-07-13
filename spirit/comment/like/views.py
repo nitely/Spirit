@@ -10,7 +10,6 @@ from ...core.utils import json_response
 from ..models import Comment
 from .models import CommentLike
 from .forms import LikeForm
-from .signals import comment_like_post_create, comment_like_post_delete
 
 
 @login_required
@@ -22,7 +21,7 @@ def create(request, comment_id):
 
         if form.is_valid():
             like = form.save()
-            comment_like_post_create.send(sender=like.__class__, comment=like.comment)
+            like.comment.increase_likes_count()
 
             if request.is_ajax():
                 return json_response({'url_delete': like.get_delete_url(), })
@@ -45,7 +44,7 @@ def delete(request, pk):
 
     if request.method == 'POST':
         like.delete()
-        comment_like_post_delete.send(sender=like.__class__, comment=like.comment)
+        like.comment.decrease_likes_count()
 
         if request.is_ajax():
             url = reverse('spirit:comment:like:create', kwargs={'comment_id': like.comment.pk, })

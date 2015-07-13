@@ -18,10 +18,9 @@ from django.utils.six import BytesIO
 
 from ..core.tests import utils
 from .models import Comment
-from .like.signals import comment_like_post_create, comment_like_post_delete
 from ..topic.moderate.signals import topic_post_moderate
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .signals import comment_post_update, comment_posted, comment_moved
+from .signals import comment_posted, comment_moved
 from .tags import render_comments_form
 from ..core.utils import markdown
 from .views import delete as comment_delete
@@ -410,7 +409,7 @@ class CommentViewTest(TestCase):
         self.assertIn('image', res['error'].keys())
 
 
-class CommentSignalTest(TestCase):
+class CommentModelsTest(TestCase):
 
     def setUp(self):
         cache.clear()
@@ -418,30 +417,28 @@ class CommentSignalTest(TestCase):
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
 
-    def test_comment_comment_post_update_handler(self):
+    def test_comment_increase_modified_count(self):
         """
-        Increase modified_count on updated comment
+        Increase modified_count
         """
         comment = utils.create_comment(topic=self.topic)
-        comment_post_update.send(sender=comment.__class__, comment=comment)
+        comment.increase_modified_count()
         self.assertEqual(Comment.objects.get(pk=comment.pk).modified_count, 1)
 
-    def test_comment_comment_like_post_create_handler(self):
+    def test_comment_increase_likes_count(self):
         """
         Increase like_count on comment like
         """
         comment = utils.create_comment(topic=self.topic)
-        comment_like_post_create.send(sender=comment.__class__, comment=comment)
+        comment.increase_likes_count()
         self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 1)
 
-    def test_comment_comment_like_post_delete_handler(self):
+    def test_comment_decrease_likes_count(self):
         """
         Decrease like_count on remove comment like
         """
-        comment = utils.create_comment(topic=self.topic)
-        comment_like_post_create.send(sender=comment.__class__, comment=comment)
-        self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 1)
-        comment_like_post_delete.send(sender=comment.__class__, comment=comment)
+        comment = utils.create_comment(topic=self.topic, likes_count=1)
+        comment.decrease_likes_count()
         self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 0)
 
     def test_topic_post_moderate_handler(self):
