@@ -10,7 +10,6 @@ from djconfig.utils import override_djconfig
 
 from ...core.tests import utils
 from .models import CommentHistory
-from .signals import comment_pre_update, comment_post_update
 
 
 class CommentHistoryViewTest(TestCase):
@@ -109,7 +108,7 @@ class CommentHistoryViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class CommentHistorySignalTest(TestCase):
+class CommentHistoryModelsTest(TestCase):
 
     def setUp(self):
         cache.clear()
@@ -117,20 +116,21 @@ class CommentHistorySignalTest(TestCase):
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
 
-    def test_comment_history_comment_pre_update_handler(self):
+    def test_comment_history_create_maybe(self):
         """
-        comment_pre_update_handler signal
+        should create the comment (hystory) if a comment for it does not exists
         """
         comment = utils.create_comment(topic=self.topic)
-        comment_pre_update.send(sender=comment.__class__, comment=comment)
-        self.assertEqual(CommentHistory.objects.get(comment_fk=comment.pk).comment_html, comment.comment_html)
-        self.assertEqual(len(CommentHistory.objects.filter(comment_fk=comment.pk)), 1)
-        comment_pre_update.send(sender=comment.__class__, comment=comment)
+        comment_history = CommentHistory.create_maybe(comment)
+        self.assertTrue(comment_history.pk)
+        comment_history2 = CommentHistory.create_maybe(comment)
+        self.assertIsNone(comment_history2)
         self.assertEqual(len(CommentHistory.objects.filter(comment_fk=comment.pk)), 1)
 
-    def test_comment_history_comment_post_update_handler(self):
+    def test_comment_history_create(self):
         comment = utils.create_comment(topic=self.topic)
-        comment_post_update.send(sender=comment.__class__, comment=comment)
-        self.assertEqual(CommentHistory.objects.get(comment_fk=comment.pk).comment_html, comment.comment_html)
-        comment_post_update.send(sender=comment.__class__, comment=comment)
-        self.assertEqual(len(CommentHistory.objects.filter(comment_fk=comment.pk)), 2)
+        comment_history = CommentHistory.create(comment)
+        self.assertTrue(comment_history.pk)
+        self.assertEqual(comment_history.comment_fk, comment)
+        self.assertEqual(comment_history.comment_html, comment.comment_html)
+        self.assertEqual(comment_history.date, comment.date)

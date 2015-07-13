@@ -13,7 +13,8 @@ class CommentQuerySet(models.QuerySet):
 
     def filter(self, *args, **kwargs):
         # TODO: find a better way
-        return super(CommentQuerySet, self).filter(*args, **kwargs)\
+        return super(CommentQuerySet, self)\
+            .filter(*args, **kwargs)\
             .select_related('user__st')
 
     def unremoved(self):

@@ -8,12 +8,14 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils import timezone
+from django.conf import settings
 
 from djconfig.utils import override_djconfig
 
 from ..core.tests import utils
 from ..topic.models import Topic
 from ..comment.bookmark.models import CommentBookmark
+from .models import Category
 
 
 class CategoryViewTest(TestCase):
@@ -25,15 +27,16 @@ class CategoryViewTest(TestCase):
         self.subcategory_1 = utils.create_subcategory(self.category_1)
         self.category_2 = utils.create_category(title="cat2")
         self.category_removed = utils.create_category(title="cat3", is_removed=True)
+        self.uncategorized = Category.objects.get(pk=settings.ST_UNCATEGORIZED_CATEGORY_PK)
 
     def test_category_list_view(self):
         """
         should display all categories
         """
         response = self.client.get(reverse('spirit:category:index'))
-        self.assertQuerysetEqual(
-            response.context['categories'],
-            ['<Category: Uncategorized>', repr(self.category_1), repr(self.category_2)]
+        self.assertListEqual(
+            list(response.context['categories']),
+            [self.uncategorized, self.category_1, self.category_2]
         )
 
     def test_category_detail_view(self):

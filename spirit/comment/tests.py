@@ -28,6 +28,7 @@ from .views import delete as comment_delete
 from ..topic.models import Topic
 from ..category.models import Category
 from ..user.models import UserProfile
+from .history.models import CommentHistory
 
 User = get_user_model()
 
@@ -246,25 +247,30 @@ class CommentViewTest(TestCase):
                                     form_data)
         self.assertEqual(response.status_code, 404)
 
-    def test_comment_update_signal(self):
+    def test_comment_update_increase_modified_count(self):
         """
-        update comment, emit signal
+        Should increase the modified count after an update
         """
-        def comment_pre_update_handler(sender, comment, **kwargs):
-            self._comment_old = comment
-        comment_pre_update.connect(comment_pre_update_handler)
-
-        def comment_post_update_handler(sender, comment, **kwargs):
-            self._comment_new = comment
-        comment_post_update.connect(comment_post_update_handler)
-
         utils.login(self)
         comment_posted = utils.create_comment(user=self.user, topic=self.topic)
-        form_data = {'comment': 'barfoo', }
+        form_data = {'comment': 'my comment, oh!', }
         self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment_posted.pk, }),
                          form_data)
-        self.assertEqual(repr(self._comment_new), repr(Comment.objects.get(pk=comment_posted.pk)))
-        self.assertEqual(repr(self._comment_old), repr(comment_posted))
+        self.assertEqual(Comment.objects.get(pk=comment_posted.pk).modified_count, 1)
+
+    def test_comment_update_history(self):
+        """
+        Should add the *first* and *modified* comments to the history
+        """
+        utils.login(self)
+        comment_posted = utils.create_comment(user=self.user, topic=self.topic)
+        form_data = {'comment': 'my comment, oh!', }
+        self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment_posted.pk, }),
+                         form_data)
+        comments_history = CommentHistory.objects.filter(comment_fk=comment_posted).order_by('pk')
+        self.assertEqual(len(comments_history), 2)  # first and edited
+        self.assertIn(comment_posted.comment_html, comments_history[0].comment_html)  # first
+        self.assertIn('my comment, oh!', comments_history[1].comment_html)  # modified
 
     def test_comment_delete_permission_denied_to_non_moderator(self):
         req = RequestFactory().get('/')
