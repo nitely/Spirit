@@ -53,3 +53,12 @@ class TopicNotification(models.Model):
     @property
     def is_comment(self):
         return self.action == COMMENT
+
+    @classmethod
+    def mark_as_read(cls, user, topic):
+        if not user.is_authenticated():
+            return
+
+        cls.objects\
+            .filter(user=user, topic=topic)\
+            .update(is_read=True)

@@ -26,7 +26,7 @@ def create(request, topic_id):
         form.save()
         return json_response()
 
-    return Http404()
+    return Http404()  # TODO: return errors (in json format)
 
 
 @login_required

@@ -25,7 +25,34 @@ class CommentBookmark(models.Model):
         db_table = 'spirit_bookmark_commentbookmark'  # TODO: remove in Spirit 0.4
 
     def get_absolute_url(self):
-        return paginator.get_url(self.topic.get_absolute_url(),
-                                 self.comment_number,
-                                 config.comments_per_page,
-                                 'page')
+        return paginator.get_url(
+            url=self.topic.get_absolute_url(),
+            obj_number=self.comment_number,
+            per_page=config.comments_per_page,
+            page_var='page'
+        )
+
+    @classmethod
+    def page_to_comment_number(cls, page_number):
+        try:
+            page_number = int(page_number)
+        except ValueError:
+            return
+
+        return config.comments_per_page * (page_number - 1) + 1
+
+    @classmethod
+    def update_or_create(cls, user, topic, comment_number):
+        if not user.is_authenticated():
+            return
+
+        if comment_number is None:
+            return
+
+        bookmark, created = cls.objects.update_or_create(
+            user=user,
+            topic=topic,
+            defaults={'comment_number': comment_number, }
+        )
+
+        return bookmark

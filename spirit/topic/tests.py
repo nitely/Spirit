@@ -12,14 +12,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from djconfig.utils import override_djconfig
 
 from ..core.tests import utils
+from . import utils as utils_topic
 from ..comment.models import MOVED
 from .models import Topic
 from ..comment.signals import comment_posted, comment_moved
-from .signals import topic_viewed
 from .forms import TopicForm
 from ..comment.models import Comment
 from ..comment.bookmark.models import CommentBookmark
 from .poll.forms import TopicPollForm, TopicPollChoiceFormSet
+from .notification.models import TopicNotification
+from .unread.models import TopicUnread
 
 
 class TopicViewTest(TestCase):
@@ -231,21 +233,25 @@ class TopicViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['comments']), [comment1, comment2])
 
-    def test_topic_detail_view_signals(self):
+    def test_topic_detail_viewed(self):
         """
-        send topic view signal
+        Calls utils.topic_viewed
         """
-        def topic_viewed_handler(sender, request, topic, **kwargs):
-            self._viewed = [request, topic, ]
-        topic_viewed.connect(topic_viewed_handler)
+        def mocked_topic_viewed(request, topic):
+            self._user = request.user
+            self._topic = topic
 
-        utils.login(self)
-
-        category = utils.create_category()
-        topic = utils.create_topic(category=category, user=self.user)
-        response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(self._viewed, [response.context['request'], topic])
+        org_viewed, utils_topic.topic_viewed = utils_topic.topic_viewed, mocked_topic_viewed
+        try:
+            utils.login(self)
+            category = utils.create_category()
+            topic = utils.create_topic(category=category, user=self.user)
+            response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(self._topic, topic)
+            self.assertEqual(self._user, self.user)
+        finally:
+            utils_topic.topic_viewed = org_viewed
 
     def test_topic_detail_view_invalid_slug(self):
         """
@@ -402,7 +408,34 @@ class TopicFormTest(TestCase):
         self.assertEqual(form.is_valid(), True)
 
 
-class TopicSignalTest(TestCase):
+class TopicUtilsTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+
+    def test_topic_viewed(self):
+        """
+        * Should update/create the comment bookmark
+        * Should mark the topic notification as read
+        * Should create or mark the topic (unread) as read
+        * Should increase the view_counter
+        """
+        req = RequestFactory().get('/?page=1')
+        req.user = self.user
+
+        category = utils.create_category()
+        topic = utils.create_topic(category=category, user=self.user)
+        notification = TopicNotification.objects.create(user=topic.user, topic=topic, is_read=False)
+        unread = TopicUnread.objects.create(user=topic.user, topic=topic, is_read=False)
+        utils_topic.topic_viewed(req, topic)
+        self.assertEqual(len(CommentBookmark.objects.filter(user=self.user, topic=topic)), 1)
+        self.assertTrue(TopicNotification.objects.get(pk=notification.pk).is_read)
+        self.assertTrue(TopicUnread.objects.get(pk=unread.pk).is_read)
+        self.assertEqual(Topic.objects.get(pk=topic.pk).view_count, 1)
+
+
+class TopicModelsTest(TestCase):
 
     def setUp(self):
         cache.clear()
@@ -410,13 +443,11 @@ class TopicSignalTest(TestCase):
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
 
-    def test_topic_page_viewed_handler(self):
+    def test_topic_increase_view_count(self):
         """
-        topic_page_viewed_handler signal
+        increase_view_count
         """
-        req = RequestFactory().get('/')
-        req.user = self.user
-        topic_viewed.send(sender=self.topic.__class__, request=req, topic=self.topic)
+        self.topic.increase_view_count()
         self.assertEqual(Topic.objects.get(pk=self.topic.pk).view_count, 1)
 
     def test_topic_comment_posted_handler(self):

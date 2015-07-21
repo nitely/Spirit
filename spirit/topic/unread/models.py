@@ -25,3 +25,14 @@ class TopicUnread(models.Model):
 
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
+
+    @classmethod
+    def create_or_mark_as_read(cls, user, topic):
+        if not user.is_authenticated():
+            return
+
+        return cls.objects.update_or_create(
+            user=user,
+            topic=topic,
+            defaults={'is_read': True, }
+        )

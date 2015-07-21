@@ -17,7 +17,6 @@ from ...core.tests import utils
 from ..private.models import TopicPrivate
 from .models import TopicNotification, COMMENT, MENTION
 from ...comment.signals import comment_posted
-from ..signals import topic_viewed
 from ..private.signals import topic_private_post_create, topic_private_access_pre_create
 from .forms import NotificationCreationForm, NotificationForm
 from .tags import render_notification_form, has_topic_notifications
@@ -351,7 +350,7 @@ class TopicNotificationFormTest(TestCase):
         self.assertEqual(form.is_valid(), True)
 
 
-class TopicNotificationSignalTest(TestCase):
+class TopicNotificationModelsTest(TestCase):
 
     def setUp(self):
         cache.clear()
@@ -443,19 +442,15 @@ class TopicNotificationSignalTest(TestCase):
                                              topic=private.topic,
                                              user=private.user)
 
-    def test_topic_viewed_handler(self):
+    def test_topic_notification_mark_as_read(self):
         """
-        mark notification as read when the user visits the topic
+        Mark notification as read
         """
-        req = RequestFactory().get('/')
-        req.user = self.user
         private = utils.create_private_topic()
         TopicNotification.objects.create(user=private.user, topic=private.topic, is_read=False)
-        topic_viewed.send(sender=private.__class__,
-                          topic=private.topic,
-                          request=req)
+        TopicNotification.mark_as_read(user=private.user, topic=private.topic)
         notification = TopicNotification.objects.get(user=private.user, topic=private.topic)
-        self.assertFalse(notification.is_read)
+        self.assertTrue(notification.is_read)
 
 
 class TopicNotificationTemplateTagsTest(TestCase):

@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
+from django.db.models import F
 
 from .managers import TopicQuerySet
 from ..core.utils.models import AutoSlugField
@@ -56,3 +57,8 @@ class Topic(models.Model):
             return self.bookmarks[0]
         except (AttributeError, IndexError):
             return
+
+    def increase_view_count(self):
+        Topic.objects\
+            .filter(pk=self.pk)\
+            .update(view_count=F('view_count') + 1)

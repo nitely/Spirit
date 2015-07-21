@@ -10,7 +10,6 @@ from django.core.cache import cache
 from djconfig import config
 
 from ...core.tests import utils
-from ...topic.signals import topic_viewed
 from .models import CommentBookmark
 from .forms import BookmarkForm
 
@@ -36,7 +35,7 @@ class CommentBookmarkViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class CommentBookmarkSignalTest(TestCase):
+class CommentBookmarkModelsTest(TestCase):
 
     def setUp(self):
         cache.clear()
@@ -47,25 +46,29 @@ class CommentBookmarkSignalTest(TestCase):
         for _ in range(config.comments_per_page * 4):  # 4 pages
             utils.create_comment(user=self.user, topic=self.topic)
 
-    def test_comment_bookmark_topic_page_viewed_handler(self):
+    def test_comment_bookmark_update_or_create(self):
         """
-        topic_page_viewed_handler signal
+        Should update or create the comment number
         """
         page = 2
-        req = RequestFactory().get('/', data={'page': str(page), })
-        req.user = self.user
-        topic_viewed.send(sender=self.topic.__class__, topic=self.topic, request=req)
+        CommentBookmark.update_or_create(
+            user=self.user,
+            topic=self.topic,
+            comment_number=CommentBookmark.page_to_comment_number(page)
+        )
         comment_bookmark = CommentBookmark.objects.get(user=self.user, topic=self.topic)
         self.assertEqual(comment_bookmark.comment_number, config.comments_per_page * (page - 1) + 1)
 
-    def test_comment_bookmark_topic_page_viewed_handler_invalid_page(self):
+    def test_comment_bookmark_update_or_create_invalid_page(self):
         """
-        invalid page
+        Should do nothing when receiving an invalid page
         """
         page = 'im_a_string'
-        req = RequestFactory().get('/', data={'page': str(page), })
-        req.user = self.user
-        topic_viewed.send(sender=self.topic.__class__, topic=self.topic, request=req)
+        CommentBookmark.update_or_create(
+            user=self.user,
+            topic=self.topic,
+            comment_number=CommentBookmark.page_to_comment_number(page)
+        )
         self.assertEqual(len(CommentBookmark.objects.all()), 0)
 
 

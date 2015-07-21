@@ -18,7 +18,7 @@ from ..comment.models import Comment
 from .poll.forms import TopicPollForm, TopicPollChoiceFormSet
 from .models import Topic
 from .forms import TopicForm
-from .signals import topic_viewed
+from . import utils
 
 
 @login_required
@@ -96,7 +96,7 @@ def detail(request, pk, slug):
     if topic.slug != slug:
         return HttpResponsePermanentRedirect(topic.get_absolute_url())
 
-    topic_viewed.send(sender=topic.__class__, request=request, topic=topic)
+    utils.topic_viewed(request=request, topic=topic)
 
     comments = Comment.objects\
         .for_topic(topic=topic)\

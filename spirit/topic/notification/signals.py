@@ -7,7 +7,6 @@ from django.db import IntegrityError, transaction
 
 from ...comment.signals import comment_posted
 from ..private.signals import topic_private_post_create, topic_private_access_pre_create
-from ..signals import topic_viewed
 from .models import TopicNotification, COMMENT, MENTION
 
 
@@ -68,16 +67,6 @@ def topic_private_access_pre_create_handler(sender, topic, user, **kwargs):
     except IntegrityError:
         pass
 
-
-def topic_viewed_handler(sender, request, topic, **kwargs):
-    if not request.user.is_authenticated():
-        return
-
-    TopicNotification.objects.filter(user=request.user, topic=topic)\
-        .update(is_read=True)
-
-
 comment_posted.connect(comment_posted_handler, dispatch_uid=__name__)
 topic_private_post_create.connect(topic_private_post_create_handler, dispatch_uid=__name__)
 topic_private_access_pre_create.connect(topic_private_access_pre_create_handler, dispatch_uid=__name__)
-topic_viewed.connect(topic_viewed_handler, dispatch_uid=__name__)

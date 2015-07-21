@@ -8,7 +8,6 @@ from django.core.urlresolvers import reverse
 
 from ...core.tests import utils
 from .models import TopicUnread
-from ..signals import topic_viewed
 from ...comment.signals import comment_posted
 from ...comment.bookmark.models import CommentBookmark
 
@@ -124,7 +123,7 @@ class TopicUnreadViewTest(TestCase):
         self.assertEqual(response.context['page'][0].bookmark, bookmark)
 
 
-class TopicUnreadSignalTest(TestCase):
+class TopicUnreadModelsTest(TestCase):
 
     def setUp(self):
         cache.clear()
@@ -140,18 +139,15 @@ class TopicUnreadSignalTest(TestCase):
 
     def test_topic_unread_create_or_read_handler(self):
         """
-        create or read when visiting topic
+        create or mark as read
         """
-        req = RequestFactory().get('/')
-        req.user = self.user
-        TopicUnread.objects.all().update(is_read=False)
-        topic_viewed.send(sender=self.topic.__class__, request=req, topic=self.topic)
-        self.assertTrue(TopicUnread.objects.get(user=self.user, topic=self.topic).is_read)
+        user = utils.create_user()
+        TopicUnread.create_or_mark_as_read(user=user, topic=self.topic)
+        self.assertEqual(len(TopicUnread.objects.filter(user=user, topic=self.topic)), 1)
 
-        req.user = self.user2
-        topic_viewed.send(sender=self.topic.__class__, request=req, topic=self.topic)
-        self.assertEqual(len(TopicUnread.objects.filter(user=self.user2, topic=self.topic)), 1)
-        self.assertTrue(TopicUnread.objects.get(user=self.user2, topic=self.topic).is_read)
+        TopicUnread.objects.all().update(is_read=True)
+        TopicUnread.create_or_mark_as_read(user=user, topic=self.topic)
+        self.assertTrue(TopicUnread.objects.get(user=user, topic=self.topic).is_read)
 
     def test_topic_unread_bulk_handler(self):
         """

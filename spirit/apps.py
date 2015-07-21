@@ -23,7 +23,6 @@ class SpiritConfig(AppConfig):
 
     def register_signals(self):
         from .comment import signals as comment
-        from .comment.bookmark import signals as bookmark
         from .topic import signals as topic
         from .topic.notification import signals as notification
         from .topic.poll import signals as poll

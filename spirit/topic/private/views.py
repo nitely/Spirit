@@ -20,7 +20,7 @@ from ...comment.forms import CommentForm
 from ...comment.signals import comment_posted
 from ...comment.models import Comment
 from ..models import Topic
-from ..signals import topic_viewed
+from ..utils import topic_viewed
 from .models import TopicPrivate
 from .forms import TopicPrivateManyForm, TopicForPrivateForm,\
     TopicPrivateJoinForm, TopicPrivateInviteForm
@@ -77,7 +77,7 @@ def detail(request, topic_id, slug):
     if topic.slug != slug:
         return HttpResponsePermanentRedirect(topic.get_absolute_url())
 
-    topic_viewed.send(sender=topic.__class__, request=request, topic=topic)
+    topic_viewed(request=request, topic=topic)
 
     comments = Comment.objects\
         .for_topic(topic=topic)\
