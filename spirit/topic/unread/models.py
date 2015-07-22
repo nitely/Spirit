@@ -36,3 +36,10 @@ class TopicUnread(models.Model):
             topic=topic,
             defaults={'is_read': True, }
         )
+
+    @classmethod
+    def unread_new_comment(cls, comment):
+        cls.objects\
+            .filter(topic=comment.topic)\
+            .exclude(user=comment.user)\
+            .update(is_read=False, date=timezone.now())

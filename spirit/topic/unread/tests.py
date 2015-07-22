@@ -8,7 +8,6 @@ from django.core.urlresolvers import reverse
 
 from ...core.tests import utils
 from .models import TopicUnread
-from ...comment.signals import comment_posted
 from ...comment.bookmark.models import CommentBookmark
 
 
@@ -137,7 +136,7 @@ class TopicUnreadModelsTest(TestCase):
         self.topic_unread2 = TopicUnread.objects.create(user=self.user, topic=self.topic2)
         self.topic_unread3 = TopicUnread.objects.create(user=self.user2, topic=self.topic)
 
-    def test_topic_unread_create_or_read_handler(self):
+    def test_topic_unread_create_or_mark_as_read(self):
         """
         create or mark as read
         """
@@ -149,12 +148,12 @@ class TopicUnreadModelsTest(TestCase):
         TopicUnread.create_or_mark_as_read(user=user, topic=self.topic)
         self.assertTrue(TopicUnread.objects.get(user=user, topic=self.topic).is_read)
 
-    def test_topic_unread_bulk_handler(self):
+    def test_topic_unread_new_comment(self):
         """
-        mark as unread when comment posted
+        Mark as unread
         """
         TopicUnread.objects.all().update(is_read=True)
         comment = utils.create_comment(user=self.user, topic=self.topic)
-        comment_posted.send(sender=self.topic.__class__, comment=comment, mentions=None)
+        TopicUnread.unread_new_comment(comment=comment)
         self.assertTrue(TopicUnread.objects.get(user=self.user, topic=self.topic).is_read)
         self.assertFalse(TopicUnread.objects.get(user=self.user2, topic=self.topic).is_read)

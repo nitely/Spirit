@@ -29,6 +29,7 @@ from ..user.models import UserProfile
 from .history.models import CommentHistory
 from .utils import comment_posted
 from ..topic.notification.models import TopicNotification, MENTION
+from ..topic.unread.models import TopicUnread
 
 User = get_user_model()
 
@@ -571,6 +572,8 @@ class CommentUtilsTest(TestCase):
         * Should create subscription
         * Should notify subscribers
         * Should notify mentions
+        * Should increase topic's comment counter
+        * Should mark the topic as unread
         """
         # Should create subscription
         subscriber = self.user
@@ -593,3 +596,21 @@ class CommentUtilsTest(TestCase):
         comment_posted(comment=comment, mentions=mentions)
         self.assertEqual(TopicNotification.objects.get(user=mentioned, comment=comment).action, MENTION)
         self.assertFalse(TopicNotification.objects.get(user=mentioned, comment=comment).is_read)
+
+        # Should mark the topic as unread
+        user_unread = utils.create_user()
+        topic = utils.create_topic(self.category)
+        topic_unread_creator = TopicUnread.objects.create(user=user, topic=topic, is_read=True)
+        topic_unread_subscriber = TopicUnread.objects.create(user=user_unread, topic=topic, is_read=True)
+        comment = utils.create_comment(user=user, topic=topic)
+        comment_posted(comment=comment, mentions=None)
+        self.assertTrue(TopicUnread.objects.get(pk=topic_unread_creator.pk).is_read)
+        self.assertFalse(TopicUnread.objects.get(pk=topic_unread_subscriber.pk).is_read)
+
+        # Should increase topic's comment counter
+        topic = utils.create_topic(self.category)
+        comment = utils.create_comment(user=user, topic=topic)
+        comment_posted(comment=comment, mentions=None)
+        self.assertEqual(Topic.objects.get(pk=topic.pk).comment_count, 1)
+        comment_posted(comment=comment, mentions=None)
+        self.assertEqual(Topic.objects.get(pk=topic.pk).comment_count, 2)

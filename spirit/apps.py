@@ -27,5 +27,4 @@ class SpiritConfig(AppConfig):
         from .topic.notification import signals as notification
         from .topic.poll import signals as poll
         from .topic.private import signals as private
-        from .topic.unread import signals as unread
         from .user import signals as user

@@ -16,7 +16,6 @@ from djconfig.utils import override_djconfig
 from ...core.tests import utils
 from ..private.models import TopicPrivate
 from .models import TopicNotification, COMMENT, MENTION
-from ...comment.signals import comment_posted
 from ..private.signals import topic_private_post_create, topic_private_access_pre_create
 from .forms import NotificationCreationForm, NotificationForm
 from .tags import render_notification_form, has_topic_notifications

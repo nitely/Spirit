@@ -62,3 +62,8 @@ class Topic(models.Model):
         Topic.objects\
             .filter(pk=self.pk)\
             .update(view_count=F('view_count') + 1)
+
+    def increase_comment_count(self):
+        Topic.objects\
+            .filter(pk=self.pk)\
+            .update(comment_count=F('comment_count') + 1, last_active=timezone.now())
