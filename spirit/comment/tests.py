@@ -19,7 +19,7 @@ from django.utils.six import BytesIO
 from ..core.tests import utils
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .signals import comment_posted, comment_moved
+from .signals import comment_moved
 from .tags import render_comments_form
 from ..core.utils import markdown
 from .views import delete as comment_delete
@@ -27,6 +27,8 @@ from ..topic.models import Topic
 from ..category.models import Category
 from ..user.models import UserProfile
 from .history.models import CommentHistory
+from .utils import comment_posted
+from ..topic.notification.models import TopicNotification, MENTION
 
 User = get_user_model()
 
@@ -146,19 +148,6 @@ class CommentViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': private.topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 404)
-
-    def test_comment_publish_signal(self):
-        """
-        create comment signal
-        """
-        def comment_posted_handler(sender, comment, **kwargs):
-            self._comment = comment
-        comment_posted.connect(comment_posted_handler)
-
-        utils.login(self)
-        form_data = {'comment': 'foobar', }
-        self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }), form_data)
-        self.assertEqual(self._comment.comment, 'foobar')
 
     def test_comment_publish_quote(self):
         """
@@ -337,12 +326,6 @@ class CommentViewTest(TestCase):
         """
         move comments, emit signal
         """
-        self._comments = []
-
-        def comment_posted_handler(sender, comment, **kwargs):
-            self._comments.append(comment)
-        comment_posted.connect(comment_posted_handler)
-
         def comment_moved_handler(sender, comments, topic_from, **kwargs):
             self._comment_count = len(comments)
             self._topic_from = topic_from
@@ -361,7 +344,6 @@ class CommentViewTest(TestCase):
         response = self.client.post(reverse('spirit:comment:move', kwargs={'topic_id': self.topic.pk, }),
                                     form_data)
         self.assertEqual(response.status_code, 302)
-        self.assertListEqual(self._comments, [comment2, comment])
         self.assertEqual(self._comment_count, 2)
         self.assertEqual(self._topic_from, self.topic)
 
@@ -574,3 +556,40 @@ class CommentFormTest(TestCase):
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())
+
+
+class CommentUtilsTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(category=self.category, user=self.user)
+
+    def test_comment_posted(self):
+        """
+        * Should create subscription
+        * Should notify subscribers
+        * Should notify mentions
+        """
+        # Should create subscription
+        subscriber = self.user
+        comment = utils.create_comment(user=subscriber, topic=self.topic)
+        comment_posted(comment=comment, mentions=None)
+        self.assertEqual(len(TopicNotification.objects.all()), 1)
+        self.assertTrue(TopicNotification.objects.get(user=subscriber, topic=self.topic).is_read)
+
+        # Should notify subscribers
+        user = utils.create_user()
+        comment = utils.create_comment(user=user, topic=self.topic)
+        comment_posted(comment=comment, mentions=None)
+        self.assertEqual(len(TopicNotification.objects.all()), 2)
+        self.assertFalse(TopicNotification.objects.get(user=subscriber, topic=self.topic).is_read)
+
+        # Should notify mentions
+        mentioned = utils.create_user()
+        mentions = {mentioned.username: mentioned, }
+        comment = utils.create_comment(user=user, topic=self.topic)
+        comment_posted(comment=comment, mentions=mentions)
+        self.assertEqual(TopicNotification.objects.get(user=mentioned, comment=comment).action, MENTION)
+        self.assertFalse(TopicNotification.objects.get(user=mentioned, comment=comment).is_read)

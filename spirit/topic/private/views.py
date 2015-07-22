@@ -17,7 +17,7 @@ from ...core import utils
 from ...core.utils.paginator import paginate, yt_paginate
 from ...core.utils.ratelimit.decorators import ratelimit
 from ...comment.forms import CommentForm
-from ...comment.signals import comment_posted
+from ...comment.utils import comment_posted
 from ...comment.models import Comment
 from ..models import Topic
 from ..utils import topic_viewed
@@ -42,7 +42,7 @@ def publish(request, user_id=None):
             topic = tform.save()
             cform.topic = topic
             comment = cform.save()
-            comment_posted.send(sender=comment.__class__, comment=comment, mentions=None)
+            comment_posted(comment=comment, mentions=None)
             tpform.topic = topic
             topics_private = tpform.save_m2m()
             topic_private_post_create.send(sender=TopicPrivate, topics_private=topics_private, comment=comment)

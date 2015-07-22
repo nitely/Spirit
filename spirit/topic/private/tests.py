@@ -8,7 +8,6 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
-from django.utils import six
 from django.utils import timezone
 
 from djconfig.utils import override_djconfig
@@ -24,6 +23,7 @@ from ...comment.models import Comment
 from .signals import topic_private_post_create, topic_private_access_pre_create
 from ..models import Topic
 from ...comment.bookmark.models import CommentBookmark
+from .. import utils as utils_topic
 
 
 class TopicPrivateViewTest(TestCase):
@@ -47,22 +47,6 @@ class TopicPrivateViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:topic:private:publish'))
         self.assertEqual(response.status_code, 200)
-
-    def test_private_publish_comment_posted_signals(self):
-        """
-        send publish_comment_posted signal
-        """
-        def comment_posted_handler(sender, comment, **kwargs):
-            self._comment = comment
-        comment_posted.connect(comment_posted_handler)
-
-        utils.login(self)
-        form_data = {'comment': 'foo', 'title': 'foobar', 'users': self.user2.username}
-        response = self.client.post(reverse('spirit:topic:private:publish'),
-                                    form_data)
-        self.assertEqual(response.status_code, 302)
-        comment = Comment.objects.last()
-        self.assertEqual(self._comment, comment)
 
     def test_private_publish_topic_private_post_create_signals(self):
         """
@@ -132,6 +116,26 @@ class TopicPrivateViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], private.topic)
         self.assertEqual(list(response.context['comments']), [comment1, comment2])
+
+    def test_topic_private_detail_viewed(self):
+        """
+        Calls utils.topic_viewed
+        """
+        def mocked_topic_viewed(request, topic):
+            self._user = request.user
+            self._topic = topic
+
+        org_viewed, utils_topic.topic_viewed = utils_topic.topic_viewed, mocked_topic_viewed
+        try:
+            utils.login(self)
+            category = utils.create_category()
+            topic = utils.create_topic(category=category, user=self.user)
+            response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(self._topic, topic)
+            self.assertEqual(self._user, self.user)
+        finally:
+            utils_topic.topic_viewed = org_viewed
 
     def test_private_access_create(self):
         """

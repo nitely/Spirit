@@ -366,46 +366,6 @@ class TopicNotificationModelsTest(TestCase):
                                                                     comment=self.comment, is_active=True,
                                                                     action=COMMENT, is_read=True)
 
-    def test_topic_notification_comment_handler(self):
-        """
-        set is_read=False when a comment is posted
-        """
-        comment = utils.create_comment(topic=self.topic)
-        comment_posted.send(sender=self.topic.__class__, comment=comment, mentions=None)
-        self.assertFalse(TopicNotification.objects.get(pk=self.topic_notification.pk).is_read)
-
-    def test_topic_notification_comment_handler_unactive(self):
-        """
-        do nothing if notification is_active=False
-        """
-        TopicNotification.objects.filter(pk=self.topic_notification.pk).update(is_active=False)
-        comment = utils.create_comment(topic=self.topic_notification.topic)
-        comment_posted.send(sender=self.topic.__class__, comment=comment, mentions=None)
-        self.assertTrue(TopicNotification.objects.get(pk=self.topic_notification.pk).is_read)
-
-    def test_topic_notification_mention_handler(self):
-        """
-        create notification on mention
-        """
-        topic = utils.create_topic(self.category)
-        mentions = {self.user.username: self.user, }
-        comment = utils.create_comment(topic=topic)
-        comment_posted.send(sender=self.topic.__class__, comment=comment, mentions=mentions)
-        self.assertEqual(TopicNotification.objects.get(user=self.user, comment=comment).action, MENTION)
-        self.assertFalse(TopicNotification.objects.get(user=self.user, comment=comment).is_read)
-
-    def test_topic_notification_mention_handler_unactive(self):
-        """
-        set is_read=False when user gets mentioned
-        even if is_active=False
-        """
-        TopicNotification.objects.filter(pk=self.topic_notification.pk).update(is_active=False)
-        mentions = {self.user.username: self.user, }
-        comment = utils.create_comment(topic=self.topic_notification.topic)
-        comment_posted.send(sender=self.topic.__class__, comment=comment, mentions=mentions)
-        self.assertEqual(TopicNotification.objects.get(pk=self.topic_notification.pk).action, MENTION)
-        self.assertFalse(TopicNotification.objects.get(pk=self.topic_notification.pk).is_read)
-
     def test_topic_private_post_create_handler(self):
         """
         create notifications on topic private created
@@ -451,6 +411,84 @@ class TopicNotificationModelsTest(TestCase):
         TopicNotification.mark_as_read(user=private.user, topic=private.topic)
         notification = TopicNotification.objects.get(user=private.user, topic=private.topic)
         self.assertTrue(notification.is_read)
+
+    def test_topic_notification_create_maybe(self):
+        """
+        Should create a notification if does not exists
+        """
+        user = utils.create_user()
+        topic = utils.create_topic(self.category)
+        TopicNotification.create_maybe(user=user, topic=topic)
+        notification = TopicNotification.objects.get(user=user, topic=topic)
+        self.assertTrue(notification.is_active)
+        self.assertTrue(notification.is_read)
+        self.assertEqual(notification.action, COMMENT)
+
+        # Creating it again should do nothing
+        TopicNotification.objects.filter(user=user, topic=topic).update(is_active=False)
+        TopicNotification.create_maybe(user=user, topic=topic)
+        self.assertFalse(TopicNotification.objects.get(user=user, topic=topic).is_active)
+
+    def test_topic_notification_notify_new_comment(self):
+        """
+        Should set is_read=False to all notifiers/users
+        """
+        creator = utils.create_user()
+        subscriber = utils.create_user()
+        topic = utils.create_topic(self.category)
+        comment = utils.create_comment(user=creator, topic=topic)
+        TopicNotification.objects.create(user=creator, topic=topic, comment=comment,
+                                         is_active=True, is_read=True)
+        TopicNotification.objects.create(user=subscriber, topic=topic, comment=comment,
+                                         is_active=True, is_read=True)
+
+        TopicNotification.notify_new_comment(comment)
+        notification = TopicNotification.objects.get(user=subscriber, topic=topic)
+        self.assertTrue(notification.is_active)
+        self.assertFalse(notification.is_read)
+        self.assertEqual(notification.action, COMMENT)
+
+        # Author should not be notified of its own comment
+        notification2 = TopicNotification.objects.get(user=creator, topic=topic)
+        self.assertTrue(notification2.is_read)
+
+    def test_topic_notification_notify_new_comment_unactive(self):
+        """
+        Should do nothing if notification is unactive
+        """
+        creator = utils.create_user()
+        subscriber = utils.create_user()
+        topic = utils.create_topic(self.category)
+        comment = utils.create_comment(user=creator, topic=topic)
+        TopicNotification.objects.create(user=subscriber, topic=topic, comment=comment,
+                                         is_active=False, is_read=True)
+
+        TopicNotification.notify_new_comment(comment)
+        notification = TopicNotification.objects.get(user=subscriber, topic=topic)
+        self.assertTrue(notification.is_read)
+
+    def test_topic_notification_notify_new_mentions(self):
+        """
+        Should notify mentions
+        """
+        topic = utils.create_topic(self.category)
+        mentions = {self.user.username: self.user, }
+        comment = utils.create_comment(topic=topic)
+        TopicNotification.notify_new_mentions(comment=comment, mentions=mentions)
+        self.assertEqual(TopicNotification.objects.get(user=self.user, comment=comment).action, MENTION)
+        self.assertFalse(TopicNotification.objects.get(user=self.user, comment=comment).is_read)
+
+    def test_topic_notification_notify_new_mentions_unactive(self):
+        """
+        set is_read=False when user gets mentioned
+        even if is_active=False
+        """
+        TopicNotification.objects.filter(pk=self.topic_notification.pk).update(is_active=False)
+        mentions = {self.user.username: self.user, }
+        comment = utils.create_comment(topic=self.topic_notification.topic)
+        TopicNotification.notify_new_mentions(comment=comment, mentions=mentions)
+        self.assertEqual(TopicNotification.objects.get(pk=self.topic_notification.pk).action, MENTION)
+        self.assertFalse(TopicNotification.objects.get(pk=self.topic_notification.pk).is_read)
 
 
 class TopicNotificationTemplateTagsTest(TestCase):

@@ -8,6 +8,7 @@ from .unread.models import TopicUnread
 
 
 def topic_viewed(request, topic):
+    # Todo test detail views
     user = request.user
     comment_number = CommentBookmark.page_to_comment_number(request.GET.get('page', 1))
 

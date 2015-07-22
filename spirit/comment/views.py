@@ -17,7 +17,8 @@ from ..topic.models import Topic
 from .history.models import CommentHistory
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .signals import comment_posted, comment_moved
+from .signals import comment_moved
+from .utils import comment_posted
 
 
 @login_required
@@ -31,7 +32,7 @@ def publish(request, topic_id, pk=None):
 
         if not request.is_limited and form.is_valid():
             comment = form.save()
-            comment_posted.send(sender=comment.__class__, comment=comment, mentions=form.mentions)
+            comment_posted(comment=comment, mentions=form.mentions)
             return redirect(request.POST.get('next', comment.get_absolute_url()))
     else:
         initial = None
@@ -99,7 +100,7 @@ def move(request, topic_id):
         comments = form.save()
 
         for comment in comments:
-            comment_posted.send(sender=comment.__class__, comment=comment, mentions=None)
+            comment_posted(comment=comment, mentions=None)
 
         comment_moved.send(sender=Comment, comments=comments, topic_from=topic)
     else:

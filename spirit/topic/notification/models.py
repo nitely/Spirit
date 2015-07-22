@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils import timezone
+from django.db import IntegrityError, transaction
 
 from .managers import TopicNotificationQuerySet
 
@@ -62,3 +63,45 @@ class TopicNotification(models.Model):
         cls.objects\
             .filter(user=user, topic=topic)\
             .update(is_read=True)
+
+    @classmethod
+    def create_maybe(cls, user, topic):
+        # Create a dummy notification
+        return cls.objects.get_or_create(
+            user=user,
+            topic=topic,
+            defaults={
+                'action': COMMENT,
+                'is_read': True,
+                'is_active': True
+            }
+        )
+
+    @classmethod
+    def notify_new_comment(cls, comment):
+        cls.objects\
+            .filter(topic=comment.topic, is_active=True, is_read=True)\
+            .exclude(user=comment.user)\
+            .update(comment=comment, is_read=False, action=COMMENT, date=timezone.now())
+
+    @classmethod
+    def notify_new_mentions(cls, comment, mentions):
+        if not mentions:
+            return
+
+        # TODO: refactor
+        for username, user in mentions.items():
+            try:
+                with transaction.atomic():
+                    cls.objects.create(
+                        user=user,
+                        topic=comment.topic,
+                        comment=comment,
+                        action=MENTION
+                    )
+            except IntegrityError:
+                pass
+
+        cls.objects\
+            .filter(user__in=mentions.values(), topic=comment.topic, is_read=True)\
+            .update(comment=comment, is_read=False, action=MENTION, date=timezone.now())

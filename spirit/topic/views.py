@@ -13,7 +13,7 @@ from ..core.utils.ratelimit.decorators import ratelimit
 from ..category.models import Category
 from ..comment.models import MOVED
 from ..comment.forms import CommentForm
-from ..comment.signals import comment_posted
+from ..comment.utils import comment_posted
 from ..comment.models import Comment
 from .poll.forms import TopicPollForm, TopicPollChoiceFormSet
 from .models import Topic
@@ -41,7 +41,7 @@ def publish(request, category_id=None):
 
             cform.topic = topic
             comment = cform.save()
-            comment_posted.send(sender=comment.__class__, comment=comment, mentions=cform.mentions)
+            comment_posted(comment=comment, mentions=cform.mentions)
 
             # Create a poll only if we have choices
             if pformset.is_filled():

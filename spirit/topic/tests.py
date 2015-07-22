@@ -113,25 +113,6 @@ class TopicViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:publish', kwargs={'category_id': str(99), }))
         self.assertEqual(response.status_code, 404)
 
-    def test_topic_publish_comment_posted_signals(self):
-        """
-        send publish_comment_posted signal
-        """
-        def comment_posted_handler(sender, comment, **kwargs):
-            self._comment = comment
-        comment_posted.connect(comment_posted_handler)
-
-        utils.login(self)
-
-        category = utils.create_category()
-        form_data = {'title': 'foobar', 'category': category.pk, 'comment': 'foo',
-                     'choices-TOTAL_FORMS': 2, 'choices-INITIAL_FORMS': 0, 'choice_limit': 1}
-        response = self.client.post(reverse('spirit:topic:publish'),
-                                    form_data)
-        self.assertEqual(response.status_code, 302)
-        comment = Comment.objects.last()
-        self.assertEqual(self._comment, comment)
-
     def test_topic_publish_poll(self):
         """
         POST, create topic + poll
