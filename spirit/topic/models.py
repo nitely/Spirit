@@ -67,3 +67,9 @@ class Topic(models.Model):
         Topic.objects\
             .filter(pk=self.pk)\
             .update(comment_count=F('comment_count') + 1, last_active=timezone.now())
+
+    def decrease_comment_count(self):
+        # todo: update last_active to last() comment
+        Topic.objects\
+            .filter(pk=self.pk)\
+            .update(comment_count=F('comment_count') - 1)

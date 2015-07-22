@@ -17,7 +17,6 @@ from ..topic.models import Topic
 from .history.models import CommentHistory
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .signals import comment_moved
 from .utils import comment_posted
 
 
@@ -101,8 +100,7 @@ def move(request, topic_id):
 
         for comment in comments:
             comment_posted(comment=comment, mentions=None)
-
-        comment_moved.send(sender=Comment, comments=comments, topic_from=topic)
+            topic.decrease_comment_count()
     else:
         messages.error(request, render_form_errors(form))
 

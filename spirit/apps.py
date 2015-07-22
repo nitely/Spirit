@@ -22,8 +22,6 @@ class SpiritConfig(AppConfig):
         djconfig.register(BasicConfigForm)
 
     def register_signals(self):
-        from .comment import signals as comment
-        from .topic import signals as topic
         from .topic.notification import signals as notification
         from .topic.poll import signals as poll
         from .topic.private import signals as private

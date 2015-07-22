@@ -15,7 +15,6 @@ from ..core.tests import utils
 from . import utils as utils_topic
 from ..comment.models import MOVED
 from .models import Topic
-from ..comment.signals import comment_moved
 from .forms import TopicForm
 from ..comment.models import Comment
 from ..comment.bookmark.models import CommentBookmark
@@ -439,12 +438,10 @@ class TopicModelsTest(TestCase):
         self.assertEqual(Topic.objects.get(pk=self.topic.pk).comment_count, 1)
         self.assertGreater(Topic.objects.get(pk=self.topic.pk).last_active, self.topic.last_active)
 
-    def test_topic_comment_moved_handler(self):
+    def test_topic_decrease_comment_count(self):
         """
-        comment_moved_handler signal
+        decrease_comment_count
         """
-        comment = utils.create_comment(topic=self.topic)
-        comment2 = utils.create_comment(topic=self.topic)
         Topic.objects.filter(pk=self.topic.pk).update(comment_count=10)
-        comment_moved.send(sender=comment.__class__, comments=[comment, comment2], topic_from=self.topic)
-        self.assertEqual(Topic.objects.get(pk=self.topic.pk).comment_count, 8)
+        self.topic.decrease_comment_count()
+        self.assertEqual(Topic.objects.get(pk=self.topic.pk).comment_count, 9)

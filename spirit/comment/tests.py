@@ -19,7 +19,6 @@ from django.utils.six import BytesIO
 from ..core.tests import utils
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .signals import comment_moved
 from .tags import render_comments_form
 from ..core.utils import markdown
 from .views import delete as comment_delete
@@ -311,6 +310,7 @@ class CommentViewTest(TestCase):
         utils.login(self)
         self.user.st.is_moderator = True
         self.user.save()
+        Topic.objects.filter(pk=self.topic.pk).update(comment_count=2)
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)
         to_topic = utils.create_topic(category=self.category)
@@ -322,31 +322,7 @@ class CommentViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(Comment.objects.filter(topic=to_topic.pk).count(), 2)
         self.assertEqual(Comment.objects.filter(topic=self.topic.pk).count(), 0)
-
-    def test_comment_move_signal(self):
-        """
-        move comments, emit signal
-        """
-        def comment_moved_handler(sender, comments, topic_from, **kwargs):
-            self._comment_count = len(comments)
-            self._topic_from = topic_from
-        comment_moved.connect(comment_moved_handler)
-
-        utils.login(self)
-        self.user.st.is_moderator = True
-        self.user.save()
-
-        comment = utils.create_comment(user=self.user, topic=self.topic)
-        comment2 = utils.create_comment(user=self.user, topic=self.topic)
-        to_topic = utils.create_topic(self.category)
-
-        form_data = {'topic': to_topic.pk,
-                     'comments': [comment.pk, comment2.pk], }
-        response = self.client.post(reverse('spirit:comment:move', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(self._comment_count, 2)
-        self.assertEqual(self._topic_from, self.topic)
+        self.assertEqual(Topic.objects.get(pk=self.topic.pk).comment_count, 0)
 
     def test_comment_find(self):
         """
