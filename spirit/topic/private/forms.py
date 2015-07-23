@@ -94,6 +94,9 @@ class TopicPrivateInviteForm(forms.ModelForm):
 
         return user
 
+    def get_user(self):
+        return self.cleaned_data['user']
+
     def save(self, commit=True):
         if not self.instance.pk:
             self.instance.topic = self.topic
@@ -124,6 +127,9 @@ class TopicPrivateJoinForm(forms.ModelForm):
                                         {'username': getattr(self.user, self.user.USERNAME_FIELD), })
 
         return cleaned_data
+
+    def get_user(self):
+        return self.user
 
     def save(self, commit=True):
         if not self.instance.pk:

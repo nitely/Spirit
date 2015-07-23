@@ -65,7 +65,7 @@ class TopicNotification(models.Model):
             .update(is_read=True)
 
     @classmethod
-    def create_maybe(cls, user, comment):
+    def create_maybe(cls, user, comment, is_read=True):
         # Create a dummy notification
         return cls.objects.get_or_create(
             user=user,
@@ -73,7 +73,7 @@ class TopicNotification(models.Model):
             defaults={
                 'comment': comment,
                 'action': COMMENT,
-                'is_read': True,
+                'is_read': is_read,
                 'is_active': True
             }
         )

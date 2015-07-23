@@ -18,11 +18,12 @@ from .models import TopicPrivate
 from .forms import TopicForPrivateForm, TopicPrivateInviteForm,\
     TopicPrivateManyForm, TopicPrivateJoinForm
 from .tags import render_invite_form
-from .signals import topic_private_access_pre_create
 from ..models import Topic
 from ...comment.bookmark.models import CommentBookmark
 from .. import utils as utils_topic
 from ..notification.models import TopicNotification
+from .utils import notify_access
+from . import views as private_views
 
 
 class TopicPrivateViewTest(TestCase):
@@ -135,6 +136,7 @@ class TopicPrivateViewTest(TestCase):
         """
         utils.login(self)
         private = utils.create_private_topic(user=self.user)
+        utils.create_comment(topic=private.topic)
         form_data = {'user': self.user2.username, }
         response = self.client.post(reverse('spirit:topic:private:access-create', kwargs={'topic_id': private.topic.pk, }),
                                     form_data)
@@ -155,23 +157,26 @@ class TopicPrivateViewTest(TestCase):
                                     form_data)
         self.assertEqual(response.status_code, 404)
 
-    def test_private_access_create_pre_create_signal(self):
+    def test_private_access_create_notify_access(self):
         """
-        send topic_private_access_pre_create signal
+        notify_access
         """
-        def topic_private_access_pre_create_handler(sender, topic, user, **kwargs):
-            self._topic = topic
+        def mocked_notify_access(user, topic_private):
             self._user = user
-        topic_private_access_pre_create.connect(topic_private_access_pre_create_handler)
+            self._topic_private = topic_private
 
-        utils.login(self)
-        private = utils.create_private_topic(user=self.user)
-        form_data = {'user': self.user2.username, }
-        response = self.client.post(reverse('spirit:topic:private:access-create', kwargs={'topic_id': private.topic.pk, }),
-                                    form_data)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(self._topic, private.topic)
-        self.assertEqual(self._user, self.user2)
+        org_access, private_views.notify_access = private_views.notify_access, mocked_notify_access
+        try:
+            utils.login(self)
+            private = utils.create_private_topic(user=self.user)
+            form_data = {'user': self.user2.username, }
+            response = self.client.post(reverse('spirit:topic:private:access-create', kwargs={'topic_id': private.topic.pk, }),
+                                        form_data)
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(self._topic_private, TopicPrivate.objects.last())
+            self.assertEqual(self._user, self.user2)
+        finally:
+            private_views.notify_access = org_access
 
     def test_private_access_delete(self):
         """
@@ -270,6 +275,7 @@ class TopicPrivateViewTest(TestCase):
         private topic join
         """
         private = utils.create_private_topic(user=self.user)
+        utils.create_comment(topic=private.topic)
         private.delete()
 
         utils.login(self)
@@ -307,25 +313,28 @@ class TopicPrivateViewTest(TestCase):
                                     form_data)
         self.assertEqual(response.status_code, 404)
 
-    def test_private_join_access_pre_create_signal(self):
+    def test_private_join_access_notify_access(self):
         """
-        send topic_private_access_pre_create signal
+        notify_access
         """
-        def topic_private_access_pre_create_handler(sender, topic, user, **kwargs):
-            self._topic = topic
-            self._user_pk = user.pk
-        topic_private_access_pre_create.connect(topic_private_access_pre_create_handler)
+        def mocked_notify_access(user, topic_private):
+            self._user = user
+            self._topic_private = topic_private
 
-        private = utils.create_private_topic(user=self.user)
-        private.delete()
+        org_access, private_views.notify_access = private_views.notify_access, mocked_notify_access
+        try:
+            private = utils.create_private_topic(user=self.user)
+            private.delete()
 
-        utils.login(self)
-        form_data = {}
-        response = self.client.post(reverse('spirit:topic:private:join', kwargs={'topic_id': private.topic.pk, }),
-                                    form_data)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(self._topic, private.topic)
-        self.assertEqual(self._user_pk, self.user.pk)
+            utils.login(self)
+            form_data = {}
+            response = self.client.post(reverse('spirit:topic:private:join', kwargs={'topic_id': private.topic.pk, }),
+                                        form_data)
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(self._topic_private, TopicPrivate.objects.last())
+            self.assertEqual(self._user, self.user)
+        finally:
+            private_views.notify_access = org_access
 
     def test_private_created_list(self):
         """
@@ -465,3 +474,26 @@ class TopicTemplateTagsTest(TestCase):
         self.assertEqual(context['next'], None)
         self.assertIsInstance(context['form'], TopicPrivateInviteForm)
         self.assertEqual(context['topic'], self.topic)
+
+
+class TopicPrivateUtilsTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.user2 = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(self.category)
+        self.comment = utils.create_comment(topic=self.topic)
+
+    def test_topic_private_notify_access(self):
+        """
+        Should create a notification
+        """
+        private = utils.create_private_topic()
+        comment = utils.create_comment(topic=private.topic)
+        notify_access(user=private.user, topic_private=private)
+        notification = TopicNotification.objects.get(user=private.user, topic=private.topic)
+        self.assertTrue(notification.is_active)
+        self.assertFalse(notification.is_read)
+        self.assertEqual(notification.comment, comment)

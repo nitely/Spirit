@@ -21,11 +21,11 @@ from ...comment.utils import comment_posted
 from ...comment.models import Comment
 from ..models import Topic
 from ..utils import topic_viewed
+from .utils import notify_access
 from .models import TopicPrivate
 from .forms import TopicPrivateManyForm, TopicForPrivateForm,\
     TopicPrivateJoinForm, TopicPrivateInviteForm
-from .signals import topic_private_access_pre_create
-from ...topic.notification.models import TopicNotification
+from ..notification.models import TopicNotification
 
 User = get_user_model()
 
@@ -107,10 +107,8 @@ def create_access(request, topic_id):
     form = TopicPrivateInviteForm(topic=topic_private.topic, data=request.POST)
 
     if form.is_valid():
-        topic_private_access_pre_create.send(sender=topic_private.__class__,
-                                             topic=topic_private.topic,
-                                             user=form.cleaned_data['user'])
         form.save()
+        notify_access(user=form.get_user(), topic_private=topic_private)
     else:
         messages.error(request, utils.render_form_errors(form))
 
@@ -136,16 +134,21 @@ def delete_access(request, pk):
 
 @login_required
 def join_in(request, topic_id):
+    # todo: replace by create_access()?
     # This is for topic creators who left their own topics and want to join again
-    topic = get_object_or_404(Topic, pk=topic_id, user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+    topic = get_object_or_404(
+        Topic,
+        pk=topic_id,
+        user=request.user,
+        category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK
+    )
 
     if request.method == 'POST':
         form = TopicPrivateJoinForm(topic=topic, user=request.user, data=request.POST)
 
         if form.is_valid():
-            topic_private_access_pre_create.send(sender=TopicPrivate, topic=topic, user=request.user)
-            form.save()
-
+            topic_private = form.save()
+            notify_access(user=form.get_user(), topic_private=topic_private)
             return redirect(request.POST.get('next', topic.get_absolute_url()))
     else:
         form = TopicPrivateJoinForm()

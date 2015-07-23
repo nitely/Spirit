@@ -14,9 +14,7 @@ from django.utils import timezone
 from djconfig.utils import override_djconfig
 
 from ...core.tests import utils
-from ..private.models import TopicPrivate
 from .models import TopicNotification, COMMENT, MENTION
-from ..private.signals import topic_private_access_pre_create
 from .forms import NotificationCreationForm, NotificationForm
 from .tags import render_notification_form, has_topic_notifications
 
@@ -381,26 +379,6 @@ class TopicNotificationModelsTest(TestCase):
         self.assertTrue(notification.is_active)
         self.assertFalse(notification.is_read)
         self.assertEqual(notification.comment, comment)
-
-    def test_topic_private_access_pre_create_handler(self):
-        """
-        create notifications on topic private access created
-        """
-        private = utils.create_private_topic()
-        comment = utils.create_comment(topic=private.topic)
-        topic_private_access_pre_create.send(sender=private.__class__,
-                                             topic=private.topic,
-                                             user=private.user)
-        notification = TopicNotification.objects.get(user=private.user, topic=private.topic)
-        self.assertEqual(notification.action, COMMENT)
-        self.assertTrue(notification.is_active)
-        self.assertFalse(notification.is_read)
-        self.assertEqual(notification.comment, comment)
-
-        # creating the access again should do nothing
-        topic_private_access_pre_create.send(sender=private.__class__,
-                                             topic=private.topic,
-                                             user=private.user)
 
     def test_topic_notification_mark_as_read(self):
         """
