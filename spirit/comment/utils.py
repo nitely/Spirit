@@ -8,7 +8,7 @@ from ..topic.unread.models import TopicUnread
 
 def comment_posted(comment, mentions):
     # Todo test detail views
-    TopicNotification.create_maybe(user=comment.user, topic=comment.topic)
+    TopicNotification.create_maybe(user=comment.user, comment=comment)
     TopicNotification.notify_new_comment(comment=comment)
     TopicNotification.notify_new_mentions(comment=comment, mentions=mentions)
     TopicUnread.unread_new_comment(comment=comment)

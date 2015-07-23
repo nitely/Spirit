@@ -65,12 +65,13 @@ class TopicNotification(models.Model):
             .update(is_read=True)
 
     @classmethod
-    def create_maybe(cls, user, topic):
+    def create_maybe(cls, user, comment):
         # Create a dummy notification
         return cls.objects.get_or_create(
             user=user,
-            topic=topic,
+            topic=comment.topic,
             defaults={
+                'comment': comment,
                 'action': COMMENT,
                 'is_read': True,
                 'is_active': True
@@ -97,7 +98,8 @@ class TopicNotification(models.Model):
                         user=user,
                         topic=comment.topic,
                         comment=comment,
-                        action=MENTION
+                        action=MENTION,
+                        is_active=True
                     )
             except IntegrityError:
                 pass
@@ -105,3 +107,14 @@ class TopicNotification(models.Model):
         cls.objects\
             .filter(user__in=mentions.values(), topic=comment.topic, is_read=True)\
             .update(comment=comment, is_read=False, action=MENTION, date=timezone.now())
+
+    @classmethod
+    def bulk_create(cls, users, comment):
+        return cls.objects.bulk_create([
+            cls(user=user,
+                topic=comment.topic,
+                comment=comment,
+                action=COMMENT,
+                is_active=True)
+            for user in users
+        ])

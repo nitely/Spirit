@@ -16,7 +16,7 @@ from djconfig.utils import override_djconfig
 from ...core.tests import utils
 from ..private.models import TopicPrivate
 from .models import TopicNotification, COMMENT, MENTION
-from ..private.signals import topic_private_post_create, topic_private_access_pre_create
+from ..private.signals import topic_private_access_pre_create
 from .forms import NotificationCreationForm, NotificationForm
 from .tags import render_notification_form, has_topic_notifications
 
@@ -365,18 +365,19 @@ class TopicNotificationModelsTest(TestCase):
                                                                     comment=self.comment, is_active=True,
                                                                     action=COMMENT, is_read=True)
 
-    def test_topic_private_post_create_handler(self):
+    def test_topic_private_bulk_create(self):
         """
-        create notifications on topic private created
+        Create notifications for a bunch of users
         """
-        private = utils.create_private_topic()
-        private2 = TopicPrivate.objects.create(user=self.user, topic=private.topic)
-        comment = utils.create_comment(topic=private.topic)
-        topic_private_post_create.send(sender=private.__class__,
-                                       topics_private=[private, private2],
-                                       comment=comment)
-        self.assertEqual(len(TopicNotification.objects.filter(user=private.user, topic=private.topic)), 0)
-        notification = TopicNotification.objects.get(user=private2.user, topic=private2.topic)
+        TopicNotification.objects.all().delete()
+        user = utils.create_user()
+        user2 = utils.create_user()
+        topic = utils.create_topic(self.category)
+        comment = utils.create_comment(topic=topic)
+        TopicNotification.bulk_create(users=[user, user2], comment=comment)
+        self.assertEqual(len(TopicNotification.objects.all()), 2)
+
+        notification = TopicNotification.objects.get(user=user, topic=comment.topic)
         self.assertTrue(notification.is_active)
         self.assertFalse(notification.is_read)
         self.assertEqual(notification.comment, comment)
@@ -417,7 +418,8 @@ class TopicNotificationModelsTest(TestCase):
         """
         user = utils.create_user()
         topic = utils.create_topic(self.category)
-        TopicNotification.create_maybe(user=user, topic=topic)
+        comment = utils.create_comment(topic=topic)
+        TopicNotification.create_maybe(user=user, comment=comment)
         notification = TopicNotification.objects.get(user=user, topic=topic)
         self.assertTrue(notification.is_active)
         self.assertTrue(notification.is_read)
@@ -425,7 +427,7 @@ class TopicNotificationModelsTest(TestCase):
 
         # Creating it again should do nothing
         TopicNotification.objects.filter(user=user, topic=topic).update(is_active=False)
-        TopicNotification.create_maybe(user=user, topic=topic)
+        TopicNotification.create_maybe(user=user, comment=comment)
         self.assertFalse(TopicNotification.objects.get(user=user, topic=topic).is_active)
 
     def test_topic_notification_notify_new_comment(self):
@@ -476,6 +478,7 @@ class TopicNotificationModelsTest(TestCase):
         TopicNotification.notify_new_mentions(comment=comment, mentions=mentions)
         self.assertEqual(TopicNotification.objects.get(user=self.user, comment=comment).action, MENTION)
         self.assertFalse(TopicNotification.objects.get(user=self.user, comment=comment).is_read)
+        self.assertTrue(TopicNotification.objects.get(user=self.user, comment=comment).is_active)
 
     def test_topic_notification_notify_new_mentions_unactive(self):
         """

@@ -53,6 +53,11 @@ class TopicPrivateManyForm(forms.Form):
 
         return users
 
+    def get_users(self):
+        users = set(self.cleaned_data['users'])
+        users.remove(self.user)
+        return users
+
     def save_m2m(self):
         users = self.cleaned_data['users']
         # Since the topic was just created this should not raise an exception

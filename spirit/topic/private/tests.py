@@ -18,12 +18,11 @@ from .models import TopicPrivate
 from .forms import TopicForPrivateForm, TopicPrivateInviteForm,\
     TopicPrivateManyForm, TopicPrivateJoinForm
 from .tags import render_invite_form
-from .views import comment_posted
-from ...comment.models import Comment
-from .signals import topic_private_post_create, topic_private_access_pre_create
+from .signals import topic_private_access_pre_create
 from ..models import Topic
 from ...comment.bookmark.models import CommentBookmark
 from .. import utils as utils_topic
+from ..notification.models import TopicNotification
 
 
 class TopicPrivateViewTest(TestCase):
@@ -48,28 +47,21 @@ class TopicPrivateViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:private:publish'))
         self.assertEqual(response.status_code, 200)
 
-    def test_private_publish_topic_private_post_create_signals(self):
+    def test_private_publish_create_notifications(self):
         """
-        send topic_private_post_create signal
+        Should create notifications for invited members
         """
-        def topic_private_post_create_handler(sender, topics_private, comment, **kwargs):
-            self.assertEqual(len(topics_private), 1)
-            tp = topics_private[0]
-            self._topic = tp.topic
-            self._user = tp.user
-            self._comment = comment
-        topic_private_post_create.connect(topic_private_post_create_handler)
-
         utils.login(self)
-        form_data = {'comment': 'foo', 'title': 'foobar', 'users': self.user.username}
+        user = utils.create_user()
+        form_data = {'comment': 'foo', 'title': 'foobar', 'users': [user.username, ]}
         response = self.client.post(reverse('spirit:topic:private:publish'),
                                     form_data)
         self.assertEqual(response.status_code, 302)
+
         topic_private = TopicPrivate.objects.last()
-        topic_comment = Comment.objects.last()
-        self.assertEqual(self._topic, topic_private.topic)
-        self.assertEqual(self._user, self.user)
-        self.assertEqual(self._comment, topic_comment)
+        self.assertEqual(len(TopicNotification.objects.filter(topic=topic_private.topic)), 2)
+        self.assertEqual(len(TopicNotification.objects.filter(topic=topic_private.topic, user=user)), 1)
+        self.assertEqual(len(TopicNotification.objects.filter(topic=topic_private.topic, user=self.user)), 1)
 
     def test_private_publish_user(self):
         """
