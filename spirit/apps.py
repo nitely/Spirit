@@ -23,5 +23,4 @@ class SpiritConfig(AppConfig):
 
     def register_signals(self):
         from .topic.poll import signals as poll
-        from .topic.private import signals as private
         from .user import signals as user
