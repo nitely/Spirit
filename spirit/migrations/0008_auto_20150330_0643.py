@@ -12,9 +12,9 @@ def migrate_users(apps, schema_editor):
 
     # TODO: after the deprecation period, this migration will get removed, but just in case...
     # Check if this is the old Spirit user model
-    if not hasattr(UserOld, 'is_moderator') \
-            or not hasattr(UserOld, 'last_seen') \
-            or not hasattr(UserOld, 'is_verified'):
+    if not hasattr(UserOld(), 'is_moderator') \
+            or not hasattr(UserOld(), 'last_seen') \
+            or not hasattr(UserOld(), 'is_verified'):
         return
 
     for user in UserOld.objects.all():
