@@ -23,7 +23,7 @@ ACTION_CHOICES = (
 class TopicNotification(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
-    topic = models.ForeignKey('spirit.Topic')
+    topic = models.ForeignKey('spirit_topic.Topic')
     comment = models.ForeignKey('spirit.Comment', null=True, blank=True)
 
     date = models.DateTimeField(default=timezone.now)
@@ -39,6 +39,7 @@ class TopicNotification(models.Model):
         verbose_name = _("topic notification")
         verbose_name_plural = _("topics notification")
         db_table = 'spirit_notification_topicnotification'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'
 
     def get_absolute_url(self):
         return self.comment.get_absolute_url()

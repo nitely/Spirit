@@ -29,7 +29,7 @@ ACTION = (
 class Comment(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
-    topic = models.ForeignKey('spirit.Topic')
+    topic = models.ForeignKey('spirit_topic.Topic')
 
     comment = models.TextField(_("comment"), max_length=COMMENT_MAX_LEN)
     comment_html = models.TextField(_("comment html"))

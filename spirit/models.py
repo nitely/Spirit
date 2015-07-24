@@ -6,7 +6,6 @@ from .comment.history.models import CommentHistory
 from .comment.bookmark.models import CommentBookmark
 from .comment.flag.models import Flag
 from .comment.like.models import CommentLike
-from .topic.models import Topic
 from .topic.unread.models import TopicUnread
 from .topic.favorite.models import TopicFavorite
 from .topic.notification.models import TopicNotification

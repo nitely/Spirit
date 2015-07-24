@@ -14,7 +14,7 @@ from ...core.utils import paginator
 class CommentBookmark(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
-    topic = models.ForeignKey('spirit.Topic')
+    topic = models.ForeignKey('spirit_topic.Topic')
 
     comment_number = models.PositiveIntegerField(default=0)
 

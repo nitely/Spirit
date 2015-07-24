@@ -11,7 +11,7 @@ from django.utils import timezone
 class TopicFavorite(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    topic = models.ForeignKey('spirit.Topic')
+    topic = models.ForeignKey('spirit_topic.Topic')
 
     date = models.DateTimeField(default=timezone.now)
 
@@ -21,3 +21,4 @@ class TopicFavorite(models.Model):
         verbose_name = _("favorite")
         verbose_name_plural = _("favorites")
         db_table = 'spirit_favorite_topicfavorite'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'

@@ -10,7 +10,7 @@ from django.utils import timezone
 
 class TopicPoll(models.Model):
 
-    topic = models.OneToOneField('spirit.Topic', verbose_name=_("topic"), primary_key=True, related_name='poll')
+    topic = models.OneToOneField('spirit_topic.Topic', verbose_name=_("topic"), primary_key=True, related_name='poll')
 
     date = models.DateTimeField(default=timezone.now)
     choice_limit = models.PositiveIntegerField(_("choice limit"), default=1)
@@ -20,6 +20,7 @@ class TopicPoll(models.Model):
         verbose_name = _("topic poll")
         verbose_name_plural = _("topics polls")
         db_table = 'spirit_poll_topicpoll'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'
 
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
@@ -41,6 +42,7 @@ class TopicPollChoice(models.Model):
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
         db_table = 'spirit_poll_topicpollchoice'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'
 
 
 class TopicPollVote(models.Model):
@@ -55,3 +57,4 @@ class TopicPollVote(models.Model):
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")
         db_table = 'spirit_poll_topicpollvote'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'

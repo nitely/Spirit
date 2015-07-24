@@ -13,7 +13,7 @@ from .managers import TopicPrivateQuerySet
 class TopicPrivate(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    topic = models.ForeignKey('spirit.Topic', related_name='topics_private')
+    topic = models.ForeignKey('spirit_topic.Topic', related_name='topics_private')
 
     date = models.DateTimeField(default=timezone.now)
 
@@ -25,6 +25,7 @@ class TopicPrivate(models.Model):
         verbose_name = _("private topic")
         verbose_name_plural = _("private topics")
         db_table = 'spirit_private_topicprivate'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'
 
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
