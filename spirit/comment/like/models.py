@@ -21,8 +21,6 @@ class CommentLike(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("like")
         verbose_name_plural = _("likes")
-        db_table = 'spirit_like_commentlike'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'
 
     def get_delete_url(self):
         return reverse('spirit:comment:like:delete', kwargs={'pk': str(self.pk), })

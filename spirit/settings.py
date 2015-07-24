@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'spirit.comment.bookmark',
     'spirit.comment.flag',
     'spirit.comment.history',
+    'spirit.comment.like',
     # 'spirit.core.tests'
 ]
 
