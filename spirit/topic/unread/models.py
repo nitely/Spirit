@@ -21,8 +21,6 @@ class TopicUnread(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("topic unread")
         verbose_name_plural = _("topics unread")
-        db_table = 'spirit_unread_topicunread'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'
 
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
