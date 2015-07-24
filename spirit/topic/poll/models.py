@@ -19,8 +19,6 @@ class TopicPoll(models.Model):
     class Meta:
         verbose_name = _("topic poll")
         verbose_name_plural = _("topics polls")
-        db_table = 'spirit_poll_topicpoll'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'
 
     def get_absolute_url(self):
         return self.topic.get_absolute_url()
@@ -41,8 +39,6 @@ class TopicPollChoice(models.Model):
         #unique_together = ('poll', 'description')
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
-        db_table = 'spirit_poll_topicpollchoice'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'
 
 
 class TopicPollVote(models.Model):
@@ -56,5 +52,3 @@ class TopicPollVote(models.Model):
         unique_together = ('user', 'choice')
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")
-        db_table = 'spirit_poll_topicpollvote'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'

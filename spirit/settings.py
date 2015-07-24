@@ -47,11 +47,12 @@ INSTALLED_APPS = [
 
     'spirit',
     'spirit.core',
-    'spirit.category',
     'spirit.user',
+    'spirit.category',
     'spirit.topic',
     'spirit.topic.favorite',
     'spirit.topic.notification',
+    'spirit.topic.poll',
     'spirit.comment',
     # 'spirit.core.tests'
 ]
