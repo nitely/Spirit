@@ -12,10 +12,11 @@ from .topic.favorite.models import TopicFavorite
 from .topic.notification.models import TopicNotification
 from .topic.poll.models import TopicPoll, TopicPollChoice
 from .topic.private.models import TopicPrivate
+from .user.models import User
 
 
 __all__ = [
     'Comment', 'CommentHistory', 'CommentBookmark', 'Flag',
     'CommentLike', 'Topic', 'TopicUnread', 'TopicFavorite', 'TopicNotification',
-    'TopicPoll', 'TopicPollChoice', 'TopicPrivate'
+    'TopicPoll', 'TopicPollChoice', 'TopicPrivate', 'User'
 ]
