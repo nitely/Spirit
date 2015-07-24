@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'spirit.topic.unread',
     'spirit.comment',
     'spirit.comment.bookmark',
+    'spirit.comment.flag',
     # 'spirit.core.tests'
 ]
 

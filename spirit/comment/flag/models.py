@@ -26,8 +26,6 @@ class CommentFlag(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("comment flag")
         verbose_name_plural = _("comments flags")
-        db_table = 'spirit_flag_commentflag'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'
 
     # def get_absolute_url(self):
         # pass
@@ -47,5 +45,3 @@ class Flag(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("flag")
         verbose_name_plural = _("flags")
-        db_table = 'spirit_flag_flag'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'
