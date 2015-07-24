@@ -11,7 +11,7 @@ from django.db import transaction
 
 class CommentHistory(models.Model):
 
-    comment_fk = models.ForeignKey('spirit.Comment', verbose_name=_("original comment"))
+    comment_fk = models.ForeignKey('spirit_comment.Comment', verbose_name=_("original comment"))
 
     comment_html = models.TextField(_("comment html"))
     date = models.DateTimeField(default=timezone.now)
@@ -21,6 +21,7 @@ class CommentHistory(models.Model):
         verbose_name = _("comment history")
         verbose_name_plural = _("comments history")
         db_table = 'spirit_history_commenthistory'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'
 
     def get_absolute_url(self):
         return reverse('spirit:comment:history:detail', kwargs={'pk': str(self.id), })

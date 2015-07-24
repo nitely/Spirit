@@ -17,7 +17,7 @@ REASON_CHOICES = (
 class CommentFlag(models.Model):
 
     moderator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
-    comment = models.OneToOneField('spirit.Comment')
+    comment = models.OneToOneField('spirit_comment.Comment')
 
     date = models.DateTimeField(default=timezone.now)
     is_closed = models.BooleanField(default=False)
@@ -27,6 +27,7 @@ class CommentFlag(models.Model):
         verbose_name = _("comment flag")
         verbose_name_plural = _("comments flags")
         db_table = 'spirit_flag_commentflag'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'
 
     # def get_absolute_url(self):
         # pass
@@ -35,7 +36,7 @@ class CommentFlag(models.Model):
 class Flag(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    comment = models.ForeignKey('spirit.Comment')
+    comment = models.ForeignKey('spirit_comment.Comment')
 
     date = models.DateTimeField(default=timezone.now)
     reason = models.IntegerField(_("reason"), choices=REASON_CHOICES)
@@ -47,3 +48,4 @@ class Flag(models.Model):
         verbose_name = _("flag")
         verbose_name_plural = _("flags")
         db_table = 'spirit_flag_flag'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'

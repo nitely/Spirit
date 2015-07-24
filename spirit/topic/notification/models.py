@@ -24,7 +24,7 @@ class TopicNotification(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
     topic = models.ForeignKey('spirit_topic.Topic')
-    comment = models.ForeignKey('spirit.Comment', null=True, blank=True)
+    comment = models.ForeignKey('spirit_comment.Comment', null=True, blank=True)
 
     date = models.DateTimeField(default=timezone.now)
     action = models.IntegerField(choices=ACTION_CHOICES, default=UNDEFINED)

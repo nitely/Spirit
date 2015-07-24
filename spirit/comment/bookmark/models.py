@@ -23,6 +23,7 @@ class CommentBookmark(models.Model):
         verbose_name = _("comment bookmark")
         verbose_name_plural = _("comments bookmarks")
         db_table = 'spirit_bookmark_commentbookmark'  # TODO: remove in Spirit 0.4
+        app_label = 'spirit'
 
     def get_absolute_url(self):
         return paginator.get_url(

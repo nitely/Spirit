@@ -48,7 +48,6 @@ class Comment(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
-        db_table = 'spirit_comment_comment'  # TODO: remove in Spirit 0.4
 
     def get_absolute_url(self):
         return reverse('spirit:comment:find', kwargs={'pk': str(self.id), })
