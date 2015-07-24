@@ -24,8 +24,6 @@ class TopicPrivate(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("private topic")
         verbose_name_plural = _("private topics")
-        db_table = 'spirit_private_topicprivate'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'
 
     def get_absolute_url(self):
         return self.topic.get_absolute_url()

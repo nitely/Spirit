@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'spirit.topic.favorite',
     'spirit.topic.notification',
     'spirit.topic.poll',
+    'spirit.topic.private',
     'spirit.comment',
     # 'spirit.core.tests'
 ]
