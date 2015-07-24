@@ -30,7 +30,6 @@ class Category(models.Model):
         ordering = ['title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
-        db_table = 'spirit_category_category'  # TODO: remove in Spirit 0.4
 
     def get_absolute_url(self):
         if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:

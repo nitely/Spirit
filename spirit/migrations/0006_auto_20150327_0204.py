@@ -8,7 +8,7 @@ from django.conf import settings
 def verify_active_users(apps, schema_editor):
     User = apps.get_model(settings.AUTH_USER_MODEL)
 
-    if hasattr(User, 'is_verified'):
+    if hasattr(User(), 'is_verified'):
         User.objects.filter(is_active=True).update(is_verified=True)
 
 
