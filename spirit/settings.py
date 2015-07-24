@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'spirit',
     'spirit.core',
     'spirit.category',
+    'spirit.user',
     # 'spirit.core.tests'
 ]
 
