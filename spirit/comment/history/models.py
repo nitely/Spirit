@@ -20,8 +20,6 @@ class CommentHistory(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("comment history")
         verbose_name_plural = _("comments history")
-        db_table = 'spirit_history_commenthistory'  # TODO: remove in Spirit 0.4
-        app_label = 'spirit'
 
     def get_absolute_url(self):
         return reverse('spirit:comment:history:detail', kwargs={'pk': str(self.id), })
