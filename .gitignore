@@ -1,5 +1,5 @@
 # Spirit
-spirit/whoosh_index/
+spirit/search/whoosh_index/
 db.sqlite3
 media/
 
