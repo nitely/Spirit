@@ -1,0 +1,261 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: core/tags/time.py:33
+msgid "now"
+msgstr "сейчас"
+
+#: core/tags/time.py:37
+#, python-format
+msgid "%(count)ss"
+msgstr ""
+
+#: core/tags/time.py:41
+#, python-format
+msgid "%(count)sm"
+msgstr ""
+
+#: core/tags/time.py:44
+#, python-format
+msgid "%(count)sh"
+msgstr ""
+
+#: core/templates/403.html:10
+msgid "You do not have sufficient permissions to access this page"
+msgstr "У вас недостаточно прав для доступа к этой странице"
+
+#: core/templates/404.html:10
+msgid "what you are looking for is gone..."
+msgstr ""
+
+#: core/templates/spirit/_base.html:57
+#, python-brace-format
+msgid "{user} has mention you on {topic}"
+msgstr ""
+
+#: core/templates/spirit/_base.html:58
+#, python-brace-format
+msgid "{user} has commented on {topic}"
+msgstr ""
+
+#: core/templates/spirit/_base.html:59
+msgid "Show all"
+msgstr "Показать все"
+
+#: core/templates/spirit/_base.html:60
+msgid "No new notifications, yet"
+msgstr "Новых уведомлений пока нет"
+
+#: core/templates/spirit/_base.html:61
+msgid "unread"
+msgstr "непрочитано"
+
+#: core/templates/spirit/_header.html:20
+msgid "Profile"
+msgstr "Профиль"
+
+#: core/templates/spirit/_header.html:21
+msgid "Topics"
+msgstr "Темы"
+
+#: core/templates/spirit/_header.html:22
+msgid "Unread topics"
+msgstr "Непрочитанные темы"
+
+#: core/templates/spirit/_header.html:23
+msgid "Private topics"
+msgstr "Приватные темы"
+
+#: core/templates/spirit/_header.html:26
+msgid "Admin"
+msgstr "Админ"
+
+#: core/templates/spirit/_header.html:29
+msgid "Log out"
+msgstr "Выйти"
+
+#: core/templates/spirit/_header.html:42
+msgid "Log in"
+msgstr "Войти"
+
+#: core/templates/spirit/utils/paginator/_paginator.html:4
+#, python-format
+msgid "Page %(number)s of %(num_pages)s"
+msgstr ""
+
+#: core/templates/spirit/utils/paginator/_paginator.html:8
+msgid "Last"
+msgstr "Последний"
+
+#: core/templates/spirit/utils/paginator/_paginator.html:10
+msgid "First"
+msgstr "Первый"
+
+#: core/templates/spirit/utils/paginator/_yt_paginator.html:5
+msgid "Page 1 of 1"
+msgstr "Страница 1 из 1"
+
+#: core/tests/tests_utils.py:523
+msgid "User activation"
+msgstr "Активация пользователя"
+
+#: core/tests/tests_utils.py:559
+msgid "Email change"
+msgstr "Смена почты"
+
+#: core/utils/markdown/utils/quote.py:19
+#, python-format
+msgid "@%(username)s said:"
+msgstr ""
+
+#: core/utils/ratelimit/decorators.py:25
+#, python-format
+msgid "Too many submissions, wait %(time)s."
+msgstr "Слишком много представлений, подождите %(time)s."
+
+#: core/utils/timezone.py:9
+msgid "(GMT -12:00) Eniwetok, Kwajalein"
+msgstr "(GMT -12:00) Эниветок, Кваджелейн"
+
+#: core/utils/timezone.py:10
+msgid "(GMT -11:00) Midway Island, Samoa"
+msgstr "(GMT -11:00) Остров Мидуэй, Самоа"
+
+#: core/utils/timezone.py:11
+msgid "(GMT -10:00) Hawaii"
+msgstr "(GMT -10:00) Гавайи"
+
+#: core/utils/timezone.py:12
+msgid "(GMT -9:30) Marquesas Islands"
+msgstr "(GMT -9:30) Маркизские острова"
+
+#: core/utils/timezone.py:13
+msgid "(GMT -9:00) Alaska"
+msgstr "(GMT -9:00) Аляска"
+
+#: core/utils/timezone.py:14
+msgid "(GMT -8:00) Pacific Time (US & Canada)"
+msgstr "(GMT -8:00) Тихоокеанское время (США и Канада)"
+
+#: core/utils/timezone.py:15
+msgid "(GMT -7:00) Mountain Time (US & Canada)"
+msgstr "(GMT -7:00) Стандартное горное время (США и Канада)"
+
+#: core/utils/timezone.py:16
+msgid "(GMT -6:00) Central Time (US & Canada), Mexico City"
+msgstr "(GMT -6:00) Центральное время (США и Канада), Мексика"
+
+#: core/utils/timezone.py:17
+msgid "(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima"
+msgstr "(GMT -5:00) Восточное время (США и Канада), Богота, Лима"
+
+#: core/utils/timezone.py:18
+msgid "(GMT -4:30) Venezuela"
+msgstr "(GMT -4:30) Венесуэла"
+
+#: core/utils/timezone.py:19
+msgid "(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz"
+msgstr "(GMT -4:00) Атлантическое время (Канада), Каракас, Ла-Пас"
+
+#: core/utils/timezone.py:20
+msgid "(GMT -3:00) Brazil, Buenos Aires, Georgetown"
+msgstr "(GMT -3:00) Бразилия, Буэнос-Айрес, Джорджтаун"
+
+#: core/utils/timezone.py:21
+msgid "(GMT -2:00) Mid-Atlantic"
+msgstr "(GMT -2:00) Срединно-Атлантический"
+
+#: core/utils/timezone.py:22
+msgid "(GMT -1:00) Azores, Cape Verde Islands"
+msgstr "(GMT -1:00) Азорские острова, острова Зеленого Мыса"
+
+#: core/utils/timezone.py:23
+msgid "(GMT) Western Europe Time, London, Lisbon, Casablanca"
+msgstr "(GMT) Западно Европейское Время, Лондон, Лиссабон, Касабланка"
+
+#: core/utils/timezone.py:24
+msgid "(GMT +1:00) Brussels, Copenhagen, Madrid, Paris"
+msgstr "(GMT +1:00) Брюссель, Копенгаген, Мадрид, Париж"
+
+#: core/utils/timezone.py:25
+msgid "(GMT +2:00) Kaliningrad, South Africa"
+msgstr "(GMT +2:00) Калининград, Южная Африка"
+
+#: core/utils/timezone.py:26
+msgid "(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg"
+msgstr "(GMT +3:00) Москва, Санкт-Петербург, Багдад, Эр-Рияд"
+
+#: core/utils/timezone.py:27
+msgid "(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi"
+msgstr "(GMT +4:00) Абу-Даби, Мускат, Баку, Тбилиси"
+
+#: core/utils/timezone.py:28
+msgid "(GMT +4:30) Afghanistan"
+msgstr "(GMT +4:30) Афганистан"
+
+#: core/utils/timezone.py:29
+msgid "(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent"
+msgstr "(GMT +5:00) Екатеринбург, Исламабад, Карачи, Ташкент"
+
+#: core/utils/timezone.py:30
+msgid "(GMT +5:30) India, Sri Lanka"
+msgstr "(GMT +5:30) Индия, Шри-Ланка"
+
+#: core/utils/timezone.py:31
+msgid "(GMT +5:45) Nepal"
+msgstr "(GMT +5:45) Непал"
+
+#: core/utils/timezone.py:32
+msgid "(GMT +6:00) Almaty, Dhaka, Colombo"
+msgstr "(GMT +6:00) Алматы, Дака, Коломбо"
+
+#: core/utils/timezone.py:33
+msgid "(GMT +6:30) Cocos Islands, Myanmar"
+msgstr "(GMT +6:30) Кокосовые острова, Мьянма"
+
+#: core/utils/timezone.py:34
+msgid "(GMT +7:00) Bangkok, Hanoi, Jakarta"
+msgstr "(GMT +7:00) Бангкок, Ханой, Джакарта"
+
+#: core/utils/timezone.py:35
+msgid "(GMT +8:00) Beijing, Perth, Singapore, Hong Kong"
+msgstr "(GMT +8:00) Пекин, Перт, Сингапур, Гонконг"
+
+#: core/utils/timezone.py:36
+msgid "(GMT +8:45) Australia (Eucla)"
+msgstr "(GMT +8:45) Австралия (Eucla)"
+
+#: core/utils/timezone.py:37
+msgid "(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk"
+msgstr "(GMT +9:00) Токио, Сеул, Осака, Саппоро, Якутск"
+
+#: core/utils/timezone.py:38
+msgid "(GMT +9:30) Australia (Northern Territory)"
+msgstr "(GMT +9:30) Австралия (Северная территория)"
+
+#: core/utils/timezone.py:39
+msgid "(GMT +10:00) Eastern Australia, Guam, Vladivostok"
+msgstr "(GMT +10:00) Восточная Австралия, Гуам, Владивосток"
+
+#: core/utils/timezone.py:40
+msgid "(GMT +11:00) Magadan, Solomon Islands, New Caledonia"
+msgstr "(GMT +11:00) Магадан, Соломоновы острова, Новая Каледония"
+
+#: core/utils/timezone.py:41
+msgid "(GMT +11:30) Norfolk Island"
+msgstr "(GMT +11:30) Остров Норфолк"
+
+#: core/utils/timezone.py:42
+msgid "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
+msgstr "(GMT +12:00) Окленд, Веллингтон, Фиджи, Камчатка"

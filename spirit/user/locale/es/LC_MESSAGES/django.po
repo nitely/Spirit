@@ -1,0 +1,338 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:25+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: user/forms.py:30
+msgid "The email is taken."
+msgstr ""
+
+#: user/forms.py:40 user/forms.py:45
+#: user/templates/spirit/user/profile_update.html:12
+msgid "Email"
+msgstr "Email"
+
+#: user/forms.py:46 user/templates/spirit/user/profile_update.html:15
+msgid "Password"
+msgstr "Contraseña"
+
+#: user/forms.py:56
+msgid "The provided password is incorrect."
+msgstr ""
+
+#: user/forms.py:77
+#, python-format
+msgid "Current time is: %(date)s %(time)s"
+msgstr "El tiempo actual es: %(date)s %(time)s"
+
+#: user/models.py:20
+msgid "profile"
+msgstr ""
+
+#: user/models.py:23 user/models.py:57
+msgid "location"
+msgstr "ubicación"
+
+#: user/models.py:24 user/models.py:58
+msgid "last seen"
+msgstr "visto por ultima vez"
+
+#: user/models.py:25 user/models.py:59
+msgid "last ip"
+msgstr "ultima ip"
+
+#: user/models.py:26 user/models.py:60
+msgid "time zone"
+msgstr "zona horaria"
+
+#: user/models.py:27 user/models.py:61
+msgid "administrator status"
+msgstr "estado administrador"
+
+#: user/models.py:28 user/models.py:62
+msgid "moderator status"
+msgstr "estado moderador"
+
+#: user/models.py:29 user/models.py:63
+msgid "verified"
+msgstr ""
+
+#: user/models.py:30 user/models.py:64
+msgid ""
+"Designates whether the user has verified his account by email or by other "
+"means. Un-select this to let the user activate his account."
+msgstr ""
+
+#: user/models.py:34 user/models.py:68
+msgid "topic count"
+msgstr "contador de temas"
+
+#: user/models.py:35 user/models.py:69
+msgid "comment count"
+msgstr "comentario contador"
+
+#: user/models.py:38
+msgid "forum profile"
+msgstr ""
+
+#: user/models.py:39
+msgid "forum profiles"
+msgstr ""
+
+#: user/models.py:86
+msgid "username"
+msgstr "nombre de usuario"
+
+#: user/models.py:87
+msgid ""
+"Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"
+msgstr "Requerido. 30 caracteres o menos. Letras, numeros y @/./+/-/_"
+
+#: user/models.py:90
+msgid "Enter a valid username."
+msgstr "Ingresa un nombre de usuario valido."
+
+#: user/models.py:93
+msgid "first name"
+msgstr "primer nombre"
+
+#: user/models.py:94
+msgid "last name"
+msgstr "apellido"
+
+#: user/models.py:95
+msgid "email"
+msgstr "email"
+
+#: user/models.py:96
+msgid "staff status"
+msgstr "estado staff"
+
+#: user/models.py:97
+msgid "Designates whether the user can log into this admin site."
+msgstr "Designa si el ususario puede ingresar en la administración."
+
+#: user/models.py:99
+msgid "active"
+msgstr "activo"
+
+#: user/models.py:100
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+"Designa si el usuario esta activo. Deselecciona esto en lugar de eliminar la "
+"cuenta."
+
+#: user/models.py:102
+msgid "date joined"
+msgstr "fecha de registro"
+
+#: user/models.py:133
+msgid "user"
+msgstr "usuario"
+
+#: user/models.py:134
+msgid "users"
+msgstr "usuarios"
+
+#: user/templates/spirit/user/_profile.html:12
+msgid "Joined at"
+msgstr "Se unio en"
+
+#: user/templates/spirit/user/_profile.html:16
+msgid "Seen"
+msgstr "Visto"
+
+#: user/templates/spirit/user/_profile.html:22
+msgid "Last IP"
+msgstr "Ultima IP"
+
+#: user/templates/spirit/user/_profile.html:31
+#: user/templates/spirit/user/profile_update.html:5
+#: user/templates/spirit/user/profile_update.html:9
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: user/templates/spirit/user/_profile.html:35
+msgid "Private Message"
+msgstr "Mensaje Privado"
+
+#: user/templates/spirit/user/_profile.html:41
+msgid "Edit user"
+msgstr "Editar usuario"
+
+#: user/templates/spirit/user/_profile.html:46
+msgid "Comments"
+msgstr "Comentarios"
+
+#: user/templates/spirit/user/_profile.html:47
+#: user/templates/spirit/user/menu.html:15
+msgid "Topics"
+msgstr "Temas"
+
+#: user/templates/spirit/user/_profile.html:48
+msgid "Likes"
+msgstr "Me gusta"
+
+#: user/templates/spirit/user/_render_comments_list.html:36
+msgid "There are no comments here, yet"
+msgstr "Aun no hay comentarios aqui"
+
+#: user/templates/spirit/user/activation_email.html:2
+#, python-format
+msgid "You're receiving this email because you registered at %(site_name)s."
+msgstr "Recibes este email porque te registraste en %(site_name)s."
+
+#: user/templates/spirit/user/activation_email.html:4
+msgid "Please go to the following link to activate your account:"
+msgstr "Ve al siguiente enlace para activar tu cuenta:"
+
+#: user/templates/spirit/user/activation_email.html:8
+#: user/templates/spirit/user/email_change_email.html:8
+msgid "Thanks for using our site!"
+msgstr "Gracias por usar nuestro sitio!"
+
+#: user/templates/spirit/user/email_change_email.html:2
+#, python-format
+msgid ""
+"You're receiving this because you changed your user email at %(site_name)s."
+msgstr "Recibes este email porque cambiaste tu email en %(site_name)s."
+
+#: user/templates/spirit/user/email_change_email.html:4
+msgid "Please go to the following link to confirm your email change:"
+msgstr "Ve al siguiente enlace para confirmar tu cambio de email:"
+
+#: user/templates/spirit/user/menu.html:7
+msgid "User menu"
+msgstr "Menu de usuario"
+
+#: user/templates/spirit/user/menu.html:11
+msgid "Menu"
+msgstr "Menu"
+
+#: user/templates/spirit/user/menu.html:14
+msgid "Profile"
+msgstr "Perfil"
+
+#: user/templates/spirit/user/menu.html:16
+msgid "Unread topics"
+msgstr "Respuestas sin leer"
+
+#: user/templates/spirit/user/menu.html:17
+msgid "Private topics"
+msgstr "Temas privados"
+
+#: user/templates/spirit/user/menu.html:20
+msgid "Admin"
+msgstr "Admin"
+
+#: user/templates/spirit/user/menu.html:23
+msgid "Log out"
+msgstr "Cerrar sesión"
+
+#: user/templates/spirit/user/notification_email.html:2
+#, python-format
+msgid "You have a new notification at %(site_name)s."
+msgstr "Tienes una nueva notificacion en %(site_name)s."
+
+#: user/templates/spirit/user/notification_email.html:4
+msgid "Please go to the following link to read the comment:"
+msgstr "Ve al siguiente enlace para leer el comentario:"
+
+#: user/templates/spirit/user/notification_email.html:8
+msgid ""
+"If you don't want to keep receiving notifications, you can deactivate them "
+"on your profile preferences."
+msgstr ""
+"Si ya no quieres seguir recibiendo notificaciones, puedes desactivarlas en "
+"las preferencias de tu cuenta."
+
+#: user/templates/spirit/user/profile_comments.html:5
+msgid "comments"
+msgstr "comentarios"
+
+#: user/templates/spirit/user/profile_email_change.html:5
+#: user/templates/spirit/user/profile_email_change.html:9 user/tests.py:589
+#: user/utils/email.py:50
+msgid "Email change"
+msgstr "Cambiar email"
+
+#: user/templates/spirit/user/profile_email_change.html:15
+msgid "Change my email"
+msgstr "Cambiar mi email"
+
+#: user/templates/spirit/user/profile_likes.html:5
+msgid "likes"
+msgstr "me gusta"
+
+#: user/templates/spirit/user/profile_password_change.html:5
+#: user/templates/spirit/user/profile_password_change.html:9
+msgid "Password change"
+msgstr "Cambiar contraseña"
+
+#: user/templates/spirit/user/profile_password_change.html:15
+msgid "Change my password"
+msgstr "Cambiar mi contraseña"
+
+#: user/templates/spirit/user/profile_topics.html:5
+msgid "topics"
+msgstr "temas"
+
+#: user/templates/spirit/user/profile_update.html:16
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: user/templates/spirit/user/profile_update.html:18
+msgid "Avatar"
+msgstr "Avatar"
+
+#: user/templates/spirit/user/profile_update.html:19
+msgid "Change avatar"
+msgstr "Cambiar avatar"
+
+#: user/templates/spirit/user/profile_update.html:20
+msgid "Go to gravatar.com and use your current email to change it"
+msgstr "Ve a gravatar.con y usa tu email actual para cambiarlo"
+
+#: user/templates/spirit/user/profile_update.html:28
+msgid "Save"
+msgstr "Guardar"
+
+#: user/tests.py:120 user/tests.py:608 user/utils/email.py:42
+msgid "User activation"
+msgstr "Activación de usuario"
+
+#: user/utils/email.py:59
+#, python-format
+msgid "New notification: %(topic_name)s"
+msgstr "Nueva notificación: %(topic_name)s"
+
+#: user/views.py:35
+msgid "Your profile has been updated!"
+msgstr "Tu perfil ha sido actualizado!"
+
+#: user/views.py:57
+msgid "Your password has been changed!"
+msgstr "Tu contraseña ha sido cambiada!"
+
+#: user/views.py:74
+msgid "We have sent you an email so you can confirm the change!"
+msgstr "Te hemos enviado un email para que puedas confirmar el cambio!"
+
+#: user/views.py:96
+msgid "Your email has been changed!"
+msgstr "Tu email ha sido cambiado!"
+
+#: user/views.py:99
+msgid "Sorry, we were not able to change your email."
+msgstr ""

@@ -1,0 +1,45 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: category/models.py:16
+msgid "category parent"
+msgstr "父分类"
+
+#: category/models.py:18
+msgid "title"
+msgstr "标题"
+
+#: category/models.py:20
+msgid "description"
+msgstr "描述"
+
+#: category/models.py:21
+msgid "closed"
+msgstr "关闭的"
+
+#: category/models.py:22
+msgid "removed"
+msgstr "删除的"
+
+#: category/models.py:23
+msgid "private"
+msgstr "私密的"
+
+#: category/models.py:31
+msgid "category"
+msgstr "分类"
+
+#: category/models.py:32
+msgid "categories"
+msgstr "分类"

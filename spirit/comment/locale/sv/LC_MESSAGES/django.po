@@ -1,0 +1,225 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: comment/forms.py:30
+msgid "Write comment..."
+msgstr "Skriv kommentar..."
+
+#: comment/forms.py:83
+#, python-format
+msgid "Unsupported file format. Supported formats are %s."
+msgstr ""
+
+#: comment/models.py:20 comment/models.py:34 comment/models.py:49
+msgid "comment"
+msgstr "kommentar"
+
+#: comment/models.py:21
+msgid "topic moved"
+msgstr "ämne flyttat"
+
+#: comment/models.py:22
+msgid "topic closed"
+msgstr "ämne stängt"
+
+#: comment/models.py:23
+msgid "topic unclosed"
+msgstr "ämnet är inte längre stängt"
+
+#: comment/models.py:24
+msgid "topic pinned"
+msgstr "ämne fastsatt"
+
+#: comment/models.py:25
+msgid "topic unpinned"
+msgstr "ämnet är inte längre fastsatt"
+
+#: comment/models.py:31
+msgid "user"
+msgstr "användare"
+
+#: comment/models.py:35
+msgid "comment html"
+msgstr "kommentar-html"
+
+#: comment/models.py:36
+msgid "action"
+msgstr "handling"
+
+#: comment/models.py:42
+msgid "modified count"
+msgstr "antal ändringar"
+
+#: comment/models.py:43
+msgid "likes count"
+msgstr "antal gilla"
+
+#: comment/models.py:50
+msgid "comments"
+msgstr "kommentarer"
+
+#: comment/tags.py:21
+msgid "This topic has been moved"
+msgstr "Detta ämne har flyttats"
+
+#: comment/tags.py:23
+msgid "This topic has been closed"
+msgstr "Detta ämne har stängts"
+
+#: comment/tags.py:25
+msgid "This topic has been unclosed"
+msgstr "Detta ämne är inte längre stängt"
+
+#: comment/tags.py:27
+msgid "This topic has been pinned"
+msgstr "Detta ämne är fastsatt"
+
+#: comment/tags.py:29
+msgid "This topic has been unpinned"
+msgstr "Detta ämne är inte längre fastsatt"
+
+#: comment/tags.py:31
+msgid "Unknown topic moderation action"
+msgstr "Okänd handling för ämnesmoderering"
+
+#: comment/templates/spirit/comment/_editor.html:6
+msgid "Bold"
+msgstr "Fetstilt"
+
+#: comment/templates/spirit/comment/_editor.html:7
+msgid "Italic"
+msgstr "Kursiv"
+
+#: comment/templates/spirit/comment/_editor.html:8
+msgid "List"
+msgstr "Lista"
+
+#: comment/templates/spirit/comment/_editor.html:9
+msgid "URL"
+msgstr "URL"
+
+#: comment/templates/spirit/comment/_editor.html:10
+msgid "Image"
+msgstr "Bild"
+
+#: comment/templates/spirit/comment/_editor.html:11
+msgid "Preview"
+msgstr "Förhandsgranskning"
+
+#: comment/templates/spirit/comment/_editor.html:33
+#, python-brace-format
+msgid "uploading {image_name}"
+msgstr ""
+
+#: comment/templates/spirit/comment/_editor.html:36
+msgid "bolded text"
+msgstr "fetstilt text"
+
+#: comment/templates/spirit/comment/_editor.html:37
+msgid "italicised text"
+msgstr "kursiv text"
+
+#: comment/templates/spirit/comment/_editor.html:38
+msgid "list item"
+msgstr "listobjekt"
+
+#: comment/templates/spirit/comment/_editor.html:39
+msgid "link text"
+msgstr "länktext"
+
+#: comment/templates/spirit/comment/_editor.html:40
+msgid "link url"
+msgstr "länk-url"
+
+#: comment/templates/spirit/comment/_editor.html:41
+msgid "image text"
+msgstr "bildtext"
+
+#: comment/templates/spirit/comment/_editor.html:42
+msgid "image url"
+msgstr "bild-url"
+
+#: comment/templates/spirit/comment/_form.html:17
+#: comment/templates/spirit/comment/publish.html:18
+#: comment/templates/spirit/comment/update.html:18
+msgid "Publish"
+msgstr "Publicera"
+
+#: comment/templates/spirit/comment/_render_list.html:47
+msgid "delete"
+msgstr "ta bort"
+
+#: comment/templates/spirit/comment/_render_list.html:50
+msgid "report"
+msgstr "rapportera"
+
+#: comment/templates/spirit/comment/_render_list.html:53
+msgid "share"
+msgstr ""
+
+#: comment/templates/spirit/comment/_render_list.html:57
+#: comment/templates/spirit/comment/_render_list.html:139
+msgid "remove like"
+msgstr "sluta gilla"
+
+#: comment/templates/spirit/comment/_render_list.html:60
+#: comment/templates/spirit/comment/_render_list.html:138
+msgid "like"
+msgstr "gilla"
+
+#: comment/templates/spirit/comment/_render_list.html:67
+msgid "edit"
+msgstr "redigera"
+
+#: comment/templates/spirit/comment/_render_list.html:71
+msgid "quote"
+msgstr "citera"
+
+#: comment/templates/spirit/comment/_render_list.html:72
+msgid "reply"
+msgstr "svara"
+
+#: comment/templates/spirit/comment/_render_list.html:79
+msgid "close"
+msgstr ""
+
+#: comment/templates/spirit/comment/_render_list.html:110
+msgid "This comment was deleted"
+msgstr "Denna kommentar är borttagen"
+
+#: comment/templates/spirit/comment/_render_list.html:118
+msgid "undelete"
+msgstr "Ångra borttagning"
+
+#: comment/templates/spirit/comment/moderate.html:5
+#: comment/templates/spirit/comment/moderate.html:9
+msgid "Moderate comment"
+msgstr "Moderera kommentar"
+
+#: comment/templates/spirit/comment/moderate.html:14
+msgid "Apply"
+msgstr "Verkställ"
+
+#: comment/templates/spirit/comment/publish.html:5
+msgid "Publish comment"
+msgstr "Publicera kommentar"
+
+#: comment/templates/spirit/comment/publish.html:9
+msgid "Publishing comment on"
+msgstr "Publicera kommentar påslaget"
+
+#: comment/templates/spirit/comment/update.html:5
+#: comment/templates/spirit/comment/update.html:9
+msgid "Edit comment"
+msgstr "Redigera kommentar"

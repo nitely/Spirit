@@ -1,0 +1,119 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/private/forms.py:41
+msgid "user1, user2, ..."
+msgstr "użytkownik1, użytkownik2, ..."
+
+#: topic/private/forms.py:73
+msgid "username"
+msgstr "nazwa użytkownika"
+
+#: topic/private/forms.py:74
+msgid "Invite user"
+msgstr "Zaproś użytkownika"
+
+#: topic/private/forms.py:92 topic/private/forms.py:126
+#, python-format
+msgid "%(username)s is already a participant"
+msgstr "%(username)s już jest zaproszony"
+
+#: topic/private/models.py:25
+msgid "private topic"
+msgstr "wątek prywatny"
+
+#: topic/private/models.py:26
+msgid "private topics"
+msgstr "wątki prywatne"
+
+#: topic/private/templates/spirit/topic/private/_invite_form.html:7
+msgid "Invite"
+msgstr "Zaproś"
+
+#: topic/private/templates/spirit/topic/private/_top_bar.html:6
+#: topic/private/templates/spirit/topic/private/_top_bar.html:14
+msgid "Participating in"
+msgstr "Uczestniczy w"
+
+#: topic/private/templates/spirit/topic/private/_top_bar.html:8
+#: topic/private/templates/spirit/topic/private/_top_bar.html:13
+msgid "Left"
+msgstr "Wyszedł"
+
+#: topic/private/templates/spirit/topic/private/_top_bar.html:20
+msgid "Create private topic"
+msgstr "Stwórz prywatny wątek"
+
+#: topic/private/templates/spirit/topic/private/delete.html:5
+msgid "Remove user from private topic"
+msgstr "Usuń użytkownika z prywatnego wątku"
+
+#: topic/private/templates/spirit/topic/private/delete.html:9
+#, python-format
+msgid "Removing %(username)s's from %(topic_title)s"
+msgstr "Usuwanie %(username)s z %(topic_title)s"
+
+#: topic/private/templates/spirit/topic/private/delete.html:13
+msgid "Remove"
+msgstr "Usuń"
+
+#: topic/private/templates/spirit/topic/private/detail.html:10
+#: topic/private/templates/spirit/topic/private/index.html:5
+msgid "Private topics"
+msgstr "Prywatne wątki"
+
+#: topic/private/templates/spirit/topic/private/detail.html:17
+msgid "Participants"
+msgstr "Uczestnicy"
+
+#: topic/private/templates/spirit/topic/private/detail.html:33
+msgid "Leave topic"
+msgstr "Opuść wątek"
+
+#: topic/private/templates/spirit/topic/private/index_author.html:5
+msgid "Created private topics"
+msgstr "Stworzone prywatne wątki"
+
+#: topic/private/templates/spirit/topic/private/index_author.html:15
+msgid "join"
+msgstr "dołącz"
+
+#: topic/private/templates/spirit/topic/private/index_author.html:18
+msgid "There are no topics here, yet"
+msgstr "Nie ma tu jeszcze wątków."
+
+#: topic/private/templates/spirit/topic/private/join.html:5
+msgid "Join topic"
+msgstr "Dołącz do wątku"
+
+#: topic/private/templates/spirit/topic/private/join.html:10
+#, python-format
+msgid "Do you want to join %(topic_title)s?"
+msgstr "Czy chcesz dołączyć do wątku %(topic_title)s?"
+
+#: topic/private/templates/spirit/topic/private/join.html:18
+msgid "Join"
+msgstr "Dołącz"
+
+#: topic/private/templates/spirit/topic/private/publish.html:5
+msgid "Publish a private topic"
+msgstr "Publikuj prywatny wątek"
+
+#: topic/private/templates/spirit/topic/private/publish.html:9
+msgid "Publish private topic"
+msgstr "Publikuj prywatny wątek"
+
+#: topic/private/templates/spirit/topic/private/publish.html:23
+msgid "Publish"
+msgstr "Publikuj"

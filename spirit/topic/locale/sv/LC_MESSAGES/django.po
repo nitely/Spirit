@@ -1,0 +1,183 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/forms.py:26
+msgid "Category"
+msgstr "Kategori"
+
+#: topic/forms.py:27
+msgid "Chose a category"
+msgstr "Välj en kategori"
+
+#: topic/models.py:18
+msgid "user"
+msgstr "användare"
+
+#: topic/models.py:19
+msgid "category"
+msgstr "kategori"
+
+#: topic/models.py:21
+msgid "title"
+msgstr "titel"
+
+#: topic/models.py:23
+msgid "date"
+msgstr "datum"
+
+#: topic/models.py:24
+msgid "last active"
+msgstr "senast aktiv"
+
+#: topic/models.py:26
+msgid "pinned"
+msgstr "fastsatt"
+
+#: topic/models.py:27
+msgid "globally pinned"
+msgstr ""
+
+#: topic/models.py:28
+msgid "closed"
+msgstr "stängd"
+
+#: topic/models.py:31
+msgid "views count"
+msgstr "antal visningar"
+
+#: topic/models.py:32
+msgid "comment count"
+msgstr "antal kommentarer"
+
+#: topic/models.py:38
+msgid "topic"
+msgstr "ämne"
+
+#: topic/models.py:39
+msgid "topics"
+msgstr "ämnen"
+
+#: topic/templates/spirit/topic/_render_list.html:41
+msgid "There are no topics here, yet"
+msgstr "Det finns ännu inga ämnen här"
+
+#: topic/templates/spirit/topic/_top_bar.html:8
+#: topic/templates/spirit/topic/_top_bar.html:19
+msgid "All Categories"
+msgstr "Alla kategorier"
+
+#: topic/templates/spirit/topic/_top_bar.html:17
+msgid "All Subcategories"
+msgstr "Alla underkategorier"
+
+#: topic/templates/spirit/topic/_top_bar.html:27
+#: topic/templates/spirit/topic/_top_bar.html:29
+msgid "Create Topic"
+msgstr "Skapa ämne"
+
+#: topic/templates/spirit/topic/active.html:5
+msgid "Latest active topics"
+msgstr "Senaste aktiva ämnen"
+
+#: topic/templates/spirit/topic/detail.html:10
+msgid "Main"
+msgstr "Huvud"
+
+#: topic/templates/spirit/topic/detail.html:30
+#: topic/templates/spirit/topic/detail.html:32
+msgid "edit"
+msgstr "redigera"
+
+#: topic/templates/spirit/topic/detail.html:42
+msgid "Select comments to move"
+msgstr "Välj kommentarer för flytt"
+
+#: topic/templates/spirit/topic/detail.html:45
+msgid "Undelete topic"
+msgstr "Ångra borttagning av ämne"
+
+#: topic/templates/spirit/topic/detail.html:47
+msgid "Delete topic"
+msgstr "Ta bort ämne"
+
+#: topic/templates/spirit/topic/detail.html:51
+msgid "Open topic"
+msgstr "Öppna ämne"
+
+#: topic/templates/spirit/topic/detail.html:53
+msgid "Close topic"
+msgstr "Stäng ämne"
+
+#: topic/templates/spirit/topic/detail.html:57
+msgid "Unpin topic"
+msgstr "Ångra fastsättning av ämne"
+
+#: topic/templates/spirit/topic/detail.html:59
+msgid "Pin topic"
+msgstr "Sätt fast ämne"
+
+#: topic/templates/spirit/topic/detail.html:63
+msgid "Unpin topic globally"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:65
+msgid "Pin topic globally"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:74
+msgid "Topic id"
+msgstr "Ämnes-id"
+
+#: topic/templates/spirit/topic/detail.html:76
+msgid "Move"
+msgstr "Flytta"
+
+#: topic/templates/spirit/topic/detail.html:92
+msgid "Reply"
+msgstr ""
+
+#: topic/templates/spirit/topic/moderate.html:5
+#: topic/templates/spirit/topic/moderate.html:9
+msgid "Moderate topic"
+msgstr "Moderera ämne"
+
+#: topic/templates/spirit/topic/moderate.html:14
+msgid "Apply"
+msgstr "Verkställ"
+
+#: topic/templates/spirit/topic/publish.html:5
+#: topic/templates/spirit/topic/publish.html:28
+msgid "Publish topic"
+msgstr "Publicera ämne"
+
+#: topic/templates/spirit/topic/publish.html:38
+msgid "Poll"
+msgstr ""
+
+#: topic/templates/spirit/topic/publish.html:41
+msgid "Add poll"
+msgstr ""
+
+#: topic/templates/spirit/topic/publish.html:58
+msgid "Publish"
+msgstr "Publicera"
+
+#: topic/templates/spirit/topic/update.html:5
+#: topic/templates/spirit/topic/update.html:9
+msgid "Update topic"
+msgstr "Uppdatera ämne"
+
+#: topic/templates/spirit/topic/update.html:15
+msgid "Update"
+msgstr "Uppdatera"

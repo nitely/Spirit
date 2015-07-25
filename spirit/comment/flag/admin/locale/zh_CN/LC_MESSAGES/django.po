@@ -1,0 +1,72 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/_list.html:9
+msgid "moderate"
+msgstr "编辑"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/_tabs.html:4
+msgid "Open"
+msgstr "开启"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/_tabs.html:5
+msgid "Closed"
+msgstr "关闭的"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/closed.html:5
+#: comment/flag/admin/templates/spirit/comment/flag/admin/closed.html:11
+msgid "Closed flags"
+msgstr "关闭的标记"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:5
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:14
+msgid "Flag"
+msgstr "标记"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:10
+msgid "Admin"
+msgstr "管理中心"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:11
+msgid "Flags"
+msgstr "标记"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:18
+msgid "Moderated by"
+msgstr "编辑"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:27
+msgid "Save"
+msgstr "保存"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:30
+msgid "Comment flagged"
+msgstr "被标记的评论"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:54
+msgid "delete"
+msgstr "删除"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:61
+msgid "Reporters"
+msgstr "报告者"
+
+#: comment/flag/admin/templates/spirit/comment/flag/admin/open.html:5
+#: comment/flag/admin/templates/spirit/comment/flag/admin/open.html:11
+msgid "Open flags"
+msgstr "开启标记"
+
+#: comment/flag/admin/views.py:27
+msgid "The flag has been moderated!"
+msgstr "该标记已经被编辑"

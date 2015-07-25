@@ -1,0 +1,183 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/forms.py:26
+msgid "Category"
+msgstr "Categorie"
+
+#: topic/forms.py:27
+msgid "Chose a category"
+msgstr "Choisir un categorie"
+
+#: topic/models.py:18
+msgid "user"
+msgstr "utilisateur"
+
+#: topic/models.py:19
+msgid "category"
+msgstr "Catégorie"
+
+#: topic/models.py:21
+msgid "title"
+msgstr "Titre"
+
+#: topic/models.py:23
+msgid "date"
+msgstr "date"
+
+#: topic/models.py:24
+msgid "last active"
+msgstr "dernier actif"
+
+#: topic/models.py:26
+msgid "pinned"
+msgstr "épinglé"
+
+#: topic/models.py:27
+msgid "globally pinned"
+msgstr ""
+
+#: topic/models.py:28
+msgid "closed"
+msgstr "Fermé"
+
+#: topic/models.py:31
+msgid "views count"
+msgstr "nombre de vues"
+
+#: topic/models.py:32
+msgid "comment count"
+msgstr "nombre de commentaires"
+
+#: topic/models.py:38
+msgid "topic"
+msgstr "sujet"
+
+#: topic/models.py:39
+msgid "topics"
+msgstr "sujets"
+
+#: topic/templates/spirit/topic/_render_list.html:41
+msgid "There are no topics here, yet"
+msgstr ""
+
+#: topic/templates/spirit/topic/_top_bar.html:8
+#: topic/templates/spirit/topic/_top_bar.html:19
+msgid "All Categories"
+msgstr ""
+
+#: topic/templates/spirit/topic/_top_bar.html:17
+msgid "All Subcategories"
+msgstr ""
+
+#: topic/templates/spirit/topic/_top_bar.html:27
+#: topic/templates/spirit/topic/_top_bar.html:29
+msgid "Create Topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/active.html:5
+msgid "Latest active topics"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:10
+msgid "Main"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:30
+#: topic/templates/spirit/topic/detail.html:32
+msgid "edit"
+msgstr "éditer"
+
+#: topic/templates/spirit/topic/detail.html:42
+msgid "Select comments to move"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:45
+msgid "Undelete topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:47
+msgid "Delete topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:51
+msgid "Open topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:53
+msgid "Close topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:57
+msgid "Unpin topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:59
+msgid "Pin topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:63
+msgid "Unpin topic globally"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:65
+msgid "Pin topic globally"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:74
+msgid "Topic id"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:76
+msgid "Move"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:92
+msgid "Reply"
+msgstr ""
+
+#: topic/templates/spirit/topic/moderate.html:5
+#: topic/templates/spirit/topic/moderate.html:9
+msgid "Moderate topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/moderate.html:14
+msgid "Apply"
+msgstr ""
+
+#: topic/templates/spirit/topic/publish.html:5
+#: topic/templates/spirit/topic/publish.html:28
+msgid "Publish topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/publish.html:38
+msgid "Poll"
+msgstr ""
+
+#: topic/templates/spirit/topic/publish.html:41
+msgid "Add poll"
+msgstr ""
+
+#: topic/templates/spirit/topic/publish.html:58
+msgid "Publish"
+msgstr ""
+
+#: topic/templates/spirit/topic/update.html:5
+#: topic/templates/spirit/topic/update.html:9
+msgid "Update topic"
+msgstr ""
+
+#: topic/templates/spirit/topic/update.html:15
+msgid "Update"
+msgstr ""

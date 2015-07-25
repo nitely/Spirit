@@ -1,0 +1,37 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: search/forms.py:22
+#, python-format
+msgid "Your search must contain at least %(length)s characters."
+msgstr "Szukana fraza musi zawierać przynajmniej %(length)s znaków."
+
+#: search/forms.py:44
+msgid "Filter by"
+msgstr "Filtruj według"
+
+#: search/templates/spirit/search/_form.html:6
+#: search/templates/spirit/search/search.html:5
+#: search/templates/spirit/search/search.html:10
+#: search/templates/spirit/search/search.html:15
+msgid "Search"
+msgstr "Szukaj"
+
+#: search/templates/spirit/search/search.html:19
+msgid "Results"
+msgstr "Wyniki"
+
+#: search/templates/spirit/search/search.html:27
+msgid "There are no search results."
+msgstr "Nie ma wyników wyszukiwania."

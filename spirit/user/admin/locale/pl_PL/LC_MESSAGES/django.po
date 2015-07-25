@@ -1,0 +1,60 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: user/admin/templates/spirit/user/admin/_list.html:9
+msgid "edit"
+msgstr "edytuj"
+
+#: user/admin/templates/spirit/user/admin/_tabs.html:4
+msgid "List"
+msgstr "Lista"
+
+#: user/admin/templates/spirit/user/admin/_tabs.html:5
+#: user/admin/templates/spirit/user/admin/admins.html:5
+#: user/admin/templates/spirit/user/admin/admins.html:11
+msgid "Admins"
+msgstr "Admini"
+
+#: user/admin/templates/spirit/user/admin/_tabs.html:6
+#: user/admin/templates/spirit/user/admin/mods.html:5
+#: user/admin/templates/spirit/user/admin/mods.html:11
+msgid "Mods"
+msgstr "Moderatorzy"
+
+#: user/admin/templates/spirit/user/admin/_tabs.html:7
+msgid "Unactive"
+msgstr "Nieaktywny"
+
+#: user/admin/templates/spirit/user/admin/edit.html:5
+#: user/admin/templates/spirit/user/admin/edit.html:9
+msgid "Edit user"
+msgstr "Edytuj użytkownika"
+
+#: user/admin/templates/spirit/user/admin/edit.html:16
+msgid "Save"
+msgstr "Zapisz"
+
+#: user/admin/templates/spirit/user/admin/index.html:5
+#: user/admin/templates/spirit/user/admin/index.html:11
+msgid "User list"
+msgstr "Lista użytkowników"
+
+#: user/admin/templates/spirit/user/admin/unactive.html:5
+#: user/admin/templates/spirit/user/admin/unactive.html:11
+msgid "Unactive Users"
+msgstr "Nieaktywni Uzytkownicy"
+
+#: user/admin/views.py:30
+msgid "This profile has been updated!"
+msgstr "Profil został uaktualniony!"

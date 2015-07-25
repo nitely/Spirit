@@ -1,0 +1,127 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/poll/forms.py:28
+msgid "Choice's limit must be greater than zero"
+msgstr ""
+
+#: topic/poll/forms.py:90
+msgid "There must be 2 or more choices"
+msgstr ""
+
+#: topic/poll/forms.py:120 topic/poll/forms.py:125
+msgid "Poll choices"
+msgstr "Choix du sondage"
+
+#: topic/poll/forms.py:146
+#, python-format
+msgid "Too many selected choices. Limit is %s"
+msgstr "Trop de choix sélectionnés. La limite est de %s"
+
+#: topic/poll/forms.py:155
+msgid "This poll is closed"
+msgstr "Le sondage est clos"
+
+#: topic/poll/models.py:13
+msgid "topic"
+msgstr "sujet"
+
+#: topic/poll/models.py:16
+msgid "choice limit"
+msgstr ""
+
+#: topic/poll/models.py:20
+msgid "topic poll"
+msgstr "sondage"
+
+#: topic/poll/models.py:21
+msgid "topics polls"
+msgstr "sondages"
+
+#: topic/poll/models.py:33
+msgid "poll"
+msgstr "sondage"
+
+#: topic/poll/models.py:35
+msgid "choice description"
+msgstr ""
+
+#: topic/poll/models.py:36
+msgid "vote count"
+msgstr ""
+
+#: topic/poll/models.py:40 topic/poll/models.py:46
+msgid "poll choice"
+msgstr ""
+
+#: topic/poll/models.py:41
+msgid "poll choices"
+msgstr ""
+
+#: topic/poll/models.py:47
+msgid "voter"
+msgstr ""
+
+#: topic/poll/models.py:53
+msgid "poll vote"
+msgstr ""
+
+#: topic/poll/models.py:54
+msgid "poll votes"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/_form.html:10
+msgid "Vote"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/_form.html:11
+msgid "edit"
+msgstr "éditer"
+
+#: topic/poll/templates/spirit/topic/poll/_form.html:14
+msgid "open"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/_form.html:16
+msgid "close"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/close.html:5
+msgid "Poll close or open"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/close.html:11
+msgid "Are you sure you want to open this poll"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/close.html:13
+msgid "Are you sure you want to close this poll"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/close.html:20
+msgid "Open"
+msgstr "Ouvert"
+
+#: topic/poll/templates/spirit/topic/poll/close.html:20
+msgid "Close"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/update.html:5
+#: topic/poll/templates/spirit/topic/poll/update.html:9
+msgid "Update poll"
+msgstr ""
+
+#: topic/poll/templates/spirit/topic/poll/update.html:16
+msgid "Publish"
+msgstr ""

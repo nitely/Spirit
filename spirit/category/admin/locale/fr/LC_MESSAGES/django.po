@@ -1,0 +1,53 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: category/admin/forms.py:33
+msgid ""
+"The category you are updating can not have a parent since it has childrens"
+msgstr ""
+"La catégorie que vous êtes en train d'éditer ne peut avoir de parent "
+"puisqu'elle a déjà des enfants"
+
+#: category/admin/templates/spirit/category/admin/create.html:5
+#: category/admin/templates/spirit/category/admin/create.html:9
+msgid "Add Category"
+msgstr "Ajouter une catégorie"
+
+#: category/admin/templates/spirit/category/admin/create.html:15
+#: category/admin/templates/spirit/category/admin/update.html:15
+msgid "Save"
+msgstr "Enregistrer"
+
+#: category/admin/templates/spirit/category/admin/index.html:5
+#: category/admin/templates/spirit/category/admin/index.html:11
+msgid "Category list"
+msgstr ""
+
+#: category/admin/templates/spirit/category/admin/index.html:13
+msgid "Create Category"
+msgstr "Créer ure catégorie"
+
+#: category/admin/templates/spirit/category/admin/index.html:29
+#: category/admin/templates/spirit/category/admin/index.html:44
+msgid "edit"
+msgstr "éditer"
+
+#: category/admin/templates/spirit/category/admin/update.html:5
+#: category/admin/templates/spirit/category/admin/update.html:9
+msgid "Update Category"
+msgstr ""
+
+#: category/admin/views.py:50
+msgid "The category has been updated!"
+msgstr ""

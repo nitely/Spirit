@@ -1,0 +1,181 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: user/auth/forms.py:17
+msgid "Leave blank"
+msgstr "leer lassen"
+
+#: user/auth/forms.py:28
+msgid "Do not fill this field."
+msgstr "Dieses Feld nicht ausfüllen."
+
+#: user/auth/forms.py:40
+msgid "The username is taken."
+msgstr "Der Username ist vergeben."
+
+#: user/auth/forms.py:51
+msgid "Username or Email"
+msgstr "Username oder E-Mail"
+
+#: user/auth/forms.py:56
+msgid "Email"
+msgstr "E-Mail"
+
+#: user/auth/forms.py:64
+msgid "The provided email does not exists."
+msgstr "Die angegebene Email existiert nicht."
+
+#: user/auth/forms.py:74 user/auth/forms.py:79
+msgid "This account is verified, try logging-in."
+msgstr ""
+
+#: user/auth/templates/spirit/user/auth/activation_resend.html:5
+#: user/auth/templates/spirit/user/auth/activation_resend.html:9
+#: user/auth/templates/spirit/user/auth/login.html:23
+msgid "Resend activation email"
+msgstr "Aktivationsmail erneut senden"
+
+#: user/auth/templates/spirit/user/auth/activation_resend.html:16
+msgid "Resend email"
+msgstr "Email erneut senden"
+
+#: user/auth/templates/spirit/user/auth/login.html:5
+#: user/auth/templates/spirit/user/auth/login.html:9
+#: user/auth/templates/spirit/user/auth/login.html:16
+msgid "Login"
+msgstr "Anmelden"
+
+#: user/auth/templates/spirit/user/auth/login.html:21
+msgid "Create an account"
+msgstr "Konto erstellen"
+
+#: user/auth/templates/spirit/user/auth/login.html:22
+msgid "I don't know my password"
+msgstr "Ich habe mein Passwort vergessen"
+
+#: user/auth/templates/spirit/user/auth/logout.html:5
+#: user/auth/templates/spirit/user/auth/logout.html:15
+msgid "Log out"
+msgstr "abmelden"
+
+#: user/auth/templates/spirit/user/auth/logout.html:9
+msgid "Are you sure you want to log out?"
+msgstr "Sind Sie sicher, dass sie sich ausloggen wollen?"
+
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:7
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:11
+msgid "Password change successful"
+msgstr "Passwortänderung erfolgreich"
+
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:13
+msgid "Continue to login"
+msgstr "Weiter zum anmelden"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr "Zurücksetzen des Passworts bestätigt"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:11
+msgid "Enter new password"
+msgstr "Gib ein neues Passwort ein"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:16
+msgid "Save"
+msgstr "speichern"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:21
+msgid "Password reset unsuccessful"
+msgstr "Zurücksetzen des Passworts nicht erfolgreich"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:23
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"Der Link zum Passwort zurücksetzen war ungültig. Möglicherweise war er schon "
+"benutzt. Bitte fordere ein nochmaliges Zurücksetzen des Passwortes an."
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:5
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:9
+msgid "Password reset successful"
+msgstr "Zurücksetzen des Passwortes erfolgreich"
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:11
+msgid ""
+"We've emailed you instructions for setting your password. You should be "
+"receiving them shortly."
+msgstr ""
+"Wir haben dir eine Anleitung zum zurücksetzen deines Passwortes per E-Mail "
+"gesendet. Du solltest sie in Kürze erhalten."
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:12
+#: user/auth/views.py:108
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Wenn du keine E-Mail erhältst, überprüfe bitte ob du die E-Mailadresse "
+"angegeben hast, mit welcher du registriert bist und überprüfe deinen SPAM-"
+"Ordner."
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Du erhältst diese Email da du um das Zurücksetzen deines Passwortes bei "
+"%(site_name)s angesucht hast."
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Bitte gehe zur folgenden Seite und wähle ein neues Passwort:"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:9
+msgid "Thanks for using our site!"
+msgstr "Danke für das Benutzen unserer Website!"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:11
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Das %(site_name)s Team"
+
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:5
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:9
+msgid "Password reset"
+msgstr "Passwort zurücksetzen"
+
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:15
+msgid "Reset my password"
+msgstr "Mein Passwort zurücksetzen"
+
+#: user/auth/templates/spirit/user/auth/password_reset_subject.txt:2
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr "Passwort zurücksetzen unter %(site_name)s"
+
+#: user/auth/templates/spirit/user/auth/register.html:5
+#: user/auth/templates/spirit/user/auth/register.html:22
+#: user/auth/templates/spirit/user/auth/register.html:28
+msgid "Register"
+msgstr "Registrieren"
+
+#: user/auth/views.py:65
+msgid "We have sent you an email so you can activate your account!"
+msgstr ""
+"Wir haben Dir eine E-Mail gesandt, nun kannst du deinen Zugang aktivieren!"
+
+#: user/auth/views.py:89
+msgid "Your account has been activated!"
+msgstr "Dein Zugang wurde aktiviert!"

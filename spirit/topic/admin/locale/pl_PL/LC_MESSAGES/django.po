@@ -1,0 +1,43 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/admin/templates/spirit/topic/admin/_tabs.html:4
+msgid "Deleted"
+msgstr "Usunięte"
+
+#: topic/admin/templates/spirit/topic/admin/_tabs.html:5
+msgid "Closed"
+msgstr "Zamknięte"
+
+#: topic/admin/templates/spirit/topic/admin/_tabs.html:6
+msgid "Pinned"
+msgstr "Przypięte"
+
+#: topic/admin/templates/spirit/topic/admin/closed.html:5
+#: topic/admin/templates/spirit/topic/admin/closed.html:11
+msgid "Closed topics"
+msgstr "Zamknięte wątki"
+
+#: topic/admin/templates/spirit/topic/admin/deleted.html:5
+msgid "Deleted Topics"
+msgstr "Usunięte Wątki"
+
+#: topic/admin/templates/spirit/topic/admin/deleted.html:11
+msgid "Deleted topics"
+msgstr "Usunięte wątki"
+
+#: topic/admin/templates/spirit/topic/admin/pinned.html:5
+#: topic/admin/templates/spirit/topic/admin/pinned.html:11
+msgid "Pinned topics"
+msgstr "Przypięte wątki"

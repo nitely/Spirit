@@ -1,0 +1,119 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/private/forms.py:41
+msgid "user1, user2, ..."
+msgstr "用户1, 用户2, ..."
+
+#: topic/private/forms.py:73
+msgid "username"
+msgstr "用户名"
+
+#: topic/private/forms.py:74
+msgid "Invite user"
+msgstr "邀请用户"
+
+#: topic/private/forms.py:92 topic/private/forms.py:126
+#, python-format
+msgid "%(username)s is already a participant"
+msgstr "用户名 %(username)s 已加入"
+
+#: topic/private/models.py:25
+msgid "private topic"
+msgstr "私密主题"
+
+#: topic/private/models.py:26
+msgid "private topics"
+msgstr "私密主题"
+
+#: topic/private/templates/spirit/topic/private/_invite_form.html:7
+msgid "Invite"
+msgstr "邀请"
+
+#: topic/private/templates/spirit/topic/private/_top_bar.html:6
+#: topic/private/templates/spirit/topic/private/_top_bar.html:14
+msgid "Participating in"
+msgstr "参与了"
+
+#: topic/private/templates/spirit/topic/private/_top_bar.html:8
+#: topic/private/templates/spirit/topic/private/_top_bar.html:13
+msgid "Left"
+msgstr "左边"
+
+#: topic/private/templates/spirit/topic/private/_top_bar.html:20
+msgid "Create private topic"
+msgstr "创建私密主题"
+
+#: topic/private/templates/spirit/topic/private/delete.html:5
+msgid "Remove user from private topic"
+msgstr "从私密主题中踢出用户"
+
+#: topic/private/templates/spirit/topic/private/delete.html:9
+#, python-format
+msgid "Removing %(username)s's from %(topic_title)s"
+msgstr "从 %(topic_title)s 中剔除 %(username)s's"
+
+#: topic/private/templates/spirit/topic/private/delete.html:13
+msgid "Remove"
+msgstr "剔除"
+
+#: topic/private/templates/spirit/topic/private/detail.html:10
+#: topic/private/templates/spirit/topic/private/index.html:5
+msgid "Private topics"
+msgstr "私密主题"
+
+#: topic/private/templates/spirit/topic/private/detail.html:17
+msgid "Participants"
+msgstr "参与者"
+
+#: topic/private/templates/spirit/topic/private/detail.html:33
+msgid "Leave topic"
+msgstr "离开主题"
+
+#: topic/private/templates/spirit/topic/private/index_author.html:5
+msgid "Created private topics"
+msgstr "私密主题已创建"
+
+#: topic/private/templates/spirit/topic/private/index_author.html:15
+msgid "join"
+msgstr "参与"
+
+#: topic/private/templates/spirit/topic/private/index_author.html:18
+msgid "There are no topics here, yet"
+msgstr "还没有主题"
+
+#: topic/private/templates/spirit/topic/private/join.html:5
+msgid "Join topic"
+msgstr "参与主题"
+
+#: topic/private/templates/spirit/topic/private/join.html:10
+#, python-format
+msgid "Do you want to join %(topic_title)s?"
+msgstr "你想参与主题 %(topic_title)s 吗？"
+
+#: topic/private/templates/spirit/topic/private/join.html:18
+msgid "Join"
+msgstr "参与"
+
+#: topic/private/templates/spirit/topic/private/publish.html:5
+msgid "Publish a private topic"
+msgstr "发布私密主题"
+
+#: topic/private/templates/spirit/topic/private/publish.html:9
+msgid "Publish private topic"
+msgstr "发布私密主题"
+
+#: topic/private/templates/spirit/topic/private/publish.html:23
+msgid "Publish"
+msgstr "发布"

@@ -1,0 +1,127 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/poll/forms.py:28
+msgid "Choice's limit must be greater than zero"
+msgstr ""
+
+#: topic/poll/forms.py:90
+msgid "There must be 2 or more choices"
+msgstr ""
+
+#: topic/poll/forms.py:120 topic/poll/forms.py:125
+msgid "Poll choices"
+msgstr "Pola ankiety"
+
+#: topic/poll/forms.py:146
+#, python-format
+msgid "Too many selected choices. Limit is %s"
+msgstr "Zbyt wiele zaznaczonych pól. Limit to %s"
+
+#: topic/poll/forms.py:155
+msgid "This poll is closed"
+msgstr "Ta ankieta jest zamknięta"
+
+#: topic/poll/models.py:13
+msgid "topic"
+msgstr "wątek"
+
+#: topic/poll/models.py:16
+msgid "choice limit"
+msgstr "limit wyborów"
+
+#: topic/poll/models.py:20
+msgid "topic poll"
+msgstr "ankieta wątku"
+
+#: topic/poll/models.py:21
+msgid "topics polls"
+msgstr "ankiety wątków"
+
+#: topic/poll/models.py:33
+msgid "poll"
+msgstr "ankieta"
+
+#: topic/poll/models.py:35
+msgid "choice description"
+msgstr "opis pola"
+
+#: topic/poll/models.py:36
+msgid "vote count"
+msgstr "liczba głowsów"
+
+#: topic/poll/models.py:40 topic/poll/models.py:46
+msgid "poll choice"
+msgstr "pole ankiety"
+
+#: topic/poll/models.py:41
+msgid "poll choices"
+msgstr "pola ankiety"
+
+#: topic/poll/models.py:47
+msgid "voter"
+msgstr "głosujący"
+
+#: topic/poll/models.py:53
+msgid "poll vote"
+msgstr "głos"
+
+#: topic/poll/models.py:54
+msgid "poll votes"
+msgstr "głosy"
+
+#: topic/poll/templates/spirit/topic/poll/_form.html:10
+msgid "Vote"
+msgstr "Głosuj"
+
+#: topic/poll/templates/spirit/topic/poll/_form.html:11
+msgid "edit"
+msgstr "edytuj"
+
+#: topic/poll/templates/spirit/topic/poll/_form.html:14
+msgid "open"
+msgstr "otwarty"
+
+#: topic/poll/templates/spirit/topic/poll/_form.html:16
+msgid "close"
+msgstr "zamknij"
+
+#: topic/poll/templates/spirit/topic/poll/close.html:5
+msgid "Poll close or open"
+msgstr "Ankieta zamknięta lub otwarta"
+
+#: topic/poll/templates/spirit/topic/poll/close.html:11
+msgid "Are you sure you want to open this poll"
+msgstr "Czy jesteś pewny, że chcesz otworzyć tę ankietę"
+
+#: topic/poll/templates/spirit/topic/poll/close.html:13
+msgid "Are you sure you want to close this poll"
+msgstr "Czy jesteś pewny, że chcesz zamknąć tę ankietę?"
+
+#: topic/poll/templates/spirit/topic/poll/close.html:20
+msgid "Open"
+msgstr "Otwarte"
+
+#: topic/poll/templates/spirit/topic/poll/close.html:20
+msgid "Close"
+msgstr "Zamknj"
+
+#: topic/poll/templates/spirit/topic/poll/update.html:5
+#: topic/poll/templates/spirit/topic/poll/update.html:9
+msgid "Update poll"
+msgstr "Uaktualnij ankietę"
+
+#: topic/poll/templates/spirit/topic/poll/update.html:16
+msgid "Publish"
+msgstr "Publikuj"

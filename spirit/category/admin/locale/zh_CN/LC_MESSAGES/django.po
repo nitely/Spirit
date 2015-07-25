@@ -1,0 +1,51 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: category/admin/forms.py:33
+msgid ""
+"The category you are updating can not have a parent since it has childrens"
+msgstr "你要更新的分类无法选择父分类，因为他已经是一个父分类。"
+
+#: category/admin/templates/spirit/category/admin/create.html:5
+#: category/admin/templates/spirit/category/admin/create.html:9
+msgid "Add Category"
+msgstr "添加分类"
+
+#: category/admin/templates/spirit/category/admin/create.html:15
+#: category/admin/templates/spirit/category/admin/update.html:15
+msgid "Save"
+msgstr "保存"
+
+#: category/admin/templates/spirit/category/admin/index.html:5
+#: category/admin/templates/spirit/category/admin/index.html:11
+msgid "Category list"
+msgstr "分类列表"
+
+#: category/admin/templates/spirit/category/admin/index.html:13
+msgid "Create Category"
+msgstr "创建分类"
+
+#: category/admin/templates/spirit/category/admin/index.html:29
+#: category/admin/templates/spirit/category/admin/index.html:44
+msgid "edit"
+msgstr "编辑"
+
+#: category/admin/templates/spirit/category/admin/update.html:5
+#: category/admin/templates/spirit/category/admin/update.html:9
+msgid "Update Category"
+msgstr "更新分类"
+
+#: category/admin/views.py:50
+msgid "The category has been updated!"
+msgstr "分类已经成功修改"

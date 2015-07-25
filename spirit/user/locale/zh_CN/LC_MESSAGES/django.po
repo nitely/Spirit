@@ -1,0 +1,334 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: user/forms.py:30
+msgid "The email is taken."
+msgstr ""
+
+#: user/forms.py:40 user/forms.py:45
+#: user/templates/spirit/user/profile_update.html:12
+msgid "Email"
+msgstr "邮箱"
+
+#: user/forms.py:46 user/templates/spirit/user/profile_update.html:15
+msgid "Password"
+msgstr "密码"
+
+#: user/forms.py:56
+msgid "The provided password is incorrect."
+msgstr ""
+
+#: user/forms.py:77
+#, python-format
+msgid "Current time is: %(date)s %(time)s"
+msgstr "当前时间：%(date)s %(time)s"
+
+#: user/models.py:20
+msgid "profile"
+msgstr ""
+
+#: user/models.py:23 user/models.py:57
+msgid "location"
+msgstr "位置"
+
+#: user/models.py:24 user/models.py:58
+msgid "last seen"
+msgstr "上次所见"
+
+#: user/models.py:25 user/models.py:59
+msgid "last ip"
+msgstr "上次IP"
+
+#: user/models.py:26 user/models.py:60
+msgid "time zone"
+msgstr "时区"
+
+#: user/models.py:27 user/models.py:61
+msgid "administrator status"
+msgstr "管理状态"
+
+#: user/models.py:28 user/models.py:62
+msgid "moderator status"
+msgstr "版主状态"
+
+#: user/models.py:29 user/models.py:63
+msgid "verified"
+msgstr ""
+
+#: user/models.py:30 user/models.py:64
+msgid ""
+"Designates whether the user has verified his account by email or by other "
+"means. Un-select this to let the user activate his account."
+msgstr ""
+
+#: user/models.py:34 user/models.py:68
+msgid "topic count"
+msgstr "主题数"
+
+#: user/models.py:35 user/models.py:69
+msgid "comment count"
+msgstr "评论次数"
+
+#: user/models.py:38
+msgid "forum profile"
+msgstr ""
+
+#: user/models.py:39
+msgid "forum profiles"
+msgstr ""
+
+#: user/models.py:86
+msgid "username"
+msgstr "用户名"
+
+#: user/models.py:87
+msgid ""
+"Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters"
+msgstr "可用30位以下字母，数字，或 “@/./+/-/_”字符"
+
+#: user/models.py:90
+msgid "Enter a valid username."
+msgstr "输入正确的用户名"
+
+#: user/models.py:93
+msgid "first name"
+msgstr "名"
+
+#: user/models.py:94
+msgid "last name"
+msgstr "姓"
+
+#: user/models.py:95
+msgid "email"
+msgstr "email"
+
+#: user/models.py:96
+msgid "staff status"
+msgstr "职员状态"
+
+#: user/models.py:97
+msgid "Designates whether the user can log into this admin site."
+msgstr "表明用户是否有权进入该管理中心"
+
+#: user/models.py:99
+msgid "active"
+msgstr "激活的"
+
+#: user/models.py:100
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr "表明用户是否是激活状态。如需删除用户，请直接取消其激活状态。"
+
+#: user/models.py:102
+msgid "date joined"
+msgstr "加入时间"
+
+#: user/models.py:133
+msgid "user"
+msgstr "用户"
+
+#: user/models.py:134
+msgid "users"
+msgstr "用户"
+
+#: user/templates/spirit/user/_profile.html:12
+msgid "Joined at"
+msgstr "参加于"
+
+#: user/templates/spirit/user/_profile.html:16
+msgid "Seen"
+msgstr "见于"
+
+#: user/templates/spirit/user/_profile.html:22
+msgid "Last IP"
+msgstr "上次IP"
+
+#: user/templates/spirit/user/_profile.html:31
+#: user/templates/spirit/user/profile_update.html:5
+#: user/templates/spirit/user/profile_update.html:9
+msgid "Preferences"
+msgstr "偏好设置"
+
+#: user/templates/spirit/user/_profile.html:35
+msgid "Private Message"
+msgstr "私信"
+
+#: user/templates/spirit/user/_profile.html:41
+msgid "Edit user"
+msgstr "编辑用户"
+
+#: user/templates/spirit/user/_profile.html:46
+msgid "Comments"
+msgstr "评论"
+
+#: user/templates/spirit/user/_profile.html:47
+#: user/templates/spirit/user/menu.html:15
+msgid "Topics"
+msgstr "主题"
+
+#: user/templates/spirit/user/_profile.html:48
+msgid "Likes"
+msgstr "喜欢"
+
+#: user/templates/spirit/user/_render_comments_list.html:36
+msgid "There are no comments here, yet"
+msgstr "暂无评论"
+
+#: user/templates/spirit/user/activation_email.html:2
+#, python-format
+msgid "You're receiving this email because you registered at %(site_name)s."
+msgstr "你收到该邮件是因为你注册过%(site_name)s"
+
+#: user/templates/spirit/user/activation_email.html:4
+msgid "Please go to the following link to activate your account:"
+msgstr "请到下面链接激活你的帐号"
+
+#: user/templates/spirit/user/activation_email.html:8
+#: user/templates/spirit/user/email_change_email.html:8
+msgid "Thanks for using our site!"
+msgstr "感谢使用本站"
+
+#: user/templates/spirit/user/email_change_email.html:2
+#, python-format
+msgid ""
+"You're receiving this because you changed your user email at %(site_name)s."
+msgstr "你收到该邮件是因为你在%(site_name)s修改了email"
+
+#: user/templates/spirit/user/email_change_email.html:4
+msgid "Please go to the following link to confirm your email change:"
+msgstr "请访问以下链接确认新的email地址"
+
+#: user/templates/spirit/user/menu.html:7
+msgid "User menu"
+msgstr "用户菜单"
+
+#: user/templates/spirit/user/menu.html:11
+msgid "Menu"
+msgstr "菜单"
+
+#: user/templates/spirit/user/menu.html:14
+msgid "Profile"
+msgstr "个人资料"
+
+#: user/templates/spirit/user/menu.html:16
+msgid "Unread topics"
+msgstr "未读主题"
+
+#: user/templates/spirit/user/menu.html:17
+msgid "Private topics"
+msgstr "私密主题"
+
+#: user/templates/spirit/user/menu.html:20
+msgid "Admin"
+msgstr "管理中心"
+
+#: user/templates/spirit/user/menu.html:23
+msgid "Log out"
+msgstr "登出"
+
+#: user/templates/spirit/user/notification_email.html:2
+#, python-format
+msgid "You have a new notification at %(site_name)s."
+msgstr "你在%(site_name)s收到了新的提醒"
+
+#: user/templates/spirit/user/notification_email.html:4
+msgid "Please go to the following link to read the comment:"
+msgstr "请到下面的链接阅读评论："
+
+#: user/templates/spirit/user/notification_email.html:8
+msgid ""
+"If you don't want to keep receiving notifications, you can deactivate them "
+"on your profile preferences."
+msgstr "你可以在偏好设置里面屏蔽邮件提醒"
+
+#: user/templates/spirit/user/profile_comments.html:5
+msgid "comments"
+msgstr "评论"
+
+#: user/templates/spirit/user/profile_email_change.html:5
+#: user/templates/spirit/user/profile_email_change.html:9 user/tests.py:589
+#: user/utils/email.py:50
+msgid "Email change"
+msgstr "Email修改"
+
+#: user/templates/spirit/user/profile_email_change.html:15
+msgid "Change my email"
+msgstr "修改我的"
+
+#: user/templates/spirit/user/profile_likes.html:5
+msgid "likes"
+msgstr "喜欢"
+
+#: user/templates/spirit/user/profile_password_change.html:5
+#: user/templates/spirit/user/profile_password_change.html:9
+msgid "Password change"
+msgstr "密码修改"
+
+#: user/templates/spirit/user/profile_password_change.html:15
+msgid "Change my password"
+msgstr "修改密码"
+
+#: user/templates/spirit/user/profile_topics.html:5
+msgid "topics"
+msgstr "主题"
+
+#: user/templates/spirit/user/profile_update.html:16
+msgid "Change password"
+msgstr "修改密码"
+
+#: user/templates/spirit/user/profile_update.html:18
+msgid "Avatar"
+msgstr "头像"
+
+#: user/templates/spirit/user/profile_update.html:19
+msgid "Change avatar"
+msgstr "修改头像"
+
+#: user/templates/spirit/user/profile_update.html:20
+msgid "Go to gravatar.com and use your current email to change it"
+msgstr "请到gravataar.com以你的邮箱注册，以显示头像"
+
+#: user/templates/spirit/user/profile_update.html:28
+msgid "Save"
+msgstr "保存"
+
+#: user/tests.py:120 user/tests.py:608 user/utils/email.py:42
+msgid "User activation"
+msgstr "用户激活"
+
+#: user/utils/email.py:59
+#, python-format
+msgid "New notification: %(topic_name)s"
+msgstr "新提醒: %(topic_name)s"
+
+#: user/views.py:35
+msgid "Your profile has been updated!"
+msgstr "你的个人资料已经更新"
+
+#: user/views.py:57
+msgid "Your password has been changed!"
+msgstr "你的密码已经成功修改"
+
+#: user/views.py:74
+msgid "We have sent you an email so you can confirm the change!"
+msgstr "我们已经发送了确认邮件。请从邮件确认生效。"
+
+#: user/views.py:96
+msgid "Your email has been changed!"
+msgstr "你的email已经修改"
+
+#: user/views.py:99
+msgid "Sorry, we were not able to change your email."
+msgstr ""

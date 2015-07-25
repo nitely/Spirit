@@ -1,0 +1,111 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin/forms.py:13
+msgid "site name"
+msgstr "站点名称"
+
+#: admin/forms.py:14
+msgid "site description"
+msgstr "站点描述"
+
+#: admin/forms.py:15
+msgid "footer snippet"
+msgstr "底部代码"
+
+#: admin/forms.py:17
+msgid "This gets rendered just before the footer in your template."
+msgstr "这段代码在模板的footer前被渲染"
+
+#: admin/forms.py:18
+msgid "comments per page"
+msgstr ""
+
+#: admin/forms.py:19
+msgid "topics per page"
+msgstr ""
+
+#: admin/templates/spirit/admin/_side_menu.html:3
+msgid "Show menu"
+msgstr "显示菜单"
+
+#: admin/templates/spirit/admin/_side_menu.html:9
+#: admin/templates/spirit/admin/dashboard.html:5
+#: admin/templates/spirit/admin/dashboard.html:11
+msgid "Dashboard"
+msgstr "仪表盘"
+
+#: admin/templates/spirit/admin/_side_menu.html:10
+msgid "Basic settings"
+msgstr "基本设置"
+
+#: admin/templates/spirit/admin/_side_menu.html:11
+#: admin/templates/spirit/admin/dashboard.html:47
+msgid "Categories"
+msgstr "分类"
+
+#: admin/templates/spirit/admin/_side_menu.html:12
+#: admin/templates/spirit/admin/dashboard.html:31
+msgid "Topics"
+msgstr "主题"
+
+#: admin/templates/spirit/admin/_side_menu.html:13
+msgid "Users"
+msgstr "用户"
+
+#: admin/templates/spirit/admin/_side_menu.html:14
+#: admin/templates/spirit/admin/dashboard.html:43
+msgid "Flags"
+msgstr "标记"
+
+#: admin/templates/spirit/admin/config_basic.html:5
+#: admin/templates/spirit/admin/config_basic.html:11
+msgid "Basic Settings"
+msgstr "基本设置"
+
+#: admin/templates/spirit/admin/config_basic.html:17
+msgid "Save"
+msgstr "保存"
+
+#: admin/templates/spirit/admin/dashboard.html:14
+msgid "Software"
+msgstr "软件"
+
+#: admin/templates/spirit/admin/dashboard.html:17
+msgid "Installed"
+msgstr "已安装"
+
+#: admin/templates/spirit/admin/dashboard.html:18
+msgid "Latest"
+msgstr "最新的"
+
+#: admin/templates/spirit/admin/dashboard.html:22
+msgid "Statistics"
+msgstr "统计"
+
+#: admin/templates/spirit/admin/dashboard.html:27
+msgid "Members"
+msgstr "会员"
+
+#: admin/templates/spirit/admin/dashboard.html:35
+msgid "Comments"
+msgstr "评论"
+
+#: admin/templates/spirit/admin/dashboard.html:39
+msgid "Likes"
+msgstr "喜欢"
+
+#: admin/views.py:30
+msgid "Settings updated!"
+msgstr "设置修改成功"

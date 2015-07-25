@@ -1,0 +1,25 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:25+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: comment/bookmark/models.py:16
+msgid "user"
+msgstr "usuario"
+
+#: comment/bookmark/models.py:23
+msgid "comment bookmark"
+msgstr "marcador de comentario"
+
+#: comment/bookmark/models.py:24
+msgid "comments bookmarks"
+msgstr "marcadores de comentarios"

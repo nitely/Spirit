@@ -1,0 +1,179 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: user/auth/forms.py:17
+msgid "Leave blank"
+msgstr "Zostaw puste"
+
+#: user/auth/forms.py:28
+msgid "Do not fill this field."
+msgstr "Nie wypełniaj tego pola."
+
+#: user/auth/forms.py:40
+msgid "The username is taken."
+msgstr "Ta nazwa użytkownika jest już zajęta."
+
+#: user/auth/forms.py:51
+msgid "Username or Email"
+msgstr "Nazwa użytkownika lub email"
+
+#: user/auth/forms.py:56
+msgid "Email"
+msgstr "Email"
+
+#: user/auth/forms.py:64
+msgid "The provided email does not exists."
+msgstr "Podany email nie istnieje."
+
+#: user/auth/forms.py:74 user/auth/forms.py:79
+msgid "This account is verified, try logging-in."
+msgstr ""
+
+#: user/auth/templates/spirit/user/auth/activation_resend.html:5
+#: user/auth/templates/spirit/user/auth/activation_resend.html:9
+#: user/auth/templates/spirit/user/auth/login.html:23
+msgid "Resend activation email"
+msgstr "Wyślij maila aktywacyjnego ponownie"
+
+#: user/auth/templates/spirit/user/auth/activation_resend.html:16
+msgid "Resend email"
+msgstr "Wyślij maila ponownie"
+
+#: user/auth/templates/spirit/user/auth/login.html:5
+#: user/auth/templates/spirit/user/auth/login.html:9
+#: user/auth/templates/spirit/user/auth/login.html:16
+msgid "Login"
+msgstr "Login"
+
+#: user/auth/templates/spirit/user/auth/login.html:21
+msgid "Create an account"
+msgstr "Stwórz konto"
+
+#: user/auth/templates/spirit/user/auth/login.html:22
+msgid "I don't know my password"
+msgstr "Zapomniałem hasła"
+
+#: user/auth/templates/spirit/user/auth/logout.html:5
+#: user/auth/templates/spirit/user/auth/logout.html:15
+msgid "Log out"
+msgstr "Wyloguj się"
+
+#: user/auth/templates/spirit/user/auth/logout.html:9
+msgid "Are you sure you want to log out?"
+msgstr "Czy jesteś pewny, że chcesz się wylogować?"
+
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:7
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:11
+msgid "Password change successful"
+msgstr "Zmieniono hasło"
+
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:13
+msgid "Continue to login"
+msgstr "Przejdź do logowania się"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr "Potwierdzenie resetu hasła"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:11
+msgid "Enter new password"
+msgstr "Wprowadź nowe hasło"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:16
+msgid "Save"
+msgstr "Zapisz"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:21
+msgid "Password reset unsuccessful"
+msgstr "Niepowodzenie resetu hasła"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:23
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"Łącze resetowania hasła było nieprawidłowe - być może zostało już wcześniej "
+"użyte. Poproś o nowy reset hasła."
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:5
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:9
+msgid "Password reset successful"
+msgstr "Powodzenie resetu hasła"
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:11
+msgid ""
+"We've emailed you instructions for setting your password. You should be "
+"receiving them shortly."
+msgstr ""
+"Wysłaliśmy ci instrukcje ustawienia twojego hasła. Niedługo powinieneś je "
+"dostać, sprawdź swoją skrzynkę."
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:12
+#: user/auth/views.py:108
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Jeśli nie otrzymasz maila, sprawdź czy wprowadziłeś poprawny adres i "
+"przejrzyj folder Spamu."
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Otrzymujesz tę wiadomość, bo prosiłeś o reset hasła użytkownika na stronie "
+"%(site_name)s."
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Przejdź pod podany adres i wprowadź swoje nowe hasło:"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:9
+msgid "Thanks for using our site!"
+msgstr "Dziękujemy za korzystanie z naszej strony!"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:11
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Zespół %(site_name)s"
+
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:5
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:9
+msgid "Password reset"
+msgstr "Reset hasła"
+
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:15
+msgid "Reset my password"
+msgstr "Zresetuj moje hasło"
+
+#: user/auth/templates/spirit/user/auth/password_reset_subject.txt:2
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr "Reset hasła na %(site_name)s"
+
+#: user/auth/templates/spirit/user/auth/register.html:5
+#: user/auth/templates/spirit/user/auth/register.html:22
+#: user/auth/templates/spirit/user/auth/register.html:28
+msgid "Register"
+msgstr "Zarejestruj się"
+
+#: user/auth/views.py:65
+msgid "We have sent you an email so you can activate your account!"
+msgstr "Wysłaliśmy ci maila abyś mógł aktwować swoje konto!"
+
+#: user/auth/views.py:89
+msgid "Your account has been activated!"
+msgstr "Twoje konto zostało aktywowane!"

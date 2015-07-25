@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'spirit.topic',
     'spirit.topic.admin',
     'spirit.topic.favorite',
+    'spirit.topic.moderate',
     'spirit.topic.notification',
     'spirit.topic.poll',
     'spirit.topic.private',

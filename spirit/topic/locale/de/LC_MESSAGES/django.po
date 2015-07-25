@@ -1,0 +1,183 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/forms.py:26
+msgid "Category"
+msgstr "Kategorie"
+
+#: topic/forms.py:27
+msgid "Chose a category"
+msgstr "Kategorie auswählen"
+
+#: topic/models.py:18
+msgid "user"
+msgstr "Benutzer_in"
+
+#: topic/models.py:19
+msgid "category"
+msgstr "Kategorie"
+
+#: topic/models.py:21
+msgid "title"
+msgstr "Titel"
+
+#: topic/models.py:23
+msgid "date"
+msgstr "Datum"
+
+#: topic/models.py:24
+msgid "last active"
+msgstr "zuletzt aktiv"
+
+#: topic/models.py:26
+msgid "pinned"
+msgstr "festgeheftet"
+
+#: topic/models.py:27
+msgid "globally pinned"
+msgstr ""
+
+#: topic/models.py:28
+msgid "closed"
+msgstr "geschlossen"
+
+#: topic/models.py:31
+msgid "views count"
+msgstr "gelesen"
+
+#: topic/models.py:32
+msgid "comment count"
+msgstr "Kommentare"
+
+#: topic/models.py:38
+msgid "topic"
+msgstr "Thema"
+
+#: topic/models.py:39
+msgid "topics"
+msgstr "Themen"
+
+#: topic/templates/spirit/topic/_render_list.html:41
+msgid "There are no topics here, yet"
+msgstr "Es gibt keine Themen, bis jetzt..."
+
+#: topic/templates/spirit/topic/_top_bar.html:8
+#: topic/templates/spirit/topic/_top_bar.html:19
+msgid "All Categories"
+msgstr "Alle Kategorien"
+
+#: topic/templates/spirit/topic/_top_bar.html:17
+msgid "All Subcategories"
+msgstr "Alle Unterkategorien"
+
+#: topic/templates/spirit/topic/_top_bar.html:27
+#: topic/templates/spirit/topic/_top_bar.html:29
+msgid "Create Topic"
+msgstr "Thema erstellen"
+
+#: topic/templates/spirit/topic/active.html:5
+msgid "Latest active topics"
+msgstr "zuletzt aktive Themen"
+
+#: topic/templates/spirit/topic/detail.html:10
+msgid "Main"
+msgstr "Main"
+
+#: topic/templates/spirit/topic/detail.html:30
+#: topic/templates/spirit/topic/detail.html:32
+msgid "edit"
+msgstr "editieren"
+
+#: topic/templates/spirit/topic/detail.html:42
+msgid "Select comments to move"
+msgstr "Kommentar zum verschieben auswählen"
+
+#: topic/templates/spirit/topic/detail.html:45
+msgid "Undelete topic"
+msgstr "Thema wiederherstellen"
+
+#: topic/templates/spirit/topic/detail.html:47
+msgid "Delete topic"
+msgstr "Thema löschen"
+
+#: topic/templates/spirit/topic/detail.html:51
+msgid "Open topic"
+msgstr "Thema öffnen"
+
+#: topic/templates/spirit/topic/detail.html:53
+msgid "Close topic"
+msgstr "Thema schließen"
+
+#: topic/templates/spirit/topic/detail.html:57
+msgid "Unpin topic"
+msgstr "Thema loslösen"
+
+#: topic/templates/spirit/topic/detail.html:59
+msgid "Pin topic"
+msgstr "Thema gefestigen"
+
+#: topic/templates/spirit/topic/detail.html:63
+msgid "Unpin topic globally"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:65
+msgid "Pin topic globally"
+msgstr ""
+
+#: topic/templates/spirit/topic/detail.html:74
+msgid "Topic id"
+msgstr "Themen id"
+
+#: topic/templates/spirit/topic/detail.html:76
+msgid "Move"
+msgstr "verschiebe"
+
+#: topic/templates/spirit/topic/detail.html:92
+msgid "Reply"
+msgstr "Antworten"
+
+#: topic/templates/spirit/topic/moderate.html:5
+#: topic/templates/spirit/topic/moderate.html:9
+msgid "Moderate topic"
+msgstr "Thema moderieren"
+
+#: topic/templates/spirit/topic/moderate.html:14
+msgid "Apply"
+msgstr "akzeptieren"
+
+#: topic/templates/spirit/topic/publish.html:5
+#: topic/templates/spirit/topic/publish.html:28
+msgid "Publish topic"
+msgstr "Thema veröffentlichen"
+
+#: topic/templates/spirit/topic/publish.html:38
+msgid "Poll"
+msgstr ""
+
+#: topic/templates/spirit/topic/publish.html:41
+msgid "Add poll"
+msgstr ""
+
+#: topic/templates/spirit/topic/publish.html:58
+msgid "Publish"
+msgstr "veröffentlichen"
+
+#: topic/templates/spirit/topic/update.html:5
+#: topic/templates/spirit/topic/update.html:9
+msgid "Update topic"
+msgstr "Thema aktualisieren"
+
+#: topic/templates/spirit/topic/update.html:15
+msgid "Update"
+msgstr "aktualisieren"

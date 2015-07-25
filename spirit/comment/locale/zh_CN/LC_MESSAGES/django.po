@@ -1,0 +1,225 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: comment/forms.py:30
+msgid "Write comment..."
+msgstr "发表评论"
+
+#: comment/forms.py:83
+#, python-format
+msgid "Unsupported file format. Supported formats are %s."
+msgstr "文件格式不支持，支持的文件格式有：%s."
+
+#: comment/models.py:20 comment/models.py:34 comment/models.py:49
+msgid "comment"
+msgstr "评论"
+
+#: comment/models.py:21
+msgid "topic moved"
+msgstr "主题已转移"
+
+#: comment/models.py:22
+msgid "topic closed"
+msgstr "主题已关闭"
+
+#: comment/models.py:23
+msgid "topic unclosed"
+msgstr "主题已重新开启"
+
+#: comment/models.py:24
+msgid "topic pinned"
+msgstr "主题已置顶"
+
+#: comment/models.py:25
+msgid "topic unpinned"
+msgstr "主题已取消置顶"
+
+#: comment/models.py:31
+msgid "user"
+msgstr "用户"
+
+#: comment/models.py:35
+msgid "comment html"
+msgstr "评论html"
+
+#: comment/models.py:36
+msgid "action"
+msgstr "动作"
+
+#: comment/models.py:42
+msgid "modified count"
+msgstr "编辑次数"
+
+#: comment/models.py:43
+msgid "likes count"
+msgstr "被喜欢的次数"
+
+#: comment/models.py:50
+msgid "comments"
+msgstr "评论"
+
+#: comment/tags.py:21
+msgid "This topic has been moved"
+msgstr "主题已经移动"
+
+#: comment/tags.py:23
+msgid "This topic has been closed"
+msgstr "主题已经关闭"
+
+#: comment/tags.py:25
+msgid "This topic has been unclosed"
+msgstr "主题已经重新开启"
+
+#: comment/tags.py:27
+msgid "This topic has been pinned"
+msgstr "主题已经置顶"
+
+#: comment/tags.py:29
+msgid "This topic has been unpinned"
+msgstr "主题已经取消置顶"
+
+#: comment/tags.py:31
+msgid "Unknown topic moderation action"
+msgstr "未知的主题操作"
+
+#: comment/templates/spirit/comment/_editor.html:6
+msgid "Bold"
+msgstr "粗体"
+
+#: comment/templates/spirit/comment/_editor.html:7
+msgid "Italic"
+msgstr "斜体"
+
+#: comment/templates/spirit/comment/_editor.html:8
+msgid "List"
+msgstr "列表"
+
+#: comment/templates/spirit/comment/_editor.html:9
+msgid "URL"
+msgstr "URL"
+
+#: comment/templates/spirit/comment/_editor.html:10
+msgid "Image"
+msgstr "图片"
+
+#: comment/templates/spirit/comment/_editor.html:11
+msgid "Preview"
+msgstr "预览"
+
+#: comment/templates/spirit/comment/_editor.html:33
+#, python-brace-format
+msgid "uploading {image_name}"
+msgstr "正在上传 {image_name}"
+
+#: comment/templates/spirit/comment/_editor.html:36
+msgid "bolded text"
+msgstr "加粗的文字"
+
+#: comment/templates/spirit/comment/_editor.html:37
+msgid "italicised text"
+msgstr "斜体的文字"
+
+#: comment/templates/spirit/comment/_editor.html:38
+msgid "list item"
+msgstr "列表项"
+
+#: comment/templates/spirit/comment/_editor.html:39
+msgid "link text"
+msgstr "链接文字"
+
+#: comment/templates/spirit/comment/_editor.html:40
+msgid "link url"
+msgstr "链接URL"
+
+#: comment/templates/spirit/comment/_editor.html:41
+msgid "image text"
+msgstr "图片文字"
+
+#: comment/templates/spirit/comment/_editor.html:42
+msgid "image url"
+msgstr "图片URL"
+
+#: comment/templates/spirit/comment/_form.html:17
+#: comment/templates/spirit/comment/publish.html:18
+#: comment/templates/spirit/comment/update.html:18
+msgid "Publish"
+msgstr "发布"
+
+#: comment/templates/spirit/comment/_render_list.html:47
+msgid "delete"
+msgstr "删除"
+
+#: comment/templates/spirit/comment/_render_list.html:50
+msgid "report"
+msgstr "举报"
+
+#: comment/templates/spirit/comment/_render_list.html:53
+msgid "share"
+msgstr "分享"
+
+#: comment/templates/spirit/comment/_render_list.html:57
+#: comment/templates/spirit/comment/_render_list.html:139
+msgid "remove like"
+msgstr "删除喜欢"
+
+#: comment/templates/spirit/comment/_render_list.html:60
+#: comment/templates/spirit/comment/_render_list.html:138
+msgid "like"
+msgstr "喜欢"
+
+#: comment/templates/spirit/comment/_render_list.html:67
+msgid "edit"
+msgstr "编辑"
+
+#: comment/templates/spirit/comment/_render_list.html:71
+msgid "quote"
+msgstr "引用"
+
+#: comment/templates/spirit/comment/_render_list.html:72
+msgid "reply"
+msgstr "回复"
+
+#: comment/templates/spirit/comment/_render_list.html:79
+msgid "close"
+msgstr "关闭"
+
+#: comment/templates/spirit/comment/_render_list.html:110
+msgid "This comment was deleted"
+msgstr "评论已经删除"
+
+#: comment/templates/spirit/comment/_render_list.html:118
+msgid "undelete"
+msgstr "恢复"
+
+#: comment/templates/spirit/comment/moderate.html:5
+#: comment/templates/spirit/comment/moderate.html:9
+msgid "Moderate comment"
+msgstr "版主评论"
+
+#: comment/templates/spirit/comment/moderate.html:14
+msgid "Apply"
+msgstr "应用"
+
+#: comment/templates/spirit/comment/publish.html:5
+msgid "Publish comment"
+msgstr "发表评论"
+
+#: comment/templates/spirit/comment/publish.html:9
+msgid "Publishing comment on"
+msgstr "发表评论于"
+
+#: comment/templates/spirit/comment/update.html:5
+#: comment/templates/spirit/comment/update.html:9
+msgid "Edit comment"
+msgstr "编辑评论"

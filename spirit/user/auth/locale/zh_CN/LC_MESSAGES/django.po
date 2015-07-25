@@ -1,0 +1,173 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: user/auth/forms.py:17
+msgid "Leave blank"
+msgstr "留空"
+
+#: user/auth/forms.py:28
+msgid "Do not fill this field."
+msgstr "不要填写此栏"
+
+#: user/auth/forms.py:40
+msgid "The username is taken."
+msgstr "用户名已经存在"
+
+#: user/auth/forms.py:51
+msgid "Username or Email"
+msgstr "用户名 或 邮箱"
+
+#: user/auth/forms.py:56
+msgid "Email"
+msgstr "邮箱"
+
+#: user/auth/forms.py:64
+msgid "The provided email does not exists."
+msgstr "email不存在"
+
+#: user/auth/forms.py:74 user/auth/forms.py:79
+msgid "This account is verified, try logging-in."
+msgstr ""
+
+#: user/auth/templates/spirit/user/auth/activation_resend.html:5
+#: user/auth/templates/spirit/user/auth/activation_resend.html:9
+#: user/auth/templates/spirit/user/auth/login.html:23
+msgid "Resend activation email"
+msgstr "重发激活邮件"
+
+#: user/auth/templates/spirit/user/auth/activation_resend.html:16
+msgid "Resend email"
+msgstr "重新发送邮件"
+
+#: user/auth/templates/spirit/user/auth/login.html:5
+#: user/auth/templates/spirit/user/auth/login.html:9
+#: user/auth/templates/spirit/user/auth/login.html:16
+msgid "Login"
+msgstr "登入"
+
+#: user/auth/templates/spirit/user/auth/login.html:21
+msgid "Create an account"
+msgstr "创建帐号"
+
+#: user/auth/templates/spirit/user/auth/login.html:22
+msgid "I don't know my password"
+msgstr "忘记密码"
+
+#: user/auth/templates/spirit/user/auth/logout.html:5
+#: user/auth/templates/spirit/user/auth/logout.html:15
+msgid "Log out"
+msgstr "登出"
+
+#: user/auth/templates/spirit/user/auth/logout.html:9
+msgid "Are you sure you want to log out?"
+msgstr "确认登出？"
+
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:7
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:11
+msgid "Password change successful"
+msgstr "密码修改成功"
+
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:13
+msgid "Continue to login"
+msgstr "转到登录"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr "密码重置确认"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:11
+msgid "Enter new password"
+msgstr "输入新的密码"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:16
+msgid "Save"
+msgstr "保存"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:21
+msgid "Password reset unsuccessful"
+msgstr "密码重置不成功"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:23
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr "密码重置链接无效，因为已被使用过了。请重新申请重置。"
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:5
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:9
+msgid "Password reset successful"
+msgstr "密码重置成功"
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:11
+msgid ""
+"We've emailed you instructions for setting your password. You should be "
+"receiving them shortly."
+msgstr "我们已经用email通知了你修改密码重置的事项。"
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:12
+#: user/auth/views.py:108
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"如果你没有收到邮件，请检查输入的email是不是你帐号绑定的邮箱，或检查垃圾邮件目"
+"录"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr "你收到这封邮件是因为你在 %(site_name)s 申请了密码重置"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "请到下面的链接重置密码："
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:9
+msgid "Thanks for using our site!"
+msgstr "感谢使用本站"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:11
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "%(site_name)s 团队"
+
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:5
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:9
+msgid "Password reset"
+msgstr "密码重置"
+
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:15
+msgid "Reset my password"
+msgstr "重置我的密码"
+
+#: user/auth/templates/spirit/user/auth/password_reset_subject.txt:2
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr "%(site_name)s 的密码重置"
+
+#: user/auth/templates/spirit/user/auth/register.html:5
+#: user/auth/templates/spirit/user/auth/register.html:22
+#: user/auth/templates/spirit/user/auth/register.html:28
+msgid "Register"
+msgstr "注册"
+
+#: user/auth/views.py:65
+msgid "We have sent you an email so you can activate your account!"
+msgstr "我们已经发送了激活邮件"
+
+#: user/auth/views.py:89
+msgid "Your account has been activated!"
+msgstr "你的帐号已经成功激活"

@@ -1,0 +1,179 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:25+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: user/auth/forms.py:17
+msgid "Leave blank"
+msgstr "Dejar en blanco"
+
+#: user/auth/forms.py:28
+msgid "Do not fill this field."
+msgstr "No rellenes este campo."
+
+#: user/auth/forms.py:40
+msgid "The username is taken."
+msgstr "El nombre de usuario ya esta en uso."
+
+#: user/auth/forms.py:51
+msgid "Username or Email"
+msgstr "Usuario o Email"
+
+#: user/auth/forms.py:56
+msgid "Email"
+msgstr "Email"
+
+#: user/auth/forms.py:64
+msgid "The provided email does not exists."
+msgstr "El email ingresado no existe."
+
+#: user/auth/forms.py:74 user/auth/forms.py:79
+msgid "This account is verified, try logging-in."
+msgstr ""
+
+#: user/auth/templates/spirit/user/auth/activation_resend.html:5
+#: user/auth/templates/spirit/user/auth/activation_resend.html:9
+#: user/auth/templates/spirit/user/auth/login.html:23
+msgid "Resend activation email"
+msgstr "Reenviar email de activación"
+
+#: user/auth/templates/spirit/user/auth/activation_resend.html:16
+msgid "Resend email"
+msgstr "Reenviar email"
+
+#: user/auth/templates/spirit/user/auth/login.html:5
+#: user/auth/templates/spirit/user/auth/login.html:9
+#: user/auth/templates/spirit/user/auth/login.html:16
+msgid "Login"
+msgstr "Ingresar"
+
+#: user/auth/templates/spirit/user/auth/login.html:21
+msgid "Create an account"
+msgstr "Crear una cuenta"
+
+#: user/auth/templates/spirit/user/auth/login.html:22
+msgid "I don't know my password"
+msgstr "Olvide mi contraseña"
+
+#: user/auth/templates/spirit/user/auth/logout.html:5
+#: user/auth/templates/spirit/user/auth/logout.html:15
+msgid "Log out"
+msgstr "Cerrar sesión"
+
+#: user/auth/templates/spirit/user/auth/logout.html:9
+msgid "Are you sure you want to log out?"
+msgstr "¿Estas seguro de que quieres salir?"
+
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:7
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:11
+msgid "Password change successful"
+msgstr "Contraseña cambiada con exito"
+
+#: user/auth/templates/spirit/user/auth/password_reset_complete.html:13
+msgid "Continue to login"
+msgstr "Continuar al ingreso"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr "Confirmación de restablecimiento de contraseña"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:11
+msgid "Enter new password"
+msgstr "Ingresar nueva contraseña"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:16
+msgid "Save"
+msgstr "Guardar"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:21
+msgid "Password reset unsuccessful"
+msgstr "Reseteo de contraseña sin exito"
+
+#: user/auth/templates/spirit/user/auth/password_reset_confirm.html:23
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"El enlace para resetear la contraseña es invalido, posiblemente porque ya ha "
+"sido usado. Por favor, pide un nuevo reseteo de contraseña."
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:5
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:9
+msgid "Password reset successful"
+msgstr "Restablecimiento de contraseña exitoso"
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:11
+msgid ""
+"We've emailed you instructions for setting your password. You should be "
+"receiving them shortly."
+msgstr ""
+"Te hemos enviado instrucciones, por email, para resetear tu contraseña. "
+"Deberias recibirlas en breve."
+
+#: user/auth/templates/spirit/user/auth/password_reset_done.html:12
+#: user/auth/views.py:108
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Si no recibes un email, asegurate de haber ingresado la direccion de email "
+"con la cual te registraste, y busca en tu bandeja de spam."
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Recibes este email porque pediste un restablecimiento de contraseña para "
+"cuenta en %(site_name)s."
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Ve al siguiente enlace y elige una nueva contraseña:"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:9
+msgid "Thanks for using our site!"
+msgstr "Gracias por usar nuestro sitio!"
+
+#: user/auth/templates/spirit/user/auth/password_reset_email.html:11
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "El equipo de %(site_name)s"
+
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:5
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:9
+msgid "Password reset"
+msgstr "Restablecimiento de contraseña"
+
+#: user/auth/templates/spirit/user/auth/password_reset_form.html:15
+msgid "Reset my password"
+msgstr "Restablecer contraseña"
+
+#: user/auth/templates/spirit/user/auth/password_reset_subject.txt:2
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr "Restablecimiento de contraseña en %(site_name)s"
+
+#: user/auth/templates/spirit/user/auth/register.html:5
+#: user/auth/templates/spirit/user/auth/register.html:22
+#: user/auth/templates/spirit/user/auth/register.html:28
+msgid "Register"
+msgstr "Registrar"
+
+#: user/auth/views.py:65
+msgid "We have sent you an email so you can activate your account!"
+msgstr "Te hemos enviado un email para que puedas activar tu cuenta!"
+
+#: user/auth/views.py:89
+msgid "Your account has been activated!"
+msgstr "Tu cuenta ha sido activada!"

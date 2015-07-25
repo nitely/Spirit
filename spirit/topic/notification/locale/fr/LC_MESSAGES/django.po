@@ -1,0 +1,89 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spirit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: topic/notification/forms.py:35
+msgid "This notification already exists"
+msgstr "Cette notification existe déjà"
+
+#: topic/notification/models.py:17
+msgid "Undefined"
+msgstr "Undéfini"
+
+#: topic/notification/models.py:18
+msgid "Mention"
+msgstr "Mention"
+
+#: topic/notification/models.py:19
+msgid "Comment"
+msgstr "Commentaire"
+
+#: topic/notification/models.py:25
+msgid "user"
+msgstr "utilisateur"
+
+#: topic/notification/models.py:39
+msgid "topic notification"
+msgstr ""
+
+#: topic/notification/models.py:40
+msgid "topics notification"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/_form.html:12
+msgid "Unnotify Me"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/_form.html:14
+msgid "Notify Me"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/_render_list.html:9
+#, python-format
+msgid ""
+"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href="
+"\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/_render_list.html:11
+#, python-format
+msgid ""
+"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href="
+"\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/_render_list.html:17
+msgid "unread"
+msgstr "non lu"
+
+#: topic/notification/templates/spirit/topic/notification/_render_list.html:21
+msgid "There are no notifications, yet"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/index.html:5
+#: topic/notification/templates/spirit/topic/notification/index.html:9
+msgid "Notifications"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/index_unread.html:5
+#: topic/notification/templates/spirit/topic/notification/index_unread.html:9
+msgid "Unread notifications"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/index_unread.html:15
+msgid "There are no new notifications"
+msgstr ""
+
+#: topic/notification/templates/spirit/topic/notification/index_unread.html:22
+msgid "Next"
+msgstr ""
