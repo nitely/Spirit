@@ -1,6 +1,8 @@
 # Spirit
 spirit/whoosh_index/
 db.sqlite3
+static/
+!core/static/
 media/
 
 # Byte-compiled / optimized / DLL files
