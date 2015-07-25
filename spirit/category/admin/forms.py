@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_text
 
 from ..models import Category
 
@@ -22,6 +23,7 @@ class CategoryForm(forms.ModelForm):
             queryset = queryset.exclude(pk=self.instance.pk)
 
         self.fields['parent'] = forms.ModelChoiceField(queryset=queryset, required=False)
+        self.fields['parent'].label_from_instance = lambda obj: smart_text(obj.title)
 
     def clean_parent(self):
         parent = self.cleaned_data["parent"]
