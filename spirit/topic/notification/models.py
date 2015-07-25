@@ -65,12 +65,18 @@ class TopicNotification(models.Model):
 
     @classmethod
     def create_maybe(cls, user, comment, is_read=True):
+        # todo: remove this, make comment not null and use action=UNDEFINED
+        if user != comment.user:
+            user_comment = comment
+        else:
+            user_comment = None
+
         # Create a dummy notification
         return cls.objects.get_or_create(
             user=user,
             topic=comment.topic,
             defaults={
-                'comment': comment,
+                'comment': user_comment,
                 'action': COMMENT,
                 'is_read': is_read,
                 'is_active': True
