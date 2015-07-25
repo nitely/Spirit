@@ -49,11 +49,14 @@ INSTALLED_APPS = [
     'spirit.core',
     'spirit.admin',
     'spirit.search',
+
     'spirit.user',
     'spirit.user.admin',
     'spirit.user.auth',
+
     'spirit.category',
     'spirit.category.admin',
+
     'spirit.topic',
     'spirit.topic.admin',
     'spirit.topic.favorite',
@@ -61,12 +64,14 @@ INSTALLED_APPS = [
     'spirit.topic.poll',
     'spirit.topic.private',
     'spirit.topic.unread',
+
     'spirit.comment',
     'spirit.comment.bookmark',
     'spirit.comment.flag',
     'spirit.comment.flag.admin',
     'spirit.comment.history',
     'spirit.comment.like',
+
     # 'spirit.core.tests'
 ]
 

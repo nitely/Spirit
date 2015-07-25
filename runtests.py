@@ -31,26 +31,7 @@ def run_tests():
     sys.stdout.write("\nRunning spirit test suite, using settings %(settings)r\n\n"
                      % {"settings": os.environ['DJANGO_SETTINGS_MODULE'], })
     test_runner = DiscoverRunner()
-    # todo: remove in spirit 0.4
-    failures = test_runner.run_tests([
-        "spirit.admin",
-        "spirit.category",
-        "spirit.comment",
-        "spirit.comment.bookmark",
-        "spirit.comment.flag",
-        "spirit.comment.history",
-        "spirit.comment.like",
-        "spirit.core",
-        "spirit.search",
-        "spirit.topic",
-        "spirit.topic.favorite",
-        "spirit.topic.moderate",
-        "spirit.topic.notification",
-        "spirit.topic.poll",
-        "spirit.topic.private",
-        "spirit.topic.unread",
-        "spirit.user",
-    ])
+    failures = test_runner.run_tests([])
     sys.exit(failures)
 
 
