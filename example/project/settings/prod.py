@@ -48,7 +48,12 @@ LANGUAGES = [
     ('de', gettext_noop('German')),
     ('en', gettext_noop('English')),
     ('es', gettext_noop('Spanish')),
+    ('fr', gettext_noop('French')),
+    ('pl', gettext_noop('Polish')),
+    ('pl-pl', gettext_noop('Poland Polish')),
+    ('ru', gettext_noop('Russian')),
     ('sv', gettext_noop('Swedish')),
+    ('zh-hans', gettext_noop('Simplified Chinese')),
 ]
 
 # Default language
