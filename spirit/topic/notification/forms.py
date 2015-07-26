@@ -27,12 +27,20 @@ class NotificationCreationForm(NotificationForm):
     def clean(self):
         cleaned_data = super(NotificationCreationForm, self).clean()
 
-        notification = TopicNotification.objects.filter(user=self.user,
-                                                        topic=self.topic)
+        notification = TopicNotification.objects.filter(
+            user=self.user,
+            topic=self.topic
+        )
 
         if notification.exists():
             # Do this since some of the unique_together fields are excluded.
             raise forms.ValidationError(_("This notification already exists"))
+
+        # todo: test!
+        comment = self.topic.comment_set.last()
+
+        if comment is None:
+            raise forms.ValidationError(_("You can't subscribe to a topic with no comments"))
 
         return cleaned_data
 
