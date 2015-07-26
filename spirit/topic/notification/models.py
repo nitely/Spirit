@@ -24,7 +24,7 @@ class TopicNotification(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
     topic = models.ForeignKey('spirit_topic.Topic')
-    comment = models.ForeignKey('spirit_comment.Comment', null=True, blank=True)
+    comment = models.ForeignKey('spirit_comment.Comment')
 
     date = models.DateTimeField(default=timezone.now)
     action = models.IntegerField(choices=ACTION_CHOICES, default=UNDEFINED)
@@ -64,20 +64,14 @@ class TopicNotification(models.Model):
             .update(is_read=True)
 
     @classmethod
-    def create_maybe(cls, user, comment, is_read=True):
-        # todo: remove this, make comment not null and use action=UNDEFINED
-        if user != comment.user:
-            user_comment = comment
-        else:
-            user_comment = None
-
+    def create_maybe(cls, user, comment, is_read=True, action=COMMENT):
         # Create a dummy notification
         return cls.objects.get_or_create(
             user=user,
             topic=comment.topic,
             defaults={
-                'comment': user_comment,
-                'action': COMMENT,
+                'comment': comment,
+                'action': action,
                 'is_read': is_read,
                 'is_active': True
             }

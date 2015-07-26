@@ -406,7 +406,8 @@ class TopicUtilsTest(TestCase):
 
         category = utils.create_category()
         topic = utils.create_topic(category=category, user=self.user)
-        notification = TopicNotification.objects.create(user=topic.user, topic=topic, is_read=False)
+        comment = utils.create_comment(topic=topic)
+        notification = TopicNotification.objects.create(user=topic.user, topic=topic, comment=comment, is_read=False)
         unread = TopicUnread.objects.create(user=topic.user, topic=topic, is_read=False)
         utils_topic.topic_viewed(req, topic)
         self.assertEqual(len(CommentBookmark.objects.filter(user=self.user, topic=topic)), 1)

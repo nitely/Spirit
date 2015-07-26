@@ -55,7 +55,7 @@ msgstr "encuesta"
 
 #: topic/poll/models.py:35
 msgid "choice description"
-msgstr "descripcion de la encuesta"
+msgstr "descripción de la elección"
 
 #: topic/poll/models.py:36
 msgid "vote count"

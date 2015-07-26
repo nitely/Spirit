@@ -40,7 +40,9 @@ class TopicNotificationViewTest(TestCase):
 
         # subscription to topic
         self.topic2 = utils.create_topic(self.category)
-        self.topic_subscrption = TopicNotification.objects.create(user=self.user, topic=self.topic2, is_active=True)
+        self.comment2 = utils.create_comment(topic=self.topic2)
+        self.topic_subscrption = TopicNotification.objects.create(user=self.user, topic=self.topic2,
+                                                                  comment=self.comment2, is_active=True)
 
     def test_topic_notification_list(self):
         """
@@ -257,6 +259,7 @@ class TopicNotificationViewTest(TestCase):
         """
         TopicNotification.objects.all().delete()
         private = utils.create_private_topic(user=self.user)
+        utils.create_comment(topic=private.topic)
 
         utils.login(self)
         form_data = {'is_active': True, }
@@ -295,7 +298,7 @@ class TopicNotificationViewTest(TestCase):
         test user cant unsubscribe other user
         """
         user = utils.create_user()
-        notification = TopicNotification.objects.create(user=user, topic=self.topic)
+        notification = TopicNotification.objects.create(user=user, topic=self.topic, comment=self.comment)
 
         utils.login(self)
         form_data = {}
@@ -320,13 +323,14 @@ class TopicNotificationFormTest(TestCase):
 
         category = utils.create_category()
         topic = utils.create_topic(category)
+        comment = utils.create_comment(topic=topic)
         form_data = {'is_active': True, }
         form = NotificationCreationForm(data=form_data)
         form.user = self.user
         form.topic = topic
         self.assertEqual(form.is_valid(), True)
 
-        TopicNotification.objects.create(user=self.user, topic=topic,
+        TopicNotification.objects.create(user=self.user, topic=topic, comment=comment,
                                          is_active=True, action=COMMENT)
         form = NotificationCreationForm(data=form_data)
         form.user = self.user
@@ -339,7 +343,8 @@ class TopicNotificationFormTest(TestCase):
         """
         category = utils.create_category()
         topic = utils.create_topic(category)
-        notification = TopicNotification.objects.create(user=self.user, topic=topic,
+        comment = utils.create_comment(topic=topic)
+        notification = TopicNotification.objects.create(user=self.user, topic=topic, comment=comment,
                                                         is_active=True, action=COMMENT)
 
         form_data = {'is_active': True, }
@@ -385,7 +390,8 @@ class TopicNotificationModelsTest(TestCase):
         Mark notification as read
         """
         private = utils.create_private_topic()
-        TopicNotification.objects.create(user=private.user, topic=private.topic, is_read=False)
+        comment = utils.create_comment(topic=private.topic)
+        TopicNotification.objects.create(user=private.user, topic=private.topic, comment=comment, is_read=False)
         TopicNotification.mark_as_read(user=private.user, topic=private.topic)
         notification = TopicNotification.objects.get(user=private.user, topic=private.topic)
         self.assertTrue(notification.is_read)

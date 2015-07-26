@@ -40,5 +40,6 @@ class NotificationCreationForm(NotificationForm):
         if not self.instance.pk:
             self.instance.user = self.user
             self.instance.topic = self.topic
+            self.instance.comment = self.topic.comment_set.last()
 
         return super(NotificationCreationForm, self).save(commit)
