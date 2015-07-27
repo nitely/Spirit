@@ -1,5 +1,5 @@
 Django>=1.8,<1.9
-django-haystack>=2.3,<2.4
+django-haystack>=2.4,<2.5
 whoosh>=2.5,<2.6
 mistune>=0.3.1,<0.4
 Pillow>=2.6,<2.7
