@@ -8,7 +8,7 @@ from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.conf import settings
-from django.core.cache import get_cache
+from django.core.cache import caches
 
 from ..utils.ratelimit import RateLimit
 from ..utils.ratelimit.decorators import ratelimit
@@ -127,7 +127,7 @@ class UtilsRateLimitTests(TestCase):
         req.user = User()
         req.user.pk = 1
         RateLimit(req, 'func_name')
-        rl_cache = get_cache(settings.ST_RATELIMIT_CACHE)
+        rl_cache = caches[settings.ST_RATELIMIT_CACHE]
         self.assertIsNotNone(rl_cache.get('srl:02b3cee0bd2a40ec0fca9b1bef06fb560a081673'))
 
     def test_rate_limit_unique_key(self):
@@ -147,5 +147,5 @@ class UtilsRateLimitTests(TestCase):
         key = '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
 
         one(req)
-        rl_cache = get_cache(settings.ST_RATELIMIT_CACHE)
+        rl_cache = caches[settings.ST_RATELIMIT_CACHE]
         self.assertIsNotNone(rl_cache.get(key))

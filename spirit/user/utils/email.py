@@ -5,7 +5,7 @@ from smtplib import SMTPException
 import logging
 
 from django.core.mail import EmailMessage
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import ugettext as _
 from django.template.loader import render_to_string
 

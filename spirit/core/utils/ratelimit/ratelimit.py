@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import hashlib
 
 from django.conf import settings
-from django.core.cache import get_cache
+from django.core.cache import caches
 
 
 TIME_DICT = {
@@ -68,7 +68,7 @@ class RateLimit:
         if not self.cache_keys:
             return {}
 
-        cache = get_cache(settings.ST_RATELIMIT_CACHE)
+        cache = caches[settings.ST_RATELIMIT_CACHE]
         cache_values = cache.get_many(self.cache_keys)
 
         for key in self.cache_keys:

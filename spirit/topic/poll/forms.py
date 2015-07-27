@@ -115,12 +115,10 @@ class TopicPollVoteManyForm(forms.Form):
 
         if poll.is_multiple_choice:
             self.fields['choices'] = forms.ModelMultipleChoiceField(queryset=choices,
-                                                                    cache_choices=True,
                                                                     widget=forms.CheckboxSelectMultiple,
                                                                     label=_("Poll choices"))
         else:
             self.fields['choices'] = forms.ModelChoiceField(queryset=choices,
-                                                            cache_choices=True,
                                                             widget=forms.RadioSelect,
                                                             label=_("Poll choices"),
                                                             empty_label=None)
