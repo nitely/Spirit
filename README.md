@@ -12,7 +12,7 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 ## Requirements
 
 * Python 2.7, 3.3 or 3.4 (recommended)
-* Django 1.8
+* Django 1.8 LTS
 * PostgreSQL (recommended) or MySQL or Oracle Database
 
 ## Dependencies
@@ -52,23 +52,9 @@ Visit (http://127.0.0.1:8000/)
 > On production, you would rather run Spirit on a real web server. ie: gunicorn + Nginx.
 > Running Spirit on a [virtualenv](http://www.virtualenv.org) is adviced.
 
-## Updating
+## Upgrading
 
-> If you are *upgrading* from any release *previous to v0.3*:
-> * Run `python manage.py migrate djconfig --fake-initial`
-> * Add `AUTH_USER_MODEL = 'spirit.User'` (or your custom user model) to your `settings.py`.
-> * Remove the `AbstractForumUser` from your custom user model (if you have one).
-> * Change `spirit.models.AbstractUser` to `django.contrib.auth.models.AbstractUser` in your custom user model (if you have one).
->
-> *Deprecation notice:* `AbstractForumUser` and `AbstractUser` will no longer exist in future releases.
-
-Run:
-
-    pip install -r requirements.txt
-    python manage.py makemigrations
-    python manage.py migrate
-    python manage.py collectstatic
-    python manage.py rebuild_index --noinput
+Detailed upgrade instructions are listed in [Upgrading Spirit](https://github.com/nitely/Spirit/wiki/Upgrading#from-v02-to-v03)
 
 ## Testing
 
