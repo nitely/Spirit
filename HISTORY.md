@@ -1,3 +1,9 @@
+0.4.0
+==================
+
+* Removed old migrations.
+* Removed `spirit` app, it has been decoupled into many apps.
+
 0.3.0
 ==================
 
