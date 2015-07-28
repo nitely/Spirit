@@ -10,3 +10,9 @@ class SpiritTopicPollConfig(AppConfig):
     name = 'spirit.topic.poll'
     verbose_name = "Spirit Topic Poll"
     label = 'spirit_topic_poll'
+
+    def ready(self):
+        self.register_signals()
+
+    def register_signals(self):
+        from . import signals

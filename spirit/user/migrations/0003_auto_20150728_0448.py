@@ -7,14 +7,14 @@ from django.db import models, migrations
 def rename_model_content_type(apps, schema_editor):
     content_types = apps.get_model('contenttypes.ContentType')
     content_types.objects.filter(
-        app_label='spirit', model='CommentHistory'.lower()
-    ).update(app_label='spirit_comment_history')
+        app_label='spirit', model='User'.lower()
+    ).update(app_label='spirit_user')
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('spirit', '0034_auto_20150724_2321'),
+        ('spirit_user', '0002_auto_20150728_0447'),
     ]
 
     operations = [
