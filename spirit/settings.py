@@ -27,8 +27,6 @@ ST_PRIVATE_FORUM = False
 
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
 
-ST_INITIAL_MIGRATION_DEPENDENCIES = []  # [('myuser', '0001_initial'), ]
-
 ST_UNICODE_SLUGS = True
 
 ST_UNIQUE_EMAILS = True
@@ -45,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'spirit',
     'spirit.core',
     'spirit.admin',
     'spirit.search',

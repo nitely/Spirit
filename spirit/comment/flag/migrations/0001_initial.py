@@ -10,51 +10,43 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('spirit_comment', '0002_auto_20150724_2212'),
-        ('spirit', '0032_auto_20150724_2315')
+        ('spirit_comment', '0001_initial'),
     ]
 
-    state_operations = [
+    operations = [
         migrations.CreateModel(
             name='CommentFlag',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('is_closed', models.BooleanField(default=False)),
                 ('comment', models.OneToOneField(to='spirit_comment.Comment')),
-                ('moderator', models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True, null=True)),
+                ('moderator', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, blank=True)),
             ],
             options={
-                'db_table': 'spirit_flag_commentflag',
-                'verbose_name': 'comment flag',
                 'verbose_name_plural': 'comments flags',
                 'ordering': ['-date', '-pk'],
+                'verbose_name': 'comment flag',
             },
         ),
         migrations.CreateModel(
             name='Flag',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('reason', models.IntegerField(verbose_name='reason', choices=[(0, 'Spam'), (1, 'Other')])),
+                ('reason', models.IntegerField(choices=[(0, 'Spam'), (1, 'Other')], verbose_name='reason')),
                 ('body', models.TextField(verbose_name='body', blank=True)),
                 ('comment', models.ForeignKey(to='spirit_comment.Comment')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'db_table': 'spirit_flag_flag',
-                'verbose_name': 'flag',
-                'ordering': ['-date', '-pk'],
                 'verbose_name_plural': 'flags',
+                'ordering': ['-date', '-pk'],
+                'verbose_name': 'flag',
             },
         ),
         migrations.AlterUniqueTogether(
             name='flag',
             unique_together=set([('user', 'comment')]),
         ),
-    ]
-
-    operations = [
-        migrations.SeparateDatabaseAndState(
-            state_operations=state_operations)
     ]

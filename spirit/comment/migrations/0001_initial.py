@@ -10,37 +10,30 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('spirit_topic', '0002_auto_20150724_2106'),
-        ('spirit', '0020_auto_20150724_2209')
+        ('spirit_topic', '0001_initial'),
     ]
 
-    state_operations = [
+    operations = [
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
-                ('comment', models.TextField(max_length=3000, verbose_name='comment')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('comment', models.TextField(verbose_name='comment', max_length=3000)),
                 ('comment_html', models.TextField(verbose_name='comment html')),
-                ('action', models.IntegerField(default=0, choices=[(0, 'comment'), (1, 'topic moved'), (2, 'topic closed'), (3, 'topic unclosed'), (4, 'topic pinned'), (5, 'topic unpinned')], verbose_name='action')),
+                ('action', models.IntegerField(default=0, verbose_name='action', choices=[(0, 'comment'), (1, 'topic moved'), (2, 'topic closed'), (3, 'topic unclosed'), (4, 'topic pinned'), (5, 'topic unpinned')])),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('is_removed', models.BooleanField(default=False)),
                 ('is_modified', models.BooleanField(default=False)),
-                ('ip_address', models.GenericIPAddressField(blank=True, null=True)),
+                ('ip_address', models.GenericIPAddressField(null=True, blank=True)),
                 ('modified_count', models.PositiveIntegerField(default=0, verbose_name='modified count')),
                 ('likes_count', models.PositiveIntegerField(default=0, verbose_name='likes count')),
                 ('topic', models.ForeignKey(to='spirit_topic.Topic')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='user')),
             ],
             options={
-                'db_table': 'spirit_comment_comment',
                 'verbose_name_plural': 'comments',
-                'ordering': ['-date', '-pk'],
                 'verbose_name': 'comment',
+                'ordering': ['-date', '-pk'],
             },
         ),
-    ]
-
-    operations = [
-        migrations.SeparateDatabaseAndState(
-            state_operations=state_operations)
     ]
