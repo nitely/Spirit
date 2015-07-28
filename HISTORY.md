@@ -16,6 +16,7 @@
 * Moved `spirit.middleware.LastSeenMiddleware` to `spirit.user.middleware.LastSeenMiddleware`.
 * Moved `spirit.middleware.ActiveUserMiddleware` to `spirit.user.middleware.ActiveUserMiddleware`.
 * Moved `spirit.middleware.PrivateForumMiddleware` to `spirit.core.middleware.PrivateForumMiddleware`.
+* Removed most signals.
 
 0.2.0
 ==================
