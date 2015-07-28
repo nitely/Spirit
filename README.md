@@ -54,7 +54,7 @@ Visit (http://127.0.0.1:8000/)
 
 ## Upgrading
 
-Detailed upgrade instructions are listed in [Upgrading Spirit](https://github.com/nitely/Spirit/wiki/Upgrading#from-v02-to-v03)
+Detailed upgrade instructions are listed in [Upgrading Spirit](https://github.com/nitely/Spirit/wiki/Upgrading)
 
 ## Testing
 
