@@ -17,6 +17,7 @@
 * Moved `spirit.middleware.ActiveUserMiddleware` to `spirit.user.middleware.ActiveUserMiddleware`.
 * Moved `spirit.middleware.PrivateForumMiddleware` to `spirit.core.middleware.PrivateForumMiddleware`.
 * Removed most signals.
+* Renamed models: `spirit.Category` to `spirit_category.category`, `spirit.UserProfile` to `spirit_user.UserProfile`, `spirit.Topic` to `spirit_topic.Topic`, `spirit.TopicFavorite` to `spirit_topic_favorite.TopicFavorite`, `spirit.Comment` to `spirit_comment.Comment`, `spirit.TopicNotification` to `spirit_topic_notification.TopicNotification`, `spirit.TopicPoll` to `spirit_topic_poll.TopicPoll`, `spirit.TopicPollChoice` to `spirit_topic_poll.TopicPollChoice`, `spirit.TopicPollVote` to `spirit_topic_poll.TopicPollVote`, `spirit.TopicPrivate` to `spirit_topic_private.TopicPrivate`, `spirit.TopicUnread` to `spirit_topic_unread.TopicUnread`, `spirit.CommentBookmark` to `spirit_comment_bookmark.CommentBookmark`, `spirit.CommentFlag` to `spirit_comment_flag.CommentFlag`, `spirit.Flag` to `spirit_comment_flag.Flag`, `spirit.CommentHistory` to `spirit_comment_history.CommentHistory` and `spirit.CommentLike` to `spirit_comment_like.CommentLike`. `ContentTypes` were renamed accordingly, so if you have a model that relates to Spirit via a GenericForeignKey, you should not worry about it.
 
 0.2.0
 ==================
