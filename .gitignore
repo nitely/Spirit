@@ -62,3 +62,6 @@ docs/_build/
 *~
 *.swp
 *.swo
+
+# Tx
+.transifexrc
