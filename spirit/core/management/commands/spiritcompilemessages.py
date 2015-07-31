@@ -31,3 +31,4 @@ class Command(BaseCommand):
             os.chdir(base_dir)
 
         self.stdout.write('ok')
+        self.stdout.write('Run \'python manage.py spirittxpush\' to push the changes to transifex.')

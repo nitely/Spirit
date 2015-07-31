@@ -19,5 +19,5 @@ class CommandsTests(TestCase):
         out_put = out.getvalue().strip().splitlines()
         out_put_err = err.getvalue().strip().splitlines()
         self.assertTrue(out_put[0].startswith("processing file django.po in"))
-        self.assertEqual(out_put[-1], "ok")
+        self.assertEqual(out_put[-2], "ok")
         self.assertEqual(out_put_err, [])
