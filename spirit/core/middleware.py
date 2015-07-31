@@ -30,7 +30,7 @@ class PrivateForumMiddleware(object):
 
         full_namespace = ':'.join(resolver_match.namespaces)
 
-        if full_namespace != 'spirit:user:auth':
+        if full_namespace == 'spirit:user:auth':
             return
 
         return redirect_to_login(
