@@ -4,7 +4,7 @@ from spirit.core.middleware import XForwardedForMiddleware, PrivateForumMiddlewa
 from spirit.user.middleware import TimezoneMiddleware, LastIPMiddleware,\
     LastSeenMiddleware, ActiveUserMiddleware
 
-# TODO: remove in Spirit 0.4
+# TODO: remove in Spirit 0.5
 
 
 __all__ = [
