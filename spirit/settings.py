@@ -31,6 +31,8 @@ ST_UNICODE_SLUGS = True
 
 ST_UNIQUE_EMAILS = True
 
+ST_BASE_DIR = os.path.dirname(__file__)
+
 #
 # Django & Spirit settings defined below...
 #

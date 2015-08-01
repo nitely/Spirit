@@ -1,0 +1,129 @@
+[main]
+host = https://www.transifex.com
+lang_map = sr@latin:sr_Latn, zh_CN:zh_Hans, zh_TW:zh_Hant
+
+[spirit.core]
+file_filter = spirit/core/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/core/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.admin]
+file_filter = spirit/admin/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/admin/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.search]
+file_filter = spirit/search/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/search/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.user]
+file_filter = spirit/user/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/user/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.user_admin]
+file_filter = spirit/user/admin/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/user/admin/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.user_auth]
+file_filter = spirit/user/auth/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/user/auth/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.category]
+file_filter = spirit/category/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/category/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.category_admin]
+file_filter = spirit/category/admin/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/category/admin/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.topic]
+file_filter = spirit/topic/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/topic/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.topic_admin]
+file_filter = spirit/topic/admin/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/topic/admin/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.topic_favorite]
+file_filter = spirit/topic/favorite/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/topic/favorite/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.topic_notification]
+file_filter = spirit/topic/notification/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/topic/notification/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.topic_poll]
+file_filter = spirit/topic/poll/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/topic/poll/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.topic_private]
+file_filter = spirit/topic/private/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/topic/private/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.topic_unread]
+file_filter = spirit/topic/unread/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/topic/unread/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.comment]
+file_filter = spirit/comment/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/comment/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.comment_bookmark]
+file_filter = spirit/comment/bookmark/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/comment/bookmark/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.comment_flag]
+file_filter = spirit/comment/flag/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/comment/flag/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.comment_flag_admin]
+file_filter = spirit/comment/flag/admin/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/comment/flag/admin/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.comment_history]
+file_filter = spirit/comment/history/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/comment/history/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[spirit.comment_like]
+file_filter = spirit/comment/like/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/comment/like/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
