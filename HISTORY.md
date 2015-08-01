@@ -1,3 +1,8 @@
+0.4.1
+==================
+
+* Adds missing user profile migration (issue #62)
+
 0.4.0
 ==================
 
