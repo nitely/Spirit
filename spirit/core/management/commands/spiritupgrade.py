@@ -7,10 +7,10 @@ from django.core.management import call_command
 
 
 class Command(BaseCommand):
-    help = 'Install Spirit.'
+    help = 'Upgrade Spirit.'
 
     def handle(self, *args, **options):
         call_command('migrate', stdout=self.stdout, stderr=self.stderr)
-        call_command('createcachetable', stdout=self.stdout, stderr=self.stderr)
+        call_command('rebuild_index', stdout=self.stdout, stderr=self.stderr, interactive=False)
         call_command('collectstatic', stdout=self.stdout, stderr=self.stderr)
         self.stdout.write('ok')

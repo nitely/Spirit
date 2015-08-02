@@ -48,7 +48,7 @@ class SearchTopicIndexTest(TestCase):
         utils.create_private_topic()
         category = utils.create_category()
         topic = utils.create_topic(category)
-        call_command("rebuild_index", interactive=False)
+        call_command("rebuild_index", verbosity=0, interactive=False)
 
         sqs = SearchQuerySet().models(Topic)
         self.assertEqual([s.object for s in sqs], [topic, ])
@@ -67,7 +67,7 @@ class SearchViewTest(TestCase):
         self.topic = utils.create_topic(category=self.category, user=self.user, title="spirit search test foo")
         self.topic2 = utils.create_topic(category=self.category, user=self.user, title="foo")
 
-        call_command("rebuild_index", interactive=False)
+        call_command("rebuild_index", verbosity=0, interactive=False)
 
     # def tearDown(self):
         # haystack.connections = self.connections

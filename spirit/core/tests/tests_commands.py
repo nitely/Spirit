@@ -10,6 +10,7 @@ from django.utils.six import StringIO
 from ..management.commands import spiritcompilemessages
 from ..management.commands import spirittxpush
 from ..management.commands import spiritinstall
+from ..management.commands import spiritupgrade
 
 
 class CommandsTests(TestCase):
@@ -80,3 +81,24 @@ class CommandsTests(TestCase):
         finally:
             spiritinstall.call = org_call
 
+    def test_command_spiritinstall(self):
+        """
+        Should run migrations, rebuild search index and collect statics
+        """
+        command_list = []
+
+        def call_mock(command, **kwargs):
+            command_list.append(command)
+
+        org_call, spiritupgrade.call_command = spiritupgrade.call_command, call_mock
+        try:
+            out = StringIO()
+            err = StringIO()
+            call_command('spiritupgrade', stdout=out, stderr=err)
+            out_put = out.getvalue().strip().splitlines()
+            out_put_err = err.getvalue().strip().splitlines()
+            self.assertEqual(out_put[-1], "ok")
+            self.assertEqual(out_put_err, [])
+            self.assertEqual(command_list, ["migrate", "rebuild_index", "collectstatic"])
+        finally:
+            spiritupgrade.call = org_call
