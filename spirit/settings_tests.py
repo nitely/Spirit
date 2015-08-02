@@ -9,6 +9,7 @@ import os
 
 from spirit.settings import *
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = 'TEST'
 
@@ -22,11 +23,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_test')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_test')
+
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', ]
-
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DATABASES = {
     'default': {

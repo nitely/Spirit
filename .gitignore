@@ -1,7 +1,7 @@
 # Spirit
 spirit/search/whoosh_index/
 db.sqlite3
-media/
+example/media/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
