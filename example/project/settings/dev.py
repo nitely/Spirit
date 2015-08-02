@@ -23,9 +23,9 @@ SECRET_KEY = "DEV"
 
 ALLOWED_HOSTS = ['127.0.0.1', ]
 
-INSTALLED_APPS.extend([
-    'debug_toolbar',
-])
+# INSTALLED_APPS.extend([
+#    'debug_toolbar',
+# ])
 
 DATABASES = {
     'default': {
