@@ -25,12 +25,12 @@ class CommentHistory(models.Model):
         return reverse('spirit:comment:history:detail', kwargs={'pk': str(self.id), })
 
     @classmethod
-    def create(cls, comment):
+    def create(cls, comment, created_at=None):
         with transaction.atomic():
             return cls.objects.create(
                 comment_fk=comment,
                 comment_html=comment.comment_html,
-                date=comment.date
+                date=created_at or timezone.now()
             )
 
     @classmethod
@@ -40,4 +40,4 @@ class CommentHistory(models.Model):
             .exists()
 
         if not exists:
-            return cls.create(comment)
+            return cls.create(comment, created_at=comment.date)

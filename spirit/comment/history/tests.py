@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from datetime import timedelta
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -10,6 +11,7 @@ from djconfig.utils import override_djconfig
 
 from ...core.tests import utils
 from .models import CommentHistory
+from . import models
 
 
 class CommentHistoryViewTest(TestCase):
@@ -127,10 +129,39 @@ class CommentHistoryModelsTest(TestCase):
         self.assertIsNone(comment_history2)
         self.assertEqual(len(CommentHistory.objects.filter(comment_fk=comment.pk)), 1)
 
+    def test_comment_history_create_maybe_date(self):
+        """
+        should create the comment (hystory) with the original comment date
+        """
+        yesterday = models.timezone.now() - timedelta(1)
+        comment = utils.create_comment(topic=self.topic, date=yesterday)
+        comment_history = CommentHistory.create_maybe(comment)
+        self.assertIsNotNone(comment_history)
+        self.assertEqual(comment_history.date, comment.date)
+
     def test_comment_history_create(self):
-        comment = utils.create_comment(topic=self.topic)
+        yesterday = models.timezone.now() - timedelta(1)
+        comment = utils.create_comment(topic=self.topic, date=yesterday)
         comment_history = CommentHistory.create(comment)
         self.assertTrue(comment_history.pk)
         self.assertEqual(comment_history.comment_fk, comment)
         self.assertEqual(comment_history.comment_html, comment.comment_html)
-        self.assertEqual(comment_history.date, comment.date)
+        self.assertNotEqual(comment_history.date, yesterday)
+
+    def test_comment_history_create_date(self):
+        now = models.timezone.now()
+        yesterday = now - timedelta(1)
+
+        class MockTZ:
+            @classmethod
+            def now(cls):
+                return now
+
+        org_tz, models.timezone = models.timezone, MockTZ
+        try:
+            comment = utils.create_comment(topic=self.topic, date=yesterday)
+            comment_history = CommentHistory.create(comment)
+            self.assertTrue(comment_history.pk)
+            self.assertEqual(comment_history.date, now)
+        finally:
+            models.timezone = org_tz

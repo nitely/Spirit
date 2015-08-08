@@ -48,6 +48,7 @@ class UserProfile(models.Model):
 
 
 class User(AbstractUser):
+    # Backward compatibility
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
