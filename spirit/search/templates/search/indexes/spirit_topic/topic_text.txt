@@ -1,1 +1,4 @@
 {{ object.title }}
+{% for comment in object.comment_set.visible %}
+{{ comment.comment }}
+{% endfor %}
