@@ -31,7 +31,7 @@ User = get_user_model()
 
 
 @login_required
-@ratelimit(rate='1/10s')
+@ratelimit(rate=settings.ST_RATELIMIT_FOR_PUBLISH)
 def publish(request, user_id=None):
     if request.method == 'POST':
         tform = TopicForPrivateForm(user=request.user, data=request.POST)

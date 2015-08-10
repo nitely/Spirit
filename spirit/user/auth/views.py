@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
+from django.conf import settings
 
 from ...core.utils.ratelimit.decorators import ratelimit
 from ..utils.email import send_activation_email
@@ -17,7 +18,7 @@ from .forms import RegistrationForm, LoginForm, ResendActivationForm
 User = get_user_model()
 
 
-@ratelimit(field='username', rate='5/5m')
+@ratelimit(field='username', rate=settings.ST_RATELIMIT_FOR_AUTH)
 # TODO: @guest_only
 def custom_login(request, **kwargs):
     # Currently, Django 1.5 login view does not redirect somewhere if the user is logged in
@@ -42,7 +43,7 @@ def custom_logout(request, **kwargs):
     return render(request, 'spirit/user/auth/logout.html')
 
 
-@ratelimit(field='email', rate='5/5m')
+@ratelimit(field='email', rate=settings.ST_RATELIMIT_FOR_AUTH)
 def custom_password_reset(request, **kwargs):
     if request.method == "POST" and request.is_limited:
         return redirect(reverse("spirit:user:auth:password-reset"))
@@ -50,7 +51,7 @@ def custom_password_reset(request, **kwargs):
     return password_reset(request, **kwargs)
 
 
-@ratelimit(rate='2/10s')
+@ratelimit(rate=settings.ST_RATELIMIT_FOR_REGISTER)
 # TODO: @guest_only
 def register(request):
     if request.user.is_authenticated():
@@ -91,7 +92,7 @@ def registration_activation(request, pk, token):
     return redirect(reverse('spirit:user:auth:login'))
 
 
-@ratelimit(field='email', rate='5/5m')
+@ratelimit(field='email', rate=settings.ST_RATELIMIT_FOR_AUTH)
 # TODO: @guest_only
 def resend_activation_email(request):
     if request.user.is_authenticated():

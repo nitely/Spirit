@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import Http404
+from django.conf import settings
 
 from djconfig import config
 
@@ -21,7 +22,7 @@ from .utils import comment_posted
 
 
 @login_required
-@ratelimit(rate='1/10s')
+@ratelimit(rate=settings.ST_RATELIMIT_FOR_PUBLISH)
 def publish(request, topic_id, pk=None):
     topic = get_object_or_404(Topic.objects.opened().for_access(request.user),
                               pk=topic_id)
