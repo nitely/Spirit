@@ -39,6 +39,20 @@ class CategoryViewTest(TestCase):
             [self.uncategorized, self.category_1, self.category_2]
         )
 
+    def test_category_list_view_order(self):
+        """
+        categories should be ordered by the order field first
+        """
+        response = self.client.get(reverse('spirit:category:index'))
+        self.category_2.order = 1
+        self.category_2.save()
+        self.category_1.order = 2
+        self.category_1.save()
+        self.assertEqual(
+            list(response.context['categories']),
+            [self.category_2, self.category_1, self.uncategorized]
+        )
+
     def test_category_detail_view(self):
         """
         should display all topics in the category and its subcategories

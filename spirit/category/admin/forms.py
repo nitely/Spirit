@@ -13,7 +13,7 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ("parent", "title", "description", "is_closed", "is_removed")
+        fields = ("parent", "title", "description", "order", "is_closed", "is_removed")
 
     def __init__(self, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)

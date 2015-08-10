@@ -253,7 +253,8 @@ class AdminViewTest(TestCase):
         Category create
         """
         utils.login(self)
-        form_data = {"parent": "", "title": "foo", "description": "", "is_closed": False, "is_removed": False}
+        form_data = {"parent": "", "title": "foo", "description": "", "order": 10,
+                     "is_closed": False, "is_removed": False}
         response = self.client.post(reverse('spirit:admin:category:create'),
                                     form_data)
         expected_url = reverse("spirit:admin:category:index")
@@ -267,7 +268,8 @@ class AdminViewTest(TestCase):
         Category update
         """
         utils.login(self)
-        form_data = {"parent": "", "title": "foo", "description": "", "is_closed": False, "is_removed": False}
+        form_data = {"parent": "", "title": "foo", "description": "", "order": 10,
+                     "is_closed": False, "is_removed": False}
         response = self.client.post(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
                                     form_data)
         expected_url = reverse("spirit:admin:category:index")
@@ -417,6 +419,7 @@ class AdminFormTest(TestCase):
         form_data = {"parent": "",
                      "title": "foo",
                      "description": "",
+                     "order": 10,
                      "is_closed": False,
                      "is_removed": False}
         form = CategoryForm(data=form_data)

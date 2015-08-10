@@ -21,13 +21,15 @@ class Category(models.Model):
     is_closed = models.BooleanField(_("closed"), default=False)
     is_removed = models.BooleanField(_("removed"), default=False)
     is_private = models.BooleanField(_("private"), default=False)
+    order = models.IntegerField(_('order'), default=10,
+                                help_text=_('The order of the category in the list (lower number comes first)'))
 
     # topic_count = models.PositiveIntegerField(_("topic count"), default=0)
 
     objects = CategoryQuerySet.as_manager()
 
     class Meta:
-        ordering = ['title', 'pk']
+        ordering = ['order', 'title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
 
