@@ -26,11 +26,13 @@ class CommentHistory(models.Model):
 
     @classmethod
     def create(cls, comment, created_at=None):
+        created_at = created_at or timezone.now()
+
         with transaction.atomic():
             return cls.objects.create(
                 comment_fk=comment,
                 comment_html=comment.comment_html,
-                date=created_at or timezone.now()
+                date=created_at
             )
 
     @classmethod

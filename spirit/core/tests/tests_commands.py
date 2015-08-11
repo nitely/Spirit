@@ -81,7 +81,7 @@ class CommandsTests(TestCase):
         finally:
             spiritinstall.call = org_call
 
-    def test_command_spiritinstall(self):
+    def test_command_spiritupgrade(self):
         """
         Should run migrations, rebuild search index and collect statics
         """
