@@ -34,6 +34,9 @@ class UserProfile(models.Model):
         verbose_name = _("forum profile")
         verbose_name_plural = _("forum profiles")
 
+    def __str__(self):
+        return "%s" % self.user
+
     def save(self, *args, **kwargs):
         if self.user.is_superuser:
             self.is_administrator = True
