@@ -25,7 +25,7 @@ from . import utils
 @ratelimit(rate='1/10s')
 def publish(request, category_id=None):
     if category_id:
-        get_object_or_404(Category.objects.visible(),
+        get_object_or_404(Category.objects.visible(request.user),
                           pk=category_id)
 
     if request.method == 'POST':
@@ -119,11 +119,11 @@ def detail(request, pk, slug):
 
 def index_active(request):
     categories = Category.objects\
-        .visible()\
+        .visible(request.user)\
         .parents()
 
     topics = Topic.objects\
-        .visible()\
+        .visible(request.user)\
         .with_bookmarks(user=request.user)\
         .order_by('-is_globally_pinned', '-last_active')\
         .select_related('category')

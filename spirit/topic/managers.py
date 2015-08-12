@@ -19,8 +19,14 @@ class TopicQuerySet(models.QuerySet):
     def public(self):
         return self.filter(category__is_private=False)
 
-    def visible(self):
-        return self.unremoved().public()
+    def visible(self, user):
+        return self.unremoved().public().for_user(user)
+
+    def for_user(self, user):
+        return self.filter(
+            Q(category__restrict_access=None) |
+            Q(category__restrict_access__contains=user.groups.all())
+        )
 
     def opened(self):
         return self.filter(is_closed=False)
@@ -57,7 +63,7 @@ class TopicQuerySet(models.QuerySet):
                                      .select_related('category__parent'),
                                      pk=pk)
         else:
-            return get_object_or_404(self.visible()
+            return get_object_or_404(self.visible(user)
                                      .select_related('category__parent'),
                                      pk=pk)
 
@@ -65,4 +71,4 @@ class TopicQuerySet(models.QuerySet):
         if user.st.is_moderator:
             return get_object_or_404(self.public(), pk=pk)
         else:
-            return get_object_or_404(self.visible().opened(), pk=pk, user=user)
+            return get_object_or_404(self.visible(user).opened(), pk=pk, user=user)

@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib.auth.models import Group
 
 from .managers import CategoryQuerySet
 from ..core.utils.models import AutoSlugField
@@ -23,6 +24,13 @@ class Category(models.Model):
     is_private = models.BooleanField(_("private"), default=False)
     order = models.IntegerField(_('order'), default=10,
                                 help_text=_('The order of the category in the list (lower number comes first)'))
+
+    restrict_access = models.ManyToManyField(Group, blank=True, verbose_name=_('visible to'),
+                                             related_name='categories_access')
+    restrict_topic = models.ManyToManyField(Group, blank=True, verbose_name=_('topics can be created by'),
+                                            related_name='categories_topic')
+    restrict_comment = models.ManyToManyField(Group, blank=True, verbose_name=_('comments can be posted by'),
+                                              related_name='categories_comment')
 
     # topic_count = models.PositiveIntegerField(_("topic count"), default=0)
 

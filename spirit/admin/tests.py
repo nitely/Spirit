@@ -422,7 +422,7 @@ class AdminFormTest(TestCase):
                      "order": 10,
                      "is_closed": False,
                      "is_removed": False}
-        form = CategoryForm(data=form_data)
+        form = CategoryForm(user=self.user, data=form_data)
         self.assertEqual(form.is_valid(), True)
 
     def test_category_invalid_parent(self):
@@ -432,28 +432,28 @@ class AdminFormTest(TestCase):
         # parent can not be a subcategory, only one level subcat is allowed
         subcategory = utils.create_category(parent=self.category)
         form_data = {"parent": subcategory.pk, }
-        form = CategoryForm(data=form_data)
+        form = CategoryForm(user=self.user, data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('parent', form.cleaned_data)
 
         # parent can not be set to a category with childrens
         category_ = utils.create_category()
         form_data = {"parent": category_.pk, }
-        form = CategoryForm(data=form_data, instance=self.category)
+        form = CategoryForm(user=self.user, data=form_data, instance=self.category)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('parent', form.cleaned_data)
 
         # parent can not be removed
         category_ = utils.create_category(is_removed=True)
         form_data = {"parent": category_.pk, }
-        form = CategoryForm(data=form_data)
+        form = CategoryForm(user=self.user, data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('parent', form.cleaned_data)
 
         # parent can not be private
         category_ = utils.create_category(is_private=True)
         form_data = {"parent": category_.pk, }
-        form = CategoryForm(data=form_data)
+        form = CategoryForm(user=self.user, data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('parent', form.cleaned_data)
 

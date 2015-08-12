@@ -124,7 +124,7 @@ def _activity(request, pk, slug, queryset, template, reverse_to, context_name, p
 
 def topics(request, pk, slug):
     user_topics = Topic.objects\
-        .visible()\
+        .visible(request.user)\
         .with_bookmarks(user=request.user)\
         .filter(user_id=pk)\
         .order_by('-date', '-pk')\
@@ -142,7 +142,7 @@ def topics(request, pk, slug):
 
 def comments(request, pk, slug):
     user_comments = Comment.objects\
-        .visible()\
+        .visible(request.user)\
         .filter(user_id=pk)
 
     return _activity(
@@ -157,7 +157,7 @@ def comments(request, pk, slug):
 
 def likes(request, pk, slug):
     user_comments = Comment.objects\
-        .visible()\
+        .visible(request.user)\
         .filter(comment_likes__user_id=pk)\
         .order_by('-comment_likes__date', '-pk')
 

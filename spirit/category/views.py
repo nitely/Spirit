@@ -14,14 +14,14 @@ from .models import Category
 
 
 def detail(request, pk, slug):
-    category = get_object_or_404(Category.objects.visible(),
+    category = get_object_or_404(Category.objects.visible(request.user),
                                  pk=pk)
 
     if category.slug != slug:
         return HttpResponsePermanentRedirect(category.get_absolute_url())
 
     subcategories = Category.objects\
-        .visible()\
+        .visible(request.user)\
         .children(parent=category)
 
     topics = Topic.objects\
@@ -50,4 +50,6 @@ class IndexView(ListView):
 
     template_name = 'spirit/category/index.html'
     context_object_name = "categories"
-    queryset = Category.objects.visible().parents()
+
+    def get_queryset(self):
+        return Category.objects.visible(self.request.user).parents()

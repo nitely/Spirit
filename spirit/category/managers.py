@@ -15,8 +15,14 @@ class CategoryQuerySet(models.QuerySet):
     def public(self):
         return self.filter(is_private=False)
 
-    def visible(self):
-        return self.unremoved().public()
+    def visible(self, user):
+        return self.unremoved().public().for_user(user)
+
+    def for_user(self, user):
+        return self.filter(
+            Q(restrict_access=None) |
+            Q(restrict_access__contains=user.groups.all())
+        )
 
     def opened(self):
         return self.filter(Q(parent=None) | Q(parent__is_closed=False),
