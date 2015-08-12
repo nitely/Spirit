@@ -25,13 +25,13 @@ def index(request):
 @administrator_required
 def create(request):
     if request.method == 'POST':
-        form = CategoryForm(data=request.POST)
+        form = CategoryForm(user=request.user, data=request.POST)
 
         if form.is_valid():
             form.save()
             return redirect(reverse("spirit:admin:category:index"))
     else:
-        form = CategoryForm()
+        form = CategoryForm(user=request.user)
 
     context = {'form': form, }
 
@@ -43,14 +43,14 @@ def update(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
     if request.method == 'POST':
-        form = CategoryForm(data=request.POST, instance=category)
+        form = CategoryForm(user=request.user, data=request.POST, instance=category)
 
         if form.is_valid():
             form.save()
             messages.info(request, _("The category has been updated!"))
             return redirect(reverse("spirit:admin:category:index"))
     else:
-        form = CategoryForm(instance=category)
+        form = CategoryForm(user=request.user, instance=category)
 
     context = {'form': form, }
 

@@ -28,8 +28,14 @@ class CommentQuerySet(models.QuerySet):
     def public(self):
         return self.filter(topic__category__is_private=False)
 
-    def visible(self):
-        return self.unremoved().public()
+    def visible(self, user):
+        return self.unremoved().public().for_user(user)
+
+    def for_user(self, user):
+        return self.filter(
+            Q(topic__category__restrict_access=None) |
+            Q(topic__category__restrict_access__contains=user.groups.all())
+        )
 
     def for_topic(self, topic):
         return self.filter(topic=topic)

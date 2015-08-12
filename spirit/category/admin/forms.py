@@ -13,11 +13,11 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ("parent", "title", "description", "is_closed", "is_removed")
+        fields = ("parent", "title", "description", "order", "is_closed", "is_removed")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)
-        queryset = Category.objects.visible().parents()
+        queryset = Category.objects.visible(user).parents()
 
         if self.instance.pk:
             queryset = queryset.exclude(pk=self.instance.pk)
