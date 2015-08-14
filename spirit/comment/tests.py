@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 import os
 import json
+import shutil
 
 from django.test import TestCase, RequestFactory
 from django.core.cache import cache
@@ -345,10 +346,15 @@ class CommentViewTest(TestCase):
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest',
                                     data=files)
         res = json.loads(response.content.decode('utf-8'))
-        self.assertEqual(res['url'], os.path.join(settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
-                                                  "bf21c3043d749d5598366c26e7e4ab44.gif").replace("\\", "/"))
-        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk),
-                               "bf21c3043d749d5598366c26e7e4ab44.gif"))
+        image_url = os.path.join(
+            settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),  "bf21c3043d749d5598366c26e7e4ab44.gif"
+        ).replace("\\", "/")
+        self.assertEqual(res['url'], image_url)
+        image_path = os.path.join(
+            settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), "bf21c3043d749d5598366c26e7e4ab44.gif"
+        )
+        self.assertTrue(os.path.isfile(image_path))
+        shutil.rmtree(settings.MEDIA_ROOT)  # cleanup
 
     def test_comment_image_upload_invalid(self):
         """

@@ -10,8 +10,7 @@ Spirit example application in this directory:
     $ source ./venv/bin/activate
     $ pip install .
     $ cd example
-    $ python manage.py migrate
-	$ python manage.py createcachetable spirit_cache
+    $ python manage.py spiritinstall
     $ python manage.py runserver
 
 You should then be able to open your browser on http://127.0.0.1:8000 and

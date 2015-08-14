@@ -28,3 +28,7 @@ ROOT_URLCONF = 'example.project.urls'
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.MD5PasswordHasher',
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_test')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_test')

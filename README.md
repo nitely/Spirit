@@ -33,9 +33,7 @@ otherwise you will have to setup all django's related constants (Installed_apps,
 Run:
 
     pip install -r requirements.txt
-    python manage.py migrate
-    python manage.py createcachetable
-    python manage.py collectstatic
+    python manage.py spiritinstall
 
 > You will need to setup a search engine,
 > Spirit is configured to work with [Woosh](https://bitbucket.org/mchaput/whoosh/wiki/Home) by default.

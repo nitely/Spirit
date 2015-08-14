@@ -1,3 +1,9 @@
+0.4.2
+==================
+
+* Adds management commands: spiritinstall, spiritupgrade
+* Fix to use current date when a history comment is created
+
 0.4.1
 ==================
 

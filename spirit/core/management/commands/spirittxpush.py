@@ -14,8 +14,7 @@ class Command(BaseCommand):
     requires_system_checks = False
 
     def handle(self, *args, **options):
-        # todo: test or not to test?
-        # Requir python27 and "pip install transifex-client==0.11b3"
+        # Requires python27 and "pip install transifex-client==0.11b3"
         root = os.path.split(settings.ST_BASE_DIR)[0]
         tx_dir = os.path.join(root, '.tx')
 
