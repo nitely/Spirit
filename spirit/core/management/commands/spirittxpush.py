@@ -7,6 +7,8 @@ import os
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
+from ... import utils
+
 
 class Command(BaseCommand):
     help = 'Pushes all the local files listed in ./.tx/config to transifex'
@@ -21,6 +23,7 @@ class Command(BaseCommand):
         if not os.path.isdir(tx_dir):
             raise CommandError('Can\'t find the .tx folder in %s' % (root, ))
 
-        os.chdir(root)
-        call(["tx", "push", "-s", "-t", "--skip"])
+        with utils.pushd(root):
+            call(["tx", "push", "-s", "-t", "--skip"])
+
         self.stdout.write('ok')

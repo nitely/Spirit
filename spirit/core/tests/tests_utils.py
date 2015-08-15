@@ -98,6 +98,35 @@ class UtilsTests(TestCase):
         os.rmdir(sub_path)
         os.rmdir(path)
 
+    def test_pushd(self):
+        """
+        pushd bash like
+        """
+        current_dir = {'dir': '.'}
+
+        class MockOS:
+            @classmethod
+            def chdir(cls, new_dir):
+                current_dir['dir'] = new_dir
+
+            @classmethod
+            def getcwd(cls):
+                return current_dir['dir']
+
+        org_os, utils.os = utils.os, MockOS
+        try:
+            with utils.pushd('./my_dir'):
+                self.assertEqual(current_dir['dir'], './my_dir')
+
+                with utils.pushd('./my_dir/my_other_dir'):
+                    self.assertEqual(current_dir['dir'], './my_dir/my_other_dir')
+
+                self.assertEqual(current_dir['dir'], './my_dir')
+
+            self.assertEqual(current_dir['dir'], '.')
+        finally:
+            utils.os = org_os
+
 
 # Mock out datetime in some tests so they don't fail occasionally when they
 # run too slow. Use a fixed datetime for datetime.now(). DST change in

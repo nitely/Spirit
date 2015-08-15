@@ -7,6 +7,8 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.management import call_command
 from django.conf import settings
 
+from ... import utils
+
 
 class Command(BaseCommand):
     help = 'Compiles .po files created by makemessages to .mo ' \
@@ -20,15 +22,12 @@ class Command(BaseCommand):
                 'settings.ST_BASE_DIR is not the spirit root folder, are you overriding it?'
             )
 
-        base_dir = os.getcwd()
-
         for root, dirs, files in os.walk(settings.ST_BASE_DIR):
             if 'locale' not in dirs:
                 continue
 
-            os.chdir(root)
-            call_command('compilemessages', stdout=self.stdout, stderr=self.stderr)
-            os.chdir(base_dir)
+            with utils.pushd(root):
+                call_command('compilemessages', stdout=self.stdout, stderr=self.stderr)
 
         self.stdout.write('ok')
         self.stdout.write('Run \'python manage.py spirittxpush\' to push the changes to transifex.')

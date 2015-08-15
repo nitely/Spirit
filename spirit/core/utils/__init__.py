@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 import os
 import json
+from contextlib import contextmanager
 
 from django.template.loader import render_to_string
 from django.http import HttpResponse
@@ -25,3 +26,22 @@ def mkdir_p(path):
     except OSError:
         if not os.path.isdir(path):
             raise
+
+
+@contextmanager
+def pushd(new_dir):
+    """
+    Usage:
+
+    with pushd('./my_dir'):
+        print(os.getcwd())  # ./my_dir
+
+        with pushd('./my_dir/my_other_dir'):
+            print(os.getcwd())  # ./my_dir/my_other_dir
+
+        print(os.getcwd())  # ./my_dir
+    """
+    prev_dir = os.getcwd()
+    os.chdir(new_dir)
+    yield
+    os.chdir(prev_dir)
