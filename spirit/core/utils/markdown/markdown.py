@@ -29,6 +29,9 @@ class Markdown(mistune.Markdown):
         def get_mentions(self):
             return self.inline.mentions
 
+        def get_polls(self):
+            return self.block.polls
+
         def parse_audio_link(self):
             return self.renderer.audio_link(link=self.token['link'])
 
@@ -43,3 +46,6 @@ class Markdown(mistune.Markdown):
 
         def parse_vimeo(self):
             return self.renderer.vimeo(video_id=self.token['video_id'])
+
+        def parse_poll(self):
+            return self.renderer.poll(name=self.token['name'])

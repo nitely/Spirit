@@ -10,6 +10,12 @@ import mistune
 
 class BlockGrammar(mistune.BlockGrammar):
 
+    # todo: remove all *_link
+    #link_block = re.compile(
+    #    r'^https?://[^\s]+'
+    #    r'(?:\n+|$)'
+    #)
+
     audio_link = re.compile(
         r'^https?://[^\s]+\.(mp3|ogg|wav)'
         r'(\?[^\s]+)?'
@@ -62,6 +68,18 @@ class BlockGrammar(mistune.BlockGrammar):
         r'(?:\n+|$)'
     )
 
+    # Capture polls
+    # [poll]
+    # * opt 1
+    # * opt 2
+    # [/poll]
+    poll = re.compile(
+        r'^(?:\[poll\])\n*'
+        r'(?P<choices>(?:-[^\n]*\n*){2,})'
+        r'(?:\[/poll\])',
+        flags=re.UNICODE
+    )
+
 
 class BlockLexer(mistune.BlockLexer):
 
@@ -71,12 +89,15 @@ class BlockLexer(mistune.BlockLexer):
     default_features.insert(0, 'video_link')
     default_features.insert(0, 'youtube')
     default_features.insert(0, 'vimeo')
+    default_features.insert(0, 'poll')
 
     def __init__(self, rules=None, **kwargs):
         if rules is None:
             rules = BlockGrammar()
 
         super(BlockLexer, self).__init__(rules=rules, **kwargs)
+
+        self.polls = []
 
     def parse_audio_link(self, m):
         link = mistune.escape(m.group(0).strip(), quote=True)
@@ -96,3 +117,13 @@ class BlockLexer(mistune.BlockLexer):
 
     def parse_vimeo(self, m):
         self.tokens.append({'type': 'vimeo', 'video_id': m.group("id")})
+
+    def parse_poll(self, m):
+        choices = m.group('choices')
+        choices = [
+            mistune.escape(choice[1:].strip(), quote=True)
+            for choice in choices.splitlines()
+        ]
+        name = str(0)
+        self.polls.append({'name': name, 'choices': choices})
+        self.tokens.append({'type': 'poll', 'name': name})

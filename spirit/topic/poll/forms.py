@@ -96,9 +96,15 @@ class TopicPollChoiceInlineFormSet(BaseInlineFormSet):
         return super(TopicPollChoiceInlineFormSet, self).save(commit=commit)
 
 
-TopicPollChoiceFormSet = inlineformset_factory(TopicPollForm._meta.model, TopicPollChoiceForm._meta.model,
-                                               form=TopicPollChoiceForm, formset=TopicPollChoiceInlineFormSet,
-                                               max_num=20, validate_max=True, extra=2)
+TopicPollChoiceFormSet = inlineformset_factory(
+    TopicPollForm._meta.model,
+    TopicPollChoiceForm._meta.model,
+    form=TopicPollChoiceForm,
+    formset=TopicPollChoiceInlineFormSet,
+    max_num=20,
+    validate_max=True,
+    extra=2
+)
 
 
 class TopicPollVoteManyForm(forms.Form):
@@ -114,14 +120,18 @@ class TopicPollVoteManyForm(forms.Form):
         choices = TopicPollChoice.objects.filter(poll=poll)
 
         if poll.is_multiple_choice:
-            self.fields['choices'] = forms.ModelMultipleChoiceField(queryset=choices,
-                                                                    widget=forms.CheckboxSelectMultiple,
-                                                                    label=_("Poll choices"))
+            self.fields['choices'] = forms.ModelMultipleChoiceField(
+                queryset=choices,
+                widget=forms.CheckboxSelectMultiple,
+                label=_("Poll choices")
+            )
         else:
-            self.fields['choices'] = forms.ModelChoiceField(queryset=choices,
-                                                            widget=forms.RadioSelect,
-                                                            label=_("Poll choices"),
-                                                            empty_label=None)
+            self.fields['choices'] = forms.ModelChoiceField(
+                queryset=choices,
+                widget=forms.RadioSelect,
+                label=_("Poll choices"),
+                empty_label=None
+            )
 
         self.fields['choices'].label_from_instance = lambda obj: smart_text(obj.description)
 
@@ -160,8 +170,11 @@ class TopicPollVoteManyForm(forms.Form):
         if not self.poll.is_multiple_choice:
             choices = [choices, ]
 
-        TopicPollVote.objects.filter(user=self.user, choice__poll=self.poll)\
+        TopicPollVote.objects\
+            .filter(user=self.user, choice__poll=self.poll)\
             .delete()
 
-        return TopicPollVote.objects.bulk_create([TopicPollVote(user=self.user, choice=choice)
-                                                  for choice in choices])
+        return TopicPollVote.objects.bulk_create([
+            TopicPollVote(user=self.user, choice=choice)
+            for choice in choices
+        ])
