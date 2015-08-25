@@ -185,12 +185,21 @@ class UtilsMarkdownTests(TestCase):
         """
         markdown poll
         """
-        comment = "[poll]\n" \
-                  "- opt 1\n" \
-                  "- opt 2\n" \
-                  "- opt 3\n" \
+        comment = "[poll name=foo_1]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "3. opt 3\n" \
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=0>')
-        self.assertEqual(md.get_polls(), [{'name': '0', 'choices': ['opt 1', 'opt 2', 'opt 3']}])
+        self.assertEqual(comment_md, '<poll name=foo_1>')
+        self.assertEqual(md.get_polls(), {
+            'polls': [
+                {'name': 'foo_1', }
+            ],
+            'choices': [
+                {'number': 1, 'description': 'opt 1', 'poll_name': 'foo_1'},
+                {'number': 2, 'description': 'opt 2', 'poll_name': 'foo_1'},
+                {'number': 3, 'description': 'opt 3', 'poll_name': 'foo_1'}
+            ]
+        })

@@ -8,6 +8,10 @@ import copy
 import mistune
 
 
+def parse_params(*params_raw):
+    return dict(param.split('=', 1) for param in params_raw)
+
+
 class BlockGrammar(mistune.BlockGrammar):
 
     # todo: remove all *_link
@@ -70,12 +74,14 @@ class BlockGrammar(mistune.BlockGrammar):
 
     # Capture polls
     # [poll]
-    # * opt 1
-    # * opt 2
+    # 1. opt 1
+    # 2. opt 2
     # [/poll]
     poll = re.compile(
-        r'^(?:\[poll\])\n*'
-        r'(?P<choices>(?:-[^\n]*\n*){2,})'
+        r'^(?:\[poll\s+'
+        r'(?P<name>name=[\w\-_]+)'
+        r'\])\n*'
+        r'(?P<choices>(?:\d+\.\s*)(?:[^\n]*\n*){2,})'
         r'(?:\[/poll\])',
         flags=re.UNICODE
     )
@@ -97,7 +103,7 @@ class BlockLexer(mistune.BlockLexer):
 
         super(BlockLexer, self).__init__(rules=rules, **kwargs)
 
-        self.polls = []
+        self.polls = {'polls': [], 'choices': []}
 
     def parse_audio_link(self, m):
         link = mistune.escape(m.group(0).strip(), quote=True)
@@ -119,11 +125,24 @@ class BlockLexer(mistune.BlockLexer):
         self.tokens.append({'type': 'vimeo', 'video_id': m.group("id")})
 
     def parse_poll(self, m):
+        params = parse_params(m.group('name'))
+        name = params['name']
+
+        if name in self.polls:
+            return
+
         choices = m.group('choices')
         choices = [
-            mistune.escape(choice[1:].strip(), quote=True)
+            {
+                'number': int(choice.split('.', 1)[0]),
+                'description': mistune.escape(choice.split('.', 1)[-1].strip(), quote=True),
+                'poll_name': name
+            }
             for choice in choices.splitlines()
         ]
-        name = str(0)
-        self.polls.append({'name': name, 'choices': choices})
+        poll = {
+            'name': name
+        }
+        self.polls['polls'].append(poll)
+        self.polls['choices'].extend(choices)
         self.tokens.append({'type': 'poll', 'name': name})

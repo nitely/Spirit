@@ -10,8 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from ..core import utils
 from ..core.utils.markdown import Markdown
-from .models import Comment
 from ..topic.models import Topic
+from .poll import utils as poll_utils
+from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
@@ -25,13 +26,28 @@ class CommentForm(forms.ModelForm):
         self.user = user
         self.topic = topic
         self.mentions = None  # {username: User, }
+        self.polls = None  # {polls: [], choices: []}
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
 
     def _get_comment_html(self):
         markdown = Markdown(escape=True, hard_wrap=True)
         comment_html = markdown.render(self.cleaned_data['comment'])
         self.mentions = markdown.get_mentions()
+        self.polls = markdown.get_polls()
         return comment_html
+
+    def save_polls(self):
+        assert self.instance.pk
+        assert self.polls is not None
+
+        polls = self.polls['polls']
+        choices = self.polls['choices']
+
+        if not polls and not choices:
+            return
+
+        poll_utils.create_polls(comment=self.instance, polls_raw=polls)
+        poll_utils.create_choices(comment=self.instance, choices_raw=choices)
 
     def save(self, commit=True):
         if not self.instance.pk:
@@ -48,8 +64,10 @@ class CommentMoveForm(forms.Form):
 
     def __init__(self, topic, *args, **kwargs):
         super(CommentMoveForm, self).__init__(*args, **kwargs)
-        self.fields['comments'] = forms.ModelMultipleChoiceField(queryset=Comment.objects.filter(topic=topic),
-                                                                 widget=forms.CheckboxSelectMultiple)
+        self.fields['comments'] = forms.ModelMultipleChoiceField(
+            queryset=Comment.objects.filter(topic=topic),
+            widget=forms.CheckboxSelectMultiple
+        )
 
     def save(self):
         comments = self.cleaned_data['comments']
