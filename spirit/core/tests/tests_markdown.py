@@ -88,6 +88,24 @@ class UtilsMarkdownTests(TestCase):
         with translation.override('es'):
             self.assertListEqual(quote.splitlines(), ("> @%s said:\n> \n\n" % self.user.username).splitlines())
 
+    @override_settings(LANGUAGE_CODE='en')
+    def test_markdown_quote_no_polls(self):
+        """
+        should remove poll markdown
+        """
+        comment = "foo\n" \
+                  "[poll param=value]\n" \
+                  "1. [/fake_closing_tag]\n" \
+                  "2. opt 2\n" \
+                  "[/poll]\n" \
+                  "bar\n" \
+                  "[poll param=value]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        quote = quotify(comment, self.user)
+        self.assertListEqual(quote.splitlines(), ("> @%s said:\n> foo\n> \n> bar\n\n" % self.user.username).splitlines())
+
     def test_markdown_image(self):
         """
         markdown image
