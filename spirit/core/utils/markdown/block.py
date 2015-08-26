@@ -80,8 +80,8 @@ class BlockGrammar(mistune.BlockGrammar):
     poll = re.compile(
         r'^(?:\[poll\s+'
         r'(?P<name>name=[\w\-_]+)'
-        r'\])\n*'
-        r'(?P<choices>(?:\d+\.\s*)(?:[^\n]*\n*){2,})'
+        r'\])\n'
+        r'(?P<choices>(?:\d+\.\s*[^\n]+\n){2,})'
         r'(?:\[/poll\])',
         flags=re.UNICODE
     )
@@ -128,7 +128,7 @@ class BlockLexer(mistune.BlockLexer):
         params = parse_params(m.group('name'))
         name = params['name']
 
-        if name in self.polls:
+        if name in self.polls['polls']:
             return
 
         choices = m.group('choices')

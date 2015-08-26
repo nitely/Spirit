@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from ..core import utils
 from ..core.utils.markdown import Markdown
 from ..topic.models import Topic
-from .poll import utils as poll_utils
+from .poll.models import CommentPoll, CommentPollChoice
 from .models import Comment
 
 
@@ -46,8 +46,8 @@ class CommentForm(forms.ModelForm):
         if not polls and not choices:
             return
 
-        poll_utils.create_polls(comment=self.instance, polls_raw=polls)
-        poll_utils.create_choices(comment=self.instance, choices_raw=choices)
+        CommentPoll.update_or_create_many(comment=self.instance, polls_raw=polls)
+        CommentPollChoice.update_or_create_many(comment=self.instance, choices_raw=choices)
 
     def save(self, commit=True):
         if not self.instance.pk:

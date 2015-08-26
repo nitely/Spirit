@@ -28,7 +28,7 @@ class CommentHistory(models.Model):
     def create(cls, comment, created_at=None):
         created_at = created_at or timezone.now()
 
-        with transaction.atomic():
+        with transaction.atomic():  # todo: remove this
             return cls.objects.create(
                 comment_fk=comment,
                 comment_html=comment.comment_html,

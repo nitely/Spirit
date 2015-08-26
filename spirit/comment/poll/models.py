@@ -7,6 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils import timezone
 
+from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet
+
 
 class CommentPoll(models.Model):
 
@@ -18,6 +20,8 @@ class CommentPoll(models.Model):
     is_closed = models.BooleanField(default=False)
     is_removed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
+
+    objects = CommentPollQuerySet.as_manager()
 
     class Meta:
         unique_together = ('comment', 'name')
@@ -32,6 +36,26 @@ class CommentPoll(models.Model):
     def is_multiple_choice(self):
         return self.choice_limit > 1
 
+    @classmethod
+    def update_or_create_many(cls, comment, polls_raw):
+        # Mark all for remove
+        cls.objects \
+            .for_comment(comment) \
+            .update(is_removed=True)
+
+        for poll in polls_raw:
+            cls.objects.update_or_create(
+                comment=comment,
+                name=poll['name'],
+                defaults={'is_removed': False}
+            )
+
+        # Remove marked polls
+        cls.objects \
+            .for_comment(comment) \
+            .removed() \
+            .delete()
+
 
 class CommentPollChoice(models.Model):
 
@@ -42,11 +66,42 @@ class CommentPollChoice(models.Model):
     vote_count = models.PositiveIntegerField(_("vote count"), default=0)
     is_removed = models.BooleanField(default=False)
 
+    objects = CommentPollChoiceQuerySet.as_manager()
+
     class Meta:
         unique_together = ('poll', 'number')
         ordering = ['-pk', ]
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
+
+    @classmethod
+    def update_or_create_many(cls, comment, choices_raw):
+        # Mark all for remove
+        cls.objects \
+            .for_comment(comment) \
+            .update(is_removed=True)
+
+        poll_ids_by_name = dict(
+            CommentPoll.objects
+                .for_comment(comment)
+                .values_list('name', 'id')
+        )
+
+        for choice in choices_raw:
+            cls.objects.update_or_create(
+                poll_id=poll_ids_by_name[choice['poll_name']],
+                number=choice['number'],
+                defaults={
+                    'description': choice['description'],
+                    'is_removed': False
+                }
+            )
+
+        # Remove marked choices
+        cls.objects \
+            .for_comment() \
+            .removed() \
+            .delete()
 
 
 class CommentPollVote(models.Model):
