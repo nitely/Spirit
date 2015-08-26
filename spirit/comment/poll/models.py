@@ -38,7 +38,6 @@ class CommentPoll(models.Model):
 
     @classmethod
     def update_or_create_many(cls, comment, polls_raw):
-        # Mark all for remove
         cls.objects \
             .for_comment(comment) \
             .update(is_removed=True)
@@ -49,12 +48,6 @@ class CommentPoll(models.Model):
                 name=poll['name'],
                 defaults={'is_removed': False}
             )
-
-        # Remove marked polls
-        cls.objects \
-            .for_comment(comment) \
-            .removed() \
-            .delete()
 
 
 class CommentPollChoice(models.Model):
@@ -76,7 +69,6 @@ class CommentPollChoice(models.Model):
 
     @classmethod
     def update_or_create_many(cls, comment, choices_raw):
-        # Mark all for remove
         cls.objects \
             .for_comment(comment) \
             .update(is_removed=True)
@@ -96,12 +88,6 @@ class CommentPollChoice(models.Model):
                     'is_removed': False
                 }
             )
-
-        # Remove marked choices
-        cls.objects \
-            .for_comment() \
-            .removed() \
-            .delete()
 
 
 class CommentPollVote(models.Model):
