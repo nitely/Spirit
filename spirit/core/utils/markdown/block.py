@@ -125,12 +125,10 @@ class BlockLexer(mistune.BlockLexer):
         self.tokens.append({'type': 'vimeo', 'video_id': m.group("id")})
 
     def parse_poll(self, m):
+        # todo: truncate description and poll_name
+        # ...validate choices count
         params = parse_params(m.group('name'))
         name = params['name']
-
-        if name in self.polls['polls']:
-            return
-
         choices = m.group('choices')
         choices = [
             {
@@ -143,6 +141,17 @@ class BlockLexer(mistune.BlockLexer):
         poll = {
             'name': name
         }
+
+        names = set(p['name'] for p in self.polls['polls'])
+
+        if name in names:  # Is this poll name already listed?
+            return
+
+        numbers = [c['number'] for c in choices]
+
+        if len(numbers) != len(set(numbers)):  # Are all numbers unique?
+            return
+
         self.polls['polls'].append(poll)
         self.polls['choices'].extend(choices)
         self.tokens.append({'type': 'poll', 'name': name})

@@ -8,7 +8,7 @@ from django.conf import settings
 from django.utils import translation
 
 
-def _remove_polls(comment):
+def _strip_polls(comment):
     return re.sub(
         r'^(?:\[poll[^\]]*\])\n+'
         r'(?:\d+[^\n]*\n+)+'
@@ -30,7 +30,7 @@ def quotify(comment, username):
     with translation.override(settings.LANGUAGE_CODE):
         header = _("@%(username)s said:") % {'username': username, }
 
-    comment = _remove_polls(comment)
+    comment = _strip_polls(comment)
     lines = comment.splitlines()
     quote = "\n> ".join(lines)
     quote = "> %(header)s\n> %(quote)s\n\n" % {'header': header, 'quote': quote}

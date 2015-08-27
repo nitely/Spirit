@@ -83,6 +83,7 @@ def detail(request, topic_id, slug):
     comments = Comment.objects\
         .for_topic(topic=topic)\
         .with_likes(user=request.user)\
+        .with_polls()\
         .order_by('date')
 
     comments = paginate(

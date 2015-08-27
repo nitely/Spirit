@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q, Prefetch
 
 from .like.models import CommentLike
+from .poll.models import CommentPoll, CommentPollChoice
 
 
 class CommentQuerySet(models.QuerySet):
@@ -44,6 +45,16 @@ class CommentQuerySet(models.QuerySet):
         user_likes = CommentLike.objects.filter(user=user)
         prefetch = Prefetch("comment_likes", queryset=user_likes, to_attr='likes')
         return self.prefetch_related(prefetch)
+
+    def with_polls(self):
+        visible_polls = CommentPoll.objects.unremoved()
+        prefetch_polls = Prefetch("comment_polls", queryset=visible_polls, to_attr='polls')
+
+        # Choices are attached to polls
+        visible_choices = CommentPollChoice.objects.unremoved()
+        prefetch_choices = Prefetch("polls__poll_choices", queryset=visible_choices, to_attr='choices')
+
+        return self.prefetch_related(prefetch_polls, prefetch_choices)
 
     def for_access(self, user):
         return self.unremoved()._access(user=user)

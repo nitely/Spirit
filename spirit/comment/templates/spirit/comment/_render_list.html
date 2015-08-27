@@ -32,6 +32,7 @@
 
                         <div class="comment-text">
                             {% if not c.action %}
+                                {% parse_polls comment=c %}
                                 {{ c.comment_html|safe }}
                             {% else %}
                                 <p>{% get_comment_action_text c.action %}.</p>

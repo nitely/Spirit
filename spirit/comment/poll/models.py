@@ -12,7 +12,7 @@ from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet
 
 class CommentPoll(models.Model):
 
-    comment = models.ForeignKey('spirit_comment.Comment', related_name='polls')
+    comment = models.ForeignKey('spirit_comment.Comment', related_name='comment_polls')
 
     name = models.CharField(_("name"), max_length=255)
     title = models.CharField(_("title"), max_length=255)
@@ -52,7 +52,7 @@ class CommentPoll(models.Model):
 
 class CommentPollChoice(models.Model):
 
-    poll = models.ForeignKey(CommentPoll, verbose_name=_("poll"), related_name='choices')
+    poll = models.ForeignKey(CommentPoll, verbose_name=_("poll"), related_name='poll_choices')
 
     number = models.PositiveIntegerField(_("number"))
     description = models.CharField(_("choice description"), max_length=255)

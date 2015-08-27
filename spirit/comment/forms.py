@@ -43,9 +43,6 @@ class CommentForm(forms.ModelForm):
         polls = self.polls['polls']
         choices = self.polls['choices']
 
-        if not polls and not choices:
-            return
-
         CommentPoll.update_or_create_many(comment=self.instance, polls_raw=polls)
         CommentPollChoice.update_or_create_many(comment=self.instance, choices_raw=choices)
 
