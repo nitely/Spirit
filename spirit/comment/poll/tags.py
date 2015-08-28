@@ -11,7 +11,10 @@ from .forms import PollVoteManyForm
 
 def _render_form(poll, user, comment):
     form = PollVoteManyForm(poll=poll)
-    # form.load_initial(votes)
+
+    if user.is_authenticated():
+        form.load_initial()
+
     context = {
         'form': form,
         'poll': poll,

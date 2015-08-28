@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils import timezone
 
-from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet
+from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet, CommentPollVoteQuerySet
 
 
 class CommentPoll(models.Model):
@@ -67,6 +67,15 @@ class CommentPollChoice(models.Model):
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
 
+    @property
+    def vote(self):
+        # *votes* is dynamically created by comments.with_polls()
+        try:
+            assert len(self.votes) <= 1, "Panic, too many votes"
+            return self.votes[0]
+        except (AttributeError, IndexError):
+            return
+
     @classmethod
     def update_or_create_many(cls, comment, choices_raw):
         cls.objects \
@@ -92,11 +101,13 @@ class CommentPollChoice(models.Model):
 
 class CommentPollVote(models.Model):
 
-    choice = models.ForeignKey(CommentPollChoice, verbose_name=_("poll choice"), related_name='votes')
+    choice = models.ForeignKey(CommentPollChoice, verbose_name=_("poll choice"), related_name='choice_votes')
     voter = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("voter"))
 
     is_removed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
+
+    objects = CommentPollVoteQuerySet.as_manager()
 
     class Meta:
         unique_together = ('voter', 'choice')

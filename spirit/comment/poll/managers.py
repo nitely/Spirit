@@ -24,3 +24,12 @@ class CommentPollChoiceQuerySet(models.QuerySet):
 
     def for_poll(self, poll):
         return self.filter(poll=poll)
+
+
+class CommentPollVoteQuerySet(models.QuerySet):
+
+    def unremoved(self):
+        return self.filter(is_removed=False)
+
+    def for_voter(self, user):
+        return self.filter(voter=user)

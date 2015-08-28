@@ -37,16 +37,20 @@ class PollVoteManyForm(forms.Form):
 
         self.fields['choices'].label_from_instance = lambda obj: smart_text(obj.description)
 
-    def load_initial(self, votes):
-        votes = list(votes)
+    def load_initial(self):
+        selected_choices = [
+            c.pk
+            for c in self.poll.choices
+            if c.vote
+        ]
 
-        if not votes:
+        if not selected_choices:
             return
 
         if not self.poll.is_multiple_choice:
-            votes = votes[0]
+            selected_choices = selected_choices[0]
 
-        self.initial = {'choices': votes, }
+        self.initial = {'choices': selected_choices, }
 
     def clean_choices(self):
         choices = self.cleaned_data['choices']
@@ -77,9 +81,9 @@ class PollVoteManyForm(forms.Form):
             .filter(voter=self.user, choice__poll=self.poll)\
             .update(is_removed=True)
 
-        for choice in choices:
+        for choice_id in choices:
             CommentPollVote.objects.update_or_create(
                 voter=self.user,
-                choice_id=choice,
+                choice_id=choice_id,
                 defaults={'is_removed': False}
             )

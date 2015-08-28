@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q, Prefetch
 
 from .like.models import CommentLike
-from .poll.models import CommentPoll, CommentPollChoice
+from .poll.models import CommentPoll, CommentPollChoice, CommentPollVote
 
 
 class CommentQuerySet(models.QuerySet):
@@ -46,7 +46,7 @@ class CommentQuerySet(models.QuerySet):
         prefetch = Prefetch("comment_likes", queryset=user_likes, to_attr='likes')
         return self.prefetch_related(prefetch)
 
-    def with_polls(self):
+    def with_polls(self, user):
         visible_polls = CommentPoll.objects.unremoved()
         prefetch_polls = Prefetch("comment_polls", queryset=visible_polls, to_attr='polls')
 
@@ -54,7 +54,16 @@ class CommentQuerySet(models.QuerySet):
         visible_choices = CommentPollChoice.objects.unremoved()
         prefetch_choices = Prefetch("polls__poll_choices", queryset=visible_choices, to_attr='choices')
 
-        return self.prefetch_related(prefetch_polls, prefetch_choices)
+        if not user.is_authenticated():
+            return self.prefetch_related(prefetch_polls, prefetch_choices)
+
+        # Votes are attached to choices
+        visible_votes = CommentPollVote.objects\
+            .unremoved()\
+            .for_voter(user)
+        prefetch_votes = Prefetch("polls__choices__choice_votes", queryset=visible_votes, to_attr='votes')
+
+        return self.prefetch_related(prefetch_polls, prefetch_choices, prefetch_votes)
 
     def for_access(self, user):
         return self.unremoved()._access(user=user)
