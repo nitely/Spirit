@@ -16,7 +16,7 @@ class PollVoteManyForm(forms.Form):
     is increased or decreased later.
     """
 
-    def __init__(self, poll, *args, user=None, **kwargs):
+    def __init__(self, poll, user=None, *args, **kwargs):
         super(PollVoteManyForm, self).__init__(*args, **kwargs)
         self.user = user
         self.poll = poll
