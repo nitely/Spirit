@@ -8,10 +8,6 @@ import copy
 import mistune
 
 
-def parse_params(*params_raw):
-    return dict(param.split('=', 1) for param in params_raw)
-
-
 class BlockGrammar(mistune.BlockGrammar):
 
     # todo: remove all *_link
@@ -78,8 +74,9 @@ class BlockGrammar(mistune.BlockGrammar):
     # 2. opt 2
     # [/poll]
     poll = re.compile(
-        r'^(?:\[poll\s+'
-        r'(?P<name>name=[\w\-_]+)'
+        r'^(?:\[poll'
+        r'(?:\s+name=(?P<name>[\w\-_]+))'
+        r'(?:\s+limit=(?P<limit>\d+))?'
         r'\])\n'
         r'(?P<choices>(?:\d+\.\s*[^\n]+\n){2,})'
         r'(?:\[/poll\])',
@@ -127,8 +124,7 @@ class BlockLexer(mistune.BlockLexer):
     def parse_poll(self, m):
         # todo: truncate description and poll_name
         # ...validate choices count
-        params = parse_params(m.group('name'))
-        name = params['name']
+        name = m.group('name')
         choices = m.group('choices')
         choices = [
             {

@@ -21,3 +21,6 @@ class CommentPollChoiceQuerySet(models.QuerySet):
 
     def for_comment(self, comment):
         return self.filter(poll__comment=comment)
+
+    def for_poll(self, poll):
+        return self.filter(poll=poll)

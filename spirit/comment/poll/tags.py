@@ -17,6 +17,7 @@ def _evaluate(polls_by_name):
 
 @register.simple_tag()
 def parse_polls(comment, next=None):
+    # todo: return safe string
     polls_by_name = {poll.name: poll for poll in comment.polls}
 
     if not polls_by_name:
