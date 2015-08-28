@@ -11,7 +11,7 @@ from django.utils import timezone
 
 class CommentLike(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_comment_likes')
     comment = models.ForeignKey('spirit_comment.Comment', related_name='comment_likes')
 
     date = models.DateTimeField(default=timezone.now)

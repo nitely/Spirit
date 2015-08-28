@@ -15,7 +15,7 @@ from ..core.utils.models import AutoSlugField
 
 class Topic(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_topics')
     category = models.ForeignKey('spirit_category.Category', verbose_name=_("category"))
 
     title = models.CharField(_("title"), max_length=255)

@@ -10,7 +10,7 @@ from django.utils import timezone
 
 class TopicUnread(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_topics_unread')
     topic = models.ForeignKey('spirit_topic.Topic')
 
     date = models.DateTimeField(default=timezone.now)

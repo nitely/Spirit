@@ -22,7 +22,7 @@ ACTION_CHOICES = (
 
 class TopicNotification(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_topic_notifications')
     topic = models.ForeignKey('spirit_topic.Topic')
     comment = models.ForeignKey('spirit_comment.Comment')
 

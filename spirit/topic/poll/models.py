@@ -44,7 +44,7 @@ class TopicPollChoice(models.Model):
 class TopicPollVote(models.Model):
 
     choice = models.ForeignKey(TopicPollChoice, verbose_name=_("poll choice"), related_name='votes')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("voter"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_votes')
 
     date = models.DateTimeField(default=timezone.now)
 
