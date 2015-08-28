@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<form action="{% url "spirit:comment:poll:vote" pk=poll.pk %}" method="post">
+    {% csrf_token %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+
+    {% include "spirit/_form.html" %}
+
+    <input class="button" type="submit" name="post" value="{% trans "Vote" %}" />
+
+    {% if user == comment.user %}
+        <a class="head-edit-link js-post" href="{% url "spirit:topic:poll:close" pk=poll.pk %}">
+            {% if poll.is_closed %}
+                <i class="fa fa-unlock"></i> {% trans "open" %}
+            {% else %}
+                <i class="fa fa-lock"></i> {% trans "close" %}
+            {% endif %}
+        </a>
+    {% endif %}
+</form>

@@ -16,43 +16,37 @@ class PollVoteManyForm(forms.Form):
     is increased or decreased later.
     """
 
-    def __init__(self, user=None, poll=None, *args, **kwargs):
+    def __init__(self, poll, *args, user=None, **kwargs):
         super(PollVoteManyForm, self).__init__(*args, **kwargs)
         self.user = user
         self.poll = poll
-        choices = CommentPollChoice.objects\
-            .for_poll(poll=poll)\
-            .unremoved()
+        choices = ((c.pk, c.description) for c in poll.choices)
 
         if poll.is_multiple_choice:
-            self.fields['choices'] = forms.ModelMultipleChoiceField(
-                queryset=choices,
+            self.fields['choices'] = forms.MultipleChoiceField(
+                choices=choices,
                 widget=forms.CheckboxSelectMultiple,
                 label=_("Poll choices")
             )
         else:
-            self.fields['choices'] = forms.ModelChoiceField(
-                queryset=choices,
+            self.fields['choices'] = forms.ChoiceField(
+                choices=choices,
                 widget=forms.RadioSelect,
-                label=_("Poll choices"),
-                empty_label=None
+                label=_("Poll choices")
             )
 
         self.fields['choices'].label_from_instance = lambda obj: smart_text(obj.description)
 
-    def load_initial(self):
-        selected_choices = list(CommentPollChoice.objects.filter(
-            poll=self.poll,
-            votes__voter=self.user
-        ))
+    def load_initial(self, votes):
+        votes = list(votes)
 
-        if not selected_choices:
+        if not votes:
             return
 
         if not self.poll.is_multiple_choice:
-            selected_choices = selected_choices[0]
+            votes = votes[0]
 
-        self.initial = {'choices': selected_choices, }
+        self.initial = {'choices': votes, }
 
     def clean_choices(self):
         choices = self.cleaned_data['choices']
@@ -86,6 +80,6 @@ class PollVoteManyForm(forms.Form):
         for choice in choices:
             CommentPollVote.objects.update_or_create(
                 voter=self.user,
-                choice=choice,
+                choice_id=choice,
                 defaults={'is_removed': False}
             )
