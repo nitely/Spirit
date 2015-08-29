@@ -52,7 +52,7 @@ class CommentPoll(models.Model):
 
 class CommentPollChoice(models.Model):
 
-    poll = models.ForeignKey(CommentPoll, verbose_name=_("poll"), related_name='poll_choices')
+    poll = models.ForeignKey(CommentPoll, related_name='poll_choices')
 
     number = models.PositiveIntegerField(_("number"))
     description = models.CharField(_("choice description"), max_length=255)
@@ -101,8 +101,8 @@ class CommentPollChoice(models.Model):
 
 class CommentPollVote(models.Model):
 
-    choice = models.ForeignKey(CommentPollChoice, verbose_name=_("poll choice"), related_name='choice_votes')
-    voter = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("voter"))
+    voter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_cp_votes')
+    choice = models.ForeignKey(CommentPollChoice, related_name='choice_votes')
 
     is_removed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
