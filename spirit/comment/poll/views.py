@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+from django.contrib.auth.views import redirect_to_login
 
 from ...core import utils
 from .models import CommentPoll
@@ -29,11 +30,14 @@ def close(request, pk):
     return redirect(request.GET.get('next', poll.get_absolute_url()))
 
 
-@login_required
 @require_POST
 def vote(request, pk):
     # TODO: check if user has access to this topic/poll
     poll = get_object_or_404(CommentPoll, pk=pk)
+
+    if not request.user.is_authenticated():
+        return redirect_to_login(next=poll.get_absolute_url())
+
     form = PollVoteManyForm(user=request.user, poll=poll, data=request.POST)
 
     if form.is_valid():

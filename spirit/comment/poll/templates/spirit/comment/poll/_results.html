@@ -1,0 +1,7 @@
+{% load spirit_tags i18n %}
+
+<div id="p{{ poll.pk }}">
+    {% for choice in poll.choices %}
+        {{ choice.description }}: choice.vote_count
+    {% endfor %}
+</div>

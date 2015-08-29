@@ -1,14 +1,20 @@
-{% load i18n %}
+{% load spirit_tags i18n %}
 
-<form action="{% url "spirit:comment:poll:vote" pk=poll.pk %}" method="post">
+<form action="{% url "spirit:comment:poll:vote" pk=poll.pk %}" method="post" id="p{{ poll.pk }}">
     {% csrf_token %}
-    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
 
-    {% include "spirit/_form.html" %}
+    {% for field in form %}
+        <div class="field">
+            {{ field }} {{ field.label_tag }}
+        </div>
+    {% endfor %}
 
     <input class="button" type="submit" name="post" value="{% trans "Vote" %}" />
+    <a href="?{% to_query_params show_poll=poll.pk %}#p{{ poll.pk }}">
+        <i class="fa fa-eye"></i> {% trans "Show results" %}
+    </a>
 
-    {% if user == comment.user %}
+    {% if user.is_authenticated and user.pk == comment.user.pk %}
         <a class="head-edit-link js-post" href="{% url "spirit:topic:poll:close" pk=poll.pk %}">
             {% if poll.is_closed %}
                 <i class="fa fa-unlock"></i> {% trans "open" %}

@@ -33,7 +33,7 @@ class CommandsTests(TestCase):
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
             self.assertEqual(self._command, 'compilemessages')
-            self.assertEqual(len(dirs), 22)
+            self.assertEqual(len(dirs), 23)
             self.assertEqual(out_put[-2], "ok")
             self.assertEqual(out_put_err, [])
         finally:

@@ -32,8 +32,7 @@
 
                         <div class="comment-text">
                             {% if not c.action %}
-                                {% render_polls comment=c user=user %}
-                                {{ c.comment_html|safe }}
+                                {% render_polls comment=c user=user request=request %}
                             {% else %}
                                 <p>{% get_comment_action_text c.action %}.</p>
                             {% endif %}

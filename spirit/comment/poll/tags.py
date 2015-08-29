@@ -9,7 +9,7 @@ from ...core.tags.registry import register
 from .forms import PollVoteManyForm
 
 
-def _render_form(poll, user, comment):
+def _render_form(poll, comment, user, request):
     form = PollVoteManyForm(poll=poll)
 
     if user.is_authenticated():
@@ -19,31 +19,43 @@ def _render_form(poll, user, comment):
         'form': form,
         'poll': poll,
         'user': user,
-        'comment': comment
+        'comment': comment,
+        'request': request
     }
+
     return render_to_string('spirit/comment/poll/_form.html', context)
 
 
-def _evaluate(polls_by_name, user, comment):
+def _render_results(poll, comment, user):
+    context = {
+        'poll': poll,
+        'user': user,
+        'comment': comment
+    }
+
+    return render_to_string('spirit/comment/poll/_results.html', context)
+
+
+def _evaluate(polls_by_name, comment, user, request):
     def evaluate(m):
         name = m.group('name')
         poll = polls_by_name[name]
 
-        if user.is_authenticated():
-            return _render_form(poll, user, comment)  # todo: render form or results
+        if poll.pk == request.GET.get('show_poll'):
+            return _render_results(poll, comment, user)
         else:
-            return poll.name
+            return _render_form(poll, comment, user, request)
 
     return evaluate
 
 
 @register.simple_tag()
-def render_polls(comment, user):
+def render_polls(comment, user, request):
     # todo: return safe string
     polls_by_name = {poll.name: poll for poll in comment.polls}
 
     if not polls_by_name:
         return comment.comment_html
 
-    evaluate = _evaluate(polls_by_name, user, comment)
+    evaluate = _evaluate(polls_by_name, comment, user, request)
     return re.sub(r'(?:<poll\s+name=(?P<name>[\w\-_]+)>)', evaluate, comment.comment_html)

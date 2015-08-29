@@ -63,7 +63,7 @@ class CommentPollChoice(models.Model):
 
     class Meta:
         unique_together = ('poll', 'number')
-        ordering = ['-pk', ]
+        ordering = ['number', '-pk']
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
 
