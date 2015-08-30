@@ -16,9 +16,11 @@ class CommentPoll(models.Model):
 
     name = models.CharField(_("name"), max_length=255)
     title = models.CharField(_("title"), max_length=255)
-    choice_limit = models.PositiveIntegerField(_("choice limit"), default=1)
+    multi_choice_limit = models.PositiveIntegerField(_("multiple choice limit"), default=1)
+    voter_count = models.PositiveIntegerField(_("voter count"), default=0)
     is_closed = models.BooleanField(default=False)
     is_removed = models.BooleanField(default=False)
+    # close_at = models.DateTimeField(null=True)  # remove is_closed?
     created_at = models.DateTimeField(default=timezone.now)
 
     objects = CommentPollQuerySet.as_manager()
@@ -111,6 +113,6 @@ class CommentPollVote(models.Model):
 
     class Meta:
         unique_together = ('voter', 'choice')
-        ordering = ['-created_at', '-pk', ]
+        ordering = ['-pk', ]
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")

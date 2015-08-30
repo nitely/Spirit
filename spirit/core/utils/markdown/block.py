@@ -69,15 +69,18 @@ class BlockGrammar(mistune.BlockGrammar):
     )
 
     # Capture polls
-    # [poll]
+    # [poll name=foo max=1 close=1d]
+    # # Which opt you prefer?
     # 1. opt 1
     # 2. opt 2
     # [/poll]
     poll = re.compile(
         r'^(?:\[poll'
         r'(?:\s+name=(?P<name>[\w\-_]+))'
-        r'(?:\s+limit=(?P<limit>\d+))?'
+        r'(?:\s+max=(?P<max>\d+))?'
+        r'(?:\s+close=(?P<close>\d+[h|d]))?'
         r'\])\n'
+        r'(?:#\s*(?P<title>[^\n]+\n))?'
         r'(?P<choices>(?:\d+\.\s*[^\n]+\n){2,})'
         r'(?:\[/poll\])',
         flags=re.UNICODE
@@ -122,25 +125,39 @@ class BlockLexer(mistune.BlockLexer):
         self.tokens.append({'type': 'vimeo', 'video_id': m.group("id")})
 
     def parse_poll(self, m):
+        # todo: move to parsers/poll.py
         token_raw = {'type': 'poll', 'raw': m.group(0)}
+        name_raw = m.group('name')
+        choices_raw = m.group('choices')
 
-        if len(self.polls['choices']) > 20:
+        # todo: take from model
+        name_max_len = 255
+        description_max_len = 255
+        choices_max = 20  # make a setting
+
+        # Avoid further processing if the choice max is reached
+        if len(self.polls['choices']) > choices_max:
             self.tokens.append(token_raw)
             return
 
-        name = m.group('name')
-        choices_raw = m.group('choices')
-
-        poll = {'name': name[:255]}
+        name = name_raw[:name_max_len]
+        poll = {'name': name}
         choices = []
 
-        for choice in choices_raw.splitlines():
+        for choice in choices_raw.splitlines()[:choices_max + 1]:
             number, description = choice.split('.', 1)
+            description = mistune.escape(description.strip(), quote=True)
             choices.append({
                 'number': int(number),
-                'description': mistune.escape(description.strip()[:255], quote=True),
+                'description': description[:description_max_len],
                 'poll_name': name
             })
+
+        choices_count = len(choices) + len(self.polls['choices'])
+
+        if choices_count > choices_max:
+            self.tokens.append(token_raw)
+            return
 
         names = set(p['name'] for p in self.polls['polls'])
 
@@ -150,7 +167,7 @@ class BlockLexer(mistune.BlockLexer):
 
         numbers = [c['number'] for c in choices]
 
-        if len(numbers) != len(set(numbers)):  # Are all numbers unique?
+        if len(numbers) != len(set(numbers)):  # Non unique numbers?
             self.tokens.append(token_raw)
             return
 
