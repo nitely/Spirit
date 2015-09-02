@@ -8,6 +8,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^close/(?P<pk>\d+)/$', views.close, name='close'),
+    url(r'^close/(?P<pk>\d+)/$', views.close_or_open, name='close'),
+    url(r'^open/(?P<pk>\d+)/$', views.close_or_open, kwargs={'close': False}, name='open'),
     url(r'^vote/(?P<pk>\d+)/$', views.vote, name='vote'),
 ]

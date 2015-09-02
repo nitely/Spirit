@@ -7,6 +7,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
+from django.utils import timezone
 
 from ...core import utils
 from .models import CommentPoll
@@ -15,7 +16,7 @@ from .forms import PollVoteManyForm
 
 @login_required
 @require_POST
-def close(request, pk):
+def close_or_open(request, pk, close=True):
     # todo: moderators should be able to close it
     poll = get_object_or_404(
         CommentPoll,
@@ -23,9 +24,14 @@ def close(request, pk):
         comment__user=request.user
     )
 
+    if close:
+        close_at = timezone.now()
+    else:
+        close_at = None
+
     CommentPoll.objects\
         .filter(pk=poll.pk)\
-        .update(is_closed=not poll.is_closed)
+        .update(close_at=close_at)
 
     return redirect(request.GET.get('next', poll.get_absolute_url()))
 

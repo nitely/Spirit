@@ -15,12 +15,12 @@ class CommentPoll(models.Model):
     comment = models.ForeignKey('spirit_comment.Comment', related_name='comment_polls')
 
     name = models.CharField(_("name"), max_length=255)
-    title = models.CharField(_("title"), max_length=255)
-    multi_choice_limit = models.PositiveIntegerField(_("multiple choice limit"), default=1)
+    title = models.CharField(_("title"), max_length=255, blank=True)
+    choice_min = models.PositiveIntegerField(_("choice min"), default=1)
+    choice_max = models.PositiveIntegerField(_("choice max"), default=1)
     voter_count = models.PositiveIntegerField(_("voter count"), default=0)
-    is_closed = models.BooleanField(default=False)
+    close_at = models.DateTimeField(_("auto close at"), null=True, blank=True)
     is_removed = models.BooleanField(default=False)
-    # close_at = models.DateTimeField(null=True)  # remove is_closed?
     created_at = models.DateTimeField(default=timezone.now)
 
     objects = CommentPollQuerySet.as_manager()
@@ -44,11 +44,25 @@ class CommentPoll(models.Model):
             .for_comment(comment) \
             .update(is_removed=True)
 
+        default_fields = [
+            'title',
+            'choice_min',
+            'choice_max',
+            'close_at'
+        ]
+
         for poll in polls_raw:
+            defaults = {
+                field: poll[field]
+                for field in default_fields
+                if field in poll
+            }
+            defaults.update({'is_removed': False})
+
             cls.objects.update_or_create(
                 comment=comment,
                 name=poll['name'],
-                defaults={'is_removed': False}
+                defaults=defaults
             )
 
 

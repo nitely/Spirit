@@ -7,9 +7,13 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import translation
 from django.conf import settings
+from django.utils import timezone
 
 from ..tests import utils as test_utils
 from ..utils.markdown import Markdown, quotify
+
+
+now_fixed = timezone.now()
 
 
 class UtilsMarkdownTests(TestCase):
@@ -221,3 +225,38 @@ class UtilsMarkdownTests(TestCase):
                 {'number': 3, 'description': 'opt 3', 'poll_name': 'foo_1'}
             ]
         })
+
+    def test_markdown_poll_params(self):
+        """
+        Should accept min, max, close, and title
+        """
+        def mock_now():
+            return now_fixed
+
+        org_now, timezone.now = timezone.now, mock_now
+        try:
+            comment = "[poll name=foo_1 min=1 max=2 close=1d]\n" \
+                      "# Foo or bar?\n" \
+                      "1. opt 1\n" \
+                      "2. opt 2\n" \
+                      "[/poll]"
+            md = Markdown(escape=True, hard_wrap=True)
+            comment_md = md.render(comment)
+            self.assertEqual(comment_md, '<poll name=foo_1>')
+            self.assertEqual(md.get_polls(), {
+                'polls': [
+                    {
+                        'name': 'foo_1',
+                        'choice_min': 1,
+                        'choice_max': 2,
+                        'title': 'Foo or bar?',
+                        'close_at': now_fixed + timezone.timedelta(days=1)
+                    }
+                ],
+                'choices': [
+                    {'number': 1, 'description': 'opt 1', 'poll_name': 'foo_1'},
+                    {'number': 2, 'description': 'opt 2', 'poll_name': 'foo_1'}
+                ]
+            })
+        finally:
+            timezone.now = org_now

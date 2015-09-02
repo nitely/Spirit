@@ -10,58 +10,59 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('spirit_comment', '0001_initial'),
+        ('spirit_comment', '0002_auto_20150828_2003'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='CommentPoll',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('name', models.CharField(verbose_name='name', max_length=255)),
-                ('title', models.CharField(verbose_name='title', max_length=255)),
-                ('multi_choice_limit', models.PositiveIntegerField(default=1, verbose_name='multiple choice limit')),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('name', models.CharField(max_length=255, verbose_name='name')),
+                ('title', models.CharField(max_length=255, blank=True, verbose_name='title')),
+                ('choice_min', models.PositiveIntegerField(default=1, verbose_name='choice min')),
+                ('choice_max', models.PositiveIntegerField(default=1, verbose_name='choice max')),
                 ('voter_count', models.PositiveIntegerField(default=0, verbose_name='voter count')),
-                ('is_closed', models.BooleanField(default=False)),
+                ('close_at', models.DateTimeField(null=True, blank=True, verbose_name='auto close at')),
                 ('is_removed', models.BooleanField(default=False)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('comment', models.ForeignKey(to='spirit_comment.Comment', related_name='comment_polls')),
             ],
             options={
+                'ordering': ['-pk'],
                 'verbose_name_plural': 'comments polls',
                 'verbose_name': 'comment poll',
-                'ordering': ['-pk'],
             },
         ),
         migrations.CreateModel(
             name='CommentPollChoice',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
                 ('number', models.PositiveIntegerField(verbose_name='number')),
-                ('description', models.CharField(verbose_name='choice description', max_length=255)),
+                ('description', models.CharField(max_length=255, verbose_name='choice description')),
                 ('vote_count', models.PositiveIntegerField(default=0, verbose_name='vote count')),
                 ('is_removed', models.BooleanField(default=False)),
                 ('poll', models.ForeignKey(to='spirit_comment_poll.CommentPoll', related_name='poll_choices')),
             ],
             options={
+                'ordering': ['number', '-pk'],
                 'verbose_name_plural': 'poll choices',
                 'verbose_name': 'poll choice',
-                'ordering': ['number', '-pk'],
             },
         ),
         migrations.CreateModel(
             name='CommentPollVote',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
                 ('is_removed', models.BooleanField(default=False)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('choice', models.ForeignKey(to='spirit_comment_poll.CommentPollChoice', related_name='choice_votes')),
                 ('voter', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='st_cp_votes')),
             ],
             options={
+                'ordering': ['-pk'],
                 'verbose_name_plural': 'poll votes',
                 'verbose_name': 'poll vote',
-                'ordering': ['-pk'],
             },
         ),
         migrations.AlterUniqueTogether(

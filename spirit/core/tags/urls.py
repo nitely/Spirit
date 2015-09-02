@@ -11,7 +11,7 @@ def to_query_params(context, request=None, **params):
     Adds params to current query string
     """
     # todo: test!
-    request = context.get('request', request)
+    request = request or context['request']
     query_dict = request.GET.copy()  # MultiValueDict >___<
 
     for k, v in sorted(params.items()):

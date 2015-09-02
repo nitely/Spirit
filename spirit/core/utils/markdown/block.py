@@ -7,6 +7,8 @@ import copy
 
 import mistune
 
+from django.utils import timezone
+
 
 class BlockGrammar(mistune.BlockGrammar):
 
@@ -69,7 +71,7 @@ class BlockGrammar(mistune.BlockGrammar):
     )
 
     # Capture polls
-    # [poll name=foo max=1 close=1d]
+    # [poll name=foo min=1 max=1 close=1d]
     # # Which opt you prefer?
     # 1. opt 1
     # 2. opt 2
@@ -77,8 +79,9 @@ class BlockGrammar(mistune.BlockGrammar):
     poll = re.compile(
         r'^(?:\[poll'
         r'(?:\s+name=(?P<name>[\w\-_]+))'
+        r'(?:\s+min=(?P<min>\d+))?'
         r'(?:\s+max=(?P<max>\d+))?'
-        r'(?:\s+close=(?P<close>\d+[h|d]))?'
+        r'(?:\s+close=(?P<close>\d+d))?'
         r'\])\n'
         r'(?:#\s*(?P<title>[^\n]+\n))?'
         r'(?P<choices>(?:\d+\.\s*[^\n]+\n){2,})'
@@ -126,25 +129,49 @@ class BlockLexer(mistune.BlockLexer):
 
     def parse_poll(self, m):
         # todo: move to parsers/poll.py
+        # todo: test for numbers 1, 01, 001...
+        # todo: validate max > min and both > 0
         token_raw = {'type': 'poll', 'raw': m.group(0)}
         name_raw = m.group('name')
+        title_raw = m.group('title')
+        min_raw = m.group('min')
+        max_raw = m.group('max')
+        close_at_raw = m.group('close')
         choices_raw = m.group('choices')
 
         # todo: take from model
         name_max_len = 255
+        title_max_len = 255
         description_max_len = 255
-        choices_max = 20  # make a setting
+        choices_limit = 20  # make a setting
 
         # Avoid further processing if the choice max is reached
-        if len(self.polls['choices']) > choices_max:
+        if len(self.polls['choices']) > choices_limit:
             self.tokens.append(token_raw)
             return
 
+        # clean_poll()
         name = name_raw[:name_max_len]
         poll = {'name': name}
+
+        if title_raw:
+            title = mistune.escape(title_raw.strip(), quote=True)
+            poll['title'] = title[:title_max_len]  # May be empty
+
+        if min_raw:
+            poll['choice_min'] = int(min_raw)
+
+        if max_raw:
+            poll['choice_max'] = int(max_raw)
+
+        if close_at_raw:
+            days = int(close_at_raw[:-1])  # Remove 'd'
+            poll['close_at'] = timezone.now() + timezone.timedelta(days=days)
+
+        # clean_choices()
         choices = []
 
-        for choice in choices_raw.splitlines()[:choices_max + 1]:
+        for choice in choices_raw.splitlines()[:choices_limit + 1]:
             number, description = choice.split('.', 1)
             description = mistune.escape(description.strip(), quote=True)
             choices.append({
@@ -155,7 +182,7 @@ class BlockLexer(mistune.BlockLexer):
 
         choices_count = len(choices) + len(self.polls['choices'])
 
-        if choices_count > choices_max:
+        if choices_count > choices_limit:
             self.tokens.append(token_raw)
             return
 
