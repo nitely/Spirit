@@ -260,3 +260,39 @@ class UtilsMarkdownTests(TestCase):
             })
         finally:
             timezone.now = org_now
+
+    def test_markdown_poll_invalid_one_option(self):
+        """
+        Should have at least two options
+        """
+        comment = "[poll name=foo_1]\n" \
+                  "1. opt 1\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
+
+    def test_markdown_poll_invalid_no_options(self):
+        """
+        Should have at least two options
+        """
+        comment = "[poll name=foo_1]\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
+
+    def test_markdown_poll_invalid_no_name(self):
+        """
+        Should have a name param
+        """
+        comment = "[poll]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})

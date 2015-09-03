@@ -78,13 +78,15 @@ class BlockGrammar(mistune.BlockGrammar):
     # [/poll]
     poll = re.compile(
         r'^(?:\[poll'
-        r'(?:\s+name=(?P<name>[\w\-_]+))'
+        r'((?:\s+name=(?P<name>[\w\-_]+))'
         r'(?:\s+min=(?P<min>\d+))?'
         r'(?:\s+max=(?P<max>\d+))?'
         r'(?:\s+close=(?P<close>\d+d))?'
+        r'|(?P<invalid_params>[^\]]*))'
         r'\])\n'
-        r'(?:#\s*(?P<title>[^\n]+\n))?'
+        r'((?:#\s*(?P<title>[^\n]+\n))?'
         r'(?P<choices>(?:\d+\.\s*[^\n]+\n){2,})'
+        r'|(?P<invalid_body>(?:[^\n]*\n?)*))'
         r'(?:\[/poll\])',
         flags=re.UNICODE
     )
@@ -132,6 +134,8 @@ class BlockLexer(mistune.BlockLexer):
         # todo: test for numbers 1, 01, 001...
         # todo: validate max > min and both > 0
         token_raw = {'type': 'poll', 'raw': m.group(0)}
+        invalid_params = m.group('invalid_params')
+        invalid_body = m.group('invalid_body')
         name_raw = m.group('name')
         title_raw = m.group('title')
         min_raw = m.group('min')
@@ -144,6 +148,14 @@ class BlockLexer(mistune.BlockLexer):
         title_max_len = 255
         description_max_len = 255
         choices_limit = 20  # make a setting
+
+        if invalid_params is not None:
+            self.tokens.append(token_raw)
+            return
+
+        if invalid_body is not None:
+            self.tokens.append(token_raw)
+            return
 
         # Avoid further processing if the choice max is reached
         if len(self.polls['choices']) > choices_limit:
