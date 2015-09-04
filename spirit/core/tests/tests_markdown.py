@@ -296,3 +296,102 @@ class UtilsMarkdownTests(TestCase):
         comment_md = md.render(comment)
         self.assertEqual(comment_md, comment)
         self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
+
+    def test_markdown_poll_truncates_name_title_description(self):
+        """
+        Should truncate name, title and description to model max_length
+        """
+        name = 'a' * 255 * 2
+        title = 'b' * 255 * 2
+        description = 'c' * 255 * 2
+        comment = "[poll name=%(name)s]\n" \
+                  "# %(title)s\n" \
+                  "1. %(description)s\n" \
+                  "2. %(description)s\n" \
+                  "[/poll]" % {'name': name, 'title': title, 'description': description}
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<poll name=%s>' % name[:255])
+        polls = md.get_polls()
+        self.assertEqual(len(polls['polls'][0]['name']), 255)
+        self.assertEqual(len(polls['polls'][0]['title']), 255)
+        self.assertEqual(len(polls['choices'][0]['description']), 255)
+        self.assertEqual(len(polls['choices'][0]['poll_name']), 255)
+        self.assertEqual(len(polls['choices'][1]['description']), 255)
+        self.assertEqual(len(polls['choices'][1]['poll_name']), 255)
+
+    def test_markdown_poll_choice_limit_ok(self):
+        """
+        Should not exceed the limit
+        """
+        limit = 20  # todo: change to setting
+        opts = '\n'.join('%s. opt' % x for x in range(limit))
+        comment = "[poll name=foo]\n" + opts + "\n[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<poll name=foo>')
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), limit)
+
+    def test_markdown_poll_choice_limit_pre_exceeded(self):
+        """
+        Should not exceed the limit
+        """
+        limit = 20  # todo: change to setting
+        comment = "[poll name=foo]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        polls = md.get_polls()
+        polls['choices'].extend({} for _ in range(limit))
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), limit)
+
+    def test_markdown_poll_choice_limit_exceeded(self):
+        """
+        Should not exceed the limit
+        """
+        limit = 20  # todo: change to setting
+        opts = '\n'.join('%s. opt' % x for x in range(limit + 1))
+        comment = "[poll name=foo]\n" + opts + "\n[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), 0)
+
+    def test_markdown_poll_unique_name(self):
+        """
+        Should not allow repeated names
+        """
+        comment = "[poll name=foo]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        polls = md.get_polls()
+        polls['polls'].append({'name': 'foo'})
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), 0)
+        self.assertEqual(len(polls['polls']), 1)
+
+    def test_markdown_poll_unique_choice_numbers(self):
+        """
+        Should not allow repeated numbers
+        """
+        comment = "[poll name=foo]\n" \
+                  "1. opt 1\n" \
+                  "1. opt 2\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), 0)
+        self.assertEqual(len(polls['polls']), 0)

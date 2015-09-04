@@ -70,7 +70,7 @@ class BlockGrammar(mistune.BlockGrammar):
         r'(?:\n+|$)'
     )
 
-    # Capture polls
+    # Capture polls:
     # [poll name=foo min=1 max=1 close=1d]
     # # Which opt you prefer?
     # 1. opt 1
@@ -86,7 +86,7 @@ class BlockGrammar(mistune.BlockGrammar):
         r'\])\n'
         r'((?:#\s*(?P<title>[^\n]+\n))?'
         r'(?P<choices>(?:\d+\.\s*[^\n]+\n){2,})'
-        r'|(?P<invalid_body>(?:[^\n]*\n?)*))'
+        r'|(?P<invalid_body>(?:[^\n]+\n)*))'
         r'(?:\[/poll\])',
         flags=re.UNICODE
     )
@@ -149,6 +149,7 @@ class BlockLexer(mistune.BlockLexer):
         description_max_len = 255
         choices_limit = 20  # make a setting
 
+        # pre_validation()
         if invalid_params is not None:
             self.tokens.append(token_raw)
             return
@@ -158,7 +159,7 @@ class BlockLexer(mistune.BlockLexer):
             return
 
         # Avoid further processing if the choice max is reached
-        if len(self.polls['choices']) > choices_limit:
+        if len(self.polls['choices']) >= choices_limit:
             self.tokens.append(token_raw)
             return
 
@@ -192,6 +193,7 @@ class BlockLexer(mistune.BlockLexer):
                 'poll_name': name
             })
 
+        # post_validation()
         choices_count = len(choices) + len(self.polls['choices'])
 
         if choices_count > choices_limit:
