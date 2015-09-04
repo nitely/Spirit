@@ -212,6 +212,23 @@ class BlockLexer(mistune.BlockLexer):
             self.tokens.append(token_raw)
             return
 
+        choice_min = poll.get('choice_min')
+        choice_max = poll.get('choice_max')
+        has_min = choice_min is not None
+        has_max = choice_max is not None
+
+        if has_min and has_max and choice_min > choice_max:
+            self.tokens.append(token_raw)
+            return
+
+        if has_min and choice_min < 1:
+            self.tokens.append(token_raw)
+            return
+
+        if has_max and choice_max < 1:
+            self.tokens.append(token_raw)
+            return
+
         self.polls['polls'].append(poll)
         self.polls['choices'].extend(choices)
         self.tokens.append({'type': 'poll', 'name': name})

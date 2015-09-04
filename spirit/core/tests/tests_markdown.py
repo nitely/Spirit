@@ -395,3 +395,67 @@ class UtilsMarkdownTests(TestCase):
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
+
+    def test_markdown_poll_unique_choice_coerced_numbers(self):
+        """
+        Should not allow repeated numbers (1 = 01 = 001)
+        """
+        comment = "[poll name=foo]\n" \
+                  "1. opt 1\n" \
+                  "01. opt 2\n" \
+                  "001. opt 2\n" \
+                  "2. opt 2\n" \
+                  "02. opt 2\n" \
+                  "002. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), 0)
+        self.assertEqual(len(polls['polls']), 0)
+
+    def test_markdown_poll_choice_min_le_than_max(self):
+        """
+        Should validate min is less or equal than max
+        """
+        comment = "[poll name=foo min=2 max=1]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), 0)
+        self.assertEqual(len(polls['polls']), 0)
+
+    def test_markdown_poll_choice_min_greater_than_zero(self):
+        """
+        Should validate min is greater than 0
+        """
+        comment = "[poll name=foo min=0]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), 0)
+        self.assertEqual(len(polls['polls']), 0)
+
+    def test_markdown_poll_choice_max_greater_than_zero(self):
+        """
+        Should validate max is greater than 0
+        """
+        comment = "[poll name=foo max=0]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
+        polls = md.get_polls()
+        self.assertEqual(len(polls['choices']), 0)
+        self.assertEqual(len(polls['polls']), 0)
