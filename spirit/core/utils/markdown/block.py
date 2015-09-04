@@ -81,7 +81,7 @@ class BlockGrammar(mistune.BlockGrammar):
         r'((?:\s+name=(?P<name>[\w\-_]+))'
         r'(?:\s+min=(?P<min>\d+))?'
         r'(?:\s+max=(?P<max>\d+))?'
-        r'(?:\s+close=(?P<close>\d+d))?'
+        r'(?:\s+close=(?P<close>\d+)d)?'
         r'|(?P<invalid_params>[^\]]*))'
         r'\])\n'
         r'((?:#\s*(?P<title>[^\n]+\n))?'
@@ -131,8 +131,6 @@ class BlockLexer(mistune.BlockLexer):
 
     def parse_poll(self, m):
         # todo: move to parsers/poll.py
-        # todo: test for numbers 1, 01, 001...
-        # todo: validate max > min and both > 0
         token_raw = {'type': 'poll', 'raw': m.group(0)}
         invalid_params = m.group('invalid_params')
         invalid_body = m.group('invalid_body')
@@ -147,6 +145,7 @@ class BlockLexer(mistune.BlockLexer):
         name_max_len = 255
         title_max_len = 255
         description_max_len = 255
+        close_max_len = 5  # Fixed length
         choices_limit = 20  # make a setting
 
         # pre_validation()
@@ -178,7 +177,7 @@ class BlockLexer(mistune.BlockLexer):
             poll['choice_max'] = int(max_raw)
 
         if close_at_raw:
-            days = int(close_at_raw[:-1])  # Remove 'd'
+            days = int(close_at_raw[:close_max_len])
             poll['close_at'] = timezone.now() + timezone.timedelta(days=days)
 
         # clean_choices()

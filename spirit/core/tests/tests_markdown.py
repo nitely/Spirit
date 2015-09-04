@@ -459,3 +459,55 @@ class UtilsMarkdownTests(TestCase):
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
+
+    def test_markdown_poll_choice_max(self):
+        """
+        Should validate max is greater than 0
+        """
+        comment = "[poll name=foo max=1]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<poll name=foo>')
+        polls = md.get_polls()
+        self.assertEqual(polls['polls'][0]['choice_max'], 1)
+
+    def test_markdown_poll_choice_min(self):
+        """
+        Should validate min is greater than 0
+        """
+        comment = "[poll name=foo min=1]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<poll name=foo>')
+        polls = md.get_polls()
+        self.assertEqual(polls['polls'][0]['choice_min'], 1)
+
+    def test_markdown_poll_truncates_close(self):
+        """
+        Should truncates the close days
+        """
+        def mock_now():
+            return now_fixed
+
+        org_now, timezone.now = timezone.now, mock_now
+        try:
+            comment = "[poll name=foo_1 close=100000000000d]\n" \
+                      "# Foo or bar?\n" \
+                      "1. opt 1\n" \
+                      "2. opt 2\n" \
+                      "[/poll]"
+            md = Markdown(escape=True, hard_wrap=True)
+            comment_md = md.render(comment)
+            self.assertEqual(comment_md, '<poll name=foo_1>')
+            self.assertEqual(
+                md.get_polls()['polls'][0]['close_at'],
+                now_fixed + timezone.timedelta(days=10000)
+            )
+        finally:
+            timezone.now = org_now
