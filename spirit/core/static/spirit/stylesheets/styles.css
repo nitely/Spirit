@@ -502,10 +502,10 @@ label {
     margin-bottom: 0; }
 
 @font-face {
-  font-family: ubuntu-light-webfont;
+  font-family: 'ubuntu-light-webfont';
   font-style: normal;
   font-weight: normal;
-  src: url("vendors/fonts/ubuntu-light-webfont.eot?#iefix") format("embedded-opentype"), url("vendors/fonts/ubuntu-light-webfont.woff2") format("woff2"), url("vendors/fonts/ubuntu-light-webfont.woff") format("woff"), url("vendors/fonts/ubuntu-light-webfont.ttf") format("truetype"), url("vendors/fonts/ubuntu-light-webfont.svg#ubuntu-light-webfont") format("svg"); }
+  src: url("vendors/fonts/ubuntu-light-webfont.woff") format("woff"); }
 a {
   color: #979797;
   text-decoration: none;
