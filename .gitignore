@@ -6,6 +6,9 @@ example/media/
 # Node
 node_modules
 
+# SASS
+.sass-cache
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
