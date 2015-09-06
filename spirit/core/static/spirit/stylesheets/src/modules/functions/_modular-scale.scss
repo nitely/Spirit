@@ -27,5 +27,5 @@ $ms-ratio: $golden !default;
 
 @function ms($Value: 0, $Bases: $ms-base, $Ratios: $ms-ratio) {
   // Bourbon function
-  @return modular-scale($Bases, $Value, $Ratios);
+  @return modular-scale($Value, $Bases, $Ratios);
 }

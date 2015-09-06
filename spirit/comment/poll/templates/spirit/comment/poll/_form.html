@@ -15,12 +15,14 @@
     </a>
 
     {% if user.is_authenticated and user.pk == comment.user.pk %}
-        <a class="head-edit-link js-post" href="{% url "spirit:topic:poll:close" pk=poll.pk %}">
-            {% if poll.is_closed %}
+        {% if poll.is_closed %}
+            <a class="head-edit-link js-post" href="{% url "spirit:topic:poll:open" pk=poll.pk %}">
                 <i class="fa fa-unlock"></i> {% trans "open" %}
-            {% else %}
+            </a>
+        {% else %}
+            <a class="head-edit-link js-post" href="{% url "spirit:topic:poll:close" pk=poll.pk %}">
                 <i class="fa fa-lock"></i> {% trans "close" %}
-            {% endif %}
-        </a>
+            </a>
+        {% endif %}
     {% endif %}
 </form>

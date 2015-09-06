@@ -1,7 +1,8 @@
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+html {
   box-sizing: border-box; }
+
+*, *::after, *::before {
+  box-sizing: inherit; }
 
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 /**
@@ -436,15 +437,13 @@ html {
   cursor: default; }
 
 body {
-  *zoom: 1;
   max-width: 68em;
   margin-left: auto;
   margin-right: auto; }
-  body:before, body:after {
-    content: " ";
+  body::after {
+    clear: both;
+    content: "";
     display: table; }
-  body:after {
-    clear: both; }
 
 html {
   position: relative;
@@ -504,10 +503,9 @@ label {
 
 @font-face {
   font-family: ubuntu-light-webfont;
-  font-weight: normal;
   font-style: normal;
-  src: url("vendors/fonts/ubuntu-light-webfont.eot");
-  src: url("vendors/fonts/ubuntu-light-webfont.eot?#iefix") format("embedded-opentype"), url("vendors/fonts/ubuntu-light-webfont.woff") format("woff"), url("vendors/fonts/ubuntu-light-webfont.ttf") format("truetype"), url("vendors/fonts/ubuntu-light-webfont.svg#ubuntu-light-webfont") format("svg"); }
+  font-weight: normal;
+  src: url("vendors/fonts/ubuntu-light-webfont.eot?#iefix") format("embedded-opentype"), url("vendors/fonts/ubuntu-light-webfont.woff2") format("woff2"), url("vendors/fonts/ubuntu-light-webfont.woff") format("woff"), url("vendors/fonts/ubuntu-light-webfont.ttf") format("truetype"), url("vendors/fonts/ubuntu-light-webfont.svg#ubuntu-light-webfont") format("svg"); }
 a {
   color: #979797;
   text-decoration: none;
@@ -527,21 +525,12 @@ h2 {
   font-size: 21.33333px;
   line-height: 32.0px; }
 
-.comment-media, .container,
-.header, .row,
-.comment, .comment-info, .menu-item {
-  *zoom: 1; }
-  .comment-media:before, .container:before,
-  .header:before, .row:before,
-  .comment:before, .comment-info:before, .menu-item:before, .comment-media:after, .container:after,
-  .header:after, .row:after,
-  .comment:after, .comment-info:after, .menu-item:after {
-    content: " ";
-    display: table; }
-  .comment-media:after, .container:after,
-  .header:after, .row:after,
-  .comment:after, .comment-info:after, .menu-item:after {
-    clear: both; }
+.comment-media::after, .container::after,
+.header::after, .row::after,
+.comment::after, .comment-info::after, .menu-item::after {
+  clear: both;
+  content: "";
+  display: table; }
 
 .inline-list li,
 .tabs li,
@@ -654,7 +643,7 @@ input[type="submit"].button,
   display: block;
   line-height: 42px;
   white-space: nowrap;
-  color: #cccccc;
+  color: #ccc;
   padding-left: 15px; }
   .side-menu-link:focus, .side-menu-link:hover {
     color: #fefefe;
@@ -666,7 +655,7 @@ input[type="submit"].button,
   font-size: 35px;
   line-height: 75px;
   margin-left: 15px;
-  color: #cccccc; }
+  color: #ccc; }
   .side-menu-close:focus, .side-menu-close:hover {
     color: #fefefe; }
 
@@ -710,15 +699,13 @@ input[type="submit"].button,
   text-align: left; }
 
 .footer-container {
-  *zoom: 1;
   max-width: 68em;
   margin-left: auto;
   margin-right: auto; }
-  .footer-container:before, .footer-container:after {
-    content: " ";
+  .footer-container::after {
+    clear: both;
+    content: "";
     display: table; }
-  .footer-container:after {
-    clear: both; }
 
 .footer-logo {
   float: right;
@@ -877,15 +864,13 @@ input[type="submit"].button,
   padding: 6px 0; }
 
 .move-container {
-  *zoom: 1;
   max-width: 68em;
   margin-left: auto;
   margin-right: auto; }
-  .move-container:before, .move-container:after {
-    content: " ";
+  .move-container::after {
+    clear: both;
+    content: "";
     display: table; }
-  .move-container:after {
-    clear: both; }
 
 .move-link,
 .move-label,

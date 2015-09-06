@@ -38,6 +38,10 @@ class CommentPoll(models.Model):
     def is_multiple_choice(self):
         return self.choice_limit > 1
 
+    @property
+    def is_closed(self):
+        return self.close_at >= timezone.now()
+
     @classmethod
     def update_or_create_many(cls, comment, polls_raw):
         cls.objects \
