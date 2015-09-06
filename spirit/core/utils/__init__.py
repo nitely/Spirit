@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 import os
 import json
+import hashlib
 from contextlib import contextmanager
 
 from django.template.loader import render_to_string
@@ -26,6 +27,16 @@ def mkdir_p(path):
     except OSError:
         if not os.path.isdir(path):
             raise
+
+
+def get_hash(file):
+    # todo: test!
+    md5 = hashlib.md5()
+
+    for c in file.chunks():
+        md5.update(c)
+
+    return md5.hexdigest()
 
 
 @contextmanager

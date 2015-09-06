@@ -2,10 +2,8 @@
 
 from __future__ import unicode_literals
 
-import hashlib
 import os
 
-from PIL import Image
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -75,28 +73,29 @@ class CommentImageForm(forms.Form):
         self.user = user
 
     def clean_image(self):
-        image = self.cleaned_data['image']
-        image.format = Image.open(image).format.lower()
-        image.seek(0)
+        file = self.cleaned_data['image']
 
-        if image.format not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT:
-            raise forms.ValidationError(_("Unsupported file format. Supported formats are %s."
-                                          % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT)))
+        if file.image.format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT:
+            raise forms.ValidationError(
+                _("Unsupported file format. Supported formats are %s."
+                  % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT))
+            )
 
-        return image
+        return file
 
     def save(self):
-        image = self.cleaned_data['image']
-        hash = hashlib.md5(image.read()).hexdigest()
-        image.name = "".join((hash, ".", image.format))
+        file = self.cleaned_data['image']
+        file_hash = utils.get_hash(file)
+        file.name = ''.join((file_hash, '.', file.image.format.lower()))
         upload_to = os.path.join('spirit', 'images', str(self.user.pk))
-        image.url = os.path.join(settings.MEDIA_URL, upload_to, image.name).replace("\\", "/")
+        file.url = os.path.join(settings.MEDIA_URL, upload_to, file.name).replace("\\", "/")
         media_path = os.path.join(settings.MEDIA_ROOT, upload_to)
         utils.mkdir_p(media_path)
 
-        with open(os.path.join(media_path, image.name), 'wb') as fh:
-            image.seek(0)
-            fh.write(image.read())
-            image.close()
+        with open(os.path.join(media_path, file.name), 'wb') as fh:
+            for c in file.chunks():
+                fh.write(c)
 
-        return image
+            file.close()
+
+        return file
