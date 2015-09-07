@@ -1,0 +1,424 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
+from django.test import TestCase
+from django.core.urlresolvers import reverse
+from django.core.cache import cache
+from django.contrib.auth import get_user_model
+from django.core import mail
+from django.utils.translation import ugettext as _
+from django.test.utils import override_settings
+from django.core.urlresolvers import NoReverseMatch
+
+from ...core.tests import utils
+from .forms import RegistrationForm, ResendActivationForm
+from .backends import EmailAuthBackend
+from ..utils.tokens import UserActivationTokenGenerator
+from ..models import UserProfile
+
+User = get_user_model()
+
+
+class UserViewTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.user2 = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(self.category, user=self.user2)
+        self.topic2 = utils.create_topic(self.category)
+
+    def test_login_email(self):
+        """
+        try to login by email
+        """
+        # get
+        response = self.client.get(reverse('spirit:user:auth:login'))
+        self.assertEqual(response.status_code, 200)
+
+        # post
+        form_data = {'username': self.user.email, 'password': "bar"}
+        response = self.client.post(reverse('spirit:user:auth:login'),
+                                    form_data)
+        expected_url = reverse('spirit:user:update')
+        self.assertRedirects(response, expected_url, status_code=302)
+
+    def test_login_redirect(self):
+        """
+        try to login with a logged in user
+        """
+        utils.login(self)
+        response = self.client.get(reverse('spirit:user:auth:login'))
+        expected_url = self.user.st.get_absolute_url()
+        self.assertRedirects(response, expected_url, status_code=302)
+        # next
+        response = self.client.get(reverse('spirit:user:auth:login') + '?next=/fakepath/')
+        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+
+    def test_register(self):
+        """
+        register
+        """
+        # get
+        response = self.client.get(reverse('spirit:user:auth:register'))
+        self.assertEqual(response.status_code, 200)
+
+        # post
+        form_data = {'username': 'uniquefoo', 'email': 'some@some.com', 'password1': 'pass', 'password2': 'pass'}
+        response = self.client.post(reverse('spirit:user:auth:register'),
+                                    form_data)
+        expected_url = reverse('spirit:user:auth:login')
+        self.assertRedirects(response, expected_url, status_code=302)
+
+        # redirect logged in user
+        utils.login(self)
+        response = self.client.get(reverse('spirit:user:auth:register'))
+        self.assertRedirects(response, reverse('spirit:user:update'), status_code=302)
+
+    def test_register_email_sent(self):
+        """
+        register and send activation email
+        """
+        form_data = {'username': 'uniquefoo', 'email': 'some@some.com', 'password1': 'pass', 'password2': 'pass'}
+        response = self.client.post(reverse('spirit:user:auth:register'), form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].subject, _("User activation"))
+
+    def test_register_next_logged_in(self):
+        """
+        redirect next on register
+        """
+        # redirect logged in user
+        utils.login(self)
+        response = self.client.get(reverse('spirit:user:auth:register') + "?next=/fakepath/")
+        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+
+    def test_login_rate_limit(self):
+        """
+        test rate limit 5/5m
+        """
+        form_data = {'username': self.user.email, 'password': "badpassword"}
+
+        for attempt in range(5):
+            url = reverse('spirit:user:auth:login')
+            response = self.client.post(url, form_data)
+            self.assertTemplateUsed(response, 'spirit/user/auth/login.html')
+
+        url = reverse('spirit:user:auth:login') + "?next=/path/"
+        response = self.client.post(url, form_data)
+        self.assertRedirects(response, url, status_code=302)
+
+    def test_custom_reset_password(self):
+        """
+        test rate limit 5/5m
+        """
+        form_data = {'email': "bademail@bad.com", }
+
+        for attempt in range(5):
+            response = self.client.post(reverse('spirit:user:auth:password-reset'), form_data)
+            expected_url = reverse("spirit:user:auth:password-reset-done")
+            self.assertRedirects(response, expected_url, status_code=302)
+
+        response = self.client.post(reverse('spirit:user:auth:password-reset'), form_data)
+        expected_url = reverse("spirit:user:auth:password-reset")
+        self.assertRedirects(response, expected_url, status_code=302)
+
+    def test_password_reset_confirm(self):
+        """
+        test access
+        """
+        response = self.client.get(reverse('spirit:user:auth:password-reset-confirm', kwargs={'uidb64': 'f-a-k-e',
+                                                                                    'token': 'f-a-k-e'}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_login(self):
+        """
+        Redirect to regular user login (optional)
+        make sure you added:
+        admin.site.login = login_required(admin.site.login)
+        to urls.py (the one in your project's root)
+        """
+        # TODO: document that devs should be doing this.
+        try:
+            url = reverse('admin:login')
+        except NoReverseMatch:
+            return
+
+        response = self.client.get(url)
+        expected_url = reverse("spirit:user:auth:login") + "?next=" + reverse('admin:login')
+        self.assertRedirects(response, expected_url, status_code=302)
+
+    def test_registration_activation(self):
+        """
+        registration activation
+        """
+        self.user.st.is_verified = False
+        self.user.is_active = False
+        self.user.save()
+        token = UserActivationTokenGenerator().generate(self.user)
+        response = self.client.get(reverse('spirit:user:auth:registration-activation', kwargs={'pk': self.user.pk,
+                                                                                     'token': token}))
+        expected_url = reverse("spirit:user:auth:login")
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertTrue(User.objects.get(pk=self.user.pk).is_active)
+
+    def test_registration_activation_invalid(self):
+        """
+        Activation token should not work if user is verified
+        ActiveUserMiddleware required
+        """
+        self.user.st.is_verified = False
+        token = UserActivationTokenGenerator().generate(self.user)
+
+        utils.login(self)
+        User.objects.filter(pk=self.user.pk).update(is_active=False)
+        UserProfile.objects.filter(user__pk=self.user.pk).update(is_verified=True)
+        response = self.client.get(reverse('spirit:user:auth:registration-activation', kwargs={'pk': self.user.pk,
+                                                                                     'token': token}))
+        expected_url = reverse("spirit:user:auth:login")
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertFalse(User.objects.get(pk=self.user.pk).is_active)
+
+    def test_resend_activation_email(self):
+        """
+        resend_activation_email
+        """
+        user = utils.create_user(password="foo")
+
+        form_data = {'email': user.email,
+                     'password': "foo"}
+        response = self.client.post(reverse('spirit:user:auth:resend-activation'),
+                                    form_data)
+        expected_url = reverse("spirit:user:auth:login")
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].subject, _("User activation"))
+
+        # get
+        response = self.client.get(reverse('spirit:user:auth:resend-activation'))
+        self.assertEquals(response.status_code, 200)
+
+    def test_resend_activation_email_invalid_previously_logged_in(self):
+        """
+        resend_activation_email invalid if is_verified was set
+        """
+        user = utils.create_user(password="foo")
+        user.st.is_verified = True
+        user.st.save()
+
+        form_data = {'email': user.email,
+                     'password': "foo"}
+        response = self.client.post(reverse('spirit:user:auth:resend-activation'),
+                                    form_data)
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(len(mail.outbox), 0)
+
+    def test_resend_activation_email_invalid_email(self):
+        """
+        resend_activation_email invalid password
+        """
+        utils.create_user(password="foo")
+
+        form_data = {'email': "bad@foo.com", }
+        response = self.client.post(reverse('spirit:user:auth:resend-activation'),
+                                    form_data)
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(len(mail.outbox), 0)
+
+    def test_resend_activation_email_redirect_logged(self):
+        """
+        resend_activation_email redirect to profile if user is logged in
+        """
+        utils.login(self)
+        response = self.client.get(reverse('spirit:user:auth:resend-activation'))
+        expected_url = reverse("spirit:user:update")
+        self.assertRedirects(response, expected_url, status_code=302)
+
+    def test_logout(self):
+        """
+        should log out on POST only
+        """
+        utils.login(self)
+
+        # get should display confirmation message
+        response = self.client.get(reverse('spirit:user:auth:logout'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(self.client.session.items())
+
+        # post should log out the user (clear the session)
+        response = self.client.post(reverse('spirit:user:auth:logout'))
+        expected_url = "/"
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertFalse(self.client.session.items())
+
+        # next
+        utils.login(self)
+        self.assertTrue(self.client.session.items())
+        response = self.client.post(reverse('spirit:user:auth:logout') + '?next=/fakepath/')
+        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+        self.assertFalse(self.client.session.items())
+
+    def test_logout_anonymous_redirect(self):
+        """
+        should log out on POST only
+        """
+        # redirect to login if user is anonymous
+        response = self.client.get(reverse('spirit:user:auth:logout'))
+        expected_url = reverse("spirit:user:auth:login")
+        self.assertRedirects(response, expected_url, status_code=302)
+
+        # next if user is anonymous
+        response = self.client.get(reverse('spirit:user:auth:logout') + '?next=/fakepath/')
+        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+
+
+class UserFormTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+
+    def test_registration(self):
+        """
+        register
+        """
+        form_data = {'username': 'foo', 'email': 'foo@foo.com',
+                     'password1': 'pass', 'password2': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+
+    def test_registration_invalid(self):
+        """
+        invalid email and user
+        """
+        User.objects.create_user(username="foo", password="bar", email="foo@foo.com")
+        form_data = {'username': 'foo', 'email': 'foo@foo.com',
+                     'password1': 'pass', 'password2': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
+        self.assertNotIn('username', form.cleaned_data)
+        self.assertNotIn('foo@foo.com', form.cleaned_data)
+
+    def test_registration_honeypot(self):
+        """
+        registration honeypot
+        """
+        form_data = {'username': 'foo', 'email': 'foo@foo.com',
+                     'password1': 'pass', 'password2': 'pass',
+                     'honeypot': 'im a robot'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
+        self.assertNotIn('honeypot', form.cleaned_data)
+
+    def test_registration_email_duplication(self):
+        """
+        register, don't allow email duplication
+        """
+        utils.create_user(email='duplicated@bar.com')
+        form_data = {'username': 'foo', 'email': 'duplicated@bar.com',
+                     'password1': 'pass', 'password2': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
+        self.assertNotIn('email', form.cleaned_data)
+
+    @override_settings(ST_UNIQUE_EMAILS=False)
+    def test_registration_email_duplication_allowed(self):
+        """
+        Duplicated email allowed
+        """
+        utils.create_user(email='duplicated@bar.com')
+        form_data = {'username': 'foo', 'email': 'duplicated@bar.com',
+                     'password1': 'pass', 'password2': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+
+    def test_resend_activation_email(self):
+        """
+        resend activation
+        """
+        user = utils.create_user(email="newfoo@bar.com")
+        form_data = {'email': 'newfoo@bar.com', }
+        form = ResendActivationForm(form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_user(), user)
+
+    def test_resend_activation_email_invalid_email(self):
+        """
+        resend activation invalid
+        """
+        form_data = {'email': 'bad@bar.com', }
+        form = ResendActivationForm(form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_resend_activation_email_duplication(self):
+        """
+        Send email to the first *not verified* user found
+        """
+        utils.create_user(email="duplicated@bar.com")
+        user2 = utils.create_user(email="duplicated@bar.com")
+        user3 = utils.create_user(email="duplicated@bar.com")
+        form_data = {'email': 'duplicated@bar.com', }
+        form = ResendActivationForm(form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_user(), user3)
+
+        user3.st.is_verified = True
+        user3.st.save()
+        form = ResendActivationForm(form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_user(), user2)
+
+    @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
+    def test_resend_activation_email_case_insensitive(self):
+        """
+        Should lower the email before checking it
+        """
+        user = utils.create_user(email="newfoo@bar.com")
+        form_data = {'email': 'NeWfOO@bAr.COM', }
+        form = ResendActivationForm(form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_user(), user)
+
+    @override_settings(ST_CASE_INSENSITIVE_EMAILS=False)
+    def test_resend_activation_email_case_sensitive(self):
+        """
+        Should NOT lower the email before checking it
+        """
+        utils.create_user(email="newfoo@bar.com")
+        form_data = {'email': 'NeWfOO@bAr.COM', }
+        form = ResendActivationForm(form_data)
+        self.assertFalse(form.is_valid())
+        self.assertRaises(AttributeError, form.get_user)
+
+
+class UserBackendTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user(email="foobar@bar.com", password="bar")
+
+    def test_email_auth_backend(self):
+        user = EmailAuthBackend().authenticate(username="foobar@bar.com", password="bar")
+        self.assertEqual(user, self.user)
+
+    def test_email_auth_backend_email_duplication(self):
+        """
+        it should NOT authenticate when the email is not unique (current behaviour, sorry)
+        """
+        utils.create_user(email="duplicated@bar.com", password="foo")
+        utils.create_user(email="duplicated@bar.com", password="foo2")
+        user = EmailAuthBackend().authenticate(username="duplicated@bar.com", password="foo")
+        self.assertIsNone(user)
+
+    @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
+    def test_email_auth_backend_case_insensitive(self):
+        user = EmailAuthBackend().authenticate(username="FooBar@bAr.COM", password="bar")
+        self.assertEqual(user, self.user)
+
+    @override_settings(ST_CASE_INSENSITIVE_EMAILS=False)
+    def test_email_auth_backend_case_sensitive(self):
+        user = EmailAuthBackend().authenticate(username="FooBar@bAr.COM", password="bar")
+        self.assertIsNone(user)

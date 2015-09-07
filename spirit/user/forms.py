@@ -14,15 +14,18 @@ from .models import UserProfile
 User = get_user_model()
 
 
-class EmailUniqueMixin(object):
+class CleanEmailMixin(object):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
 
+        if settings.ST_CASE_INSENSITIVE_EMAILS:
+            email = email.lower()
+
         if not settings.ST_UNIQUE_EMAILS:
             return email
 
-        is_taken = User._default_manager\
+        is_taken = User.objects\
             .filter(email=email)\
             .exists()
 
@@ -35,12 +38,12 @@ class EmailUniqueMixin(object):
         return self.cleaned_data["email"]
 
 
-class EmailCheckForm(EmailUniqueMixin, forms.Form):
+class EmailCheckForm(CleanEmailMixin, forms.Form):
 
     email = forms.CharField(label=_("Email"), widget=forms.EmailInput, max_length=254)
 
 
-class EmailChangeForm(EmailUniqueMixin, forms.Form):
+class EmailChangeForm(CleanEmailMixin, forms.Form):
 
     email = forms.CharField(label=_("Email"), widget=forms.EmailInput, max_length=254)
     password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)

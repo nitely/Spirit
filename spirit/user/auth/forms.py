@@ -6,13 +6,14 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
-from ..forms import EmailUniqueMixin
+from ..forms import CleanEmailMixin
 
 User = get_user_model()
 
 
-class RegistrationForm(EmailUniqueMixin, UserCreationForm):
+class RegistrationForm(CleanEmailMixin, UserCreationForm):
 
     honeypot = forms.CharField(label=_("Leave blank"), required=False)
 
@@ -32,7 +33,7 @@ class RegistrationForm(EmailUniqueMixin, UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data["username"]
 
-        is_taken = User._default_manager\
+        is_taken = User.objects\
             .filter(username=username)\
             .exists()
 
@@ -53,29 +54,27 @@ class LoginForm(AuthenticationForm):
 
 class ResendActivationForm(forms.Form):
 
-    email = forms.CharField(label=_("Email"), widget=forms.EmailInput)
+    email = forms.CharField(label=_("Email"), widget=forms.EmailInput, max_length=254)
 
     def clean_email(self):
         email = self.cleaned_data["email"]
 
-        try:
-            self.user = User.objects.get(email=email)
-        except User.DoesNotExist:
+        if settings.ST_CASE_INSENSITIVE_EMAILS:
+            email = email.lower()
+
+        is_existent = User.objects\
+            .filter(email=email)\
+            .exists()
+
+        if not is_existent:
             raise forms.ValidationError(_("The provided email does not exists."))
-        except User.MultipleObjectsReturned:
-            # TODO: refactor!
-            users = User.objects\
-                .filter(email=email, st__is_verified=False)\
-                .order_by('-pk')
 
-            users = users[:1]  # Limit to the first found.
+        self.user = User.objects\
+            .filter(email=email, st__is_verified=False)\
+            .order_by('-pk')\
+            .first()
 
-            if not len(users):
-                raise forms.ValidationError(_("This account is verified, try logging-in."))
-
-            self.user = users[0]
-
-        if self.user.st.is_verified:
+        if not self.user:
             raise forms.ValidationError(_("This account is verified, try logging-in."))
 
         return email

@@ -30,6 +30,7 @@ ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
 ST_UNICODE_SLUGS = True
 
 ST_UNIQUE_EMAILS = True
+ST_CASE_INSENSITIVE_EMAILS = True
 
 ST_BASE_DIR = os.path.dirname(__file__)
 
