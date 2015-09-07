@@ -20,11 +20,8 @@ class PollVoteManyForm(forms.Form):
         super(PollVoteManyForm, self).__init__(*args, **kwargs)
         self.user = user
         self.poll = poll
-
-        choices = (
-            (c.pk, c.description)
-            for c in getattr(poll, 'choices', poll.poll_choices.unremoved())
-        )
+        self.poll_choices = getattr(poll, 'choices', poll.poll_choices.unremoved())
+        choices = ((c.pk, c.description) for c in self.poll_choices)
 
         if poll.is_multiple_choice:
             self.fields['choices'] = forms.MultipleChoiceField(
@@ -44,7 +41,7 @@ class PollVoteManyForm(forms.Form):
     def load_initial(self):
         selected_choices = [
             c.pk
-            for c in self.poll.choices
+            for c in self.poll_choices
             if c.vote
         ]
 
@@ -65,7 +62,7 @@ class PollVoteManyForm(forms.Form):
                 % self.poll.choice_max
             )
 
-        if len(choices) < self.poll.choice_min:
+        if len(choices) < self.poll.choice_min:  # todo: test!
             raise forms.ValidationError(
                 _("Too few selected choices. Minimum is %s")
                 % self.poll.choice_min
