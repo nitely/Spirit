@@ -20,7 +20,11 @@ class PollVoteManyForm(forms.Form):
         super(PollVoteManyForm, self).__init__(*args, **kwargs)
         self.user = user
         self.poll = poll
-        choices = ((c.pk, c.description) for c in poll.choices)
+
+        choices = (
+            (c.pk, c.description)
+            for c in getattr(poll, 'choices', poll.poll_choices.unremoved())
+        )
 
         if poll.is_multiple_choice:
             self.fields['choices'] = forms.MultipleChoiceField(
@@ -55,10 +59,16 @@ class PollVoteManyForm(forms.Form):
     def clean_choices(self):
         choices = self.cleaned_data['choices']
 
-        if len(choices) > self.poll.choice_limit:
+        if len(choices) > self.poll.choice_max:
             raise forms.ValidationError(
                 _("Too many selected choices. Limit is %s")
-                % self.poll.choice_limit
+                % self.poll.choice_max
+            )
+
+        if len(choices) < self.poll.choice_min:
+            raise forms.ValidationError(
+                _("Too few selected choices. Minimum is %s")
+                % self.poll.choice_min
             )
 
         return choices
