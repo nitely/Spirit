@@ -29,5 +29,5 @@ urlpatterns = [
     url(r'^notification/', include(spirit.topic.notification.urls, namespace='notification')),
     url(r'^favorite/', include(spirit.topic.favorite.urls, namespace='favorite')),
     url(r'^private/', include(spirit.topic.private.urls, namespace='private')),
-    url(r'^poll/', include(spirit.topic.poll.urls, namespace='poll')),
+    url(r'^poll/', include(spirit.topic.poll.urls, namespace='poll')),  # todo: remove me!
 ]

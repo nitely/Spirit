@@ -2,16 +2,17 @@
 
 from __future__ import unicode_literals
 
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.template import Template, Context
 
 from ...core.tests import utils
-from ..models import Comment
 from .models import CommentPoll, CommentPollChoice, CommentPollVote
 from .forms import PollVoteManyForm
+from . import tags
 
 User = get_user_model()
 
@@ -190,6 +191,7 @@ class PollFormTest(TestCase):
         """
         TopicPollVoteManyForm
         """
+        CommentPollVote.objects.all().delete()
         self.poll_choice.votes = []
 
         form = PollVoteManyForm(user=self.user, poll=self.poll)
@@ -277,3 +279,58 @@ class PollFormTest(TestCase):
         form.save_m2m()
         self.assertEqual(len(CommentPollVote.objects.filter(choice=self.poll_choice2, is_removed=False)), 1)
         self.assertEqual(len(CommentPollVote.objects.filter(choice=self.poll_choice, is_removed=False)), 1)
+
+
+class TopicPollTemplateTagsTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(category=self.category)
+        self.user_comment = utils.create_comment(topic=self.topic, user=self.user, comment_html="<poll name=foo>")
+        self.user_poll = CommentPoll.objects.create(comment=self.user_comment, name='foo')
+        self.user_comment_with_polls = self.user_comment.__class__.objects\
+            .filter(pk=self.user_comment.pk)\
+            .with_polls(self.user)\
+            .first()
+
+    def test_render_polls(self):
+        """
+        Should display poll vote form
+        """
+        res = []
+        request = RequestFactory().get('/')
+
+        def mock_render_to_string(tlt, ctx):
+            res.append(tlt)
+            res.append(ctx)
+
+        org_render_to_string, tags.render_to_string = tags.render_to_string, mock_render_to_string
+        try:
+            tags.render_polls(self.user_comment_with_polls, self.user, request)
+            self.assertEqual(len(res), 2)
+            template, context = res[0], res[1]
+            self.assertEqual(template, 'spirit/comment/poll/_form.html')
+            self.assertEqual(context['form'].poll, self.user_poll)
+            self.assertIsInstance(context['poll'], CommentPoll)
+            self.assertEqual(context['user'], self.user)
+            self.assertEqual(context['comment'], self.user_comment_with_polls)
+            self.assertEqual(context['request'], request)
+        finally:
+            tags.render_to_string = org_render_to_string
+
+    def test_render_polls_tag(self):
+        """
+        Should display poll vote form
+        """
+        request = RequestFactory().get('/')
+        request.user = self.user
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_comment comment=comment %}"
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': request}))
+        self.assertNotEqual(out.strip(), "")
+        self.assertTrue("<poll" not in out)
+        form_id = 'id="p%s"' % self.user_poll.pk
+        self.assertTrue(form_id in out)

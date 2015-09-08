@@ -11,13 +11,6 @@
 
 		$( "textarea" ).store( "topic_publish_comment" );
 
-        $( ".js-poll-add" ).on( 'click', function( e ) {
-            $( this ).closest( 'dd' ).hide();
-            $( ".js-poll-form" ).show();
-            e.preventDefault();
-            e.stopPropagation();
-        });
-
 	});
 
 	</script>
@@ -32,20 +25,6 @@
 
         {# topic #}
         {% include "spirit/_form.html" %}
-
-        {# poll #}
-        <dl class="preference">
-            <dt class="preference-label">{% trans "Poll" %}:</dt>
-
-            {% if not pform.errors and not pformset.has_errors %}
-                <dd class="preference-desc"><a class="js-poll-add" href="#"><i class="fa fa-bar-chart-o"></i> {% trans "Add poll" %}</a></dd>
-            {% endif %}
-        </dl>
-
-        <div class="js-poll-form" style="{% if not pform.errors and not pformset.has_errors %}display:none;{% endif %}margin-left:20px;">
-            {% include "spirit/_form.html" with form=pform %}
-            {% include "spirit/_formset.html" with formset=pformset %}
-        </div>
 
         {# comment #}
         <div class="topic-publish-comment">

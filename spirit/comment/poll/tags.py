@@ -49,7 +49,6 @@ def _evaluate(polls_by_name, comment, user, request):
     return evaluate
 
 
-@register.simple_tag()
 def render_polls(comment, user, request):
     # todo: return safe string
     polls_by_name = {poll.name: poll for poll in comment.polls}
@@ -59,3 +58,10 @@ def render_polls(comment, user, request):
 
     evaluate = _evaluate(polls_by_name, comment, user, request)
     return re.sub(r'(?:<poll\s+name=(?P<name>[\w\-_]+)>)', evaluate, comment.comment_html)
+
+
+@register.simple_tag(takes_context=True)
+def render_comment(context, comment):
+    # todo: move to comment.tags
+    request = context['request']
+    return render_polls(comment, request.user, request)

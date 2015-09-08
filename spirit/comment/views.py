@@ -34,7 +34,6 @@ def publish(request, topic_id, pk=None):
         if not request.is_limited and form.is_valid():
             comment = form.save()
             comment_posted(comment=comment, mentions=form.mentions)
-            form.save_polls()
             return redirect(request.POST.get('next', comment.get_absolute_url()))
     else:
         initial = None
@@ -67,7 +66,6 @@ def update(request, pk):
             comment.increase_modified_count()
             CommentHistory.create_maybe(comment_pre)
             CommentHistory.create(comment)
-            form.save_polls()
             return redirect(request.POST.get('next', comment.get_absolute_url()))
     else:
         form = CommentForm(instance=comment)

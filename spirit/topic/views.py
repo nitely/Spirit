@@ -31,37 +31,21 @@ def publish(request, category_id=None):
     if request.method == 'POST':
         form = TopicForm(user=request.user, data=request.POST)
         cform = CommentForm(user=request.user, data=request.POST)
-        pform = TopicPollForm(data=request.POST)
-        pformset = TopicPollChoiceFormSet(can_delete=False, data=request.POST)
 
-        if not request.is_limited and all([form.is_valid(), cform.is_valid(),
-                                           pform.is_valid(), pformset.is_valid()]):  # TODO: test!
+        if not request.is_limited and all([form.is_valid(), cform.is_valid()]):  # TODO: test!
             # wrap in transaction.atomic?
             topic = form.save()
-
             cform.topic = topic
             comment = cform.save()
             comment_posted(comment=comment, mentions=cform.mentions)
-
-            # Create a poll only if we have choices
-            if pformset.is_filled():
-                pform.topic = topic
-                poll = pform.save()
-                pformset.instance = poll
-                pformset.save()
-
             return redirect(topic.get_absolute_url())
     else:
         form = TopicForm(user=request.user, initial={'category': category_id, })
         cform = CommentForm()
-        pform = TopicPollForm()
-        pformset = TopicPollChoiceFormSet(can_delete=False)
 
     context = {
         'form': form,
-        'cform': cform,
-        'pform': pform,
-        'pformset': pformset
+        'cform': cform
     }
 
     return render(request, 'spirit/topic/publish.html', context)

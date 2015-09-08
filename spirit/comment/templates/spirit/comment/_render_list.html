@@ -32,7 +32,7 @@
 
                         <div class="comment-text">
                             {% if not c.action %}
-                                {% render_polls comment=c user=user request=request %}
+                                {% render_comment comment=c %}
                             {% else %}
                                 <p>{% get_comment_action_text c.action %}.</p>
                             {% endif %}

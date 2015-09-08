@@ -36,7 +36,7 @@ class CommentForm(forms.ModelForm):
         self.polls = markdown.get_polls()
         return comment_html
 
-    def save_polls(self):
+    def _save_polls(self):
         assert self.instance.pk
         assert self.polls is not None
 
@@ -52,7 +52,12 @@ class CommentForm(forms.ModelForm):
             self.instance.topic = self.topic
 
         self.instance.comment_html = self._get_comment_html()
-        return super(CommentForm, self).save(commit)
+        comment = super(CommentForm, self).save(commit)
+
+        if commit:
+            self._save_polls()
+
+        return comment
 
 
 class CommentMoveForm(forms.Form):
