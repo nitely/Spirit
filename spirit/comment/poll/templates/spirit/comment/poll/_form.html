@@ -16,11 +16,11 @@
 
     {% if user.is_authenticated and user.pk == comment.user.pk %}
         {% if poll.is_closed %}
-            <a class="head-edit-link js-post" href="{% url "spirit:topic:poll:open" pk=poll.pk %}">
+            <a class="head-edit-link js-post" href="{% url "spirit:comment:poll:open" pk=poll.pk %}">
                 <i class="fa fa-unlock"></i> {% trans "open" %}
             </a>
         {% else %}
-            <a class="head-edit-link js-post" href="{% url "spirit:topic:poll:close" pk=poll.pk %}">
+            <a class="head-edit-link js-post" href="{% url "spirit:comment:poll:close" pk=poll.pk %}">
                 <i class="fa fa-lock"></i> {% trans "close" %}
             </a>
         {% endif %}

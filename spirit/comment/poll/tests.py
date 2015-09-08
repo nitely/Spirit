@@ -295,12 +295,14 @@ class TopicPollTemplateTagsTest(TestCase):
             .with_polls(self.user)\
             .first()
 
-    def test_render_polls(self):
+        self.request = RequestFactory().get('/')
+        self.request.user = self.user
+
+    def test_render_polls_form(self):
         """
         Should display poll vote form
         """
         res = []
-        request = RequestFactory().get('/')
 
         def mock_render_to_string(tlt, ctx):
             res.append(tlt)
@@ -308,7 +310,7 @@ class TopicPollTemplateTagsTest(TestCase):
 
         org_render_to_string, tags.render_to_string = tags.render_to_string, mock_render_to_string
         try:
-            tags.render_polls(self.user_comment_with_polls, self.user, request)
+            tags.render_polls(self.user_comment_with_polls, self.request)
             self.assertEqual(len(res), 2)
             template, context = res[0], res[1]
             self.assertEqual(template, 'spirit/comment/poll/_form.html')
@@ -316,21 +318,75 @@ class TopicPollTemplateTagsTest(TestCase):
             self.assertIsInstance(context['poll'], CommentPoll)
             self.assertEqual(context['user'], self.user)
             self.assertEqual(context['comment'], self.user_comment_with_polls)
-            self.assertEqual(context['request'], request)
+            self.assertEqual(context['request'], self.request)
         finally:
             tags.render_to_string = org_render_to_string
 
-    def test_render_polls_tag(self):
+    def test_render_polls_template_form(self):
+        """
+        Should display poll vote form
+        """
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_comment comment=comment %}"
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request}))
+        self.assertNotEqual(out.strip(), "")
+        self.assertTrue("<poll" not in out)
+        form_id = 'id="p%s"' % self.user_poll.pk
+        self.assertTrue(form_id in out)
+        show_link = '?show_poll=%(pk)s#p%(pk)s' % {'pk': self.user_poll.pk}
+        self.assertTrue(show_link in out)
+
+    def test_render_polls_template_form_not_author(self):
         """
         Should display poll vote form
         """
         request = RequestFactory().get('/')
-        request.user = self.user
+        request.user = utils.create_user()
         out = Template(
             "{% load spirit_tags %}"
             "{% render_comment comment=comment %}"
         ).render(Context({'comment': self.user_comment_with_polls, 'request': request}))
         self.assertNotEqual(out.strip(), "")
-        self.assertTrue("<poll" not in out)
         form_id = 'id="p%s"' % self.user_poll.pk
         self.assertTrue(form_id in out)
+
+    def test_render_polls_template_form_close(self):
+        """
+        Should display the close button
+        """
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_comment comment=comment %}"
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request}))
+        self.assertNotEqual(out.strip(), "")
+        close_link = reverse('spirit:comment:poll:close', kwargs={'pk': self.user_poll.pk})
+        self.assertTrue(close_link in out)
+
+    def test_render_polls_template_form_close_not_author(self):
+        """
+        Should *not* display the close button to not poll author
+        """
+        request = RequestFactory().get('/')
+        request.user = utils.create_user()
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_comment comment=comment %}"
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': request}))
+        self.assertNotEqual(out.strip(), "")
+        close_link = reverse('spirit:comment:poll:close', kwargs={'pk': self.user_poll.pk})
+        self.assertTrue(close_link not in out)
+
+    def test_render_polls_template_form_open(self):
+        """
+        Should display the open button
+        """
+        self.user_comment_with_polls.polls[0].close_at = timezone.now()
+
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_comment comment=comment %}"
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request}))
+        self.assertNotEqual(out.strip(), "")
+        open_link = reverse('spirit:comment:poll:open', kwargs={'pk': self.user_poll.pk})
+        self.assertTrue(open_link in out)
