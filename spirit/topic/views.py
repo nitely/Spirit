@@ -124,6 +124,7 @@ def index_active(request):
 
     topics = Topic.objects\
         .visible()\
+        .global_()\
         .with_bookmarks(user=request.user)\
         .order_by('-is_globally_pinned', '-last_active')\
         .select_related('category')

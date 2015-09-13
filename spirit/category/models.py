@@ -18,6 +18,9 @@ class Category(models.Model):
     title = models.CharField(_("title"), max_length=75)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     description = models.CharField(_("description"), max_length=255, blank=True)
+    is_global = models.BooleanField(_("global"), default=True,
+                                    help_text=_('Designates whether the topics will be'
+                                                'displayed in the all-categories list.'))
     is_closed = models.BooleanField(_("closed"), default=False)
     is_removed = models.BooleanField(_("removed"), default=False)
     is_private = models.BooleanField(_("private"), default=False)

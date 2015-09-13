@@ -13,16 +13,13 @@ from djconfig.utils import override_djconfig
 from ..core.tests import utils
 from ..admin.views import dashboard
 from ..admin import views
-from ..category.admin import views as category_views
 from ..comment.flag.admin import views as flag_views
 from ..topic.admin import views as topic_views
 from ..user.admin import views as user_views
-from ..category.models import Category
 from ..comment.flag.models import CommentFlag, Flag
 from ..admin.forms import BasicConfigForm
 from ..comment.flag.admin.forms import CommentFlagForm
 from ..user.admin.forms import UserForm, UserProfileForm
-from ..category.admin.forms import CategoryForm
 
 User = get_user_model()
 
@@ -41,10 +38,6 @@ class AdminViewTest(TestCase):
         req = RequestFactory().get('/')
         req.user = self.user
         req.user.st.is_administrator = False
-
-        self.assertRaises(PermissionDenied, category_views.index, req)
-        self.assertRaises(PermissionDenied, category_views.create, req)
-        self.assertRaises(PermissionDenied, category_views.update, req)
 
         self.assertRaises(PermissionDenied, flag_views.closed, req)
         self.assertRaises(PermissionDenied, flag_views.opened, req)
@@ -238,44 +231,6 @@ class AdminViewTest(TestCase):
         response = self.client.get(reverse('spirit:admin:topic:pinned'))
         self.assertEqual(list(response.context['topics']), [topic_, ])
 
-    def test_category_list(self):
-        """
-        Categories, excludes Topic Private and subcats
-        """
-        utils.create_category(parent=self.category)
-        categories = Category.objects.filter(is_private=False, parent=None)
-        utils.login(self)
-        response = self.client.get(reverse('spirit:admin:category:index'))
-        self.assertEqual(list(response.context['categories']), list(categories))
-
-    def test_category_create(self):
-        """
-        Category create
-        """
-        utils.login(self)
-        form_data = {"parent": "", "title": "foo", "description": "", "is_closed": False, "is_removed": False}
-        response = self.client.post(reverse('spirit:admin:category:create'),
-                                    form_data)
-        expected_url = reverse("spirit:admin:category:index")
-        self.assertRedirects(response, expected_url, status_code=302)
-
-        response = self.client.get(reverse('spirit:admin:category:create'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_category_update(self):
-        """
-        Category update
-        """
-        utils.login(self)
-        form_data = {"parent": "", "title": "foo", "description": "", "is_closed": False, "is_removed": False}
-        response = self.client.post(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
-                                    form_data)
-        expected_url = reverse("spirit:admin:category:index")
-        self.assertRedirects(response, expected_url, status_code=302)
-
-        response = self.client.get(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }))
-        self.assertEqual(response.status_code, 200)
-
     def test_config_basic(self):
         """
         Config
@@ -409,50 +364,6 @@ class AdminFormTest(TestCase):
 
         form = UserProfileForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
-
-    def test_category(self):
-        """
-        Add category
-        """
-        form_data = {"parent": "",
-                     "title": "foo",
-                     "description": "",
-                     "is_closed": False,
-                     "is_removed": False}
-        form = CategoryForm(data=form_data)
-        self.assertEqual(form.is_valid(), True)
-
-    def test_category_invalid_parent(self):
-        """
-        invalid parent
-        """
-        # parent can not be a subcategory, only one level subcat is allowed
-        subcategory = utils.create_category(parent=self.category)
-        form_data = {"parent": subcategory.pk, }
-        form = CategoryForm(data=form_data)
-        self.assertEqual(form.is_valid(), False)
-        self.assertNotIn('parent', form.cleaned_data)
-
-        # parent can not be set to a category with childrens
-        category_ = utils.create_category()
-        form_data = {"parent": category_.pk, }
-        form = CategoryForm(data=form_data, instance=self.category)
-        self.assertEqual(form.is_valid(), False)
-        self.assertNotIn('parent', form.cleaned_data)
-
-        # parent can not be removed
-        category_ = utils.create_category(is_removed=True)
-        form_data = {"parent": category_.pk, }
-        form = CategoryForm(data=form_data)
-        self.assertEqual(form.is_valid(), False)
-        self.assertNotIn('parent', form.cleaned_data)
-
-        # parent can not be private
-        category_ = utils.create_category(is_private=True)
-        form_data = {"parent": category_.pk, }
-        form = CategoryForm(data=form_data)
-        self.assertEqual(form.is_valid(), False)
-        self.assertNotIn('parent', form.cleaned_data)
 
     def test_basic_config(self):
         """

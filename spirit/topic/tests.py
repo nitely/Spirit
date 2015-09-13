@@ -302,6 +302,19 @@ class TopicViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertEqual(list(response.context['topics']), [])
 
+    def test_topic_active_view_dont_show_not_global(self):
+        """
+        Should not display non-global categories topics
+        """
+        # Global subcategories from non-global categories should be displayed
+        category_non_global = utils.create_category(is_global=False)
+        subcategory_global = utils.create_category(parent=category_non_global)
+        utils.create_topic(category=category_non_global)
+        topic = utils.create_topic(category=subcategory_global)
+
+        response = self.client.get(reverse('spirit:topic:index-active'))
+        self.assertEqual(list(response.context['topics']), [topic])
+
     def test_topic_active_view_bookmark(self):
         """
         topics with bookmarks

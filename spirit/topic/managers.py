@@ -25,6 +25,9 @@ class TopicQuerySet(models.QuerySet):
     def opened(self):
         return self.filter(is_closed=False)
 
+    def global_(self):
+        return self.filter(category__is_global=True)
+
     def for_category(self, category):
         if category.is_subcategory:
             return self.filter(category=category)
