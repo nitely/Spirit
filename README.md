@@ -32,7 +32,7 @@ otherwise you will have to setup all django's related constants (Installed_apps,
 
 Run:
 
-    pip install -r requirements.txt
+    pip install django-spirit
     python manage.py spiritinstall
 
 > You will need to setup a search engine,
