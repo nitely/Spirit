@@ -11,11 +11,12 @@ from django.utils.translation import ugettext as _
 from django.test.utils import override_settings
 from django.core.urlresolvers import NoReverseMatch
 
-from ...core.tests import utils
-from .forms import RegistrationForm, ResendActivationForm
-from .backends import EmailAuthBackend
-from ..utils.tokens import UserActivationTokenGenerator
-from ..models import UserProfile
+from ....core.tests import utils
+from ..forms import RegistrationForm, ResendActivationForm
+from ..backends import EmailAuthBackend
+from ...utils.tokens import UserActivationTokenGenerator
+from ...models import UserProfile
+from .urls import CustomRegisterForm
 
 User = get_user_model()
 
@@ -95,6 +96,17 @@ class UserViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:user:auth:register') + "?next=/fakepath/")
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+
+    @override_settings(ROOT_URLCONF='spirit.user.auth.tests.urls')
+    def test_register_custom_form(self):
+        """
+        Should allow a custom form
+        """
+        response = self.client.get(reverse('spirit:user:auth:register'))
+        self.assertIsInstance(response.context['form'], CustomRegisterForm)
+
+        response = self.client.post(reverse('spirit:user:auth:register'), {})
+        self.assertIsInstance(response.context['form'], CustomRegisterForm)
 
     def test_login_rate_limit(self):
         """

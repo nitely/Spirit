@@ -52,12 +52,12 @@ def custom_password_reset(request, **kwargs):
 
 @ratelimit(rate='2/10s')
 # TODO: @guest_only
-def register(request):
+def register(request, registration_form=RegistrationForm):
     if request.user.is_authenticated():
         return redirect(request.GET.get('next', reverse('spirit:user:update')))
 
     if request.method == 'POST':
-        form = RegistrationForm(data=request.POST)
+        form = registration_form(data=request.POST)
 
         if not request.is_limited and form.is_valid():
             user = form.save()
@@ -76,7 +76,7 @@ def register(request):
 
             return redirect(reverse('spirit:user:auth:login'))
     else:
-        form = RegistrationForm()
+        form = registration_form()
 
     context = {'form': form, }
 
