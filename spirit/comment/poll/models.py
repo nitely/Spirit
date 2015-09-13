@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, division
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils import timezone
+from django.utils.functional import cached_property
 
 from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet, CommentPollVoteQuerySet
 
@@ -18,7 +19,7 @@ class CommentPoll(models.Model):
     title = models.CharField(_("title"), max_length=255, blank=True)
     choice_min = models.PositiveIntegerField(_("choice min"), default=1)
     choice_max = models.PositiveIntegerField(_("choice max"), default=1)
-    voter_count = models.PositiveIntegerField(_("voter count"), default=0)
+    voter_count = models.PositiveIntegerField(_("voter count"), default=0)  # todo: remove?
     close_at = models.DateTimeField(_("auto close at"), null=True, blank=True)
     is_removed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
@@ -39,8 +40,28 @@ class CommentPoll(models.Model):
         return self.choice_max > 1
 
     @property
+    def has_choice_min(self):
+        return self.choice_min > 1
+
+    @property
     def is_closed(self):
         return self.close_at and self.close_at <= timezone.now()
+
+    @cached_property
+    def has_user_voted(self):
+        # *choices* is dynamically created by comments.with_polls()
+        try:
+            return any(c.vote for c in self.choices)
+        except AttributeError:
+            return
+
+    @cached_property
+    def total_votes(self):
+        # *choices* is dynamically created by comments.with_polls()
+        try:
+            return sum(c.vote_count for c in self.choices)
+        except AttributeError:
+            return
 
     @classmethod
     def update_or_create_many(cls, comment, polls_raw):
@@ -95,6 +116,13 @@ class CommentPollChoice(models.Model):
             return self.votes[0]
         except (AttributeError, IndexError):
             return
+
+    @property
+    def votes_percentage(self):
+        try:
+            return (self.vote_count / self.poll.total_votes) * 100
+        except ZeroDivisionError:
+            return 0
 
     @classmethod
     def update_or_create_many(cls, comment, choices_raw):

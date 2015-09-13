@@ -20,11 +20,13 @@ class CommentQuerySet(models.QuerySet):
 
     def unremoved(self):
         # TODO: remove action
-        return self.filter(Q(topic__category__parent=None) | Q(topic__category__parent__is_removed=False),
-                           topic__category__is_removed=False,
-                           topic__is_removed=False,
-                           is_removed=False,
-                           action=0)
+        return self.filter(
+            Q(topic__category__parent=None) | Q(topic__category__parent__is_removed=False),
+            topic__category__is_removed=False,
+            topic__is_removed=False,
+            is_removed=False,
+            action=0
+        )
 
     def public(self):
         return self.filter(topic__category__is_private=False)

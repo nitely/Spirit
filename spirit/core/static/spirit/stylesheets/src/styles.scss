@@ -396,6 +396,61 @@ ul.reply-markdown {
   }
 }
 
+.comment-poll {
+  margin-bottom: $base-spacing-size;
+}
+
+.poll_title {
+  margin-bottom: $base-line-height / 2;
+}
+
+.poll-choices {
+  & ul {
+    list-style-type: none;
+	margin-left: 0;
+	margin-bottom: $base-line-height / 2;
+  }
+
+  & label {
+    font-size: $base-font-size;
+  }
+}
+
+.poll-choice {
+  margin-bottom: $base-line-height / 2;
+}
+
+.choice-bar {
+  height: 14px;
+  background-color: $light-grey;
+}
+
+.poll-note {
+  font-size: 14px;
+  margin-bottom: $base-line-height / 2;
+}
+
+.poll-action {
+  font-size: 14px;
+  margin-left: $base-spacing-size / 4;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 //menu
 
 .menu,

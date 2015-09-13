@@ -131,6 +131,7 @@ class BlockLexer(mistune.BlockLexer):
 
     def parse_poll(self, m):
         # todo: move to parsers/poll.py
+        # todo: default max=min when only there is only min
         token_raw = {'type': 'poll', 'raw': m.group(0)}
         invalid_params = m.group('invalid_params')
         invalid_body = m.group('invalid_body')

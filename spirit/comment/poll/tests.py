@@ -310,7 +310,7 @@ class TopicPollTemplateTagsTest(TestCase):
 
         org_render_to_string, tags.render_to_string = tags.render_to_string, mock_render_to_string
         try:
-            tags.render_polls(self.user_comment_with_polls, self.request)
+            tags.render_polls(self.user_comment_with_polls, self.request, 'csrf_token_foo')
             self.assertEqual(len(res), 2)
             template, context = res[0], res[1]
             self.assertEqual(template, 'spirit/comment/poll/_form.html')
@@ -319,6 +319,7 @@ class TopicPollTemplateTagsTest(TestCase):
             self.assertEqual(context['user'], self.user)
             self.assertEqual(context['comment'], self.user_comment_with_polls)
             self.assertEqual(context['request'], self.request)
+            self.assertEqual(context['csrf_token'], 'csrf_token_foo')
         finally:
             tags.render_to_string = org_render_to_string
 
@@ -329,7 +330,7 @@ class TopicPollTemplateTagsTest(TestCase):
         out = Template(
             "{% load spirit_tags %}"
             "{% render_comment comment=comment %}"
-        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request}))
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request, 'csrf_token': 'foo'}))
         self.assertNotEqual(out.strip(), "")
         self.assertTrue("<poll" not in out)
         form_id = 'id="p%s"' % self.user_poll.pk
@@ -346,7 +347,7 @@ class TopicPollTemplateTagsTest(TestCase):
         out = Template(
             "{% load spirit_tags %}"
             "{% render_comment comment=comment %}"
-        ).render(Context({'comment': self.user_comment_with_polls, 'request': request}))
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': request, 'csrf_token': 'foo'}))
         self.assertNotEqual(out.strip(), "")
         form_id = 'id="p%s"' % self.user_poll.pk
         self.assertTrue(form_id in out)
@@ -358,7 +359,7 @@ class TopicPollTemplateTagsTest(TestCase):
         out = Template(
             "{% load spirit_tags %}"
             "{% render_comment comment=comment %}"
-        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request}))
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request, 'csrf_token': 'foo'}))
         self.assertNotEqual(out.strip(), "")
         close_link = reverse('spirit:comment:poll:close', kwargs={'pk': self.user_poll.pk})
         self.assertTrue(close_link in out)
@@ -372,7 +373,7 @@ class TopicPollTemplateTagsTest(TestCase):
         out = Template(
             "{% load spirit_tags %}"
             "{% render_comment comment=comment %}"
-        ).render(Context({'comment': self.user_comment_with_polls, 'request': request}))
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': request, 'csrf_token': 'foo'}))
         self.assertNotEqual(out.strip(), "")
         close_link = reverse('spirit:comment:poll:close', kwargs={'pk': self.user_poll.pk})
         self.assertTrue(close_link not in out)
@@ -381,12 +382,12 @@ class TopicPollTemplateTagsTest(TestCase):
         """
         Should display the open button
         """
-        self.user_comment_with_polls.polls[0].close_at = timezone.now()
+        self.user_comment_with_polls.polls[0].close_at = timezone.now()  # renders results.html
 
         out = Template(
             "{% load spirit_tags %}"
             "{% render_comment comment=comment %}"
-        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request}))
+        ).render(Context({'comment': self.user_comment_with_polls, 'request': self.request, 'csrf_token': 'foo'}))
         self.assertNotEqual(out.strip(), "")
         open_link = reverse('spirit:comment:poll:open', kwargs={'pk': self.user_poll.pk})
         self.assertTrue(open_link in out)

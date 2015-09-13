@@ -1043,6 +1043,36 @@ ul.reply-markdown {
   .share-actions li {
     margin-left: 24px; }
 
+.comment-poll {
+  margin-bottom: 24px; }
+
+.poll_title {
+  margin-bottom: 12px; }
+
+.poll-choices ul {
+  list-style-type: none;
+  margin-left: 0;
+  margin-bottom: 12px; }
+.poll-choices label {
+  font-size: 16px; }
+
+.poll-choice {
+  margin-bottom: 12px; }
+
+.choice-bar {
+  height: 14px;
+  background-color: #cecece; }
+
+.poll-note {
+  font-size: 14px;
+  margin-bottom: 12px; }
+
+.poll-action {
+  font-size: 14px;
+  margin-left: 6px; }
+  .poll-action:first-child {
+    margin-left: 0; }
+
 @media screen and (min-width: 768px) {
   .menu,
   .participants-menu {
