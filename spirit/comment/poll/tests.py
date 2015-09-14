@@ -442,3 +442,81 @@ class TopicPollTemplateTagsTest(TestCase):
         self.assertNotEqual(out.strip(), "")
         open_link = reverse('spirit:comment:poll:open', kwargs={'pk': self.user_poll.pk})
         self.assertTrue(open_link in out)
+
+
+class PollModelsTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(category=self.category, user=self.user)
+        self.comment = utils.create_comment(topic=self.topic)
+
+        self.poll = CommentPoll.objects.create(comment=self.comment, name='foo')
+        self.choice = CommentPollChoice.objects.create(poll=self.poll, number=1, description=1)
+        self.vote = CommentPollVote.objects.create(choice=self.choice, voter=self.user)
+
+        # Kinda like comment.with_polls()
+        self.poll.choices = list(CommentPollChoice.objects.filter(poll=self.poll))
+
+        for c in self.poll.choices:
+            c.votes = list(CommentPollVote.objects.filter(choice=c, voter=self.user))
+
+    def test_poll_is_multiple_choice(self):
+        """
+        Should be true when max > 1
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='bar', choice_max=2)
+        self.assertFalse(self.poll.is_multiple_choice)
+        self.assertTrue(poll.is_multiple_choice)
+
+    def test_poll_has_choice_min(self):
+        """
+        Should be true when min > 1
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='bar', choice_min=2)
+        self.assertFalse(self.poll.has_choice_min)
+        self.assertTrue(poll.has_choice_min)
+
+    def test_poll_is_closed(self):
+        """
+        Should be true when close_at > now
+        """
+        yesterday = timezone.now() - timezone.timedelta(days=1)
+        tomorrow = timezone.now() + timezone.timedelta(days=1)
+        poll_old = CommentPoll.objects.create(comment=self.comment, name='bar', close_at=yesterday)
+        poll_new = CommentPoll.objects.create(comment=self.comment, name='bar2', close_at=tomorrow)
+        self.assertFalse(self.poll.is_closed)
+        self.assertTrue(poll_old.is_closed)
+        self.assertFalse(poll_new.is_closed)
+
+    def test_poll_has_user_voted(self):
+        """
+        Should be true when the user has voted
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='bar')
+        CommentPollChoice.objects.create(poll=poll, number=1, description=1)
+        poll.choices = list(CommentPollChoice.objects.filter(poll=poll))
+
+        for c in poll.choices:
+            c.votes = []
+
+        self.assertTrue(self.poll.has_user_voted)
+        self.assertFalse(poll.has_user_voted)
+
+    def test_poll_total_votes(self):
+        """
+        Should return the total votes
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='bar')
+        CommentPollChoice.objects.create(poll=poll, number=1, description='foo', vote_count=5)
+        CommentPollChoice.objects.create(poll=poll, number=2, description='bar', vote_count=5)
+        poll.choices = list(CommentPollChoice.objects.filter(poll=poll))
+        self.assertEqual(poll.total_votes, 10)
+
+    def test_poll_update_or_create_many(self):
+        """
+        Should create or update many polls for a given comment
+        """
+        pass

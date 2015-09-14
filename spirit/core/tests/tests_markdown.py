@@ -354,6 +354,33 @@ class UtilsMarkdownTests(TestCase):
         self.assertEqual(len(polls['choices'][1]['description']), 255)
         self.assertEqual(len(polls['choices'][1]['poll_name']), 255)
 
+    def test_markdown_poll_choice_description_escaped(self):
+        """
+        Should escape the choice description
+        """
+        comment = "[poll name=foo]\n" \
+                  "1. <i'm bad>\n" \
+                  "2. option\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        md.render(comment)
+        polls = md.get_polls()
+        self.assertEqual(polls['choices'][0]['description'], '&lt;i&#39;m bad&gt;')
+
+    def test_markdown_poll_title_escaped(self):
+        """
+        Should escape the title
+        """
+        comment = "[poll name=foo]\n" \
+                  "# <i'm bad>\n" \
+                  "1. option1\n" \
+                  "2. option2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        md.render(comment)
+        polls = md.get_polls()
+        self.assertEqual(polls['polls'][0]['title'], '&lt;i&#39;m bad&gt;')
+
     def test_markdown_poll_choice_limit_ok(self):
         """
         Should not exceed the limit
