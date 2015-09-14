@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.db.models import F
 
 from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet, CommentPollVoteQuerySet
 
@@ -123,6 +124,18 @@ class CommentPollChoice(models.Model):
             return (self.vote_count / self.poll.total_votes) * 100
         except ZeroDivisionError:
             return 0
+
+    @classmethod
+    def increase_vote_count(cls, poll, voter):
+        cls.objects\
+            .for_vote(poll=poll, voter=voter)\
+            .update(vote_count=F('vote_count') + 1)
+
+    @classmethod
+    def decrease_vote_count(cls, poll, voter):
+        cls.objects\
+            .for_vote(poll=poll, voter=voter)\
+            .update(vote_count=F('vote_count') - 1)
 
     @classmethod
     def update_or_create_many(cls, comment, choices_raw):

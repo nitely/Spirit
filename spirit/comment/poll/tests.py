@@ -29,6 +29,7 @@ class PollViewTest(TestCase):
         self.comment = utils.create_comment(topic=self.topic)
         self.user_comment = utils.create_comment(topic=self.topic, user=self.user)
         self.poll = CommentPoll.objects.create(comment=self.comment, name='foo')
+        self.poll_multi = CommentPoll.objects.create(comment=self.comment, name='bar', choice_max=2)
 
     def test_poll_close_logged_in(self):
         """
@@ -129,6 +130,56 @@ class PollViewTest(TestCase):
                                     {})
         expected_url = self.poll.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+
+    def test_poll_vote_post_multi(self):
+        """
+        Should be able to vote many options
+        """
+        utils.login(self)
+        choice_a = CommentPollChoice.objects.create(poll=self.poll_multi, number=1, description="op a")
+        choice_b = CommentPollChoice.objects.create(poll=self.poll_multi, number=2, description="op b")
+        CommentPollChoice.objects.create(poll=self.poll_multi, number=3, description="op c")
+
+        form_data = {'choices': [choice_a.pk, choice_b.pk]}
+        response = self.client.post(reverse('spirit:comment:poll:vote', kwargs={'pk': self.poll_multi.pk, }),
+                                    form_data)
+        expected_url = self.poll.get_absolute_url()
+
+        self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+        self.assertEqual(len(CommentPollVote.objects.all()), 2)
+        self.assertEqual(len(CommentPollVote.objects.filter(pk=choice_a.pk)), 1)
+        self.assertEqual(len(CommentPollVote.objects.filter(pk=choice_b.pk)), 1)
+
+    def test_poll_vote_post_count(self):
+        """
+        Should increase the vote counters
+        """
+        utils.login(self)
+        choice_a = CommentPollChoice.objects.create(poll=self.poll_multi, number=1, description="op a")
+        choice_b = CommentPollChoice.objects.create(poll=self.poll_multi, number=2, description="op b")
+        choice_c = CommentPollChoice.objects.create(poll=self.poll_multi, number=3, description="op c")
+
+        form_data = {'choices': [choice_a.pk, choice_b.pk]}
+        response = self.client.post(
+            reverse('spirit:comment:poll:vote', kwargs={'pk': self.poll_multi.pk, }), form_data
+        )
+        expected_url = self.poll.get_absolute_url()
+
+        self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice_a.pk).vote_count, 1)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice_b.pk).vote_count, 1)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice_c.pk).vote_count, 0)
+
+        form_data = {'choices': [choice_a.pk]}
+        response = self.client.post(
+            reverse('spirit:comment:poll:vote', kwargs={'pk': self.poll_multi.pk, }), form_data
+        )
+        expected_url = self.poll.get_absolute_url()
+
+        self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice_a.pk).vote_count, 1)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice_b.pk).vote_count, 0)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice_c.pk).vote_count, 0)
 
 
 class PollFormTest(TestCase):

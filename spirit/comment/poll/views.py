@@ -10,7 +10,7 @@ from django.contrib.auth.views import redirect_to_login
 from django.utils import timezone
 
 from ...core import utils
-from .models import CommentPoll
+from .models import CommentPoll, CommentPollChoice
 from .forms import PollVoteManyForm
 
 
@@ -47,9 +47,9 @@ def vote(request, pk):
     form = PollVoteManyForm(user=request.user, poll=poll, data=request.POST)
 
     if form.is_valid():
-        # topic_poll_pre_vote.send(sender=poll.__class__, poll=poll, user=request.user)
+        CommentPollChoice.decrease_vote_count(poll=poll, voter=request.user)
         form.save_m2m()
-        # topic_poll_post_vote.send(sender=poll.__class__, poll=poll, user=request.user)
+        CommentPollChoice.increase_vote_count(poll=poll, voter=request.user)
         return redirect(request.POST.get('next', poll.get_absolute_url()))
 
     messages.error(request, utils.render_form_errors(form))

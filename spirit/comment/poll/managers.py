@@ -25,6 +25,18 @@ class CommentPollChoiceQuerySet(models.QuerySet):
     def for_poll(self, poll):
         return self.filter(poll=poll)
 
+    def for_voter(self, voter):
+        return self.filter(
+            choice_votes__voter=voter,
+            choice_votes__is_removed=False
+        )
+
+    def for_vote(self, poll, voter):
+        return self \
+            .for_poll(poll) \
+            .for_voter(voter) \
+            .unremoved()
+
 
 class CommentPollVoteQuerySet(models.QuerySet):
 
