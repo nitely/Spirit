@@ -63,6 +63,7 @@ def update(request, pk):
         if form.is_valid():
             comment_pre = Comment.objects.get(pk=comment.pk)
             comment = form.save()
+            # todo: move to post_comment_update
             comment.increase_modified_count()
             CommentHistory.create_maybe(comment_pre)
             CommentHistory.create(comment)

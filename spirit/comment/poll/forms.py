@@ -12,7 +12,7 @@ from .models import CommentPollChoice, CommentPollVote
 class PollVoteManyForm(forms.Form):
     """
     This special form allows single vote and multi vote as well.
-    Its beauty is that it doesn't care if the choice_limit
+    Its beauty is that it doesn't care if the choice_max
     is increased or decreased later.
     """
 

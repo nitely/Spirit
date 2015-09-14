@@ -87,8 +87,7 @@ class BlockGrammar(mistune.BlockGrammar):
         r'((?:#\s*(?P<title>[^\n]+\n))?'
         r'(?P<choices>(?:\d+\.\s*[^\n]+\n){2,})'
         r'|(?P<invalid_body>(?:[^\n]+\n)*))'
-        r'(?:\[/poll\])',
-        flags=re.UNICODE
+        r'(?:\[/poll\])'
     )
 
 
@@ -131,7 +130,6 @@ class BlockLexer(mistune.BlockLexer):
 
     def parse_poll(self, m):
         # todo: move to parsers/poll.py
-        # todo: default max=min when only there is only min
         token_raw = {'type': 'poll', 'raw': m.group(0)}
         invalid_params = m.group('invalid_params')
         invalid_body = m.group('invalid_body')
@@ -192,6 +190,9 @@ class BlockLexer(mistune.BlockLexer):
                 'description': description[:description_max_len],
                 'poll_name': name
             })
+
+        if 'choice_min' in poll and 'choice_max' not in poll:
+            poll['choice_max'] = len(choices)
 
         # post_validation()
         choices_count = len(choices) + len(self.polls['choices'])

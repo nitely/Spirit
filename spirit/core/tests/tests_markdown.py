@@ -297,6 +297,40 @@ class UtilsMarkdownTests(TestCase):
         self.assertEqual(comment_md, comment)
         self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
 
+    def test_markdown_poll_and_text(self):
+        """
+        Should work with surrounding text
+        """
+        comment = "foo\n" \
+                  "\n" \
+                  "[poll name=foo_1]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]\n" \
+                  "bar"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<p>foo</p>\n<poll name=foo_1>\n<p>bar</p>')
+
+    def test_markdown_poll_many(self):
+        """
+        Should work with many polls in the same comment
+        """
+        comment = "[poll name=foo_1]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]\n" \
+                  "\n" \
+                  "[poll name=foo_2]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<poll name=foo_1>\n<poll name=foo_2>')
+        polls = md.get_polls()
+        self.assertEqual(len(polls['polls']), 2)
+
     def test_markdown_poll_truncates_name_title_description(self):
         """
         Should truncate name, title and description to model max_length
@@ -462,31 +496,34 @@ class UtilsMarkdownTests(TestCase):
 
     def test_markdown_poll_choice_max(self):
         """
-        Should validate max is greater than 0
+        Should work with max only
         """
-        comment = "[poll name=foo max=1]\n" \
+        comment = "[poll name=foo max=2]\n" \
                   "1. opt 1\n" \
                   "2. opt 2\n" \
+                  "3. opt 3\n" \
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=foo>')
         polls = md.get_polls()
-        self.assertEqual(polls['polls'][0]['choice_max'], 1)
+        self.assertEqual(polls['polls'][0]['choice_max'], 2)
 
     def test_markdown_poll_choice_min(self):
         """
-        Should validate min is greater than 0
+        Should work with min only, max should default to choices length
         """
-        comment = "[poll name=foo min=1]\n" \
+        comment = "[poll name=foo min=2]\n" \
                   "1. opt 1\n" \
                   "2. opt 2\n" \
+                  "3. opt 3\n" \
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=foo>')
         polls = md.get_polls()
-        self.assertEqual(polls['polls'][0]['choice_min'], 1)
+        self.assertEqual(polls['polls'][0]['choice_min'], 2)
+        self.assertEqual(polls['polls'][0]['choice_max'], 3)
 
     def test_markdown_poll_truncates_close(self):
         """
