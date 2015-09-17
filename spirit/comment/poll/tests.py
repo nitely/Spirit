@@ -519,4 +519,123 @@ class PollModelsTest(TestCase):
         """
         Should create or update many polls for a given comment
         """
-        pass
+        poll_raw = {'name': 'foo_raw', 'title': 'foo', 'choice_min': 2, 'choice_max': 2, 'close_at': timezone.now()}
+        CommentPoll.update_or_create_many(comment=self.comment, polls_raw=[poll_raw])
+        poll = CommentPoll.objects.all().order_by('pk').last()
+        self.assertEqual(poll.name, poll_raw['name'])
+        self.assertEqual(poll.title, poll_raw['title'])
+        self.assertEqual(poll.choice_min, poll_raw['choice_min'])
+        self.assertEqual(poll.choice_max, poll_raw['choice_max'])
+        self.assertEqual(poll.close_at, poll_raw['close_at'])
+
+        # Update
+        CommentPoll.update_or_create_many(comment=self.comment, polls_raw=[{'name': poll.name, 'title': 'bar'}])
+        poll_updated = CommentPoll.objects.all().order_by('pk').last()
+        self.assertEqual(poll.pk, poll_updated.pk)
+        self.assertEqual(poll_updated.title, 'bar')
+
+    def test_poll_update_or_create_many_update_un_remove(self):
+        """
+        Should mark the poll as not removed on update
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='foo_rm', is_removed=True)
+        CommentPoll.update_or_create_many(comment=poll.comment, polls_raw=[{'name': poll.name}])
+        poll_updated = CommentPoll.objects.all().order_by('pk').last()
+        self.assertEqual(poll.pk, poll_updated.pk)
+        self.assertFalse(poll_updated.is_removed)
+
+    def test_poll_choice_vote(self):
+        """
+        Should return the user vote for a given choice
+        """
+        choice = CommentPollChoice.objects.create(poll=self.poll, number=5, description="foobar")
+        vote = CommentPollVote.objects.create(choice=choice, voter=self.user)
+        choice.votes = list(CommentPollVote.objects.filter(choice=choice, voter=self.user))
+        self.assertEqual(choice.vote, vote)
+        choice.votes = []
+        self.assertIsNone(choice.vote)
+        del choice.votes
+        self.assertIsNone(choice.vote)
+        choice.votes = [vote, vote]
+        self.assertRaises(AssertionError, lambda: choice.vote)
+
+    def test_poll_choice_votes_percentage(self):
+        """
+        Should return the percentage of votes for a choice
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='percentage')
+        choice = CommentPollChoice.objects.create(poll=poll, number=1, description="foobar", vote_count=1)
+        poll.total_votes = 2
+        self.assertEqual(choice.votes_percentage, 50)
+        poll.total_votes = 3
+        self.assertEqual('{:.2f}'.format(choice.votes_percentage), '33.33')
+        poll.total_votes = 0
+        self.assertEqual(choice.votes_percentage, 0)
+
+    def test_poll_choice_increase_vote_count(self):
+        """
+        Should increase the vote count of all choices for a given user and poll
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='percentage')
+        choice = CommentPollChoice.objects.create(poll=poll, number=1, description="foobar")
+        choice2 = CommentPollChoice.objects.create(poll=poll, number=2, description="foobar")
+        CommentPollVote.objects.create(choice=choice, voter=self.user)
+        CommentPollVote.objects.create(choice=choice2, voter=self.user)
+        user2 = utils.create_user()
+        CommentPollVote.objects.create(choice=choice, voter=user2)
+
+        CommentPollChoice.increase_vote_count(poll, self.user)
+        self.assertEqual(CommentPollChoice.objects.get(pk=self.choice.pk).vote_count, 0)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice.pk).vote_count, 1)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice2.pk).vote_count, 1)
+
+        CommentPollChoice.objects.filter(pk=choice.pk).update(is_removed=True)
+        CommentPollChoice.increase_vote_count(poll, self.user)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice.pk).vote_count, 1)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice2.pk).vote_count, 2)
+
+    def test_poll_choice_decrease_vote_count(self):
+        """
+        Should decrease the vote count of all choices for a given user and poll
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='percentage')
+        choice = CommentPollChoice.objects.create(poll=poll, number=1, description="foobar", vote_count=2)
+        choice2 = CommentPollChoice.objects.create(poll=poll, number=2, description="foobar", vote_count=2)
+        CommentPollVote.objects.create(choice=choice, voter=self.user)
+        CommentPollVote.objects.create(choice=choice2, voter=self.user)
+        user2 = utils.create_user()
+        CommentPollVote.objects.create(choice=choice, voter=user2)
+
+        CommentPollChoice.decrease_vote_count(poll, self.user)
+        self.assertEqual(CommentPollChoice.objects.get(pk=self.choice.pk).vote_count, 0)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice.pk).vote_count, 1)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice2.pk).vote_count, 1)
+
+        CommentPollChoice.objects.filter(pk=choice.pk).update(is_removed=True)
+        CommentPollChoice.decrease_vote_count(poll, self.user)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice.pk).vote_count, 1)
+        self.assertEqual(CommentPollChoice.objects.get(pk=choice2.pk).vote_count, 0)
+
+    def test_poll_choice_update_or_create_many(self):
+        """
+        Should create or update many choices for a given poll
+        """
+        choice_raw = {'poll_name': 'foo', 'number': 2, 'description': '2 bar'}
+        CommentPollChoice.update_or_create_many(comment=self.comment, choices_raw=[choice_raw])
+        choice = CommentPollChoice.objects.all().order_by('pk').last()
+        self.assertTrue(CommentPollChoice.objects.get(pk=self.choice.pk).is_removed)
+        self.assertEqual(choice.poll, self.poll)
+        self.assertEqual(choice.number, 2)
+        self.assertEqual(choice.description, '2 bar')
+        self.assertFalse(choice.is_removed)
+
+        # Update
+        choice_raw2 = {'poll_name': 'foo', 'number': 1, 'description': '1 bar'}
+        choice_raw['description'] = '2 foo'
+        CommentPollChoice.update_or_create_many(comment=self.comment, choices_raw=[choice_raw, choice_raw2])
+        choice_updated = CommentPollChoice.objects.all().order_by('pk').last()
+        self.assertFalse(CommentPollChoice.objects.get(pk=self.choice.pk).is_removed)
+        self.assertEqual(choice_updated.poll, self.poll)
+        self.assertEqual(choice_updated.number, 2)
+        self.assertEqual(choice_updated.description, '2 foo')
+        self.assertFalse(choice.is_removed)
