@@ -7,7 +7,7 @@ import copy
 
 import mistune
 
-from django.utils import timezone
+from .parsers.poll import PollParser
 
 
 class BlockGrammar(mistune.BlockGrammar):
@@ -129,107 +129,13 @@ class BlockLexer(mistune.BlockLexer):
         self.tokens.append({'type': 'vimeo', 'video_id': m.group("id")})
 
     def parse_poll(self, m):
-        # todo: move to parsers/poll.py
-        token_raw = {'type': 'poll', 'raw': m.group(0)}
-        invalid_params = m.group('invalid_params')
-        invalid_body = m.group('invalid_body')
-        name_raw = m.group('name')
-        title_raw = m.group('title')
-        min_raw = m.group('min')
-        max_raw = m.group('max')
-        close_at_raw = m.group('close')
-        choices_raw = m.group('choices')
+        parser = PollParser(polls=self.polls, data=m.groupdict())
 
-        # todo: take from model
-        name_max_len = 255
-        title_max_len = 255
-        description_max_len = 255
-        close_max_len = 5  # Fixed length
-        choices_limit = 20  # make a setting
-
-        # pre_validation()
-        if invalid_params is not None:
-            self.tokens.append(token_raw)
-            return
-
-        if invalid_body is not None:
-            self.tokens.append(token_raw)
-            return
-
-        # Avoid further processing if the choice max is reached
-        if len(self.polls['choices']) >= choices_limit:
-            self.tokens.append(token_raw)
-            return
-
-        # clean_poll()
-        name = name_raw[:name_max_len]
-        poll = {'name': name}
-
-        if title_raw:
-            title = mistune.escape(title_raw.strip(), quote=True)
-            poll['title'] = title[:title_max_len]  # May be empty
-
-        if min_raw:
-            poll['choice_min'] = int(min_raw)
-
-        if max_raw:
-            poll['choice_max'] = int(max_raw)
-
-        if close_at_raw:
-            days = int(close_at_raw[:close_max_len])
-            poll['close_at'] = timezone.now() + timezone.timedelta(days=days)
-
-        # clean_choices()
-        choices = []
-
-        for choice in choices_raw.splitlines()[:choices_limit + 1]:
-            number, description = choice.split('.', 1)
-            description = mistune.escape(description.strip(), quote=True)
-            choices.append({
-                'number': int(number),
-                'description': description[:description_max_len],
-                'poll_name': name
-            })
-
-        if 'choice_min' in poll and 'choice_max' not in poll:
-            poll['choice_max'] = len(choices)
-
-        # post_validation()
-        choices_count = len(choices) + len(self.polls['choices'])
-
-        if choices_count > choices_limit:
-            self.tokens.append(token_raw)
-            return
-
-        names = set(p['name'] for p in self.polls['polls'])
-
-        if name in names:  # Is this poll name already listed?
-            self.tokens.append(token_raw)
-            return
-
-        numbers = [c['number'] for c in choices]
-
-        if len(numbers) != len(set(numbers)):  # Non unique numbers?
-            self.tokens.append(token_raw)
-            return
-
-        choice_min = poll.get('choice_min')
-        choice_max = poll.get('choice_max')
-        has_min = choice_min is not None
-        has_max = choice_max is not None
-
-        if has_min and has_max and choice_min > choice_max:
-            self.tokens.append(token_raw)
-            return
-
-        if has_min and choice_min < 1:
-            self.tokens.append(token_raw)
-            return
-
-        if has_max and choice_max < 1:
-            self.tokens.append(token_raw)
-            return
-
-        self.polls['polls'].append(poll)
-        self.polls['choices'].extend(choices)
-        self.tokens.append({'type': 'poll', 'name': name})
+        if parser.is_valid():
+            poll = parser.cleaned_data['poll']
+            choices = parser.cleaned_data['choices']
+            self.polls['polls'].append(poll)
+            self.polls['choices'].extend(choices)
+            self.tokens.append({'type': 'poll', 'name': poll['name']})
+        else:
+            self.tokens.append({'type': 'poll', 'raw': m.group(0)})

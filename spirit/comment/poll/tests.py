@@ -639,3 +639,12 @@ class PollModelsTest(TestCase):
         self.assertEqual(choice_updated.number, 2)
         self.assertEqual(choice_updated.description, '2 foo')
         self.assertFalse(choice.is_removed)
+
+    def test_poll_choice_update_or_create_many_removed_poll(self):
+        """
+        Should raise an Exception if poll is_removed
+        """
+        CommentPoll.objects.filter(pk=self.poll.pk).update(is_removed=True)
+        choice_raw = {'poll_name': 'foo', 'number': 2, 'description': '2 bar'}
+        self.assertRaises(KeyError, CommentPollChoice.update_or_create_many,
+                          comment=self.comment, choices_raw=[choice_raw])

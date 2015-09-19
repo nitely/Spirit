@@ -13,6 +13,7 @@ from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet, CommentPol
 
 
 class CommentPoll(models.Model):
+    # todo: add mode
 
     comment = models.ForeignKey('spirit_comment.Comment', related_name='comment_polls')
 
@@ -146,6 +147,7 @@ class CommentPollChoice(models.Model):
         poll_ids_by_name = dict(
             CommentPoll.objects
                 .for_comment(comment)
+                .unremoved()
                 .values_list('name', 'id')
         )
 
