@@ -9,15 +9,11 @@ Spirit is a Python based forum built using the Django framework.
 
 To see it in action, please visit [The Spirit Project](http://spirit-project.com/).
 
-## Requirements
+## Compatibility
 
-* Python 2.7, 3.3 or 3.4 (recommended)
+* Python 2.7, 3.3 and 3.4 (recommended)
 * Django 1.8 LTS
-* PostgreSQL (recommended) or MySQL or Oracle Database
-
-## Dependencies
-
-Check out the [requirements](https://github.com/nitely/Spirit/blob/master/requirements.txt) provided.
+* PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
 ## Installing (Advanced)
 
