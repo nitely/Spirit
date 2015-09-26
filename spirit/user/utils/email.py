@@ -4,10 +4,10 @@ from __future__ import unicode_literals
 from smtplib import SMTPException
 import logging
 
-from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import ugettext as _
 from django.template.loader import render_to_string
+from django.core.mail import send_mail
 
 from .tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 
@@ -22,20 +22,22 @@ def sender(request, subject, template_name, context, to):
         'protocol': 'https' if request.is_secure() else 'http'
     })
     message = render_to_string(template_name, context)
-    from_email = "{site_name} <{name}@{domain}>".format(name="noreply", domain=site.domain, site_name=site.name)
+    from_email = "{site_name} <{name}@{domain}>".format(
+        name="noreply",
+        domain=site.domain,
+        site_name=site.name
+    )
 
-    if len(to) > 1:
-        kwargs = {'bcc': to, }
-    else:
-        kwargs = {'to': to, }
-
-    # TODO: use EmailMultiAlternatives
-    email = EmailMessage(subject, message, from_email, **kwargs)
-
-    try:
-        email.send()
-    except SMTPException as err:
-        logger.exception(err)
+    for recipient in to:
+        try:
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=from_email,
+                recipient_list=[recipient]
+            )
+        except SMTPException as err:
+            logger.exception(err)
 
 
 def send_activation_email(request, user):
