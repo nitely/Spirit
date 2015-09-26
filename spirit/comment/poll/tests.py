@@ -181,6 +181,29 @@ class PollViewTest(TestCase):
         self.assertEqual(CommentPollChoice.objects.get(pk=choice_b.pk).vote_count, 0)
         self.assertEqual(CommentPollChoice.objects.get(pk=choice_c.pk).vote_count, 0)
 
+    def test_poll_voters_logged_in(self):
+        """
+        User must be logged in
+        """
+        poll_choice = CommentPollChoice.objects.create(poll=self.poll, number=1, description="op1")
+        response = self.client.get(reverse('spirit:comment:poll:voters', kwargs={'pk': poll_choice.pk, }))
+        self.assertEqual(response.status_code, 302)
+
+    def test_poll_voters(self):
+        """
+        Should query choice voters
+        """
+        poll_choice = CommentPollChoice.objects.create(poll=self.poll, number=1, description="op1")
+        poll_choice2 = CommentPollChoice.objects.create(poll=self.poll, number=2, description="op2")
+        vote = CommentPollVote.objects.create(voter=self.user, choice=poll_choice)
+        CommentPollVote.objects.create(voter=self.user2, choice=poll_choice2)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:comment:poll:voters', kwargs={'pk': poll_choice.pk, }))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['choice'], poll_choice)
+        self.assertEqual(list(response.context['votes']), [vote])
+
 
 class PollFormTest(TestCase):
 

@@ -45,3 +45,6 @@ class CommentPollVoteQuerySet(models.QuerySet):
 
     def for_voter(self, user):
         return self.filter(voter=user)
+
+    def for_choice(self, choice):
+        return self.filter(choice=choice)
