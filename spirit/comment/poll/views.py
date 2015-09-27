@@ -8,6 +8,7 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
 from django.utils import timezone
+from django.core.exceptions import PermissionDenied
 
 from djconfig import config
 
@@ -66,9 +67,15 @@ def vote(request, pk):
 def voters(request, pk):
     # TODO: check if user has access to this topic/poll
     choice = get_object_or_404(
-        CommentPollChoice.objects.unremoved(),
+        CommentPollChoice.objects
+            .unremoved()
+            .select_related('poll'),
         pk=pk
     )
+
+    if not choice.poll.can_show_results:
+        raise PermissionDenied
+
     choice_votes = CommentPollVote.objects\
         .unremoved()\
         .for_choice(choice=choice)\

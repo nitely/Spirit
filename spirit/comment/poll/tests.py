@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.template import Template, Context
 
 from ...core.tests import utils
-from .models import CommentPoll, CommentPollChoice, CommentPollVote
+from .models import CommentPoll, CommentPollChoice, CommentPollVote, PollMode
 from .forms import PollVoteManyForm
 from . import tags
 
@@ -203,6 +203,30 @@ class PollViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['choice'], poll_choice)
         self.assertEqual(list(response.context['votes']), [vote])
+
+    def test_poll_voters_secret(self):
+        """
+        Should forbid view voters of secret poll when is not closed
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='foobar', mode=PollMode.SECRET)
+        poll_choice = CommentPollChoice.objects.create(poll=poll, number=1, description="op1")
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:comment:poll:voters', kwargs={'pk': poll_choice.pk, }))
+        self.assertEqual(response.status_code, 403)
+
+    def test_poll_voters_secret_closed(self):
+        """
+        Should allow view voters of secret poll when is closed
+        """
+        yesterday = timezone.now() - timezone.timedelta(days=1)
+        poll = CommentPoll.objects.create(comment=self.comment, name='foobar',
+                                          mode=PollMode.SECRET, close_at=yesterday)
+        poll_choice = CommentPollChoice.objects.create(poll=poll, number=1, description="op1")
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:comment:poll:voters', kwargs={'pk': poll_choice.pk, }))
+        self.assertEqual(response.status_code, 200)
 
 
 class PollFormTest(TestCase):
@@ -466,6 +490,46 @@ class TopicPollTemplateTagsTest(TestCase):
         open_link = reverse('spirit:comment:poll:open', kwargs={'pk': self.user_poll.pk})
         self.assertTrue(open_link in out)
 
+    def test_render_polls_secret(self):
+        """
+        Should not display the view results link when poll is secret and is not closed
+        """
+        comment = utils.create_comment(topic=self.topic, comment_html="<poll name=bar>")
+        CommentPoll.objects.create(comment=comment, name='bar', mode=PollMode.SECRET)
+        user_comment_with_polls = comment.__class__.objects\
+            .filter(pk=comment.pk)\
+            .with_polls(self.user)\
+            .first()
+
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_comment comment=comment %}"
+        ).render(Context({'comment': user_comment_with_polls, 'request': self.request, 'csrf_token': 'foo'}))
+        self.assertNotEqual(out.strip(), "")
+        self.assertFalse('show_poll=' in out)
+        self.assertTrue('form' in out)
+
+    def test_render_polls_secret_closed(self):
+        """
+        Should display the results when poll is secret and is closed
+        """
+        comment = utils.create_comment(topic=self.topic, comment_html="<poll name=bar>")
+        yesterday = timezone.now() - timezone.timedelta(days=1)
+        CommentPoll.objects.create(comment=comment, name='bar', mode=PollMode.SECRET, close_at=yesterday)
+        user_comment_with_polls = comment.__class__.objects\
+            .filter(pk=comment.pk)\
+            .with_polls(self.user)\
+            .first()
+
+        out = Template(
+            "{% load spirit_tags %}"
+            "{% render_comment comment=comment %}"
+        ).render(Context({'comment': user_comment_with_polls, 'request': self.request, 'csrf_token': 'foo'}))
+        self.assertNotEqual(out.strip(), "")
+        self.assertFalse('show_poll=' in out)
+        self.assertFalse('form' in out)
+        self.assertTrue('comment-poll' in out)
+
 
 class PollModelsTest(TestCase):
 
@@ -538,11 +602,33 @@ class PollModelsTest(TestCase):
         poll.choices = list(CommentPollChoice.objects.filter(poll=poll))
         self.assertEqual(poll.total_votes, 10)
 
+    def test_poll_is_secret(self):
+        """
+        Should return whether the poll is secret or not
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='bar')
+        self.assertFalse(poll.is_secret)
+        poll.mode = PollMode.SECRET
+        self.assertTrue(poll.is_secret)
+
+    def test_poll_can_show_results(self):
+        """
+        Should return whether the poll results can be shown or not depending on the mode
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='bar')
+        self.assertTrue(poll.can_show_results)
+        poll.mode = PollMode.SECRET
+        self.assertFalse(poll.can_show_results)
+        yesterday = timezone.now() - timezone.timedelta(days=1)
+        poll.close_at = yesterday
+        self.assertTrue(poll.can_show_results)
+
     def test_poll_update_or_create_many(self):
         """
         Should create or update many polls for a given comment
         """
-        poll_raw = {'name': 'foo_raw', 'title': 'foo', 'choice_min': 2, 'choice_max': 2, 'close_at': timezone.now()}
+        poll_raw = {'name': 'foo_raw', 'title': 'foo', 'choice_min': 2,
+                    'choice_max': 2, 'close_at': timezone.now(), 'mode': PollMode.SECRET}
         CommentPoll.update_or_create_many(comment=self.comment, polls_raw=[poll_raw])
         poll = CommentPoll.objects.all().order_by('pk').last()
         self.assertEqual(poll.name, poll_raw['name'])
@@ -550,6 +636,7 @@ class PollModelsTest(TestCase):
         self.assertEqual(poll.choice_min, poll_raw['choice_min'])
         self.assertEqual(poll.choice_max, poll_raw['choice_max'])
         self.assertEqual(poll.close_at, poll_raw['close_at'])
+        self.assertEqual(poll.mode, poll_raw['mode'])
 
         # Update
         CommentPoll.update_or_create_many(comment=self.comment, polls_raw=[{'name': poll.name, 'title': 'bar'}])

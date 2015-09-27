@@ -12,8 +12,18 @@ from django.db.models import F
 from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet, CommentPollVoteQuerySet
 
 
+class PollMode(object):
+
+    DEFAULT, SECRET = range(2)
+    LIST = (
+        (DEFAULT, 'default'),
+        (SECRET, 'secret')
+    )
+    BY_ID = dict(LIST)
+    BY_NAME = dict((name, id_) for id_, name in LIST)
+
+
 class CommentPoll(models.Model):
-    # todo: add mode
 
     comment = models.ForeignKey('spirit_comment.Comment', related_name='comment_polls')
 
@@ -21,7 +31,7 @@ class CommentPoll(models.Model):
     title = models.CharField(_("title"), max_length=255, blank=True)
     choice_min = models.PositiveIntegerField(_("choice min"), default=1)
     choice_max = models.PositiveIntegerField(_("choice max"), default=1)
-    voter_count = models.PositiveIntegerField(_("voter count"), default=0)  # todo: remove?
+    mode = models.IntegerField(_("mode"), choices=PollMode.LIST, default=PollMode.DEFAULT)
     close_at = models.DateTimeField(_("auto close at"), null=True, blank=True)
     is_removed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
@@ -49,6 +59,14 @@ class CommentPoll(models.Model):
     def is_closed(self):
         return self.close_at and self.close_at <= timezone.now()
 
+    @property
+    def is_secret(self):
+        return self.mode == PollMode.SECRET
+
+    @property
+    def can_show_results(self):
+        return not self.is_secret or self.is_closed
+
     @cached_property
     def has_user_voted(self):
         # *choices* is dynamically created by comments.with_polls()
@@ -75,7 +93,8 @@ class CommentPoll(models.Model):
             'title',
             'choice_min',
             'choice_max',
-            'close_at'
+            'close_at',
+            'mode'
         ]
 
         for poll in polls_raw:

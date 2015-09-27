@@ -7,7 +7,7 @@ import mistune
 
 from django.utils import timezone
 
-from spirit.comment.poll.models import CommentPoll, CommentPollChoice
+from spirit.comment.poll.models import CommentPoll, CommentPollChoice, PollMode
 
 
 __all__ = ['PollParser']
@@ -21,7 +21,7 @@ class ParserError(Exception):
 class PollParser(object):
 
     fields = {'invalid_params', 'invalid_body', 'name', 'title',
-              'min', 'max', 'close', 'choices'}
+              'min', 'max', 'close', 'choices', 'mode'}
 
     def __init__(self, polls, data):
         assert set(data.keys()) == self.fields
@@ -53,6 +53,7 @@ class PollParser(object):
         min_raw = self.data['min']
         max_raw = self.data['max']
         close_at_raw = self.data['close']
+        mode_raw = self.data['mode']
 
         poll = {
             'name': name_raw[:self._field_name.max_length]
@@ -71,6 +72,9 @@ class PollParser(object):
         if close_at_raw:
             days = int(close_at_raw[:self.close_max_len])
             poll['close_at'] = timezone.now() + timezone.timedelta(days=days)
+
+        if mode_raw:
+            poll['mode'] = PollMode.BY_NAME[mode_raw]
 
         self.cleaned_data['poll'] = poll
 
@@ -141,7 +145,7 @@ class PollParser(object):
             raise ParserError('Max can\'t be lesser than 1')
 
     def is_valid(self):
-        # In the spirit of markdown (pun intended :))
+        # In the spirit of markdown
         # errors shouldn't and won't be displayed to the user
         try:
             self._pre_validation()

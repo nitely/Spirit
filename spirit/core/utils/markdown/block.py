@@ -71,7 +71,7 @@ class BlockGrammar(mistune.BlockGrammar):
     )
 
     # Capture polls:
-    # [poll name=foo min=1 max=1 close=1d]
+    # [poll name=foo min=1 max=1 close=1d mode=default]
     # # Which opt you prefer?
     # 1. opt 1
     # 2. opt 2
@@ -82,6 +82,7 @@ class BlockGrammar(mistune.BlockGrammar):
         r'(?:\s+min=(?P<min>\d+))?'
         r'(?:\s+max=(?P<max>\d+))?'
         r'(?:\s+close=(?P<close>\d+)d)?'
+        r'(?:\s+mode=(?P<mode>(default|secret)))?'
         r'|(?P<invalid_params>[^\]]*))'
         r'\])\n'
         r'((?:#\s*(?P<title>[^\n]+\n))?'

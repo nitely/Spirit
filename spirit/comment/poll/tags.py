@@ -46,10 +46,12 @@ def _evaluate(polls_by_name, comment, request, csrf_token):
         name = m.group('name')
         poll = polls_by_name[name]
         show_poll = str(poll.pk) == request.GET.get('show_poll')  # Results or choices
+        show_results = (
+            (not poll.has_user_voted and show_poll) or
+            (poll.has_user_voted and not show_poll)
+        )
 
-        if (poll.is_closed or
-                (not poll.has_user_voted and show_poll) or
-                (poll.has_user_voted and not show_poll)):
+        if poll.is_closed or (poll.can_show_results and show_results):
             return _render_results(poll, comment, request, csrf_token)
         else:
             return _render_form(poll, comment, request, csrf_token)

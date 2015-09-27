@@ -16,9 +16,12 @@
             {% endfor %}
         </div>
 
-        {% if poll.close_at or poll.is_multiple_choice %}
+        {% if poll.close_at or poll.is_multiple_choice or poll.is_secret %}
             <div class="poll-note">
-                <span>{% blocktrans with date=poll.close_at %}Closes on {{ date }}.{% endblocktrans %}</span>
+                {% if poll.close_at %}
+                    <span>{% blocktrans with date=poll.close_at %}Closes on {{ date }}.{% endblocktrans %}</span>
+                {% endif %}
+
                 {% if poll.is_multiple_choice and poll.choice_min == poll.choice_max %}
                     <span>{% blocktrans with choice_min=poll.choice_min %}You must select {{ choice_min }} choices.{% endblocktrans %}</span>
                 {% elif poll.is_multiple_choice and not poll.has_choice_min %}
@@ -26,14 +29,21 @@
                 {% elif poll.is_multiple_choice and poll.has_choice_min %}
                     <span>{% blocktrans with choice_min=poll.choice_min %}You may select no less than {{ choice_min }} and no more than {{ choice_max }} choices.{% endblocktrans %}</span>
                 {% endif %}
+
+                {% if poll.is_secret %}
+                    <span>{% trans "Results will be available when the poll is closed." %}</span>
+                {% endif %}
             </div>
         {% endif %}
 
         <div class="poll_actions">
             <input class="poll-action button" type="submit" name="post" value="{% trans "Vote" %}" />
-            <a class="poll-action" href="?{% to_query_params show_poll=show_poll %}#p{{ poll.pk }}">
-                <i class="fa fa-eye"></i> {% trans "Show results" %}
-            </a>
+
+            {% if poll.can_show_results %}
+                <a class="poll-action" href="?{% to_query_params show_poll=show_poll %}#p{{ poll.pk }}">
+                    <i class="fa fa-eye"></i> {% trans "Show results" %}
+                </a>
+            {% endif %}
 
             {% if user.is_authenticated and user.pk == comment.user.pk %}
                 {% if poll.is_closed %}

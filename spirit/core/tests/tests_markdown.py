@@ -235,7 +235,7 @@ class UtilsMarkdownTests(TestCase):
 
         org_now, timezone.now = timezone.now, mock_now
         try:
-            comment = "[poll name=foo_1 min=1 max=2 close=1d]\n" \
+            comment = "[poll name=foo_1 min=1 max=2 close=1d mode=default]\n" \
                       "# Foo or bar?\n" \
                       "1. opt 1\n" \
                       "2. opt 2\n" \
@@ -250,6 +250,7 @@ class UtilsMarkdownTests(TestCase):
                         'choice_min': 1,
                         'choice_max': 2,
                         'title': 'Foo or bar?',
+                        'mode': 0,
                         'close_at': now_fixed + timezone.timedelta(days=1)
                     }
                 ],
@@ -575,3 +576,43 @@ class UtilsMarkdownTests(TestCase):
             )
         finally:
             timezone.now = org_now
+
+    def test_markdown_poll_mode_default(self):
+        """
+        Should accept mode=default
+        """
+        comment = "[poll name=foo mode=default]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<poll name=foo>')
+        polls = md.get_polls()
+        self.assertEqual(polls['polls'][0]['mode'], 0)
+
+    def test_markdown_poll_mode_secret(self):
+        """
+        Should accept mode=secret
+        """
+        comment = "[poll name=foo mode=secret]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, '<poll name=foo>')
+        polls = md.get_polls()
+        self.assertEqual(polls['polls'][0]['mode'], 1)
+
+    def test_markdown_poll_mode_invalid(self):
+        """
+        Should not accept unknown mode
+        """
+        comment = "[poll name=foo mode=foo]\n" \
+                  "1. opt 1\n" \
+                  "2. opt 2\n" \
+                  "[/poll]"
+        md = Markdown(escape=True, hard_wrap=True)
+        comment_md = md.render(comment)
+        self.assertEqual(comment_md, comment)
