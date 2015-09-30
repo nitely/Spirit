@@ -67,6 +67,10 @@ class CommentPoll(models.Model):
     def can_show_results(self):
         return not self.is_secret or self.is_closed
 
+    @property
+    def mode_txt(self):
+        return PollMode.BY_ID[self.mode]
+
     @cached_property
     def has_user_voted(self):
         # *choices* is dynamically created by comments.with_polls()

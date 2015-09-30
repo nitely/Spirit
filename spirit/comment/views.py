@@ -14,10 +14,9 @@ from ..core.utils.ratelimit.decorators import ratelimit
 from ..core.utils.decorators import moderator_required
 from ..core.utils import markdown, paginator, render_form_errors, json_response
 from ..topic.models import Topic
-from .history.models import CommentHistory
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .utils import comment_posted
+from .utils import comment_posted, post_comment_update, pre_comment_update
 
 
 @login_required
@@ -61,12 +60,9 @@ def update(request, pk):
         form = CommentForm(data=request.POST, instance=comment)
 
         if form.is_valid():
-            comment_pre = Comment.objects.get(pk=comment.pk)
+            pre_comment_update(comment=Comment.objects.get(pk=comment.pk))
             comment = form.save()
-            # todo: move to post_comment_update
-            comment.increase_modified_count()
-            CommentHistory.create_maybe(comment_pre)
-            CommentHistory.create(comment)
+            post_comment_update(comment=comment)
             return redirect(request.POST.get('next', comment.get_absolute_url()))
     else:
         form = CommentForm(instance=comment)

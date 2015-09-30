@@ -30,6 +30,7 @@ from .history.models import CommentHistory
 from .utils import comment_posted
 from ..topic.notification.models import TopicNotification, MENTION
 from ..topic.unread.models import TopicUnread
+from . import views
 
 User = get_user_model()
 
@@ -63,6 +64,28 @@ class CommentViewTest(TestCase):
         response = self.client.get(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], self.topic)
+
+    def test_comment_publish_comment_posted(self):
+        """
+        Should call comment_posted
+        """
+        res = []
+
+        def mocked_comment_posted(comment, mentions):
+            res.append(comment)
+            res.append(mentions)
+
+        org_comment_posted, views.comment_posted = views.comment_posted, mocked_comment_posted
+        try:
+            utils.login(self)
+            form_data = {'comment': 'foobar', }
+            self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
+                             form_data)
+            self.assertEqual(len(Comment.objects.all()), 1)
+            self.assertEqual(res[0], Comment.objects.first())
+            self.assertEqual(res[1], {})
+        finally:
+            views.comment_posted = org_comment_posted
 
     def test_comment_publish_on_private(self):
         """

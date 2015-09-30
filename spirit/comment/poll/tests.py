@@ -8,11 +8,13 @@ from django.core.cache import cache
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.template import Template, Context
+from django.utils.html import strip_tags
 
 from ...core.tests import utils
 from .models import CommentPoll, CommentPollChoice, CommentPollVote, PollMode
 from .forms import PollVoteManyForm
 from . import tags
+from .utils import post_render_static_polls
 
 User = get_user_model()
 
@@ -592,6 +594,16 @@ class PollModelsTest(TestCase):
         self.assertTrue(self.poll.has_user_voted)
         self.assertFalse(poll.has_user_voted)
 
+    def test_poll_mode_txt(self):
+        """
+        Should return the mode description
+        """
+        poll = CommentPoll.objects.create(comment=self.comment, name='bar')
+        self.assertEqual(poll.mode_txt, 'default')
+
+        poll = CommentPoll.objects.create(comment=self.comment, name='bar2', mode=PollMode.SECRET)
+        self.assertEqual(poll.mode_txt, 'secret')
+
     def test_poll_total_votes(self):
         """
         Should return the total votes
@@ -758,3 +770,36 @@ class PollModelsTest(TestCase):
         choice_raw = {'poll_name': 'foo', 'number': 2, 'description': '2 bar'}
         self.assertRaises(KeyError, CommentPollChoice.update_or_create_many,
                           comment=self.comment, choices_raw=[choice_raw])
+
+
+class PollUtilsTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+        self.category = utils.create_category()
+        self.topic = utils.create_topic(category=self.category, user=self.user)
+        self.comment = utils.create_comment(topic=self.topic, comment_html="<poll name=foo>")
+
+        self.poll = CommentPoll.objects.create(comment=self.comment, name='foo', title="my poll")
+        self.choice = CommentPollChoice.objects.create(poll=self.poll, number=1, description="choice 1")
+        self.choice = CommentPollChoice.objects.create(poll=self.poll, number=2, description="choice 2")
+
+    def test_post_render_static_polls(self):
+        """
+        Should render the static polls
+        """
+        comment_html = post_render_static_polls(self.comment)
+        self.assertTrue('my poll' in comment_html)
+
+        comment_parts = [
+            l.strip()
+            for l in strip_tags(comment_html).splitlines()
+            if l.strip()
+        ]
+        self.assertEqual(comment_parts, [
+            'my poll',
+            '#1 choice 1',
+            '#2 choice 2',
+            'Name: foo, choice selection: from 1 up to 1, mode: default'
+        ])
