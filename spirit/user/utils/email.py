@@ -36,7 +36,7 @@ def sender(request, subject, template_name, context, to):
                 from_email=from_email,
                 recipient_list=[recipient]
             )
-        except SMTPException as err:
+        except OSError as err:
             logger.exception(err)
 
 
