@@ -803,3 +803,46 @@ class PollUtilsTest(TestCase):
             '#2 choice 2',
             'Name: foo, choice selection: from 1 up to 1, mode: default'
         ])
+
+    def test_post_render_static_polls_many(self):
+        """
+        Should render the many static polls
+        """
+        comment = utils.create_comment(topic=self.topic, comment_html="<poll name=foo>\n<poll name=bar>")
+        CommentPoll.objects.create(comment=comment, name='foo', title="my poll")
+        CommentPoll.objects.create(comment=comment, name='bar', title="my other poll")
+
+        comment_html = post_render_static_polls(comment)
+        self.assertTrue('my poll' in comment_html)
+        self.assertTrue('my other poll' in comment_html)
+
+    def test_post_render_static_polls_close_at(self):
+        """
+        Should render the static polls with close_at
+        """
+        now = timezone.now()
+        comment = utils.create_comment(topic=self.topic, comment_html="<poll name=foo>")
+        CommentPoll.objects.create(comment=comment, name='foo', title="my poll", close_at=now)
+
+        comment_html = post_render_static_polls(comment)
+        self.assertTrue('close at:' in comment_html)
+        self.assertTrue('Name:' in comment_html)
+        self.assertTrue('choice selection:' in comment_html)
+        self.assertTrue('mode:' in comment_html)
+
+    def test_post_render_static_polls_no_poll(self):
+        """
+        Should render the comment with no poll
+        """
+        comment = utils.create_comment(topic=self.topic, comment_html="foo")
+        comment_html = post_render_static_polls(comment)
+        self.assertEqual(comment_html, 'foo')
+
+    def test_post_render_static_polls_removed_poll(self):
+        """
+        Should not render removed polls
+        """
+        self.poll.is_removed = True
+        self.poll.save()
+        comment_html = post_render_static_polls(self.comment)
+        self.assertEqual(comment_html, "<poll name=foo>")

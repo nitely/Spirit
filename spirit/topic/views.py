@@ -15,7 +15,6 @@ from ..comment.models import MOVED
 from ..comment.forms import CommentForm
 from ..comment.utils import comment_posted
 from ..comment.models import Comment
-from .poll.forms import TopicPollForm, TopicPollChoiceFormSet
 from .models import Topic
 from .forms import TopicForm
 from . import utils

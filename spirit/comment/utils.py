@@ -17,13 +17,11 @@ def comment_posted(comment, mentions):
 
 
 def pre_comment_update(comment):
-    # todo: test!
     comment.comment_html = post_render_static_polls(comment)
     CommentHistory.create_maybe(comment)
 
 
 def post_comment_update(comment):
-    # todo: test!
     comment.increase_modified_count()
 
     comment.comment_html = post_render_static_polls(comment)
