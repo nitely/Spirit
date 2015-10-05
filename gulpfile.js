@@ -17,7 +17,7 @@ gulp.task('sass', function () {
 
 
 gulp.task('coffee', function() {
-    gulp.src(jsPath + '*.coffee')
+    gulp.src(jsPath + 'src/*.coffee')
         .pipe(sourcemaps.init())
         .pipe(coffee({bare: false}).on('error', gutil.log))
         .pipe(sourcemaps.write('.'))
