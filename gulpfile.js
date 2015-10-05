@@ -3,6 +3,7 @@ var gutil = require('gulp-util');
 var sass = require('gulp-ruby-sass');
 var coffee = require('gulp-coffee');
 var sourcemaps = require('gulp-sourcemaps');
+var Server = require('karma').Server;
 
 var assetsPath = 'spirit/core/static/spirit/';
 var cssPath = assetsPath + 'stylesheets/';
@@ -16,10 +17,40 @@ gulp.task('sass', function () {
 });
 
 
-gulp.task('coffee', function() {
-    gulp.src(jsPath + 'src/*.coffee')
+var coffeeTask = function coffeeTask(opts) {
+    opts = opts || {srcPath: './*.coffee', destPath: './'};
+    return gulp.src(opts.srcPath)
         .pipe(sourcemaps.init())
         .pipe(coffee({bare: false}).on('error', gutil.log))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(jsPath))
+        .pipe(gulp.dest(opts.destPath))
+}
+
+
+gulp.task('coffee', function(done) {
+    coffeeTask({
+        srcPath: jsPath + 'src/*.coffee',
+        destPath: jsPath,
+    }).on('end', done)
 });
+
+
+/* Do not run this directly */
+gulp.task('_coffee-test', function(done) {
+    coffeeTask({
+        srcPath: jsPath + 'test/suites/*.coffee',
+        destPath: jsPath + 'test/suites/',
+    }).on('end', done)
+});
+
+
+/* Do not run this directly */
+gulp.task('_test', ['coffee', '_coffee-test'], function (done) {
+    new Server({
+        configFile: __dirname + '/' + jsPath + 'test/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
+
+gulp.task('test', ['coffee', '_coffee-test', '_test']);
