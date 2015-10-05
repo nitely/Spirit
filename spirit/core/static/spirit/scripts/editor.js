@@ -18,11 +18,14 @@
       linkText: "link text",
       linkUrlText: "link url",
       imageText: "image text",
-      imageUrlText: "image url"
+      imageUrlText: "image url",
+      pollTitleText: "Title",
+      pollChoiceText: "Description"
     };
 
     function Editor(el, options) {
       this.togglePreview = bind(this.togglePreview, this);
+      this.addPoll = bind(this.addPoll, this);
       this.addImage = bind(this.addImage, this);
       this.addUrl = bind(this.addUrl, this);
       this.addList = bind(this.addList, this);
@@ -31,6 +34,7 @@
       this.wrapSelection = bind(this.wrapSelection, this);
       this.el = $(el);
       this.options = $.extend({}, this.defaults, options);
+      this.pollCounter = 1;
       this.setUp();
     }
 
@@ -40,6 +44,7 @@
       $('.js-box-list').on('click', this.addList);
       $('.js-box-url').on('click', this.addUrl);
       $('.js-box-image').on('click', this.addImage);
+      $('.js-box-poll').on('click', this.addPoll);
       return $('.js-box-preview').on('click', this.togglePreview);
     };
 
@@ -76,6 +81,14 @@
 
     Editor.prototype.addImage = function() {
       this.wrapSelection("![", "](" + this.options.imageUrlText + ")", this.options.imageText);
+      return false;
+    };
+
+    Editor.prototype.addPoll = function() {
+      var poll;
+      poll = ("\n\n[poll name=" + this.pollCounter + "]\n") + ("# " + this.options.pollTitleText + "\n") + ("1. " + this.options.pollChoiceText + "\n") + ("2. " + this.options.pollChoiceText + "\n") + "[/poll]\n";
+      this.wrapSelection("", poll, "");
+      this.pollCounter++;
       return false;
     };
 

@@ -39,6 +39,14 @@
       $('.js-box-url').trigger('click');
       return expect(textarea.val()).toEqual("[foo link text](foo link url)");
     });
+    it("adds poll", function() {
+      var expected;
+      $('.js-box-poll').trigger('click');
+      expected = "\n\n[poll name=1]\n# Title\n1. Description\n2. Description\n[/poll]\n";
+      expect(textarea.val()).toEqual(expected);
+      $('.js-box-poll').trigger('click');
+      return expect(textarea.val()).toEqual(expected + "\n\n[poll name=2]\n# Title\n1. Description\n2. Description\n[/poll]\n");
+    });
     it("adds image", function() {
       $('.js-box-image').trigger('click');
       return expect(textarea.val()).toEqual("![foo image text](foo image url)");

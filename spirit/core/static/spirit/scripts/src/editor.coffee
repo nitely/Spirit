@@ -15,11 +15,14 @@ class Editor
     linkText: "link text",
     linkUrlText: "link url",
     imageText: "image text",
-    imageUrlText: "image url"
+    imageUrlText: "image url",
+    pollTitleText: "Title",
+    pollChoiceText: "Description"
 
   constructor: (el, options) ->
     @el = $(el)
     @options = $.extend {}, @defaults, options
+    @pollCounter = 1
     do @setUp
 
   setUp: ->
@@ -31,6 +34,7 @@ class Editor
     $('.js-box-list').on 'click', @addList
     $('.js-box-url').on 'click', @addUrl
     $('.js-box-image').on 'click', @addImage
+    $('.js-box-poll').on 'click', @addPoll
     $('.js-box-preview').on 'click', @togglePreview
 
   wrapSelection: (preTxt, postTxt, defaultTxt) =>
@@ -61,6 +65,16 @@ class Editor
 
   addImage: =>
     @wrapSelection "![", "](#{ @options.imageUrlText })", @options.imageText
+    return false
+
+  addPoll: =>
+    poll = "\n\n[poll name=#{@pollCounter}]\n" +
+      "# #{@options.pollTitleText}\n" +
+      "1. #{@options.pollChoiceText}\n" +
+      "2. #{@options.pollChoiceText}\n" +
+      "[/poll]\n"
+    @wrapSelection "", poll, ""  # todo: append to current pointer position
+    @pollCounter++
     return false
 
   togglePreview: =>
