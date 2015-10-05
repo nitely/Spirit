@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from ...comment import tags as comment
 from ...comment.like import tags as comment_like
-from ...comment.poll import tags as comment_poll
 from ...search import tags as search
 from ...topic.favorite import tags as topic_favorite
 from ...topic.notification import tags as topic_notification

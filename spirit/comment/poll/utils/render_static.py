@@ -5,8 +5,8 @@ import re
 
 from django.template.loader import render_to_string
 
-from .models import CommentPoll
-from .tags import PATTERN
+from ..models import CommentPoll
+from .render import PATTERN
 
 
 def _evaluate(polls_by_name):
@@ -38,6 +38,5 @@ def _render_polls(comment):
 
 
 def post_render_static_polls(comment):
-    # todo: move somewhere else ?
     # This is used by the comment history
     return _render_polls(comment)

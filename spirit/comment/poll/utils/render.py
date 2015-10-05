@@ -4,10 +4,11 @@ from __future__ import unicode_literals
 import re
 
 from django.template.loader import render_to_string
-from django.utils.html import mark_safe
 
-from ...core.tags.registry import register
-from .forms import PollVoteManyForm
+from ..forms import PollVoteManyForm
+
+
+__all__ = ['PATTERN', 'render_polls']
 
 
 PATTERN = re.compile(r'(?:<poll\s+name=(?P<name>[\w\-_]+)>)')
@@ -71,11 +72,3 @@ def render_polls(comment, request, csrf_token):
 
     evaluate = _evaluate(polls_by_name, comment, request, csrf_token)
     return re.sub(PATTERN, evaluate, comment.comment_html)
-
-
-@register.simple_tag(takes_context=True)
-def render_comment(context, comment):
-    # todo: move to comment.tags
-    request = context['request']
-    csrf_token = context['csrf_token']
-    return mark_safe(render_polls(comment, request, csrf_token))
