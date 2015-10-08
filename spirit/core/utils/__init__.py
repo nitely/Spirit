@@ -56,3 +56,16 @@ def pushd(new_dir):
     os.chdir(new_dir)
     yield
     os.chdir(prev_dir)
+
+
+def get_query_string(request, **params):
+    """
+    Adds params to current query string
+    """
+    # todo: test!
+    query_dict = request.GET.copy()  # MultiValueDict
+
+    for k, v in sorted(params.items()):
+        query_dict[k] = v
+
+    return query_dict.urlencode()

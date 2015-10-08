@@ -56,6 +56,9 @@ class PollVoteManyForm(forms.Form):
     def clean_choices(self):
         choices = self.cleaned_data['choices']
 
+        if not self.poll.is_multiple_choice:
+            return choices
+
         if len(choices) > self.poll.choice_max:
             raise forms.ValidationError(
                 _("Too many selected choices. Limit is %s")

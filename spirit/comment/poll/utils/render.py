@@ -5,6 +5,7 @@ import re
 
 from django.template.loader import render_to_string
 
+from ....core import utils
 from ..forms import PollVoteManyForm
 
 
@@ -27,7 +28,8 @@ def _render_form(poll, comment, request, csrf_token):
         'show_poll': poll.pk if not poll.has_user_voted else 0,
         'user': request.user,
         'request': request,
-        'csrf_token': csrf_token
+        'csrf_token': csrf_token,
+        'next': poll.get_rel_url(request)  # todo: add ?hash_tag=pX to comment.find and use the poll.url
     }
 
     return render_to_string('spirit/comment/poll/_form.html', context)

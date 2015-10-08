@@ -3,6 +3,7 @@
 <div class="comment-poll" id="p{{ poll.pk }}">
     <form action="{% url "spirit:comment:poll:vote" pk=poll.pk %}" method="post">
         {% csrf_token %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
 
         {% if poll.title %}
             <div class="poll_title">

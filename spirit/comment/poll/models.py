@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.db.models import F
 
+from ...core.utils import get_query_string
 from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet, CommentPollVoteQuerySet
 
 
@@ -46,6 +47,11 @@ class CommentPoll(models.Model):
 
     def get_absolute_url(self):
         return self.comment.get_absolute_url()
+
+    def get_rel_url(self, request):
+        # todo: remove
+        query_string = get_query_string(request, show_poll=0)
+        return ''.join((request.path, '?', query_string, '#p', str(self.pk)))
 
     @property
     def is_multiple_choice(self):
