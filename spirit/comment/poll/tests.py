@@ -381,7 +381,7 @@ class PollFormTest(TestCase):
         self.assertEqual(len(CommentPollVote.objects.filter(choice=self.poll_choice, is_removed=False)), 1)
 
 
-class TopicPollTemplateTagsTest(TestCase):
+class CommentPollTemplateTagsTest(TestCase):
 
     def setUp(self):
         cache.clear()
@@ -508,7 +508,7 @@ class TopicPollTemplateTagsTest(TestCase):
             "{% post_render_comment comment=comment %}"
         ).render(Context({'comment': user_comment_with_polls, 'request': self.request, 'csrf_token': 'foo'}))
         self.assertNotEqual(out.strip(), "")
-        self.assertFalse('show_poll=' in out)
+        self.assertFalse('Show results' in out)
         self.assertTrue('form' in out)
 
     def test_render_polls_secret_closed(self):
