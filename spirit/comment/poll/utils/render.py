@@ -5,7 +5,6 @@ import re
 
 from django.template.loader import render_to_string
 
-from ....core import utils
 from ..forms import PollVoteManyForm
 
 

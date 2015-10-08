@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals, division
 
-from django.db import models
+from django.db import models, transaction
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.utils import timezone
@@ -107,19 +107,23 @@ class CommentPoll(models.Model):
             'mode'
         ]
 
-        for poll in polls_raw:
-            defaults = {
-                field: poll[field]
-                for field in default_fields
-                if field in poll
-            }
-            defaults.update({'is_removed': False})
+        if not polls_raw:  # Avoid the later transaction.atomic()
+            return
 
-            cls.objects.update_or_create(
-                comment=comment,
-                name=poll['name'],
-                defaults=defaults
-            )
+        with transaction.atomic():  # Speedup
+            for poll in polls_raw:
+                defaults = {
+                    field: poll[field]
+                    for field in default_fields
+                    if field in poll
+                }
+                defaults.update({'is_removed': False})
+
+                cls.objects.update_or_create(
+                    comment=comment,
+                    name=poll['name'],
+                    defaults=defaults
+                )
 
 
 class CommentPollChoice(models.Model):
@@ -173,6 +177,9 @@ class CommentPollChoice(models.Model):
             .for_comment(comment) \
             .update(is_removed=True)
 
+        if not choices_raw:  # Avoid the later transaction.atomic()
+            return
+
         poll_ids_by_name = dict(
             CommentPoll.objects
                 .for_comment(comment)
@@ -180,15 +187,16 @@ class CommentPollChoice(models.Model):
                 .values_list('name', 'id')
         )
 
-        for choice in choices_raw:
-            cls.objects.update_or_create(
-                poll_id=poll_ids_by_name[choice['poll_name']],
-                number=choice['number'],
-                defaults={
-                    'description': choice['description'],
-                    'is_removed': False
-                }
-            )
+        with transaction.atomic():  # Speedup
+            for choice in choices_raw:
+                cls.objects.update_or_create(
+                    poll_id=poll_ids_by_name[choice['poll_name']],
+                    number=choice['number'],
+                    defaults={
+                        'description': choice['description'],
+                        'is_removed': False
+                    }
+                )
 
 
 class CommentPollVote(models.Model):

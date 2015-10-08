@@ -8,14 +8,19 @@ from django.conf import settings
 from django.utils import translation
 
 
+_PATTERN_POLL = re.compile(
+    r'^(?:\[poll[^\]]*\])\n+'
+    r'(?:\d+[^\n]*\n+)+'
+    r'(?:\[/poll\])',
+    flags=re.MULTILINE
+)
+
+
 def _strip_polls(comment):
     return re.sub(
-        r'^(?:\[poll[^\]]*\])\n+'
-        r'(?:\d+[^\n]*\n+)+'
-        r'(?:\[/poll\])',
+        _PATTERN_POLL,
         r'',
-        comment,
-        flags=re.MULTILINE
+        comment
     )
 
 
