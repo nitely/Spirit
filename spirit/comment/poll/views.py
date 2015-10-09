@@ -79,7 +79,7 @@ def voters(request, pk):
     choice_votes = CommentPollVote.objects\
         .unremoved()\
         .for_choice(choice=choice)\
-        .select_related('voter')
+        .select_related('voter__st')
 
     choice_votes = yt_paginate(
         choice_votes,
