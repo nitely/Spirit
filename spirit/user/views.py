@@ -141,9 +141,11 @@ def topics(request, pk, slug):
 
 
 def comments(request, pk, slug):
+    # todo: test with_polls!
     user_comments = Comment.objects\
+        .filter(user_id=pk)\
         .visible()\
-        .filter(user_id=pk)
+        .with_polls(user=request.user)
 
     return _activity(
         request, pk, slug,
@@ -156,9 +158,11 @@ def comments(request, pk, slug):
 
 
 def likes(request, pk, slug):
+    # todo: test with_polls!
     user_comments = Comment.objects\
-        .visible()\
         .filter(comment_likes__user_id=pk)\
+        .visible()\
+        .with_polls(user=request.user)\
         .order_by('-comment_likes__date', '-pk')
 
     return _activity(
