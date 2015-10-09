@@ -28,7 +28,7 @@
                 {% elif poll.is_multiple_choice and not poll.has_choice_min %}
                     <span>{% blocktrans with choice_max=poll.choice_max %}You may select up to {{ choice_max }} choices.{% endblocktrans %}</span>
                 {% elif poll.is_multiple_choice and poll.has_choice_min %}
-                    <span>{% blocktrans with choice_min=poll.choice_min %}You may select no less than {{ choice_min }} and no more than {{ choice_max }} choices.{% endblocktrans %}</span>
+                    <span>{% blocktrans with choice_min=poll.choice_min choice_max=poll.choice_max %}You may select no less than {{ choice_min }} and no more than {{ choice_max }} choices.{% endblocktrans %}</span>
                 {% endif %}
 
                 {% if poll.is_secret %}
