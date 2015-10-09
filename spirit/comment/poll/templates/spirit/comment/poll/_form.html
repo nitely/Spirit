@@ -7,7 +7,7 @@
 
         {% if poll.title %}
             <div class="poll_title">
-                {{ poll.title }}
+                {{ poll.title|safe }}
             </div>
         {% endif %}
 

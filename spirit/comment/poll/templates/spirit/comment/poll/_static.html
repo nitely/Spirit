@@ -7,7 +7,7 @@
 <div class="comment-poll">
     {% if poll.title %}
         <div class="poll_title">
-            {{ poll.title }}
+            {{ poll.title|safe }}
         </div>
     {% endif %}
 
@@ -15,7 +15,7 @@
         <ul>
             {% for choice in poll.choices %}
                 <li class="poll-choice">
-                    <div class="choice-description">#{{ choice.number }} {{ choice.description }}</div>
+                    <div class="choice-description">#{{ choice.number }} {{ choice.description|safe }}</div>
                 </li>
             {% endfor %}
         </ul>

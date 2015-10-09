@@ -3,7 +3,7 @@
 <div class="comment-poll" id="p{{ poll.pk }}">
     {% if poll.title %}
         <div class="poll_title">
-            {{ poll.title }}
+            {{ poll.title|safe }}
         </div>
     {% endif %}
 
@@ -12,7 +12,7 @@
             {% for choice in poll.choices %}
                 <li class="poll-choice">
                     <div class="choice-description">
-                        {% blocktrans with choice=choice.description percentage=choice.votes_percentage|floatformat:"0"  %}{{ choice }}, {{ percentage }}%{% endblocktrans %}
+                        {% blocktrans with choice=choice.description|safe percentage=choice.votes_percentage|floatformat:"0"  %}{{ choice }}, {{ percentage }}%{% endblocktrans %}
                         {% if choice.vote_count %}
                             <a href="{% url "spirit:comment:poll:voters" pk=choice.pk %}">{% trans "View voters" %}</a>
                         {% endif %}

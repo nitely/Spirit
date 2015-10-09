@@ -4,9 +4,9 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import smart_text
+from django.utils.html import mark_safe
 
-from .models import CommentPollChoice, CommentPollVote
+from .models import CommentPollVote
 
 
 class PollVoteManyForm(forms.Form):
@@ -21,7 +21,7 @@ class PollVoteManyForm(forms.Form):
         self.user = user
         self.poll = poll
         self.poll_choices = getattr(poll, 'choices', poll.poll_choices.unremoved())
-        choices = ((c.pk, c.description) for c in self.poll_choices)
+        choices = ((c.pk, mark_safe(c.description)) for c in self.poll_choices)
 
         if poll.is_multiple_choice:
             self.fields['choices'] = forms.MultipleChoiceField(
@@ -35,8 +35,6 @@ class PollVoteManyForm(forms.Form):
                 widget=forms.RadioSelect,
                 label=_("Poll choices")
             )
-
-        self.fields['choices'].label_from_instance = lambda obj: smart_text(obj.description)
 
     def load_initial(self):
         selected_choices = [
