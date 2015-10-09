@@ -18,6 +18,7 @@ class PollVoteManyForm(forms.Form):
 
     def __init__(self, poll, user=None, *args, **kwargs):
         super(PollVoteManyForm, self).__init__(*args, **kwargs)
+        self.auto_id = 'id_poll_{pk}_%s'.format(pk=poll.pk)  # Uniqueness "<label for=id_poll_pk_..."
         self.user = user
         self.poll = poll
         self.poll_choices = getattr(poll, 'choices', poll.poll_choices.unremoved())
