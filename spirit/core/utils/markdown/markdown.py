@@ -51,6 +51,6 @@ class Markdown(mistune.Markdown):
         try:
             name = self.token['name']
         except KeyError:
-            return self.token['raw']
+            return self.renderer.poll_raw(poll_txt=self.token['raw'])
         else:
             return self.renderer.poll(name=name)

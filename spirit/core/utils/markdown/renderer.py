@@ -33,3 +33,6 @@ class Renderer(mistune.Renderer):
 
     def poll(self, name):
         return '<poll name={name}>\n'.format(name=name)
+
+    def poll_raw(self, poll_txt):
+        return ''.join(('<p>', poll_txt.replace('\n', '<br>'), '</p>'))

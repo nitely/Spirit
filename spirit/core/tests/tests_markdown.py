@@ -271,7 +271,7 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo_1]<br>1. opt 1<br>[/poll]</p>')
         self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
 
     def test_markdown_poll_invalid_no_options(self):
@@ -282,7 +282,7 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo_1]<br>[/poll]</p>')
         self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
 
     def test_markdown_poll_invalid_no_name(self):
@@ -295,7 +295,7 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
         self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
 
     def test_markdown_poll_and_text(self):
@@ -408,7 +408,7 @@ class UtilsMarkdownTests(TestCase):
         polls = md.get_polls()
         polls['choices'].extend({} for _ in range(limit))
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), limit)
 
@@ -421,7 +421,7 @@ class UtilsMarkdownTests(TestCase):
         comment = "[poll name=foo]\n" + opts + "\n[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo]<br>' + opts.replace('\n', '<br>') + '<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
 
@@ -437,7 +437,7 @@ class UtilsMarkdownTests(TestCase):
         polls = md.get_polls()
         polls['polls'].append({'name': 'foo'})
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 1)
@@ -453,7 +453,7 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo]<br>1. opt 1<br>1. opt 2<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -472,7 +472,14 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo]<br>'
+                                     '1. opt 1<br>'
+                                     '01. opt 2<br>'
+                                     '001. opt 2<br>'
+                                     '2. opt 2<br>'
+                                     '02. opt 2<br>'
+                                     '002. opt 2<br>'
+                                     '[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -487,7 +494,7 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo min=2 max=1]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -502,7 +509,7 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo min=0]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -517,7 +524,7 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo max=0]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -615,4 +622,4 @@ class UtilsMarkdownTests(TestCase):
                   "[/poll]"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, comment)
+        self.assertEqual(comment_md, '<p>[poll name=foo mode=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
