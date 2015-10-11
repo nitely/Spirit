@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <ul class="paginator">
-	<li class="paginator-pages">{% blocktrans with number=page.number num_pages=page.paginator.num_pages %}Page {{ number }} of {{ num_pages }}{% endblocktrans %}</li>
+	<li class="paginator-pages">{% blocktrans trimmed with number=page.number num_pages=page.paginator.num_pages %}Page {{ number }} of {{ num_pages }}{% endblocktrans %}</li>
     {% if page.has_other_pages %}
         {% if page.number == 1 %}
             <li><a class="paginator-button" href="?{{ page_var }}={{ page.next_page_number }}{{ extra_query }}{{ hashtag }}"><i class="fa fa-chevron-right"></i></a></li><!--

@@ -2,12 +2,12 @@
 
 {% load spirit_tags i18n %}
 
-{% block title %}{% blocktrans with choice_description=choice.description %}Voters for {{ choice_description }}{% endblocktrans %}{% endblock %}
+{% block title %}{% blocktrans trimmed with choice_description=choice.description %}Voters for {{ choice_description }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
     <h1 class="headline">
-        {% blocktrans with choice_description=choice.description %}Voters for {{ choice_description }}{% endblocktrans %}
+        {% blocktrans trimmed with choice_description=choice.description %}Voters for {{ choice_description }}{% endblocktrans %}
     </h1>
 
     <div class="rows">

@@ -20,15 +20,15 @@
         {% if poll.close_at or poll.is_multiple_choice or poll.is_secret %}
             <div class="poll-note">
                 {% if poll.close_at %}
-                    <span>{% blocktrans with date=poll.close_at %}Closes on {{ date }}.{% endblocktrans %}</span>
+                    <span>{% blocktrans trimmed with date=poll.close_at %}Closes on {{ date }}.{% endblocktrans %}</span>
                 {% endif %}
 
                 {% if poll.is_multiple_choice and poll.choice_min == poll.choice_max %}
-                    <span>{% blocktrans with choice_min=poll.choice_min %}You must select {{ choice_min }} choices.{% endblocktrans %}</span>
+                    <span>{% blocktrans trimmed with choice_min=poll.choice_min %}You must select {{ choice_min }} choices.{% endblocktrans %}</span>
                 {% elif poll.is_multiple_choice and not poll.has_choice_min %}
-                    <span>{% blocktrans with choice_max=poll.choice_max %}You may select up to {{ choice_max }} choices.{% endblocktrans %}</span>
+                    <span>{% blocktrans trimmed with choice_max=poll.choice_max %}You may select up to {{ choice_max }} choices.{% endblocktrans %}</span>
                 {% elif poll.is_multiple_choice and poll.has_choice_min %}
-                    <span>{% blocktrans with choice_min=poll.choice_min choice_max=poll.choice_max %}You may select no less than {{ choice_min }} and no more than {{ choice_max }} choices.{% endblocktrans %}</span>
+                    <span>{% blocktrans trimmed with choice_min=poll.choice_min choice_max=poll.choice_max %}You may select no less than {{ choice_min }} and no more than {{ choice_max }} choices.{% endblocktrans %}</span>
                 {% endif %}
 
                 {% if poll.is_secret %}

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"POT-Creation-Date: 2015-10-11 01:51+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,215 +12,226 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: comment/forms.py:30
+#: forms.py:30
 msgid "Write comment..."
 msgstr "Ecrire un commentaire..."
 
-#: comment/forms.py:83
+#: forms.py:100
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr ""
 "Ce format de fichier n'est pas supporté. Les formats supportés sont %s."
 
-#: comment/models.py:20 comment/models.py:34 comment/models.py:49
+#: models.py:20 models.py:34 models.py:49
 msgid "comment"
 msgstr "commentaire"
 
-#: comment/models.py:21
+#: models.py:21
 msgid "topic moved"
 msgstr "Sujet deplacé"
 
-#: comment/models.py:22
+#: models.py:22
 msgid "topic closed"
 msgstr "Sujet fermé"
 
-#: comment/models.py:23
+#: models.py:23
 msgid "topic unclosed"
 msgstr "Sujet réouvert"
 
-#: comment/models.py:24
+#: models.py:24
 msgid "topic pinned"
 msgstr "Sujet épinglé"
 
-#: comment/models.py:25
+#: models.py:25
 msgid "topic unpinned"
 msgstr ""
 
-#: comment/models.py:31
-msgid "user"
-msgstr "utilisateur"
-
-#: comment/models.py:35
+#: models.py:35
 msgid "comment html"
 msgstr "Commentaire HTML"
 
-#: comment/models.py:36
+#: models.py:36
 msgid "action"
 msgstr "action"
 
-#: comment/models.py:42
+#: models.py:42
 msgid "modified count"
 msgstr ""
 
-#: comment/models.py:43
+#: models.py:43
 msgid "likes count"
 msgstr "nombre de «j'aime»"
 
-#: comment/models.py:50
+#: models.py:50
 msgid "comments"
 msgstr "commentaires"
 
-#: comment/tags.py:21
+#: tags.py:23
 msgid "This topic has been moved"
 msgstr "Ce sujet a été déplacé"
 
-#: comment/tags.py:23
+#: tags.py:25
 msgid "This topic has been closed"
 msgstr "Ce sujet a été fermé."
 
-#: comment/tags.py:25
+#: tags.py:27
 msgid "This topic has been unclosed"
 msgstr "Ce sujet n'est plus fermé"
 
-#: comment/tags.py:27
+#: tags.py:29
 msgid "This topic has been pinned"
 msgstr "Ce sujet a été épinglé"
 
-#: comment/tags.py:29
+#: tags.py:31
 msgid "This topic has been unpinned"
 msgstr "Ce sujet n'est plus épinglé"
 
-#: comment/tags.py:31
+#: tags.py:33
 msgid "Unknown topic moderation action"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:6
+#: templates/spirit/comment/_editor.html:6
 msgid "Bold"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:7
+#: templates/spirit/comment/_editor.html:7
 msgid "Italic"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:8
 msgid "List"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:9
 msgid "URL"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:10
 msgid "Image"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:11
+#: templates/spirit/comment/_editor.html:11
+msgid "Poll"
+msgstr ""
+
+#: templates/spirit/comment/_editor.html:12
 msgid "Preview"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:33
+#: templates/spirit/comment/_editor.html:34
 #, python-brace-format
 msgid "uploading {image_name}"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:36
+#: templates/spirit/comment/_editor.html:37
 msgid "bolded text"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:37
+#: templates/spirit/comment/_editor.html:38
 msgid "italicised text"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:38
+#: templates/spirit/comment/_editor.html:39
 msgid "list item"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:40
 msgid "link text"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:40
+#: templates/spirit/comment/_editor.html:41
 msgid "link url"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:41
+#: templates/spirit/comment/_editor.html:42
 msgid "image text"
 msgstr ""
 
-#: comment/templates/spirit/comment/_editor.html:42
+#: templates/spirit/comment/_editor.html:43
 msgid "image url"
 msgstr ""
 
-#: comment/templates/spirit/comment/_form.html:17
-#: comment/templates/spirit/comment/publish.html:18
-#: comment/templates/spirit/comment/update.html:18
+#: templates/spirit/comment/_editor.html:44
+msgid "Title"
+msgstr ""
+
+#: templates/spirit/comment/_editor.html:45
+msgid "Description"
+msgstr ""
+
+#: templates/spirit/comment/_form.html:17
+#: templates/spirit/comment/publish.html:18
+#: templates/spirit/comment/update.html:18
 msgid "Publish"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:47
+#: templates/spirit/comment/_render_list.html:47
 msgid "delete"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:50
+#: templates/spirit/comment/_render_list.html:50
 msgid "report"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:53
+#: templates/spirit/comment/_render_list.html:53
 msgid "share"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:57
-#: comment/templates/spirit/comment/_render_list.html:139
+#: templates/spirit/comment/_render_list.html:57
+#: templates/spirit/comment/_render_list.html:139
 msgid "remove like"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:60
-#: comment/templates/spirit/comment/_render_list.html:138
+#: templates/spirit/comment/_render_list.html:60
+#: templates/spirit/comment/_render_list.html:138
 msgid "like"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:67
+#: templates/spirit/comment/_render_list.html:67
 msgid "edit"
 msgstr "éditer"
 
-#: comment/templates/spirit/comment/_render_list.html:71
+#: templates/spirit/comment/_render_list.html:71
 msgid "quote"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:72
+#: templates/spirit/comment/_render_list.html:72
 msgid "reply"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:79
+#: templates/spirit/comment/_render_list.html:79
 msgid "close"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:110
+#: templates/spirit/comment/_render_list.html:110
 msgid "This comment was deleted"
 msgstr ""
 
-#: comment/templates/spirit/comment/_render_list.html:118
+#: templates/spirit/comment/_render_list.html:118
 msgid "undelete"
 msgstr ""
 
-#: comment/templates/spirit/comment/moderate.html:5
-#: comment/templates/spirit/comment/moderate.html:9
+#: templates/spirit/comment/moderate.html:5
+#: templates/spirit/comment/moderate.html:9
 msgid "Moderate comment"
 msgstr ""
 
-#: comment/templates/spirit/comment/moderate.html:14
+#: templates/spirit/comment/moderate.html:14
 msgid "Apply"
 msgstr ""
 
-#: comment/templates/spirit/comment/publish.html:5
+#: templates/spirit/comment/publish.html:5
 msgid "Publish comment"
 msgstr ""
 
-#: comment/templates/spirit/comment/publish.html:9
+#: templates/spirit/comment/publish.html:9
 msgid "Publishing comment on"
 msgstr ""
 
-#: comment/templates/spirit/comment/update.html:5
-#: comment/templates/spirit/comment/update.html:9
+#: templates/spirit/comment/update.html:5
+#: templates/spirit/comment/update.html:9
 msgid "Edit comment"
 msgstr ""
+
+#~ msgid "user"
+#~ msgstr "utilisateur"

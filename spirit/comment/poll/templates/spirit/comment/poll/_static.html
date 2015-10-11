@@ -22,11 +22,11 @@
     </div>
     <div class="poll-note">
         {% if poll.close_at %}
-            {% blocktrans with poll_name=poll.name choice_min=poll.choice_min choice_max=poll.choice_max mode=poll.mode_txt close_at=poll.close_at %}
+            {% blocktrans trimmed with poll_name=poll.name choice_min=poll.choice_min choice_max=poll.choice_max mode=poll.mode_txt close_at=poll.close_at %}
                 Name: {{ poll_name }}, choice selection: from {{ choice_min }} up to {{ choice_max }}, mode: {{ mode }}, close at: {{ close_at }}
             {% endblocktrans %}
         {% else %}
-            {% blocktrans with poll_name=poll.name choice_min=poll.choice_min choice_max=poll.choice_max mode=poll.mode_txt %}
+            {% blocktrans trimmed with poll_name=poll.name choice_min=poll.choice_min choice_max=poll.choice_max mode=poll.mode_txt %}
                 Name: {{ poll_name }}, choice selection: from {{ choice_min }} up to {{ choice_max }}, mode: {{ mode }}
             {% endblocktrans %}
         {% endif %}

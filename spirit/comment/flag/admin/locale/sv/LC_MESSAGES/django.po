@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"POT-Creation-Date: 2015-10-11 01:51+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,61 +12,61 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/_list.html:9
+#: templates/spirit/comment/flag/admin/_list.html:9
 msgid "moderate"
 msgstr "moderera"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/_tabs.html:4
+#: templates/spirit/comment/flag/admin/_tabs.html:4
 msgid "Open"
 msgstr "Öppna"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/_tabs.html:5
+#: templates/spirit/comment/flag/admin/_tabs.html:5
 msgid "Closed"
 msgstr "Stängd"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/closed.html:5
-#: comment/flag/admin/templates/spirit/comment/flag/admin/closed.html:11
+#: templates/spirit/comment/flag/admin/closed.html:5
+#: templates/spirit/comment/flag/admin/closed.html:11
 msgid "Closed flags"
 msgstr "Stängda flaggor"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:5
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:14
+#: templates/spirit/comment/flag/admin/detail.html:5
+#: templates/spirit/comment/flag/admin/detail.html:14
 msgid "Flag"
 msgstr "Flagga"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:10
+#: templates/spirit/comment/flag/admin/detail.html:10
 msgid "Admin"
 msgstr "Administratör"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:11
+#: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Flags"
 msgstr "Flaggor"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:18
+#: templates/spirit/comment/flag/admin/detail.html:18
 msgid "Moderated by"
 msgstr "Modererat av"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:27
+#: templates/spirit/comment/flag/admin/detail.html:27
 msgid "Save"
 msgstr "Spara"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:30
+#: templates/spirit/comment/flag/admin/detail.html:30
 msgid "Comment flagged"
 msgstr "Kommentar flaggad"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:54
+#: templates/spirit/comment/flag/admin/detail.html:54
 msgid "delete"
 msgstr "ta bort"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/detail.html:61
+#: templates/spirit/comment/flag/admin/detail.html:61
 msgid "Reporters"
 msgstr "Rapporterat av"
 
-#: comment/flag/admin/templates/spirit/comment/flag/admin/open.html:5
-#: comment/flag/admin/templates/spirit/comment/flag/admin/open.html:11
+#: templates/spirit/comment/flag/admin/open.html:5
+#: templates/spirit/comment/flag/admin/open.html:11
 msgid "Open flags"
 msgstr "Öppna flaggor"
 
-#: comment/flag/admin/views.py:27
+#: views.py:27
 msgid "The flag has been moderated!"
 msgstr "Flaggan har modererats!"

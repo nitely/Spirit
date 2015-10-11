@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"POT-Creation-Date: 2015-10-11 01:51+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,34 +12,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: category/models.py:16
+#: models.py:16
 msgid "category parent"
 msgstr "父分类"
 
-#: category/models.py:18
+#: models.py:18
 msgid "title"
 msgstr "标题"
 
-#: category/models.py:20
+#: models.py:20
 msgid "description"
 msgstr "描述"
 
-#: category/models.py:21
+#: models.py:21
+msgid "global"
+msgstr ""
+
+#: models.py:22
+msgid ""
+"Designates whether the topics will bedisplayed in the all-categories list."
+msgstr ""
+
+#: models.py:24
 msgid "closed"
 msgstr "关闭的"
 
-#: category/models.py:22
+#: models.py:25
 msgid "removed"
 msgstr "删除的"
 
-#: category/models.py:23
+#: models.py:26
 msgid "private"
 msgstr "私密的"
 
-#: category/models.py:31
+#: models.py:34
 msgid "category"
 msgstr "分类"
 
-#: category/models.py:32
+#: models.py:35
 msgid "categories"
 msgstr "分类"

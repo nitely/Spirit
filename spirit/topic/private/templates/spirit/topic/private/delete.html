@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <h1 class="headline">{% blocktrans with username=topic_private.user.username topic_title=topic_private.topic.title %}Removing {{ username }}'s from {{ topic_title }}{% endblocktrans %}</h1>
+    <h1 class="headline">{% blocktrans trimmed with username=topic_private.user.username topic_title=topic_private.topic.title %}Removing {{ username }}'s from {{ topic_title }}{% endblocktrans %}</h1>
 
     <form action="." method="post">{% csrf_token %}
         {% include "spirit/_form.html" %}
