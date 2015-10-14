@@ -1,20 +1,25 @@
 #
+# Translators:
+# sittingbrain <sittingbrain@o2.pl>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-11 01:51+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"POT-Creation-Date: 2015-10-14 20:55+0000\n"
+"PO-Revision-Date: 2015-10-14 19:35+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/"
+"language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: forms.py:33
 msgid "The email is taken."
-msgstr ""
+msgstr "Ten adres email jest już zajęty"
 
 #: forms.py:43 forms.py:48 templates/spirit/user/profile_update.html:12
 msgid "Email"
@@ -26,7 +31,7 @@ msgstr "Hasło"
 
 #: forms.py:59
 msgid "The provided password is incorrect."
-msgstr ""
+msgstr "Podane hasło jest nieprawidłowe"
 
 #: forms.py:80
 #, python-format
@@ -35,7 +40,7 @@ msgstr "Bieżący czas to: %(date)s %(time)s"
 
 #: models.py:16
 msgid "profile"
-msgstr ""
+msgstr "profil"
 
 #: models.py:19
 msgid "location"
@@ -63,13 +68,15 @@ msgstr "status moderatora"
 
 #: models.py:25
 msgid "verified"
-msgstr ""
+msgstr "zweryfikowany"
 
 #: models.py:26
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr ""
+"Wskazuje czy użytkownik zweryfikował swoje konto za pomocą emaila, czy "
+"innych sposobów. Odznacz, aby pozwolić użytkownikowi aktywować jego konto."
 
 #: models.py:30
 msgid "topic count"
@@ -81,11 +88,11 @@ msgstr "liczba komentarzy"
 
 #: models.py:34
 msgid "forum profile"
-msgstr ""
+msgstr "profil na forum"
 
 #: models.py:35
 msgid "forum profiles"
-msgstr ""
+msgstr "profile na forum"
 
 #: models.py:56
 msgid "user"
@@ -285,43 +292,4 @@ msgstr "Twój email został zmieniony!"
 
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
-msgstr ""
-
-#~ msgid "username"
-#~ msgstr "nazwa użytkownika"
-
-#~ msgid ""
-#~ "Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ "
-#~ "characters"
-#~ msgstr "Wymagane. Do 30 znaków - litery, cyfry oraz znaki @/./+/-/_ "
-
-#~ msgid "Enter a valid username."
-#~ msgstr "Wprowadź poprawną nazwę użytkownika"
-
-#~ msgid "first name"
-#~ msgstr "imię"
-
-#~ msgid "last name"
-#~ msgstr "nazwisko"
-
-#~ msgid "email"
-#~ msgstr "email"
-
-#~ msgid "staff status"
-#~ msgstr "status załogi"
-
-#~ msgid "Designates whether the user can log into this admin site."
-#~ msgstr "Wskazuje, czy ten użytkownik może logować się na tę stronę admina."
-
-#~ msgid "active"
-#~ msgstr "aktywny"
-
-#~ msgid ""
-#~ "Designates whether this user should be treated as active. Unselect this "
-#~ "instead of deleting accounts."
-#~ msgstr ""
-#~ "Wskazuje czy ten użytkownik powinien być traktowany jak aktywny. Odznacz "
-#~ "to zamiast usuwać konta."
-
-#~ msgid "date joined"
-#~ msgstr "data rejestracji"
+msgstr "Przepraszamy, zmiana emaila niemożliwa"

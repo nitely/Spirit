@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-11 01:51+0000\n"
+"POT-Creation-Date: 2015-10-14 20:55+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -39,25 +39,25 @@ msgstr "У вас недостаточно прав для доступа к э�
 msgid "what you are looking for is gone..."
 msgstr ""
 
-#: templates/spirit/_base.html:57
+#: templates/spirit/_base.html:60
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr ""
 
-#: templates/spirit/_base.html:58
+#: templates/spirit/_base.html:61
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr ""
 
-#: templates/spirit/_base.html:59
+#: templates/spirit/_base.html:62
 msgid "Show all"
 msgstr "Показать все"
 
-#: templates/spirit/_base.html:60
+#: templates/spirit/_base.html:63
 msgid "No new notifications, yet"
 msgstr "Новых уведомлений пока нет"
 
-#: templates/spirit/_base.html:61
+#: templates/spirit/_base.html:64
 msgid "unread"
 msgstr "непрочитано"
 

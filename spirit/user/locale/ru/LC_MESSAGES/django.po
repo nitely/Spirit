@@ -1,16 +1,22 @@
 #
+# Translators:
+# Evgenii <djcoollin@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-11 01:51+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"POT-Creation-Date: 2015-10-14 20:55+0000\n"
+"PO-Revision-Date: 2015-10-14 19:35+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: forms.py:33
 msgid "The email is taken."
@@ -35,7 +41,7 @@ msgstr "Текущее время: %(date)s %(time)s"
 
 #: models.py:16
 msgid "profile"
-msgstr ""
+msgstr "профиль"
 
 #: models.py:19
 msgid "location"
@@ -226,7 +232,7 @@ msgstr ""
 #: templates/spirit/user/profile_password_change.html:5
 #: templates/spirit/user/profile_password_change.html:9
 msgid "Password change"
-msgstr ""
+msgstr "Изменение пароля"
 
 #: templates/spirit/user/profile_password_change.html:15
 msgid "Change my password"
@@ -283,22 +289,4 @@ msgstr "Ваш адрес электронной почты был измене�
 
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
-msgstr ""
-
-#~ msgid "username"
-#~ msgstr "Имя пользователя"
-
-#~ msgid "Enter a valid username."
-#~ msgstr "Введите действительное имя пользователя"
-
-#~ msgid "first name"
-#~ msgstr "имя"
-
-#~ msgid "last name"
-#~ msgstr "фамилия"
-
-#~ msgid "email"
-#~ msgstr "электронная почта"
-
-#~ msgid "date joined"
-#~ msgstr "дата регистрации"
+msgstr "К сожалению, мы не смогли изменить Вашу электронную почту."

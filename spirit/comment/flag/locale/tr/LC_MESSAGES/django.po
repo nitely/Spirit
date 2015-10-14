@@ -1,0 +1,63 @@
+#
+# Translators:
+# AlperB <ihtiyaroyuncu@yandex.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"PO-Revision-Date: 2015-09-14 22:02+0000\n"
+"Last-Translator: AlperB <ihtiyaroyuncu@yandex.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/"
+"language/tr/)\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: forms.py:32
+msgid "This flag already exists"
+msgstr "Bu işaret zaten mevcut"
+
+#: models.py:12
+msgid "Spam"
+msgstr "Spam"
+
+#: models.py:13
+msgid "Other"
+msgstr "Diğer"
+
+#: models.py:28
+msgid "comment flag"
+msgstr "yorum işareti"
+
+#: models.py:29
+msgid "comments flags"
+msgstr "yorum işaretleri"
+
+#: models.py:41
+msgid "reason"
+msgstr "sebep"
+
+#: models.py:42
+msgid "body"
+msgstr "gövde"
+
+#: models.py:47
+msgid "flag"
+msgstr "işaret"
+
+#: models.py:48
+msgid "flags"
+msgstr "işaretler"
+
+#: templates/spirit/comment/flag/create.html:5
+#: templates/spirit/comment/flag/create.html:14
+msgid "Report"
+msgstr "Rapor Et"
+
+#: templates/spirit/comment/flag/create.html:9
+#, python-format
+msgid "Reporting %(username)s's comment"
+msgstr "%(username)s'in yorumu rapor ediliyor"

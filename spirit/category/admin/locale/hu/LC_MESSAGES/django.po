@@ -1,0 +1,57 @@
+#
+# Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"PO-Revision-Date: 2015-09-23 16:31+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
+"language/hu/)\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:35
+msgid ""
+"The category you are updating can not have a parent since it has childrens"
+msgstr ""
+"A kiválasztott kategóriának nem lehet szülője, mivel neki magának is vannak "
+"alkategóriái."
+
+#: templates/spirit/category/admin/create.html:5
+#: templates/spirit/category/admin/create.html:9
+msgid "Add Category"
+msgstr "Kategória hozzáadása"
+
+#: templates/spirit/category/admin/create.html:15
+#: templates/spirit/category/admin/update.html:15
+msgid "Save"
+msgstr "Mentés"
+
+#: templates/spirit/category/admin/index.html:5
+#: templates/spirit/category/admin/index.html:11
+msgid "Category list"
+msgstr "Kategóriák listája"
+
+#: templates/spirit/category/admin/index.html:13
+msgid "Create Category"
+msgstr "Kategória létrehozása"
+
+#: templates/spirit/category/admin/index.html:29
+#: templates/spirit/category/admin/index.html:44
+msgid "edit"
+msgstr "szerkesztés"
+
+#: templates/spirit/category/admin/update.html:5
+#: templates/spirit/category/admin/update.html:9
+msgid "Update Category"
+msgstr "Kategória frissítése"
+
+#: views.py:50
+msgid "The category has been updated!"
+msgstr "A kategória frissítése megtörtént! "

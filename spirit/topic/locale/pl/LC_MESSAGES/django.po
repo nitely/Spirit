@@ -1,16 +1,21 @@
 #
+# Translators:
+# sittingbrain <sittingbrain@o2.pl>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-11 01:51+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"PO-Revision-Date: 2015-10-14 19:36+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/"
+"language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: forms.py:26
 msgid "Category"
@@ -42,7 +47,7 @@ msgstr "przypięty"
 
 #: models.py:27
 msgid "globally pinned"
-msgstr ""
+msgstr "Globalnie przypięty"
 
 #: models.py:28
 msgid "closed"
@@ -124,11 +129,11 @@ msgstr "Przypnij wątek"
 
 #: templates/spirit/topic/detail.html:63
 msgid "Unpin topic globally"
-msgstr ""
+msgstr "Odepnij wątek globalnie"
 
 #: templates/spirit/topic/detail.html:65
 msgid "Pin topic globally"
-msgstr ""
+msgstr "Przypnij wątek globalnie"
 
 #: templates/spirit/topic/detail.html:74
 msgid "Topic id"
@@ -167,6 +172,3 @@ msgstr "Uaktualnij wątek"
 #: templates/spirit/topic/update.html:15
 msgid "Update"
 msgstr "Uaktualnij"
-
-#~ msgid "user"
-#~ msgstr "użytkownik"

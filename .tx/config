@@ -127,3 +127,9 @@ file_filter = spirit/comment/like/locale/<lang>/LC_MESSAGES/django.po
 source_file = spirit/comment/like/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
+
+[spirit.comment_poll]
+file_filter = spirit/comment/poll/locale/<lang>/LC_MESSAGES/django.po
+source_file = spirit/comment/poll/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO

@@ -1,0 +1,265 @@
+#
+# Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-14 20:55+0000\n"
+"PO-Revision-Date: 2015-09-23 16:54+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
+"language/hu/)\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: tags/time.py:33
+msgid "now"
+msgstr "most"
+
+#: tags/time.py:37
+#, python-format
+msgid "%(count)ss"
+msgstr "%(count)smp"
+
+#: tags/time.py:41
+#, python-format
+msgid "%(count)sm"
+msgstr "%(count)sp"
+
+#: tags/time.py:44
+#, python-format
+msgid "%(count)sh"
+msgstr "%(count)só"
+
+#: templates/403.html:10
+msgid "You do not have sufficient permissions to access this page"
+msgstr "Nincs megfelelő jogosultság az oldal eléréshez"
+
+#: templates/404.html:10
+msgid "what you are looking for is gone..."
+msgstr "a keresett tartalom már nem található..."
+
+#: templates/spirit/_base.html:60
+#, python-brace-format
+msgid "{user} has mention you on {topic}"
+msgstr "{user} megemlített ebben a témában: {topic}"
+
+#: templates/spirit/_base.html:61
+#, python-brace-format
+msgid "{user} has commented on {topic}"
+msgstr "{user} hozzászólt a témához: {topic}"
+
+#: templates/spirit/_base.html:62
+msgid "Show all"
+msgstr "Összes megjelenítése"
+
+#: templates/spirit/_base.html:63
+msgid "No new notifications, yet"
+msgstr "Nincs még új értesítés"
+
+#: templates/spirit/_base.html:64
+msgid "unread"
+msgstr "olvasatlan"
+
+#: templates/spirit/_header.html:20
+msgid "Profile"
+msgstr "Profil"
+
+#: templates/spirit/_header.html:21
+msgid "Topics"
+msgstr "Témák"
+
+#: templates/spirit/_header.html:22
+msgid "Unread topics"
+msgstr "Olvasatlan témák"
+
+#: templates/spirit/_header.html:23
+msgid "Private topics"
+msgstr "Privát beszélgetések"
+
+#: templates/spirit/_header.html:26
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/spirit/_header.html:29
+msgid "Log out"
+msgstr "Kilépés"
+
+#: templates/spirit/_header.html:42
+msgid "Log in"
+msgstr "Bejelentkezés"
+
+#: templates/spirit/utils/paginator/_paginator.html:4
+#, python-format
+msgid "Page %(number)s of %(num_pages)s"
+msgstr "%(number)s / %(num_pages)s"
+
+#: templates/spirit/utils/paginator/_paginator.html:8
+msgid "Last"
+msgstr "Utolsó"
+
+#: templates/spirit/utils/paginator/_paginator.html:10
+msgid "First"
+msgstr "Első"
+
+#: templates/spirit/utils/paginator/_yt_paginator.html:5
+msgid "Page 1 of 1"
+msgstr "1 / 1"
+
+#: tests/tests_utils.py:381
+msgid "User activation"
+msgstr "Felhasználó aktiváció"
+
+#: tests/tests_utils.py:417
+msgid "Email change"
+msgstr "E-mail cím cseréje"
+
+#: utils/markdown/utils/quote.py:36
+#, python-format
+msgid "@%(username)s said:"
+msgstr "@%(username)s írta:"
+
+#: utils/ratelimit/decorators.py:25
+#, python-format
+msgid "Too many submissions, wait %(time)s."
+msgstr "Túl sok beküldés rövid idő alatt, várakozási idő: %(time)s"
+
+#: utils/timezone.py:9
+msgid "(GMT -12:00) Eniwetok, Kwajalein"
+msgstr "(GMT -12:00) Eniwetok, Kwajalein"
+
+#: utils/timezone.py:10
+msgid "(GMT -11:00) Midway Island, Samoa"
+msgstr "(GMT -11:00) Midway Island, Samoa"
+
+#: utils/timezone.py:11
+msgid "(GMT -10:00) Hawaii"
+msgstr "(GMT -10:00) Hawaii"
+
+#: utils/timezone.py:12
+msgid "(GMT -9:30) Marquesas Islands"
+msgstr ""
+
+#: utils/timezone.py:13
+msgid "(GMT -9:00) Alaska"
+msgstr ""
+
+#: utils/timezone.py:14
+msgid "(GMT -8:00) Pacific Time (US & Canada)"
+msgstr ""
+
+#: utils/timezone.py:15
+msgid "(GMT -7:00) Mountain Time (US & Canada)"
+msgstr ""
+
+#: utils/timezone.py:16
+msgid "(GMT -6:00) Central Time (US & Canada), Mexico City"
+msgstr ""
+
+#: utils/timezone.py:17
+msgid "(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima"
+msgstr ""
+
+#: utils/timezone.py:18
+msgid "(GMT -4:30) Venezuela"
+msgstr ""
+
+#: utils/timezone.py:19
+msgid "(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz"
+msgstr ""
+
+#: utils/timezone.py:20
+msgid "(GMT -3:00) Brazil, Buenos Aires, Georgetown"
+msgstr ""
+
+#: utils/timezone.py:21
+msgid "(GMT -2:00) Mid-Atlantic"
+msgstr ""
+
+#: utils/timezone.py:22
+msgid "(GMT -1:00) Azores, Cape Verde Islands"
+msgstr ""
+
+#: utils/timezone.py:23
+msgid "(GMT) Western Europe Time, London, Lisbon, Casablanca"
+msgstr ""
+
+#: utils/timezone.py:24
+msgid "(GMT +1:00) Brussels, Copenhagen, Madrid, Paris"
+msgstr "(GMT +1:00) Brussels, Budapest, Madrid, Paris"
+
+#: utils/timezone.py:25
+msgid "(GMT +2:00) Kaliningrad, South Africa"
+msgstr ""
+
+#: utils/timezone.py:26
+msgid "(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg"
+msgstr ""
+
+#: utils/timezone.py:27
+msgid "(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi"
+msgstr ""
+
+#: utils/timezone.py:28
+msgid "(GMT +4:30) Afghanistan"
+msgstr ""
+
+#: utils/timezone.py:29
+msgid "(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent"
+msgstr ""
+
+#: utils/timezone.py:30
+msgid "(GMT +5:30) India, Sri Lanka"
+msgstr ""
+
+#: utils/timezone.py:31
+msgid "(GMT +5:45) Nepal"
+msgstr ""
+
+#: utils/timezone.py:32
+msgid "(GMT +6:00) Almaty, Dhaka, Colombo"
+msgstr ""
+
+#: utils/timezone.py:33
+msgid "(GMT +6:30) Cocos Islands, Myanmar"
+msgstr ""
+
+#: utils/timezone.py:34
+msgid "(GMT +7:00) Bangkok, Hanoi, Jakarta"
+msgstr ""
+
+#: utils/timezone.py:35
+msgid "(GMT +8:00) Beijing, Perth, Singapore, Hong Kong"
+msgstr ""
+
+#: utils/timezone.py:36
+msgid "(GMT +8:45) Australia (Eucla)"
+msgstr ""
+
+#: utils/timezone.py:37
+msgid "(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk"
+msgstr ""
+
+#: utils/timezone.py:38
+msgid "(GMT +9:30) Australia (Northern Territory)"
+msgstr ""
+
+#: utils/timezone.py:39
+msgid "(GMT +10:00) Eastern Australia, Guam, Vladivostok"
+msgstr ""
+
+#: utils/timezone.py:40
+msgid "(GMT +11:00) Magadan, Solomon Islands, New Caledonia"
+msgstr ""
+
+#: utils/timezone.py:41
+msgid "(GMT +11:30) Norfolk Island"
+msgstr ""
+
+#: utils/timezone.py:42
+msgid "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
+msgstr ""

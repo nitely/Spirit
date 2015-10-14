@@ -1,0 +1,49 @@
+#
+# Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"PO-Revision-Date: 2015-09-23 16:48+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
+"language/hu/)\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:30
+msgid "This like already exists"
+msgstr "Ez a kedvelés már létezik"
+
+#: models.py:22
+msgid "like"
+msgstr "kedvelés"
+
+#: models.py:23
+msgid "likes"
+msgstr "kedvelések"
+
+#: templates/spirit/comment/like/create.html:5
+#: templates/spirit/comment/like/create.html:14
+msgid "Like"
+msgstr "Kedvelés"
+
+#: templates/spirit/comment/like/create.html:9
+#, python-format
+msgid "Like %(username)s's comment"
+msgstr "%(username)s hozzászólásának kedvelése"
+
+#: templates/spirit/comment/like/delete.html:5
+#: templates/spirit/comment/like/delete.html:13
+msgid "Remove like"
+msgstr "Kedvelés eltávolítása"
+
+#: templates/spirit/comment/like/delete.html:9
+#, python-format
+msgid "Remove %(username)s's comment like"
+msgstr "%(username)s hozzászólása kedvelésének visszavonása"

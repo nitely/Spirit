@@ -1,0 +1,47 @@
+#
+# Translators:
+# AlperB <ihtiyaroyuncu@yandex.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"PO-Revision-Date: 2015-09-15 19:44+0000\n"
+"Last-Translator: AlperB <ihtiyaroyuncu@yandex.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/"
+"language/tr/)\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: templates/spirit/topic/admin/_tabs.html:4
+msgid "Deleted"
+msgstr "Silindi"
+
+#: templates/spirit/topic/admin/_tabs.html:5
+msgid "Closed"
+msgstr "Kapandı"
+
+#: templates/spirit/topic/admin/_tabs.html:6
+msgid "Pinned"
+msgstr "Sabit"
+
+#: templates/spirit/topic/admin/closed.html:5
+#: templates/spirit/topic/admin/closed.html:11
+msgid "Closed topics"
+msgstr "Kapatılmış Konular"
+
+#: templates/spirit/topic/admin/deleted.html:5
+msgid "Deleted Topics"
+msgstr "Silinmiş Konular"
+
+#: templates/spirit/topic/admin/deleted.html:11
+msgid "Deleted topics"
+msgstr "Slinmiş konular"
+
+#: templates/spirit/topic/admin/pinned.html:5
+#: templates/spirit/topic/admin/pinned.html:11
+msgid "Pinned topics"
+msgstr "Sabitlenmiş konular"

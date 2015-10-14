@@ -1,0 +1,237 @@
+#
+# Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"PO-Revision-Date: 2015-10-14 19:38+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
+"language/hu/)\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:30
+msgid "Write comment..."
+msgstr "Hozzászólás..."
+
+#: forms.py:100
+#, python-format
+msgid "Unsupported file format. Supported formats are %s."
+msgstr "Érvénytelen fájlformátum. A támogatott formátumok: %s."
+
+#: models.py:20 models.py:34 models.py:49
+msgid "comment"
+msgstr "hozzászólás"
+
+#: models.py:21
+msgid "topic moved"
+msgstr "téma átmozgatva"
+
+#: models.py:22
+msgid "topic closed"
+msgstr "téma lezárva"
+
+#: models.py:23
+msgid "topic unclosed"
+msgstr "téma újra megnyitva"
+
+#: models.py:24
+msgid "topic pinned"
+msgstr "téma kiemelve"
+
+#: models.py:25
+msgid "topic unpinned"
+msgstr "téma kiemelés megszüntetve"
+
+#: models.py:35
+msgid "comment html"
+msgstr "hozzászólás HTML"
+
+#: models.py:36
+msgid "action"
+msgstr "akció"
+
+#: models.py:42
+msgid "modified count"
+msgstr "módosítások száma"
+
+#: models.py:43
+msgid "likes count"
+msgstr "kedvelések száma"
+
+#: models.py:50
+msgid "comments"
+msgstr "hozzászólások"
+
+#: tags.py:23
+msgid "This topic has been moved"
+msgstr "A téma át lett mozgatva"
+
+#: tags.py:25
+msgid "This topic has been closed"
+msgstr "A téma le lett zárva"
+
+#: tags.py:27
+msgid "This topic has been unclosed"
+msgstr "A téma újra meg lett nyitva"
+
+#: tags.py:29
+msgid "This topic has been pinned"
+msgstr "A téma ki lett emelve"
+
+#: tags.py:31
+msgid "This topic has been unpinned"
+msgstr "A téma kiemelése meg lett szüntetve"
+
+#: tags.py:33
+msgid "Unknown topic moderation action"
+msgstr "Ismeretlen moderálás akció"
+
+#: templates/spirit/comment/_editor.html:6
+msgid "Bold"
+msgstr "Félkövér"
+
+#: templates/spirit/comment/_editor.html:7
+msgid "Italic"
+msgstr "Dőlt"
+
+#: templates/spirit/comment/_editor.html:8
+msgid "List"
+msgstr "Lista"
+
+#: templates/spirit/comment/_editor.html:9
+msgid "URL"
+msgstr "Link"
+
+#: templates/spirit/comment/_editor.html:10
+msgid "Image"
+msgstr "Kép"
+
+#: templates/spirit/comment/_editor.html:11
+msgid "Poll"
+msgstr ""
+
+#: templates/spirit/comment/_editor.html:12
+msgid "Preview"
+msgstr "Előnézet"
+
+#: templates/spirit/comment/_editor.html:34
+#, python-brace-format
+msgid "uploading {image_name}"
+msgstr " {image_name} feltöltése folyamatban"
+
+#: templates/spirit/comment/_editor.html:37
+msgid "bolded text"
+msgstr "félkövér szöveg"
+
+#: templates/spirit/comment/_editor.html:38
+msgid "italicised text"
+msgstr "dőlt szöveg"
+
+#: templates/spirit/comment/_editor.html:39
+msgid "list item"
+msgstr "listaelem"
+
+#: templates/spirit/comment/_editor.html:40
+msgid "link text"
+msgstr "link szövege"
+
+#: templates/spirit/comment/_editor.html:41
+msgid "link url"
+msgstr "link url"
+
+#: templates/spirit/comment/_editor.html:42
+msgid "image text"
+msgstr "kép szövege"
+
+#: templates/spirit/comment/_editor.html:43
+msgid "image url"
+msgstr "kép url"
+
+#: templates/spirit/comment/_editor.html:44
+msgid "Title"
+msgstr ""
+
+#: templates/spirit/comment/_editor.html:45
+msgid "Description"
+msgstr ""
+
+#: templates/spirit/comment/_form.html:17
+#: templates/spirit/comment/publish.html:18
+#: templates/spirit/comment/update.html:18
+msgid "Publish"
+msgstr "Beküld"
+
+#: templates/spirit/comment/_render_list.html:47
+msgid "delete"
+msgstr "törlés"
+
+#: templates/spirit/comment/_render_list.html:50
+msgid "report"
+msgstr "jelentés"
+
+#: templates/spirit/comment/_render_list.html:53
+msgid "share"
+msgstr "megosztás"
+
+#: templates/spirit/comment/_render_list.html:57
+#: templates/spirit/comment/_render_list.html:139
+msgid "remove like"
+msgstr "kedvelés visszavonása"
+
+#: templates/spirit/comment/_render_list.html:60
+#: templates/spirit/comment/_render_list.html:138
+msgid "like"
+msgstr "kedvelés"
+
+#: templates/spirit/comment/_render_list.html:67
+msgid "edit"
+msgstr "szerkesztés"
+
+#: templates/spirit/comment/_render_list.html:71
+msgid "quote"
+msgstr "idéz"
+
+#: templates/spirit/comment/_render_list.html:72
+msgid "reply"
+msgstr "válasz"
+
+#: templates/spirit/comment/_render_list.html:79
+msgid "close"
+msgstr "bezár"
+
+#: templates/spirit/comment/_render_list.html:110
+msgid "This comment was deleted"
+msgstr "A hozzászólás törölve"
+
+#: templates/spirit/comment/_render_list.html:118
+msgid "undelete"
+msgstr "törlés visszavonása"
+
+#: templates/spirit/comment/moderate.html:5
+#: templates/spirit/comment/moderate.html:9
+msgid "Moderate comment"
+msgstr "Hozzászólás moderálása"
+
+#: templates/spirit/comment/moderate.html:14
+msgid "Apply"
+msgstr "Végrehajtás"
+
+#: templates/spirit/comment/publish.html:5
+msgid "Publish comment"
+msgstr "Hozzászólás beküldése"
+
+#: templates/spirit/comment/publish.html:9
+msgid "Publishing comment on"
+msgstr "Hozzászólás beküldése ebbe a témába:"
+
+#: templates/spirit/comment/update.html:5
+#: templates/spirit/comment/update.html:9
+msgid "Edit comment"
+msgstr "Hozzászólás szerkesztése"

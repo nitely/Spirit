@@ -1,0 +1,115 @@
+#
+# Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"PO-Revision-Date: 2015-09-23 16:14+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
+"language/hu/)\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:13
+msgid "site name"
+msgstr "oldal neve"
+
+#: forms.py:14
+msgid "site description"
+msgstr "oldal leírása"
+
+#: forms.py:15
+msgid "footer snippet"
+msgstr "lábléc kódrészlet"
+
+#: forms.py:17
+msgid "This gets rendered just before the footer in your template."
+msgstr "A sablon lábléce elé lesz kirakva."
+
+#: forms.py:18
+msgid "comments per page"
+msgstr "hozzászólások száma oldalanként"
+
+#: forms.py:19
+msgid "topics per page"
+msgstr "témák száma oldalanként"
+
+#: templates/spirit/admin/_side_menu.html:3
+msgid "Show menu"
+msgstr "Menü megjelenítése"
+
+#: templates/spirit/admin/_side_menu.html:9
+#: templates/spirit/admin/dashboard.html:5
+#: templates/spirit/admin/dashboard.html:11
+msgid "Dashboard"
+msgstr "Vezérlőpult"
+
+#: templates/spirit/admin/_side_menu.html:10
+msgid "Basic settings"
+msgstr "Alapbeállítások"
+
+#: templates/spirit/admin/_side_menu.html:11
+#: templates/spirit/admin/dashboard.html:47
+msgid "Categories"
+msgstr "Kategóriák"
+
+#: templates/spirit/admin/_side_menu.html:12
+#: templates/spirit/admin/dashboard.html:31
+msgid "Topics"
+msgstr "Témák"
+
+#: templates/spirit/admin/_side_menu.html:13
+msgid "Users"
+msgstr "Felhasználók"
+
+#: templates/spirit/admin/_side_menu.html:14
+#: templates/spirit/admin/dashboard.html:43
+msgid "Flags"
+msgstr "Jelzők"
+
+#: templates/spirit/admin/config_basic.html:5
+#: templates/spirit/admin/config_basic.html:11
+msgid "Basic Settings"
+msgstr "Alapbeállítások"
+
+#: templates/spirit/admin/config_basic.html:17
+msgid "Save"
+msgstr "Mentés"
+
+#: templates/spirit/admin/dashboard.html:14
+msgid "Software"
+msgstr "Szoftver"
+
+#: templates/spirit/admin/dashboard.html:17
+msgid "Installed"
+msgstr "Telepítve"
+
+#: templates/spirit/admin/dashboard.html:18
+msgid "Latest"
+msgstr "Utolsó"
+
+#: templates/spirit/admin/dashboard.html:22
+msgid "Statistics"
+msgstr "Statisztika"
+
+#: templates/spirit/admin/dashboard.html:27
+msgid "Members"
+msgstr "Tagok"
+
+#: templates/spirit/admin/dashboard.html:35
+msgid "Comments"
+msgstr "Hozzászólások"
+
+#: templates/spirit/admin/dashboard.html:39
+msgid "Likes"
+msgstr "Kedvelések"
+
+#: views.py:30
+msgid "Settings updated!"
+msgstr "Beállítások frissítve!"

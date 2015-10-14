@@ -11,7 +11,6 @@ from ... import utils
 
 
 class Command(BaseCommand):
-    # todo: rename to spiritmakelocales
     help = 'Creates or updates .po files and compiles them to .mo ' \
            'files for use with the builtin gettext support'
 
@@ -31,5 +30,4 @@ class Command(BaseCommand):
                 call_command('makemessages', stdout=self.stdout, stderr=self.stderr)
                 call_command('compilemessages', stdout=self.stdout, stderr=self.stderr)
 
-        self.stdout.write('Run \'python manage.py spirittxpush\' to push the changes to transifex.')
         self.stdout.write('ok')
