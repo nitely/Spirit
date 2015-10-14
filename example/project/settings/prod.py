@@ -49,10 +49,12 @@ LANGUAGES = [
     ('en', gettext_noop('English')),
     ('es', gettext_noop('Spanish')),
     ('fr', gettext_noop('French')),
+    ('hu', gettext_noop('Hungarian')),
     ('pl', gettext_noop('Polish')),
     ('pl-pl', gettext_noop('Poland Polish')),
     ('ru', gettext_noop('Russian')),
     ('sv', gettext_noop('Swedish')),
+    ('tr', gettext_noop('Turkish')),
     ('zh-hans', gettext_noop('Simplified Chinese')),
 ]
 
