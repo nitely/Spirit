@@ -1,3 +1,14 @@
+0.4.3
+==================
+
+* New app comment.poll: Polls within comments
+* New: Floating flash messages when there is a hash in the URL
+* New: Case insensitive emails (setting.ST_CASE_INSENSITIVE_EMAILS)
+* Fix to use current date when a history comment is created
+* New & updated translations: Turkish (thanks to negativefix), Hungarian (thanks to istvanf),
+Polish, Polish (Poland), Spanish, German, Chinese, Swedish and Russian
+
+
 0.4.2
 ==================
 
