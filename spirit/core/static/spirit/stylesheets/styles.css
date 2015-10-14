@@ -1188,6 +1188,15 @@ ul.reply-markdown {
   display: block;
   margin-bottom: 6px; }
 
+.messages.is-fixed {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  max-width: 68em;
+  max-height: 100%;
+  overflow-y: auto; }
+
 .messages-info, .messages-error {
   margin-bottom: 24px;
   padding: 12px; }

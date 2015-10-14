@@ -43,16 +43,18 @@ class Messages
 
     if not @hasVisibleMessages(@el)
       @el.hide()
+      @el.removeClass('is-fixed')
 
     return
 
   hasVisibleMessages: (el) =>
-    visibleMessages = (e for e in el.find('.js-message') when e.is(":visible"))
-    return visibleMessages.length > 0
+    return el
+      .find('.js-message')
+      .is(":visible")
 
   stopClick: (e) ->
-    do e.preventDefault
-    do e.stopPropagation
+    e.preventDefault()
+    e.stopPropagation()
     return
 
   hasHash: ->

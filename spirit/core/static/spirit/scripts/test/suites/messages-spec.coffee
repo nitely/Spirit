@@ -6,6 +6,7 @@ describe "messages plugin tests", ->
     fixtures.fixturesPath = 'base/test/fixtures/'
     loadFixtures('messages.html')
 
+    # messages = $('.js-messages').messages()
     Messages = $.fn.messages.Messages
 
   it "doesnt break selector chaining", ->
@@ -26,3 +27,59 @@ describe "messages plugin tests", ->
       expect(messages.hasClass('is-fixed')).toEqual(true)
     finally
       window.location.hash = org_location_hash
+
+  it "shows all the close buttons", ->
+    org_location_hash = window.location.hash
+    try
+      window.location.hash = "#p1"
+      messages = $('.js-messages').messages()
+      expect($('.js-message-close').is(":hidden")).toEqual(false)
+    finally
+      window.location.hash = org_location_hash
+
+  it "closes/hides the message", ->
+    org_location_hash = window.location.hash
+    try
+      window.location.hash = "#p1"
+      messages = $('.js-messages').messages()
+      first_set = messages.find('.js-messages-set').first()
+      first_set.find('.js-message-close').first().trigger('click')
+      expect(first_set.find('.js-message').first().is(":hidden")).toEqual(true)
+      expect(first_set.find('.js-message').last().is(":hidden")).toEqual(false)
+      expect(messages.is(":hidden")).toEqual(false)
+    finally
+      window.location.hash = org_location_hash
+
+  it "closes/hides the parent set when no more visible messages", ->
+    org_location_hash = window.location.hash
+    try
+      window.location.hash = "#p1"
+      messages = $('.js-messages').messages()
+      first_set = messages.find('.js-messages-set').first()
+      first_set.find('.js-message-close').first().trigger('click')
+      first_set.find('.js-message-close').last().trigger('click')
+      expect(first_set.is(":hidden")).toEqual(true)
+      expect(messages.is(":hidden")).toEqual(false)
+    finally
+      window.location.hash = org_location_hash
+
+  it "closes/hides the container when no more visible messages", ->
+    org_location_hash = window.location.hash
+    try
+      window.location.hash = "#p1"
+      messages = $('.js-messages').messages()
+      messages.find('.js-message-close').trigger('click')
+      expect(messages.is(":hidden")).toEqual(true)
+      expect(messages.hasClass('is-fixed')).toEqual(false)
+    finally
+      window.location.hash = org_location_hash
+
+  it "prevents the default click behaviour on close message", ->
+    event = {type: 'click', stopPropagation: (->), preventDefault: (->)}
+    stopPropagation = spyOn event, 'stopPropagation'
+    preventDefault = spyOn event, 'preventDefault'
+
+    messages = $('.js-messages').messages()
+    messages.find('.js-message-close').first().trigger(event)
+    expect(stopPropagation).toHaveBeenCalled()
+    expect(preventDefault).toHaveBeenCalled()

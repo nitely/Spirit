@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Messages</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="../scripts/vendors/jquery.min.js"></script>
+    <script src="../scripts/messages.js"></script>
+
+    <script>
+
+        $( document ).ready(function() {
+
+            $('.js-messages').messages();
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+<header class="header">
+    <a class="header-logo" href="#">Spirit</a>
+
+</header>
+
+<h1 class="headline">Flash messages</h1>
+
+<div class="js-messages messages">
+    <div class="js-messages-set messages-info" style="display: flex;">
+        <ul style="flex: 1 100%;">
+            <li class="js-message">success 1</li>
+            <li class="js-message">success 2</li>
+        </ul>
+        <div class="js-message-close" style="flex: 1; width: 20px">X</div>
+    </div>
+
+    <ul class="js-messages-set messages-error">
+        <li class="js-message">error 1</li>
+        <li class="js-message">error 2</li>
+    </ul>
+</div>
+
+
+<div style="height: 1000px">
+
+    <ul style="margin-bottom: 20px">
+        <li>Condition: .../messages.html#p1.</li>
+        <li>Expected: messages fixed to top, close button is displayed.</li>
+    </ul>
+
+    <ul style="margin-bottom: 20px">
+        <li>Condition 1: .../messages.html#p1.</li>
+        <li>Condition 2: shrink the window so it's shorter than the messages.</li>
+        <li>Expected: vertical scrollbar for messages should be displayed.</li>
+    </ul>
+
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
+    </div>
+</footer>
+
+</body>
+
+</html>

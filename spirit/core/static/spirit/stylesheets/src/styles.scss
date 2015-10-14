@@ -582,7 +582,19 @@ ul.reply-markdown {
   margin-bottom: $quarter-spacing-size;
 }
 
-//messages list
+//flash messages
+
+.messages {
+  &.is-fixed {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    max-width: $max-width;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+}
 
 %messages {
   margin-bottom: $base-spacing-size;

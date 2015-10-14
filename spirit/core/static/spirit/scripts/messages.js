@@ -51,24 +51,12 @@
       }
       if (!this.hasVisibleMessages(this.el)) {
         this.el.hide();
+        this.el.removeClass('is-fixed');
       }
     };
 
     Messages.prototype.hasVisibleMessages = function(el) {
-      var e, visibleMessages;
-      visibleMessages = (function() {
-        var i, len, ref, results;
-        ref = el.find('.js-message');
-        results = [];
-        for (i = 0, len = ref.length; i < len; i++) {
-          e = ref[i];
-          if (e.is(":visible")) {
-            results.push(e);
-          }
-        }
-        return results;
-      })();
-      return visibleMessages.length > 0;
+      return el.find('.js-message').is(":visible");
     };
 
     Messages.prototype.stopClick = function(e) {
