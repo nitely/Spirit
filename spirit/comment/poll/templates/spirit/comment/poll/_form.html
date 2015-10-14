@@ -1,0 +1,62 @@
+{% load spirit_tags i18n %}
+
+<div class="comment-poll" id="p{{ poll.pk }}">
+    <form action="{% url "spirit:comment:poll:vote" pk=poll.pk %}" method="post">
+        {% csrf_token %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+
+        {% if poll.title %}
+            <div class="poll_title">
+                {{ poll.title|safe }}
+            </div>
+        {% endif %}
+
+        <div class="poll-choices">
+            {% for field in form %}
+                {{ field }}
+            {% endfor %}
+        </div>
+
+        {% if poll.close_at or poll.is_multiple_choice or poll.is_secret %}
+            <div class="poll-note">
+                {% if poll.close_at %}
+                    <span>{% blocktrans trimmed with date=poll.close_at %}Closes on {{ date }}.{% endblocktrans %}</span>
+                {% endif %}
+
+                {% if poll.is_multiple_choice and poll.choice_min == poll.choice_max %}
+                    <span>{% blocktrans trimmed with choice_min=poll.choice_min %}You must select {{ choice_min }} choices.{% endblocktrans %}</span>
+                {% elif poll.is_multiple_choice and not poll.has_choice_min %}
+                    <span>{% blocktrans trimmed with choice_max=poll.choice_max %}You may select up to {{ choice_max }} choices.{% endblocktrans %}</span>
+                {% elif poll.is_multiple_choice and poll.has_choice_min %}
+                    <span>{% blocktrans trimmed with choice_min=poll.choice_min choice_max=poll.choice_max %}You may select no less than {{ choice_min }} and no more than {{ choice_max }} choices.{% endblocktrans %}</span>
+                {% endif %}
+
+                {% if poll.is_secret %}
+                    <span>{% trans "Results will be available when the poll is closed." %}</span>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="poll_actions">
+            <input class="poll-action button" type="submit" name="post" value="{% trans "Vote" %}" />
+
+            {% if poll.can_show_results %}
+                <a class="poll-action" href="?{% to_query_params show_poll=show_poll %}#p{{ poll.pk }}">
+                    <i class="fa fa-eye"></i> {% trans "Show results" %}
+                </a>
+            {% endif %}
+
+            {% if user.is_authenticated and user.pk == comment.user.pk %}
+                {% if poll.is_closed %}
+                    <a class="poll-action js-post" href="{% url "spirit:comment:poll:open" pk=poll.pk %}">
+                        <i class="fa fa-unlock"></i> {% trans "open" %}
+                    </a>
+                {% else %}
+                    <a class="poll-action js-post" href="{% url "spirit:comment:poll:close" pk=poll.pk %}">
+                        <i class="fa fa-lock"></i> {% trans "close" %}
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </form>
+</div>

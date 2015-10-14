@@ -19,10 +19,11 @@ class CommandsTests(TestCase):
         """
         Should compile all locales under the spirit root folder
         """
+        commands = []
         dirs = []
 
         def call_mock(command, **kwargs):
-            self._command = command
+            commands.append(command)
             dirs.append(os.getcwd())
 
         org_call, spiritcompilemessages.call_command = spiritcompilemessages.call_command, call_mock
@@ -32,9 +33,10 @@ class CommandsTests(TestCase):
             call_command('spiritcompilemessages', stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
-            self.assertEqual(self._command, 'compilemessages')
-            self.assertEqual(len(dirs), 22)
-            self.assertEqual(out_put[-2], "ok")
+            self.assertEqual(commands[0], 'makemessages')
+            self.assertEqual(commands[1], 'compilemessages')
+            self.assertEqual(len(dirs), 46)
+            self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
         finally:
             spiritcompilemessages.call_command = org_call

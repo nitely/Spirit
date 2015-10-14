@@ -1,0 +1,17 @@
+// Layout styles
+
+html {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: $dark-grey;
+  background-color: $white;
+  cursor: default;
+}
+
+body {
+  @include outer-container;
+  // if not visual-grid, add paddings
+}
+
+@include sticky-footer(100px);

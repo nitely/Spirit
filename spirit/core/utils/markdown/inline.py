@@ -29,7 +29,7 @@ class InlineGrammar(mistune.InlineGrammar):
 
     # Override
     def hard_wrap(self):
-        # Adds ":" and "@" as a valid text character, so we can match emojis and mentions.
+        # Adds ":" and "@" as an invalid text character, so we can match emojis and mentions.
         self.linebreak = re.compile(r'^ *\n(?!\s*$)')
         self.text = re.compile(
             r'^[\s\S]+?(?=[\\<!\[_*`:@~]|https?://| *\n|$)'

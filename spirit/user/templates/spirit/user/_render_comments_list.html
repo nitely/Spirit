@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="comment-text">
-                            {{ c.comment_html|safe }}
+                            {% post_render_comment comment=c %}
                         </div>
                     </div>
                 </div>

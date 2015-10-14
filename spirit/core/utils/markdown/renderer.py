@@ -30,3 +30,9 @@ class Renderer(mistune.Renderer):
     def vimeo(self, video_id):
         return '<span class="video"><iframe src="https://player.vimeo.com/video/{video_id}" ' \
                'allowfullscreen></iframe></span>\n'.format(video_id=video_id)
+
+    def poll(self, name):
+        return '<poll name={name}>\n'.format(name=name)
+
+    def poll_raw(self, poll_txt):
+        return ''.join(('<p>', poll_txt.replace('\n', '<br>'), '</p>'))

@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <h1 class="headline">{% blocktrans with username=comment.user.username %}Reporting {{ username }}'s comment{% endblocktrans %}</h1>
+    <h1 class="headline">{% blocktrans trimmed with username=comment.user.username %}Reporting {{ username }}'s comment{% endblocktrans %}</h1>
 
     <form action="." method="post">
         {% csrf_token %}

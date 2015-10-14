@@ -6,9 +6,9 @@
                 {% url "spirit:comment:find" pk=n.comment.pk as url_topic %}
 
                 {% if n.is_comment %}
-                    {% blocktrans with username=n.comment.user.username topic_title=n.topic.title %}<a href="{{ url_profile }}">{{ username }}</a> has commented on <a href="{{ url_topic }}">{{ topic_title }}</a>{% endblocktrans %}
+                    {% blocktrans trimmed with username=n.comment.user.username topic_title=n.topic.title %}<a href="{{ url_profile }}">{{ username }}</a> has commented on <a href="{{ url_topic }}">{{ topic_title }}</a>{% endblocktrans %}
                 {% elif n.is_mention %}
-                    {% blocktrans with username=n.comment.user.username topic_title=n.topic.title %}<a href="{{ url_profile }}">{{ username }}</a> has mention you on <a href="{{ url_topic }}">{{ topic_title }}</a>{% endblocktrans %}
+                    {% blocktrans trimmed with username=n.comment.user.username topic_title=n.topic.title %}<a href="{{ url_profile }}">{{ username }}</a> has mention you on <a href="{{ url_topic }}">{{ topic_title }}</a>{% endblocktrans %}
                 {% else %}
                     Unknow action
                 {% endif %}

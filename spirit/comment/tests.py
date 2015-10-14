@@ -27,9 +27,11 @@ from ..topic.models import Topic
 from ..category.models import Category
 from ..user.models import UserProfile
 from .history.models import CommentHistory
-from .utils import comment_posted
+from .utils import comment_posted, pre_comment_update, post_comment_update
 from ..topic.notification.models import TopicNotification, MENTION
 from ..topic.unread.models import TopicUnread
+from .poll.models import CommentPoll
+from . import views
 
 User = get_user_model()
 
@@ -63,6 +65,28 @@ class CommentViewTest(TestCase):
         response = self.client.get(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], self.topic)
+
+    def test_comment_publish_comment_posted(self):
+        """
+        Should call comment_posted
+        """
+        res = []
+
+        def mocked_comment_posted(comment, mentions):
+            res.append(comment)
+            res.append(mentions)
+
+        org_comment_posted, views.comment_posted = views.comment_posted, mocked_comment_posted
+        try:
+            utils.login(self)
+            form_data = {'comment': 'foobar', }
+            self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
+                             form_data)
+            self.assertEqual(len(Comment.objects.all()), 1)
+            self.assertEqual(res[0], Comment.objects.first())
+            self.assertEqual(res[1], {})
+        finally:
+            views.comment_posted = org_comment_posted
 
     def test_comment_publish_on_private(self):
         """
@@ -596,3 +620,47 @@ class CommentUtilsTest(TestCase):
         self.assertEqual(Topic.objects.get(pk=topic.pk).comment_count, 1)
         comment_posted(comment=comment, mentions=None)
         self.assertEqual(Topic.objects.get(pk=topic.pk).comment_count, 2)
+
+    def test_pre_comment_update(self):
+        """
+        * Should render static polls
+        * Should create comment history maybe
+        """
+        # Should render static polls
+        comment = utils.create_comment(user=self.user, topic=self.topic, comment_html='<poll name=foo>')
+        CommentPoll.objects.create(comment=comment, name='foo', title="my poll")
+        pre_comment_update(comment=comment)
+        self.assertTrue('my poll' in comment.comment_html)
+
+        # Should create comment history maybe
+        comment = utils.create_comment(user=self.user, topic=self.topic)
+        pre_comment_update(comment=comment)
+        self.assertEqual(len(CommentHistory.objects.filter(comment_fk=comment)), 1)
+        pre_comment_update(comment=comment)
+        self.assertEqual(len(CommentHistory.objects.filter(comment_fk=comment)), 1)
+
+    def test_post_comment_update(self):
+        """
+        * Should increase modified count
+        * Should render static polls
+        * Should create comment history
+        """
+        # Should increase modified count
+        comment = utils.create_comment(user=self.user, topic=self.topic)
+        post_comment_update(comment=comment)
+        self.assertEqual(Comment.objects.get(pk=comment.pk).modified_count, 1)
+        post_comment_update(comment=comment)
+        self.assertEqual(Comment.objects.get(pk=comment.pk).modified_count, 2)
+
+        # Should render static polls
+        comment = utils.create_comment(user=self.user, topic=self.topic, comment_html='<poll name=foo>')
+        CommentPoll.objects.create(comment=comment, name='foo', title="my poll")
+        post_comment_update(comment=comment)
+        self.assertTrue('my poll' in comment.comment_html)
+
+        # Should create comment history
+        comment = utils.create_comment(user=self.user, topic=self.topic)
+        post_comment_update(comment=comment)
+        self.assertEqual(len(CommentHistory.objects.filter(comment_fk=comment)), 1)
+        post_comment_update(comment=comment)
+        self.assertEqual(len(CommentHistory.objects.filter(comment_fk=comment)), 2)

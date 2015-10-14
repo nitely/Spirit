@@ -32,7 +32,7 @@
 
                         <div class="comment-text">
                             {% if not c.action %}
-                                {{ c.comment_html|safe }}
+                                {% post_render_comment comment=c %}
                             {% else %}
                                 <p>{% get_comment_action_text c.action %}.</p>
                             {% endif %}

@@ -14,17 +14,18 @@ from ..core.utils.ratelimit.decorators import ratelimit
 from ..core.utils.decorators import moderator_required
 from ..core.utils import markdown, paginator, render_form_errors, json_response
 from ..topic.models import Topic
-from .history.models import CommentHistory
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
-from .utils import comment_posted
+from .utils import comment_posted, post_comment_update, pre_comment_update
 
 
 @login_required
 @ratelimit(rate='1/10s')
 def publish(request, topic_id, pk=None):
-    topic = get_object_or_404(Topic.objects.opened().for_access(request.user),
-                              pk=topic_id)
+    topic = get_object_or_404(
+        Topic.objects.opened().for_access(request.user),
+        pk=topic_id
+    )
 
     if request.method == 'POST':
         form = CommentForm(user=request.user, topic=topic, data=request.POST)
@@ -59,11 +60,9 @@ def update(request, pk):
         form = CommentForm(data=request.POST, instance=comment)
 
         if form.is_valid():
-            comment_pre = Comment.objects.get(pk=comment.pk)
+            pre_comment_update(comment=Comment.objects.get(pk=comment.pk))
             comment = form.save()
-            comment.increase_modified_count()
-            CommentHistory.create_maybe(comment_pre)
-            CommentHistory.create(comment)
+            post_comment_update(comment=comment)
             return redirect(request.POST.get('next', comment.get_absolute_url()))
     else:
         form = CommentForm(instance=comment)

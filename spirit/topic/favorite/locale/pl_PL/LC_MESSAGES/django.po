@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-25 19:26+0000\n"
+"POT-Creation-Date: 2015-10-11 01:51+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,14 +12,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: topic/favorite/forms.py:30
+#: forms.py:30
 msgid "This favorite already exists"
 msgstr "Już dodałeś to do ulubionych"
 
-#: topic/favorite/models.py:21
+#: models.py:21
 msgid "favorite"
 msgstr "ulubiony"
 
-#: topic/favorite/models.py:22
+#: models.py:22
 msgid "favorites"
 msgstr "ulubione"

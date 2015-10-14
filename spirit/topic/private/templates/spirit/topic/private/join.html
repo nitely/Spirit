@@ -7,7 +7,7 @@
 {% block content %}
 
     <h1 class="headline">
-        {% blocktrans with topic_title=topic.title %}Do you want to join {{ topic_title }}?{% endblocktrans %}
+        {% blocktrans trimmed with topic_title=topic.title %}Do you want to join {{ topic_title }}?{% endblocktrans %}
     </h1>
 
     <form action="." method="post">

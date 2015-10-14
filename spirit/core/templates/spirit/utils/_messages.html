@@ -1,10 +1,17 @@
 {# django.contrib.messages #}
 {% if messages_grouped %}
-    {% for level, messages in messages_grouped.items %}
-        <ul class="messages-{{ level }}">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+    <div class="js-messages messages">
+        {% for level, messages in messages_grouped.items %}
+            <div class="js-messages-set messages-{{ level }}">
+                <ul class="messages-message">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="js-messages-close messages-close" style="display: none">
+                    <i class="fa fa-times js-messages-close-button messages-close-button"></i>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}

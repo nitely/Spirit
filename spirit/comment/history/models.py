@@ -6,7 +6,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.db import transaction
 
 
 class CommentHistory(models.Model):
@@ -28,12 +27,11 @@ class CommentHistory(models.Model):
     def create(cls, comment, created_at=None):
         created_at = created_at or timezone.now()
 
-        with transaction.atomic():
-            return cls.objects.create(
-                comment_fk=comment,
-                comment_html=comment.comment_html,
-                date=created_at
-            )
+        return cls.objects.create(
+            comment_fk=comment,
+            comment_html=comment.comment_html,
+            date=created_at
+        )
 
     @classmethod
     def create_maybe(cls, comment):

@@ -11,35 +11,46 @@ from .renderer import Renderer
 
 class Markdown(mistune.Markdown):
 
-        def __init__(self, renderer=None, **kwargs):
-            if renderer is None:
-                renderer = Renderer()
+    def __init__(self, renderer=None, **kwargs):
+        if renderer is None:
+            renderer = Renderer()
 
-            if kwargs.get('block', None) is None:
-                kwargs['block'] = BlockLexer
+        if kwargs.get('block', None) is None:
+            kwargs['block'] = BlockLexer
 
-            if kwargs.get('inline', None) is None:
-                kwargs['inline'] = InlineLexer
+        if kwargs.get('inline', None) is None:
+            kwargs['inline'] = InlineLexer
 
-            super(Markdown, self).__init__(renderer=renderer, **kwargs)
+        super(Markdown, self).__init__(renderer=renderer, **kwargs)
 
-        def render(self, text):
-            return super(Markdown, self).render(text).strip()
+    def render(self, text):
+        return super(Markdown, self).render(text).strip()
 
-        def get_mentions(self):
-            return self.inline.mentions
+    def get_mentions(self):
+        return self.inline.mentions
 
-        def parse_audio_link(self):
-            return self.renderer.audio_link(link=self.token['link'])
+    def get_polls(self):
+        return self.block.polls
 
-        def parse_image_link(self):
-            return self.renderer.image_link(src=self.token['src'], title=self.token['title'], text=self.token['text'])
+    def parse_audio_link(self):
+        return self.renderer.audio_link(link=self.token['link'])
 
-        def parse_video_link(self):
-            return self.renderer.video_link(link=self.token['link'])
+    def parse_image_link(self):
+        return self.renderer.image_link(src=self.token['src'], title=self.token['title'], text=self.token['text'])
 
-        def parse_youtube(self):
-            return self.renderer.youtube(video_id=self.token['video_id'])
+    def parse_video_link(self):
+        return self.renderer.video_link(link=self.token['link'])
 
-        def parse_vimeo(self):
-            return self.renderer.vimeo(video_id=self.token['video_id'])
+    def parse_youtube(self):
+        return self.renderer.youtube(video_id=self.token['video_id'])
+
+    def parse_vimeo(self):
+        return self.renderer.vimeo(video_id=self.token['video_id'])
+
+    def parse_poll(self):
+        try:
+            name = self.token['name']
+        except KeyError:
+            return self.renderer.poll_raw(poll_txt=self.token['raw'])
+        else:
+            return self.renderer.poll(name=name)

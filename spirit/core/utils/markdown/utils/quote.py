@@ -1,10 +1,27 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import re
 
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.utils import translation
+
+
+_PATTERN_POLL = re.compile(
+    r'^(?:\[poll[^\]]*\])\n+'
+    r'(?:\d+[^\n]*\n+)+'
+    r'(?:\[/poll\])',
+    flags=re.MULTILINE
+)
+
+
+def _strip_polls(comment):
+    return re.sub(
+        _PATTERN_POLL,
+        r'',
+        comment
+    )
 
 
 def quotify(comment, username):
@@ -18,6 +35,7 @@ def quotify(comment, username):
     with translation.override(settings.LANGUAGE_CODE):
         header = _("@%(username)s said:") % {'username': username, }
 
+    comment = _strip_polls(comment)
     lines = comment.splitlines()
     quote = "\n> ".join(lines)
     quote = "> %(header)s\n> %(quote)s\n\n" % {'header': header, 'quote': quote}

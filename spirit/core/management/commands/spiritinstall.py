@@ -10,6 +10,7 @@ class Command(BaseCommand):
     help = 'Install Spirit.'
 
     def handle(self, *args, **options):
+        # todo: add arg --no-input
         call_command('migrate', stdout=self.stdout, stderr=self.stderr)
         call_command('createcachetable', stdout=self.stdout, stderr=self.stderr)
         call_command('collectstatic', stdout=self.stdout, stderr=self.stderr, verbosity=0)

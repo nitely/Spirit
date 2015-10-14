@@ -7,8 +7,16 @@ import copy
 
 import mistune
 
+from .parsers.poll import PollParser
+
 
 class BlockGrammar(mistune.BlockGrammar):
+
+    # todo: remove all *_link
+    #link_block = re.compile(
+    #    r'^https?://[^\s]+'
+    #    r'(?:\n+|$)'
+    #)
 
     audio_link = re.compile(
         r'^https?://[^\s]+\.(mp3|ogg|wav)'
@@ -62,6 +70,27 @@ class BlockGrammar(mistune.BlockGrammar):
         r'(?:\n+|$)'
     )
 
+    # Capture polls:
+    # [poll name=foo min=1 max=1 close=1d mode=default]
+    # # Which opt you prefer?
+    # 1. opt 1
+    # 2. opt 2
+    # [/poll]
+    poll = re.compile(
+        r'^(?:\[poll'
+        r'((?:\s+name=(?P<name>[\w\-_]+))'
+        r'(?:\s+min=(?P<min>\d+))?'
+        r'(?:\s+max=(?P<max>\d+))?'
+        r'(?:\s+close=(?P<close>\d+)d)?'
+        r'(?:\s+mode=(?P<mode>(default|secret)))?'
+        r'|(?P<invalid_params>[^\]]*))'
+        r'\])\n'
+        r'((?:#\s*(?P<title>[^\n]+\n))?'
+        r'(?P<choices>(?:\d+\.\s*[^\n]+\n){2,})'
+        r'|(?P<invalid_body>(?:[^\n]+\n)*))'
+        r'(?:\[/poll\])'
+    )
+
 
 class BlockLexer(mistune.BlockLexer):
 
@@ -71,12 +100,15 @@ class BlockLexer(mistune.BlockLexer):
     default_features.insert(0, 'video_link')
     default_features.insert(0, 'youtube')
     default_features.insert(0, 'vimeo')
+    default_features.insert(0, 'poll')
 
     def __init__(self, rules=None, **kwargs):
         if rules is None:
             rules = BlockGrammar()
 
         super(BlockLexer, self).__init__(rules=rules, **kwargs)
+
+        self.polls = {'polls': [], 'choices': []}
 
     def parse_audio_link(self, m):
         link = mistune.escape(m.group(0).strip(), quote=True)
@@ -96,3 +128,15 @@ class BlockLexer(mistune.BlockLexer):
 
     def parse_vimeo(self, m):
         self.tokens.append({'type': 'vimeo', 'video_id': m.group("id")})
+
+    def parse_poll(self, m):
+        parser = PollParser(polls=self.polls, data=m.groupdict())
+
+        if parser.is_valid():
+            poll = parser.cleaned_data['poll']
+            choices = parser.cleaned_data['choices']
+            self.polls['polls'].append(poll)
+            self.polls['choices'].extend(choices)
+            self.tokens.append({'type': 'poll', 'name': poll['name']})
+        else:
+            self.tokens.append({'type': 'poll', 'raw': m.group(0)})
