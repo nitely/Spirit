@@ -66,10 +66,13 @@ def _evaluate(polls_by_name, comment, request, csrf_token):
 
 
 def render_polls(comment, request, csrf_token):
-    polls_by_name = {poll.name: poll for poll in comment.polls}
-
-    if not polls_by_name:
+    if not comment.polls:
         return comment.comment_html
 
-    evaluate = _evaluate(polls_by_name, comment, request, csrf_token)
+    evaluate = _evaluate(
+        polls_by_name={poll.name: poll for poll in comment.polls},
+        comment=comment,
+        request=request,
+        csrf_token=csrf_token
+    )
     return re.sub(PATTERN, evaluate, comment.comment_html)

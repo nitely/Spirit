@@ -1,0 +1,103 @@
+
+/*
+  Place the flash message box fixed at the
+  top of the window when the url contains a hash
+ */
+
+(function() {
+  var $, Messages,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+  $ = jQuery;
+
+  Messages = (function() {
+    function Messages(el) {
+      this.hasVisibleMessages = bind(this.hasVisibleMessages, this);
+      this.hideMessage = bind(this.hideMessage, this);
+      this.showAllCloseButtons = bind(this.showAllCloseButtons, this);
+      this.placeMessages = bind(this.placeMessages, this);
+      this.el = $(el);
+      this.allCloseButtons = this.el.find('.js-message-close');
+      this.setUp();
+    }
+
+    Messages.prototype.setUp = function() {
+      this.placeMessages();
+      this.showAllCloseButtons();
+      this.allCloseButtons.on('click', this.hideMessage);
+      return this.allCloseButtons.on('click', this.stopClick);
+    };
+
+    Messages.prototype.placeMessages = function() {
+      if (!this.hasHash()) {
+        return;
+      }
+      return this.el.addClass('is-fixed');
+    };
+
+    Messages.prototype.showAllCloseButtons = function() {
+      if (!this.hasHash()) {
+        return;
+      }
+      return this.allCloseButtons.show();
+    };
+
+    Messages.prototype.hideMessage = function(e) {
+      var $messageSet;
+      $(e.currentTarget).closest('.js-message').hide();
+      $messageSet = $(e.currentTarget).closest('.js-messages-set');
+      if (!this.hasVisibleMessages($messageSet)) {
+        $messageSet.hide();
+      }
+      if (!this.hasVisibleMessages(this.el)) {
+        this.el.hide();
+      }
+    };
+
+    Messages.prototype.hasVisibleMessages = function(el) {
+      var e, visibleMessages;
+      visibleMessages = (function() {
+        var i, len, ref, results;
+        ref = el.find('.js-message');
+        results = [];
+        for (i = 0, len = ref.length; i < len; i++) {
+          e = ref[i];
+          if (e.is(":visible")) {
+            results.push(e);
+          }
+        }
+        return results;
+      })();
+      return visibleMessages.length > 0;
+    };
+
+    Messages.prototype.stopClick = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    Messages.prototype.hasHash = function() {
+      var hash;
+      hash = window.location.hash.split("#")[1];
+      return (hash != null) && hash.length > 0;
+    };
+
+    return Messages;
+
+  })();
+
+  $.fn.extend({
+    messages: function() {
+      return this.each(function() {
+        if (!$(this).data('plugin_messages')) {
+          return $(this).data('plugin_messages', new Messages(this));
+        }
+      });
+    }
+  });
+
+  $.fn.messages.Messages = Messages;
+
+}).call(this);
+
+//# sourceMappingURL=messages.js.map

@@ -28,12 +28,10 @@ def _render_polls(comment):
         .unremoved()\
         .with_choices()
 
-    polls_by_name = {poll.name: poll for poll in polls}
-
-    if not polls_by_name:
+    if not polls:
         return comment.comment_html
 
-    evaluate = _evaluate(polls_by_name)
+    evaluate = _evaluate(polls_by_name={poll.name: poll for poll in polls})
     return re.sub(PATTERN, evaluate, comment.comment_html)
 
 
