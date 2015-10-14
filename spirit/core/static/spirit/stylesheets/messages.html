@@ -36,18 +36,25 @@
 <h1 class="headline">Flash messages</h1>
 
 <div class="js-messages messages">
-    <div class="js-messages-set messages-info" style="display: flex;">
-        <ul style="flex: 1 100%;">
-            <li class="js-message">success 1</li>
-            <li class="js-message">success 2</li>
+    <div class="js-messages-set messages-info">
+        <ul class="messages-message">
+            <li>success 1</li>
+            <li>success 2</li>
         </ul>
-        <div class="js-message-close" style="flex: 1; width: 20px">X</div>
+        <div class="js-messages-close messages-close" style="display: none">
+            <i class="js-messages-close-button messages-close-button">X</i>
+        </div>
     </div>
 
-    <ul class="js-messages-set messages-error">
-        <li class="js-message">error 1</li>
-        <li class="js-message">error 2</li>
-    </ul>
+    <div class="js-messages-set messages-error">
+        <ul class="messages-message">
+            <li>error 1</li>
+            <li>error 2</li>
+        </ul>
+        <div class="js-messages-close messages-close" style="display: none">
+            <i class="js-messages-close-button messages-close-button">X</i>
+        </div>
+    </div>
 </div>
 
 

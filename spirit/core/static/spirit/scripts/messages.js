@@ -17,7 +17,7 @@
       this.showAllCloseButtons = bind(this.showAllCloseButtons, this);
       this.placeMessages = bind(this.placeMessages, this);
       this.el = $(el);
-      this.allCloseButtons = this.el.find('.js-message-close');
+      this.allCloseButtons = this.el.find('.js-messages-close-button');
       this.setUp();
     }
 
@@ -39,24 +39,19 @@
       if (!this.hasHash()) {
         return;
       }
-      return this.allCloseButtons.show();
+      return this.el.find('.js-messages-close').show();
     };
 
     Messages.prototype.hideMessage = function(e) {
-      var $messageSet;
-      $(e.currentTarget).closest('.js-message').hide();
-      $messageSet = $(e.currentTarget).closest('.js-messages-set');
-      if (!this.hasVisibleMessages($messageSet)) {
-        $messageSet.hide();
-      }
-      if (!this.hasVisibleMessages(this.el)) {
+      $(e.currentTarget).closest('.js-messages-set').hide();
+      if (!this.hasVisibleMessages()) {
         this.el.hide();
         this.el.removeClass('is-fixed');
       }
     };
 
-    Messages.prototype.hasVisibleMessages = function(el) {
-      return el.find('.js-message').is(":visible");
+    Messages.prototype.hasVisibleMessages = function() {
+      return this.el.find('.js-messages-set').is(":visible");
     };
 
     Messages.prototype.stopClick = function(e) {

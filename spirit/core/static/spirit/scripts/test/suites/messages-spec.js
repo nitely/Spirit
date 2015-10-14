@@ -19,7 +19,7 @@
       var messages;
       messages = $('.js-messages').messages();
       expect(messages.hasClass('is-fixed')).toEqual(false);
-      return expect($('.js-message-close').is(":hidden")).toEqual(true);
+      return expect($('.js-messages-close').is(":hidden")).toEqual(true);
     });
     it("places the messages when there is a hash", function() {
       var messages, org_location_hash;
@@ -38,7 +38,7 @@
       try {
         window.location.hash = "#p1";
         messages = $('.js-messages').messages();
-        return expect($('.js-message-close').is(":hidden")).toEqual(false);
+        return expect($('.js-messages-close').is(":hidden")).toEqual(false);
       } finally {
         window.location.hash = org_location_hash;
       }
@@ -50,23 +50,7 @@
         window.location.hash = "#p1";
         messages = $('.js-messages').messages();
         first_set = messages.find('.js-messages-set').first();
-        first_set.find('.js-message-close').first().trigger('click');
-        expect(first_set.find('.js-message').first().is(":hidden")).toEqual(true);
-        expect(first_set.find('.js-message').last().is(":hidden")).toEqual(false);
-        return expect(messages.is(":hidden")).toEqual(false);
-      } finally {
-        window.location.hash = org_location_hash;
-      }
-    });
-    it("closes/hides the parent set when no more visible messages", function() {
-      var first_set, messages, org_location_hash;
-      org_location_hash = window.location.hash;
-      try {
-        window.location.hash = "#p1";
-        messages = $('.js-messages').messages();
-        first_set = messages.find('.js-messages-set').first();
-        first_set.find('.js-message-close').first().trigger('click');
-        first_set.find('.js-message-close').last().trigger('click');
+        first_set.find('.js-messages-close-button').trigger('click');
         expect(first_set.is(":hidden")).toEqual(true);
         return expect(messages.is(":hidden")).toEqual(false);
       } finally {
@@ -79,7 +63,7 @@
       try {
         window.location.hash = "#p1";
         messages = $('.js-messages').messages();
-        messages.find('.js-message-close').trigger('click');
+        messages.find('.js-messages-close-button').trigger('click');
         expect(messages.is(":hidden")).toEqual(true);
         return expect(messages.hasClass('is-fixed')).toEqual(false);
       } finally {
@@ -96,7 +80,7 @@
       stopPropagation = spyOn(event, 'stopPropagation');
       preventDefault = spyOn(event, 'preventDefault');
       messages = $('.js-messages').messages();
-      messages.find('.js-message-close').first().trigger(event);
+      messages.find('.js-messages-close-button').first().trigger(event);
       expect(stopPropagation).toHaveBeenCalled();
       return expect(preventDefault).toHaveBeenCalled();
     });

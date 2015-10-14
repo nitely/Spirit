@@ -597,6 +597,7 @@ ul.reply-markdown {
 }
 
 %messages {
+  display: flex;
   margin-bottom: $base-spacing-size;
   padding: $half-spacing-size;
 }
@@ -609,6 +610,18 @@ ul.reply-markdown {
 .messages-error {
   @extend %messages;
   background: $light-red;
+}
+
+.messages-message {
+  flex: 1 100%;
+}
+
+.messages-close {
+  flex: 1 20px;
+}
+
+.messages-close-button {
+  cursor: pointer;
 }
 
 .message-title {

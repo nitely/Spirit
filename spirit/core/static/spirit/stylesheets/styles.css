@@ -1198,6 +1198,7 @@ ul.reply-markdown {
   overflow-y: auto; }
 
 .messages-info, .messages-error {
+  display: flex;
   margin-bottom: 24px;
   padding: 12px; }
 
@@ -1206,6 +1207,15 @@ ul.reply-markdown {
 
 .messages-error {
   background: #fce2e2; }
+
+.messages-message {
+  flex: 1 100%; }
+
+.messages-close {
+  flex: 1 20px; }
+
+.messages-close-button {
+  cursor: pointer; }
 
 .message-title {
   margin-bottom: 12px; }

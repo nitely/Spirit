@@ -10,7 +10,7 @@ class Messages
 
   constructor: (el) ->
     @el = $(el)
-    @allCloseButtons = @el.find('.js-message-close')
+    @allCloseButtons = @el.find('.js-messages-close-button')
     @setUp()
 
   setUp: ->
@@ -29,27 +29,24 @@ class Messages
     if not @hasHash()
       return
 
-    @allCloseButtons.show()
+    @el
+      .find('.js-messages-close')
+      .show()
 
   hideMessage: (e) =>
     $(e.currentTarget)
-      .closest('.js-message')
+      .closest('.js-messages-set')
       .hide()
 
-    $messageSet = $(e.currentTarget).closest('.js-messages-set')
-
-    if not @hasVisibleMessages($messageSet)
-      $messageSet.hide()
-
-    if not @hasVisibleMessages(@el)
+    if not @hasVisibleMessages()
       @el.hide()
       @el.removeClass('is-fixed')
 
     return
 
-  hasVisibleMessages: (el) =>
-    return el
-      .find('.js-message')
+  hasVisibleMessages: () =>
+    return @el
+      .find('.js-messages-set')
       .is(":visible")
 
   stopClick: (e) ->

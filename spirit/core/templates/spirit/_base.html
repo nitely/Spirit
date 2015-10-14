@@ -21,6 +21,7 @@
     <script src="{% static "spirit/scripts/tab.js" %}"></script>
     <script src="{% static "spirit/scripts/postify.js" %}"></script>
     <script src="{% static "spirit/scripts/social_share.js" %}"></script>
+    <script src="{% static "spirit/scripts/messages.js" %}"></script>
 
     {% if user.is_authenticated %}
         <script src="{% static "spirit/scripts/vendors/atwho/jquery.caret.min.js" %}"></script>
@@ -49,6 +50,8 @@
         $( 'a.js-post' ).postify( {
             csrfToken: "{{ csrf_token }}",
         } );
+
+        $('.js-messages').messages();
 
         {% if user.is_authenticated %}
             $.notification( {

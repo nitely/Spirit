@@ -17,7 +17,7 @@ describe "messages plugin tests", ->
   it "does nothing when no hash", ->
     messages = $('.js-messages').messages()
     expect(messages.hasClass('is-fixed')).toEqual(false)
-    expect($('.js-message-close').is(":hidden")).toEqual(true)
+    expect($('.js-messages-close').is(":hidden")).toEqual(true)
 
   it "places the messages when there is a hash", ->
     org_location_hash = window.location.hash
@@ -33,7 +33,7 @@ describe "messages plugin tests", ->
     try
       window.location.hash = "#p1"
       messages = $('.js-messages').messages()
-      expect($('.js-message-close').is(":hidden")).toEqual(false)
+      expect($('.js-messages-close').is(":hidden")).toEqual(false)
     finally
       window.location.hash = org_location_hash
 
@@ -43,21 +43,7 @@ describe "messages plugin tests", ->
       window.location.hash = "#p1"
       messages = $('.js-messages').messages()
       first_set = messages.find('.js-messages-set').first()
-      first_set.find('.js-message-close').first().trigger('click')
-      expect(first_set.find('.js-message').first().is(":hidden")).toEqual(true)
-      expect(first_set.find('.js-message').last().is(":hidden")).toEqual(false)
-      expect(messages.is(":hidden")).toEqual(false)
-    finally
-      window.location.hash = org_location_hash
-
-  it "closes/hides the parent set when no more visible messages", ->
-    org_location_hash = window.location.hash
-    try
-      window.location.hash = "#p1"
-      messages = $('.js-messages').messages()
-      first_set = messages.find('.js-messages-set').first()
-      first_set.find('.js-message-close').first().trigger('click')
-      first_set.find('.js-message-close').last().trigger('click')
+      first_set.find('.js-messages-close-button').trigger('click')
       expect(first_set.is(":hidden")).toEqual(true)
       expect(messages.is(":hidden")).toEqual(false)
     finally
@@ -68,7 +54,7 @@ describe "messages plugin tests", ->
     try
       window.location.hash = "#p1"
       messages = $('.js-messages').messages()
-      messages.find('.js-message-close').trigger('click')
+      messages.find('.js-messages-close-button').trigger('click')
       expect(messages.is(":hidden")).toEqual(true)
       expect(messages.hasClass('is-fixed')).toEqual(false)
     finally
@@ -80,6 +66,6 @@ describe "messages plugin tests", ->
     preventDefault = spyOn event, 'preventDefault'
 
     messages = $('.js-messages').messages()
-    messages.find('.js-message-close').first().trigger(event)
+    messages.find('.js-messages-close-button').first().trigger(event)
     expect(stopPropagation).toHaveBeenCalled()
     expect(preventDefault).toHaveBeenCalled()
