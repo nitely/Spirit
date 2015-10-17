@@ -64,7 +64,7 @@
 .row-link {
   color: $dark-grey;
   
-  &:visited {
+  &:visited, &.is_visited {
     color: $grey;
   }
 }

@@ -773,7 +773,7 @@ input[type="submit"].button,
 
 .row-link {
   color: #444444; }
-  .row-link:visited {
+  .row-link:visited, .row-link.is_visited {
     color: #979797; }
 
 .row-info {

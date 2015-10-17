@@ -15,7 +15,7 @@
                     {% endif %}
 
                     {% if t.bookmark %}
-                       <a class="row-link" href="{{ t.bookmark.get_absolute_url }}">{{ t.title }}</a>
+                       <a class="row-link is_visited" href="{{ t.bookmark.get_absolute_url }}">{{ t.title }}</a>
                     {% else %}
                         <a class="row-link" href="{{ t.get_absolute_url }}">{{ t.title }}</a>
                     {% endif %}
