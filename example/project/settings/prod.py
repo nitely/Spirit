@@ -23,6 +23,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['.example.com', ]
 
+DEFAULT_FROM_EMAIL = 'MyForum <noreply@example.com>'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL  # For error notifications
+
 # Extend the Spirit installed apps
 # Check out the .base.py file for more examples
 INSTALLED_APPS.extend([

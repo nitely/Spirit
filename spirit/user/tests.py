@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import datetime
 
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.contrib.auth import get_user_model, HASH_SESSION_KEY
@@ -17,10 +17,12 @@ from djconfig.utils import override_djconfig
 from ..core.tests import utils
 from .forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
 from ..comment.like.models import CommentLike
-from .utils.tokens import UserEmailChangeTokenGenerator
 from ..topic.models import Topic
 from ..comment.models import Comment
 from ..comment.bookmark.models import CommentBookmark
+from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from .utils.email import send_activation_email, send_email_change_email, sender
+from .utils import email
 
 User = get_user_model()
 
@@ -589,3 +591,197 @@ class UserModelTest(TestCase):
         user.st.is_administrator = True
         user.st.save()
         self.assertTrue(user.st.is_moderator)
+
+
+
+class UtilsUserTests(TestCase):
+
+    def setUp(self):
+        cache.clear()
+        self.user = utils.create_user()
+
+    def test_user_activation_token_generator(self):
+        """
+        Validate if user can be activated
+        """
+        self.user.st.is_verified = False
+
+        activation_token = UserActivationTokenGenerator()
+        token = activation_token.generate(self.user)
+        self.assertTrue(activation_token.is_valid(self.user, token))
+        self.assertFalse(activation_token.is_valid(self.user, "bad token"))
+
+        # Invalid after verification
+        self.user.st.is_verified = True
+        self.assertFalse(activation_token.is_valid(self.user, token))
+
+        # Invalid for different user
+        user2 = utils.create_user()
+        self.assertFalse(activation_token.is_valid(user2, token))
+
+    def test_user_email_change_token_generator(self):
+        """
+        Email change
+        """
+        new_email = "footoken@bar.com"
+        email_change_token = UserEmailChangeTokenGenerator()
+        token = email_change_token.generate(self.user, new_email)
+        self.assertTrue(email_change_token.is_valid(self.user, token))
+        self.assertFalse(email_change_token.is_valid(self.user, "bad token"))
+
+        # get new email
+        self.assertTrue(email_change_token.is_valid(self.user, token))
+        self.assertEqual(email_change_token.get_email(), new_email)
+
+        # Invalid for different user
+        user2 = utils.create_user()
+        self.assertFalse(email_change_token.is_valid(user2, token))
+
+        # Invalid after email change
+        self.user.email = "email_changed@bar.com"
+        self.assertFalse(email_change_token.is_valid(self.user, token))
+
+    def test_user_activation_email(self):
+        """
+        Send activation email
+        """
+        self._monkey_sender_called = False
+
+        def monkey_sender(request, subject, template_name, context, email):
+            self.assertEqual(request, req)
+            self.assertEqual(email, [self.user.email, ])
+
+            activation_token = UserActivationTokenGenerator()
+            token = activation_token.generate(self.user)
+            self.assertDictEqual(context, {'token': token, 'user_id': self.user.pk})
+
+            self.assertEqual(subject, _("User activation"))
+            self.assertEqual(template_name, 'spirit/user/activation_email.html')
+
+            self._monkey_sender_called = True
+
+        req = RequestFactory().get('/')
+
+        org_sender, email.sender = email.sender, monkey_sender
+        try:
+            send_activation_email(req, self.user)
+            self.assertTrue(self._monkey_sender_called)
+        finally:
+            email.sender = org_sender
+
+    def test_user_activation_email_complete(self):
+        """
+        Integration test
+        """
+        req = RequestFactory().get('/')
+        send_activation_email(req, self.user)
+        self.assertEquals(len(mail.outbox), 1)
+
+    def test_email_change_email(self):
+        """
+        Send change email
+        """
+        self._monkey_sender_called = False
+
+        def monkey_sender(request, subject, template_name, context, email):
+            self.assertEqual(request, req)
+            self.assertEqual(email, [self.user.email, ])
+
+            change_token = UserEmailChangeTokenGenerator()
+            token = change_token.generate(self.user, new_email)
+            self.assertDictEqual(context, {'token': token, })
+
+            self.assertEqual(subject, _("Email change"))
+            self.assertEqual(template_name, 'spirit/user/email_change_email.html')
+
+            self._monkey_sender_called = True
+
+        req = RequestFactory().get('/')
+        new_email = "newfoobar@bar.com"
+
+        org_sender, email.sender = email.sender, monkey_sender
+        try:
+            send_email_change_email(req, self.user, new_email)
+            self.assertTrue(self._monkey_sender_called)
+        finally:
+            email.sender = org_sender
+
+    def test_email_change_email_complete(self):
+        """
+        Integration test
+        """
+        req = RequestFactory().get('/')
+        send_email_change_email(req, self.user, "foo@bar.com")
+        self.assertEquals(len(mail.outbox), 1)
+
+    def test_sender(self):
+        """
+        Base email sender
+        """
+        class SiteMock:
+            name = "foo"
+            domain = "bar.com"
+
+        def monkey_get_current_site(request):
+            return SiteMock
+
+        def monkey_render_to_string(template, data):
+            self.assertEquals(template, template_name)
+            self.assertDictEqual(data, {'user_id': self.user.pk,
+                                        'token': token,
+                                        'site_name': SiteMock.name,
+                                        'domain': SiteMock.domain,
+                                        'protocol': 'https' if req.is_secure() else 'http'})
+            return "email body"
+
+        req = RequestFactory().get('/')
+        token = "token"
+        subject = SiteMock.name
+        template_name = "template.html"
+        context = {'user_id': self.user.pk, 'token': token}
+
+        org_site, email.get_current_site = email.get_current_site, monkey_get_current_site
+        org_render_to_string, email.render_to_string = email.render_to_string, monkey_render_to_string
+        try:
+            sender(req, subject, template_name, context, [self.user.email, ])
+        finally:
+            email.get_current_site = org_site
+            email.render_to_string = org_render_to_string
+
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].subject, SiteMock.name)
+        self.assertEquals(mail.outbox[0].body, "email body")
+        self.assertEquals(mail.outbox[0].from_email, "foo <noreply@bar.com>")
+        self.assertEquals(mail.outbox[0].to, [self.user.email, ])
+
+    @override_settings(DEFAULT_FROM_EMAIL='foo@bar.com')
+    def test_sender_from_email(self):
+        """
+        Should use DEFAULT_FROM_EMAIL instead of the default
+        """
+        class SiteMock:
+            name = "foo"
+            domain = "bar.com"
+
+        def monkey_get_current_site(*args, **kw):
+            return SiteMock
+
+        def monkey_render_to_string(*args, **kw):
+            return "email body"
+
+        req = RequestFactory().get('/')
+        token = "token"
+        subject = SiteMock.name
+        template_name = "template.html"
+        context = {'user_id': self.user.pk, 'token': token}
+
+        org_site, email.get_current_site = email.get_current_site, monkey_get_current_site
+        org_render_to_string, email.render_to_string = email.render_to_string, monkey_render_to_string
+        try:
+            sender(req, subject, template_name, context, [self.user.email, ])
+        finally:
+            email.get_current_site = org_site
+            email.render_to_string = org_render_to_string
+
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].from_email, "foo@bar.com")

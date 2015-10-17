@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-from smtplib import SMTPException
 import logging
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import ugettext as _
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
+from django.conf import settings
 
 from .tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 
@@ -22,11 +22,17 @@ def sender(request, subject, template_name, context, to):
         'protocol': 'https' if request.is_secure() else 'http'
     })
     message = render_to_string(template_name, context)
+
+    # todo: remove in Spirit 0.5 (use DEFAULT_FROM_EMAIL)
     from_email = "{site_name} <{name}@{domain}>".format(
         name="noreply",
         domain=site.domain,
         site_name=site.name
     )
+
+    # todo: remove
+    if settings.DEFAULT_FROM_EMAIL != 'webmaster@localhost':
+        from_email = settings.DEFAULT_FROM_EMAIL
 
     for recipient in to:
         try:
