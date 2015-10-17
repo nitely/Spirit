@@ -55,6 +55,7 @@ class Bookmark
             return
 
         @mark.isSending = true
+        sentCommentNumber = @mark.commentNumber
 
         post = $.post(
             @options.target,
@@ -66,6 +67,10 @@ class Bookmark
 
         post.always( =>
             @mark.isSending = false
+
+            # todo: test!
+            if @mark.commentNumber > sentCommentNumber
+                @sendCommentNumber()
         )
 
 

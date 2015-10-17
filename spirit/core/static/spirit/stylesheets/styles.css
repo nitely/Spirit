@@ -773,7 +773,7 @@ input[type="submit"].button,
 
 .row-link {
   color: #444444; }
-  .row-link:visited, .row-link.is_visited {
+  .row-link:visited, .row-link.is-visited {
     color: #979797; }
 
 .row-info {
@@ -788,6 +788,8 @@ input[type="submit"].button,
     margin-left: 24px; }
     .row-info div:first-child {
       margin-left: 0; }
+  .row-info .is-new {
+    color: #c65555; }
   @media screen and (min-width: 768px) {
     .row-info {
       float: left;

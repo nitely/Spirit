@@ -1,10 +1,15 @@
+0.4.4
+==================
+
+* New: mark topic as visited (grey out the link) when it has a bookmark
+* New: mark topic as *has new comments* (red out comment icon) when it has new comments
+
 0.4.3
 ==================
 
 * New app comment.poll: Polls within comments
 * New: Floating flash messages when there is a hash in the URL
 * New: Case insensitive emails (setting.ST_CASE_INSENSITIVE_EMAILS)
-* Fix to use current date when a history comment is created
 * New & updated translations: Turkish (thanks to negativefix), Hungarian (thanks to istvanf),
 Polish, Polish (Poland), Spanish, German, Chinese, Swedish and Russian
 

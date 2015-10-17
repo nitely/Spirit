@@ -64,7 +64,8 @@
 .row-link {
   color: $dark-grey;
   
-  &:visited, &.is_visited {
+  &:visited,
+  &.is-visited {
     color: $grey;
   }
 }
@@ -80,6 +81,10 @@
 	&:first-child {
       margin-left: 0;
     }
+  }
+
+  .is-new {
+    color: $red;
   }
   
   @include media( $medium ) {

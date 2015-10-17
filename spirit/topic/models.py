@@ -57,6 +57,27 @@ class Topic(models.Model):
         except (AttributeError, IndexError):
             return
 
+    @property
+    def new_comments_count(self):
+        # This may not be accurate since bookmarks requires JS
+        # without JS, the first comment in a page is marked,
+        # so this counter should be shown running a JS script
+        # todo: test!
+        if not self.bookmark:
+            return 0
+
+        count = self.comment_count - self.bookmarks[0].comment_number
+
+        if count < 0:  # Comments may have been moved
+            return 0
+
+        return count
+
+    @property
+    def has_new_comments(self):
+        # todo: test!
+        return self.new_comments_count > 0
+
     def increase_view_count(self):
         Topic.objects\
             .filter(pk=self.pk)\
