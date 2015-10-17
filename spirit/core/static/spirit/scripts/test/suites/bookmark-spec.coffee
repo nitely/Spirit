@@ -28,7 +28,10 @@ describe "bookmark plugin tests", ->
 
     it "sends the first comment number", ->
         expect($.post.calls.any()).toEqual true
-        expect($.post.calls.argsFor(0)).toEqual ['/foo/', {csrfmiddlewaretoken: "foobar", comment_number: 1}]
+        expect($.post.calls.argsFor(0)).toEqual([
+            '/foo/',
+            {csrfmiddlewaretoken: "foobar", comment_number: 1}
+        ])
 
     it "stores the last comment number", ->
         bookmark = comments.first().data 'plugin_bookmark'
@@ -96,3 +99,34 @@ describe "bookmark plugin tests", ->
         expect($.post.calls.any()).toEqual true
         expect(always.calls.any()).toEqual true
         expect(mark.isSending).toEqual true
+
+    it "sends current comment number after sending previous when current > previous", ->
+        post.calls.reset()
+        expect($.post.calls.any()).toEqual false
+
+        d = $.Deferred()
+        post.and.callFake (req) =>
+            # d.resolve()
+            return d.promise()
+
+        mark.commentNumber = 1
+        bookmark_2 = comments.last().data 'plugin_bookmark'
+        bookmark_2.onWaypoint()
+        expect($.post.calls.count()).toEqual 1
+        expect($.post.calls.argsFor(0)).toEqual([
+            '/foo/',
+            {csrfmiddlewaretoken: "foobar", comment_number: 2}
+        ])
+
+        # Increase comment (scroll down) and resolve the previous request
+        mark.commentNumber++
+        d.resolve()
+        expect($.post.calls.count()).toEqual 2
+        expect($.post.calls.argsFor(1)).toEqual([
+            '/foo/',
+            {csrfmiddlewaretoken: "foobar", comment_number: 3}
+        ])
+
+        # It does not resend when current == previous
+        d.resolve()
+        expect($.post.calls.count()).toEqual 2

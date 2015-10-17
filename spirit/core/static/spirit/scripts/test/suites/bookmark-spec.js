@@ -85,7 +85,7 @@
         window.location.hash = org_location_hash;
       }
     });
-    return it("sends only one comment number in a given time", function() {
+    it("sends only one comment number in a given time", function() {
       var always, bookmark_2, d;
       post.calls.reset();
       expect($.post.calls.any()).toEqual(false);
@@ -107,6 +107,38 @@
       expect($.post.calls.any()).toEqual(true);
       expect(always.calls.any()).toEqual(true);
       return expect(mark.isSending).toEqual(true);
+    });
+    return it("sends current comment number after sending previous when current > previous", function() {
+      var bookmark_2, d;
+      post.calls.reset();
+      expect($.post.calls.any()).toEqual(false);
+      d = $.Deferred();
+      post.and.callFake((function(_this) {
+        return function(req) {
+          return d.promise();
+        };
+      })(this));
+      mark.commentNumber = 1;
+      bookmark_2 = comments.last().data('plugin_bookmark');
+      bookmark_2.onWaypoint();
+      expect($.post.calls.count()).toEqual(1);
+      expect($.post.calls.argsFor(0)).toEqual([
+        '/foo/', {
+          csrfmiddlewaretoken: "foobar",
+          comment_number: 2
+        }
+      ]);
+      mark.commentNumber++;
+      d.resolve();
+      expect($.post.calls.count()).toEqual(2);
+      expect($.post.calls.argsFor(1)).toEqual([
+        '/foo/', {
+          csrfmiddlewaretoken: "foobar",
+          comment_number: 3
+        }
+      ]);
+      d.resolve();
+      return expect($.post.calls.count()).toEqual(2);
     });
   });
 

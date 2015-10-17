@@ -66,12 +66,8 @@ class Topic(models.Model):
         if not self.bookmark:
             return 0
 
-        count = self.comment_count - self.bookmarks[0].comment_number
-
-        if count < 0:  # Comments may have been moved
-            return 0
-
-        return count
+        # Comments may have been moved
+        return max(0, self.comment_count - self.bookmarks[0].comment_number)
 
     @property
     def has_new_comments(self):

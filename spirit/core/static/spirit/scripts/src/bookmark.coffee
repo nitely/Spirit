@@ -68,7 +68,6 @@ class Bookmark
         post.always( =>
             @mark.isSending = false
 
-            # todo: test!
             if @mark.commentNumber > sentCommentNumber
                 @sendCommentNumber()
         )
