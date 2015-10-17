@@ -1,7 +1,7 @@
 
 /*
-  Place the flash message box fixed at the
-  top of the window when the url contains a hash
+    Place the flash message box fixed at the
+    top of the window when the url contains a hash
  */
 
 (function() {

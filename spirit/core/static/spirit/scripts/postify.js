@@ -1,6 +1,6 @@
 
 /*
-  Make post on anchor click
+    Make post on anchor click
  */
 
 (function() {

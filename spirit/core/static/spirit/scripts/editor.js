@@ -1,7 +1,7 @@
 
 /*
-  Markdown editor
-  requires: marked.js
+    Markdown editor
+    requires: marked.js
  */
 
 (function() {

@@ -1,7 +1,7 @@
 
 /*
-  A library to tell the server how far you have scrolled down.
-  requires: waypoints
+    A library to tell the server how far you have scrolled down.
+    requires: waypoints
  */
 
 (function() {

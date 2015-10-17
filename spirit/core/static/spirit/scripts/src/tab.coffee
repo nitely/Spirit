@@ -1,5 +1,5 @@
 ###
-  Generic tabs
+    Generic tabs
 ###
 
 $ = jQuery
@@ -7,53 +7,54 @@ $ = jQuery
 
 class Tab
 
-  constructor: (el) ->
-    @el = $(el)
-    do @setUp
+    constructor: (el) ->
+        @el = $(el)
+        @setUp()
 
-  setUp: ->
-    @el.on 'click', @tabSwitch
-    @el.on 'click', @stopClick
+    setUp: ->
+        @el.on('click', @tabSwitch)
+        @el.on('click', @stopClick)
 
-  tabSwitch: =>
-    do @hideAllTabsContent
+    tabSwitch: =>
+        @hideAllTabsContent()
 
-    if @el.hasClass "is-selected"
-      @el.removeClass "is-selected"
-    else
-      do @unselectAllTabs
-      do @selectTab
-      do @showTabContent
+        if @el.hasClass("is-selected")
+            @el.removeClass("is-selected")
+        else
+            @unselectAllTabs()
+            @selectTab()
+            @showTabContent()
 
-    return
+        return
 
-  hideAllTabsContent: =>
-    $tabs_container = @el.closest ".js-tabs-container"
-    $tabs_content = $tabs_container.find ".js-tab-content"
-    do $tabs_content.hide
+    hideAllTabsContent: =>
+        $tabs_container = @el.closest(".js-tabs-container")
+        $tabs_content = $tabs_container.find(".js-tab-content")
+        $tabs_content.hide()
 
-  unselectAllTabs: =>
-    $tabs_container = @el.closest ".js-tabs-container"
-    $tabs = $tabs_container.find ".js-tab"
-    $tabs.removeClass "is-selected"
+    unselectAllTabs: =>
+        $tabs_container = @el.closest(".js-tabs-container")
+        $tabs = $tabs_container.find(".js-tab")
+        $tabs.removeClass("is-selected")
 
-  selectTab: =>
-    @el.addClass "is-selected"
+    selectTab: =>
+        @el.addClass("is-selected")
 
-  showTabContent: =>
-    tab_content = @el.data "related"
-    do $(tab_content).show
+    showTabContent: =>
+        tab_content = @el.data("related")
+        $(tab_content).show()
 
-  stopClick: (e) ->
-    do e.preventDefault
-    do e.stopPropagation
-    return
+    stopClick: (e) ->
+        e.preventDefault()
+        e.stopPropagation()
+        return
 
 
 $.extend
-  tab: ->
-    $('.js-tab').each ->
-      if not $(@).data 'plugin_tab'
-        $(@).data 'plugin_tab', new Tab(@)
+    tab: ->
+        $('.js-tab').each( ->
+            if not $(@).data('plugin_tab')
+                $(@).data('plugin_tab', new Tab(@))
+        )
 
 $.tab.Tab = Tab

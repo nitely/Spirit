@@ -1,6 +1,6 @@
 
 /*
-  Move comments to other topic
+    Move comments to other topic
  */
 
 (function() {

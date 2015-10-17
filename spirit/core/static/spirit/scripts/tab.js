@@ -1,6 +1,6 @@
 
 /*
-  Generic tabs
+    Generic tabs
  */
 
 (function() {

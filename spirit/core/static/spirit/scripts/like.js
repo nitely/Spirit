@@ -1,7 +1,7 @@
 
 /*
-  Post likes via Ajax
-  requires: util.js
+    Post likes via Ajax
+    requires: util.js
  */
 
 (function() {

@@ -1,7 +1,7 @@
 
 /*
-  Notifications ajax tab
-  requires: util.js, tab.js
+    Notifications ajax tab
+    requires: util.js, tab.js
  */
 
 (function() {

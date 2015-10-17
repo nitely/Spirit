@@ -1,7 +1,7 @@
 
 /*
-  Markdown editor image upload, should be loaded before $.editor()
-  requires: util.js
+    Markdown editor image upload, should be loaded before $.editor()
+    requires: util.js
  */
 
 (function() {

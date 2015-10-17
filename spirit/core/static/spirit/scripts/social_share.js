@@ -1,6 +1,6 @@
 
 /*
-  Social share popup
+    Social share popup
  */
 
 (function() {

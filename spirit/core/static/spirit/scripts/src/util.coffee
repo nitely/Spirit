@@ -6,8 +6,8 @@ $ = jQuery
 
 
 $.extend
-  format: (str, kwargs) ->
-    for key, value of kwargs
-      str = str.replace "{#{key}}", String value
+    format: (str, kwargs) ->
+        for key, value of kwargs
+            str = str.replace("{#{key}}", String(value))
 
-    return str
+        return str
