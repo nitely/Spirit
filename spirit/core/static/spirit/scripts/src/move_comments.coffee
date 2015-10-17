@@ -48,12 +48,13 @@ class MoveComment
         }).appendTo($li)
 
         # add comment_id to every checkbox value
-        $checkbox.each ->
+        $checkbox.each( ->
             $commentId = $(@)
                 .closest(".comment")
                 .data("pk")
 
             $(@).val($commentId)
+        )
 
     moveComments: =>
         $form = $("<form/>", {

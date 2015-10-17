@@ -77,10 +77,10 @@
         expect(newMark.commentNumber).toEqual(4);
         window.location.hash = "http://example.com/foo/";
         newMark = new Mark();
-        expect(newMark.commentNumber).toEqual(-1);
+        expect(newMark.commentNumber).toEqual(0);
         window.location.hash = "http://example.com/foo/#foobar5";
         newMark = new Mark();
-        return expect(newMark.commentNumber).toEqual(-1);
+        return expect(newMark.commentNumber).toEqual(0);
       } finally {
         window.location.hash = org_location_hash;
       }

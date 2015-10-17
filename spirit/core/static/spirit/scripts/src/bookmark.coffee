@@ -16,11 +16,11 @@ class Mark
         commentNumber = window.location.hash.split("#c")[1]
         commentNumber = parseInt(commentNumber, 10)  # base 10
 
-        if isNaN commentNumber
+        if isNaN(commentNumber)
             commentNumber = 0
         else
-        # workaround to always send comment number from hash
-        commentNumber -= 1
+            # workaround to always send comment number from hash
+            commentNumber -= 1
 
         return commentNumber
 

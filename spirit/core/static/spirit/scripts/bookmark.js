@@ -23,9 +23,8 @@
       if (isNaN(commentNumber)) {
         commentNumber = 0;
       } else {
-
+        commentNumber -= 1;
       }
-      commentNumber -= 1;
       return commentNumber;
     };
 
