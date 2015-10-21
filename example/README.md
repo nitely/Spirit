@@ -13,12 +13,23 @@ Spirit example application in this directory:
     $ python manage.py spiritinstall
     $ python manage.py runserver
 
-You should then be able to open your browser on http://127.0.0.1:8000 and
-see the Spirit homepage.
+Visit http://127.0.0.1:8000/
 
 > This will run using the *developer* settings,
 > which are not suitable for production environments.
 
-> In production, you should create a `prod_local.py`,
+
+> On production, you should create a `prod_local.py`,
 > import the production settings `from .prod import *`
 > and overwrite settings such as `SECRET_KEY`, `DATABASES` and `ALLOWED_HOSTS`.
+>
+> You should run Spirit on a real web server. ie: gunicorn + Nginx.
+
+
+> An email server is required, you can host your own (ie: [exim](http://www.exim.org/)),
+> or hire an external service provider (ie: [Mandrill](http://mandrill.com/)).
+
+
+> You will need to setup a search engine,
+> Spirit is configured to work with [Woosh](https://bitbucket.org/mchaput/whoosh/wiki/Home) by default.
+

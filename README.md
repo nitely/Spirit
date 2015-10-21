@@ -17,34 +17,7 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 
 ## Installing (Advanced)
 
-Check out the [example](https://github.com/nitely/Spirit/tree/master/example) provided.
-
-In short:
-
-Add `url(r'^', include('spirit.urls')),` to your *urls.py*
-
-Add `from spirit.settings import *` to the top of your *settings.py* file,
-otherwise you will have to setup all django's related constants (Installed_apps, Middlewares, Login_url, etc)
-
-Run:
-
-    pip install django-spirit
-    python manage.py spiritinstall
-
-> You will need to setup a search engine,
-> Spirit is configured to work with [Woosh](https://bitbucket.org/mchaput/whoosh/wiki/Home) by default.
->
-> An email server is required, you can host your own (ie: [exim](http://www.exim.org/)),
-> or hire an external service provider (ie: [Mandrill](http://mandrill.com/)).
-
-Start a development server:
-
-    python manage.py runserver
-
-Visit (http://127.0.0.1:8000/)
-
-> On production, you would rather run Spirit on a real web server. ie: gunicorn + Nginx.
-> Running Spirit on a [virtualenv](http://www.virtualenv.org) is adviced.
+Check out the [example project](https://github.com/nitely/Spirit/tree/master/example).
 
 ## Upgrading
 
