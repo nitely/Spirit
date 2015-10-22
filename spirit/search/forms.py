@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_text
 
 from haystack.forms import SearchForm
 from haystack.query import EmptySearchQuerySet
@@ -43,6 +44,10 @@ class AdvancedSearchForm(BaseSearchForm):
                                               required=False,
                                               label=_('Filter by'),
                                               widget=forms.CheckboxSelectMultiple)
+
+    def __init__(self, *args, **kwargs):
+        super(AdvancedSearchForm, self).__init__(*args, **kwargs)
+        self.fields['category'].label_from_instance = lambda obj: smart_text(obj.title)
 
     def search(self):
         sqs = super(AdvancedSearchForm, self).search()
