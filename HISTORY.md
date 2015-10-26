@@ -3,6 +3,10 @@
 
 * New: mark topic as visited (grey out the link) when it has a bookmark
 * New: mark topic as *has new comments* (red out comment icon) when it has new comments
+* Fix: send emails as `DEFAULT_FROM_EMAIL` (default to `site.name <noreply@[site.domain]>`),
+setting this will be mandatory in future releases (default will be removed).
+* Fix: Implement missing `apps.AppConfig` in `spirit.core` to avoid app label clashes.
+* Fix: Show category names in the advance search template.
 
 0.4.3
 ==================
@@ -12,7 +16,6 @@
 * New: Case insensitive emails (setting.ST_CASE_INSENSITIVE_EMAILS)
 * New & updated translations: Turkish (thanks to negativefix), Hungarian (thanks to istvanf),
 Polish, Polish (Poland), Spanish, German, Chinese, Swedish and Russian
-
 
 0.4.2
 ==================
