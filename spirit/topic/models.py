@@ -62,7 +62,6 @@ class Topic(models.Model):
         # This may not be accurate since bookmarks requires JS,
         # without JS only the first comment in a page is marked,
         # so this counter should be shown running a JS script
-        # todo: test!
         if not self.bookmark:
             return 0
 
@@ -71,7 +70,6 @@ class Topic(models.Model):
 
     @property
     def has_new_comments(self):
-        # todo: test!
         return self.new_comments_count > 0
 
     def increase_view_count(self):
