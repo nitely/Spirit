@@ -1,11 +1,12 @@
 #
 # Translators:
+# Esteban M. Castro Borsani <ecastroborsani@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:35+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"PO-Revision-Date: 2015-10-20 13:41+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
 "language/es/)\n"
@@ -17,7 +18,7 @@ msgstr ""
 
 #: forms.py:33
 msgid "The email is taken."
-msgstr ""
+msgstr "El email ya esta registrado."
 
 #: forms.py:43 forms.py:48 templates/spirit/user/profile_update.html:12
 msgid "Email"
@@ -29,7 +30,7 @@ msgstr "Contraseña"
 
 #: forms.py:59
 msgid "The provided password is incorrect."
-msgstr ""
+msgstr "La contraseña es incorrecta"
 
 #: forms.py:80
 #, python-format
@@ -38,7 +39,7 @@ msgstr "El tiempo actual es: %(date)s %(time)s"
 
 #: models.py:16
 msgid "profile"
-msgstr ""
+msgstr "perfil"
 
 #: models.py:19
 msgid "location"
@@ -66,13 +67,15 @@ msgstr "estado moderador"
 
 #: models.py:25
 msgid "verified"
-msgstr ""
+msgstr "verificado"
 
 #: models.py:26
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr ""
+"Designa si el usuario ha verificado su cuenta por email u otros medios. "
+"Deselecciona para dejar que el usuario la active."
 
 #: models.py:30
 msgid "topic count"
@@ -84,11 +87,11 @@ msgstr "comentario contador"
 
 #: models.py:34
 msgid "forum profile"
-msgstr ""
+msgstr "perfil de foro"
 
 #: models.py:35
 msgid "forum profiles"
-msgstr ""
+msgstr "perfiles de foro"
 
 #: models.py:56
 msgid "user"
@@ -214,8 +217,8 @@ msgid "comments"
 msgstr "comentarios"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:433
-#: utils/email.py:52
+#: templates/spirit/user/profile_email_change.html:9 tests.py:435 tests.py:694
+#: utils/email.py:58
 msgid "Email change"
 msgstr "Cambiar email"
 
@@ -260,11 +263,11 @@ msgstr "Ve a gravatar.con y usa tu email actual para cambiarlo"
 msgid "Save"
 msgstr "Guardar"
 
-#: utils/email.py:44
+#: tests.py:658 utils/email.py:50
 msgid "User activation"
 msgstr "Activación de usuario"
 
-#: utils/email.py:61
+#: utils/email.py:67
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr "Nueva notificación: %(topic_name)s"
@@ -287,4 +290,4 @@ msgstr "Tu email ha sido cambiado!"
 
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
-msgstr ""
+msgstr "Lo sentimos, no pudimos cambiar tu email."

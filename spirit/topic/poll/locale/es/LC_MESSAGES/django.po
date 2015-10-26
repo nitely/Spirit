@@ -1,11 +1,12 @@
 #
 # Translators:
+# Esteban M. Castro Borsani <ecastroborsani@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:56+0000\n"
-"PO-Revision-Date: 2015-10-14 19:37+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"PO-Revision-Date: 2015-10-20 13:37+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
 "language/es/)\n"
@@ -17,11 +18,11 @@ msgstr ""
 
 #: forms.py:28
 msgid "Choice's limit must be greater than zero"
-msgstr ""
+msgstr "El limite de opciones debe ser mayor a cero"
 
 #: forms.py:90
 msgid "There must be 2 or more choices"
-msgstr ""
+msgstr "Debe haber 2 o más opciones"
 
 #: forms.py:126 forms.py:132
 msgid "Poll choices"

@@ -1,11 +1,12 @@
 #
 # Translators:
+# Esteban M. Castro Borsani <ecastroborsani@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:56+0000\n"
-"PO-Revision-Date: 2015-10-14 19:36+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"PO-Revision-Date: 2015-10-20 13:28+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
 "language/es/)\n"
@@ -45,7 +46,7 @@ msgstr "anclado"
 
 #: models.py:27
 msgid "globally pinned"
-msgstr ""
+msgstr "anclado globalmente"
 
 #: models.py:28
 msgid "closed"
@@ -127,11 +128,11 @@ msgstr "Anclar tema"
 
 #: templates/spirit/topic/detail.html:63
 msgid "Unpin topic globally"
-msgstr ""
+msgstr "Desanclar discusión globalmente"
 
 #: templates/spirit/topic/detail.html:65
 msgid "Pin topic globally"
-msgstr ""
+msgstr "Anclar discusión globalmente"
 
 #: templates/spirit/topic/detail.html:74
 msgid "Topic id"

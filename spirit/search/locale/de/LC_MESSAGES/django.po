@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,12 +12,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:22
+#: forms.py:23
 #, python-format
 msgid "Your search must contain at least %(length)s characters."
 msgstr "Deine Suche muss zumindest %(length)s Zeichen enthalten."
 
-#: forms.py:44
+#: forms.py:45
 msgid "Filter by"
 msgstr "sortieren nach"
 

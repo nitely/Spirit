@@ -1,11 +1,12 @@
 #
 # Translators:
+# Esteban M. Castro Borsani <ecastroborsani@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:36+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"PO-Revision-Date: 2015-10-20 13:42+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
 "language/es/)\n"
@@ -29,12 +30,13 @@ msgstr "descripción"
 
 #: models.py:21
 msgid "global"
-msgstr ""
+msgstr "global"
 
 #: models.py:22
 msgid ""
 "Designates whether the topics will bedisplayed in the all-categories list."
 msgstr ""
+"Designa si la discusion sera mostrada en la lista de todas las categorias."
 
 #: models.py:24
 msgid "closed"

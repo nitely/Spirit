@@ -1,16 +1,20 @@
 #
+# Translators:
+# Esteban M. Castro Borsani <ecastroborsani@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:55+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"PO-Revision-Date: 2015-10-20 13:38+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
+"language/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: tags/time.py:33
 msgid "now"
@@ -39,25 +43,25 @@ msgstr "No tienes suficientes privilegios para acceder a esta sección"
 msgid "what you are looking for is gone..."
 msgstr "lo que busca ya no esta..."
 
-#: templates/spirit/_base.html:60
+#: templates/spirit/_base.html:59
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} te ha mencionado en {topic}"
 
-#: templates/spirit/_base.html:61
+#: templates/spirit/_base.html:60
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user} ha comentado en {topic}"
 
-#: templates/spirit/_base.html:62
+#: templates/spirit/_base.html:61
 msgid "Show all"
 msgstr "Mostrar todo"
 
-#: templates/spirit/_base.html:63
+#: templates/spirit/_base.html:62
 msgid "No new notifications, yet"
 msgstr "Aun no hay notificaciones nuevas"
 
-#: templates/spirit/_base.html:64
+#: templates/spirit/_base.html:63
 msgid "unread"
 msgstr "sin leer"
 
@@ -106,18 +110,10 @@ msgstr "Primera"
 msgid "Page 1 of 1"
 msgstr "Pagina 1 de 1"
 
-#: tests/tests_utils.py:381
-msgid "User activation"
-msgstr "Activación de usuario"
-
-#: tests/tests_utils.py:417
-msgid "Email change"
-msgstr "Cambiar email"
-
 #: utils/markdown/utils/quote.py:36
 #, python-format
 msgid "@%(username)s said:"
-msgstr ""
+msgstr "@%(username)s dijo:"
 
 #: utils/ratelimit/decorators.py:25
 #, python-format
@@ -259,3 +255,9 @@ msgstr "(GMT +11:30) Norfolk Island"
 #: utils/timezone.py:42
 msgid "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
 msgstr "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
+
+#~ msgid "User activation"
+#~ msgstr "Activación de usuario"
+
+#~ msgid "Email change"
+#~ msgstr "Cambiar email"

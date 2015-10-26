@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:55+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -39,25 +39,25 @@ msgstr "Du har inte tillräckliga rättigheter för att komma åt denna sida"
 msgid "what you are looking for is gone..."
 msgstr "det du letar efter finns inte..."
 
-#: templates/spirit/_base.html:60
+#: templates/spirit/_base.html:59
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} har nämt dig i {topic}"
 
-#: templates/spirit/_base.html:61
+#: templates/spirit/_base.html:60
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user} har kommenterat i {topic}"
 
-#: templates/spirit/_base.html:62
+#: templates/spirit/_base.html:61
 msgid "Show all"
 msgstr "Visa alla"
 
-#: templates/spirit/_base.html:63
+#: templates/spirit/_base.html:62
 msgid "No new notifications, yet"
 msgstr "Inga nya meddelanden ännu"
 
-#: templates/spirit/_base.html:64
+#: templates/spirit/_base.html:63
 msgid "unread"
 msgstr "markera som oläst"
 
@@ -105,14 +105,6 @@ msgstr "Första"
 #: templates/spirit/utils/paginator/_yt_paginator.html:5
 msgid "Page 1 of 1"
 msgstr "Sida 1 av 1"
-
-#: tests/tests_utils.py:381
-msgid "User activation"
-msgstr "Användaraktivering"
-
-#: tests/tests_utils.py:417
-msgid "Email change"
-msgstr "Email ändrad"
 
 #: utils/markdown/utils/quote.py:36
 #, python-format
@@ -259,3 +251,9 @@ msgstr ""
 #: utils/timezone.py:42
 msgid "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
 msgstr "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
+
+#~ msgid "User activation"
+#~ msgstr "Användaraktivering"
+
+#~ msgid "Email change"
+#~ msgstr "Email ändrad"

@@ -1,11 +1,12 @@
 #
 # Translators:
+# Esteban M. Castro Borsani <ecastroborsani@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:36+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"PO-Revision-Date: 2015-10-20 13:38+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
 "language/es/)\n"
@@ -41,7 +42,7 @@ msgstr "El email ingresado no existe."
 
 #: forms.py:78
 msgid "This account is verified, try logging-in."
-msgstr ""
+msgstr "Esta cuenta esta verificada, intenta ingresar."
 
 #: templates/spirit/user/auth/activation_resend.html:5
 #: templates/spirit/user/auth/activation_resend.html:9
@@ -174,13 +175,13 @@ msgstr "Registrar"
 
 #: tests/tests.py:89 tests/tests.py:210
 msgid "User activation"
-msgstr ""
+msgstr "Activación de usuario"
 
 #: views.py:67
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
-msgstr ""
+msgstr "Hemos enviado un email a %(email)s para que actives tu cuenta!"
 
 #: views.py:94
 msgid "Your account has been activated!"

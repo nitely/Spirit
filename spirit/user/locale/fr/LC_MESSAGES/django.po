@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:55+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
 "PO-Revision-Date: 2015-10-14 19:35+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/spirit-project/spirit/"
@@ -212,8 +212,8 @@ msgid "comments"
 msgstr "commentaires"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:433
-#: utils/email.py:52
+#: templates/spirit/user/profile_email_change.html:9 tests.py:435 tests.py:694
+#: utils/email.py:58
 msgid "Email change"
 msgstr ""
 
@@ -259,11 +259,11 @@ msgstr ""
 msgid "Save"
 msgstr "Enregistrer"
 
-#: utils/email.py:44
+#: tests.py:658 utils/email.py:50
 msgid "User activation"
 msgstr ""
 
-#: utils/email.py:61
+#: utils/email.py:67
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr ""

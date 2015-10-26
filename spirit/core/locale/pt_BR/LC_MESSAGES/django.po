@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:55+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
 "PO-Revision-Date: 2015-07-31 05:04+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/spirit-project/"
@@ -42,25 +42,25 @@ msgstr ""
 msgid "what you are looking for is gone..."
 msgstr ""
 
-#: templates/spirit/_base.html:60
+#: templates/spirit/_base.html:59
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr ""
 
-#: templates/spirit/_base.html:61
+#: templates/spirit/_base.html:60
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr ""
 
-#: templates/spirit/_base.html:62
+#: templates/spirit/_base.html:61
 msgid "Show all"
 msgstr ""
 
-#: templates/spirit/_base.html:63
+#: templates/spirit/_base.html:62
 msgid "No new notifications, yet"
 msgstr ""
 
-#: templates/spirit/_base.html:64
+#: templates/spirit/_base.html:63
 msgid "unread"
 msgstr ""
 
@@ -107,14 +107,6 @@ msgstr ""
 
 #: templates/spirit/utils/paginator/_yt_paginator.html:5
 msgid "Page 1 of 1"
-msgstr ""
-
-#: tests/tests_utils.py:381
-msgid "User activation"
-msgstr ""
-
-#: tests/tests_utils.py:417
-msgid "Email change"
 msgstr ""
 
 #: utils/markdown/utils/quote.py:36

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-14 20:56+0000\n"
+"POT-Creation-Date: 2015-10-26 02:13+0000\n"
 "PO-Revision-Date: 2015-09-14 22:38+0000\n"
 "Last-Translator: AlperB <ihtiyaroyuncu@yandex.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:22
+#: forms.py:23
 #, python-format
 msgid "Your search must contain at least %(length)s characters."
 msgstr "Aranacak eklime en az %(length)s karakter uzunluğunda olmalıdır."
 
-#: forms.py:44
+#: forms.py:45
 msgid "Filter by"
 msgstr "Filtrele"
 
