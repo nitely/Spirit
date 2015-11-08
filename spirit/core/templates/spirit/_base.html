@@ -12,31 +12,30 @@
 
     <link rel="stylesheet" href="{% static "spirit/stylesheets/styles.all.min.css" %}">
 
-    <script src="{% static "spirit/scripts/vendors/jquery.min.js" %}"></script>
-    <script src="{% static "spirit/scripts/vendors/highlightjs/highlight.min.js" %}"></script>
-    <script src="{% static "spirit/scripts/util.js" %}"></script>
-    <script src="{% static "spirit/scripts/tab.js" %}"></script>
-    <script src="{% static "spirit/scripts/postify.js" %}"></script>
-    <script src="{% static "spirit/scripts/social_share.js" %}"></script>
-    <script src="{% static "spirit/scripts/messages.js" %}"></script>
+    <script src="{% static "spirit/scripts/all.min.js" %}"></script>
 
-    {% if user.is_authenticated %}
+    {# todo: use this if debug=true #}
+    {% comment %}
+        <script src="{% static "spirit/scripts/vendors/jquery.min.js" %}"></script>
+        <script src="{% static "spirit/scripts/vendors/highlightjs/highlight.min.js" %}"></script>
         <script src="{% static "spirit/scripts/vendors/atwho/jquery.caret.min.js" %}"></script>
         <script src="{% static "spirit/scripts/vendors/atwho/jquery.atwho.min.js" %}"></script>
         <script src="{% static "spirit/scripts/vendors/marked/marked.min.js" %}"></script>
         <script src="{% static "spirit/scripts/vendors/waypoints/waypoints.min.js" %}"></script>
-        <script src="{% static "spirit/scripts/store.js" %}"></script>
-        <script src="{% static "spirit/scripts/editor_image_upload.js" %}"></script>
-	    <script src="{% static "spirit/scripts/editor.js" %}"></script>
-        <script src="{% static "spirit/scripts/emoji_list.js" %}"></script>
-        <script src="{% static "spirit/scripts/like.js" %}"></script>
-        <script src="{% static "spirit/scripts/bookmark.js" %}"></script>
-        <script src="{% static "spirit/scripts/notification.js" %}"></script>
-    {% endif %}
-
-    {% if user.st.is_moderator %}
-        <script src="{% static "spirit/scripts/move_comments.js" %}"></script>
-    {% endif %}
+        <script src="{% static "spirit/scripts/js/util.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/tab.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/postify.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/social_share.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/messages.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/store.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/editor_image_upload.js" %}"></script>
+	    <script src="{% static "spirit/scripts/js/editor.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/emoji_list.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/like.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/bookmark.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/notification.js" %}"></script>
+        <script src="{% static "spirit/scripts/js/move_comments.js" %}"></script>
+    {% endcomment %}
 
     <script>
 

@@ -15,5 +15,11 @@ $ npm install -y .
 ## Build
 
 ```
-$ npm run gulp coffee
+$ npm run gulp js
+```
+
+## Test
+
+```
+$ npm run gulp test
 ```

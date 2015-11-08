@@ -8,6 +8,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^1.4.0",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.6",
     "karma": "^0.13.10",
     "karma-cli": "^0.1.1",

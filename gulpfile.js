@@ -7,6 +7,7 @@ var Server = require('karma').Server;
 var minifyCss = require('gulp-minify-css');
 var rename = require("gulp-rename");
 var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 
 var assetsPath = 'spirit/core/static/spirit/';
 var cssPath = assetsPath + 'stylesheets/';
@@ -29,11 +30,9 @@ gulp.task('_css-minify', ['_sass'], function () {
 
 
 gulp.task('_css-concat', ['_css-minify'], function() {
-    var path = cssPath + 'vendors/'
+    var path = cssPath + 'vendors/';
     return gulp.src([
-            path + 'font-awesome.min.css',
-            path + 'github.min.css',
-            path + 'jquery.atwho.min.css',
+            path + '*.min.css',
             cssPath + 'styles.min.css',
         ])
         .pipe(concat('styles.all.min.css'))
@@ -57,7 +56,7 @@ var coffeeTask = function coffeeTask(opts) {
 gulp.task('coffee', function(done) {
     coffeeTask({
         srcPath: jsPath + 'src/*.coffee',
-        destPath: jsPath,
+        destPath: jsPath + 'js',
     }).on('end', done)
 });
 
@@ -81,3 +80,36 @@ gulp.task('_test', ['coffee', '_coffee-test'], function (done) {
 
 
 gulp.task('test', ['coffee', '_coffee-test', '_test']);
+
+
+gulp.task('_js-uglify', ['coffee'], function() {
+    var path = jsPath + 'js/';
+    return gulp.src([
+            '!' + path + '*.min.js',  // Exclude
+            path + '*.js'
+        ])
+        .pipe(uglify({mangle: false}))
+        .pipe(rename({suffix: ".min"}))
+        .pipe(gulp.dest(path));
+});
+
+
+gulp.task('_js-concat', ['_js-uglify'], function() {
+    var path = jsPath + 'js/';
+    var pathVendors = jsPath + 'vendors/';
+    return gulp.src([
+            pathVendors + 'jquery.min.js',
+            pathVendors + 'atwho/jquery.caret.min.js',
+            pathVendors + 'atwho/jquery.atwho.min.js',
+            pathVendors + '**/*.js',
+            path + 'util.min.js',
+            path + 'tab.min.js',
+            path + 'editor_image_upload.min.js',
+            path + '*.min.js'
+        ])
+        .pipe(concat('all.min.js'))
+        .pipe(gulp.dest(jsPath));
+});
+
+
+gulp.task('js', ['_js-concat']);
