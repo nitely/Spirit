@@ -1,3 +1,9 @@
+0.4.5
+==================
+
+* Improvement: CSS & JS minification and concatenation
+* New (Dev): Gulp tasks `npm run gulp css` and `npm run gulp js` for building assets
+
 0.4.4
 ==================
 
