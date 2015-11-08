@@ -21,5 +21,5 @@ $ npm install -y .
 ## Build
 
 ```
-$ npm run gulp sass
+$ npm run gulp css
 ```
