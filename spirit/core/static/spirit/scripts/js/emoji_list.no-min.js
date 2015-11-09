@@ -15,5 +15,3 @@
   });
 
 }).call(this);
-
-//# sourceMappingURL=emoji_list.js.map

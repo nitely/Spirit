@@ -82,5 +82,3 @@
   $.fn.messages.Messages = Messages;
 
 }).call(this);
-
-//# sourceMappingURL=messages.js.map

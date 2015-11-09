@@ -14,15 +14,10 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    // todo: load the all.min.js instead of individual files
     files: [
-      'vendors/jquery.min.js',
-      'vendors/**/*.js',
+      'all.min.js',
       'test/jasmine-jquery.js',
       'test/suites/*-spec.js',
-      '!js/*.min.js',  // Exclude
-      'js/*.js',
-
 
       {
         pattern: 'test/fixtures/*.html',

@@ -110,5 +110,3 @@
   $.fn.like.Like = Like;
 
 }).call(this);
-
-//# sourceMappingURL=like.js.map

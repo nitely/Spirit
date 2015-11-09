@@ -66,5 +66,3 @@
   $.fn.postify.Postify = Postify;
 
 }).call(this);
-
-//# sourceMappingURL=postify.js.map

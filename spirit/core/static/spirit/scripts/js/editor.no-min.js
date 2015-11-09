@@ -118,5 +118,3 @@
   $.fn.editor.Editor = Editor;
 
 }).call(this);
-
-//# sourceMappingURL=editor.js.map

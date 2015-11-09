@@ -124,5 +124,3 @@
   $.notification.Notification = Notification;
 
 }).call(this);
-
-//# sourceMappingURL=notification.js.map

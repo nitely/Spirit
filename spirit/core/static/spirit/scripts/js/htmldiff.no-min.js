@@ -367,5 +367,3 @@
   }
 
 }).call(this);
-
-//# sourceMappingURL=htmldiff.js.map

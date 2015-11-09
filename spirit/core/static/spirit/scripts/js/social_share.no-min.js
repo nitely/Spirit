@@ -65,5 +65,3 @@
   $.fn.social_share.SocialShare = SocialShare;
 
 }).call(this);
-
-//# sourceMappingURL=social_share.js.map

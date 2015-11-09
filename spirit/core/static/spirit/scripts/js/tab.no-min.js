@@ -82,5 +82,3 @@
   $.tab.Tab = Tab;
 
 }).call(this);
-
-//# sourceMappingURL=tab.js.map

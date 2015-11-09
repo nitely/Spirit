@@ -103,5 +103,3 @@
   $.fn.move_comments.MoveComment = MoveComment;
 
 }).call(this);
-
-//# sourceMappingURL=move_comments.js.map

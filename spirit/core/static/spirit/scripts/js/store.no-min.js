@@ -70,5 +70,3 @@
   $.fn.store.Storage = Storage;
 
 }).call(this);
-
-//# sourceMappingURL=store.js.map

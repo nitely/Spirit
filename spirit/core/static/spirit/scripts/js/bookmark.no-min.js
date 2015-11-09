@@ -104,5 +104,3 @@
   $.fn.bookmark.Mark = Mark;
 
 }).call(this);
-
-//# sourceMappingURL=bookmark.js.map

@@ -146,5 +146,3 @@
   $.fn.editor_image_upload.EditorImageUpload = EditorImageUpload;
 
 }).call(this);
-
-//# sourceMappingURL=editor_image_upload.js.map
