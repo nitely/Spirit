@@ -302,6 +302,16 @@ class UserFormTest(TestCase):
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
+    def test_registration_email_required(self):
+        """
+        Registration should require the email field
+        """
+        form_data = {'username': 'foo',
+                     'password1': 'pass', 'password2': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
+        self.assertIn('email', form.errors)
+
     def test_registration_invalid(self):
         """
         invalid email and user

@@ -21,6 +21,10 @@ class RegistrationForm(CleanEmailMixin, UserCreationForm):
         model = User
         fields = ("username", "email")
 
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True  # Django model does not required this by default
+
     def clean_honeypot(self):
         """Check that nothing has been entered into the honeypot."""
         value = self.cleaned_data["honeypot"]
