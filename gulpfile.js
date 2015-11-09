@@ -22,26 +22,19 @@ gulp.task('_sass', function () {
 });
 
 
-gulp.task('_css-minify', ['_sass'], function () {
-    return gulp.src(cssPath + 'styles.css')
-        .pipe(minifyCss({compatibility: 'ie8'}))
-        .pipe(rename({suffix: ".min"}))
-        .pipe(gulp.dest(cssPath))
-});
-
-
-gulp.task('_css-concat', ['_css-minify'], function() {
+gulp.task('_css-minify', ['_sass'], function() {
     var path = cssPath + 'vendors/';
     return gulp.src([
             path + '*.min.css',
-            cssPath + 'styles.min.css',
+            cssPath + 'styles.css',
         ])
+        .pipe(minifyCss({compatibility: 'ie8', target: cssPath, relativeTo: cssPath}))
         .pipe(concat('styles.all.min.css'))
         .pipe(gulp.dest(cssPath))
 });
 
 
-gulp.task('css', ['_sass', '_css-minify', '_css-concat']);
+gulp.task('css', ['_sass', '_css-minify']);
 
 
 gulp.task('coffee', function() {
