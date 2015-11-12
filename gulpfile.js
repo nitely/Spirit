@@ -46,6 +46,7 @@ gulp.task('coffee', function() {
             pathVendors + 'atwho/jquery.caret.min.js',
             pathVendors + 'atwho/jquery.atwho.min.js',
             pathVendors + '**/*.js',
+            pathVendors + '**/*.coffee',
             pathCoffee + 'util.coffee',
             pathCoffee + 'tab.coffee',
             pathCoffee + 'editor_image_upload.coffee',

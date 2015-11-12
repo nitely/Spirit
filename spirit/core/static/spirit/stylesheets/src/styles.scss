@@ -267,6 +267,16 @@ input.move-comment-checkbox {
   img {
     vertical-align: text-bottom;
   }
+
+  ins {
+    background-color: #EAFFEA;
+    text-decoration: none;
+  }
+
+  del {
+    background-color: #FFECEC;
+    text-decoration: none;
+  }
 }
 
 .comment-actions {

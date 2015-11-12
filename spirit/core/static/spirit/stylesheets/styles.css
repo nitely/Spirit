@@ -940,6 +940,13 @@ input.move-comment-checkbox {
   margin-bottom: 24px; }
 .comment-text img {
   vertical-align: text-bottom; }
+.comment-text ins {
+  background-color: #EAFFEA;
+  text-decoration: none;
+  line-height: 26px; }
+.comment-text del {
+  background-color: #FFECEC;
+  text-decoration: none; }
 
 .comment-actions {
   font-size: 14px;
