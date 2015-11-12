@@ -15,7 +15,8 @@
 <script>
     $( document ).ready(function() {
 
-        var emojisPath = "{% static "spirit/emojis/emoji.png" %}".replace("emoji.png", "${name}.png");
+        // Use regex to replace dynamic generated hash. The file must exists, the static storage may fail otherwise.
+        var emojisPath = "{% static "spirit/emojis/es.png" %}".replace(/es(\.[^\.]+)?\.png/i, "${name}.png");
 
         marked.setOptions( {
             renderer: new marked.Renderer(),
