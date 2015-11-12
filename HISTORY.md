@@ -1,11 +1,13 @@
 0.4.5
 ==================
 
-* Improvement: CSS & JS minification and concatenation
 * New (Dev): Gulp tasks `npm run gulp css` and `npm run gulp coffee` for building assets
-* Fix: Email required on registration
+* Improvement: CSS & JS minification and concatenation
 * Improvement: Added `STATICFILES_STORAGE = 'ManifestStaticFilesStorage'` (settings.prod only) to
 append hashes to assets file names
+* Improvement: `woff2` font support
+* Fix: Email required on registration
+* Fix: Changed `DEFAULT_FROM_EMAIL` default to `webmaster@localhost` (Django's default)
 
 0.4.4
 ==================

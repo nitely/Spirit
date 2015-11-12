@@ -429,7 +429,7 @@ textarea {
   background: #fff; }
 
 html {
-  font-family: "ubuntu-light-webfont";
+  font-family: "Ubuntu";
   font-size: 16px;
   line-height: 24px;
   color: #444444;
@@ -502,10 +502,10 @@ label {
     margin-bottom: 0; }
 
 @font-face {
-  font-family: 'ubuntu-light-webfont';
+  font-family: 'Ubuntu';
   font-style: normal;
-  font-weight: normal;
-  src: url("vendors/fonts/ubuntu-light-webfont.woff") format("woff"); }
+  font-weight: 300;
+  src: url("vendors/fonts/Ubuntu-300.woff2") format("woff2"), url("vendors/fonts/Ubuntu-300.woff") format("woff"); }
 a {
   color: #979797;
   text-decoration: none;
