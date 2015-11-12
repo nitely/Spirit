@@ -1,6 +1,7 @@
 0.4.5
 ==================
 
+* New: Comment history diff (inserted & deleted lines)
 * New (Dev): Gulp tasks `npm run gulp css` and `npm run gulp coffee` for building assets
 * Improvement: CSS & JS minification and concatenation
 * Improvement: Added `STATICFILES_STORAGE = 'ManifestStaticFilesStorage'` (settings.prod only) to
