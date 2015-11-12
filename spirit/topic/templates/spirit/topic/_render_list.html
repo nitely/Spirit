@@ -14,11 +14,7 @@
                         <i class="fa fa-lock"></i>
                     {% endif %}
 
-                    {% if t.bookmark %}
-                       <a class="row-link is-visited" href="{{ t.bookmark.get_absolute_url }}">{{ t.title }}</a>
-                    {% else %}
-                        <a class="row-link" href="{{ t.get_absolute_url }}">{{ t.title }}</a>
-                    {% endif %}
+                    <a class="row-link{% if t.is_visited %} is-visited{% endif %}" href="{{ t.get_bookmark_url }}">{{ t.title }}</a>
                 </div>
                 <div class="row-info">
                     <div>
@@ -32,7 +28,7 @@
                             {% endif %}
                         {% endif %}
                     </div><!--
-                 --><div><i class="fa fa-comment {% if t.has_new_comments %} js-comment-is-new{% endif %}"></i> {{ t.comment_count }}</div><!--
+                 --><div><i class="fa fa-comment{% if t.has_new_comments %} js-comment-is-new{% endif %}"></i> {{ t.comment_count }}</div><!--
                  --><div title="{{ t.last_active }}"><i class="fa fa-clock-o"></i> {{ t.last_active|shortnaturaltime }}</div>
                 </div>
 

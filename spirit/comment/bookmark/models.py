@@ -23,16 +23,24 @@ class CommentBookmark(models.Model):
         verbose_name = _("comment bookmark")
         verbose_name_plural = _("comments bookmarks")
 
-    def get_absolute_url(self):
+    def _get_url(self, comment_number=None):
+        comment_number = comment_number or self.comment_number
         return paginator.get_url(
             url=self.topic.get_absolute_url(),
-            obj_number=self.comment_number,
+            obj_number=comment_number,
             per_page=config.comments_per_page,
             page_var='page'
         )
 
-    @classmethod
-    def page_to_comment_number(cls, page_number):
+    def get_absolute_url(self):
+        return self._get_url()
+
+    def get_new_comment_url(self):
+        comment_number = self.comment_number + 1
+        return self._get_url(comment_number=comment_number)
+
+    @staticmethod
+    def page_to_comment_number(page_number):
         try:
             page_number = int(page_number)
         except ValueError:

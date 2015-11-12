@@ -8,6 +8,7 @@ append hashes to assets file names
 * Improvement: `woff2` font support
 * Fix: Email required on registration
 * Fix: Changed `DEFAULT_FROM_EMAIL` default to `webmaster@localhost` (Django's default)
+* Fix: Redirect to first unread comment on visited topics
 
 0.4.4
 ==================

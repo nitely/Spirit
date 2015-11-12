@@ -478,3 +478,38 @@ class TopicModelsTest(TestCase):
 
         Topic.objects.filter(pk=topic.pk).update(comment_count=2)
         self.assertTrue(Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first().has_new_comments)
+
+    def test_topic_is_visited(self):
+        """
+        Should return True when the topic has been visited
+        """
+        utils.login(self)
+        category = utils.create_category()
+        topic = utils.create_topic(category=category, user=self.user)
+
+        self.assertFalse(Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first().is_visited)
+
+        CommentBookmark.objects.create(topic=topic, user=self.user)
+        self.assertTrue(Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first().is_visited)
+
+    def test_topic_get_bookmark_url(self):
+        """
+        Should return the bookmark url
+        """
+        utils.login(self)
+        category = utils.create_category()
+        topic = utils.create_topic(category=category, user=self.user)
+
+        # No bookmark
+        topic_with_bookmark = Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first()
+        self.assertEqual(topic_with_bookmark.get_bookmark_url(), topic_with_bookmark.get_absolute_url())
+
+        # With bookmark
+        CommentBookmark.objects.create(topic=topic, user=self.user, comment_number=1)
+        topic_with_bookmark2 = Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first()
+        self.assertEqual(topic_with_bookmark2.get_bookmark_url(), topic_with_bookmark2.bookmark.get_absolute_url())
+
+        # With bookmark and new comment
+        Topic.objects.filter(pk=topic.pk).update(comment_count=2)
+        topic_with_bookmark3 = Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first()
+        self.assertEqual(topic_with_bookmark3.get_bookmark_url(), topic_with_bookmark3.bookmark.get_new_comment_url())

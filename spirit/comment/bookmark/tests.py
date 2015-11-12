@@ -46,6 +46,14 @@ class CommentBookmarkModelsTest(TestCase):
         for _ in range(config.comments_per_page * 4):  # 4 pages
             utils.create_comment(user=self.user, topic=self.topic)
 
+    def test_comment_bookmark_get_new_comment_url(self):
+        """
+        Should return the new comment url (current comment + 1)
+        """
+        bookmark = CommentBookmark.objects.create(topic=self.topic, user=self.user, comment_number=1)
+        self.assertTrue(bookmark.get_absolute_url().endswith('1'))
+        self.assertTrue(bookmark.get_new_comment_url().endswith('2'))
+
     def test_comment_bookmark_update_or_create(self):
         """
         Should update or create the comment number
