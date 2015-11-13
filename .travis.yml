@@ -10,7 +10,8 @@ python:
   - "3.5"
 
 install:
-  - pip install -r requirements.txt --use-mirrors
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
   - pip install coveralls pep8==1.5.7 flake8
 script:
   - flake8 --exit-zero
