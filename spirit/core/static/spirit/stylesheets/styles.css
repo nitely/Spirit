@@ -1,3 +1,2623 @@
+.tw {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  margin: 0 .05em 0 .1em;
+  vertical-align: text-bottom;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20px 20px; }
+
+.tw-hash {
+  background-image: url("../emojis/23-20e3.svg"); }
+
+.tw-zero {
+  background-image: url("../emojis/30-20e3.svg"); }
+
+.tw-one {
+  background-image: url("../emojis/31-20e3.svg"); }
+
+.tw-two {
+  background-image: url("../emojis/32-20e3.svg"); }
+
+.tw-three {
+  background-image: url("../emojis/33-20e3.svg"); }
+
+.tw-four {
+  background-image: url("../emojis/34-20e3.svg"); }
+
+.tw-five {
+  background-image: url("../emojis/35-20e3.svg"); }
+
+.tw-six {
+  background-image: url("../emojis/36-20e3.svg"); }
+
+.tw-seven {
+  background-image: url("../emojis/37-20e3.svg"); }
+
+.tw-eight {
+  background-image: url("../emojis/38-20e3.svg"); }
+
+.tw-nine {
+  background-image: url("../emojis/39-20e3.svg"); }
+
+.tw-copyright {
+  background-image: url("../emojis/a9.svg"); }
+
+.tw-registered {
+  background-image: url("../emojis/ae.svg"); }
+
+.tw-bangbang {
+  background-image: url("../emojis/203c.svg"); }
+
+.tw-interrobang {
+  background-image: url("../emojis/2049.svg"); }
+
+.tw-tm {
+  background-image: url("../emojis/2122.svg"); }
+
+.tw-information-source {
+  background-image: url("../emojis/2139.svg"); }
+
+.tw-left-right-arrow {
+  background-image: url("../emojis/2194.svg"); }
+
+.tw-arrow-up-down {
+  background-image: url("../emojis/2195.svg"); }
+
+.tw-arrow-upper-left {
+  background-image: url("../emojis/2196.svg"); }
+
+.tw-arrow-upper-right {
+  background-image: url("../emojis/2197.svg"); }
+
+.tw-arrow-lower-right {
+  background-image: url("../emojis/2198.svg"); }
+
+.tw-arrow-lower-left {
+  background-image: url("../emojis/2199.svg"); }
+
+.tw-leftwards-arrow-with-hook {
+  background-image: url("../emojis/21a9.svg"); }
+
+.tw-arrow-right-hook {
+  background-image: url("../emojis/21aa.svg"); }
+
+.tw-watch {
+  background-image: url("../emojis/231a.svg"); }
+
+.tw-hourglass {
+  background-image: url("../emojis/231b.svg"); }
+
+.tw-fast-forward {
+  background-image: url("../emojis/23e9.svg"); }
+
+.tw-rewind {
+  background-image: url("../emojis/23ea.svg"); }
+
+.tw-arrow-double-up {
+  background-image: url("../emojis/23eb.svg"); }
+
+.tw-arrow-double-down {
+  background-image: url("../emojis/23ec.svg"); }
+
+.tw-alarm-clock {
+  background-image: url("../emojis/23f0.svg"); }
+
+.tw-hourglass-flowing-sand {
+  background-image: url("../emojis/23f3.svg"); }
+
+.tw-m {
+  background-image: url("../emojis/24c2.svg"); }
+
+.tw-black-small-square {
+  background-image: url("../emojis/25aa.svg"); }
+
+.tw-white-small-square {
+  background-image: url("../emojis/25ab.svg"); }
+
+.tw-arrow-forward {
+  background-image: url("../emojis/25b6.svg"); }
+
+.tw-arrow-backward {
+  background-image: url("../emojis/25c0.svg"); }
+
+.tw-white-medium-square {
+  background-image: url("../emojis/25fb.svg"); }
+
+.tw-black-medium-square {
+  background-image: url("../emojis/25fc.svg"); }
+
+.tw-white-medium-small-square {
+  background-image: url("../emojis/25fd.svg"); }
+
+.tw-black-medium-small-square {
+  background-image: url("../emojis/25fe.svg"); }
+
+.tw-sunny {
+  background-image: url("../emojis/2600.svg"); }
+
+.tw-cloud {
+  background-image: url("../emojis/2601.svg"); }
+
+.tw-telephone {
+  background-image: url("../emojis/260e.svg"); }
+
+.tw-ballot-box-with-check {
+  background-image: url("../emojis/2611.svg"); }
+
+.tw-umbrella {
+  background-image: url("../emojis/2614.svg"); }
+
+.tw-coffee {
+  background-image: url("../emojis/2615.svg"); }
+
+.tw-point-up {
+  background-image: url("../emojis/261d.svg"); }
+
+.tw-relaxed {
+  background-image: url("../emojis/263a.svg"); }
+
+.tw-aries {
+  background-image: url("../emojis/2648.svg"); }
+
+.tw-taurus {
+  background-image: url("../emojis/2649.svg"); }
+
+.tw-gemini {
+  background-image: url("../emojis/264a.svg"); }
+
+.tw-cancer {
+  background-image: url("../emojis/264b.svg"); }
+
+.tw-leo {
+  background-image: url("../emojis/264c.svg"); }
+
+.tw-virgo {
+  background-image: url("../emojis/264d.svg"); }
+
+.tw-libra {
+  background-image: url("../emojis/264e.svg"); }
+
+.tw-scorpius {
+  background-image: url("../emojis/264f.svg"); }
+
+.tw-sagittarius {
+  background-image: url("../emojis/2650.svg"); }
+
+.tw-capricorn {
+  background-image: url("../emojis/2651.svg"); }
+
+.tw-aquarius {
+  background-image: url("../emojis/2652.svg"); }
+
+.tw-pisces {
+  background-image: url("../emojis/2653.svg"); }
+
+.tw-spades {
+  background-image: url("../emojis/2660.svg"); }
+
+.tw-clubs {
+  background-image: url("../emojis/2663.svg"); }
+
+.tw-hearts {
+  background-image: url("../emojis/2665.svg"); }
+
+.tw-diamonds {
+  background-image: url("../emojis/2666.svg"); }
+
+.tw-hotsprings {
+  background-image: url("../emojis/2668.svg"); }
+
+.tw-recycle {
+  background-image: url("../emojis/267b.svg"); }
+
+.tw-wheelchair {
+  background-image: url("../emojis/267f.svg"); }
+
+.tw-anchor {
+  background-image: url("../emojis/2693.svg"); }
+
+.tw-warning {
+  background-image: url("../emojis/26a0.svg"); }
+
+.tw-zap {
+  background-image: url("../emojis/26a1.svg"); }
+
+.tw-white-circle {
+  background-image: url("../emojis/26aa.svg"); }
+
+.tw-black-circle {
+  background-image: url("../emojis/26ab.svg"); }
+
+.tw-soccer {
+  background-image: url("../emojis/26bd.svg"); }
+
+.tw-baseball {
+  background-image: url("../emojis/26be.svg"); }
+
+.tw-snowman {
+  background-image: url("../emojis/26c4.svg"); }
+
+.tw-partly-sunny {
+  background-image: url("../emojis/26c5.svg"); }
+
+.tw-ophiuchus {
+  background-image: url("../emojis/26ce.svg"); }
+
+.tw-no-entry {
+  background-image: url("../emojis/26d4.svg"); }
+
+.tw-church {
+  background-image: url("../emojis/26ea.svg"); }
+
+.tw-fountain {
+  background-image: url("../emojis/26f2.svg"); }
+
+.tw-golf {
+  background-image: url("../emojis/26f3.svg"); }
+
+.tw-sailboat {
+  background-image: url("../emojis/26f5.svg"); }
+
+.tw-tent {
+  background-image: url("../emojis/26fa.svg"); }
+
+.tw-fuelpump {
+  background-image: url("../emojis/26fd.svg"); }
+
+.tw-scissors {
+  background-image: url("../emojis/2702.svg"); }
+
+.tw-white-check-mark {
+  background-image: url("../emojis/2705.svg"); }
+
+.tw-airplane {
+  background-image: url("../emojis/2708.svg"); }
+
+.tw-envelope {
+  background-image: url("../emojis/2709.svg"); }
+
+.tw-fist {
+  background-image: url("../emojis/270a.svg"); }
+
+.tw-raised-hand {
+  background-image: url("../emojis/270b.svg"); }
+
+.tw-v {
+  background-image: url("../emojis/270c.svg"); }
+
+.tw-pencil2 {
+  background-image: url("../emojis/270f.svg"); }
+
+.tw-black-nib {
+  background-image: url("../emojis/2712.svg"); }
+
+.tw-heavy-check-mark {
+  background-image: url("../emojis/2714.svg"); }
+
+.tw-heavy-multiplication-x {
+  background-image: url("../emojis/2716.svg"); }
+
+.tw-sparkles {
+  background-image: url("../emojis/2728.svg"); }
+
+.tw-eight-spoked-asterisk {
+  background-image: url("../emojis/2733.svg"); }
+
+.tw-eight-pointed-black-star {
+  background-image: url("../emojis/2734.svg"); }
+
+.tw-snowflake {
+  background-image: url("../emojis/2744.svg"); }
+
+.tw-sparkle {
+  background-image: url("../emojis/2747.svg"); }
+
+.tw-x {
+  background-image: url("../emojis/274c.svg"); }
+
+.tw-negative-squared-cross-mark {
+  background-image: url("../emojis/274e.svg"); }
+
+.tw-question {
+  background-image: url("../emojis/2753.svg"); }
+
+.tw-grey-question {
+  background-image: url("../emojis/2754.svg"); }
+
+.tw-grey-exclamation {
+  background-image: url("../emojis/2755.svg"); }
+
+.tw-exclamation {
+  background-image: url("../emojis/2757.svg"); }
+
+.tw-heart {
+  background-image: url("../emojis/2764.svg"); }
+
+.tw-heavy-plus-sign {
+  background-image: url("../emojis/2795.svg"); }
+
+.tw-heavy-minus-sign {
+  background-image: url("../emojis/2796.svg"); }
+
+.tw-heavy-division-sign {
+  background-image: url("../emojis/2797.svg"); }
+
+.tw-arrow-right {
+  background-image: url("../emojis/27a1.svg"); }
+
+.tw-curly-loop {
+  background-image: url("../emojis/27b0.svg"); }
+
+.tw-loop {
+  background-image: url("../emojis/27bf.svg"); }
+
+.tw-arrow-heading-up {
+  background-image: url("../emojis/2934.svg"); }
+
+.tw-arrow-heading-down {
+  background-image: url("../emojis/2935.svg"); }
+
+.tw-arrow-left {
+  background-image: url("../emojis/2b05.svg"); }
+
+.tw-arrow-up {
+  background-image: url("../emojis/2b06.svg"); }
+
+.tw-arrow-down {
+  background-image: url("../emojis/2b07.svg"); }
+
+.tw-black-large-square {
+  background-image: url("../emojis/2b1b.svg"); }
+
+.tw-white-large-square {
+  background-image: url("../emojis/2b1c.svg"); }
+
+.tw-star {
+  background-image: url("../emojis/2b50.svg"); }
+
+.tw-o {
+  background-image: url("../emojis/2b55.svg"); }
+
+.tw-wavy-dash {
+  background-image: url("../emojis/3030.svg"); }
+
+.tw-part-alternation-mark {
+  background-image: url("../emojis/303d.svg"); }
+
+.tw-congratulations {
+  background-image: url("../emojis/3297.svg"); }
+
+.tw-secret {
+  background-image: url("../emojis/3299.svg"); }
+
+.tw-mahjong {
+  background-image: url("../emojis/1f004.svg"); }
+
+.tw-black-joker {
+  background-image: url("../emojis/1f0cf.svg"); }
+
+.tw-a {
+  background-image: url("../emojis/1f170.svg"); }
+
+.tw-b {
+  background-image: url("../emojis/1f171.svg"); }
+
+.tw-o2 {
+  background-image: url("../emojis/1f17e.svg"); }
+
+.tw-parking {
+  background-image: url("../emojis/1f17f.svg"); }
+
+.tw-ab {
+  background-image: url("../emojis/1f18e.svg"); }
+
+.tw-cl {
+  background-image: url("../emojis/1f191.svg"); }
+
+.tw-cool {
+  background-image: url("../emojis/1f192.svg"); }
+
+.tw-free {
+  background-image: url("../emojis/1f193.svg"); }
+
+.tw-id {
+  background-image: url("../emojis/1f194.svg"); }
+
+.tw-new {
+  background-image: url("../emojis/1f195.svg"); }
+
+.tw-ng {
+  background-image: url("../emojis/1f196.svg"); }
+
+.tw-ok {
+  background-image: url("../emojis/1f197.svg"); }
+
+.tw-sos {
+  background-image: url("../emojis/1f198.svg"); }
+
+.tw-up {
+  background-image: url("../emojis/1f199.svg"); }
+
+.tw-vs {
+  background-image: url("../emojis/1f19a.svg"); }
+
+.tw-cn {
+  background-image: url("../emojis/1f1e8-1f1f3.svg"); }
+
+.tw-flag-cn {
+  background-image: url("../emojis/1f1e8-1f1f3.svg"); }
+
+.tw-de {
+  background-image: url("../emojis/1f1e9-1f1ea.svg"); }
+
+.tw-flag-de {
+  background-image: url("../emojis/1f1e9-1f1ea.svg"); }
+
+.tw-es {
+  background-image: url("../emojis/1f1ea-1f1f8.svg"); }
+
+.tw-flag-es {
+  background-image: url("../emojis/1f1ea-1f1f8.svg"); }
+
+.tw-flag-fr {
+  background-image: url("../emojis/1f1eb-1f1f7.svg"); }
+
+.tw-fr {
+  background-image: url("../emojis/1f1eb-1f1f7.svg"); }
+
+.tw-flag-gb {
+  background-image: url("../emojis/1f1ec-1f1e7.svg"); }
+
+.tw-gb {
+  background-image: url("../emojis/1f1ec-1f1e7.svg"); }
+
+.tw-flag-it {
+  background-image: url("../emojis/1f1ee-1f1f9.svg"); }
+
+.tw-it {
+  background-image: url("../emojis/1f1ee-1f1f9.svg"); }
+
+.tw-flag-jp {
+  background-image: url("../emojis/1f1ef-1f1f5.svg"); }
+
+.tw-jp {
+  background-image: url("../emojis/1f1ef-1f1f5.svg"); }
+
+.tw-flag-kr {
+  background-image: url("../emojis/1f1f0-1f1f7.svg"); }
+
+.tw-kr {
+  background-image: url("../emojis/1f1f0-1f1f7.svg"); }
+
+.tw-flag-ru {
+  background-image: url("../emojis/1f1f7-1f1fa.svg"); }
+
+.tw-ru {
+  background-image: url("../emojis/1f1f7-1f1fa.svg"); }
+
+.tw-flag-us {
+  background-image: url("../emojis/1f1fa-1f1f8.svg"); }
+
+.tw-us {
+  background-image: url("../emojis/1f1fa-1f1f8.svg"); }
+
+.tw-koko {
+  background-image: url("../emojis/1f201.svg"); }
+
+.tw-sa {
+  background-image: url("../emojis/1f202.svg"); }
+
+.tw-u7121 {
+  background-image: url("../emojis/1f21a.svg"); }
+
+.tw-u6307 {
+  background-image: url("../emojis/1f22f.svg"); }
+
+.tw-u7981 {
+  background-image: url("../emojis/1f232.svg"); }
+
+.tw-u7a7a {
+  background-image: url("../emojis/1f233.svg"); }
+
+.tw-u5408 {
+  background-image: url("../emojis/1f234.svg"); }
+
+.tw-u6e80 {
+  background-image: url("../emojis/1f235.svg"); }
+
+.tw-u6709 {
+  background-image: url("../emojis/1f236.svg"); }
+
+.tw-u6708 {
+  background-image: url("../emojis/1f237.svg"); }
+
+.tw-u7533 {
+  background-image: url("../emojis/1f238.svg"); }
+
+.tw-u5272 {
+  background-image: url("../emojis/1f239.svg"); }
+
+.tw-u55b6 {
+  background-image: url("../emojis/1f23a.svg"); }
+
+.tw-ideograph-advantage {
+  background-image: url("../emojis/1f250.svg"); }
+
+.tw-accept {
+  background-image: url("../emojis/1f251.svg"); }
+
+.tw-cyclone {
+  background-image: url("../emojis/1f300.svg"); }
+
+.tw-foggy {
+  background-image: url("../emojis/1f301.svg"); }
+
+.tw-closed-umbrella {
+  background-image: url("../emojis/1f302.svg"); }
+
+.tw-night-with-stars {
+  background-image: url("../emojis/1f303.svg"); }
+
+.tw-sunrise-over-mountains {
+  background-image: url("../emojis/1f304.svg"); }
+
+.tw-sunrise {
+  background-image: url("../emojis/1f305.svg"); }
+
+.tw-city-dusk {
+  background-image: url("../emojis/1f306.svg"); }
+
+.tw-city-sunrise {
+  background-image: url("../emojis/1f307.svg"); }
+
+.tw-city-sunset {
+  background-image: url("../emojis/1f307.svg"); }
+
+.tw-rainbow {
+  background-image: url("../emojis/1f308.svg"); }
+
+.tw-bridge-at-night {
+  background-image: url("../emojis/1f309.svg"); }
+
+.tw-ocean {
+  background-image: url("../emojis/1f30a.svg"); }
+
+.tw-volcano {
+  background-image: url("../emojis/1f30b.svg"); }
+
+.tw-milky-way {
+  background-image: url("../emojis/1f30c.svg"); }
+
+.tw-earth-africa {
+  background-image: url("../emojis/1f30d.svg"); }
+
+.tw-earth-americas {
+  background-image: url("../emojis/1f30e.svg"); }
+
+.tw-earth-asia {
+  background-image: url("../emojis/1f30f.svg"); }
+
+.tw-globe-with-meridians {
+  background-image: url("../emojis/1f310.svg"); }
+
+.tw-new-moon {
+  background-image: url("../emojis/1f311.svg"); }
+
+.tw-waxing-crescent-moon {
+  background-image: url("../emojis/1f312.svg"); }
+
+.tw-first-quarter-moon {
+  background-image: url("../emojis/1f313.svg"); }
+
+.tw-waxing-gibbous-moon {
+  background-image: url("../emojis/1f314.svg"); }
+
+.tw-full-moon {
+  background-image: url("../emojis/1f315.svg"); }
+
+.tw-waning-gibbous-moon {
+  background-image: url("../emojis/1f316.svg"); }
+
+.tw-last-quarter-moon {
+  background-image: url("../emojis/1f317.svg"); }
+
+.tw-waning-crescent-moon {
+  background-image: url("../emojis/1f318.svg"); }
+
+.tw-crescent-moon {
+  background-image: url("../emojis/1f319.svg"); }
+
+.tw-new-moon-with-face {
+  background-image: url("../emojis/1f31a.svg"); }
+
+.tw-first-quarter-moon-with-face {
+  background-image: url("../emojis/1f31b.svg"); }
+
+.tw-last-quarter-moon-with-face {
+  background-image: url("../emojis/1f31c.svg"); }
+
+.tw-full-moon-with-face {
+  background-image: url("../emojis/1f31d.svg"); }
+
+.tw-sun-with-face {
+  background-image: url("../emojis/1f31e.svg"); }
+
+.tw-star2 {
+  background-image: url("../emojis/1f31f.svg"); }
+
+.tw-stars {
+  background-image: url("../emojis/1f320.svg"); }
+
+.tw-chestnut {
+  background-image: url("../emojis/1f330.svg"); }
+
+.tw-seedling {
+  background-image: url("../emojis/1f331.svg"); }
+
+.tw-evergreen-tree {
+  background-image: url("../emojis/1f332.svg"); }
+
+.tw-deciduous-tree {
+  background-image: url("../emojis/1f333.svg"); }
+
+.tw-palm-tree {
+  background-image: url("../emojis/1f334.svg"); }
+
+.tw-cactus {
+  background-image: url("../emojis/1f335.svg"); }
+
+.tw-tulip {
+  background-image: url("../emojis/1f337.svg"); }
+
+.tw-cherry-blossom {
+  background-image: url("../emojis/1f338.svg"); }
+
+.tw-rose {
+  background-image: url("../emojis/1f339.svg"); }
+
+.tw-hibiscus {
+  background-image: url("../emojis/1f33a.svg"); }
+
+.tw-sunflower {
+  background-image: url("../emojis/1f33b.svg"); }
+
+.tw-blossom {
+  background-image: url("../emojis/1f33c.svg"); }
+
+.tw-corn {
+  background-image: url("../emojis/1f33d.svg"); }
+
+.tw-ear-of-rice {
+  background-image: url("../emojis/1f33e.svg"); }
+
+.tw-herb {
+  background-image: url("../emojis/1f33f.svg"); }
+
+.tw-four-leaf-clover {
+  background-image: url("../emojis/1f340.svg"); }
+
+.tw-maple-leaf {
+  background-image: url("../emojis/1f341.svg"); }
+
+.tw-fallen-leaf {
+  background-image: url("../emojis/1f342.svg"); }
+
+.tw-leaves {
+  background-image: url("../emojis/1f343.svg"); }
+
+.tw-mushroom {
+  background-image: url("../emojis/1f344.svg"); }
+
+.tw-tomato {
+  background-image: url("../emojis/1f345.svg"); }
+
+.tw-eggplant {
+  background-image: url("../emojis/1f346.svg"); }
+
+.tw-grapes {
+  background-image: url("../emojis/1f347.svg"); }
+
+.tw-melon {
+  background-image: url("../emojis/1f348.svg"); }
+
+.tw-watermelon {
+  background-image: url("../emojis/1f349.svg"); }
+
+.tw-tangerine {
+  background-image: url("../emojis/1f34a.svg"); }
+
+.tw-lemon {
+  background-image: url("../emojis/1f34b.svg"); }
+
+.tw-banana {
+  background-image: url("../emojis/1f34c.svg"); }
+
+.tw-pineapple {
+  background-image: url("../emojis/1f34d.svg"); }
+
+.tw-apple {
+  background-image: url("../emojis/1f34e.svg"); }
+
+.tw-green-apple {
+  background-image: url("../emojis/1f34f.svg"); }
+
+.tw-pear {
+  background-image: url("../emojis/1f350.svg"); }
+
+.tw-peach {
+  background-image: url("../emojis/1f351.svg"); }
+
+.tw-cherries {
+  background-image: url("../emojis/1f352.svg"); }
+
+.tw-strawberry {
+  background-image: url("../emojis/1f353.svg"); }
+
+.tw-hamburger {
+  background-image: url("../emojis/1f354.svg"); }
+
+.tw-pizza {
+  background-image: url("../emojis/1f355.svg"); }
+
+.tw-meat-on-bone {
+  background-image: url("../emojis/1f356.svg"); }
+
+.tw-poultry-leg {
+  background-image: url("../emojis/1f357.svg"); }
+
+.tw-rice-cracker {
+  background-image: url("../emojis/1f358.svg"); }
+
+.tw-rice-ball {
+  background-image: url("../emojis/1f359.svg"); }
+
+.tw-rice {
+  background-image: url("../emojis/1f35a.svg"); }
+
+.tw-curry {
+  background-image: url("../emojis/1f35b.svg"); }
+
+.tw-ramen {
+  background-image: url("../emojis/1f35c.svg"); }
+
+.tw-spaghetti {
+  background-image: url("../emojis/1f35d.svg"); }
+
+.tw-bread {
+  background-image: url("../emojis/1f35e.svg"); }
+
+.tw-fries {
+  background-image: url("../emojis/1f35f.svg"); }
+
+.tw-sweet-potato {
+  background-image: url("../emojis/1f360.svg"); }
+
+.tw-dango {
+  background-image: url("../emojis/1f361.svg"); }
+
+.tw-oden {
+  background-image: url("../emojis/1f362.svg"); }
+
+.tw-sushi {
+  background-image: url("../emojis/1f363.svg"); }
+
+.tw-fried-shrimp {
+  background-image: url("../emojis/1f364.svg"); }
+
+.tw-fish-cake {
+  background-image: url("../emojis/1f365.svg"); }
+
+.tw-icecream {
+  background-image: url("../emojis/1f366.svg"); }
+
+.tw-shaved-ice {
+  background-image: url("../emojis/1f367.svg"); }
+
+.tw-ice-cream {
+  background-image: url("../emojis/1f368.svg"); }
+
+.tw-doughnut {
+  background-image: url("../emojis/1f369.svg"); }
+
+.tw-cookie {
+  background-image: url("../emojis/1f36a.svg"); }
+
+.tw-chocolate-bar {
+  background-image: url("../emojis/1f36b.svg"); }
+
+.tw-candy {
+  background-image: url("../emojis/1f36c.svg"); }
+
+.tw-lollipop {
+  background-image: url("../emojis/1f36d.svg"); }
+
+.tw-custard {
+  background-image: url("../emojis/1f36e.svg"); }
+
+.tw-honey-pot {
+  background-image: url("../emojis/1f36f.svg"); }
+
+.tw-cake {
+  background-image: url("../emojis/1f370.svg"); }
+
+.tw-bento {
+  background-image: url("../emojis/1f371.svg"); }
+
+.tw-stew {
+  background-image: url("../emojis/1f372.svg"); }
+
+.tw-egg {
+  background-image: url("../emojis/1f373.svg"); }
+
+.tw-fork-and-knife {
+  background-image: url("../emojis/1f374.svg"); }
+
+.tw-tea {
+  background-image: url("../emojis/1f375.svg"); }
+
+.tw-sake {
+  background-image: url("../emojis/1f376.svg"); }
+
+.tw-wine-glass {
+  background-image: url("../emojis/1f377.svg"); }
+
+.tw-cocktail {
+  background-image: url("../emojis/1f378.svg"); }
+
+.tw-tropical-drink {
+  background-image: url("../emojis/1f379.svg"); }
+
+.tw-beer {
+  background-image: url("../emojis/1f37a.svg"); }
+
+.tw-beers {
+  background-image: url("../emojis/1f37b.svg"); }
+
+.tw-baby-bottle {
+  background-image: url("../emojis/1f37c.svg"); }
+
+.tw-ribbon {
+  background-image: url("../emojis/1f380.svg"); }
+
+.tw-gift {
+  background-image: url("../emojis/1f381.svg"); }
+
+.tw-birthday {
+  background-image: url("../emojis/1f382.svg"); }
+
+.tw-jack-o-lantern {
+  background-image: url("../emojis/1f383.svg"); }
+
+.tw-christmas-tree {
+  background-image: url("../emojis/1f384.svg"); }
+
+.tw-santa {
+  background-image: url("../emojis/1f385.svg"); }
+
+.tw-fireworks {
+  background-image: url("../emojis/1f386.svg"); }
+
+.tw-sparkler {
+  background-image: url("../emojis/1f387.svg"); }
+
+.tw-balloon {
+  background-image: url("../emojis/1f388.svg"); }
+
+.tw-tada {
+  background-image: url("../emojis/1f389.svg"); }
+
+.tw-confetti-ball {
+  background-image: url("../emojis/1f38a.svg"); }
+
+.tw-tanabata-tree {
+  background-image: url("../emojis/1f38b.svg"); }
+
+.tw-crossed-flags {
+  background-image: url("../emojis/1f38c.svg"); }
+
+.tw-bamboo {
+  background-image: url("../emojis/1f38d.svg"); }
+
+.tw-dolls {
+  background-image: url("../emojis/1f38e.svg"); }
+
+.tw-flags {
+  background-image: url("../emojis/1f38f.svg"); }
+
+.tw-wind-chime {
+  background-image: url("../emojis/1f390.svg"); }
+
+.tw-rice-scene {
+  background-image: url("../emojis/1f391.svg"); }
+
+.tw-school-satchel {
+  background-image: url("../emojis/1f392.svg"); }
+
+.tw-mortar-board {
+  background-image: url("../emojis/1f393.svg"); }
+
+.tw-carousel-horse {
+  background-image: url("../emojis/1f3a0.svg"); }
+
+.tw-ferris-wheel {
+  background-image: url("../emojis/1f3a1.svg"); }
+
+.tw-roller-coaster {
+  background-image: url("../emojis/1f3a2.svg"); }
+
+.tw-fishing-pole-and-fish {
+  background-image: url("../emojis/1f3a3.svg"); }
+
+.tw-microphone {
+  background-image: url("../emojis/1f3a4.svg"); }
+
+.tw-movie-camera {
+  background-image: url("../emojis/1f3a5.svg"); }
+
+.tw-cinema {
+  background-image: url("../emojis/1f3a6.svg"); }
+
+.tw-headphones {
+  background-image: url("../emojis/1f3a7.svg"); }
+
+.tw-art {
+  background-image: url("../emojis/1f3a8.svg"); }
+
+.tw-tophat {
+  background-image: url("../emojis/1f3a9.svg"); }
+
+.tw-circus-tent {
+  background-image: url("../emojis/1f3aa.svg"); }
+
+.tw-ticket {
+  background-image: url("../emojis/1f3ab.svg"); }
+
+.tw-clapper {
+  background-image: url("../emojis/1f3ac.svg"); }
+
+.tw-performing-arts {
+  background-image: url("../emojis/1f3ad.svg"); }
+
+.tw-video-game {
+  background-image: url("../emojis/1f3ae.svg"); }
+
+.tw-dart {
+  background-image: url("../emojis/1f3af.svg"); }
+
+.tw-slot-machine {
+  background-image: url("../emojis/1f3b0.svg"); }
+
+.tw-8ball {
+  background-image: url("../emojis/1f3b1.svg"); }
+
+.tw-game-die {
+  background-image: url("../emojis/1f3b2.svg"); }
+
+.tw-bowling {
+  background-image: url("../emojis/1f3b3.svg"); }
+
+.tw-flower-playing-cards {
+  background-image: url("../emojis/1f3b4.svg"); }
+
+.tw-musical-note {
+  background-image: url("../emojis/1f3b5.svg"); }
+
+.tw-notes {
+  background-image: url("../emojis/1f3b6.svg"); }
+
+.tw-saxophone {
+  background-image: url("../emojis/1f3b7.svg"); }
+
+.tw-guitar {
+  background-image: url("../emojis/1f3b8.svg"); }
+
+.tw-musical-keyboard {
+  background-image: url("../emojis/1f3b9.svg"); }
+
+.tw-trumpet {
+  background-image: url("../emojis/1f3ba.svg"); }
+
+.tw-violin {
+  background-image: url("../emojis/1f3bb.svg"); }
+
+.tw-musical-score {
+  background-image: url("../emojis/1f3bc.svg"); }
+
+.tw-running-shirt-with-sash {
+  background-image: url("../emojis/1f3bd.svg"); }
+
+.tw-tennis {
+  background-image: url("../emojis/1f3be.svg"); }
+
+.tw-ski {
+  background-image: url("../emojis/1f3bf.svg"); }
+
+.tw-basketball {
+  background-image: url("../emojis/1f3c0.svg"); }
+
+.tw-checkered-flag {
+  background-image: url("../emojis/1f3c1.svg"); }
+
+.tw-snowboarder {
+  background-image: url("../emojis/1f3c2.svg"); }
+
+.tw-runner {
+  background-image: url("../emojis/1f3c3.svg"); }
+
+.tw-surfer {
+  background-image: url("../emojis/1f3c4.svg"); }
+
+.tw-trophy {
+  background-image: url("../emojis/1f3c6.svg"); }
+
+.tw-horse-racing {
+  background-image: url("../emojis/1f3c7.svg"); }
+
+.tw-football {
+  background-image: url("../emojis/1f3c8.svg"); }
+
+.tw-rugby-football {
+  background-image: url("../emojis/1f3c9.svg"); }
+
+.tw-swimmer {
+  background-image: url("../emojis/1f3ca.svg"); }
+
+.tw-house {
+  background-image: url("../emojis/1f3e0.svg"); }
+
+.tw-house-with-garden {
+  background-image: url("../emojis/1f3e1.svg"); }
+
+.tw-office {
+  background-image: url("../emojis/1f3e2.svg"); }
+
+.tw-post-office {
+  background-image: url("../emojis/1f3e3.svg"); }
+
+.tw-european-post-office {
+  background-image: url("../emojis/1f3e4.svg"); }
+
+.tw-hospital {
+  background-image: url("../emojis/1f3e5.svg"); }
+
+.tw-bank {
+  background-image: url("../emojis/1f3e6.svg"); }
+
+.tw-atm {
+  background-image: url("../emojis/1f3e7.svg"); }
+
+.tw-hotel {
+  background-image: url("../emojis/1f3e8.svg"); }
+
+.tw-love-hotel {
+  background-image: url("../emojis/1f3e9.svg"); }
+
+.tw-convenience-store {
+  background-image: url("../emojis/1f3ea.svg"); }
+
+.tw-school {
+  background-image: url("../emojis/1f3eb.svg"); }
+
+.tw-department-store {
+  background-image: url("../emojis/1f3ec.svg"); }
+
+.tw-factory {
+  background-image: url("../emojis/1f3ed.svg"); }
+
+.tw-izakaya-lantern {
+  background-image: url("../emojis/1f3ee.svg"); }
+
+.tw-japanese-castle {
+  background-image: url("../emojis/1f3ef.svg"); }
+
+.tw-european-castle {
+  background-image: url("../emojis/1f3f0.svg"); }
+
+.tw-rat {
+  background-image: url("../emojis/1f400.svg"); }
+
+.tw-mouse2 {
+  background-image: url("../emojis/1f401.svg"); }
+
+.tw-ox {
+  background-image: url("../emojis/1f402.svg"); }
+
+.tw-water-buffalo {
+  background-image: url("../emojis/1f403.svg"); }
+
+.tw-cow2 {
+  background-image: url("../emojis/1f404.svg"); }
+
+.tw-tiger2 {
+  background-image: url("../emojis/1f405.svg"); }
+
+.tw-leopard {
+  background-image: url("../emojis/1f406.svg"); }
+
+.tw-rabbit2 {
+  background-image: url("../emojis/1f407.svg"); }
+
+.tw-cat2 {
+  background-image: url("../emojis/1f408.svg"); }
+
+.tw-dragon {
+  background-image: url("../emojis/1f409.svg"); }
+
+.tw-crocodile {
+  background-image: url("../emojis/1f40a.svg"); }
+
+.tw-whale2 {
+  background-image: url("../emojis/1f40b.svg"); }
+
+.tw-snail {
+  background-image: url("../emojis/1f40c.svg"); }
+
+.tw-snake {
+  background-image: url("../emojis/1f40d.svg"); }
+
+.tw-racehorse {
+  background-image: url("../emojis/1f40e.svg"); }
+
+.tw-ram {
+  background-image: url("../emojis/1f40f.svg"); }
+
+.tw-goat {
+  background-image: url("../emojis/1f410.svg"); }
+
+.tw-sheep {
+  background-image: url("../emojis/1f411.svg"); }
+
+.tw-monkey {
+  background-image: url("../emojis/1f412.svg"); }
+
+.tw-rooster {
+  background-image: url("../emojis/1f413.svg"); }
+
+.tw-chicken {
+  background-image: url("../emojis/1f414.svg"); }
+
+.tw-dog2 {
+  background-image: url("../emojis/1f415.svg"); }
+
+.tw-pig2 {
+  background-image: url("../emojis/1f416.svg"); }
+
+.tw-boar {
+  background-image: url("../emojis/1f417.svg"); }
+
+.tw-elephant {
+  background-image: url("../emojis/1f418.svg"); }
+
+.tw-octopus {
+  background-image: url("../emojis/1f419.svg"); }
+
+.tw-shell {
+  background-image: url("../emojis/1f41a.svg"); }
+
+.tw-bug {
+  background-image: url("../emojis/1f41b.svg"); }
+
+.tw-ant {
+  background-image: url("../emojis/1f41c.svg"); }
+
+.tw-bee {
+  background-image: url("../emojis/1f41d.svg"); }
+
+.tw-beetle {
+  background-image: url("../emojis/1f41e.svg"); }
+
+.tw-fish {
+  background-image: url("../emojis/1f41f.svg"); }
+
+.tw-tropical-fish {
+  background-image: url("../emojis/1f420.svg"); }
+
+.tw-blowfish {
+  background-image: url("../emojis/1f421.svg"); }
+
+.tw-turtle {
+  background-image: url("../emojis/1f422.svg"); }
+
+.tw-hatching-chick {
+  background-image: url("../emojis/1f423.svg"); }
+
+.tw-baby-chick {
+  background-image: url("../emojis/1f424.svg"); }
+
+.tw-hatched-chick {
+  background-image: url("../emojis/1f425.svg"); }
+
+.tw-bird {
+  background-image: url("../emojis/1f426.svg"); }
+
+.tw-penguin {
+  background-image: url("../emojis/1f427.svg"); }
+
+.tw-koala {
+  background-image: url("../emojis/1f428.svg"); }
+
+.tw-poodle {
+  background-image: url("../emojis/1f429.svg"); }
+
+.tw-dromedary-camel {
+  background-image: url("../emojis/1f42a.svg"); }
+
+.tw-camel {
+  background-image: url("../emojis/1f42b.svg"); }
+
+.tw-dolphin {
+  background-image: url("../emojis/1f42c.svg"); }
+
+.tw-mouse {
+  background-image: url("../emojis/1f42d.svg"); }
+
+.tw-cow {
+  background-image: url("../emojis/1f42e.svg"); }
+
+.tw-tiger {
+  background-image: url("../emojis/1f42f.svg"); }
+
+.tw-rabbit {
+  background-image: url("../emojis/1f430.svg"); }
+
+.tw-cat {
+  background-image: url("../emojis/1f431.svg"); }
+
+.tw-dragon-face {
+  background-image: url("../emojis/1f432.svg"); }
+
+.tw-whale {
+  background-image: url("../emojis/1f433.svg"); }
+
+.tw-horse {
+  background-image: url("../emojis/1f434.svg"); }
+
+.tw-monkey-face {
+  background-image: url("../emojis/1f435.svg"); }
+
+.tw-dog {
+  background-image: url("../emojis/1f436.svg"); }
+
+.tw-pig {
+  background-image: url("../emojis/1f437.svg"); }
+
+.tw-frog {
+  background-image: url("../emojis/1f438.svg"); }
+
+.tw-hamster {
+  background-image: url("../emojis/1f439.svg"); }
+
+.tw-wolf {
+  background-image: url("../emojis/1f43a.svg"); }
+
+.tw-bear {
+  background-image: url("../emojis/1f43b.svg"); }
+
+.tw-panda-face {
+  background-image: url("../emojis/1f43c.svg"); }
+
+.tw-pig-nose {
+  background-image: url("../emojis/1f43d.svg"); }
+
+.tw-feet {
+  background-image: url("../emojis/1f43e.svg"); }
+
+.tw-eyes {
+  background-image: url("../emojis/1f440.svg"); }
+
+.tw-ear {
+  background-image: url("../emojis/1f442.svg"); }
+
+.tw-nose {
+  background-image: url("../emojis/1f443.svg"); }
+
+.tw-lips {
+  background-image: url("../emojis/1f444.svg"); }
+
+.tw-tongue {
+  background-image: url("../emojis/1f445.svg"); }
+
+.tw-point-up-2 {
+  background-image: url("../emojis/1f446.svg"); }
+
+.tw-point-down {
+  background-image: url("../emojis/1f447.svg"); }
+
+.tw-point-left {
+  background-image: url("../emojis/1f448.svg"); }
+
+.tw-point-right {
+  background-image: url("../emojis/1f449.svg"); }
+
+.tw-punch {
+  background-image: url("../emojis/1f44a.svg"); }
+
+.tw-wave {
+  background-image: url("../emojis/1f44b.svg"); }
+
+.tw-ok-hand {
+  background-image: url("../emojis/1f44c.svg"); }
+
+.tw-plus1 {
+  background-image: url("../emojis/1f44d.svg"); }
+
+.tw-thumbsup {
+  background-image: url("../emojis/1f44d.svg"); }
+
+.tw--1 {
+  background-image: url("../emojis/1f44e.svg"); }
+
+.tw-thumbsdown {
+  background-image: url("../emojis/1f44e.svg"); }
+
+.tw-clap {
+  background-image: url("../emojis/1f44f.svg"); }
+
+.tw-open-hands {
+  background-image: url("../emojis/1f450.svg"); }
+
+.tw-crown {
+  background-image: url("../emojis/1f451.svg"); }
+
+.tw-womans-hat {
+  background-image: url("../emojis/1f452.svg"); }
+
+.tw-eyeglasses {
+  background-image: url("../emojis/1f453.svg"); }
+
+.tw-necktie {
+  background-image: url("../emojis/1f454.svg"); }
+
+.tw-shirt {
+  background-image: url("../emojis/1f455.svg"); }
+
+.tw-jeans {
+  background-image: url("../emojis/1f456.svg"); }
+
+.tw-dress {
+  background-image: url("../emojis/1f457.svg"); }
+
+.tw-kimono {
+  background-image: url("../emojis/1f458.svg"); }
+
+.tw-bikini {
+  background-image: url("../emojis/1f459.svg"); }
+
+.tw-womans-clothes {
+  background-image: url("../emojis/1f45a.svg"); }
+
+.tw-purse {
+  background-image: url("../emojis/1f45b.svg"); }
+
+.tw-handbag {
+  background-image: url("../emojis/1f45c.svg"); }
+
+.tw-pouch {
+  background-image: url("../emojis/1f45d.svg"); }
+
+.tw-mans-shoe {
+  background-image: url("../emojis/1f45e.svg"); }
+
+.tw-athletic-shoe {
+  background-image: url("../emojis/1f45f.svg"); }
+
+.tw-high-heel {
+  background-image: url("../emojis/1f460.svg"); }
+
+.tw-sandal {
+  background-image: url("../emojis/1f461.svg"); }
+
+.tw-boot {
+  background-image: url("../emojis/1f462.svg"); }
+
+.tw-footprints {
+  background-image: url("../emojis/1f463.svg"); }
+
+.tw-bust-in-silhouette {
+  background-image: url("../emojis/1f464.svg"); }
+
+.tw-busts-in-silhouette {
+  background-image: url("../emojis/1f465.svg"); }
+
+.tw-boy {
+  background-image: url("../emojis/1f466.svg"); }
+
+.tw-girl {
+  background-image: url("../emojis/1f467.svg"); }
+
+.tw-man {
+  background-image: url("../emojis/1f468.svg"); }
+
+.tw-woman {
+  background-image: url("../emojis/1f469.svg"); }
+
+.tw-family {
+  background-image: url("../emojis/1f46a.svg"); }
+
+.tw-couple {
+  background-image: url("../emojis/1f46b.svg"); }
+
+.tw-two-men-holding-hands {
+  background-image: url("../emojis/1f46c.svg"); }
+
+.tw-two-women-holding-hands {
+  background-image: url("../emojis/1f46d.svg"); }
+
+.tw-cop {
+  background-image: url("../emojis/1f46e.svg"); }
+
+.tw-dancers {
+  background-image: url("../emojis/1f46f.svg"); }
+
+.tw-bride-with-veil {
+  background-image: url("../emojis/1f470.svg"); }
+
+.tw-person-with-blond-hair {
+  background-image: url("../emojis/1f471.svg"); }
+
+.tw-man-with-gua-pi-mao {
+  background-image: url("../emojis/1f472.svg"); }
+
+.tw-man-with-turban {
+  background-image: url("../emojis/1f473.svg"); }
+
+.tw-older-man {
+  background-image: url("../emojis/1f474.svg"); }
+
+.tw-grandma {
+  background-image: url("../emojis/1f475.svg"); }
+
+.tw-older-woman {
+  background-image: url("../emojis/1f475.svg"); }
+
+.tw-baby {
+  background-image: url("../emojis/1f476.svg"); }
+
+.tw-construction-worker {
+  background-image: url("../emojis/1f477.svg"); }
+
+.tw-princess {
+  background-image: url("../emojis/1f478.svg"); }
+
+.tw-japanese-ogre {
+  background-image: url("../emojis/1f479.svg"); }
+
+.tw-japanese-goblin {
+  background-image: url("../emojis/1f47a.svg"); }
+
+.tw-ghost {
+  background-image: url("../emojis/1f47b.svg"); }
+
+.tw-angel {
+  background-image: url("../emojis/1f47c.svg"); }
+
+.tw-alien {
+  background-image: url("../emojis/1f47d.svg"); }
+
+.tw-space-invader {
+  background-image: url("../emojis/1f47e.svg"); }
+
+.tw-imp {
+  background-image: url("../emojis/1f47f.svg"); }
+
+.tw-skeleton {
+  background-image: url("../emojis/1f480.svg"); }
+
+.tw-skull {
+  background-image: url("../emojis/1f480.svg"); }
+
+.tw-information-desk-person {
+  background-image: url("../emojis/1f481.svg"); }
+
+.tw-guardsman {
+  background-image: url("../emojis/1f482.svg"); }
+
+.tw-dancer {
+  background-image: url("../emojis/1f483.svg"); }
+
+.tw-lipstick {
+  background-image: url("../emojis/1f484.svg"); }
+
+.tw-nail-care {
+  background-image: url("../emojis/1f485.svg"); }
+
+.tw-massage {
+  background-image: url("../emojis/1f486.svg"); }
+
+.tw-haircut {
+  background-image: url("../emojis/1f487.svg"); }
+
+.tw-barber {
+  background-image: url("../emojis/1f488.svg"); }
+
+.tw-syringe {
+  background-image: url("../emojis/1f489.svg"); }
+
+.tw-pill {
+  background-image: url("../emojis/1f48a.svg"); }
+
+.tw-kiss {
+  background-image: url("../emojis/1f48b.svg"); }
+
+.tw-love-letter {
+  background-image: url("../emojis/1f48c.svg"); }
+
+.tw-ring {
+  background-image: url("../emojis/1f48d.svg"); }
+
+.tw-gem {
+  background-image: url("../emojis/1f48e.svg"); }
+
+.tw-couplekiss {
+  background-image: url("../emojis/1f48f.svg"); }
+
+.tw-bouquet {
+  background-image: url("../emojis/1f490.svg"); }
+
+.tw-couple-with-heart {
+  background-image: url("../emojis/1f491.svg"); }
+
+.tw-wedding {
+  background-image: url("../emojis/1f492.svg"); }
+
+.tw-heartbeat {
+  background-image: url("../emojis/1f493.svg"); }
+
+.tw-broken-heart {
+  background-image: url("../emojis/1f494.svg"); }
+
+.tw-two-hearts {
+  background-image: url("../emojis/1f495.svg"); }
+
+.tw-sparkling-heart {
+  background-image: url("../emojis/1f496.svg"); }
+
+.tw-heartpulse {
+  background-image: url("../emojis/1f497.svg"); }
+
+.tw-cupid {
+  background-image: url("../emojis/1f498.svg"); }
+
+.tw-blue-heart {
+  background-image: url("../emojis/1f499.svg"); }
+
+.tw-green-heart {
+  background-image: url("../emojis/1f49a.svg"); }
+
+.tw-yellow-heart {
+  background-image: url("../emojis/1f49b.svg"); }
+
+.tw-purple-heart {
+  background-image: url("../emojis/1f49c.svg"); }
+
+.tw-gift-heart {
+  background-image: url("../emojis/1f49d.svg"); }
+
+.tw-revolving-hearts {
+  background-image: url("../emojis/1f49e.svg"); }
+
+.tw-heart-decoration {
+  background-image: url("../emojis/1f49f.svg"); }
+
+.tw-diamond-shape-with-a-dot-inside {
+  background-image: url("../emojis/1f4a0.svg"); }
+
+.tw-bulb {
+  background-image: url("../emojis/1f4a1.svg"); }
+
+.tw-anger {
+  background-image: url("../emojis/1f4a2.svg"); }
+
+.tw-bomb {
+  background-image: url("../emojis/1f4a3.svg"); }
+
+.tw-zzz {
+  background-image: url("../emojis/1f4a4.svg"); }
+
+.tw-boom {
+  background-image: url("../emojis/1f4a5.svg"); }
+
+.tw-sweat-drops {
+  background-image: url("../emojis/1f4a6.svg"); }
+
+.tw-droplet {
+  background-image: url("../emojis/1f4a7.svg"); }
+
+.tw-dash {
+  background-image: url("../emojis/1f4a8.svg"); }
+
+.tw-hankey {
+  background-image: url("../emojis/1f4a9.svg"); }
+
+.tw-poo {
+  background-image: url("../emojis/1f4a9.svg"); }
+
+.tw-poop {
+  background-image: url("../emojis/1f4a9.svg"); }
+
+.tw-shit {
+  background-image: url("../emojis/1f4a9.svg"); }
+
+.tw-muscle {
+  background-image: url("../emojis/1f4aa.svg"); }
+
+.tw-dizzy {
+  background-image: url("../emojis/1f4ab.svg"); }
+
+.tw-speech-balloon {
+  background-image: url("../emojis/1f4ac.svg"); }
+
+.tw-thought-balloon {
+  background-image: url("../emojis/1f4ad.svg"); }
+
+.tw-white-flower {
+  background-image: url("../emojis/1f4ae.svg"); }
+
+.tw-100 {
+  background-image: url("../emojis/1f4af.svg"); }
+
+.tw-moneybag {
+  background-image: url("../emojis/1f4b0.svg"); }
+
+.tw-currency-exchange {
+  background-image: url("../emojis/1f4b1.svg"); }
+
+.tw-heavy-dollar-sign {
+  background-image: url("../emojis/1f4b2.svg"); }
+
+.tw-credit-card {
+  background-image: url("../emojis/1f4b3.svg"); }
+
+.tw-yen {
+  background-image: url("../emojis/1f4b4.svg"); }
+
+.tw-dollar {
+  background-image: url("../emojis/1f4b5.svg"); }
+
+.tw-euro {
+  background-image: url("../emojis/1f4b6.svg"); }
+
+.tw-pound {
+  background-image: url("../emojis/1f4b7.svg"); }
+
+.tw-money-with-wings {
+  background-image: url("../emojis/1f4b8.svg"); }
+
+.tw-chart {
+  background-image: url("../emojis/1f4b9.svg"); }
+
+.tw-seat {
+  background-image: url("../emojis/1f4ba.svg"); }
+
+.tw-computer {
+  background-image: url("../emojis/1f4bb.svg"); }
+
+.tw-briefcase {
+  background-image: url("../emojis/1f4bc.svg"); }
+
+.tw-minidisc {
+  background-image: url("../emojis/1f4bd.svg"); }
+
+.tw-floppy-disk {
+  background-image: url("../emojis/1f4be.svg"); }
+
+.tw-cd {
+  background-image: url("../emojis/1f4bf.svg"); }
+
+.tw-dvd {
+  background-image: url("../emojis/1f4c0.svg"); }
+
+.tw-file-folder {
+  background-image: url("../emojis/1f4c1.svg"); }
+
+.tw-open-file-folder {
+  background-image: url("../emojis/1f4c2.svg"); }
+
+.tw-page-with-curl {
+  background-image: url("../emojis/1f4c3.svg"); }
+
+.tw-page-facing-up {
+  background-image: url("../emojis/1f4c4.svg"); }
+
+.tw-date {
+  background-image: url("../emojis/1f4c5.svg"); }
+
+.tw-calendar {
+  background-image: url("../emojis/1f4c6.svg"); }
+
+.tw-card-index {
+  background-image: url("../emojis/1f4c7.svg"); }
+
+.tw-chart-with-upwards-trend {
+  background-image: url("../emojis/1f4c8.svg"); }
+
+.tw-chart-with-downwards-trend {
+  background-image: url("../emojis/1f4c9.svg"); }
+
+.tw-bar-chart {
+  background-image: url("../emojis/1f4ca.svg"); }
+
+.tw-clipboard {
+  background-image: url("../emojis/1f4cb.svg"); }
+
+.tw-pushpin {
+  background-image: url("../emojis/1f4cc.svg"); }
+
+.tw-round-pushpin {
+  background-image: url("../emojis/1f4cd.svg"); }
+
+.tw-paperclip {
+  background-image: url("../emojis/1f4ce.svg"); }
+
+.tw-straight-ruler {
+  background-image: url("../emojis/1f4cf.svg"); }
+
+.tw-triangular-ruler {
+  background-image: url("../emojis/1f4d0.svg"); }
+
+.tw-bookmark-tabs {
+  background-image: url("../emojis/1f4d1.svg"); }
+
+.tw-ledger {
+  background-image: url("../emojis/1f4d2.svg"); }
+
+.tw-notebook {
+  background-image: url("../emojis/1f4d3.svg"); }
+
+.tw-notebook-with-decorative-cover {
+  background-image: url("../emojis/1f4d4.svg"); }
+
+.tw-closed-book {
+  background-image: url("../emojis/1f4d5.svg"); }
+
+.tw-book {
+  background-image: url("../emojis/1f4d6.svg"); }
+
+.tw-green-book {
+  background-image: url("../emojis/1f4d7.svg"); }
+
+.tw-blue-book {
+  background-image: url("../emojis/1f4d8.svg"); }
+
+.tw-orange-book {
+  background-image: url("../emojis/1f4d9.svg"); }
+
+.tw-books {
+  background-image: url("../emojis/1f4da.svg"); }
+
+.tw-name-badge {
+  background-image: url("../emojis/1f4db.svg"); }
+
+.tw-scroll {
+  background-image: url("../emojis/1f4dc.svg"); }
+
+.tw-pencil {
+  background-image: url("../emojis/1f4dd.svg"); }
+
+.tw-telephone-receiver {
+  background-image: url("../emojis/1f4de.svg"); }
+
+.tw-pager {
+  background-image: url("../emojis/1f4df.svg"); }
+
+.tw-fax {
+  background-image: url("../emojis/1f4e0.svg"); }
+
+.tw-satellite {
+  background-image: url("../emojis/1f4e1.svg"); }
+
+.tw-loudspeaker {
+  background-image: url("../emojis/1f4e2.svg"); }
+
+.tw-mega {
+  background-image: url("../emojis/1f4e3.svg"); }
+
+.tw-outbox-tray {
+  background-image: url("../emojis/1f4e4.svg"); }
+
+.tw-inbox-tray {
+  background-image: url("../emojis/1f4e5.svg"); }
+
+.tw-package {
+  background-image: url("../emojis/1f4e6.svg"); }
+
+.tw-e-mail {
+  background-image: url("../emojis/1f4e7.svg"); }
+
+.tw-email {
+  background-image: url("../emojis/1f4e7.svg"); }
+
+.tw-incoming-envelope {
+  background-image: url("../emojis/1f4e8.svg"); }
+
+.tw-envelope-with-arrow {
+  background-image: url("../emojis/1f4e9.svg"); }
+
+.tw-mailbox-closed {
+  background-image: url("../emojis/1f4ea.svg"); }
+
+.tw-mailbox {
+  background-image: url("../emojis/1f4eb.svg"); }
+
+.tw-mailbox-with-mail {
+  background-image: url("../emojis/1f4ec.svg"); }
+
+.tw-mailbox-with-no-mail {
+  background-image: url("../emojis/1f4ed.svg"); }
+
+.tw-postbox {
+  background-image: url("../emojis/1f4ee.svg"); }
+
+.tw-postal-horn {
+  background-image: url("../emojis/1f4ef.svg"); }
+
+.tw-newspaper {
+  background-image: url("../emojis/1f4f0.svg"); }
+
+.tw-iphone {
+  background-image: url("../emojis/1f4f1.svg"); }
+
+.tw-calling {
+  background-image: url("../emojis/1f4f2.svg"); }
+
+.tw-vibration-mode {
+  background-image: url("../emojis/1f4f3.svg"); }
+
+.tw-mobile-phone-off {
+  background-image: url("../emojis/1f4f4.svg"); }
+
+.tw-no-mobile-phones {
+  background-image: url("../emojis/1f4f5.svg"); }
+
+.tw-signal-strength {
+  background-image: url("../emojis/1f4f6.svg"); }
+
+.tw-camera {
+  background-image: url("../emojis/1f4f7.svg"); }
+
+.tw-video-camera {
+  background-image: url("../emojis/1f4f9.svg"); }
+
+.tw-tv {
+  background-image: url("../emojis/1f4fa.svg"); }
+
+.tw-radio {
+  background-image: url("../emojis/1f4fb.svg"); }
+
+.tw-vhs {
+  background-image: url("../emojis/1f4fc.svg"); }
+
+.tw-twisted-rightwards-arrows {
+  background-image: url("../emojis/1f500.svg"); }
+
+.tw-repeat {
+  background-image: url("../emojis/1f501.svg"); }
+
+.tw-repeat-one {
+  background-image: url("../emojis/1f502.svg"); }
+
+.tw-arrows-clockwise {
+  background-image: url("../emojis/1f503.svg"); }
+
+.tw-arrows-counterclockwise {
+  background-image: url("../emojis/1f504.svg"); }
+
+.tw-low-brightness {
+  background-image: url("../emojis/1f505.svg"); }
+
+.tw-high-brightness {
+  background-image: url("../emojis/1f506.svg"); }
+
+.tw-mute {
+  background-image: url("../emojis/1f507.svg"); }
+
+.tw-speaker {
+  background-image: url("../emojis/1f508.svg"); }
+
+.tw-sound {
+  background-image: url("../emojis/1f509.svg"); }
+
+.tw-loud-sound {
+  background-image: url("../emojis/1f50a.svg"); }
+
+.tw-battery {
+  background-image: url("../emojis/1f50b.svg"); }
+
+.tw-electric-plug {
+  background-image: url("../emojis/1f50c.svg"); }
+
+.tw-mag {
+  background-image: url("../emojis/1f50d.svg"); }
+
+.tw-mag-right {
+  background-image: url("../emojis/1f50e.svg"); }
+
+.tw-lock-with-ink-pen {
+  background-image: url("../emojis/1f50f.svg"); }
+
+.tw-closed-lock-with-key {
+  background-image: url("../emojis/1f510.svg"); }
+
+.tw-key {
+  background-image: url("../emojis/1f511.svg"); }
+
+.tw-lock {
+  background-image: url("../emojis/1f512.svg"); }
+
+.tw-unlock {
+  background-image: url("../emojis/1f513.svg"); }
+
+.tw-bell {
+  background-image: url("../emojis/1f514.svg"); }
+
+.tw-no-bell {
+  background-image: url("../emojis/1f515.svg"); }
+
+.tw-bookmark {
+  background-image: url("../emojis/1f516.svg"); }
+
+.tw-link {
+  background-image: url("../emojis/1f517.svg"); }
+
+.tw-radio-button {
+  background-image: url("../emojis/1f518.svg"); }
+
+.tw-back {
+  background-image: url("../emojis/1f519.svg"); }
+
+.tw-end {
+  background-image: url("../emojis/1f51a.svg"); }
+
+.tw-on {
+  background-image: url("../emojis/1f51b.svg"); }
+
+.tw-soon {
+  background-image: url("../emojis/1f51c.svg"); }
+
+.tw-top {
+  background-image: url("../emojis/1f51d.svg"); }
+
+.tw-underage {
+  background-image: url("../emojis/1f51e.svg"); }
+
+.tw-keycap-ten {
+  background-image: url("../emojis/1f51f.svg"); }
+
+.tw-capital-abcd {
+  background-image: url("../emojis/1f520.svg"); }
+
+.tw-abcd {
+  background-image: url("../emojis/1f521.svg"); }
+
+.tw-1234 {
+  background-image: url("../emojis/1f522.svg"); }
+
+.tw-symbols {
+  background-image: url("../emojis/1f523.svg"); }
+
+.tw-abc {
+  background-image: url("../emojis/1f524.svg"); }
+
+.tw-fire {
+  background-image: url("../emojis/1f525.svg"); }
+
+.tw-flame {
+  background-image: url("../emojis/1f525.svg"); }
+
+.tw-flashlight {
+  background-image: url("../emojis/1f526.svg"); }
+
+.tw-wrench {
+  background-image: url("../emojis/1f527.svg"); }
+
+.tw-hammer {
+  background-image: url("../emojis/1f528.svg"); }
+
+.tw-nut-and-bolt {
+  background-image: url("../emojis/1f529.svg"); }
+
+.tw-knife {
+  background-image: url("../emojis/1f52a.svg"); }
+
+.tw-gun {
+  background-image: url("../emojis/1f52b.svg"); }
+
+.tw-microscope {
+  background-image: url("../emojis/1f52c.svg"); }
+
+.tw-telescope {
+  background-image: url("../emojis/1f52d.svg"); }
+
+.tw-crystal-ball {
+  background-image: url("../emojis/1f52e.svg"); }
+
+.tw-six-pointed-star {
+  background-image: url("../emojis/1f52f.svg"); }
+
+.tw-beginner {
+  background-image: url("../emojis/1f530.svg"); }
+
+.tw-trident {
+  background-image: url("../emojis/1f531.svg"); }
+
+.tw-black-square-button {
+  background-image: url("../emojis/1f532.svg"); }
+
+.tw-white-square-button {
+  background-image: url("../emojis/1f533.svg"); }
+
+.tw-red-circle {
+  background-image: url("../emojis/1f534.svg"); }
+
+.tw-large-blue-circle {
+  background-image: url("../emojis/1f535.svg"); }
+
+.tw-large-orange-diamond {
+  background-image: url("../emojis/1f536.svg"); }
+
+.tw-large-blue-diamond {
+  background-image: url("../emojis/1f537.svg"); }
+
+.tw-small-orange-diamond {
+  background-image: url("../emojis/1f538.svg"); }
+
+.tw-small-blue-diamond {
+  background-image: url("../emojis/1f539.svg"); }
+
+.tw-small-red-triangle {
+  background-image: url("../emojis/1f53a.svg"); }
+
+.tw-small-red-triangle-down {
+  background-image: url("../emojis/1f53b.svg"); }
+
+.tw-arrow-up-small {
+  background-image: url("../emojis/1f53c.svg"); }
+
+.tw-arrow-down-small {
+  background-image: url("../emojis/1f53d.svg"); }
+
+.tw-clock1 {
+  background-image: url("../emojis/1f550.svg"); }
+
+.tw-clock2 {
+  background-image: url("../emojis/1f551.svg"); }
+
+.tw-clock3 {
+  background-image: url("../emojis/1f552.svg"); }
+
+.tw-clock4 {
+  background-image: url("../emojis/1f553.svg"); }
+
+.tw-clock5 {
+  background-image: url("../emojis/1f554.svg"); }
+
+.tw-clock6 {
+  background-image: url("../emojis/1f555.svg"); }
+
+.tw-clock7 {
+  background-image: url("../emojis/1f556.svg"); }
+
+.tw-clock8 {
+  background-image: url("../emojis/1f557.svg"); }
+
+.tw-clock9 {
+  background-image: url("../emojis/1f558.svg"); }
+
+.tw-clock10 {
+  background-image: url("../emojis/1f559.svg"); }
+
+.tw-clock11 {
+  background-image: url("../emojis/1f55a.svg"); }
+
+.tw-clock12 {
+  background-image: url("../emojis/1f55b.svg"); }
+
+.tw-clock130 {
+  background-image: url("../emojis/1f55c.svg"); }
+
+.tw-clock230 {
+  background-image: url("../emojis/1f55d.svg"); }
+
+.tw-clock330 {
+  background-image: url("../emojis/1f55e.svg"); }
+
+.tw-clock430 {
+  background-image: url("../emojis/1f55f.svg"); }
+
+.tw-clock530 {
+  background-image: url("../emojis/1f560.svg"); }
+
+.tw-clock630 {
+  background-image: url("../emojis/1f561.svg"); }
+
+.tw-clock730 {
+  background-image: url("../emojis/1f562.svg"); }
+
+.tw-clock830 {
+  background-image: url("../emojis/1f563.svg"); }
+
+.tw-clock930 {
+  background-image: url("../emojis/1f564.svg"); }
+
+.tw-clock1030 {
+  background-image: url("../emojis/1f565.svg"); }
+
+.tw-clock1130 {
+  background-image: url("../emojis/1f566.svg"); }
+
+.tw-clock1230 {
+  background-image: url("../emojis/1f567.svg"); }
+
+.tw-mount-fuji {
+  background-image: url("../emojis/1f5fb.svg"); }
+
+.tw-tokyo-tower {
+  background-image: url("../emojis/1f5fc.svg"); }
+
+.tw-statue-of-liberty {
+  background-image: url("../emojis/1f5fd.svg"); }
+
+.tw-japan {
+  background-image: url("../emojis/1f5fe.svg"); }
+
+.tw-moyai {
+  background-image: url("../emojis/1f5ff.svg"); }
+
+.tw-grinning {
+  background-image: url("../emojis/1f600.svg"); }
+
+.tw-grin {
+  background-image: url("../emojis/1f601.svg"); }
+
+.tw-joy {
+  background-image: url("../emojis/1f602.svg"); }
+
+.tw-smiley {
+  background-image: url("../emojis/1f603.svg"); }
+
+.tw-smile {
+  background-image: url("../emojis/1f604.svg"); }
+
+.tw-sweat-smile {
+  background-image: url("../emojis/1f605.svg"); }
+
+.tw-laughing {
+  background-image: url("../emojis/1f606.svg"); }
+
+.tw-satisfied {
+  background-image: url("../emojis/1f606.svg"); }
+
+.tw-innocent {
+  background-image: url("../emojis/1f607.svg"); }
+
+.tw-smiling-imp {
+  background-image: url("../emojis/1f608.svg"); }
+
+.tw-wink {
+  background-image: url("../emojis/1f609.svg"); }
+
+.tw-blush {
+  background-image: url("../emojis/1f60a.svg"); }
+
+.tw-yum {
+  background-image: url("../emojis/1f60b.svg"); }
+
+.tw-relieved {
+  background-image: url("../emojis/1f60c.svg"); }
+
+.tw-heart-eyes {
+  background-image: url("../emojis/1f60d.svg"); }
+
+.tw-sunglasses {
+  background-image: url("../emojis/1f60e.svg"); }
+
+.tw-smirk {
+  background-image: url("../emojis/1f60f.svg"); }
+
+.tw-neutral-face {
+  background-image: url("../emojis/1f610.svg"); }
+
+.tw-expressionless {
+  background-image: url("../emojis/1f611.svg"); }
+
+.tw-unamused {
+  background-image: url("../emojis/1f612.svg"); }
+
+.tw-sweat {
+  background-image: url("../emojis/1f613.svg"); }
+
+.tw-pensive {
+  background-image: url("../emojis/1f614.svg"); }
+
+.tw-confused {
+  background-image: url("../emojis/1f615.svg"); }
+
+.tw-confounded {
+  background-image: url("../emojis/1f616.svg"); }
+
+.tw-kissing {
+  background-image: url("../emojis/1f617.svg"); }
+
+.tw-kissing-heart {
+  background-image: url("../emojis/1f618.svg"); }
+
+.tw-kissing-smiling-eyes {
+  background-image: url("../emojis/1f619.svg"); }
+
+.tw-kissing-closed-eyes {
+  background-image: url("../emojis/1f61a.svg"); }
+
+.tw-stuck-out-tongue {
+  background-image: url("../emojis/1f61b.svg"); }
+
+.tw-stuck-out-tongue-winking-eye {
+  background-image: url("../emojis/1f61c.svg"); }
+
+.tw-stuck-out-tongue-closed-eyes {
+  background-image: url("../emojis/1f61d.svg"); }
+
+.tw-disappointed {
+  background-image: url("../emojis/1f61e.svg"); }
+
+.tw-worried {
+  background-image: url("../emojis/1f61f.svg"); }
+
+.tw-angry {
+  background-image: url("../emojis/1f620.svg"); }
+
+.tw-rage {
+  background-image: url("../emojis/1f621.svg"); }
+
+.tw-cry {
+  background-image: url("../emojis/1f622.svg"); }
+
+.tw-persevere {
+  background-image: url("../emojis/1f623.svg"); }
+
+.tw-triumph {
+  background-image: url("../emojis/1f624.svg"); }
+
+.tw-disappointed-relieved {
+  background-image: url("../emojis/1f625.svg"); }
+
+.tw-frowning {
+  background-image: url("../emojis/1f626.svg"); }
+
+.tw-anguished {
+  background-image: url("../emojis/1f627.svg"); }
+
+.tw-fearful {
+  background-image: url("../emojis/1f628.svg"); }
+
+.tw-weary {
+  background-image: url("../emojis/1f629.svg"); }
+
+.tw-sleepy {
+  background-image: url("../emojis/1f62a.svg"); }
+
+.tw-tired-face {
+  background-image: url("../emojis/1f62b.svg"); }
+
+.tw-grimacing {
+  background-image: url("../emojis/1f62c.svg"); }
+
+.tw-sob {
+  background-image: url("../emojis/1f62d.svg"); }
+
+.tw-open-mouth {
+  background-image: url("../emojis/1f62e.svg"); }
+
+.tw-hushed {
+  background-image: url("../emojis/1f62f.svg"); }
+
+.tw-cold-sweat {
+  background-image: url("../emojis/1f630.svg"); }
+
+.tw-scream {
+  background-image: url("../emojis/1f631.svg"); }
+
+.tw-astonished {
+  background-image: url("../emojis/1f632.svg"); }
+
+.tw-flushed {
+  background-image: url("../emojis/1f633.svg"); }
+
+.tw-sleeping {
+  background-image: url("../emojis/1f634.svg"); }
+
+.tw-dizzy-face {
+  background-image: url("../emojis/1f635.svg"); }
+
+.tw-no-mouth {
+  background-image: url("../emojis/1f636.svg"); }
+
+.tw-mask {
+  background-image: url("../emojis/1f637.svg"); }
+
+.tw-smile-cat {
+  background-image: url("../emojis/1f638.svg"); }
+
+.tw-joy-cat {
+  background-image: url("../emojis/1f639.svg"); }
+
+.tw-smiley-cat {
+  background-image: url("../emojis/1f63a.svg"); }
+
+.tw-heart-eyes-cat {
+  background-image: url("../emojis/1f63b.svg"); }
+
+.tw-smirk-cat {
+  background-image: url("../emojis/1f63c.svg"); }
+
+.tw-kissing-cat {
+  background-image: url("../emojis/1f63d.svg"); }
+
+.tw-pouting-cat {
+  background-image: url("../emojis/1f63e.svg"); }
+
+.tw-crying-cat-face {
+  background-image: url("../emojis/1f63f.svg"); }
+
+.tw-scream-cat {
+  background-image: url("../emojis/1f640.svg"); }
+
+.tw-slight-frown {
+  background-image: url("../emojis/1f641.svg"); }
+
+.tw-slightly-frowning-face {
+  background-image: url("../emojis/1f641.svg"); }
+
+.tw-slight-smile {
+  background-image: url("../emojis/1f642.svg"); }
+
+.tw-slightly-smiling-face {
+  background-image: url("../emojis/1f642.svg"); }
+
+.tw-no-good {
+  background-image: url("../emojis/1f645.svg"); }
+
+.tw-ok-woman {
+  background-image: url("../emojis/1f646.svg"); }
+
+.tw-bow {
+  background-image: url("../emojis/1f647.svg"); }
+
+.tw-see-no-evil {
+  background-image: url("../emojis/1f648.svg"); }
+
+.tw-hear-no-evil {
+  background-image: url("../emojis/1f649.svg"); }
+
+.tw-speak-no-evil {
+  background-image: url("../emojis/1f64a.svg"); }
+
+.tw-raising-hand {
+  background-image: url("../emojis/1f64b.svg"); }
+
+.tw-raised-hands {
+  background-image: url("../emojis/1f64c.svg"); }
+
+.tw-person-frowning {
+  background-image: url("../emojis/1f64d.svg"); }
+
+.tw-person-with-pouting-face {
+  background-image: url("../emojis/1f64e.svg"); }
+
+.tw-pray {
+  background-image: url("../emojis/1f64f.svg"); }
+
+.tw-rocket {
+  background-image: url("../emojis/1f680.svg"); }
+
+.tw-helicopter {
+  background-image: url("../emojis/1f681.svg"); }
+
+.tw-steam-locomotive {
+  background-image: url("../emojis/1f682.svg"); }
+
+.tw-railway-car {
+  background-image: url("../emojis/1f683.svg"); }
+
+.tw-bullettrain-side {
+  background-image: url("../emojis/1f684.svg"); }
+
+.tw-bullettrain-front {
+  background-image: url("../emojis/1f685.svg"); }
+
+.tw-train2 {
+  background-image: url("../emojis/1f686.svg"); }
+
+.tw-metro {
+  background-image: url("../emojis/1f687.svg"); }
+
+.tw-light-rail {
+  background-image: url("../emojis/1f688.svg"); }
+
+.tw-station {
+  background-image: url("../emojis/1f689.svg"); }
+
+.tw-tram {
+  background-image: url("../emojis/1f68a.svg"); }
+
+.tw-train {
+  background-image: url("../emojis/1f68b.svg"); }
+
+.tw-bus {
+  background-image: url("../emojis/1f68c.svg"); }
+
+.tw-oncoming-bus {
+  background-image: url("../emojis/1f68d.svg"); }
+
+.tw-trolleybus {
+  background-image: url("../emojis/1f68e.svg"); }
+
+.tw-busstop {
+  background-image: url("../emojis/1f68f.svg"); }
+
+.tw-minibus {
+  background-image: url("../emojis/1f690.svg"); }
+
+.tw-ambulance {
+  background-image: url("../emojis/1f691.svg"); }
+
+.tw-fire-engine {
+  background-image: url("../emojis/1f692.svg"); }
+
+.tw-police-car {
+  background-image: url("../emojis/1f693.svg"); }
+
+.tw-oncoming-police-car {
+  background-image: url("../emojis/1f694.svg"); }
+
+.tw-taxi {
+  background-image: url("../emojis/1f695.svg"); }
+
+.tw-oncoming-taxi {
+  background-image: url("../emojis/1f696.svg"); }
+
+.tw-red-car {
+  background-image: url("../emojis/1f697.svg"); }
+
+.tw-oncoming-automobile {
+  background-image: url("../emojis/1f698.svg"); }
+
+.tw-blue-car {
+  background-image: url("../emojis/1f699.svg"); }
+
+.tw-truck {
+  background-image: url("../emojis/1f69a.svg"); }
+
+.tw-articulated-lorry {
+  background-image: url("../emojis/1f69b.svg"); }
+
+.tw-tractor {
+  background-image: url("../emojis/1f69c.svg"); }
+
+.tw-monorail {
+  background-image: url("../emojis/1f69d.svg"); }
+
+.tw-mountain-railway {
+  background-image: url("../emojis/1f69e.svg"); }
+
+.tw-suspension-railway {
+  background-image: url("../emojis/1f69f.svg"); }
+
+.tw-mountain-cableway {
+  background-image: url("../emojis/1f6a0.svg"); }
+
+.tw-aerial-tramway {
+  background-image: url("../emojis/1f6a1.svg"); }
+
+.tw-ship {
+  background-image: url("../emojis/1f6a2.svg"); }
+
+.tw-rowboat {
+  background-image: url("../emojis/1f6a3.svg"); }
+
+.tw-speedboat {
+  background-image: url("../emojis/1f6a4.svg"); }
+
+.tw-traffic-light {
+  background-image: url("../emojis/1f6a5.svg"); }
+
+.tw-vertical-traffic-light {
+  background-image: url("../emojis/1f6a6.svg"); }
+
+.tw-construction {
+  background-image: url("../emojis/1f6a7.svg"); }
+
+.tw-rotating-light {
+  background-image: url("../emojis/1f6a8.svg"); }
+
+.tw-triangular-flag-on-post {
+  background-image: url("../emojis/1f6a9.svg"); }
+
+.tw-door {
+  background-image: url("../emojis/1f6aa.svg"); }
+
+.tw-no-entry-sign {
+  background-image: url("../emojis/1f6ab.svg"); }
+
+.tw-smoking {
+  background-image: url("../emojis/1f6ac.svg"); }
+
+.tw-no-smoking {
+  background-image: url("../emojis/1f6ad.svg"); }
+
+.tw-put-litter-in-its-place {
+  background-image: url("../emojis/1f6ae.svg"); }
+
+.tw-do-not-litter {
+  background-image: url("../emojis/1f6af.svg"); }
+
+.tw-potable-water {
+  background-image: url("../emojis/1f6b0.svg"); }
+
+.tw-non-potable-water {
+  background-image: url("../emojis/1f6b1.svg"); }
+
+.tw-bike {
+  background-image: url("../emojis/1f6b2.svg"); }
+
+.tw-no-bicycles {
+  background-image: url("../emojis/1f6b3.svg"); }
+
+.tw-bicyclist {
+  background-image: url("../emojis/1f6b4.svg"); }
+
+.tw-mountain-bicyclist {
+  background-image: url("../emojis/1f6b5.svg"); }
+
+.tw-walking {
+  background-image: url("../emojis/1f6b6.svg"); }
+
+.tw-no-pedestrians {
+  background-image: url("../emojis/1f6b7.svg"); }
+
+.tw-children-crossing {
+  background-image: url("../emojis/1f6b8.svg"); }
+
+.tw-mens {
+  background-image: url("../emojis/1f6b9.svg"); }
+
+.tw-womens {
+  background-image: url("../emojis/1f6ba.svg"); }
+
+.tw-restroom {
+  background-image: url("../emojis/1f6bb.svg"); }
+
+.tw-baby-symbol {
+  background-image: url("../emojis/1f6bc.svg"); }
+
+.tw-toilet {
+  background-image: url("../emojis/1f6bd.svg"); }
+
+.tw-wc {
+  background-image: url("../emojis/1f6be.svg"); }
+
+.tw-shower {
+  background-image: url("../emojis/1f6bf.svg"); }
+
+.tw-bath {
+  background-image: url("../emojis/1f6c0.svg"); }
+
+.tw-bathtub {
+  background-image: url("../emojis/1f6c1.svg"); }
+
+.tw-passport-control {
+  background-image: url("../emojis/1f6c2.svg"); }
+
+.tw-customs {
+  background-image: url("../emojis/1f6c3.svg"); }
+
+.tw-baggage-claim {
+  background-image: url("../emojis/1f6c4.svg"); }
+
+.tw-left-luggage {
+  background-image: url("../emojis/1f6c5.svg"); }
+
 html {
   box-sizing: border-box; }
 
@@ -942,8 +3562,7 @@ input.move-comment-checkbox {
   vertical-align: text-bottom; }
 .comment-text ins {
   background-color: #EAFFEA;
-  text-decoration: none;
-  line-height: 26px; }
+  text-decoration: none; }
 .comment-text del {
   background-color: #FFECEC;
   text-decoration: none; }

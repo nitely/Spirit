@@ -14,8 +14,12 @@ class Renderer(mistune.Renderer):
         image = self.image(src, title, text)
         return '<p>{image}</p>\n'.format(image=image)
 
-    def emoji(self, path):
-        return '<img class="comment-emoji" src="{path}">'.format(path=path)
+    def emoji(self, name_class, name_raw):
+        # todo: add no-follow to links since we are going to need migration to fix emojis
+        return '<i class="tw tw-{name_class}" title=":{name_raw}:"></i>'.format(
+            name_class=name_class,
+            name_raw=name_raw
+        )
 
     def mention(self, username, url):
         return '<a class="comment-mention" href="{url}">@{username}</a>'.format(username=username, url=url)

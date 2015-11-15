@@ -15,9 +15,6 @@
 <script>
     $( document ).ready(function() {
 
-        // Use regex to replace dynamic generated hash. The file must exists, the static storage may fail otherwise.
-        var emojisPath = "{% static "spirit/emojis/es.png" %}".replace(/es(\.[^\.]+)?\.png/i, "${name}.png");
-
         marked.setOptions( {
             renderer: new marked.Renderer(),
             gfm: true,
@@ -47,8 +44,23 @@
 		} )
         .atwho({
 			at: ':',
-			tpl: "<li data-value=':${name}:'><img src='" + emojisPath + "' height='20' width='20'/> ${name} </li>",
-			data: $.emoji_list()
+			tpl: "<li data-value=':${name}:'><i class=\"tw tw-${class_name}\"></i> ${name} </li>",
+			data: $.emoji_list(),
+            callbacks: {
+                before_save: function(data) {return data},  // Avoid extra work
+                tpl_eval: function(tpl, map) {
+                    map.class_name = map.name.replace('_', '-').replace('+', 'plus');
+
+                    try {
+                        return tpl.replace(/\$\{([^\}]*)\}/g, function(tag, key, pos) {
+                            return map[key]
+                        });
+                    } catch (error) {
+                        return "";
+                    }
+                }
+
+            }
 		});
 
 	});

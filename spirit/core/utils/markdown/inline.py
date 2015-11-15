@@ -3,11 +3,9 @@
 from __future__ import unicode_literals
 import re
 import copy
-import os
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.staticfiles.storage import staticfiles_storage
 
 import mistune
 
@@ -18,6 +16,7 @@ User = get_user_model()
 
 class InlineGrammar(mistune.InlineGrammar):
 
+    # todo: match unicode emojis
     emoji = re.compile(
         r'^:(?P<emoji>[A-Za-z0-9_\-\+]+?):'
     )
@@ -57,11 +56,9 @@ class InlineLexer(mistune.InlineLexer):
         if emoji not in emojis:
             return m.group(0)
 
-        image = emoji + '.png'
-        rel_path = os.path.join('spirit', 'emojis', image).replace('\\', '/')
-        path = staticfiles_storage.url(rel_path)
-
-        return self.renderer.emoji(path)
+        name_raw = emoji
+        name_class = emoji.replace('_', '-').replace('+', 'plus')
+        return self.renderer.emoji(name_class=name_class, name_raw=name_raw)
 
     def output_mention(self, m):
         username = m.group('username')

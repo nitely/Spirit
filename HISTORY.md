@@ -1,7 +1,9 @@
 0.4.5
 ==================
 
+* Adds Python 3.5 support
 * New: Comment history diff (inserted & deleted lines)
+* New: Twitter emojis pack
 * New (Dev): Gulp tasks `npm run gulp css` and `npm run gulp coffee` for building assets
 * Improvement: CSS & JS minification and concatenation
 * Improvement: Added `STATICFILES_STORAGE = 'ManifestStaticFilesStorage'` (settings.prod only) to
