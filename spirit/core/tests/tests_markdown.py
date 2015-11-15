@@ -64,12 +64,13 @@ class UtilsMarkdownTests(TestCase):
         """
         markdown emojify
         """
-        comment = ":airplane:, :8ball: :bademoji: foo:"
+        comment = ":airplane:, :8ball: :+1: :bademoji: foo:"
         md = Markdown(escape=True, hard_wrap=True)
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p><img class="comment-emoji" src="%(static)sspirit/emojis/airplane.png">, '
-                                     '<img class="comment-emoji" src="%(static)sspirit/emojis/8ball.png"> '
-                                     ':bademoji: foo:</p>' % {'static': settings.STATIC_URL, })
+        self.assertEqual(comment_md, '<p><i class="tw tw-airplane" title=":airplane:"></i>, '
+                                     '<i class="tw tw-8ball" title=":8ball:"></i> '
+                                     '<i class="tw tw-plus1" title=":+1:"></i> '
+                                     ':bademoji: foo:</p>')
 
     @override_settings(LANGUAGE_CODE='en')
     def test_markdown_quote(self):
