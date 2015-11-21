@@ -7,8 +7,38 @@ import mistune
 
 class Renderer(mistune.Renderer):
 
+    # Override
+    def autolink(self, link, is_email=False):
+        text = link
+
+        if is_email:
+            link = 'mailto:%s' % link
+
+        if self.options['no_follow']:
+            return '<a rel="nofollow" href="%s">%s</a>' % (link, text)
+
+        return '<a href="%s">%s</a>' % (link, text)
+
+    # Override
+    def link(self, link, title, text):
+        if 'javascript:' in link:
+            # for safety
+            return ''
+
+        if not title:
+            if self.options['no_follow']:
+                return '<a rel="nofollow" href="%s">%s</a>' % (link, text)
+
+            return '<a href="%s">%s</a>' % (link, text)
+
+        if self.options['no_follow']:
+            return '<a rel="nofollow" href="%s" title="%s">%s</a>' % (link, title, text)
+
+        return '<a href="%s" title="%s">%s</a>' % (link, title, text)
+
     def audio_link(self, link):
-        return '<audio controls><source src="{link}"><a href="{link}">{link}</a></audio>\n'.format(link=link)
+        return '<audio controls><source src="{link}">' \
+               '<a rel="nofollow" href="{link}">{link}</a></audio>\n'.format(link=link)
 
     def image_link(self, src, title, text):
         image = self.image(src, title, text)
@@ -22,10 +52,14 @@ class Renderer(mistune.Renderer):
         )
 
     def mention(self, username, url):
-        return '<a class="comment-mention" href="{url}">@{username}</a>'.format(username=username, url=url)
+        return '<a class="comment-mention" rel="nofollow" href="{url}">@{username}</a>'.format(
+            username=username,
+            url=url
+        )
 
     def video_link(self, link):
-        return '<video controls><source src="{link}"><a href="{link}">{link}</a></video>\n'.format(link=link)
+        return '<video controls><source src="{link}">' \
+               '<a rel="nofollow" href="{link}">{link}</a></video>\n'.format(link=link)
 
     def youtube(self, video_id):
         return '<span class="video"><iframe src="https://www.youtube.com/embed/{video_id}?feature=oembed" ' \

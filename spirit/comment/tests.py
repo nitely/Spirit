@@ -496,6 +496,19 @@ class CommentFormTest(TestCase):
         self.assertEqual(comment.comment_html, '<p><strong>Spirit unicode: áéíóú</strong> '
                                                '&lt;script&gt;alert();&lt;/script&gt;</p>')
 
+    def test_comment_markdown_no_follow(self):
+        form_data = {'comment': 'http://foo.com'}
+        form = CommentForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+        form.user = self.user
+        form.topic = self.topic
+        comment = form.save()
+        self.assertEqual(comment.comment_html, '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>')
+
+        self.user.st.is_moderator = True
+        comment2 = form.save()
+        self.assertEqual(comment2.comment_html, '<p><a href="http://foo.com">http://foo.com</a></p>')
+
     def test_comments_move(self):
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)

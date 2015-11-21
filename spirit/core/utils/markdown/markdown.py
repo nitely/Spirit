@@ -11,17 +11,15 @@ from .renderer import Renderer
 
 class Markdown(mistune.Markdown):
 
-    def __init__(self, renderer=None, **kwargs):
-        if renderer is None:
-            renderer = Renderer()
-
-        if kwargs.get('block', None) is None:
-            kwargs['block'] = BlockLexer
-
-        if kwargs.get('inline', None) is None:
-            kwargs['inline'] = InlineLexer
-
-        super(Markdown, self).__init__(renderer=renderer, **kwargs)
+    def __init__(self, no_follow=True):
+        renderer = Renderer(no_follow=no_follow)
+        super(Markdown, self).__init__(
+            renderer=renderer,
+            block=BlockLexer,
+            inline=InlineLexer,
+            escape=True,
+            hard_wrap=True
+        )
 
     def render(self, text):
         return super(Markdown, self).render(text).strip()

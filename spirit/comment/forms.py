@@ -30,7 +30,8 @@ class CommentForm(forms.ModelForm):
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
 
     def _get_comment_html(self):
-        markdown = Markdown(escape=True, hard_wrap=True)
+        user = self.user or self.instance.user
+        markdown = Markdown(no_follow=not user.st.is_moderator)
         comment_html = markdown.render(self.cleaned_data['comment'])
         self.mentions = markdown.get_mentions()
         self.polls = markdown.get_polls()

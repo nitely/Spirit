@@ -882,6 +882,7 @@ $emoji-map: (
   "left-luggage": "1f6c5"
 );
 
+// Minify will merge duplicated styles (emoji aliases)
 @each $name, $code in $emoji-map {
   .tw-#{$name} {
     background-image: url("../emojis/#{$code}.svg");
