@@ -5,6 +5,7 @@
 * New: Comment history diff (inserted & deleted lines)
 * New: Twitter emojis pack
 * New (Dev): Gulp tasks `npm run gulp css` and `npm run gulp coffee` for building assets
+* Improvement: Adds `rel="nofollow"` to all comment links of regular users
 * Improvement: CSS & JS minification and concatenation
 * Improvement: Added `STATICFILES_STORAGE = 'ManifestStaticFilesStorage'` (settings.prod only) to
 append hashes to assets file names
@@ -12,6 +13,7 @@ append hashes to assets file names
 * Fix: Email required on registration
 * Fix: Changed `DEFAULT_FROM_EMAIL` default to `webmaster@localhost` (Django's default)
 * Fix: Redirect to first unread comment on visited topics
+* Fix: Adds missing `apps.AppConfig` in `spirit.search` to avoid app label clashes.
 
 0.4.4
 ==================
