@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"POT-Creation-Date: 2015-11-23 19:55+0000\n"
 "PO-Revision-Date: 2015-10-14 19:38+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Write comment..."
 msgstr "Napisz komentarz..."
 
-#: forms.py:100
+#: forms.py:101
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Niewspierany format pliku. Wspierane formaty to %s."
@@ -121,44 +121,44 @@ msgstr ""
 msgid "Preview"
 msgstr "Podgląd"
 
-#: templates/spirit/comment/_editor.html:34
+#: templates/spirit/comment/_editor.html:32
 #, python-brace-format
 msgid "uploading {image_name}"
 msgstr "ładuję {image_name}"
 
-#: templates/spirit/comment/_editor.html:37
+#: templates/spirit/comment/_editor.html:35
 msgid "bolded text"
 msgstr "pogrubiony tekst"
 
-#: templates/spirit/comment/_editor.html:38
+#: templates/spirit/comment/_editor.html:36
 msgid "italicised text"
 msgstr "pochyły tekst"
 
-#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:37
 msgid "list item"
 msgstr "punkt listy"
 
-#: templates/spirit/comment/_editor.html:40
+#: templates/spirit/comment/_editor.html:38
 msgid "link text"
 msgstr "llink"
 
-#: templates/spirit/comment/_editor.html:41
+#: templates/spirit/comment/_editor.html:39
 msgid "link url"
 msgstr "url"
 
-#: templates/spirit/comment/_editor.html:42
+#: templates/spirit/comment/_editor.html:40
 msgid "image text"
 msgstr "tekst obrazka"
 
-#: templates/spirit/comment/_editor.html:43
+#: templates/spirit/comment/_editor.html:41
 msgid "image url"
 msgstr "url obrazka"
 
-#: templates/spirit/comment/_editor.html:44
+#: templates/spirit/comment/_editor.html:42
 msgid "Title"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:45
+#: templates/spirit/comment/_editor.html:43
 msgid "Description"
 msgstr ""
 

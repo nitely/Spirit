@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-23 19:55+0000\n"
+"PO-Revision-Date: 2015-10-14 21:05+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Arabic (Syria) (http://www.transifex.com/spirit-project/"
+"spirit/language/ar_SY/)\n"
+"Language: ar_SY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: forms.py:31 forms.py:37
+msgid "Poll choices"
+msgstr ""
+
+#: forms.py:63
+#, python-format
+msgid "Too many selected choices. Limit is %s"
+msgstr ""
+
+#: forms.py:69
+#, python-format
+msgid "Too few selected choices. Minimum is %s"
+msgstr ""
+
+#: forms.py:79
+msgid "This poll is closed"
+msgstr ""
+
+#: models.py:31
+msgid "name"
+msgstr ""
+
+#: models.py:32
+msgid "title"
+msgstr ""
+
+#: models.py:33
+msgid "choice min"
+msgstr ""
+
+#: models.py:34
+msgid "choice max"
+msgstr ""
+
+#: models.py:35
+msgid "mode"
+msgstr ""
+
+#: models.py:36
+msgid "auto close at"
+msgstr ""
+
+#: models.py:45
+msgid "comment poll"
+msgstr ""
+
+#: models.py:46
+msgid "comments polls"
+msgstr ""
+
+#: models.py:133
+msgid "number"
+msgstr ""
+
+#: models.py:134
+msgid "choice description"
+msgstr ""
+
+#: models.py:135
+msgid "vote count"
+msgstr ""
+
+#: models.py:143
+msgid "poll choice"
+msgstr ""
+
+#: models.py:144
+msgid "poll choices"
+msgstr ""
+
+#: models.py:215
+msgid "poll vote"
+msgstr ""
+
+#: models.py:216
+msgid "poll votes"
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:23
+#, python-format
+msgid "Closes on %(date)s."
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:27
+#, python-format
+msgid "You must select %(choice_min)s choices."
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:29
+#, python-format
+msgid "You may select up to %(choice_max)s choices."
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:31
+#, python-format
+msgid ""
+"You may select no less than %(choice_min)s and no more than %(choice_max)s "
+"choices."
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:35
+msgid "Results will be available when the poll is closed."
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:41
+msgid "Vote"
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:45
+msgid "Show results"
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:52
+#: templates/spirit/comment/poll/_results.html:39
+msgid "open"
+msgstr ""
+
+#: templates/spirit/comment/poll/_form.html:56
+#: templates/spirit/comment/poll/_results.html:43
+msgid "close"
+msgstr ""
+
+#: templates/spirit/comment/poll/_results.html:15
+#, python-format
+msgid "%(choice)s, %(percentage)s%%"
+msgstr ""
+
+#: templates/spirit/comment/poll/_results.html:17
+msgid "View voters"
+msgstr ""
+
+#: templates/spirit/comment/poll/_results.html:27
+msgid "Votes"
+msgstr ""
+
+#: templates/spirit/comment/poll/_results.html:32
+msgid "Show vote choices"
+msgstr ""
+
+#: templates/spirit/comment/poll/_static.html:25
+#, python-format
+msgid ""
+"Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
+"%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
+msgstr ""
+
+#: templates/spirit/comment/poll/_static.html:29
+#, python-format
+msgid ""
+"Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
+"%(choice_max)s, mode: %(mode)s"
+msgstr ""
+
+#: templates/spirit/comment/poll/voters.html:5
+#: templates/spirit/comment/poll/voters.html:10
+#, python-format
+msgid "Voters for %(choice_description)s"
+msgstr ""

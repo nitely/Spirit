@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"POT-Creation-Date: 2015-11-23 19:55+0000\n"
 "PO-Revision-Date: 2015-09-15 19:48+0000\n"
 "Last-Translator: AlperB <ihtiyaroyuncu@yandex.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/"
@@ -43,25 +43,25 @@ msgstr "Bu sayfaya erişmek için gerekli yetkilere sahip değilsiniz"
 msgid "what you are looking for is gone..."
 msgstr "aradığınız şey artık mevcut değil..."
 
-#: templates/spirit/_base.html:59
+#: templates/spirit/_base.html:33
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} kullanıcısı {topic} konusunda sizden bahsetti"
 
-#: templates/spirit/_base.html:60
+#: templates/spirit/_base.html:34
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user}, {topic} konusuna yorum yaptı"
 
-#: templates/spirit/_base.html:61
+#: templates/spirit/_base.html:35
 msgid "Show all"
 msgstr "Tümünü göster"
 
-#: templates/spirit/_base.html:62
+#: templates/spirit/_base.html:36
 msgid "No new notifications, yet"
 msgstr "Henüz yeni bildirim yok"
 
-#: templates/spirit/_base.html:63
+#: templates/spirit/_base.html:37
 msgid "unread"
 msgstr "okunmamış"
 

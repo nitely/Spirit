@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.utils.six.moves import input  # noqa
-from django.utils.six import PY2
 
 
 class Command(BaseCommand):
@@ -15,10 +14,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # todo: test!
-        # Requires python27 and "pip install transifex-client==0.11b3"
-
-        if not PY2:
-            raise Exception('This command requires python 2.7')
+        # Requires "pip install transifex-client==0.11"
 
         call_command('spirittxpull', stdout=self.stdout, stderr=self.stderr)
         call_command('spiritmakelocales', stdout=self.stdout, stderr=self.stderr)

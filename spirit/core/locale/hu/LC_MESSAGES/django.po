@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"POT-Creation-Date: 2015-11-23 19:55+0000\n"
 "PO-Revision-Date: 2015-09-23 16:54+0000\n"
 "Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
@@ -43,25 +43,25 @@ msgstr "Nincs megfelelő jogosultság az oldal eléréshez"
 msgid "what you are looking for is gone..."
 msgstr "a keresett tartalom már nem található..."
 
-#: templates/spirit/_base.html:59
+#: templates/spirit/_base.html:33
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} megemlített ebben a témában: {topic}"
 
-#: templates/spirit/_base.html:60
+#: templates/spirit/_base.html:34
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user} hozzászólt a témához: {topic}"
 
-#: templates/spirit/_base.html:61
+#: templates/spirit/_base.html:35
 msgid "Show all"
 msgstr "Összes megjelenítése"
 
-#: templates/spirit/_base.html:62
+#: templates/spirit/_base.html:36
 msgid "No new notifications, yet"
 msgstr "Nincs még új értesítés"
 
-#: templates/spirit/_base.html:63
+#: templates/spirit/_base.html:37
 msgid "unread"
 msgstr "olvasatlan"
 

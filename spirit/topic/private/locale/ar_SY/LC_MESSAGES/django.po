@@ -1,0 +1,123 @@
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-23 19:56+0000\n"
+"PO-Revision-Date: 2015-07-31 05:20+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Arabic (Syria) (http://www.transifex.com/spirit-project/"
+"spirit/language/ar_SY/)\n"
+"Language: ar_SY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: forms.py:41
+msgid "user1, user2, ..."
+msgstr ""
+
+#: forms.py:73
+msgid "username"
+msgstr ""
+
+#: forms.py:74
+msgid "Invite user"
+msgstr ""
+
+#: forms.py:92 forms.py:126
+#, python-format
+msgid "%(username)s is already a participant"
+msgstr ""
+
+#: models.py:25
+msgid "private topic"
+msgstr ""
+
+#: models.py:26
+msgid "private topics"
+msgstr ""
+
+#: templates/spirit/topic/private/_invite_form.html:7
+msgid "Invite"
+msgstr ""
+
+#: templates/spirit/topic/private/_top_bar.html:6
+#: templates/spirit/topic/private/_top_bar.html:14
+msgid "Participating in"
+msgstr ""
+
+#: templates/spirit/topic/private/_top_bar.html:8
+#: templates/spirit/topic/private/_top_bar.html:13
+msgid "Left"
+msgstr ""
+
+#: templates/spirit/topic/private/_top_bar.html:20
+msgid "Create private topic"
+msgstr ""
+
+#: templates/spirit/topic/private/delete.html:5
+msgid "Remove user from private topic"
+msgstr ""
+
+#: templates/spirit/topic/private/delete.html:9
+#, python-format
+msgid "Removing %(username)s's from %(topic_title)s"
+msgstr ""
+
+#: templates/spirit/topic/private/delete.html:13
+msgid "Remove"
+msgstr ""
+
+#: templates/spirit/topic/private/detail.html:10
+#: templates/spirit/topic/private/index.html:5
+msgid "Private topics"
+msgstr ""
+
+#: templates/spirit/topic/private/detail.html:17
+msgid "Participants"
+msgstr ""
+
+#: templates/spirit/topic/private/detail.html:33
+msgid "Leave topic"
+msgstr ""
+
+#: templates/spirit/topic/private/index_author.html:5
+msgid "Created private topics"
+msgstr ""
+
+#: templates/spirit/topic/private/index_author.html:15
+msgid "join"
+msgstr ""
+
+#: templates/spirit/topic/private/index_author.html:18
+msgid "There are no topics here, yet"
+msgstr ""
+
+#: templates/spirit/topic/private/join.html:5
+msgid "Join topic"
+msgstr ""
+
+#: templates/spirit/topic/private/join.html:10
+#, python-format
+msgid "Do you want to join %(topic_title)s?"
+msgstr ""
+
+#: templates/spirit/topic/private/join.html:18
+msgid "Join"
+msgstr ""
+
+#: templates/spirit/topic/private/publish.html:5
+msgid "Publish a private topic"
+msgstr ""
+
+#: templates/spirit/topic/private/publish.html:9
+msgid "Publish private topic"
+msgstr ""
+
+#: templates/spirit/topic/private/publish.html:23
+msgid "Publish"
+msgstr ""

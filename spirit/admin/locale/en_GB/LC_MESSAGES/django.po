@@ -1,0 +1,114 @@
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-23 19:55+0000\n"
+"PO-Revision-Date: 2015-07-31 05:05+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/spirit-"
+"project/spirit/language/en_GB/)\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:13
+msgid "site name"
+msgstr ""
+
+#: forms.py:14
+msgid "site description"
+msgstr ""
+
+#: forms.py:15
+msgid "footer snippet"
+msgstr ""
+
+#: forms.py:17
+msgid "This gets rendered just before the footer in your template."
+msgstr ""
+
+#: forms.py:18
+msgid "comments per page"
+msgstr ""
+
+#: forms.py:19
+msgid "topics per page"
+msgstr ""
+
+#: templates/spirit/admin/_side_menu.html:3
+msgid "Show menu"
+msgstr ""
+
+#: templates/spirit/admin/_side_menu.html:9
+#: templates/spirit/admin/dashboard.html:5
+#: templates/spirit/admin/dashboard.html:11
+msgid "Dashboard"
+msgstr ""
+
+#: templates/spirit/admin/_side_menu.html:10
+msgid "Basic settings"
+msgstr ""
+
+#: templates/spirit/admin/_side_menu.html:11
+#: templates/spirit/admin/dashboard.html:47
+msgid "Categories"
+msgstr ""
+
+#: templates/spirit/admin/_side_menu.html:12
+#: templates/spirit/admin/dashboard.html:31
+msgid "Topics"
+msgstr ""
+
+#: templates/spirit/admin/_side_menu.html:13
+msgid "Users"
+msgstr ""
+
+#: templates/spirit/admin/_side_menu.html:14
+#: templates/spirit/admin/dashboard.html:43
+msgid "Flags"
+msgstr ""
+
+#: templates/spirit/admin/config_basic.html:5
+#: templates/spirit/admin/config_basic.html:11
+msgid "Basic Settings"
+msgstr ""
+
+#: templates/spirit/admin/config_basic.html:17
+msgid "Save"
+msgstr ""
+
+#: templates/spirit/admin/dashboard.html:14
+msgid "Software"
+msgstr ""
+
+#: templates/spirit/admin/dashboard.html:17
+msgid "Installed"
+msgstr ""
+
+#: templates/spirit/admin/dashboard.html:18
+msgid "Latest"
+msgstr ""
+
+#: templates/spirit/admin/dashboard.html:22
+msgid "Statistics"
+msgstr ""
+
+#: templates/spirit/admin/dashboard.html:27
+msgid "Members"
+msgstr ""
+
+#: templates/spirit/admin/dashboard.html:35
+msgid "Comments"
+msgstr ""
+
+#: templates/spirit/admin/dashboard.html:39
+msgid "Likes"
+msgstr ""
+
+#: views.py:30
+msgid "Settings updated!"
+msgstr ""

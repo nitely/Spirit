@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"POT-Creation-Date: 2015-11-23 19:55+0000\n"
 "PO-Revision-Date: 2015-10-14 19:36+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
@@ -19,27 +19,27 @@ msgstr ""
 msgid "Leave blank"
 msgstr "leer lassen"
 
-#: forms.py:29
+#: forms.py:33
 msgid "Do not fill this field."
 msgstr "Dieses Feld nicht ausfüllen."
 
-#: forms.py:41
+#: forms.py:45
 msgid "The username is taken."
 msgstr "Der Username ist vergeben."
 
-#: forms.py:52
+#: forms.py:56
 msgid "Username or Email"
 msgstr "Username oder E-Mail"
 
-#: forms.py:57
+#: forms.py:61
 msgid "Email"
 msgstr "E-Mail"
 
-#: forms.py:70
+#: forms.py:74
 msgid "The provided email does not exists."
 msgstr "Die angegebene Email existiert nicht."
 
-#: forms.py:78
+#: forms.py:82
 msgid "This account is verified, try logging-in."
 msgstr ""
 

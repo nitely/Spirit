@@ -1,0 +1,179 @@
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-23 19:55+0000\n"
+"PO-Revision-Date: 2015-07-31 05:13+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/spirit-"
+"project/spirit/language/en_GB/)\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:18
+msgid "Leave blank"
+msgstr ""
+
+#: forms.py:33
+msgid "Do not fill this field."
+msgstr ""
+
+#: forms.py:45
+msgid "The username is taken."
+msgstr ""
+
+#: forms.py:56
+msgid "Username or Email"
+msgstr ""
+
+#: forms.py:61
+msgid "Email"
+msgstr ""
+
+#: forms.py:74
+msgid "The provided email does not exists."
+msgstr ""
+
+#: forms.py:82
+msgid "This account is verified, try logging-in."
+msgstr ""
+
+#: templates/spirit/user/auth/activation_resend.html:5
+#: templates/spirit/user/auth/activation_resend.html:9
+#: templates/spirit/user/auth/login.html:23
+msgid "Resend activation email"
+msgstr ""
+
+#: templates/spirit/user/auth/activation_resend.html:16
+msgid "Resend email"
+msgstr ""
+
+#: templates/spirit/user/auth/login.html:5
+#: templates/spirit/user/auth/login.html:9
+#: templates/spirit/user/auth/login.html:16
+msgid "Login"
+msgstr ""
+
+#: templates/spirit/user/auth/login.html:21
+msgid "Create an account"
+msgstr ""
+
+#: templates/spirit/user/auth/login.html:22
+msgid "I don't know my password"
+msgstr ""
+
+#: templates/spirit/user/auth/logout.html:5
+#: templates/spirit/user/auth/logout.html:15
+msgid "Log out"
+msgstr ""
+
+#: templates/spirit/user/auth/logout.html:9
+msgid "Are you sure you want to log out?"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_complete.html:7
+#: templates/spirit/user/auth/password_reset_complete.html:11
+msgid "Password change successful"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_complete.html:13
+msgid "Continue to login"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_confirm.html:11
+msgid "Enter new password"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_confirm.html:16
+msgid "Save"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_confirm.html:21
+msgid "Password reset unsuccessful"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_confirm.html:23
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_done.html:5
+#: templates/spirit/user/auth/password_reset_done.html:9
+msgid "Password reset successful"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_done.html:11
+msgid ""
+"We've emailed you instructions for setting your password. You should be "
+"receiving them shortly."
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:113
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_email.html:9
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_email.html:11
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_form.html:5
+#: templates/spirit/user/auth/password_reset_form.html:9
+msgid "Password reset"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_form.html:15
+msgid "Reset my password"
+msgstr ""
+
+#: templates/spirit/user/auth/password_reset_subject.txt:2
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr ""
+
+#: templates/spirit/user/auth/register.html:5
+#: templates/spirit/user/auth/register.html:22
+#: templates/spirit/user/auth/register.html:28
+msgid "Register"
+msgstr ""
+
+#: tests/tests.py:89 tests/tests.py:210
+msgid "User activation"
+msgstr ""
+
+#: views.py:67
+#, python-format
+msgid ""
+"We have sent you an email to %(email)s so you can activate your account!"
+msgstr ""
+
+#: views.py:94
+msgid "Your account has been activated!"
+msgstr ""

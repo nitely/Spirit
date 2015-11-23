@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 02:13+0000\n"
+"POT-Creation-Date: 2015-11-23 19:55+0000\n"
 "PO-Revision-Date: 2015-10-14 19:38+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Write comment..."
 msgstr "Kommentar schreiben..."
 
-#: forms.py:100
+#: forms.py:101
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Nicht unterstütztes Dateiformat. Unterstützte Formate sind %s."
@@ -120,44 +120,44 @@ msgstr ""
 msgid "Preview"
 msgstr "Vorschau"
 
-#: templates/spirit/comment/_editor.html:34
+#: templates/spirit/comment/_editor.html:32
 #, python-brace-format
 msgid "uploading {image_name}"
 msgstr "Lade {image_name} hoch"
 
-#: templates/spirit/comment/_editor.html:37
+#: templates/spirit/comment/_editor.html:35
 msgid "bolded text"
 msgstr "fett gesetzter Text"
 
-#: templates/spirit/comment/_editor.html:38
+#: templates/spirit/comment/_editor.html:36
 msgid "italicised text"
 msgstr "kursiv gesetzter Text"
 
-#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:37
 msgid "list item"
 msgstr "Listeneintrag"
 
-#: templates/spirit/comment/_editor.html:40
+#: templates/spirit/comment/_editor.html:38
 msgid "link text"
 msgstr "Verknüpfungs-Text"
 
-#: templates/spirit/comment/_editor.html:41
+#: templates/spirit/comment/_editor.html:39
 msgid "link url"
 msgstr "Verknüpfungs-URL"
 
-#: templates/spirit/comment/_editor.html:42
+#: templates/spirit/comment/_editor.html:40
 msgid "image text"
 msgstr "Bildtext"
 
-#: templates/spirit/comment/_editor.html:43
+#: templates/spirit/comment/_editor.html:41
 msgid "image url"
 msgstr "Bild-URL"
 
-#: templates/spirit/comment/_editor.html:44
+#: templates/spirit/comment/_editor.html:42
 msgid "Title"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:45
+#: templates/spirit/comment/_editor.html:43
 msgid "Description"
 msgstr ""
 
