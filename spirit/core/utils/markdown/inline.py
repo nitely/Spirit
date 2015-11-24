@@ -12,6 +12,10 @@ import mistune
 from .utils.emoji import emojis
 
 User = get_user_model()
+_linebreak = re.compile(r'^ *\n(?!\s*$)')
+_text = re.compile(
+    r'^[\s\S]+?(?=[\\<!\[_*`:@~]|https?://| *\n|$)'
+)
 
 
 class InlineGrammar(mistune.InlineGrammar):
@@ -29,21 +33,19 @@ class InlineGrammar(mistune.InlineGrammar):
     # Override
     def hard_wrap(self):
         # Adds ":" and "@" as an invalid text character, so we can match emojis and mentions.
-        self.linebreak = re.compile(r'^ *\n(?!\s*$)')
-        self.text = re.compile(
-            r'^[\s\S]+?(?=[\\<!\[_*`:@~]|https?://| *\n|$)'
-        )
+        self.linebreak = _linebreak
+        self.text = _text
 
 
 class InlineLexer(mistune.InlineLexer):
 
-    default_features = copy.copy(mistune.InlineLexer.default_features)
-    default_features.insert(0, 'emoji')
-    default_features.insert(0, 'mention')
+    default_rules = copy.copy(mistune.InlineLexer.inline_html_rules)
+    default_rules.insert(2, 'emoji')
+    default_rules.insert(2, 'mention')
 
     def __init__(self, renderer, rules=None, **kwargs):
-        if rules is None:
-            rules = InlineGrammar()
+        rules = InlineGrammar()
+        rules.hard_wrap()
 
         super(InlineLexer, self).__init__(renderer, rules, **kwargs)
 

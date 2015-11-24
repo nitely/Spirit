@@ -21,15 +21,16 @@ class Renderer(mistune.Renderer):
 
     # Override
     def link(self, link, title, text):
-        if 'javascript:' in link:
-            # for safety
-            return ''
+        if link.startswith('javascript:'):
+            link = ''
 
         if not title:
             if self.options['no_follow']:
                 return '<a rel="nofollow" href="%s">%s</a>' % (link, text)
 
             return '<a href="%s">%s</a>' % (link, text)
+
+        title = mistune.escape(title, quote=True)
 
         if self.options['no_follow']:
             return '<a rel="nofollow" href="%s" title="%s">%s</a>' % (link, title, text)

@@ -94,13 +94,13 @@ class BlockGrammar(mistune.BlockGrammar):
 
 class BlockLexer(mistune.BlockLexer):
 
-    default_features = copy.copy(mistune.BlockLexer.default_features)
-    default_features.insert(0, 'audio_link')
-    default_features.insert(0, 'image_link')
-    default_features.insert(0, 'video_link')
-    default_features.insert(0, 'youtube')
-    default_features.insert(0, 'vimeo')
-    default_features.insert(0, 'poll')
+    default_rules = copy.copy(mistune.BlockLexer.default_rules)
+    default_rules.insert(0, 'audio_link')
+    default_rules.insert(0, 'image_link')
+    default_rules.insert(0, 'video_link')
+    default_rules.insert(0, 'youtube')
+    default_rules.insert(0, 'vimeo')
+    default_rules.insert(0, 'poll')
 
     def __init__(self, rules=None, **kwargs):
         if rules is None:
@@ -108,26 +108,46 @@ class BlockLexer(mistune.BlockLexer):
 
         super(BlockLexer, self).__init__(rules=rules, **kwargs)
 
-        self.polls = {'polls': [], 'choices': []}
+        self.polls = {
+            'polls': [],
+            'choices': []
+        }
 
     def parse_audio_link(self, m):
         link = mistune.escape(m.group(0).strip(), quote=True)
-        self.tokens.append({'type': 'audio_link', 'link': link})
+        self.tokens.append({
+            'type': 'audio_link',
+            'link': link
+        })
 
     def parse_image_link(self, m):
         link = mistune.escape(m.group(0).strip(), quote=True)
         title = mistune.escape(m.group('image_name').strip(), quote=True)
-        self.tokens.append({'type': 'image_link', 'src': link, 'title': title, 'text': title})
+        self.tokens.append({
+            'type': 'image_link',
+            'src': link,
+            'title': title,
+            'text': title
+        })
 
     def parse_video_link(self, m):
         link = mistune.escape(m.group(0).strip(), quote=True)
-        self.tokens.append({'type': 'video_link', 'link': link})
+        self.tokens.append({
+            'type': 'video_link',
+            'link': link
+        })
 
     def parse_youtube(self, m):
-        self.tokens.append({'type': 'youtube', 'video_id': m.group("id")})
+        self.tokens.append({
+            'type': 'youtube',
+            'video_id': m.group("id")
+        })
 
     def parse_vimeo(self, m):
-        self.tokens.append({'type': 'vimeo', 'video_id': m.group("id")})
+        self.tokens.append({
+            'type': 'vimeo',
+            'video_id': m.group("id")
+        })
 
     def parse_poll(self, m):
         parser = PollParser(polls=self.polls, data=m.groupdict())
@@ -137,6 +157,12 @@ class BlockLexer(mistune.BlockLexer):
             choices = parser.cleaned_data['choices']
             self.polls['polls'].append(poll)
             self.polls['choices'].extend(choices)
-            self.tokens.append({'type': 'poll', 'name': poll['name']})
+            self.tokens.append({
+                'type': 'poll',
+                'name': poll['name']
+            })
         else:
-            self.tokens.append({'type': 'poll', 'raw': m.group(0)})
+            self.tokens.append({
+                'type': 'poll',
+                'raw': m.group(0)
+            })
