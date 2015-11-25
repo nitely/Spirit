@@ -27,7 +27,7 @@ def _compose_tweet(title):
 @register.simple_tag(takes_context=True)
 def get_facebook_share_url(context, url, title):
     request = context['request']
-    params = [('u', "100"),
+    params = [('s', "100"),
               ('p[url]', request.build_absolute_uri(url)),
               ('p[title]', title)]
     return FACEBOOK_URL % urlencode(params)
