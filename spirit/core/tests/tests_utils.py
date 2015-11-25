@@ -208,7 +208,7 @@ class UtilsTemplateTagTests(TestCase):
                      '{% get_email_share_url url="/á/foo bar/" title="á" %}'
                      '{% get_share_url url="/á/foo bar/" %}')
         res = t.render(Context({'request': RequestFactory().get('/'), }))
-        self.assertEqual(res.strip(), "http://www.facebook.com/sharer.php?u=100&p%5Burl%5D=http%3A%2F%2Ftestserver"
+        self.assertEqual(res.strip(), "http://www.facebook.com/sharer.php?s=100&p%5Burl%5D=http%3A%2F%2Ftestserver"
                                       "%2F%25C3%25A1%2Ffoo%2520bar%2F&p%5Btitle%5D=%C3%A1"
                                       "https://twitter.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
                                       "foo%2520bar%2F&text=%C3%A1"
