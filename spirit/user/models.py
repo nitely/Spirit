@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models import F
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
@@ -29,6 +30,8 @@ class UserProfile(models.Model):
 
     topic_count = models.PositiveIntegerField(_("topic count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
+    given_likes_count = models.PositiveIntegerField(_("given likes count"), default=0)
+    received_likes_count = models.PositiveIntegerField(_("received likes count"), default=0)
 
     class Meta:
         verbose_name = _("forum profile")
@@ -45,6 +48,30 @@ class UserProfile(models.Model):
 
     def get_absolute_url(self):
         return reverse('spirit:user:detail', kwargs={'pk': self.user.pk, 'slug': self.slug})
+
+    def increase_comment_count(self):
+        UserProfile.objects.filter(pk=self.pk).update(comment_count=F('comment_count') + 1)
+
+    def decrease_comment_count(self):
+        UserProfile.objects.filter(pk=self.pk).update(comment_count=F('comment_count') - 1)
+
+    def increase_topic_count(self):
+        UserProfile.objects.filter(pk=self.pk).update(topic_count=F('topic_count') + 1)
+
+    def decrease_topic_count(self):
+        UserProfile.objects.filter(pk=self.pk).update(topic_count=F('topic_count') - 1)
+
+    def increase_given_likes_count(self):
+        UserProfile.objects.filter(pk=self.pk).update(given_likes_count=F('given_likes_count') + 1)
+
+    def decrease_given_likes_count(self):
+        UserProfile.objects.filter(pk=self.pk).update(given_likes_count=F('given_likes_count') - 1)
+
+    def increase_received_likes_count(self):
+        UserProfile.objects.filter(pk=self.pk).update(received_likes_count=F('received_likes_count') + 1)
+
+    def decrease_received_likes_count(self):
+        UserProfile.objects.filter(pk=self.pk).update(received_likes_count=F('received_likes_count') - 1)
 
 
 class User(AbstractUser):

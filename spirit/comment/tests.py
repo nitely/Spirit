@@ -396,6 +396,31 @@ class CommentViewTest(TestCase):
         self.assertIn('error', res.keys())
         self.assertIn('image', res['error'].keys())
 
+    def test_comment_publish_count(self):
+        """
+        Creating or deleting a comment updates the profile comment_count
+        """
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
+                                    form_data)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).comment_count, 1)
+        Comment.objects.get(user=self.user).delete()
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).comment_count, 0)
+
+    def test_private_comment_publish_count(self):
+        """
+        Creating a private comment does not update the profile comment_count
+        """
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).topic_count, 1)  # setUp creates a topic
+        private = utils.create_private_topic(user=self.user)
+        utils.login(self)
+        form_data = {'comment': 'foobar', }
+        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': private.topic.pk, }),
+                                    form_data)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).topic_count, 1)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).comment_count, 0)
+
 
 class CommentModelsTest(TestCase):
 
@@ -413,21 +438,39 @@ class CommentModelsTest(TestCase):
         comment.increase_modified_count()
         self.assertEqual(Comment.objects.get(pk=comment.pk).modified_count, 1)
 
-    def test_comment_increase_likes_count(self):
+    def test_comment_likes_count(self):
         """
-        Increase like_count on comment like
+        Increase/Decrease like_count on comment like
         """
         comment = utils.create_comment(topic=self.topic)
-        comment.increase_likes_count()
+        comment.increase_likes_count(self.user)
         self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 1)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).given_likes_count, 1)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).received_likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=comment.user.st.pk).given_likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=comment.user.st.pk).received_likes_count, 1)
 
-    def test_comment_decrease_likes_count(self):
-        """
-        Decrease like_count on remove comment like
-        """
-        comment = utils.create_comment(topic=self.topic, likes_count=1)
-        comment.decrease_likes_count()
+        comment.decrease_likes_count(self.user)
         self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).given_likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).received_likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=comment.user.st.pk).given_likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=comment.user.st.pk).received_likes_count, 0)
+
+    def test_private_comment_likes_count(self):
+        """
+        Private comments do not affect the like count
+        """
+        private = utils.create_private_topic(user=self.user)
+        comment = utils.create_comment(topic=private.topic)
+        comment.increase_likes_count(self.user)
+        self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 1)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).given_likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).received_likes_count, 0)
+        comment.decrease_likes_count(self.user)
+        self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).given_likes_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).received_likes_count, 0)
 
     def test_comment_create_moderation_action(self):
         """

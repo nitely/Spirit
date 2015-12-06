@@ -15,6 +15,10 @@
 		 --><li>
 				<div class="profile-title">{% trans "Seen" %}</div>
 				<div class="profile-date">{{ p_user.st.last_seen|shortnaturaltime }}</div>
+			</li><!--
+		 --><li>
+				<div class="profile-title">{% trans "Likes received" %}</div>
+				<div class="profile-date">{{ p_user.st.received_likes_count }}</div>
 			</li>
 
             {% if user.st.is_administrator %}
@@ -43,7 +47,7 @@
     {% endif %}
 
     <ul class="tabs">
-		<li><a class="tab-link{% ifequal active_tab 0 %} is-selected{% endifequal %}" href="{% url "spirit:user:detail" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Comments" %}</a></li><!--
-	 --><li><a class="tab-link{% ifequal active_tab 1 %} is-selected{% endifequal %}" href="{% url "spirit:user:topics" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Topics" %}</a></li><!--
-	 --><li><a class="tab-link{% ifequal active_tab 2 %} is-selected{% endifequal %}" href="{% url "spirit:user:likes" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Likes" %}</a></li>
+		<li><a class="tab-link{% ifequal active_tab 0 %} is-selected{% endifequal %}" href="{% url "spirit:user:detail" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Comments" %} ({{ p_user.st.comment_count }})</a></li><!--
+	 --><li><a class="tab-link{% ifequal active_tab 1 %} is-selected{% endifequal %}" href="{% url "spirit:user:topics" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Topics" %} ({{ p_user.st.topic_count }})</a></li><!--
+	 --><li><a class="tab-link{% ifequal active_tab 2 %} is-selected{% endifequal %}" href="{% url "spirit:user:likes" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Likes" %} ({{ p_user.st.given_likes_count }})</a></li>
 	</ul>
