@@ -67,7 +67,8 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # post
-        form_data = {'username': 'uniquefoo', 'email': 'some@some.com', 'password1': 'pass', 'password2': 'pass'}
+        form_data = {'username': 'uniquefoo', 'email': 'some@some.com',
+                     'email2': 'some@some.com', 'password': 'pass'}
         response = self.client.post(reverse('spirit:user:auth:register'),
                                     form_data)
         expected_url = reverse('spirit:user:auth:login')
@@ -82,7 +83,8 @@ class UserViewTest(TestCase):
         """
         register and send activation email
         """
-        form_data = {'username': 'uniquefoo', 'email': 'some@some.com', 'password1': 'pass', 'password2': 'pass'}
+        form_data = {'username': 'uniquefoo', 'email': 'some@some.com',
+                     'email2': 'some@some.com', 'password': 'pass'}
         response = self.client.post(reverse('spirit:user:auth:register'), form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEquals(len(mail.outbox), 1)
@@ -142,8 +144,12 @@ class UserViewTest(TestCase):
         """
         test access
         """
-        response = self.client.get(reverse('spirit:user:auth:password-reset-confirm', kwargs={'uidb64': 'f-a-k-e',
-                                                                                    'token': 'f-a-k-e'}))
+        response = self.client.get(
+            reverse(
+                'spirit:user:auth:password-reset-confirm',
+                kwargs={'uidb64': 'f-a-k-e', 'token': 'f-a-k-e'}
+            )
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_admin_login(self):
@@ -171,8 +177,12 @@ class UserViewTest(TestCase):
         self.user.is_active = False
         self.user.save()
         token = UserActivationTokenGenerator().generate(self.user)
-        response = self.client.get(reverse('spirit:user:auth:registration-activation', kwargs={'pk': self.user.pk,
-                                                                                     'token': token}))
+        response = self.client.get(
+            reverse(
+                'spirit:user:auth:registration-activation',
+                kwargs={'pk': self.user.pk, 'token': token}
+            )
+        )
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(User.objects.get(pk=self.user.pk).is_active)
@@ -188,8 +198,12 @@ class UserViewTest(TestCase):
         utils.login(self)
         User.objects.filter(pk=self.user.pk).update(is_active=False)
         UserProfile.objects.filter(user__pk=self.user.pk).update(is_verified=True)
-        response = self.client.get(reverse('spirit:user:auth:registration-activation', kwargs={'pk': self.user.pk,
-                                                                                     'token': token}))
+        response = self.client.get(
+            reverse(
+                'spirit:user:auth:registration-activation',
+                kwargs={'pk': self.user.pk, 'token': token}
+            )
+        )
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(User.objects.get(pk=self.user.pk).is_active)
@@ -298,16 +312,32 @@ class UserFormTest(TestCase):
         register
         """
         form_data = {'username': 'foo', 'email': 'foo@foo.com',
-                     'password1': 'pass', 'password2': 'pass'}
+                     'email2': 'foo@foo.com', 'password': 'pass'}
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
+
+    def test_registration_login(self):
+        """
+        Register and login
+        """
+        form_data = {'username': 'foo', 'email': 'foo@foo.com',
+                     'email2': 'foo@foo.com', 'password': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+
+        user = form.save()
+        self.assertFalse(user.is_active)
+
+        user.is_active = True
+        user.save()
+        utils.login(self, user=user, password='pass')  # Asserts if can't login
 
     def test_registration_email_required(self):
         """
         Registration should require the email field
         """
         form_data = {'username': 'foo',
-                     'password1': 'pass', 'password2': 'pass'}
+                     'password': 'pass'}
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertIn('email', form.errors)
@@ -318,7 +348,7 @@ class UserFormTest(TestCase):
         """
         User.objects.create_user(username="foo", password="bar", email="foo@foo.com")
         form_data = {'username': 'foo', 'email': 'foo@foo.com',
-                     'password1': 'pass', 'password2': 'pass'}
+                     'email2': 'foo@foo.com', 'password': 'pass'}
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('username', form.cleaned_data)
@@ -329,7 +359,7 @@ class UserFormTest(TestCase):
         registration honeypot
         """
         form_data = {'username': 'foo', 'email': 'foo@foo.com',
-                     'password1': 'pass', 'password2': 'pass',
+                     'email2': 'foo@foo.com', 'password': 'pass',
                      'honeypot': 'im a robot'}
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
@@ -341,7 +371,7 @@ class UserFormTest(TestCase):
         """
         utils.create_user(email='duplicated@bar.com')
         form_data = {'username': 'foo', 'email': 'duplicated@bar.com',
-                     'password1': 'pass', 'password2': 'pass'}
+                     'email2': 'duplicated@bar.com', 'password': 'pass'}
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('email', form.cleaned_data)
@@ -353,9 +383,40 @@ class UserFormTest(TestCase):
         """
         utils.create_user(email='duplicated@bar.com')
         form_data = {'username': 'foo', 'email': 'duplicated@bar.com',
-                     'password1': 'pass', 'password2': 'pass'}
+                     'email2': 'duplicated@bar.com', 'password': 'pass'}
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
+
+    def test_registration_email_confirmation(self):
+        """
+        Confirmation email should match email
+        """
+        form_data = {'username': 'foo', 'email': 'foo@bar.com',
+                     'email2': 'foofoo@bar.com', 'password': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
+        self.assertNotIn('email2', form.cleaned_data)
+
+    @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
+    def test_registration_email_confirmation_case_insensitive(self):
+        """
+        Confirmation email should match email
+        """
+        form_data = {'username': 'foo', 'email': 'FOO@bar.com',
+                     'email2': 'FOO@BAR.COM', 'password': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+
+    @override_settings(ST_CASE_INSENSITIVE_EMAILS=False)
+    def test_registration_email_confirmation_case_sensitive(self):
+        """
+        Confirmation email should match email
+        """
+        form_data = {'username': 'foo', 'email': 'FOO@bar.com',
+                     'email2': 'FOO@BAR.COM', 'password': 'pass'}
+        form = RegistrationForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
+        self.assertNotIn('email2', form.cleaned_data)
 
     def test_resend_activation_email(self):
         """

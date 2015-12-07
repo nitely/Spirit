@@ -1,3 +1,11 @@
+0.4.6
+==================
+
+* Improvement: Updated mistune (markdown) dependency
+* Fix: Facebook share link (#87 thanks to @initialkommit)
+* Improvement: Adds email confirmation in registration
+* Improvement: Removes password confirmation in registration
+
 0.4.5
 ==================
 
