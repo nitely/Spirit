@@ -167,11 +167,11 @@ class UtilsMarkdownTests(TestCase):
         self.assertListEqual(
             comment_md.splitlines(),
             [
-                '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?feature=oembed" '
+                '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?html5=1" '
                 'allowfullscreen></iframe></span>',
-                '<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?feature=oembed"'
+                '<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?html5=1"'
                 ' allowfullscreen></iframe></span>',
-                '<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?feature=oembed"'
+                '<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?html5=1"'
                 ' allowfullscreen></iframe></span>',
                 '<p><a rel="nofollow" href="https://www.youtube.com/watch?v=">'
                 'https://www.youtube.com/watch?v=</a>&lt;bad&gt;<br>',  # smart_amp ain't smart
