@@ -12,7 +12,7 @@ from django.test.utils import override_settings
 from django.core.urlresolvers import NoReverseMatch
 
 from ....core.tests import utils
-from ..forms import RegistrationForm, ResendActivationForm
+from ..forms import RegistrationForm, ResendActivationForm, LoginForm
 from ..backends import EmailAuthBackend
 from ...utils.tokens import UserActivationTokenGenerator
 from ...models import UserProfile
@@ -475,6 +475,49 @@ class UserFormTest(TestCase):
         form = ResendActivationForm(form_data)
         self.assertFalse(form.is_valid())
         self.assertRaises(AttributeError, form.get_user)
+
+    def test_login(self):
+        """
+        Should login the user
+        """
+        utils.create_user(username="foobar", password="foo")
+        form_data = {'username': "foobar", 'password': "foo"}
+        form = LoginForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_login_email(self):
+        """
+        Should login the user by email
+        """
+        utils.create_user(email="foobar@bar.com", password="foo")
+        form_data = {'username': "foobar@bar.com", 'password': "foo"}
+        form = LoginForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_login_invalid(self):
+        """
+        Should not login invalid user
+        """
+        form = LoginForm(data={})
+        self.assertFalse(form.is_valid())
+
+    def test_login_password_invalid(self):
+        """
+        Should not login invalid user
+        """
+        utils.create_user(username="foobar", password="foo")
+        form_data = {'username': "foobar", 'password': "bad"}
+        form = LoginForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_login_username_invalid(self):
+        """
+        Should not login invalid user
+        """
+        utils.create_user(username="foobar", password="foo")
+        form_data = {'username': "bad", 'password': "foo"}
+        form = LoginForm(data=form_data)
+        self.assertFalse(form.is_valid())
 
 
 class UserBackendTest(TestCase):

@@ -78,6 +78,44 @@ class LoginForm(AuthenticationForm):
 
     username = forms.CharField(label=_("Username or Email"), max_length=254)
 
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.error_messages['invalid_login'] = _("The password is not valid.")
+
+    def _validate_username(self):
+        """
+        Check the username exists.\
+        Show if the username or email is invalid\
+        instead of the unclear "username or\
+        password is invalid" message.
+        """
+        username = self.cleaned_data.get("username")
+
+        if not username:
+            return
+
+        is_found = User.objects\
+            .filter(username=username)\
+            .exists()
+
+        if is_found:
+            return
+
+        is_found_email = User.objects\
+            .filter(email=username)\
+            .exists()
+
+        if is_found_email:
+            return
+
+        raise forms.ValidationError(
+            _("No account matches %(username)s.") % {'username': username}
+        )
+
+    def clean(self):
+        self._validate_username()
+        return super(LoginForm, self).clean()
+
 
 class ResendActivationForm(forms.Form):
 
