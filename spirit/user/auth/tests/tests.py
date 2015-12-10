@@ -494,6 +494,26 @@ class UserFormTest(TestCase):
         form = LoginForm(data=form_data)
         self.assertTrue(form.is_valid())
 
+    @override_settings(ST_CASE_INSENSITIVE_EMAILS=False)
+    def test_login_email_case_sensitive(self):
+        """
+        Should login the user by email
+        """
+        utils.create_user(email="foobar@bar.com", password="foo")
+        form_data = {'username': "FOOBAR@bar.com", 'password': "foo"}
+        form = LoginForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
+    def test_login_email_case_sensitive(self):
+        """
+        Should login the user by email
+        """
+        utils.create_user(email="foobar@bar.com", password="foo")
+        form_data = {'username': "FOOBAR@bar.com", 'password': "foo"}
+        form = LoginForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
     def test_login_invalid(self):
         """
         Should not login invalid user

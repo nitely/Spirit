@@ -101,6 +101,9 @@ class LoginForm(AuthenticationForm):
         if is_found:
             return
 
+        if settings.ST_CASE_INSENSITIVE_EMAILS:
+            username = username.lower()
+
         is_found_email = User.objects\
             .filter(email=username)\
             .exists()
