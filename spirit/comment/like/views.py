@@ -21,7 +21,7 @@ def create(request, comment_id):
 
         if form.is_valid():
             like = form.save()
-            like.comment.increase_likes_count()
+            like.comment.increase_likes_count(request.user)
 
             if request.is_ajax():
                 return json_response({'url_delete': like.get_delete_url(), })
@@ -44,7 +44,7 @@ def delete(request, pk):
 
     if request.method == 'POST':
         like.delete()
-        like.comment.decrease_likes_count()
+        like.comment.decrease_likes_count(request.user)
 
         if request.is_ajax():
             url = reverse('spirit:comment:like:create', kwargs={'comment_id': like.comment.pk, })

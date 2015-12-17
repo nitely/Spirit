@@ -19,6 +19,7 @@ from .forms import TopicForm
 from ..comment.models import Comment
 from ..comment.bookmark.models import CommentBookmark
 from .notification.models import TopicNotification
+from spirit.user.models import UserProfile
 from .unread.models import TopicUnread
 
 
@@ -318,6 +319,29 @@ class TopicViewTest(TestCase):
 
         response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertEqual(list(response.context['topics']), [topic_b, ])
+
+    def test_topic_publish_count(self):
+        """
+        Creating or deleting a topic updates the profile topic_count and comment_count
+        """
+        utils.login(self)
+        category = utils.create_category()
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        response = self.client.post(reverse('spirit:topic:publish'),
+                                    form_data)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).topic_count, 1)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).comment_count, 1)
+        Topic.objects.get(user=self.user).delete()
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).topic_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).comment_count, 0)
+
+    def test_private_topic_publish_count(self):
+        """
+        Creating a private topic does not update the profile topic_count and comment_count
+        """
+        utils.create_private_topic(user=self.user)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).topic_count, 0)
+        self.assertEqual(UserProfile.objects.get(pk=self.user.st.pk).comment_count, 0)
 
 
 class TopicFormTest(TestCase):

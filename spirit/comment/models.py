@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models.signals import post_save, post_delete
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -10,7 +11,6 @@ from django.db.models import F
 from django.utils import timezone
 
 from .managers import CommentQuerySet
-
 
 COMMENT_MAX_LEN = 3000  # changing this needs migration
 
@@ -66,15 +66,21 @@ class Comment(models.Model):
             .filter(pk=self.pk)\
             .update(modified_count=F('modified_count') + 1)
 
-    def increase_likes_count(self):
+    def increase_likes_count(self, acting_user):
         Comment.objects\
             .filter(pk=self.pk)\
             .update(likes_count=F('likes_count') + 1)
+        if not self.topic.category.is_private:
+            self.user.st.increase_received_likes_count()
+            acting_user.st.increase_given_likes_count()
 
-    def decrease_likes_count(self):
+    def decrease_likes_count(self, acting_user):
         Comment.objects\
             .filter(pk=self.pk)\
             .update(likes_count=F('likes_count') - 1)
+        if not self.topic.category.is_private:
+            self.user.st.decrease_received_likes_count()
+            acting_user.st.decrease_given_likes_count()
 
     @classmethod
     def create_moderation_action(cls, user, topic, action):
@@ -86,3 +92,17 @@ class Comment(models.Model):
             comment="action",
             comment_html="action"
         )
+
+
+def increase_user_profile_comment_count(sender, instance, created, **kwargs):
+    if created and not instance.topic.category.is_private:
+        instance.user.st.increase_comment_count()
+
+post_save.connect(increase_user_profile_comment_count, sender=Comment, dispatch_uid='Comment:increase_user_profile_comment_count')
+
+
+def decrease_user_profile_comment_count(sender, instance, **kwargs):
+    if not instance.topic.category.is_private:
+        instance.user.st.decrease_comment_count()
+
+post_delete.connect(decrease_user_profile_comment_count, sender=Comment, dispatch_uid='Comment:decrease_user_profile_comment_count')
