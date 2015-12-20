@@ -31,6 +31,39 @@ class UtilsMarkdownTests(TestCase):
         comment_md = Markdown().render(comment)
         self.assertEqual(comment_md, '<p>&lt;span&gt;foo&lt;/span&gt;</p>')
 
+    def test_markdown_html(self):
+        """
+        Should escape html
+        """
+        # todo: fixed on mistune 0.7.2 ?
+        # markdown is not parsed within html tags, there is a way to parse it
+        # but it's broken since it gets escaped afterwards.
+        comment = (
+            "<div>\n"
+            "<em>*foo*</em>\n"
+            "<em>*bar*</em>\n"
+            "*foobar*\n"
+            "@nitely\n"
+            "*<em>foobar</em>*\n"
+            "</div>\n"
+            "<em>*foo*</em>\n"
+            "<em>@nitely</em>\n"  # Why this gets parsed properly is beyond me
+            "*<em>foobar</em>*\n"
+        )
+        comment_md = Markdown().render(comment)
+        self.assertEqual(comment_md, (
+            '<p>&lt;div&gt;\n'
+            '&lt;em&gt;*foo*&lt;/em&gt;\n'
+            '&lt;em&gt;*bar*&lt;/em&gt;\n'
+            '*foobar*\n'
+            '@nitely\n'
+            '*&lt;em&gt;foobar&lt;/em&gt;*\n'
+            '&lt;/div&gt;<br>\n'
+            '&lt;em&gt;*foo*&lt;/em&gt;<br>\n'
+            '&lt;em&gt;<a class="comment-mention" rel="nofollow" href="/user/1/nitely/">@nitely</a>&lt;/em&gt;<br>\n'
+            '<em>&lt;em&gt;foobar&lt;/em&gt;</em></p>'
+        ))
+
     def test_markdown_mentions(self):
         """
         markdown mentions

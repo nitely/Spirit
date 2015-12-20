@@ -39,7 +39,7 @@ class InlineGrammar(mistune.InlineGrammar):
 
 class InlineLexer(mistune.InlineLexer):
 
-    default_rules = copy.copy(mistune.InlineLexer.inline_html_rules)
+    default_rules = copy.copy(mistune.InlineLexer.default_rules)
     default_rules.insert(2, 'emoji')
     default_rules.insert(2, 'mention')
 
