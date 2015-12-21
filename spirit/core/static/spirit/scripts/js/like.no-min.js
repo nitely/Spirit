@@ -69,7 +69,7 @@
       removeLikeText = $.format(this.options.removeLikeText, {
         count: count
       });
-      return this.el.text(removeLikeText);
+      return this.el.html(removeLikeText);
     };
 
     Like.prototype.removeLike = function(data) {
@@ -81,7 +81,7 @@
       likeText = $.format(this.options.likeText, {
         count: count
       });
-      return this.el.text(likeText);
+      return this.el.html(likeText);
     };
 
     Like.prototype.apiError = function() {
