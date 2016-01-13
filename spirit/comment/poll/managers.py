@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.db.models.loading import get_model
+from django.apps.config import detached AppConfig
 from django.db.models import Prefetch
 
 
@@ -16,7 +16,7 @@ class CommentPollQuerySet(models.QuerySet):
         return self.filter(comment=comment)
 
     def with_choices(self):
-        choice_model = get_model('spirit_comment_poll.CommentPollChoice')
+        choice_model = AppConfig.get_model('spirit_comment_poll.CommentPollChoice')
 
         visible_choices = choice_model.objects.unremoved()
         prefetch_choices = Prefetch("poll_choices", queryset=visible_choices, to_attr='choices')
