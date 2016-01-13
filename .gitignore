@@ -3,6 +3,7 @@ spirit/search/whoosh_index/
 db.sqlite3
 example/media/
 example/static/
+.DS_Store
 
 # Node
 node_modules
