@@ -6,31 +6,8 @@
 from __future__ import unicode_literals
 import os
 
-ST_TOPIC_PRIVATE_CATEGORY_PK = 1
-ST_UNCATEGORIZED_CATEGORY_PK = 2
-
-ST_RATELIMIT_ENABLE = True
-ST_RATELIMIT_CACHE_PREFIX = 'srl'
-ST_RATELIMIT_CACHE = 'default'
-
-ST_NOTIFICATIONS_PER_PAGE = 20
-
-ST_MENTIONS_PER_COMMENT = 30
-
-ST_YT_PAGINATOR_PAGE_RANGE = 3
-
-ST_SEARCH_QUERY_MIN_LEN = 3
-
-ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
-
-ST_PRIVATE_FORUM = False
-
-ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
-
-ST_UNICODE_SLUGS = True
-
-ST_UNIQUE_EMAILS = True
-ST_CASE_INSENSITIVE_EMAILS = True
+from spirit.settings import bare
+from spirit.settings.bare import *
 
 ST_BASE_DIR = os.path.dirname(__file__)
 
@@ -38,44 +15,14 @@ ST_BASE_DIR = os.path.dirname(__file__)
 # Django & Spirit settings defined below...
 #
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'spirit.core',
-    'spirit.admin',
-    'spirit.search',
-
-    'spirit.user',
-    'spirit.user.admin',
-    'spirit.user.auth',
-
-    'spirit.category',
-    'spirit.category.admin',
-
-    'spirit.topic',
-    'spirit.topic.admin',
-    'spirit.topic.favorite',
-    'spirit.topic.moderate',
-    'spirit.topic.notification',
-    'spirit.topic.poll',
-    'spirit.topic.private',
-    'spirit.topic.unread',
-
-    'spirit.comment',
-    'spirit.comment.bookmark',
-    'spirit.comment.flag',
-    'spirit.comment.flag.admin',
-    'spirit.comment.history',
-    'spirit.comment.like',
-    'spirit.comment.poll',
-
-    # 'spirit.core.tests'
-]
+) + bare.INSTALLED_APPS
 
 # python manage.py createcachetable
 CACHES = {
@@ -93,7 +40,7 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_URL = 'spirit:user:auth:login'
 LOGIN_REDIRECT_URL = 'spirit:user:update'
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -101,13 +48,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'spirit.core.middleware.XForwardedForMiddleware',
-    'spirit.user.middleware.TimezoneMiddleware',
-    'spirit.user.middleware.LastIPMiddleware',
-    'spirit.user.middleware.LastSeenMiddleware',
-    'spirit.user.middleware.ActiveUserMiddleware',
-    'spirit.core.middleware.PrivateForumMiddleware',
-]
+) + bare.MIDDLEWARE_CLASSES
 
 TEMPLATES = [
     {
@@ -133,29 +74,6 @@ TEMPLATES = [
 # Third-party apps settings defined below...
 #
 
-# django-djconfig
-
-INSTALLED_APPS += [
-    'djconfig',
-]
-
-MIDDLEWARE_CLASSES += [
-    'djconfig.middleware.DjConfigMiddleware',
-]
-
 TEMPLATES[0]['OPTIONS']['context_processors'] += [
     'djconfig.context_processors.config',
 ]
-
-# django-haystack
-
-INSTALLED_APPS += [
-    'haystack',
-]
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'search/whoosh_index'),
-    },
-}
