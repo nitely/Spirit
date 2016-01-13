@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.apps.config import detached AppConfig
+from django.apps.config import AppConfig
 from django.db.models import Prefetch
 
 
