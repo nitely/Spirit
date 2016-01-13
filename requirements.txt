@@ -1,4 +1,4 @@
-Django>=1.9,<1.10
+Django>=1.8,<1.10
 django-haystack>=2.4,<2.5
 whoosh>=2.7,<2.8
 mistune==0.7.1
