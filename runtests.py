@@ -30,7 +30,7 @@ def log_warnings():
 def run_tests():
     sys.stdout.write("\nRunning spirit test suite, using settings %(settings)r\n\n"
                      % {"settings": os.environ['DJANGO_SETTINGS_MODULE'], })
-    test_runner = DiscoverRunner()
+    test_runner = DiscoverRunner(failfast=False)
     failures = test_runner.run_tests([])
     sys.exit(failures)
 
