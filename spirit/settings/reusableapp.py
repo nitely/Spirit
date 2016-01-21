@@ -29,7 +29,7 @@ ST_UNIQUE_EMAILS = True
 ST_CASE_INSENSITIVE_EMAILS = True
 
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'spirit.core',
     'spirit.admin',
     'spirit.search',
@@ -59,35 +59,34 @@ INSTALLED_APPS = (
     'spirit.comment.poll',
 
     # 'spirit.core.tests'
-)
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     # 'spirit.core.middleware.XForwardedForMiddleware',
     'spirit.user.middleware.TimezoneMiddleware',
     'spirit.user.middleware.LastIPMiddleware',
     'spirit.user.middleware.LastSeenMiddleware',
     'spirit.user.middleware.ActiveUserMiddleware',
     'spirit.core.middleware.PrivateForumMiddleware',
-)
+]
 
 #
 # Third-party apps settings defined below...
 #
 
 # django-djconfig
-
-INSTALLED_APPS += (
+INSTALLED_APPS += [
     'djconfig',
-)
+]
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE_CLASSES += [
     'djconfig.middleware.DjConfigMiddleware',
-)
+]
 
 
-INSTALLED_APPS += (
+INSTALLED_APPS += [
     'haystack',
-)
+]
 
 HAYSTACK_CONNECTIONS = {
     'default': {
