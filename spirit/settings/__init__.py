@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 import os
 
 from spirit.settings import bare
-from spirit.settings.bare import *
+from spirit.settings.reusableapp import *
 
 ST_BASE_DIR = os.path.dirname(__file__)
 
