@@ -71,7 +71,7 @@ def _collect_args(fieldlookups, args):
     return results
 
 def permissible_object(func=None, contenttype=None, or_404=True, kind='obj',
-            fieldlookups_kwargs={}, fieldlookups_getparams={}, fieldlookups_postparams={}, **kwargs):
+            fieldlookups_kwargs=None, fieldlookups_getparams=None, fieldlookups_postparams=None, **kwargs):
     '''
     Decorator for `permission` decorated (such as @permission_required) views for
     object-level permission check. This decorators add `permissible_items` to the
@@ -111,7 +111,7 @@ def permissible_object(func=None, contenttype=None, or_404=True, kind='obj',
     return decorator
 
 def permissible_queryset(func=None, contenttype=None, or_404=True,
-            fieldlookups_kwargs={}, fieldlookups_getparams={}, fieldlookups_postparams={}, **kwargs):
+            fieldlookups_kwargs=None, fieldlookups_getparams=None, fieldlookups_postparams=None, **kwargs):
     return permissible_object(
         func, contenttype, or_404=or_404,
         fieldlookups_kwargs=fieldlookups_kwargs,
