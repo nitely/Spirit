@@ -9,7 +9,7 @@ import os
 from spirit.settings import reusableapp
 from spirit.settings.reusableapp import *
 
-ST_BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
+ST_BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 #
 # Django & Spirit settings defined below...
