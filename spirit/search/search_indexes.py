@@ -3,20 +3,19 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-
 from haystack import indexes
 
 from ..topic.models import Topic
 
 
 class TopicIndex(indexes.SearchIndex, indexes.Indexable):
-
     text = indexes.CharField(document=True, use_template=True)
     title = indexes.CharField(model_attr='title')
     category_id = indexes.IntegerField(model_attr='category_id')
     is_removed = indexes.BooleanField(model_attr='is_removed')
     is_category_removed = indexes.BooleanField(model_attr='category__is_removed')
     is_subcategory_removed = indexes.BooleanField(model_attr='category__parent__is_removed', default=False)
+    tags = indexes.MultiValueField()
 
     def get_model(self):
         return Topic
@@ -25,3 +24,6 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
         """Used when the entire index for model is updated."""
         topics = super(TopicIndex, self).index_queryset(using=using)
         return topics.exclude(category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+
+    def prepare_tags(self, obj):
+        return [tag.name for tag in obj.tags.all()]

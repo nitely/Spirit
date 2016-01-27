@@ -159,3 +159,11 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(os.path.dirname(__file__), 'search/whoosh_index'),
     },
 }
+
+# django-taggit
+
+INSTALLED_APPS += [
+    'taggit',
+]
+
+TAGGIT_CASE_INSENSITIVE = True
