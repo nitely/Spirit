@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import F
+from taggit.managers import TaggableManager
+
 
 from .managers import TopicQuerySet
 from ..core.utils.models import AutoSlugField
@@ -33,6 +35,7 @@ class Topic(models.Model):
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
 
     objects = TopicQuerySet.as_manager()
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['-last_active', '-pk']
