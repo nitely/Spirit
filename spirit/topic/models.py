@@ -10,6 +10,8 @@ from django.conf import settings
 from django.utils import timezone
 from django.db.models import F
 
+from trusts.models import Content
+
 from .managers import TopicQuerySet
 from ..core.utils.models import AutoSlugField
 
@@ -38,6 +40,7 @@ class Topic(models.Model):
         ordering = ['-last_active', '-pk']
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
+        default_permissions = ('add', 'change', 'delete', 'read', 'add_comment_to')
 
     def get_absolute_url(self):
         if self.category_id == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
@@ -101,7 +104,8 @@ class Topic(models.Model):
         Topic.objects\
             .filter(pk=self.pk)\
             .update(comment_count=F('comment_count') - 1)
-
+Content.register_content(Topic, '%s__topic' % Content.get_content_fieldlookup('spirit_category.Category'))
+Content.register_permission_condition(Topic, 'own', lambda u, p, o: u == o.user)
 
 def increase_user_profile_comment_count(sender, instance, created, **kwargs):
     if created and not instance.category.is_private:

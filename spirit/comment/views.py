@@ -18,8 +18,10 @@ from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm
 from .utils import comment_posted, post_comment_update, pre_comment_update
 
+from trusts.decorators import permission_required
 
 @login_required
+@permission_required('spirit_topic.add_comment_to_topic', fieldlookups_kwargs={'pk': 'topic_id'})
 @ratelimit(rate='1/10s')
 def publish(request, topic_id, pk=None):
     topic = get_object_or_404(
@@ -53,6 +55,7 @@ def publish(request, topic_id, pk=None):
 
 
 @login_required
+@permission_required('spirit_comment.change_comment:own', fieldlookups_kwargs={'pk': 'pk'})
 def update(request, pk):
     comment = Comment.objects.for_update_or_404(pk, request.user)
 

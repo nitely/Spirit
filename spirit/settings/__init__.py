@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'trusts',
 ] + reusableapp.INSTALLED_APPS
 
 # python manage.py createcachetable
