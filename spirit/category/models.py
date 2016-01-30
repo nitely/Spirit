@@ -9,7 +9,7 @@ from django.conf import settings
 
 from .managers import CategoryQuerySet
 from ..core.utils.models import AutoSlugField
-
+from trusts.models import Junction, Trust
 
 class Category(models.Model):
 
@@ -33,6 +33,7 @@ class Category(models.Model):
         ordering = ['title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
+        default_permissions = ('add', 'change', 'delete', 'read', 'add_topic_to')
 
     def get_absolute_url(self):
         if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
@@ -46,6 +47,10 @@ class Category(models.Model):
             return True
         else:
             return False
+
+
+class CategoryJunction(Junction):
+    content = models.ForeignKey(Category, related_name='trust_junction', null=False, blank=False)
 
 
 # def topic_posted_handler(sender, topic, **kwargs):

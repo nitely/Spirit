@@ -19,8 +19,10 @@ from .models import Topic
 from .forms import TopicForm
 from . import utils
 
+from trusts.decorators import permission_required
 
 @login_required
+@permission_required('spirit_category.add_topic_for_category', fieldlookups_kwargs={'pk': 'category_id'})
 @ratelimit(rate='1/10s')
 def publish(request, category_id=None):
     if category_id:
@@ -51,6 +53,7 @@ def publish(request, category_id=None):
 
 
 @login_required
+@permission_required('spirit_topic.change_topic', fieldlookups_kwargs={'pk': 'pk'})
 def update(request, pk):
     topic = Topic.objects.for_update_or_404(pk, request.user)
 
@@ -73,6 +76,7 @@ def update(request, pk):
     return render(request, 'spirit/topic/update.html', context)
 
 
+@permission_required('spirit_topic.read_topic', fieldlookups_kwargs={'pk': 'pk'})
 def detail(request, pk, slug):
     topic = Topic.objects.get_public_or_404(pk, request.user)
 

@@ -76,7 +76,9 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
-        now = timezone.localtime(timezone.now())
+        now = timezone.now()
+        if settings.USE_TZ:
+            now = timezone.localtime(now)
         self.fields['timezone'].help_text = _('Current time is: %(date)s %(time)s') % {
             'date': defaultfilters.date(now),
             'time': defaultfilters.time(now)

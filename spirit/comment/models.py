@@ -10,6 +10,8 @@ from django.conf import settings
 from django.db.models import F
 from django.utils import timezone
 
+from trusts.models import Content
+
 from .managers import CommentQuerySet
 
 COMMENT_MAX_LEN = 3000  # changing this needs migration
@@ -92,7 +94,8 @@ class Comment(models.Model):
             comment="action",
             comment_html="action"
         )
-
+Content.register_content(Comment, '%s__comment' % Content.get_content_fieldlookup('spirit_topic.Topic'))
+Content.register_permission_condition(Comment, 'own', lambda u, p, o: u == o.user)
 
 def increase_user_profile_comment_count(sender, instance, created, **kwargs):
     if created and not instance.topic.category.is_private:
