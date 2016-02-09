@@ -23,7 +23,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['.example.com', ]
 
-DEFAULT_FROM_EMAIL = 'webmaster@localhost'  # 'MyForum <noreply@example.com>'
+# You can change this to something like 'MyForum <noreply@example.com>'
+DEFAULT_FROM_EMAIL = 'webmaster@localhost'  # Django default
 SERVER_EMAIL = DEFAULT_FROM_EMAIL  # For error notifications
 
 # Extend the Spirit installed apps
@@ -41,6 +42,9 @@ DATABASES = {
         'PASSWORD': 'mypassword',
         'HOST': '127.0.0.1',
         'PORT': '5432',
+        # Django default is 0,
+        # close after every request
+        # 'CONN_MAX_AGE': 0,  # todo: Spirit v0.5 change to Keep alive 60 secs, uncomment
     }
 }
 
