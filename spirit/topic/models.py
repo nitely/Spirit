@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.db.models.signals import post_save, post_delete
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -101,17 +100,3 @@ class Topic(models.Model):
         Topic.objects\
             .filter(pk=self.pk)\
             .update(comment_count=F('comment_count') - 1)
-
-
-def increase_user_profile_comment_count(sender, instance, created, **kwargs):
-    if created and not instance.category.is_private:
-        instance.user.st.increase_topic_count()
-
-post_save.connect(increase_user_profile_comment_count, sender=Topic, dispatch_uid='Topic:increase_user_profile_comment_count')
-
-
-def decrease_user_profile_comment_count(sender, instance, **kwargs):
-    if not instance.category.is_private:
-        instance.user.st.decrease_topic_count()
-
-post_delete.connect(decrease_user_profile_comment_count, sender=Topic, dispatch_uid='Topic:decrease_user_profile_comment_count')
