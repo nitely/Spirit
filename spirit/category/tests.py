@@ -8,7 +8,6 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils import timezone
-from django.conf import settings
 
 from djconfig.utils import override_djconfig
 
@@ -146,3 +145,16 @@ class CategoryViewTest(TestCase):
         response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
                                                                              'slug': self.category_1.slug}))
         self.assertEqual(list(response.context['topics']), [topic, ])
+
+
+
+class CategoryMigrationTest(TestCase):
+
+    def setUp(self):
+        cache.clear()
+
+    def test_uncategorized_category(self):
+        """
+        There should be a category named Uncategorized
+        """
+        self.assertEqual(len(Category.objects.filter(title="Uncategorized")), 1)

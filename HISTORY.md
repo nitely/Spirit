@@ -1,3 +1,8 @@
+0.4.7
+==================
+
+* Removed unused `ST_UNCATEGORIZED_CATEGORY_PK` setting.
+
 0.4.6
 ==================
 

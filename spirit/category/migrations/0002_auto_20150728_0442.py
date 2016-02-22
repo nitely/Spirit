@@ -16,9 +16,11 @@ def default_categories(apps, schema_editor):
             is_private=True
         )
 
-    if not Category.objects.filter(pk=settings.ST_UNCATEGORIZED_CATEGORY_PK).exists():
+    # Let's create a dummy category in case
+    # there are no categories other than
+    # the Private one
+    if len(Category.objects.all()[:2]) == 1:
         Category.objects.create(
-            pk=settings.ST_UNCATEGORIZED_CATEGORY_PK,
             title="Uncategorized",
             slug="uncategorized"
         )

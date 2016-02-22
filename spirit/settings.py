@@ -7,7 +7,6 @@ from __future__ import unicode_literals
 import os
 
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
-ST_UNCATEGORIZED_CATEGORY_PK = 2
 
 ST_RATELIMIT_ENABLE = True
 ST_RATELIMIT_CACHE_PREFIX = 'srl'
