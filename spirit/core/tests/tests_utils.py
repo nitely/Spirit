@@ -248,9 +248,9 @@ class UtilsFormsTests(TestCase):
                                        parent_field='parent_id',
                                        label_field='title')
         self.assertSequenceEqual(list(field.choices), [('', '---------'),
-                                                       (3, '%s' % category.title),
-                                                       (5, '--- %s' % subcategory.title),
-                                                       (4, '%s' % category2.title)])
+                                                       (category.pk, '%s' % category.title),
+                                                       (subcategory.pk, '--- %s' % subcategory.title),
+                                                       (category2.pk, '%s' % category2.title)])
 
 
 class UtilsTimezoneTests(TestCase):

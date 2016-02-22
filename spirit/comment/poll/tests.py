@@ -149,8 +149,8 @@ class PollViewTest(TestCase):
 
         self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(len(CommentPollVote.objects.all()), 2)
-        self.assertEqual(len(CommentPollVote.objects.filter(pk=choice_a.pk)), 1)
-        self.assertEqual(len(CommentPollVote.objects.filter(pk=choice_b.pk)), 1)
+        self.assertEqual(len(CommentPollVote.objects.filter(choice=choice_a.pk)), 1)
+        self.assertEqual(len(CommentPollVote.objects.filter(choice=choice_b.pk)), 1)
 
     def test_poll_vote_post_count(self):
         """

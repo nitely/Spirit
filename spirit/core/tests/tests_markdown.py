@@ -60,9 +60,9 @@ class UtilsMarkdownTests(TestCase):
             '*&lt;em&gt;foobar&lt;/em&gt;*\n'
             '&lt;/div&gt;<br>\n'
             '&lt;em&gt;*foo*&lt;/em&gt;<br>\n'
-            '&lt;em&gt;<a class="comment-mention" rel="nofollow" href="/user/1/nitely/">@nitely</a>&lt;/em&gt;<br>\n'
+            '&lt;em&gt;<a class="comment-mention" rel="nofollow" href="%s">@nitely</a>&lt;/em&gt;<br>\n'
             '<em>&lt;em&gt;foobar&lt;/em&gt;</em></p>'
-        ))
+        ) % (self.user.st.get_absolute_url(), ))
 
     def test_markdown_mentions(self):
         """

@@ -27,17 +27,6 @@ class CategoryViewTest(TestCase):
         self.subcategory_1 = utils.create_subcategory(self.category_1)
         self.category_2 = utils.create_category(title="cat2")
         self.category_removed = utils.create_category(title="cat3", is_removed=True)
-        self.uncategorized = Category.objects.get(pk=settings.ST_UNCATEGORIZED_CATEGORY_PK)
-
-    def test_category_list_view(self):
-        """
-        should display all categories
-        """
-        response = self.client.get(reverse('spirit:category:index'))
-        self.assertEqual(
-            list(response.context['categories']),
-            [self.uncategorized, self.category_1, self.category_2]
-        )
 
     def test_category_detail_view(self):
         """

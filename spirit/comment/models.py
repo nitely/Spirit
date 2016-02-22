@@ -73,7 +73,7 @@ class Comment(models.Model):
 
     def decrease_likes_count(self):
         Comment.objects\
-            .filter(pk=self.pk)\
+            .filter(pk=self.pk, likes_count__gt=0)\
             .update(likes_count=F('likes_count') - 1)
 
     @classmethod
