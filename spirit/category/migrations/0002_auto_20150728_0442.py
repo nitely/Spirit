@@ -8,11 +8,7 @@ from django.conf import settings
 def default_categories(apps, schema_editor):
     Category = apps.get_model("spirit_category", "Category")
 
-    private_category = (Category.objects
-        .filter(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
-        .first())
-
-    if not private_category:
+    if not Category.objects.filter(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK).exists():
         private_category = Category.objects.create(
             title="Private",
             slug="private",
