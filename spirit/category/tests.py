@@ -8,6 +8,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils import timezone
+from django.conf import settings
 
 from djconfig.utils import override_djconfig
 
@@ -158,3 +159,17 @@ class CategoryMigrationTest(TestCase):
         There should be a category named Uncategorized
         """
         self.assertEqual(len(Category.objects.filter(title="Uncategorized")), 1)
+
+    def test_private_category(self):
+        """
+        There should be a private category
+        """
+        self.assertEqual(len(Category.objects.filter(
+            pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK,
+            title="Private")), 1)
+
+    def test_categories(self):
+        """
+        There should be two categories: private and Uncategorized
+        """
+        self.assertEqual(len(Category.objects.all()), 2)
