@@ -6,6 +6,7 @@ import mistune
 
 
 class Renderer(mistune.Renderer):
+    PROTOCOL_WHITELIST = ('http', 'https', 'ftp')
 
     # Override
     def autolink(self, link, is_email=False):
@@ -19,10 +20,18 @@ class Renderer(mistune.Renderer):
 
         return '<a href="%s">%s</a>' % (link, text)
 
+    def is_valid_link(self, link):
+        if ':' not in link:
+            return False
+        protocol, _ = link.split(':', 1)
+        return protocol in self.PROTOCOL_WHITELIST
+
     # Override
     def link(self, link, title, text):
-        if link.startswith('javascript:'):
+        if not self.is_valid_link(link):
             link = ''
+
+        link = mistune.escape(link, quote=True)
 
         if not title:
             if self.options['no_follow']:
