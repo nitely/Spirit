@@ -15,7 +15,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-spirit',
-    version='0.4.6',
+    version='0.4.7',
     description='Spirit is a Python based forum powered by Django.',
     author='Esteban Castro Borsani',
     author_email='ecastroborsani@gmail.com',
