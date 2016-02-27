@@ -105,6 +105,8 @@ class CommentImageForm(forms.Form):
         return file
 
     def save(self):
+        # todo: use DEFAULT_FILE_STORAGE and MEDIA_URL
+
         file = self.cleaned_data['image']
         file_hash = utils.get_hash(file)
         file.name = ''.join((file_hash, '.', file.image.format.lower()))

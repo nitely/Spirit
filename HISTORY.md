@@ -1,7 +1,10 @@
 0.4.7
 ==================
 
-* Removed unused `ST_UNCATEGORIZED_CATEGORY_PK` setting.
+* Removed unused `ST_UNCATEGORIZED_CATEGORY_PK` setting
+* Security fix: fixes a regression within markdown
+URLs present in v0.4.6 (#105 thanks to @qll)
+* New: `settings.ST_ALLOWED_URL_PROTOCOLS` a set containing valid URL protocols
 
 0.4.6
 ==================

@@ -4,12 +4,28 @@ from __future__ import unicode_literals
 
 import mistune
 
+from django.conf import settings
+from django.utils.html import escape
+
+
+def sanitize_url(url):
+    url = escape(url)  # & -> &amp; ...
+    parts = url.split(':', 1)
+
+    if len(parts) == 1:  # No protocol (relative url)
+        return url
+
+    if parts[0] in settings.ST_ALLOWED_URL_PROTOCOLS:
+        return url
+
+    return ''
+
 
 class Renderer(mistune.Renderer):
-    PROTOCOL_WHITELIST = ('http', 'https', 'ftp')
 
     # Override
     def autolink(self, link, is_email=False):
+        link = sanitize_url(link)
         text = link
 
         if is_email:
@@ -20,18 +36,9 @@ class Renderer(mistune.Renderer):
 
         return '<a href="%s">%s</a>' % (link, text)
 
-    def is_valid_link(self, link):
-        if ':' not in link:
-            return False
-        protocol, _ = link.split(':', 1)
-        return protocol in self.PROTOCOL_WHITELIST
-
     # Override
     def link(self, link, title, text):
-        if not self.is_valid_link(link):
-            link = ''
-
-        link = mistune.escape(link, quote=True)
+        link = sanitize_url(link)
 
         if not title:
             if self.options['no_follow']:
@@ -39,14 +46,31 @@ class Renderer(mistune.Renderer):
 
             return '<a href="%s">%s</a>' % (link, text)
 
-        title = mistune.escape(title, quote=True)
+        title = escape(title)
 
         if self.options['no_follow']:
             return '<a rel="nofollow" href="%s" title="%s">%s</a>' % (link, title, text)
 
         return '<a href="%s" title="%s">%s</a>' % (link, title, text)
 
+    # Override
+    def image(self, src, title, text):
+        src = sanitize_url(src)
+        text = escape(text)
+
+        if title:
+            title = escape(title)
+            html = '<img src="%s" alt="%s" title="%s"' % (src, text, title)
+        else:
+            html = '<img src="%s" alt="%s"' % (src, text)
+
+        if self.options.get('use_xhtml'):
+            return '%s />' % html
+
+        return '%s>' % html
+
     def audio_link(self, link):
+        link = sanitize_url(link)
         return '<audio controls><source src="{link}">' \
                '<a rel="nofollow" href="{link}">{link}</a></audio>\n'.format(link=link)
 
@@ -68,6 +92,7 @@ class Renderer(mistune.Renderer):
         )
 
     def video_link(self, link):
+        link = sanitize_url(link)
         return '<video controls><source src="{link}">' \
                '<a rel="nofollow" href="{link}">{link}</a></video>\n'.format(link=link)
 

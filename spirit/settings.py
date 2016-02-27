@@ -25,6 +25,9 @@ ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 ST_PRIVATE_FORUM = False
 
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
+ST_ALLOWED_URL_PROTOCOLS = {
+    'http', 'https', 'mailto', 'ftp', 'ftps',
+    'git', 'svn', 'magnet', 'irc', 'ircs'}
 
 ST_UNICODE_SLUGS = True
 

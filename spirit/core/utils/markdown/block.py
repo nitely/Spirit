@@ -114,15 +114,14 @@ class BlockLexer(mistune.BlockLexer):
         }
 
     def parse_audio_link(self, m):
-        link = mistune.escape(m.group(0).strip(), quote=True)
         self.tokens.append({
             'type': 'audio_link',
-            'link': link
+            'link': m.group(0).strip()
         })
 
     def parse_image_link(self, m):
-        link = mistune.escape(m.group(0).strip(), quote=True)
-        title = mistune.escape(m.group('image_name').strip(), quote=True)
+        link = m.group(0).strip()
+        title = m.group('image_name').strip()
         self.tokens.append({
             'type': 'image_link',
             'src': link,
@@ -131,10 +130,9 @@ class BlockLexer(mistune.BlockLexer):
         })
 
     def parse_video_link(self, m):
-        link = mistune.escape(m.group(0).strip(), quote=True)
         self.tokens.append({
             'type': 'video_link',
-            'link': link
+            'link': m.group(0).strip()
         })
 
     def parse_youtube(self, m):

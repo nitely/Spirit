@@ -723,9 +723,17 @@ class UtilsMarkdownTests(TestCase):
         """
         Should parse the link as <a> tag
         """
-        comment = "http://foo.com"
+        comment = "http://foo.com\n" \
+                  "http://foo.com?foo=1&bar=2\n" \
+                  "http://foo.com/<bad>"
         comment_md = Markdown().render(comment)
-        self.assertEqual(comment_md, '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>')
+        self.assertEqual(
+            comment_md.splitlines(),
+            [
+                '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a><br>',
+                '<a rel="nofollow" href="http://foo.com?foo=1&amp;bar=2">http://foo.com?foo=1&amp;bar=2</a><br>',
+                '<a rel="nofollow" href="http://foo.com/">http://foo.com/</a>&lt;bad&gt;</p>'
+            ])
 
     def test_autolink_without_no_follow(self):
         """
@@ -766,3 +774,34 @@ class UtilsMarkdownTests(TestCase):
         comment = "[link](http://foo.com \"bar\")"
         comment_md = Markdown(no_follow=False).render(comment)
         self.assertEqual(comment_md, '<p><a href="http://foo.com" title="bar">link</a></p>')
+
+    def test_link_safety(self):
+        """
+        Should sanitize the links to avoid XSS attacks
+        """
+        attack_vectors = (
+            # "standard" javascript pseudo protocol
+            ('javascript:alert`1`', ''),
+            # bypass attempt
+            ('jAvAsCrIpT:alert`1`', ''),
+            # javascript pseudo protocol with entities
+            ('javascript&colon;alert`1`', 'javascript&amp;colon;alert`1`'),
+            # javascript pseudo protocol with prefix (dangerous in Chrome)
+            ('\x1Ajavascript:alert`1`', ''),
+            # data-URI (dangerous in Firefox)
+            ('data:text/html,<script>alert`1`</script>', ''),
+            # vbscript-URI (dangerous in Internet Explorer)
+            ('vbscript:msgbox', ''),
+            # breaking out of the attribute
+            ('"<>', '&quot;&lt;&gt;'),
+        )
+
+        for vector, expected in attack_vectors:
+            # Image
+            self.assertEqual(
+                Markdown().render('![atk](%s)' % vector),
+                '<p><img src="%s" alt="atk"></p>' % expected)
+            # Link
+            self.assertEqual(
+                Markdown().render('[atk](%s)' % vector),
+                '<p><a rel="nofollow" href="%s">atk</a></p>' % expected)
