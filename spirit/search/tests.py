@@ -66,11 +66,34 @@ class SearchViewTest(TestCase):
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user, title="spirit search test foo")
         self.topic2 = utils.create_topic(category=self.category, user=self.user, title="foo")
+        self.comment = utils.create_comment(topic=self.topic, comment='comment 123')
+        self.comment2 = utils.create_comment(topic=self.topic2, comment='comment abc')
 
         call_command("rebuild_index", verbosity=0, interactive=False)
 
     # def tearDown(self):
         # haystack.connections = self.connections
+
+    def assert_search_returns_topics(self, data, expected_topics):
+        """
+        Verify the expected topics are returned by the search endpoint.
+
+        Arguments:
+            data (dict): Data passed to the search endpoint.
+            expected_topics (List[Topic]): List of topics expected to be returned by the endpoint.
+        """
+        response = self.client.get(reverse('spirit:search:search'), data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual([s.object for s in response.context['page']], expected_topics)
+
+    def test_search_comment_content(self):
+        """
+        search by comment content
+        """
+        utils.login(self)
+        self.assert_search_returns_topics({'q': self.comment.comment}, [self.comment.topic])
+        self.assert_search_returns_topics({'q': self.comment2.comment}, [self.comment2.topic])
+        self.assert_search_returns_topics({'q': 'comment'}, [self.topic2, self.topic])
 
     def test_advanced_search_detail(self):
         """
@@ -85,11 +108,7 @@ class SearchViewTest(TestCase):
         advanced search by topic
         """
         utils.login(self)
-        data = {'q': 'spirit search', }
-        response = self.client.get(reverse('spirit:search:search'),
-                                   data)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual([s.object for s in response.context['page']], [self.topic, ])
+        self.assert_search_returns_topics({'q': 'spirit search'}, [self.topic])
 
     @override_djconfig(topics_per_page=1)
     def test_advanced_search_topics_paginate(self):
@@ -97,11 +116,7 @@ class SearchViewTest(TestCase):
         advanced search by topic paginated
         """
         utils.login(self)
-        data = {'q': 'foo', }
-        response = self.client.get(reverse('spirit:search:search'),
-                                   data)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual([s.object for s in response.context['page']], [self.topic2, ])
+        self.assert_search_returns_topics({'q': 'foo'}, [self.topic2])
 
     def test_advanced_search_in_category(self):
         """
@@ -109,10 +124,9 @@ class SearchViewTest(TestCase):
         """
         utils.login(self)
         category = utils.create_category()
+
         data = {'q': 'spirit search', 'category': category.pk}
-        response = self.client.get(reverse('spirit:search:search'),
-                                   data)
-        self.assertEqual(list(response.context['page']), [])
+        self.assert_search_returns_topics(data, [])
 
         data['category'] = self.category.pk
         response = self.client.get(reverse('spirit:search:search'),
