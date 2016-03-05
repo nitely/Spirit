@@ -30,6 +30,15 @@ The `runtests.py` script enable you to run the test suite of spirit.
 - Type `./runtests.py` to run the test suite using the settings from the `spirit` folder.
 - Type `./runtests.py example` to run the test suite using the settings from the `example` folder.
 
+## Docker Setup
+
+1. Install [Docker Engine](https://docs.docker.com/engine/installation/).
+2. Install [Docker Compose](https://docs.docker.com/compose/install/).
+3. In Spirit's root directory, run `docker-compose up -d`.
+4. Run `docker exec -ti REPLACE_WITH_SPIRIT_CONTAINER_NAME python manage.py createsuperuser` to create your super user.
+5. On Linux, you may access Spirit at `127.0.0.1:8000`. If you are on OSX, I highly recommend using Kitematic, it helps with port forwarding.
+6. Run `docker-compose run --rm spirit python runtests.py` to execute the tests.
+
 ## License
 
 MIT
