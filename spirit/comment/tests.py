@@ -579,6 +579,24 @@ class CommentFormTest(TestCase):
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())
 
+    def test_comment_max_len(self):
+        """
+        Restrict comment len
+        """
+        comment = 'a' * settings.ST_COMMENT_MAX_LEN
+        form_data = {'comment': comment, }
+        form = CommentForm(data=form_data)
+        self.assertEqual(form.is_valid(), True)
+
+    def test_comment_max_len_invalid(self):
+        """
+        Restrict comment len
+        """
+        comment = 'a' * (settings.ST_COMMENT_MAX_LEN + 1)
+        form_data = {'comment': comment, }
+        form = CommentForm(data=form_data)
+        self.assertEqual(form.is_valid(), False)
+
 
 class CommentUtilsTest(TestCase):
 

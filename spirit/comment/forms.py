@@ -17,6 +17,9 @@ from .models import Comment
 
 class CommentForm(forms.ModelForm):
 
+    comment = forms.CharField(
+        max_length=settings.ST_COMMENT_MAX_LEN, widget=forms.Textarea)
+
     class Meta:
         model = Comment
         fields = ['comment', ]
