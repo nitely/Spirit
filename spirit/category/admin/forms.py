@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import re
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -13,7 +14,7 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ("parent", "title", "description", "is_global", "is_closed", "is_removed")
+        fields = ("parent", "title", "description", "is_global", "is_closed", "is_removed", "colour")
 
     def __init__(self, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)
@@ -36,3 +37,11 @@ class CategoryForm(forms.ModelForm):
                                               "can not have a parent since it has childrens"))
 
         return parent
+
+    def clean_colour(self):
+        colour = self.cleaned_data["colour"]
+
+        if colour != '' and not re.match(r'^#[a-f0-9]{3}([a-f0-9]{3}){0,1}$', colour):
+            raise forms.ValidationError(_("The colour you are updating "
+                                          "is not a valid hex colour string"))
+        return colour

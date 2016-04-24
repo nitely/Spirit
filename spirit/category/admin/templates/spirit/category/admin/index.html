@@ -15,8 +15,8 @@
     <div class="rows">
 
         {% for c in categories %}
-            <div class="row">
-                <a href="{{ c.get_absolute_url }}">{{ c.title }}</a>
+            <div class="row" style="background-colour: {{ c.colour }}">
+                <a {% if c.colour != '' %}style="color: {{ c.colour }}"{% endif %} href="{{ c.get_absolute_url }}">{{ c.title }}</a>
 
                 {% if c.is_removed %}
                     <i class="fa fa-times"></i>

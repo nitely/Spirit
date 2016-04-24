@@ -51,7 +51,7 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         form_data = {"parent": "", "title": "foo", "description": "",
-                     "is_closed": False, "is_removed": False, "is_global": True}
+                     "is_closed": False, "is_removed": False, "is_global": True, "colour": ""}
         response = self.client.post(reverse('spirit:admin:category:create'),
                                     form_data)
         expected_url = reverse("spirit:admin:category:index")
@@ -66,7 +66,7 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         form_data = {"parent": "", "title": "foo", "description": "",
-                     "is_closed": False, "is_removed": False, "is_global": True}
+                     "is_closed": False, "is_removed": False, "is_global": True, "colour": "#ff0000"}
         response = self.client.post(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
                                     form_data)
         expected_url = reverse("spirit:admin:category:index")
@@ -94,7 +94,8 @@ class AdminFormTest(TestCase):
             "description": "",
             "is_closed": False,
             "is_removed": False,
-            "is_global": True
+            "is_global": True,
+            "colour": ""
         }
         form = CategoryForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
