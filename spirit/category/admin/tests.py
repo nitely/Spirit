@@ -75,6 +75,14 @@ class AdminViewTest(TestCase):
         response = self.client.get(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }))
         self.assertEqual(response.status_code, 200)
 
+    def test_category_form_color(self):
+        """ Test category form raises exception on wrong color """
+        form_data = {"parent": "", "title": "foo", "description": "",
+                     "is_closed": False, "is_removed": False, "is_global": True, "color": "#QWERTZ"}
+        form = CategoryForm(data=form_data)
+
+        self.assertFalse(form.is_valid())
+
 
 class AdminFormTest(TestCase):
 

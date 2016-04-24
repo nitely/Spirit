@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='category',
             name='color',
-            field=models.CharField(max_length=7, verbose_name='color', null=True, blank=True),
+            field=models.CharField(max_length=7, verbose_name='color', blank=True,
+                                   help_text="Title color in hex format (i.e: #1aafd0)."),
         ),
     ]
