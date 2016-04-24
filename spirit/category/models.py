@@ -27,6 +27,9 @@ class Category(models.Model):
 
     # topic_count = models.PositiveIntegerField(_("topic count"), default=0)
 
+    color = models.CharField(_("color"), max_length=7, blank=True,
+                             help_text=_("Title color in hex format (i.e: #1aafd0)."))
+
     objects = CategoryQuerySet.as_manager()
 
     class Meta:
