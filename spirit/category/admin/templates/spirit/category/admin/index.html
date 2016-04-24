@@ -31,7 +31,7 @@
 
             {% for subc in c.category_set.all %}
                 <div class="row">
-                    --- <a href="{{ subc.get_absolute_url }}">{{ subc.title }}</a>
+                    --- <a {% if subc.color %}style="color: {{ subc.color }}"{% endif %} href="{{ subc.get_absolute_url }}">{{ subc.title }}</a>
 
                     {% if subc.is_removed %}
                         <i class="fa fa-times"></i>
