@@ -26,7 +26,7 @@
                             </a>
                         {% else %}
                             {% if t.category.parent %}
-                                <a {% if t.category.color %}style="color: {{ t.category.color }};"{% endif %} href="{{ t.category.parent.get_absolute_url }}">
+                                <a {% if t.category.parent.color %}style="color: {{ t.category.parent.color }};"{% endif %} href="{{ t.category.parent.get_absolute_url }}">
                                     {{ t.category.parent.title }}
                                 </a>
                             {% else %}
