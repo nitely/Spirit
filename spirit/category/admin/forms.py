@@ -14,7 +14,7 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ("parent", "title", "description", "is_global", "is_closed", "is_removed", "colour")
+        fields = ("parent", "title", "description", "is_global", "is_closed", "is_removed", "color")
 
     def __init__(self, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)
@@ -34,14 +34,13 @@ class CategoryForm(forms.ModelForm):
 
             if parent and has_childrens:
                 raise forms.ValidationError(_("The category you are updating "
-                                              "can not have a parent since it has childrens"))
+                                              "can not have a parent since it has children"))
 
         return parent
 
-    def clean_colour(self):
-        colour = self.cleaned_data["colour"]
+    def clean_color(self):
+        color = self.cleaned_data["color"]
 
-        if colour != '' and not re.match(r'^#[a-f0-9]{3}([a-f0-9]{3}){0,1}$', colour):
-            raise forms.ValidationError(_("The colour you are updating "
-                                          "is not a valid hex colour string"))
-        return colour
+        if color and not re.match(r'^#[A-Fa-f0-9]{3}([A-Fa-f0-9]{3}){0,1}$', color):
+            raise forms.ValidationError(_("The input is not a valid hex color."))
+        return color

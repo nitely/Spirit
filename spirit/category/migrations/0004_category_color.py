@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='category',
-            name='colour',
-            field=models.CharField(max_length=7, verbose_name='colour', blank=True),
+            name='color',
+            field=models.CharField(max_length=7, verbose_name='color', null=True, blank=True),
         ),
     ]

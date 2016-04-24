@@ -27,7 +27,7 @@ class Category(models.Model):
 
     # topic_count = models.PositiveIntegerField(_("topic count"), default=0)
 
-    colour = models.CharField(_("colour"), max_length=7, blank=True)
+    color = models.CharField(_("color"), max_length=7, null=True, blank=True)
 
     objects = CategoryQuerySet.as_manager()
 
