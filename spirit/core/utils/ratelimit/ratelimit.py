@@ -14,6 +14,10 @@ TIME_DICT = {
 }
 
 
+class RateLimitError(Exception):
+    """"""
+
+
 class RateLimit:
 
     def __init__(self, request, uid, method=None, field=None, rate='5/5m'):
@@ -23,13 +27,13 @@ class RateLimit:
         self.limit = None
         self.time = None
         self.cache_keys = []
-        self.cache_values = {}
+        self.cache_values = []
 
         if self.request.method in (m.upper() for m in self.method)\
                 and settings.ST_RATELIMIT_ENABLE:
             self.limit, self.time = self.split_rate(rate)
             self.cache_keys = self._get_keys(field)
-            self.cache_values = self._incr_cache()
+            self.cache_values = self._incr_all()
 
     def split_rate(self, rate):
         limit, period = rate.split('/')
@@ -43,7 +47,7 @@ class RateLimit:
 
         return limit, time
 
-    def _make_cache_key(self, key):
+    def _make_key(self, key):
         key_uid = '%s:%s' % (self.uid, key)
         key_hash = hashlib.sha1(key_uid.encode('utf-8')).hexdigest()
         return '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
@@ -62,27 +66,37 @@ class RateLimit:
             if field_value:
                 keys.append('field:%s:%s' % (field, field_value))
 
-        return [self._make_cache_key(k) for k in keys]
+        return [self._make_key(k) for k in keys]
 
-    def _incr_cache(self):
-        if not self.cache_keys:
-            return {}
-
+    def __incr(self, key):
         cache = caches[settings.ST_RATELIMIT_CACHE]
-        cache_values = cache.get_many(self.cache_keys)
+        cache.add(key, 0, timeout=self.time)
 
-        for key in self.cache_keys:
-            if key in cache_values:
-                cache_values[key] += 1
-            else:
-                cache_values[key] = 1
+        try:
+            return cache.incr(key)
+        except ValueError:  # Key does not exists
+            raise RateLimitError
 
-        cache.set_many(cache_values, timeout=self.time)
-        return cache_values
+    def _incr(self, key):
+        try:
+            return self.__incr(key)
+        except RateLimitError:
+            pass
+
+        try:
+            # Retry in case the key
+            # has just timed-out
+            return self.__incr(key)
+        except RateLimitError:
+            # The timeout is too low
+            # or the cache is being pruned
+            # too frequently
+            return 1
+
+    def _incr_all(self):
+        return [self._incr(k) for k in self.cache_keys]
 
     def is_limited(self):
-        for count in self.cache_values.values():
-            if count > self.limit:
-                return True
-
-        return False
+        return any(
+            count > self.limit
+            for count in self.cache_values)

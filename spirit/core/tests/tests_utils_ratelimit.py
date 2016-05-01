@@ -149,3 +149,22 @@ class UtilsRateLimitTests(TestCase):
         one(req)
         rl_cache = caches[settings.ST_RATELIMIT_CACHE]
         self.assertIsNotNone(rl_cache.get(key))
+
+    def test_rate_limit_timeout_too_low(self):
+        """
+        Should not limit when the timeout is
+        too low to increase the rate counter
+        """
+        req = RequestFactory().post('/')
+        setup_request_factory_messages(req)
+        req.user = User()
+        req.user.pk = 1
+
+        # The key is removed immediately
+        # when the timeout is 0
+        @ratelimit(rate='1/0s')
+        def one(request):
+            return request.is_limited
+
+        self.assertFalse(one(req))
+        self.assertFalse(one(req))
