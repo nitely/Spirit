@@ -30,6 +30,9 @@ class UserProfile(models.Model):
     topic_count = models.PositiveIntegerField(_("topic count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
 
+    last_post_hash = models.CharField(_("last post hash"), max_length=128, blank=True)
+    last_post_on = models.DateTimeField(_("last post on"), null=True, blank=True)
+
     class Meta:
         verbose_name = _("forum profile")
         verbose_name_plural = _("forum profiles")
@@ -45,6 +48,18 @@ class UserProfile(models.Model):
 
     def get_absolute_url(self):
         return reverse('spirit:user:detail', kwargs={'pk': self.user.pk, 'slug': self.slug})
+
+    def update_post_hash(self, post_hash):
+        assert self.pk
+
+        # Let the DB do the hash
+        # comparison for atomicity
+
+        # todo: set last_post_on and filter by threshold
+        return bool(UserProfile.objects
+                    .filter(pk=self.pk)
+                    .exclude(last_post_hash=post_hash)
+                    .update(last_post_hash=post_hash))
 
 
 class User(AbstractUser):

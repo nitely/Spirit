@@ -3,10 +3,12 @@
 from __future__ import unicode_literals
 
 import os
+import hashlib
 
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_bytes
 
 from ..core import utils
 from ..core.utils.markdown import Markdown
@@ -18,7 +20,12 @@ from .models import Comment
 class CommentForm(forms.ModelForm):
 
     comment = forms.CharField(
-        max_length=settings.ST_COMMENT_MAX_LEN, widget=forms.Textarea)
+        max_length=settings.ST_COMMENT_MAX_LEN,
+        widget=forms.Textarea)
+    comment_hash = forms.CharField(
+        max_length=128,
+        widget=forms.HiddenInput,
+        required=False)
 
     class Meta:
         model = Comment
@@ -31,6 +38,20 @@ class CommentForm(forms.ModelForm):
         self.mentions = None  # {username: User, }
         self.polls = None  # {polls: [], choices: []}
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
+
+    def get_comment_hash(self):
+        assert not self.instance.pk
+
+        # This gets saved into
+        # User.last_post_hash,
+        # it does not matter whether
+        # is a safe string or not
+
+        # todo: add topic.pk if there is a self.topic
+        return (self.cleaned_data.get('comment_hash', None) or
+                hashlib
+                .md5(smart_bytes(self.cleaned_data['comment']))
+                .hexdigest())
 
     def _get_comment_html(self):
         user = self.user or self.instance.user

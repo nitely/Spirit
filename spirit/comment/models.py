@@ -84,3 +84,7 @@ class Comment(models.Model):
             comment="action",
             comment_html="action"
         )
+
+    @classmethod
+    def get_last_for_topic(cls, topic_id):
+        return cls.objects.filter(topic_id=topic_id).last()
