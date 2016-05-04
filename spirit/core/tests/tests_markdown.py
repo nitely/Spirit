@@ -189,6 +189,7 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = (
             "https://www.youtube.com/watch?v=Z0UISCEe52Y\n"
+            "https://www.youtube.com/watch?v=Z0UISCEe52Y&t=1m13s\n"
             "http://youtu.be/afyK1HSFfgw\n"
             "https://www.youtube.com/embed/vsF0K3Ou1v0\n"
             "https://www.youtube.com/watch?v=<bad>\n"
@@ -201,6 +202,8 @@ class UtilsMarkdownTests(TestCase):
             comment_md.splitlines(),
             [
                 '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?html5=1" '
+                'allowfullscreen></iframe></span>',
+                '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?html5=1&start=73" '
                 'allowfullscreen></iframe></span>',
                 '<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?html5=1"'
                 ' allowfullscreen></iframe></span>',

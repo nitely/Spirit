@@ -39,6 +39,7 @@ class BlockGrammar(mistune.BlockGrammar):
 
     # Try to get the video ID. Works for URLs of the form:
     # * https://www.youtube.com/watch?v=Z0UISCEe52Y
+    # * https://www.youtube.com/watch?v=Z0UISCEe52Y&t=1m30s
     # * http://youtu.be/afyK1HSFfgw
     # * https://www.youtube.com/embed/vsF0K3Ou1v0
     youtube = re.compile(
@@ -47,6 +48,7 @@ class BlockGrammar(mistune.BlockGrammar):
         r'|youtu\.be/'
         r'|youtube\.com/embed/)'
         r'(?P<id>[a-zA-Z0-9_\-]{11})'
+        r'(&t=(?P<start_minutes>[0-9]+m)?(?P<start_seconds>[0-9]+s)?)?'
         r'(?:\n+|$)'
     )
 
@@ -138,7 +140,9 @@ class BlockLexer(mistune.BlockLexer):
     def parse_youtube(self, m):
         self.tokens.append({
             'type': 'youtube',
-            'video_id': m.group("id")
+            'video_id': m.group("id"),
+            'start_minutes': m.group("start_minutes"),
+            'start_seconds': m.group("start_seconds"),
         })
 
     def parse_vimeo(self, m):
