@@ -258,6 +258,38 @@ class UtilsMarkdownTests(TestCase):
             ]
         )
 
+    def test_markdown_gfycat(self):
+        """
+        markdown vimeo
+        """
+        comment = (
+            "https://gfycat.com/PointedVengefulHyracotherium\n"
+            "https://www.gfycat.com/PointedVengefulHyracotherium\n"
+            "http://gfycat.com/PointedVengefulHyracotherium\n"
+            "http://www.gfycat.com/PointedVengefulHyracotherium\n"
+            "bad https://gfycat.com/PointedVengefulHyracotherium\n"
+            "https://gfycat.com/PointedVengefulHyracotherium bad"
+        )
+        comment_md = Markdown().render(comment)
+        self.assertListEqual(
+            comment_md.splitlines(),
+            [
+                '<span class="video"><iframe src="https://gfycat.com/ifr/PointedVengefulHyracotherium" '
+                'frameborder="0" scrolling="no" allowfullscreen></iframe></span>',
+                '<span class="video"><iframe src="https://gfycat.com/ifr/PointedVengefulHyracotherium" '
+                'frameborder="0" scrolling="no" allowfullscreen></iframe></span>',
+                '<span class="video"><iframe src="https://gfycat.com/ifr/PointedVengefulHyracotherium" '
+                'frameborder="0" scrolling="no" allowfullscreen></iframe></span>',
+                '<span class="video"><iframe src="https://gfycat.com/ifr/PointedVengefulHyracotherium" '
+                'frameborder="0" scrolling="no" allowfullscreen></iframe></span>',
+
+                '<p>bad <a rel="nofollow" href="https://gfycat.com/PointedVengefulHyracotherium">'
+                'https://gfycat.com/PointedVengefulHyracotherium</a><br>',
+                '<a rel="nofollow" href="https://gfycat.com/PointedVengefulHyracotherium">'
+                'https://gfycat.com/PointedVengefulHyracotherium</a> bad</p>'
+            ]
+        )
+
     def test_markdown_video(self):
         """
         markdown video
