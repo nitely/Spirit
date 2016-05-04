@@ -53,6 +53,9 @@ class Markdown(mistune.Markdown):
     def output_vimeo(self):
         return self.renderer.vimeo(video_id=self.token['video_id'])
 
+    def output_gfycat(self):
+        return self.renderer.gfycat(video_id=self.token['video_id'])
+
     def output_poll(self):
         try:
             name = self.token['name']

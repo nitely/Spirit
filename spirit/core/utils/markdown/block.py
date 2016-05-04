@@ -70,6 +70,19 @@ class BlockGrammar(mistune.BlockGrammar):
         r'(?:\n+|$)'
     )
 
+    # Try to get the video ID. Works for URLs of the form:
+    # * https://gfycat.com/videoid
+    # * https://www.gfycat.com/videoid
+    # * http://gfycat.com/videoid
+    # * http://www.gfycat.com/videoid
+    gfycat = re.compile(
+        r'^https?://(www\.)?'
+        r'gfycat\.com/'
+        r'(?P<id>\w+)'
+        r'(\?[^\s]+)?'
+        r'(?:\n+|$)'
+    )
+
     # Capture polls:
     # [poll name=foo min=1 max=1 close=1d mode=default]
     # # Which opt you prefer?
@@ -100,6 +113,7 @@ class BlockLexer(mistune.BlockLexer):
     default_rules.insert(0, 'video_link')
     default_rules.insert(0, 'youtube')
     default_rules.insert(0, 'vimeo')
+    default_rules.insert(0, 'gfycat')
     default_rules.insert(0, 'poll')
 
     def __init__(self, rules=None, **kwargs):
@@ -144,6 +158,12 @@ class BlockLexer(mistune.BlockLexer):
     def parse_vimeo(self, m):
         self.tokens.append({
             'type': 'vimeo',
+            'video_id': m.group("id")
+        })
+
+    def parse_gfycat(self, m):
+        self.tokens.append({
+            'type': 'gfycat',
             'video_id': m.group("id")
         })
 

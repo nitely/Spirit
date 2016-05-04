@@ -104,6 +104,10 @@ class Renderer(mistune.Renderer):
         return '<span class="video"><iframe src="https://player.vimeo.com/video/{video_id}" ' \
                'allowfullscreen></iframe></span>\n'.format(video_id=video_id)
 
+    def gfycat(self, video_id):
+        return '<span class="video"><iframe src="https://gfycat.com/ifr/{video_id}" ' \
+               'frameborder="0" scrolling="no" allowfullscreen></iframe></span>\n'.format(video_id=video_id)
+
     def poll(self, name):
         return '<poll name={name}>\n'.format(name=name)
 
