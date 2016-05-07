@@ -41,17 +41,22 @@ class CommentForm(forms.ModelForm):
 
     def get_comment_hash(self):
         assert not self.instance.pk
+        assert self.topic
 
         # This gets saved into
         # User.last_post_hash,
         # it does not matter whether
         # is a safe string or not
+        comment_hash = self.cleaned_data.get('comment_hash', None)
 
-        # todo: add topic.pk if there is a self.topic
-        return (self.cleaned_data.get('comment_hash', None) or
-                hashlib
-                .md5(smart_bytes(self.cleaned_data['comment']))
-                .hexdigest())
+        if comment_hash:
+            return comment_hash
+
+        md5 = hashlib.md5()
+        md5.update(smart_bytes(self.cleaned_data['comment']))
+        md5.update(smart_bytes(
+            'thread-{}'.format(self.topic.pk)))
+        return md5.hexdigest()
 
     def _get_comment_html(self):
         user = self.user or self.instance.user
