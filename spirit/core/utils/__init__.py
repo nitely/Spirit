@@ -9,6 +9,7 @@ from contextlib import contextmanager
 
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.utils import six
 
 
 def render_form_errors(form):
@@ -29,14 +30,22 @@ def mkdir_p(path):
             raise
 
 
-def get_hash(file):
+def get_hash(bytes_iter):
+    assert not isinstance(
+        bytes_iter,
+        (six.text_type, six.binary_type))  # Avoid gotcha
+
     # todo: test!
     md5 = hashlib.md5()
 
-    for c in file.chunks():
-        md5.update(c)
+    for b in bytes_iter:
+        md5.update(b)
 
     return md5.hexdigest()
+
+
+def get_file_hash(file):
+    return get_hash(file.chunks())
 
 
 @contextmanager

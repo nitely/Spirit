@@ -40,7 +40,6 @@ class CommentForm(forms.ModelForm):
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
 
     def get_comment_hash(self):
-        assert not self.instance.pk
         assert self.topic
 
         # This gets saved into
@@ -52,11 +51,10 @@ class CommentForm(forms.ModelForm):
         if comment_hash:
             return comment_hash
 
-        md5 = hashlib.md5()
-        md5.update(smart_bytes(self.cleaned_data['comment']))
-        md5.update(smart_bytes(
-            'thread-{}'.format(self.topic.pk)))
-        return md5.hexdigest()
+        return utils.get_hash((
+            smart_bytes(self.cleaned_data['comment']),
+            smart_bytes('thread-{}'.format(self.topic.pk))
+        ))
 
     def _get_comment_html(self):
         user = self.user or self.instance.user
@@ -137,7 +135,7 @@ class CommentImageForm(forms.Form):
         # todo: use DEFAULT_FILE_STORAGE and MEDIA_URL
 
         file = self.cleaned_data['image']
-        file_hash = utils.get_hash(file)
+        file_hash = utils.get_file_hash(file)
         file.name = ''.join((file_hash, '.', file.image.format.lower()))
         upload_to = os.path.join('spirit', 'images', str(self.user.pk))
         file.url = os.path.join(settings.MEDIA_URL, upload_to, file.name).replace("\\", "/")

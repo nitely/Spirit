@@ -24,14 +24,19 @@ from . import utils
 @ratelimit(rate='1/10s')
 def publish(request, category_id=None):
     if category_id:
-        get_object_or_404(Category.objects.visible(),
-                          pk=category_id)
+        get_object_or_404(
+            Category.objects.visible(),
+            pk=category_id)
 
     if request.method == 'POST':
         form = TopicForm(user=request.user, data=request.POST)
         cform = CommentForm(user=request.user, data=request.POST)
 
         if not request.is_limited and all([form.is_valid(), cform.is_valid()]):  # TODO: test!
+            if not request.user.st.update_post_hash(form.get_topic_hash()):
+                return redirect(request.POST.get('next', None) or
+                                form.get_category().get_absolute_url())
+
             # wrap in transaction.atomic?
             topic = form.save()
             cform.topic = topic
@@ -39,13 +44,12 @@ def publish(request, category_id=None):
             comment_posted(comment=comment, mentions=cform.mentions)
             return redirect(topic.get_absolute_url())
     else:
-        form = TopicForm(user=request.user, initial={'category': category_id, })
+        form = TopicForm(user=request.user, initial={'category': category_id})
         cform = CommentForm()
 
     context = {
         'form': form,
-        'cform': cform
-    }
+        'cform': cform}
 
     return render(request, 'spirit/topic/publish.html', context)
 
