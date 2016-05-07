@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 import os
-import hashlib
 
 from django import forms
 from django.conf import settings

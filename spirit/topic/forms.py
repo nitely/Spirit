@@ -2,8 +2,6 @@
 
 from __future__ import unicode_literals
 
-import hashlib
-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_bytes

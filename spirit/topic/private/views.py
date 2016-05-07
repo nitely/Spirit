@@ -33,12 +33,19 @@ User = get_user_model()
 @login_required
 @ratelimit(rate='1/10s')
 def publish(request, user_id=None):
-    if request.method == 'POST':
-        tform = TopicForPrivateForm(user=request.user, data=request.POST)
-        cform = CommentForm(user=request.user, data=request.POST)
-        tpform = TopicPrivateManyForm(user=request.user, data=request.POST)
+    user = request.user
 
-        if not request.is_limited and all([tform.is_valid(), cform.is_valid(), tpform.is_valid()]):  # TODO: test!
+    if request.method == 'POST':
+        tform = TopicForPrivateForm(user=user, data=request.POST)
+        cform = CommentForm(user=user, data=request.POST)
+        tpform = TopicPrivateManyForm(user=user, data=request.POST)
+
+        if (not request.is_limited and
+                all([tform.is_valid(), cform.is_valid(), tpform.is_valid()])):  # TODO: test!
+            if not user.st.update_post_hash(tform.get_topic_hash()):
+                return redirect(request.POST.get('next', None) or
+                                tform.category.get_absolute_url())
+
             # wrap in transaction.atomic?
             topic = tform.save()
             cform.topic = topic
@@ -46,7 +53,8 @@ def publish(request, user_id=None):
             comment_posted(comment=comment, mentions=None)
             tpform.topic = topic
             tpform.save_m2m()
-            TopicNotification.bulk_create(users=tpform.get_users(), comment=comment)
+            TopicNotification.bulk_create(
+                users=tpform.get_users(), comment=comment)
             return redirect(topic.get_absolute_url())
     else:
         tform = TopicForPrivateForm()
@@ -54,16 +62,15 @@ def publish(request, user_id=None):
         initial = None
 
         if user_id:
-            user = get_object_or_404(User, pk=user_id)
-            initial = {'users': [user.username, ]}
+            user_to = get_object_or_404(User, pk=user_id)
+            initial = {'users': [user_to.username]}
 
         tpform = TopicPrivateManyForm(initial=initial)
 
     context = {
         'tform': tform,
         'cform': cform,
-        'tpform': tpform
-    }
+        'tpform': tpform}
 
     return render(request, 'spirit/topic/private/publish.html', context)
 

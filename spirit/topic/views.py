@@ -28,12 +28,14 @@ def publish(request, category_id=None):
             Category.objects.visible(),
             pk=category_id)
 
+    user = request.user
+
     if request.method == 'POST':
-        form = TopicForm(user=request.user, data=request.POST)
-        cform = CommentForm(user=request.user, data=request.POST)
+        form = TopicForm(user=user, data=request.POST)
+        cform = CommentForm(user=user, data=request.POST)
 
         if not request.is_limited and all([form.is_valid(), cform.is_valid()]):  # TODO: test!
-            if not request.user.st.update_post_hash(form.get_topic_hash()):
+            if not user.st.update_post_hash(form.get_topic_hash()):
                 return redirect(request.POST.get('next', None) or
                                 form.get_category().get_absolute_url())
 
@@ -44,7 +46,7 @@ def publish(request, category_id=None):
             comment_posted(comment=comment, mentions=cform.mentions)
             return redirect(topic.get_absolute_url())
     else:
-        form = TopicForm(user=request.user, initial={'category': category_id})
+        form = TopicForm(user=user, initial={'category': category_id})
         cform = CommentForm()
 
     context = {
