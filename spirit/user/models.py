@@ -56,7 +56,6 @@ class UserProfile(models.Model):
 
         # Let the DB do the hash
         # comparison for atomicity
-
         return bool(UserProfile.objects
                     .filter(pk=self.pk)
                     .exclude(
