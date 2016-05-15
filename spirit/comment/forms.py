@@ -22,13 +22,13 @@ class CommentForm(forms.ModelForm):
         max_length=settings.ST_COMMENT_MAX_LEN,
         widget=forms.Textarea)
     comment_hash = forms.CharField(
-        max_length=128,
+        max_length=32,
         widget=forms.HiddenInput,
         required=False)
 
     class Meta:
         model = Comment
-        fields = ['comment', ]
+        fields = ['comment']
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
