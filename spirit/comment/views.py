@@ -33,9 +33,10 @@ def publish(request, topic_id, pk=None):
         if not request.is_limited and form.is_valid():
             if not user.st.update_post_hash(form.get_comment_hash()):
                 # Hashed comment may have not been saved yet
-                return redirect(request.POST.get('next', None) or
-                                Comment.get_last_for_topic(topic_id)
-                                       .get_absolute_url())
+                return redirect(
+                    request.POST.get('next', None) or
+                    Comment.get_last_for_topic(topic_id)
+                           .get_absolute_url())
 
             comment = form.save()
             comment_posted(comment=comment, mentions=form.mentions)
@@ -43,7 +44,7 @@ def publish(request, topic_id, pk=None):
     else:
         initial = None
 
-        if pk:
+        if pk:  # todo: move to form
             comment = get_object_or_404(Comment.objects.for_access(user=user), pk=pk)
             quote = markdown.quotify(comment.comment, comment.user.username)
             initial = {'comment': quote}

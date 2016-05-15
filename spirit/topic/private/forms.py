@@ -20,7 +20,7 @@ User = get_user_model()
 class TopicForPrivateForm(forms.ModelForm):
 
     topic_hash = forms.CharField(
-        max_length=128,
+        max_length=32,
         widget=forms.HiddenInput,
         required=False)
 

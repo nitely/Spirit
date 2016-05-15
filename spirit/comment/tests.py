@@ -125,6 +125,26 @@ class CommentViewTest(TestCase):
             {'comment': 'not a foobar'})
         self.assertEqual(len(Comment.objects.all()), 3)
 
+    @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=10)
+    def test_comment_publish_same_post_into_another_topic(self):
+        """
+        Should not prevent from posting the same comment into another topic
+        """
+        utils.login(self)
+        topic_another = utils.create_topic(category=self.topic.category)
+        comment_txt = 'foobar'
+
+        self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
+            {'comment': comment_txt})
+        self.assertEqual(len(Comment.objects.all()), 1)
+
+        cache.clear()  # Clear rate limit
+        self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': topic_another.pk}),
+            {'comment': comment_txt})
+        self.assertEqual(len(Comment.objects.all()), 2)
+
     def test_comment_publish_on_private(self):
         """
         create comment on private topic
