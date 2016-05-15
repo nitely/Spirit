@@ -619,6 +619,21 @@ class UserModelTest(TestCase):
         self.assertTrue(user.st.update_post_hash('my_hash'))
         self.assertFalse(user.st.update_post_hash('my_hash'))
 
+    @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=1)
+    def test_update_post_hash_threshold(self):
+        """
+        Should update the last post hash and date for the current user
+        """
+        user = User(username='foo')
+        user.save()
+        user_b = User(username='bar')
+        user_b.save()
+        self.assertEqual('', User.objects.get(pk=user.pk).st.last_post_hash)
+        self.assertEqual('', User.objects.get(pk=user_b.pk).st.last_post_hash)
+        self.assertTrue(user.st.update_post_hash('my_hash'))
+        self.assertEqual('my_hash', User.objects.get(pk=user.pk).st.last_post_hash)
+        self.assertEqual('', User.objects.get(pk=user_b.pk).st.last_post_hash)
+
 
 class UtilsUserTests(TestCase):
 
