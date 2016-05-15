@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from datetime import timedelta
 
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
@@ -55,11 +57,15 @@ class UserProfile(models.Model):
         # Let the DB do the hash
         # comparison for atomicity
 
-        # todo: set last_post_on and filter by threshold
         return bool(UserProfile.objects
                     .filter(pk=self.pk)
-                    .exclude(last_post_hash=post_hash)
-                    .update(last_post_hash=post_hash))
+                    .exclude(
+                        last_post_hash=post_hash,
+                        last_post_on__gte=timezone.now() - timedelta(
+                            minutes=settings.ST_DOUBLE_POST_THRESHOLD_MINUTES))
+                    .update(
+                        last_post_hash=post_hash,
+                        last_post_on=timezone.now()))
 
 
 class User(AbstractUser):

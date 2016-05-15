@@ -32,6 +32,7 @@ def publish(request, topic_id, pk=None):
 
         if not request.is_limited and form.is_valid():
             if not user.st.update_post_hash(form.get_comment_hash()):
+                # Hashed comment may have not been saved yet
                 return redirect(request.POST.get('next', None) or
                                 Comment.get_last_for_topic(topic_id)
                                        .get_absolute_url())
