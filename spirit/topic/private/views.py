@@ -43,8 +43,9 @@ def publish(request, user_id=None):
         if (not request.is_limited and
                 all([tform.is_valid(), cform.is_valid(), tpform.is_valid()])):  # TODO: test!
             if not user.st.update_post_hash(tform.get_topic_hash()):
-                return redirect(request.POST.get('next', None) or
-                                tform.category.get_absolute_url())
+                return redirect(
+                    request.POST.get('next', None) or
+                    tform.category.get_absolute_url())
 
             # wrap in transaction.atomic?
             topic = tform.save()
@@ -61,7 +62,7 @@ def publish(request, user_id=None):
         cform = CommentForm()
         initial = None
 
-        if user_id:
+        if user_id:  # todo: move to form
             user_to = get_object_or_404(User, pk=user_id)
             initial = {'users': [user_to.username]}
 
