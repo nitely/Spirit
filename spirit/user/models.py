@@ -32,7 +32,7 @@ class UserProfile(models.Model):
     topic_count = models.PositiveIntegerField(_("topic count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
 
-    last_post_hash = models.CharField(_("last post hash"), max_length=128, blank=True)
+    last_post_hash = models.CharField(_("last post hash"), max_length=32, blank=True)
     last_post_on = models.DateTimeField(_("last post on"), null=True, blank=True)
 
     class Meta:

@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userprofile',
             name='last_post_hash',
-            field=models.CharField(blank=True, verbose_name='last post hash', max_length=128),
+            field=models.CharField(blank=True, verbose_name='last post hash', max_length=32),
         ),
         migrations.AddField(
             model_name='userprofile',
             name='last_post_on',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='last post on'),
+            field=models.DateTimeField(blank=True, verbose_name='last post on', null=True),
         ),
     ]
