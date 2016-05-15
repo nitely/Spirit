@@ -1,3 +1,11 @@
+0.4.8
+==================
+
+* New: Anti double post (including comments, topics and private topics)
+* Improvement: Adds `ST_COMMENT_MAX_LEN` setting to change
+  the maximum characters limit per comment (#107)
+* New: Adds optional category title color (#110 thanks to @sheepsy90)
+
 0.4.7
 ==================
 
