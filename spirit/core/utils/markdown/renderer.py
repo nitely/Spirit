@@ -96,12 +96,14 @@ class Renderer(mistune.Renderer):
         return '<video controls><source src="{link}">' \
                '<a rel="nofollow" href="{link}">{link}</a></video>\n'.format(link=link)
 
-    def youtube(self, video_id, start_minutes=None, start_seconds=None):
+    def youtube(self, video_id, start_hours=None, start_minutes=None, start_seconds=None):
         timestamp = 0
+        if start_hours:
+            timestamp += int(start_hours.replace('h', '')) * 60 * 60
         if start_minutes:
-            timestamp += int(start_minutes[:-1]) * 60
+            timestamp += int(start_minutes.replace('m', '')) * 60
         if start_seconds:
-            timestamp += int(start_seconds[:-1])
+            timestamp += int(start_seconds.replace('s', ''))
         timestamp = ('&start=%s' % timestamp) if timestamp else ''
         return '<span class="video"><iframe src="https://www.youtube.com/embed/{video_id}?html5=1{timestamp}" ' \
                'allowfullscreen></iframe></span>\n'.format(video_id=video_id, timestamp=timestamp)

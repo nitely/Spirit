@@ -39,16 +39,24 @@ class BlockGrammar(mistune.BlockGrammar):
 
     # Try to get the video ID. Works for URLs of the form:
     # * https://www.youtube.com/watch?v=Z0UISCEe52Y
-    # * https://www.youtube.com/watch?v=Z0UISCEe52Y&t=1m30s
     # * http://youtu.be/afyK1HSFfgw
     # * https://www.youtube.com/embed/vsF0K3Ou1v0
+    #
+    # Also works for timestamps:
+    # * https://www.youtube.com/watch?v=Z0UISCEe52Y&t=1m30s
+    # * https://www.youtube.com/watch?v=O1QQajfobPw&t=1h1m38s
+    # * https://www.youtube.com/watch?v=O1QQajfobPw&feature=youtu.be&t=3698
+    # * https://youtu.be/O1QQajfobPw?t=3698
+    # * https://youtu.be/O1QQajfobPw?t=1h1m38s
+    #
     youtube = re.compile(
         r'^https?://(www\.)?'
         r'(youtube\.com/watch\?v='
         r'|youtu\.be/'
         r'|youtube\.com/embed/)'
         r'(?P<id>[a-zA-Z0-9_\-]{11})'
-        r'(&t=(?P<start_minutes>[0-9]+m)?(?P<start_seconds>[0-9]+s)?)?'
+        r'((&|\?)?feature=youtu.be)?'
+        r'((&|\?)?t=(?P<start_hours>[0-9]+h)?(?P<start_minutes>[0-9]+m)?(?P<start_seconds>[0-9]+s?)?)?'
         r'(?:\n+|$)'
     )
 
@@ -141,6 +149,7 @@ class BlockLexer(mistune.BlockLexer):
         self.tokens.append({
             'type': 'youtube',
             'video_id': m.group("id"),
+            'start_hours': m.group("start_hours"),
             'start_minutes': m.group("start_minutes"),
             'start_seconds': m.group("start_seconds"),
         })
