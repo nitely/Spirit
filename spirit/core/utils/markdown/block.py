@@ -55,8 +55,10 @@ class BlockGrammar(mistune.BlockGrammar):
         r'|youtu\.be/'
         r'|youtube\.com/embed/)'
         r'(?P<id>[a-zA-Z0-9_\-]{11})'
-        r'((&|\?)?feature=youtu\.be)?'
-        r'((&|\?)?t=(?P<start_hours>[0-9]+h)?(?P<start_minutes>[0-9]+m)?(?P<start_seconds>[0-9]+s?)?)?'
+        r'((&|\?)('
+        r'|(t=(?P<start_hours>[0-9]{1,2}h)?(?P<start_minutes>[0-9]{1,4}m)?(?P<start_seconds>[0-9]{1,5}s?)?)'
+        r'|([^&\s]+)'
+        r')){,10}'
         r'(?:\n+|$)'
     )
 

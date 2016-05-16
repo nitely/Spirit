@@ -191,6 +191,7 @@ class UtilsMarkdownTests(TestCase):
             "https://www.youtube.com/watch?v=Z0UISCEe52Y\n"
             "https://www.youtube.com/watch?v=Z0UISCEe52Y&t=1m13s\n"
             "https://www.youtube.com/watch?v=O1QQajfobPw&t=1h1m38s\n"
+            "https://www.youtube.com/watch?v=O1QQajfobPw&t=105m\n"
             "https://www.youtube.com/watch?v=O1QQajfobPw&feature=youtu.be&t=3698\n"
             "http://youtu.be/afyK1HSFfgw\n"
             "http://youtu.be/O1QQajfobPw?t=1h1m38s\n"
@@ -209,6 +210,8 @@ class UtilsMarkdownTests(TestCase):
                 '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?html5=1&start=73" '
                 'allowfullscreen></iframe></span>',
                 '<span class="video"><iframe src="https://www.youtube.com/embed/O1QQajfobPw?html5=1&start=3698" '
+                'allowfullscreen></iframe></span>',
+                '<span class="video"><iframe src="https://www.youtube.com/embed/O1QQajfobPw?html5=1&start=6300" '
                 'allowfullscreen></iframe></span>',
                 '<span class="video"><iframe src="https://www.youtube.com/embed/O1QQajfobPw?html5=1&start=3698" '
                 'allowfullscreen></iframe></span>',
