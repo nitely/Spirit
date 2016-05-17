@@ -48,7 +48,10 @@ class Markdown(mistune.Markdown):
         return self.renderer.video_link(link=self.token['link'])
 
     def output_youtube(self):
-        return self.renderer.youtube(video_id=self.token['video_id'])
+        return self.renderer.youtube(video_id=self.token['video_id'],
+                                     start_hours=self.token['start_hours'],
+                                     start_minutes=self.token['start_minutes'],
+                                     start_seconds=self.token['start_seconds'])
 
     def output_vimeo(self):
         return self.renderer.vimeo(video_id=self.token['video_id'])

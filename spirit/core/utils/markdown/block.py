@@ -41,12 +41,24 @@ class BlockGrammar(mistune.BlockGrammar):
     # * https://www.youtube.com/watch?v=Z0UISCEe52Y
     # * http://youtu.be/afyK1HSFfgw
     # * https://www.youtube.com/embed/vsF0K3Ou1v0
+    #
+    # Also works for timestamps:
+    # * https://www.youtube.com/watch?v=Z0UISCEe52Y&t=1m30s
+    # * https://www.youtube.com/watch?v=O1QQajfobPw&t=1h1m38s
+    # * https://www.youtube.com/watch?v=O1QQajfobPw&feature=youtu.be&t=3698
+    # * https://youtu.be/O1QQajfobPw?t=3698
+    # * https://youtu.be/O1QQajfobPw?t=1h1m38s
+    #
     youtube = re.compile(
         r'^https?://(www\.)?'
         r'(youtube\.com/watch\?v='
         r'|youtu\.be/'
         r'|youtube\.com/embed/)'
         r'(?P<id>[a-zA-Z0-9_\-]{11})'
+        r'((&|\?)('
+        r'|(t=(?P<start_hours>[0-9]{1,2}h)?(?P<start_minutes>[0-9]{1,4}m)?(?P<start_seconds>[0-9]{1,5}s?)?)'
+        r'|([^&\s]+)'
+        r')){,10}'
         r'(?:\n+|$)'
     )
 
@@ -138,7 +150,10 @@ class BlockLexer(mistune.BlockLexer):
     def parse_youtube(self, m):
         self.tokens.append({
             'type': 'youtube',
-            'video_id': m.group("id")
+            'video_id': m.group("id"),
+            'start_hours': m.group("start_hours"),
+            'start_minutes': m.group("start_minutes"),
+            'start_seconds': m.group("start_seconds"),
         })
 
     def parse_vimeo(self, m):
