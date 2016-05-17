@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-import hashlib
 
 from django.core.cache import cache
 from django.test import TestCase, RequestFactory
@@ -10,6 +9,7 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 from django.conf import settings
 from django.core.cache import caches
 
+from ..utils.ratelimit import ratelimit as rl_module
 from ..utils.ratelimit import RateLimit
 from ..utils.ratelimit.decorators import ratelimit
 
@@ -126,33 +126,83 @@ class UtilsRateLimitTests(TestCase):
         req = RequestFactory().post('/')
         req.user = User()
         req.user.pk = 1
-        RateLimit(req, 'func_name')
+        rl = RateLimit(req, 'func_name')
+        self.assertEqual(
+            len(rl.cache_keys[0]),
+            len(settings.ST_RATELIMIT_CACHE_PREFIX) + 1 + 40)  # prefix:sha1_hash
         rl_cache = caches[settings.ST_RATELIMIT_CACHE]
-        self.assertIsNotNone(rl_cache.get('srl:02b3cee0bd2a40ec0fca9b1bef06fb560a081673'))
+        self.assertIsNotNone(rl_cache.get(rl.cache_keys[0]))
 
     def test_rate_limit_unique_key(self):
         """
-        Keys should contain the full module path and function name
+        Keys should contain the full\
+        module path and function name
         """
         req = RequestFactory().post('/')
         req.user = User()
         req.user.pk = 1
 
         @ratelimit(rate='1/m')
-        def one(request):
+        def one(_):
             pass
 
-        key_part = '%s.%s:user:%d' % (one.__module__, one.__name__, req.user.pk)
-        key_hash = hashlib.sha1(key_part.encode('utf-8')).hexdigest()
-        key = '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
+        fixed_now = rl_module.time.time()
 
-        one(req)
-        rl_cache = caches[settings.ST_RATELIMIT_CACHE]
-        self.assertIsNotNone(rl_cache.get(key))
+        def fixed_time():
+            # Cache backend may use time.time(),
+            # so better fix to now
+            return fixed_now
+
+        org_time_time, rl_module.time.time = rl_module.time.time, fixed_time
+        try:
+            key_part = '%s.%s:user:%d:%d' % (
+                one.__module__,
+                one.__name__,
+                req.user.pk,
+                RateLimit.get_fixed_window(period=60))
+            key_hash = RateLimit._make_hash(key_part)
+            key = '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
+
+            one(req)
+            rl_cache = caches[settings.ST_RATELIMIT_CACHE]
+            self.assertIsNotNone(rl_cache.get(key))
+        finally:
+            rl_module.time.time = org_time_time
+
+    def test_rate_limit_get_fixed_window(self):
+        """
+        Should return the expiration time
+        """
+        def fixed_time():
+            # Fixed to 50 seconds
+            return 1463507750.1
+
+        def fixed_time_future(seconds):
+            return fixed_time() + seconds
+
+        org_time_time, rl_module.time.time = rl_module.time.time, fixed_time
+        try:
+            period = 10
+            window = RateLimit.get_fixed_window(period=period)
+
+            # Same window 1 second later
+            rl_module.time.time = lambda: fixed_time_future(seconds=1)
+            self.assertEqual(window, RateLimit.get_fixed_window(period=period))
+
+            # Same window (period - 1) seconds later
+            rl_module.time.time = lambda: fixed_time_future(seconds=period - 1)
+            self.assertEqual(window, RateLimit.get_fixed_window(period=period))
+
+            # Next window on period seconds later
+            rl_module.time.time = lambda: fixed_time_future(seconds=period)
+            self.assertNotEqual(window, RateLimit.get_fixed_window(period=period))
+            self.assertEqual(period, RateLimit.get_fixed_window(period=period) - window)
+        finally:
+            rl_module.time.time = org_time_time
 
     def test_rate_limit_timeout_too_low(self):
         """
-        Should not limit when the timeout is
+        Should not limit when the timeout is\
         too low to increase the rate counter
         """
         req = RequestFactory().post('/')

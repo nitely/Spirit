@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 import hashlib
+import time
 
 from django.conf import settings
 from django.core.cache import caches
@@ -10,8 +11,7 @@ from django.core.cache import caches
 
 TIME_DICT = {
     's': 1,
-    'm': 60,
-}
+    'm': 60}
 
 
 class RateLimitError(Exception):
@@ -23,34 +23,49 @@ class RateLimit:
     def __init__(self, request, uid, method=None, field=None, rate='5/5m'):
         self.request = request
         self.uid = uid
-        self.method = method or ['POST', ]
+        self.method = method or ['POST']
         self.limit = None
         self.time = None
         self.cache_keys = []
         self.cache_values = []
 
-        if self.request.method in (m.upper() for m in self.method)\
-                and settings.ST_RATELIMIT_ENABLE:
+        if (self.request.method in (m.upper() for m in self.method) and
+                settings.ST_RATELIMIT_ENABLE):
             self.limit, self.time = self.split_rate(rate)
             self.cache_keys = self._get_keys(field)
             self.cache_values = self._incr_all()
 
-    def split_rate(self, rate):
+    @staticmethod
+    def split_rate(rate):
         limit, period = rate.split('/')
         limit = int(limit)
 
         if len(period) > 1:
-            time = TIME_DICT[period[-1]]
-            time *= int(period[:-1])
+            time_ = TIME_DICT[period[-1]]
+            time_ *= int(period[:-1])
         else:
-            time = TIME_DICT[period]
+            time_ = TIME_DICT[period]
 
-        return limit, time
+        return limit, time_
+
+    @staticmethod
+    def get_fixed_window(period):
+        if not period:  # todo: assert on Spirit 0.5
+            return 0
+
+        timestamp = int(time.time())
+        return timestamp - timestamp % period
+
+    @staticmethod
+    def _make_hash(key):
+        return hashlib.sha1(key.encode('utf-8')).hexdigest()
 
     def _make_key(self, key):
-        key_uid = '%s:%s' % (self.uid, key)
-        key_hash = hashlib.sha1(key_uid.encode('utf-8')).hexdigest()
-        return '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
+        key_uid = '%s:%s:%d' % (
+            self.uid, key, self.get_fixed_window(self.time))
+        return '%s:%s' % (
+            settings.ST_RATELIMIT_CACHE_PREFIX,
+            self._make_hash(key_uid))
 
     def _get_keys(self, field=None):
         keys = []
@@ -73,6 +88,8 @@ class RateLimit:
         cache.add(key, 0, timeout=self.time)
 
         try:
+            # This resets the timeout to
+            # default, see Django ticket #26619
             return cache.incr(key)
         except ValueError:  # Key does not exists
             raise RateLimitError
