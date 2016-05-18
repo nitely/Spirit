@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponsePermanentRedirect
+from django.conf import settings
 
 from djconfig import config
 
@@ -21,7 +22,7 @@ from . import utils
 
 
 @login_required
-@ratelimit(rate='1/10s')
+@ratelimit(rate=settings.ST_RATELIMIT_FOR_PUBLISH)
 def publish(request, category_id=None):
     if category_id:
         get_object_or_404(Category.objects.visible(),
