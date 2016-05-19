@@ -211,14 +211,21 @@ class UtilsRateLimitTests(TestCase):
         req.user = User()
         req.user.pk = 1
 
-        # The key is removed immediately
+        # There is a new key in every request
         # when the timeout is 0
         @ratelimit(rate='1/0s')
         def one(request):
             return request.is_limited
 
-        self.assertFalse(one(req))
-        self.assertFalse(one(req))
+        foo_cache = {
+            'foo': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                'TIMEOUT': 0}}
+
+        with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
+            with warnings.catch_warnings(record=True):  # Ignore warnings
+                self.assertFalse(one(req))
+                self.assertFalse(one(req))
 
 
 class UtilsRateLimitDeprecationsTests(TestCase):
@@ -264,3 +271,15 @@ class UtilsRateLimitDeprecationsTests(TestCase):
             with warnings.catch_warnings(record=True) as w:
                 one(req)
                 self.assertEqual(len(w), 0)
+
+    def test_get_fixed_window(self):
+        """
+        Should create a deprecation\
+        warning when period is zero
+        """
+        with warnings.catch_warnings(record=True) as w:
+            RateLimit.get_fixed_window(period=0)
+            self.assertEqual(len(w), 1)
+            self.assertEqual(
+                str(w[-1].message),
+                'Period must be greater than 0.')

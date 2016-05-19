@@ -37,10 +37,6 @@ def validate_cache_config():
            'This will raise an exception in next version.')
 
 
-class RateLimitError(Exception):
-    """"""
-
-
 class RateLimit:
 
     def __init__(self, request, uid, method=None, field=None, rate='5/5m'):
@@ -75,7 +71,8 @@ class RateLimit:
     @staticmethod
     def get_fixed_window(period):
         if not period:  # todo: assert on Spirit 0.5
-            return 0
+            warn('Period must be greater than 0.')
+            return time.time()  # Closer to no period
 
         timestamp = int(time.time())
         return timestamp - timestamp % period
@@ -107,31 +104,17 @@ class RateLimit:
 
         return [self._make_key(k) for k in keys]
 
-    def __incr(self, key):
+    def _incr(self, key):
         cache = caches[settings.ST_RATELIMIT_CACHE]
-        cache.add(key, 0, timeout=self.time)
+        cache.add(key, 0)
 
         try:
             # This resets the timeout to
             # default, see Django ticket #26619
             return cache.incr(key)
         except ValueError:  # Key does not exists
-            raise RateLimitError
-
-    def _incr(self, key):
-        try:
-            return self.__incr(key)
-        except RateLimitError:
-            pass
-
-        try:
-            # Retry in case the key
-            # has just timed-out
-            return self.__incr(key)
-        except RateLimitError:
-            # The timeout is too low
-            # or the cache is being pruned
-            # too frequently
+            # The cache is being
+            # pruned too frequently
             return 1
 
     def _incr_all(self):
