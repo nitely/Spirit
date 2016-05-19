@@ -216,13 +216,18 @@ class UtilsRateLimitTests(TestCase):
             return request.is_limited
 
         foo_cache = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+            },
             'foo': {
                 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                'LOCATION': 'foo',
                 'TIMEOUT': 0  # Faking cache pruned too frequently
             }}
 
         with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
             with warnings.catch_warnings(record=True):  # Ignore warnings
+                caches['foo'].clear()
                 self.assertFalse(one(req))
                 self.assertFalse(one(req))
 
@@ -246,11 +251,16 @@ class UtilsRateLimitDeprecationsTests(TestCase):
             pass
 
         foo_cache = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+            },
             'foo': {
-                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'}}
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                'LOCATION': 'foo'}}
 
         with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
             with warnings.catch_warnings(record=True) as w:
+                utils.cache_clear()
                 one(req)
                 self.assertEqual(len(w), 1)
                 self.assertEqual(
@@ -263,11 +273,11 @@ class UtilsRateLimitDeprecationsTests(TestCase):
                     'settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True. '
                     'This will raise an exception in next version.')
 
-        utils.cache_clear()
         foo_cache['foo']['TIMEOUT'] = None
 
         with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
             with warnings.catch_warnings(record=True) as w:
+                caches['foo'].clear()
                 one(req)
                 self.assertEqual(len(w), 0)
 
