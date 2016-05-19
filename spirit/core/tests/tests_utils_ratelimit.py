@@ -201,26 +201,25 @@ class UtilsRateLimitTests(TestCase):
         finally:
             rl_module.time.time = org_time_time
 
-    def test_rate_limit_timeout_too_low(self):
+    def test_rate_limit_pruned_too_frequently(self):
         """
-        Should not limit when the timeout is\
-        too low to increase the rate counter
+        Should not limit when the cache\
+        is pruned too frequently
         """
         req = RequestFactory().post('/')
         setup_request_factory_messages(req)
         req.user = User()
         req.user.pk = 1
 
-        # There is a new key in every request
-        # when the timeout is 0
-        @ratelimit(rate='1/0s')
+        @ratelimit(rate='1/m')
         def one(request):
             return request.is_limited
 
         foo_cache = {
             'foo': {
                 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-                'TIMEOUT': 0}}
+                'TIMEOUT': 0  # Faking cache pruned too frequently
+            }}
 
         with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
             with warnings.catch_warnings(record=True):  # Ignore warnings
