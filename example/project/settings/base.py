@@ -19,6 +19,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # Application definition
 
+# This will be the default in next version
+ST_RATELIMIT_CACHE = 'st_rate_limit'
+
 # Extend the Spirit installed apps.
 # Check out the spirit.settings.py so you do not end up with duplicated apps.
 INSTALLED_APPS.extend([

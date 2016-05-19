@@ -24,16 +24,15 @@ def validate_cache_config():
 
     # Some third-party backend
     # don't have a TIMEOUT option
-    if (not settings.ST_RATELIMIT_IGNORE_TIMEOUT_WARNING and
+    if (not settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK and
             cache.get('TIMEOUT', 1) is not None):
         # todo: raise ConfigurationError in next version
         # todo: warn(
         #   'settings.ST_RATELIMIT_CACHE cache's TIMEOUT '
-        #   'must be None (never expire) and it should '
-        #   'be other than the default. See spirit.settings. '
-        #   'To ignore this warning, set '
-        #   'settings.ST_RATELIMIT_IGNORE_TIMEOUT to True, '
-        #   'if you know what you are doing.')
+        #   'must be None (never expire) and it may '
+        #   'be other than the default. '
+        #   'To skip this check, set '
+        #   'settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True.')
         pass
 
 

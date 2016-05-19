@@ -38,6 +38,11 @@ CACHES.update({
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     },
+    'st_rate_limit': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'spirit_rl_cache',
+        'TIMEOUT': None
+    }
 })
 
 PASSWORD_HASHERS = [
