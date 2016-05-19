@@ -258,7 +258,7 @@ class TopicPrivateViewTest(TestCase):
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
-    def test_private_list(self):
+    def test_private_list_paginated(self):
         """
         private topic list paginated
         """
