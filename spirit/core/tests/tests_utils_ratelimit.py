@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import warnings
 
-from django.core.cache import cache
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, override_settings
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.conf import settings
 from django.core.cache import caches
 
+from . import utils
 from ..utils.ratelimit import ratelimit as rl_module
 from ..utils.ratelimit import RateLimit
 from ..utils.ratelimit.decorators import ratelimit
@@ -26,7 +27,7 @@ def setup_request_factory_messages(req):
 class UtilsRateLimitTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def test_rate_limit_split_rate(self):
         req = RequestFactory().post('/')
@@ -200,21 +201,94 @@ class UtilsRateLimitTests(TestCase):
         finally:
             rl_module.time.time = org_time_time
 
-    def test_rate_limit_timeout_too_low(self):
+    def test_rate_limit_pruned_too_frequently(self):
         """
-        Should not limit when the timeout is\
-        too low to increase the rate counter
+        Should not limit when the cache\
+        is pruned too frequently
         """
         req = RequestFactory().post('/')
         setup_request_factory_messages(req)
         req.user = User()
         req.user.pk = 1
 
-        # The key is removed immediately
-        # when the timeout is 0
-        @ratelimit(rate='1/0s')
+        @ratelimit(rate='1/m')
         def one(request):
             return request.is_limited
 
-        self.assertFalse(one(req))
-        self.assertFalse(one(req))
+        foo_cache = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+            },
+            'foo': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                'LOCATION': 'foo',
+                'TIMEOUT': 0  # Faking cache pruned too frequently
+            }}
+
+        with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
+            with warnings.catch_warnings(record=True):  # Ignore warnings
+                caches['foo'].clear()
+                self.assertFalse(one(req))
+                self.assertFalse(one(req))
+
+
+class UtilsRateLimitDeprecationsTests(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+
+    def test_validator_conf(self):
+        """
+        Should create a deprecation\
+        warning when cache has no timeout
+        """
+        req = RequestFactory().post('/')
+        req.user = User()
+        req.user.pk = 1
+
+        @ratelimit(rate='1/m')
+        def one(_):
+            pass
+
+        foo_cache = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+            },
+            'foo': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                'LOCATION': 'foo'}}
+
+        with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
+            with warnings.catch_warnings(record=True) as w:
+                utils.cache_clear()
+                one(req)
+                self.assertEqual(len(w), 1)
+                self.assertEqual(
+                    str(w[-1].message),
+                    'settings.ST_RATELIMIT_CACHE cache\'s TIMEOUT '
+                    'must be None (never expire) and it may '
+                    'be other than the default cache. '
+                    'To skip this check, for example when using '
+                    'a third-party backend with no TIMEOUT option, set '
+                    'settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True. '
+                    'This will raise an exception in next version.')
+
+        foo_cache['foo']['TIMEOUT'] = None
+
+        with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
+            with warnings.catch_warnings(record=True) as w:
+                caches['foo'].clear()
+                one(req)
+                self.assertEqual(len(w), 0)
+
+    def test_get_fixed_window(self):
+        """
+        Should create a deprecation\
+        warning when period is zero
+        """
+        with warnings.catch_warnings(record=True) as w:
+            RateLimit.get_fixed_window(period=0)
+            self.assertEqual(len(w), 1)
+            self.assertEqual(
+                str(w[-1].message),
+                'Period must be greater than 0.')

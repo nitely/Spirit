@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.utils.translation import ugettext as _
@@ -24,7 +23,7 @@ User = get_user_model()
 class UserViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()
@@ -304,7 +303,7 @@ class UserViewTest(TestCase):
 class UserFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
 
     def test_registration(self):
@@ -543,7 +542,7 @@ class UserFormTest(TestCase):
 class UserBackendTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user(email="foobar@bar.com", password="bar")
 
     def test_email_auth_backend(self):

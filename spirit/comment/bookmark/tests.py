@@ -2,10 +2,9 @@
 
 from __future__ import unicode_literals
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
-from django.core.cache import cache
 
 from djconfig import config
 
@@ -17,7 +16,7 @@ from .forms import BookmarkForm
 class CommentBookmarkViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -38,7 +37,7 @@ class CommentBookmarkViewTest(TestCase):
 class CommentBookmarkModelsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -91,7 +90,7 @@ class CommentBookmarkFormTest(TestCase):
 class CommentBookmarkTemplateTagsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(self.category)

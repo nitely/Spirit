@@ -4,10 +4,9 @@ from __future__ import unicode_literals
 import json
 import datetime
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 from django.test.utils import override_settings
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 from django.template import Template, Context
 from django.utils import timezone
 
@@ -23,7 +22,7 @@ from .tags import render_notification_form, has_topic_notifications
 class TopicNotificationViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()
@@ -310,7 +309,7 @@ class TopicNotificationViewTest(TestCase):
 class TopicNotificationFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
 
     def test_notification_creation(self):
@@ -355,7 +354,7 @@ class TopicNotificationFormTest(TestCase):
 class TopicNotificationModelsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()
@@ -480,7 +479,7 @@ class TopicNotificationModelsTest(TestCase):
 class TopicNotificationTemplateTagsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(self.category)

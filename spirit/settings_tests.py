@@ -42,6 +42,11 @@ CACHES.update({
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     },
+    'st_rate_limit': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'spirit_rl_cache',
+        'TIMEOUT': None
+    }
 })
 
 # speedup tests requiring login
@@ -61,3 +66,5 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 ]
 
 TEMPLATES[0]['OPTIONS']['debug'] = True
+
+ST_RATELIMIT_CACHE = 'st_rate_limit'

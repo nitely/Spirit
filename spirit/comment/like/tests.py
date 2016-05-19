@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
-from django.core.cache import cache
 
 from ...core.tests import utils
 from ..models import Comment
@@ -17,7 +16,7 @@ from .tags import render_like_form
 class LikeViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -106,7 +105,7 @@ class LikeViewTest(TestCase):
 class LikeFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -137,7 +136,7 @@ class LikeFormTest(TestCase):
 class LikeTemplateTagsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)

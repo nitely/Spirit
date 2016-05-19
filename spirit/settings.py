@@ -11,6 +11,7 @@ ST_TOPIC_PRIVATE_CATEGORY_PK = 1
 ST_RATELIMIT_ENABLE = True
 ST_RATELIMIT_CACHE_PREFIX = 'srl'
 ST_RATELIMIT_CACHE = 'default'
+ST_RATELIMIT_SKIP_TIMEOUT_CHECK = False
 
 ST_NOTIFICATIONS_PER_PAGE = 20
 
@@ -87,6 +88,14 @@ CACHES = {
         'LOCATION': 'spirit_cache',
     },
 }
+
+CACHES.update({
+    'st_rate_limit': {
+        'BACKEND': CACHES['default']['BACKEND'],
+        'LOCATION': 'spirit_rl_cache',
+        'TIMEOUT': None
+    }
+})
 
 AUTHENTICATION_BACKENDS = [
     'spirit.user.auth.backends.UsernameAuthBackend',

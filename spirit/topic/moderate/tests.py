@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from django.core.cache import cache
 from django.core.urlresolvers import reverse
 
 from ...core.tests import utils
@@ -14,7 +13,7 @@ from ..models import Topic
 class TopicViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
 
     def test_topic_moderate_delete(self):

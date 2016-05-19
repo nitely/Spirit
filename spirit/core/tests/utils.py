@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.core.cache import caches, cache
 
 from ...topic.models import Topic
 from ...category.models import Category
@@ -76,3 +77,10 @@ def login(test_case_instance, user=None, password=None):
     password = password or "bar"
     login_successful = test_case_instance.client.login(username=user.username, password=password)
     test_case_instance.assertTrue(login_successful)
+
+
+def cache_clear():
+    cache.clear()  # Default one
+
+    for c in caches.all():
+        c.clear()

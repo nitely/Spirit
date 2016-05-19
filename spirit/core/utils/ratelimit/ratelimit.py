@@ -8,19 +8,39 @@ import time
 from django.conf import settings
 from django.core.cache import caches
 
+from ..deprecations import warn
+
 
 TIME_DICT = {
     's': 1,
     'm': 60}
 
 
-class RateLimitError(Exception):
-    """"""
+def validate_cache_config():
+    try:
+        cache = settings.CACHES[settings.ST_RATELIMIT_CACHE]
+    except KeyError:
+        # Django will raise later when using
+        # this cache so we do nothing
+        return
+
+    if (not settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK and
+            cache.get('TIMEOUT', 1) is not None):
+        # todo: ConfigurationError in next version
+        warn(
+           'settings.ST_RATELIMIT_CACHE cache\'s TIMEOUT '
+           'must be None (never expire) and it may '
+           'be other than the default cache. '
+           'To skip this check, for example when using '
+           'a third-party backend with no TIMEOUT option, set '
+           'settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True. '
+           'This will raise an exception in next version.')
 
 
 class RateLimit:
 
     def __init__(self, request, uid, method=None, field=None, rate='5/5m'):
+        validate_cache_config()
         self.request = request
         self.uid = uid
         self.method = method or ['POST']
@@ -51,7 +71,8 @@ class RateLimit:
     @staticmethod
     def get_fixed_window(period):
         if not period:  # todo: assert on Spirit 0.5
-            return 0
+            warn('Period must be greater than 0.')
+            return time.time()  # Closer to no period
 
         timestamp = int(time.time())
         return timestamp - timestamp % period
@@ -83,31 +104,17 @@ class RateLimit:
 
         return [self._make_key(k) for k in keys]
 
-    def __incr(self, key):
+    def _incr(self, key):
         cache = caches[settings.ST_RATELIMIT_CACHE]
-        cache.add(key, 0, timeout=self.time)
+        cache.add(key, 0)
 
         try:
             # This resets the timeout to
             # default, see Django ticket #26619
             return cache.incr(key)
         except ValueError:  # Key does not exists
-            raise RateLimitError
-
-    def _incr(self, key):
-        try:
-            return self.__incr(key)
-        except RateLimitError:
-            pass
-
-        try:
-            # Retry in case the key
-            # has just timed-out
-            return self.__incr(key)
-        except RateLimitError:
-            # The timeout is too low
-            # or the cache is being pruned
-            # too frequently
+            # The cache is being
+            # pruned too frequently
             return 1
 
     def _incr_all(self):

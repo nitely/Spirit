@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 import datetime
 
 from django.test import TestCase
-from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
@@ -29,7 +28,7 @@ from . import views as private_views
 class TopicPrivateViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
 
@@ -259,7 +258,7 @@ class TopicPrivateViewTest(TestCase):
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
-    def test_private_list(self):
+    def test_private_list_paginated(self):
         """
         private topic list paginated
         """
@@ -393,7 +392,7 @@ class TopicPrivateViewTest(TestCase):
 class TopicPrivateFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
 
@@ -456,7 +455,7 @@ class TopicPrivateFormTest(TestCase):
 class TopicTemplateTagsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = Category.objects.get(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -479,7 +478,7 @@ class TopicTemplateTagsTest(TestCase):
 class TopicPrivateUtilsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()

@@ -2,8 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.core.cache import cache
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from ...core.tests import utils
@@ -14,7 +13,7 @@ from ...comment.bookmark.models import CommentBookmark
 class TopicUnreadViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()
@@ -125,7 +124,7 @@ class TopicUnreadViewTest(TestCase):
 class TopicUnreadModelsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()

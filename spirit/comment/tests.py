@@ -7,7 +7,6 @@ import json
 import shutil
 
 from django.test import TestCase, RequestFactory
-from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.core.exceptions import PermissionDenied
@@ -39,7 +38,7 @@ User = get_user_model()
 class CommentViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -402,7 +401,7 @@ class CommentViewTest(TestCase):
 class CommentModelsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -442,7 +441,7 @@ class CommentModelsTest(TestCase):
 class CommentTemplateTagTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -477,7 +476,7 @@ class CommentTemplateTagTests(TestCase):
 class CommentFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category)
@@ -601,7 +600,7 @@ class CommentFormTest(TestCase):
 class CommentUtilsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
