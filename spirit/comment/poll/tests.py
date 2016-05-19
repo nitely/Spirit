@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.template import Template, Context
@@ -22,7 +21,7 @@ User = get_user_model()
 class PollViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()
@@ -234,7 +233,7 @@ class PollViewTest(TestCase):
 class PollFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()
@@ -384,7 +383,7 @@ class PollFormTest(TestCase):
 class CommentPollTemplateTagsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category)
@@ -536,7 +535,7 @@ class CommentPollTemplateTagsTest(TestCase):
 class PollModelsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -775,7 +774,7 @@ class PollModelsTest(TestCase):
 class PollUtilsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)

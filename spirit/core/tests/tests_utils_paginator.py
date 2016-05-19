@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.template import Template, Context
 from django.test.utils import override_settings
@@ -21,7 +20,7 @@ from ..tags import paginator as ttag_paginator
 class UtilsPaginatorTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def test_paginator_page(self):
         per_page = 15
@@ -52,7 +51,7 @@ class UtilsPaginatorTest(TestCase):
 class UtilsInfinitePaginatorTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.topic = utils.create_topic(utils.create_category())
 
@@ -96,7 +95,7 @@ class UtilsInfinitePaginatorTest(TestCase):
 class UtilsYTPaginatorTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.topic = utils.create_topic(utils.create_category())
 
@@ -168,7 +167,7 @@ class UtilsYTPaginatorTests(TestCase):
 class UtilsYTPaginatorTemplateTagsTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def tests_yt_paginate(self):
         # first page
@@ -233,7 +232,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
 class UtilsPaginatorTemplateTagsTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def tests_paginate(self):
         # first page

@@ -6,7 +6,6 @@ import datetime
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 from django.utils import timezone
 from django.conf import settings
 
@@ -21,7 +20,7 @@ from .models import Category
 class CategoryViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category_1 = utils.create_category(title="cat1")
         self.subcategory_1 = utils.create_subcategory(self.category_1)
@@ -152,7 +151,7 @@ class CategoryViewTest(TestCase):
 class CategoryMigrationTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def test_uncategorized_category(self):
         """

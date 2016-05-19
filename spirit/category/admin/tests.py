@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 
@@ -19,7 +18,7 @@ User = get_user_model()
 class AdminViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user.st.is_administrator = True
         self.user.st.save()
@@ -87,7 +86,7 @@ class AdminViewTest(TestCase):
 class AdminFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(self.category)

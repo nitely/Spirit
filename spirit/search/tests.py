@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
@@ -28,7 +27,7 @@ HAYSTACK_TEST = {
 class SearchTopicIndexTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def test_index_queryset_excludes_private_topics(self):
         """
@@ -61,7 +60,7 @@ class SearchViewTest(TestCase):
         # self.connections = haystack.connections
         # haystack.connections = haystack.loading.ConnectionHandler(HAYSTACK_TEST)
 
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user, title="spirit search test foo")
@@ -123,7 +122,7 @@ class SearchViewTest(TestCase):
 class SearchFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def test_basic_search(self):
         data = {'q': 'foobar', }
@@ -149,7 +148,7 @@ class SearchFormTest(TestCase):
 class SearchTemplateTagTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def test_render_search_form(self):
         """

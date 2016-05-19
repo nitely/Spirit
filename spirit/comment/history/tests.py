@@ -5,7 +5,6 @@ from datetime import timedelta
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 
 from djconfig.utils import override_djconfig
 
@@ -17,7 +16,7 @@ from . import models
 class CommentHistoryViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -113,7 +112,7 @@ class CommentHistoryViewTest(TestCase):
 class CommentHistoryModelsTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)

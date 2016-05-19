@@ -5,7 +5,6 @@ import datetime
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 from django.contrib.auth import get_user_model, HASH_SESSION_KEY
 from django.core import mail
 from django.utils.translation import ugettext as _
@@ -30,7 +29,7 @@ User = get_user_model()
 class UserViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.user2 = utils.create_user()
         self.category = utils.create_category()
@@ -442,7 +441,7 @@ class UserViewTest(TestCase):
 class UserFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
 
     def test_profile(self):
@@ -570,7 +569,7 @@ class UserFormTest(TestCase):
 class UserModelTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def test_user_superuser(self):
         """
@@ -597,7 +596,7 @@ class UserModelTest(TestCase):
 class UtilsUserTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
 
     def test_user_activation_token_generator(self):

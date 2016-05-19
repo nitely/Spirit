@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.core.cache import cache
 
 from ...core.tests import utils
 from .models import Flag, CommentFlag
@@ -14,7 +13,7 @@ from .forms import FlagForm
 class FlagViewTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
@@ -36,7 +35,7 @@ class FlagViewTest(TestCase):
 class FlagFormTest(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)

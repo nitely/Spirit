@@ -2,13 +2,13 @@
 
 from __future__ import unicode_literals
 
-from django.core.cache import cache
 from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.conf import settings
 from django.core.cache import caches
 
+from . import utils
 from ..utils.ratelimit import ratelimit as rl_module
 from ..utils.ratelimit import RateLimit
 from ..utils.ratelimit.decorators import ratelimit
@@ -26,7 +26,7 @@ def setup_request_factory_messages(req):
 class UtilsRateLimitTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        utils.cache_clear()
 
     def test_rate_limit_split_rate(self):
         req = RequestFactory().post('/')
