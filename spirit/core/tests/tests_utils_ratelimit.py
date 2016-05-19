@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import warnings
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, override_settings
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.conf import settings
@@ -218,3 +219,48 @@ class UtilsRateLimitTests(TestCase):
 
         self.assertFalse(one(req))
         self.assertFalse(one(req))
+
+
+class UtilsRateLimitDeprecationsTests(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+
+    def test_validator_conf(self):
+        """
+        Should create a deprecation\
+        warning when cache has no timeout
+        """
+        req = RequestFactory().post('/')
+        req.user = User()
+        req.user.pk = 1
+
+        @ratelimit(rate='1/m')
+        def one(_):
+            pass
+
+        foo_cache = {
+            'foo': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'}}
+
+        with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
+            with warnings.catch_warnings(record=True) as w:
+                one(req)
+                self.assertEqual(len(w), 1)
+                self.assertEqual(
+                    str(w[-1].message),
+                    'settings.ST_RATELIMIT_CACHE cache\'s TIMEOUT '
+                    'must be None (never expire) and it may '
+                    'be other than the default cache. '
+                    'To skip this check, for example when using '
+                    'a third-party backend with no TIMEOUT option, set '
+                    'settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True. '
+                    'This will raise an exception in next version.')
+
+        utils.cache_clear()
+        foo_cache['foo']['TIMEOUT'] = None
+
+        with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE='foo'):
+            with warnings.catch_warnings(record=True) as w:
+                one(req)
+                self.assertEqual(len(w), 0)

@@ -12,11 +12,11 @@ class RemovedInNextVersionWarning(DeprecationWarning):
     """"""
 
 
-def warn(message):
+def warn(message, stacklevel=3):
     warnings.warn(
         message,
-        RemovedInNextVersionWarning,
-        stacklevel=2)
+        category=RemovedInNextVersionWarning,
+        stacklevel=stacklevel)
 
 
 warnings.simplefilter("default", RemovedInNextVersionWarning)
