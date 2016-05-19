@@ -8,6 +8,8 @@ import time
 from django.conf import settings
 from django.core.cache import caches
 
+from ..deprecations import warn
+
 
 TIME_DICT = {
     's': 1,
@@ -22,18 +24,17 @@ def validate_cache_config():
         # this cache so we do nothing
         return
 
-    # Some third-party backend
-    # don't have a TIMEOUT option
     if (not settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK and
             cache.get('TIMEOUT', 1) is not None):
-        # todo: raise ConfigurationError in next version
-        # todo: warn(
-        #   'settings.ST_RATELIMIT_CACHE cache's TIMEOUT '
-        #   'must be None (never expire) and it may '
-        #   'be other than the default. '
-        #   'To skip this check, set '
-        #   'settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True.')
-        pass
+        # todo: ConfigurationError in next version
+        warn(
+           'settings.ST_RATELIMIT_CACHE cache\'s TIMEOUT '
+           'must be None (never expire) and it may '
+           'be other than the default cache. '
+           'To skip this check, for example when using '
+           'a third-party backend with no TIMEOUT option, set '
+           'settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True. '
+           'This will raise an exception in next version.')
 
 
 class RateLimitError(Exception):
