@@ -14,6 +14,29 @@ TIME_DICT = {
     'm': 60}
 
 
+def validate_cache_config():
+    try:
+        cache = settings.CACHES[settings.ST_RATELIMIT_CACHE]
+    except KeyError:
+        # Django will raise later when using
+        # this cache so we do nothing
+        return
+
+    # Some third-party backend
+    # don't have a TIMEOUT option
+    if (not settings.ST_RATELIMIT_IGNORE_TIMEOUT_WARNING and
+            cache.get('TIMEOUT', 1) is not None):
+        # todo: raise ConfigurationError in next version
+        # todo: warn(
+        #   'settings.ST_RATELIMIT_CACHE cache's TIMEOUT '
+        #   'must be None (never expire) and it should '
+        #   'be other than the default. See spirit.settings. '
+        #   'To ignore this warning, set '
+        #   'settings.ST_RATELIMIT_IGNORE_TIMEOUT to True, '
+        #   'if you know what you are doing.')
+        pass
+
+
 class RateLimitError(Exception):
     """"""
 
@@ -21,6 +44,7 @@ class RateLimitError(Exception):
 class RateLimit:
 
     def __init__(self, request, uid, method=None, field=None, rate='5/5m'):
+        validate_cache_config()
         self.request = request
         self.uid = uid
         self.method = method or ['POST']
