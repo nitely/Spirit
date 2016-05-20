@@ -106,7 +106,7 @@ class CommentViewTest(TestCase):
         self.assertEqual(len(Comment.objects.all()), 2)
 
         # Double post
-        cache.clear()  # Clear rate limit
+        utils.cache_clear()  # Clear rate limit
         response = self.client.post(
             reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
             {'comment': comment_txt})
@@ -119,7 +119,7 @@ class CommentViewTest(TestCase):
             target_status_code=302)
 
         # New post
-        cache.clear()  # Clear rate limit
+        utils.cache_clear()  # Clear rate limit
         self.client.post(
             reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
             {'comment': 'not a foobar'})
@@ -139,7 +139,7 @@ class CommentViewTest(TestCase):
             {'comment': comment_txt})
         self.assertEqual(len(Comment.objects.all()), 1)
 
-        cache.clear()  # Clear rate limit
+        utils.cache_clear()  # Clear rate limit
         self.client.post(
             reverse('spirit:comment:publish', kwargs={'topic_id': topic_another.pk}),
             {'comment': comment_txt})

@@ -92,7 +92,7 @@ class TopicPrivateViewTest(TestCase):
         self.assertEqual(len(Topic.objects.all()), 1)
 
         # Double post
-        cache.clear()  # Clear rate limit
+        utils.cache_clear()  # Clear rate limit
         response = self.client.post(
             reverse('spirit:topic:private:publish'),
             {'comment': 'new foo', 'title': topic_title, 'users': [self.user2.username]})
@@ -105,7 +105,7 @@ class TopicPrivateViewTest(TestCase):
             target_status_code=200)
 
         # New post
-        cache.clear()  # Clear rate limit
+        utils.cache_clear()  # Clear rate limit
         self.client.post(
             reverse('spirit:topic:private:publish'),
             {'comment': 'foo', 'title': 'new topic', 'users': [self.user2.username]})

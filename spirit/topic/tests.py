@@ -123,7 +123,7 @@ class TopicViewTest(TestCase):
         self.assertEqual(len(Topic.objects.all()), 1)
 
         # Double post
-        cache.clear()  # Clear rate limit
+        utils.cache_clear()  # Clear rate limit
         response = self.client.post(
             reverse('spirit:topic:publish'),
             {'comment': 'foo', 'title': topic_title, 'category': category.pk})
@@ -136,7 +136,7 @@ class TopicViewTest(TestCase):
             target_status_code=200)
 
         # New post
-        cache.clear()  # Clear rate limit
+        utils.cache_clear()  # Clear rate limit
         self.client.post(
             reverse('spirit:topic:publish'),
             {'comment': 'foo', 'title': 'new topic', 'category': category.pk})
@@ -157,7 +157,7 @@ class TopicViewTest(TestCase):
             {'comment': 'foo', 'title': topic_title, 'category': category.pk})
         self.assertEqual(len(Topic.objects.all()), 1)
 
-        cache.clear()  # Clear rate limit
+        utils.cache_clear()  # Clear rate limit
         self.client.post(
             reverse('spirit:topic:publish'),
             {'comment': 'foo', 'title': topic_title, 'category': category_another.pk})
