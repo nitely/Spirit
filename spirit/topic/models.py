@@ -22,6 +22,7 @@ class Topic(models.Model):
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     date = models.DateTimeField(_("date"), default=timezone.now)
     last_active = models.DateTimeField(_("last active"), default=timezone.now)
+    last_commenter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_topics_last', null=True, blank=True, on_delete=models.SET_NULL)
 
     is_pinned = models.BooleanField(_("pinned"), default=False)
     is_globally_pinned = models.BooleanField(_("globally pinned"), default=False)
@@ -91,12 +92,20 @@ class Topic(models.Model):
             .update(view_count=F('view_count') + 1)
 
     def increase_comment_count(self):
+        self.update_last_commenter()
         Topic.objects\
             .filter(pk=self.pk)\
             .update(comment_count=F('comment_count') + 1, last_active=timezone.now())
 
     def decrease_comment_count(self):
         # todo: update last_active to last() comment
+        self.update_last_commenter()
         Topic.objects\
             .filter(pk=self.pk)\
             .update(comment_count=F('comment_count') - 1)
+
+    def update_last_commenter(self):
+        last_comment = self.comment_set.filter(is_removed=False).first()
+        if last_comment and last_comment.user != self.last_commenter:
+            self.last_commenter = last_comment.user
+            self.save()

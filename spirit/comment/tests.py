@@ -650,6 +650,7 @@ class CommentUtilsTest(TestCase):
         comment = utils.create_comment(user=user, topic=topic)
         comment_posted(comment=comment, mentions=None)
         self.assertEqual(Topic.objects.get(pk=topic.pk).comment_count, 1)
+        comment = Comment.objects.get(pk=comment.pk)  # do not use the cached comment.topic!
         comment_posted(comment=comment, mentions=None)
         self.assertEqual(Topic.objects.get(pk=topic.pk).comment_count, 2)
 
