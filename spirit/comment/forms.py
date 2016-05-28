@@ -7,6 +7,7 @@ import os
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_bytes
 
 from ..core import utils
 from ..core.utils.markdown import Markdown
@@ -18,11 +19,16 @@ from .models import Comment
 class CommentForm(forms.ModelForm):
 
     comment = forms.CharField(
-        max_length=settings.ST_COMMENT_MAX_LEN, widget=forms.Textarea)
+        max_length=settings.ST_COMMENT_MAX_LEN,
+        widget=forms.Textarea)
+    comment_hash = forms.CharField(
+        max_length=32,
+        widget=forms.HiddenInput,
+        required=False)
 
     class Meta:
         model = Comment
-        fields = ['comment', ]
+        fields = ['comment']
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
@@ -31,6 +37,23 @@ class CommentForm(forms.ModelForm):
         self.mentions = None  # {username: User, }
         self.polls = None  # {polls: [], choices: []}
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
+
+    def get_comment_hash(self):
+        assert self.topic
+
+        # This gets saved into
+        # User.last_post_hash,
+        # it does not matter whether
+        # is a safe string or not
+        comment_hash = self.cleaned_data.get('comment_hash', None)
+
+        if comment_hash:
+            return comment_hash
+
+        return utils.get_hash((
+            smart_bytes(self.cleaned_data['comment']),
+            smart_bytes('thread-{}'.format(self.topic.pk))
+        ))
 
     def _get_comment_html(self):
         user = self.user or self.instance.user
@@ -111,7 +134,7 @@ class CommentImageForm(forms.Form):
         # todo: use DEFAULT_FILE_STORAGE and MEDIA_URL
 
         file = self.cleaned_data['image']
-        file_hash = utils.get_hash(file)
+        file_hash = utils.get_file_hash(file)
         file.name = ''.join((file_hash, '.', file.image.format.lower()))
         upload_to = os.path.join('spirit', 'images', str(self.user.pk))
         file.url = os.path.join(settings.MEDIA_URL, upload_to, file.name).replace("\\", "/")

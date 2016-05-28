@@ -22,32 +22,38 @@ from .utils import comment_posted, post_comment_update, pre_comment_update
 @login_required
 @ratelimit(rate='1/10s')
 def publish(request, topic_id, pk=None):
+    user = request.user
     topic = get_object_or_404(
-        Topic.objects.opened().for_access(request.user),
-        pk=topic_id
-    )
+        Topic.objects.opened().for_access(user),
+        pk=topic_id)
 
     if request.method == 'POST':
-        form = CommentForm(user=request.user, topic=topic, data=request.POST)
+        form = CommentForm(user=user, topic=topic, data=request.POST)
 
         if not request.is_limited and form.is_valid():
+            if not user.st.update_post_hash(form.get_comment_hash()):
+                # Hashed comment may have not been saved yet
+                return redirect(
+                    request.POST.get('next', None) or
+                    Comment.get_last_for_topic(topic_id)
+                           .get_absolute_url())
+
             comment = form.save()
             comment_posted(comment=comment, mentions=form.mentions)
             return redirect(request.POST.get('next', comment.get_absolute_url()))
     else:
         initial = None
 
-        if pk:
-            comment = get_object_or_404(Comment.objects.for_access(user=request.user), pk=pk)
+        if pk:  # todo: move to form
+            comment = get_object_or_404(Comment.objects.for_access(user=user), pk=pk)
             quote = markdown.quotify(comment.comment, comment.user.username)
-            initial = {'comment': quote, }
+            initial = {'comment': quote}
 
         form = CommentForm(initial=initial)
 
     context = {
         'form': form,
-        'topic': topic
-    }
+        'topic': topic}
 
     return render(request, 'spirit/comment/publish.html', context)
 

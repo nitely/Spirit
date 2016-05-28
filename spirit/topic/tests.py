@@ -2,8 +2,9 @@
 
 from __future__ import unicode_literals
 import datetime
+import hashlib
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, override_settings
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
@@ -105,6 +106,62 @@ class TopicViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:publish', kwargs={'category_id': str(99), }))
         self.assertEqual(response.status_code, 404)
+
+    @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=10)
+    def test_topic_publish_double_post(self):
+        """
+        Should prevent double posts
+        """
+        utils.login(self)
+        category = utils.create_category()
+        topic_title = 'title foobar'
+
+        # First post
+        self.client.post(
+            reverse('spirit:topic:publish'),
+            {'comment': 'foo', 'title': topic_title, 'category': category.pk})
+        self.assertEqual(len(Topic.objects.all()), 1)
+
+        # Double post
+        utils.cache_clear()  # Clear rate limit
+        response = self.client.post(
+            reverse('spirit:topic:publish'),
+            {'comment': 'foo', 'title': topic_title, 'category': category.pk})
+        self.assertEqual(len(Topic.objects.all()), 1)  # Prevented!
+
+        self.assertRedirects(
+            response,
+            expected_url=category.get_absolute_url(),
+            status_code=302,
+            target_status_code=200)
+
+        # New post
+        utils.cache_clear()  # Clear rate limit
+        self.client.post(
+            reverse('spirit:topic:publish'),
+            {'comment': 'foo', 'title': 'new topic', 'category': category.pk})
+        self.assertEqual(len(Topic.objects.all()), 2)
+
+    @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=10)
+    def test_topic_publish_same_post_into_another_topic(self):
+        """
+        Should not prevent from posting the same topic into another category
+        """
+        utils.login(self)
+        category = utils.create_category()
+        category_another = utils.create_category()
+        topic_title = 'title foobar'
+
+        self.client.post(
+            reverse('spirit:topic:publish'),
+            {'comment': 'foo', 'title': topic_title, 'category': category.pk})
+        self.assertEqual(len(Topic.objects.all()), 1)
+
+        utils.cache_clear()  # Clear rate limit
+        self.client.post(
+            reverse('spirit:topic:publish'),
+            {'comment': 'foo', 'title': topic_title, 'category': category_another.pk})
+        self.assertEqual(len(Topic.objects.all()), 2)
 
     def test_topic_update(self):
         """
@@ -369,6 +426,50 @@ class TopicFormTest(TestCase):
         form_data = {'title': 'foobar', }
         form = TopicForm(self.user, data=form_data, instance=topic)
         self.assertEqual(form.is_valid(), True)
+
+    def test_topic_get_category(self):
+        """
+        Should return the category
+        """
+        category = utils.create_category()
+        form_data = {
+            'title': 'foobar',
+            'category': category.pk}
+        form = TopicForm(self.user, data=form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_category(), category)
+
+    def test_topic_get_topic_hash(self):
+        """
+        Should return the topic hash
+        """
+        category = utils.create_category()
+        title = 'title foobar'
+        form_data = {
+            'title': title,
+            'category': category.pk}
+        form = TopicForm(self.user, data=form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(
+            form.get_topic_hash(),
+            hashlib.md5(
+                '{}category-{}'
+                .format(title, category.pk)
+                .encode('utf-8')).hexdigest())
+
+    def test_topic_get_topic_hash_from_field(self):
+        """
+        Should return the topic hash from form field
+        """
+        category = utils.create_category()
+        topic_hash = '1' * 32
+        form_data = {
+            'title': 'foobar',
+            'category': category.pk,
+            'topic_hash': topic_hash}
+        form = TopicForm(self.user, data=form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_topic_hash(), topic_hash)
 
 
 class TopicUtilsTest(TestCase):

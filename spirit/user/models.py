@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from datetime import timedelta
 
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
@@ -30,6 +32,9 @@ class UserProfile(models.Model):
     topic_count = models.PositiveIntegerField(_("topic count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
 
+    last_post_hash = models.CharField(_("last post hash"), max_length=32, blank=True)
+    last_post_on = models.DateTimeField(_("last post on"), null=True, blank=True)
+
     class Meta:
         verbose_name = _("forum profile")
         verbose_name_plural = _("forum profiles")
@@ -45,6 +50,21 @@ class UserProfile(models.Model):
 
     def get_absolute_url(self):
         return reverse('spirit:user:detail', kwargs={'pk': self.user.pk, 'slug': self.slug})
+
+    def update_post_hash(self, post_hash):
+        assert self.pk
+
+        # Let the DB do the hash
+        # comparison for atomicity
+        return bool(UserProfile.objects
+                    .filter(pk=self.pk)
+                    .exclude(
+                        last_post_hash=post_hash,
+                        last_post_on__gte=timezone.now() - timedelta(
+                            minutes=settings.ST_DOUBLE_POST_THRESHOLD_MINUTES))
+                    .update(
+                        last_post_hash=post_hash,
+                        last_post_on=timezone.now()))
 
 
 class User(AbstractUser):

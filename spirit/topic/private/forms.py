@@ -6,7 +6,9 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.utils.encoding import smart_bytes
 
+from ...core import utils
 from ...core.utils.widgets import MultipleInput
 from ...topic.models import Topic
 from ...category.models import Category
@@ -17,6 +19,11 @@ User = get_user_model()
 
 class TopicForPrivateForm(forms.ModelForm):
 
+    topic_hash = forms.CharField(
+        max_length=32,
+        widget=forms.HiddenInput,
+        required=False)
+
     class Meta:
         model = Topic
         fields = ('title', )
@@ -24,11 +31,32 @@ class TopicForPrivateForm(forms.ModelForm):
     def __init__(self, user=None, *args, **kwargs):
         super(TopicForPrivateForm, self).__init__(*args, **kwargs)
         self.user = user
+        self._category = None
+
+    @property
+    def category(self):
+        if self._category:
+            return self._category
+
+        self._category = Category.objects.get(
+            pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+
+        return self._category
+
+    def get_topic_hash(self):
+        topic_hash = self.cleaned_data.get('topic_hash', None)
+
+        if topic_hash:
+            return topic_hash
+
+        return utils.get_hash((
+            smart_bytes(self.cleaned_data['title']),
+            smart_bytes('category-{}'.format(self.category.pk))))
 
     def save(self, commit=True):
         if not self.instance.pk:
             self.instance.user = self.user
-            self.instance.category = Category.objects.get(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+            self.instance.category = self.category
 
         return super(TopicForPrivateForm, self).save(commit)
 
@@ -36,9 +64,10 @@ class TopicForPrivateForm(forms.ModelForm):
 class TopicPrivateManyForm(forms.Form):
 
     # Only good for create
-    users = forms.ModelMultipleChoiceField(queryset=User.objects.all(),
-                                           to_field_name=User.USERNAME_FIELD,
-                                           widget=MultipleInput(attrs={'placeholder': _("user1, user2, ..."), }))
+    users = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all(),
+        to_field_name=User.USERNAME_FIELD,
+        widget=MultipleInput(attrs={'placeholder': _("user1, user2, ...")}))
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super(TopicPrivateManyForm, self).__init__(*args, **kwargs)

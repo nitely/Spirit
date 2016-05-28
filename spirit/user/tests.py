@@ -591,6 +591,48 @@ class UserModelTest(TestCase):
         user.st.save()
         self.assertTrue(user.st.is_moderator)
 
+    @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=1)
+    def test_update_post_hash(self):
+        """
+        Should update the last post hash and date
+            if stored hash doesn't matches the new one
+            and/or stored date is higher than the threshold
+        """
+        user = User()
+        user.save()
+        self.assertTrue(user.st.update_post_hash('my_hash'))
+        self.assertFalse(user.st.update_post_hash('my_hash'))
+        self.assertTrue(user.st.update_post_hash('my_new_hash'))
+        self.assertFalse(user.st.update_post_hash('my_new_hash'))
+
+    @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=10)
+    def test_update_post_hash_threshold(self):
+        """
+        Should update the last post hash when the time threshold has past
+        """
+        user = User()
+        user.save()
+        self.assertTrue(user.st.update_post_hash('my_hash'))
+        self.assertFalse(user.st.update_post_hash('my_hash'))
+        user.st.last_post_on = timezone.now() - datetime.timedelta(minutes=11)
+        user.st.save()
+        self.assertTrue(user.st.update_post_hash('my_hash'))
+        self.assertFalse(user.st.update_post_hash('my_hash'))
+
+    @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=1)
+    def test_update_post_hash_threshold(self):
+        """
+        Should update the last post hash and date for the current user
+        """
+        user = User(username='foo')
+        user.save()
+        user_b = User(username='bar')
+        user_b.save()
+        self.assertEqual('', User.objects.get(pk=user.pk).st.last_post_hash)
+        self.assertEqual('', User.objects.get(pk=user_b.pk).st.last_post_hash)
+        self.assertTrue(user.st.update_post_hash('my_hash'))
+        self.assertEqual('my_hash', User.objects.get(pk=user.pk).st.last_post_hash)
+        self.assertEqual('', User.objects.get(pk=user_b.pk).st.last_post_hash)
 
 
 class UtilsUserTests(TestCase):

@@ -2,8 +2,9 @@
 
 from __future__ import unicode_literals
 import datetime
+import hashlib
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
@@ -14,8 +15,11 @@ from djconfig.utils import override_djconfig
 from ...core.tests import utils
 from ...category.models import Category
 from .models import TopicPrivate
-from .forms import TopicForPrivateForm, TopicPrivateInviteForm,\
-    TopicPrivateManyForm, TopicPrivateJoinForm
+from .forms import (
+    TopicForPrivateForm,
+    TopicPrivateInviteForm,
+    TopicPrivateManyForm,
+    TopicPrivateJoinForm)
 from .tags import render_invite_form
 from ..models import Topic
 from ...comment.bookmark.models import CommentBookmark
@@ -70,6 +74,42 @@ class TopicPrivateViewTest(TestCase):
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:private:publish', kwargs={'user_id': self.user2.pk, }))
         self.assertEqual(response.context['tpform'].initial['users'], [self.user2.username, ])
+
+    @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=10)
+    def test_private_publish_double_post(self):
+        """
+        Should prevent double posts
+        """
+        utils.login(self)
+        category_private = Category.objects.get(
+            pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+        topic_title = 'title foobar'
+
+        # First post
+        self.client.post(
+            reverse('spirit:topic:private:publish'),
+            {'comment': 'foo', 'title': topic_title, 'users': [self.user2.username]})
+        self.assertEqual(len(Topic.objects.all()), 1)
+
+        # Double post
+        utils.cache_clear()  # Clear rate limit
+        response = self.client.post(
+            reverse('spirit:topic:private:publish'),
+            {'comment': 'new foo', 'title': topic_title, 'users': [self.user2.username]})
+        self.assertEqual(len(Topic.objects.all()), 1)  # Prevented!
+
+        self.assertRedirects(
+            response,
+            expected_url=category_private.get_absolute_url(),
+            status_code=302,
+            target_status_code=200)
+
+        # New post
+        utils.cache_clear()  # Clear rate limit
+        self.client.post(
+            reverse('spirit:topic:private:publish'),
+            {'comment': 'foo', 'title': 'new topic', 'users': [self.user2.username]})
+        self.assertEqual(len(Topic.objects.all()), 2)
 
     def test_private_detail(self):
         """
@@ -403,6 +443,44 @@ class TopicPrivateFormTest(TestCase):
         form_data = {'title': 'foo', }
         form = TopicForPrivateForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
+
+    def test_private_publish_category(self):
+        """
+        Should return the private category
+        """
+        category_private = Category.objects.get(
+            pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+        form = TopicForPrivateForm()
+        self.assertEqual(form.category, category_private)
+        self.assertEqual(form.category, category_private)  # Cached
+
+    def test_private_publish_get_topic_hash(self):
+        """
+        Should return the topic hash
+        """
+        category_private = Category.objects.get(
+            pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+        title = 'title foobar'
+        form = TopicForPrivateForm(data={'title': title})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(
+            form.get_topic_hash(),
+            hashlib.md5(
+                '{}category-{}'
+                .format(title, category_private.pk)
+                .encode('utf-8')).hexdigest())
+
+    def test_private_publish_get_topic_hash_from_field(self):
+        """
+        Should return the topic hash from form field
+        """
+        topic_hash = '1' * 32
+        form = TopicForPrivateForm(
+            data={
+                'title': 'foobar',
+                'topic_hash': topic_hash})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.get_topic_hash(), topic_hash)
 
     def test_private_create_many(self):
         """
