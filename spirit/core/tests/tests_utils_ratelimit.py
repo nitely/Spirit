@@ -33,12 +33,12 @@ class UtilsRateLimitTests(TestCase):
         req = RequestFactory().post('/')
         req.user = AnonymousUser()
         rl = RateLimit(req, 'func_name')
-        self.assertEqual(rl.split_rate('5/m'), (5, 60))
-        self.assertEqual(rl.split_rate('5/5m'), (5, 60 * 5))
-        self.assertEqual(rl.split_rate('5/s'), (5, 1))
-        self.assertEqual(rl.split_rate('5/5s'), (5, 1 * 5))
-        self.assertEqual(rl.split_rate('5/15s'), (5, 15))
-        self.assertEqual(rl.split_rate('15/15s'), (15, 15))
+        self.assertEqual(rl_module.split_rate('5/m'), (5, 60))
+        self.assertEqual(rl_module.split_rate('5/5m'), (5, 60 * 5))
+        self.assertEqual(rl_module.split_rate('5/s'), (5, 1))
+        self.assertEqual(rl_module.split_rate('5/5s'), (5, 1 * 5))
+        self.assertEqual(rl_module.split_rate('5/15s'), (5, 15))
+        self.assertEqual(rl_module.split_rate('15/15s'), (15, 15))
 
     def test_rate_limit_user_or_ip(self):
         req = RequestFactory().get('/')
@@ -161,8 +161,8 @@ class UtilsRateLimitTests(TestCase):
                 one.__module__,
                 one.__name__,
                 req.user.pk,
-                RateLimit.get_fixed_window(period=60))
-            key_hash = RateLimit._make_hash(key_part)
+                rl_module.fixed_window(period=60))
+            key_hash = rl_module.make_hash(key_part)
             key = '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
 
             one(req)
@@ -185,20 +185,20 @@ class UtilsRateLimitTests(TestCase):
         org_time_time, rl_module.time.time = rl_module.time.time, fixed_time
         try:
             period = 10
-            window = RateLimit.get_fixed_window(period=period)
+            window = rl_module.fixed_window(period=period)
 
             # Same window 1 second later
             rl_module.time.time = lambda: fixed_time_future(seconds=1)
-            self.assertEqual(window, RateLimit.get_fixed_window(period=period))
+            self.assertEqual(window, rl_module.fixed_window(period=period))
 
             # Same window (period - 1) seconds later
             rl_module.time.time = lambda: fixed_time_future(seconds=period - 1)
-            self.assertEqual(window, RateLimit.get_fixed_window(period=period))
+            self.assertEqual(window, rl_module.fixed_window(period=period))
 
             # Next window on period seconds later
             rl_module.time.time = lambda: fixed_time_future(seconds=period)
-            self.assertNotEqual(window, RateLimit.get_fixed_window(period=period))
-            self.assertEqual(period, RateLimit.get_fixed_window(period=period) - window)
+            self.assertNotEqual(window, rl_module.fixed_window(period=period))
+            self.assertEqual(period, rl_module.fixed_window(period=period) - window)
         finally:
             rl_module.time.time = org_time_time
 
@@ -288,7 +288,7 @@ class UtilsRateLimitDeprecationsTests(TestCase):
         warning when period is zero
         """
         with warnings.catch_warnings(record=True) as w:
-            RateLimit.get_fixed_window(period=0)
+            rl_module.fixed_window(period=0)
             self.assertEqual(len(w), 1)
             self.assertEqual(
                 str(w[-1].message),

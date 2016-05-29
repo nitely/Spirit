@@ -11,6 +11,9 @@ from django.core.cache import caches
 from ..deprecations import warn
 
 
+__all__ = ['RateLimit']
+
+
 TIME_DICT = {
     's': 1,
     'm': 60}
@@ -37,6 +40,34 @@ def validate_cache_config():
            'This will raise an exception in next version.')
 
 
+def split_rate(rate):
+    limit, period = rate.split('/')
+    limit = int(limit)
+
+    if len(period) > 1:
+        time_ = TIME_DICT[period[-1]]
+        time_ *= int(period[:-1])
+    else:
+        time_ = TIME_DICT[period]
+
+    return limit, time_
+
+
+def fixed_window(period):
+    if not period:  # todo: assert on Spirit 0.5
+        warn('Period must be greater than 0.')
+        return time.time()  # Closer to no period
+
+    timestamp = int(time.time())
+    return timestamp - timestamp % period
+
+
+def make_hash(key):
+    return (hashlib
+            .sha1(key.encode('utf-8'))
+            .hexdigest())
+
+
 class RateLimit:
 
     def __init__(self, request, uid, methods=None, field=None, rate='5/5m'):
@@ -50,41 +81,15 @@ class RateLimit:
         self.cache_keys = []
 
         if self.request.method in self.methods:
-            self.limit, self.time = self.split_rate(rate)
+            self.limit, self.time = split_rate(rate)
             self.cache_keys = self._get_keys(field)
-
-    @staticmethod
-    def split_rate(rate):
-        limit, period = rate.split('/')
-        limit = int(limit)
-
-        if len(period) > 1:
-            time_ = TIME_DICT[period[-1]]
-            time_ *= int(period[:-1])
-        else:
-            time_ = TIME_DICT[period]
-
-        return limit, time_
-
-    @staticmethod
-    def get_fixed_window(period):
-        if not period:  # todo: assert on Spirit 0.5
-            warn('Period must be greater than 0.')
-            return time.time()  # Closer to no period
-
-        timestamp = int(time.time())
-        return timestamp - timestamp % period
-
-    @staticmethod
-    def _make_hash(key):
-        return hashlib.sha1(key.encode('utf-8')).hexdigest()
 
     def _make_key(self, key):
         key_uid = '%s:%s:%d' % (
-            self.uid, key, self.get_fixed_window(self.time))
+            self.uid, key, fixed_window(self.time))
         return '%s:%s' % (
             settings.ST_RATELIMIT_CACHE_PREFIX,
-            self._make_hash(key_uid))
+            make_hash(key_uid))
 
     def _get_keys(self, field=None):
         keys = []
@@ -95,7 +100,8 @@ class RateLimit:
             keys.append('ip:%s' % self.request.META['REMOTE_ADDR'])
 
         if field is not None:
-            field_value = getattr(self.request, self.request.method).get(field, '')
+            field_value = (getattr(self.request, self.request.method)
+                           .get(field, ''))
 
             if field_value:
                 keys.append('field:%s:%s' % (field, field_value))
