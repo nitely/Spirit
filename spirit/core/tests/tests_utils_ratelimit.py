@@ -45,9 +45,9 @@ class UtilsRateLimitTests(TestCase):
         req.user = AnonymousUser()
         setup_request_factory_messages(req)
 
-        @ratelimit(method=['GET', ], rate='1/m')
+        @ratelimit(methods=['GET', ], rate='1/m')
         def limit_ip(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(limit_ip(req))
         self.assertTrue(limit_ip(req))
@@ -67,9 +67,9 @@ class UtilsRateLimitTests(TestCase):
         setup_request_factory_messages(get)
         setup_request_factory_messages(post)
 
-        @ratelimit(method=['POST', ], rate='1/m')
+        @ratelimit(methods=['POST', ], rate='1/m')
         def limit_post(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(limit_post(post))
         self.assertTrue(limit_post(post))
@@ -82,7 +82,7 @@ class UtilsRateLimitTests(TestCase):
 
         @ratelimit(field='username', rate='1/m')
         def username(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(username(req))
         self.assertTrue(username(req))
@@ -98,7 +98,7 @@ class UtilsRateLimitTests(TestCase):
 
         @ratelimit(field='username', rate='1/m')
         def username(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(username(empty))
 
@@ -114,7 +114,7 @@ class UtilsRateLimitTests(TestCase):
 
         @ratelimit(rate='2/m')
         def two(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(two(req))
         self.assertFalse(two(req))
@@ -128,6 +128,7 @@ class UtilsRateLimitTests(TestCase):
         req.user = User()
         req.user.pk = 1
         rl = RateLimit(req, 'func_name')
+        rl.incr()
         self.assertEqual(
             len(rl.cache_keys[0]),
             len(settings.ST_RATELIMIT_CACHE_PREFIX) + 1 + 40)  # prefix:sha1_hash
@@ -144,8 +145,8 @@ class UtilsRateLimitTests(TestCase):
         req.user.pk = 1
 
         @ratelimit(rate='1/m')
-        def one(_):
-            pass
+        def one(request):
+            return request.is_limited()
 
         fixed_now = rl_module.time.time()
 
@@ -213,7 +214,7 @@ class UtilsRateLimitTests(TestCase):
 
         @ratelimit(rate='1/m')
         def one(request):
-            return request.is_limited
+            return request.is_limited()
 
         foo_cache = {
             'default': {

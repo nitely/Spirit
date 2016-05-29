@@ -39,21 +39,19 @@ def validate_cache_config():
 
 class RateLimit:
 
-    def __init__(self, request, uid, method=None, field=None, rate='5/5m'):
+    def __init__(self, request, uid, methods=None, field=None, rate='5/5m'):
         validate_cache_config()
         self.request = request
         self.uid = uid
-        self.method = method or ['POST']
+        self.methods = methods or ['POST']
+        self.rate = rate
         self.limit = None
         self.time = None
         self.cache_keys = []
-        self.cache_values = []
 
-        if (self.request.method in (m.upper() for m in self.method) and
-                settings.ST_RATELIMIT_ENABLE):
+        if self.request.method in self.methods:
             self.limit, self.time = self.split_rate(rate)
             self.cache_keys = self._get_keys(field)
-            self.cache_values = self._incr_all()
 
     @staticmethod
     def split_rate(rate):
@@ -104,6 +102,10 @@ class RateLimit:
 
         return [self._make_key(k) for k in keys]
 
+    def _get_cache_values(self):
+        return (caches[settings.ST_RATELIMIT_CACHE]
+                .get_many(self.cache_keys))
+
     def _incr(self, key):
         cache = caches[settings.ST_RATELIMIT_CACHE]
         cache.add(key, 0)
@@ -117,10 +119,18 @@ class RateLimit:
             # pruned too frequently
             return 1
 
-    def _incr_all(self):
+    def incr(self):
         return [self._incr(k) for k in self.cache_keys]
 
-    def is_limited(self):
+    def is_limited(self, increment=True):
+        if not settings.ST_RATELIMIT_ENABLE:
+            return False
+
+        if increment:
+            cache_values = self.incr()
+        else:
+            cache_values = self._get_cache_values()
+
         return any(
             count > self.limit
-            for count in self.cache_values)
+            for count in cache_values)
