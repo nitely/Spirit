@@ -110,8 +110,9 @@ class UserViewTest(TestCase):
         topic = utils.create_topic(self.category, user=self.user2)
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:topics",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['topics']), [topic, ])
 
@@ -132,8 +133,9 @@ class UserViewTest(TestCase):
         utils.create_topic(category=subcategory_removed, user=self.user2)
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:topics",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(list(response.context['topics']), [])
 
     def test_profile_topics_invalid_slug(self):
@@ -141,10 +143,12 @@ class UserViewTest(TestCase):
         profile user's topics
         """
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': "invalid"}))
-        expected_url = reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
-                                                                'slug': self.user2.st.slug})
+        response = self.client.get(reverse(
+            "spirit:user:topics",
+            kwargs={'pk': self.user2.pk, 'slug': "invalid"}))
+        expected_url = reverse(
+            "spirit:user:topics",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug})
         self.assertRedirects(response, expected_url, status_code=301)
 
     def test_profile_comments(self):
@@ -154,8 +158,9 @@ class UserViewTest(TestCase):
         utils.login(self)
         comment = utils.create_comment(user=self.user2, topic=self.topic)
         utils.create_comment(user=self.user, topic=self.topic)
-        response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:detail",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['comments']), [comment, ])
         self.assertEqual(response.context['p_user'], self.user2)
@@ -172,8 +177,9 @@ class UserViewTest(TestCase):
         Comment.objects.filter(pk=comment_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:detail",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(list(response.context['comments']), [comment_b, comment_c, comment_a])
 
     @override_djconfig(comments_per_page=1)
@@ -185,8 +191,9 @@ class UserViewTest(TestCase):
         comment = utils.create_comment(user=self.user2, topic=self.topic)
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:detail",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['comments']), [comment, ])
 
@@ -210,8 +217,9 @@ class UserViewTest(TestCase):
         utils.create_comment(user=self.user2, topic=topic_e)
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:detail",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(list(response.context['comments']), [])
 
     def test_profile_comments_invalid_slug(self):
@@ -219,10 +227,12 @@ class UserViewTest(TestCase):
         profile user's comments, invalid user slug
         """
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
-                                                                            'slug': "invalid"}))
-        expected_url = reverse("spirit:user:detail", kwargs={'pk': self.user2.pk,
-                                                                'slug': self.user2.st.slug})
+        response = self.client.get(reverse(
+            "spirit:user:detail",
+            kwargs={'pk': self.user2.pk, 'slug': "invalid"}))
+        expected_url = reverse(
+            "spirit:user:detail",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug})
         self.assertRedirects(response, expected_url, status_code=301)
 
     def test_profile_likes(self):
@@ -234,8 +244,9 @@ class UserViewTest(TestCase):
         comment2 = utils.create_comment(user=self.user2, topic=self.topic)
         like = CommentLike.objects.create(user=self.user2, comment=comment)
         CommentLike.objects.create(user=self.user, comment=comment2)
-        response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:likes",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['comments']), [like.comment, ])
         self.assertEqual(response.context['p_user'], self.user2)
@@ -255,8 +266,9 @@ class UserViewTest(TestCase):
         CommentLike.objects.filter(pk=like_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:likes",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(list(response.context['comments']), [comment_b, comment_c, comment_a])
 
     def test_profile_likes_dont_show_removed_or_private(self):
@@ -284,8 +296,9 @@ class UserViewTest(TestCase):
         CommentLike.objects.create(user=self.user2, comment=comment_e)
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:likes",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(list(response.context['comments']), [])
 
     def test_profile_likes_invalid_slug(self):
@@ -293,10 +306,12 @@ class UserViewTest(TestCase):
         profile user's likes, invalid user slug
         """
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': "invalid"}))
-        expected_url = reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
-                                                               'slug': self.user2.st.slug})
+        response = self.client.get(reverse(
+            "spirit:user:likes",
+            kwargs={'pk': self.user2.pk, 'slug': "invalid"}))
+        expected_url = reverse(
+            "spirit:user:likes",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug})
         self.assertRedirects(response, expected_url, status_code=301)
 
     @override_djconfig(comments_per_page=1)
@@ -310,8 +325,9 @@ class UserViewTest(TestCase):
         like = CommentLike.objects.create(user=self.user2, comment=comment2)
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:likes", kwargs={'pk': self.user2.pk,
-                                                                           'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:likes",
+            kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['comments']), [like.comment, ])
 

@@ -54,6 +54,9 @@ def split_rate(rate):
 
 
 def fixed_window(period):
+    if settings.ST_TESTS_RATELIMIT_NEVER_EXPIRE:
+        return 0
+
     if not period:  # todo: assert on Spirit 0.5
         warn('Period must be greater than 0.')
         return time.time()  # Closer to no period
