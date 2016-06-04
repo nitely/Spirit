@@ -24,7 +24,7 @@ def custom_login(request, **kwargs):
     if request.user.is_authenticated():
         return redirect(request.GET.get('next', request.user.st.get_absolute_url()))
 
-    if request.method == "POST" and request.is_limited:
+    if request.method == "POST" and request.is_limited():
         return redirect(request.get_full_path())
 
     return login_view(request, authentication_form=LoginForm, **kwargs)
@@ -44,7 +44,7 @@ def custom_logout(request, **kwargs):
 
 @ratelimit(field='email', rate='5/5m')
 def custom_password_reset(request, **kwargs):
-    if request.method == "POST" and request.is_limited:
+    if request.method == "POST" and request.is_limited():
         return redirect(reverse("spirit:user:auth:password-reset"))
 
     return password_reset(request, **kwargs)
@@ -59,7 +59,7 @@ def register(request, registration_form=RegistrationForm):
     if request.method == 'POST':
         form = registration_form(data=request.POST)
 
-        if not request.is_limited and form.is_valid():
+        if not request.is_limited() and form.is_valid():
             user = form.save()
             send_activation_email(request, user)
             messages.info(
@@ -105,7 +105,7 @@ def resend_activation_email(request):
     if request.method == 'POST':
         form = ResendActivationForm(data=request.POST)
 
-        if not request.is_limited and form.is_valid():
+        if not request.is_limited() and form.is_valid():
             user = form.get_user()
             send_activation_email(request, user)
 

@@ -36,20 +36,51 @@ class TopicPrivateViewTest(TestCase):
         self.user = utils.create_user()
         self.user2 = utils.create_user()
 
+    @override_settings(ST_TESTS_RATELIMIT_NEVER_EXPIRE=True)
     def test_private_publish(self):
         """
         POST, create private topic
         """
+        self.assertEqual(len(Topic.objects.all()), 0)
+
         utils.login(self)
         form_data = {'comment': 'foo', 'title': 'foobar', 'users': self.user2.username}
-        response = self.client.post(reverse('spirit:topic:private:publish'),
-                                    form_data)
+        response = self.client.post(reverse('spirit:topic:private:publish'), form_data)
         private = TopicPrivate.objects.last()
         expected_url = private.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
+        self.assertEqual(len(Topic.objects.all()), 1)
+
+        # ratelimit
+        form_data['title'] = 'new foobar'
+        form_data['comment'] = 'new foo'
+        response = self.client.post(reverse('spirit:topic:private:publish'), form_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(Topic.objects.all()), 1)
 
         response = self.client.get(reverse('spirit:topic:private:publish'))
         self.assertEqual(response.status_code, 200)
+
+    @override_settings(ST_TESTS_RATELIMIT_NEVER_EXPIRE=True)
+    def test_private_publishvalidate(self):
+        """
+        Should validate all forms even when errors
+        """
+        self.assertEqual(len(Topic.objects.all()), 0)
+
+        utils.login(self)
+        no_data = {}
+        response = self.client.post(reverse('spirit:topic:private:publish'), no_data)
+        self.assertEqual(len(Topic.objects.all()), 0)
+        self.assertTrue(bool(response.context['tform'].errors))
+        self.assertTrue(bool(response.context['cform'].errors))
+        self.assertTrue(bool(response.context['tpform'].errors))
+        self.assertEqual(len(list(response.context['messages'])), 0)
+
+        # No rate-limit
+        form_data = {'comment': 'foo', 'title': 'foobar', 'users': self.user2.username}
+        self.client.post(reverse('spirit:topic:private:publish'), form_data)
+        self.assertEqual(len(Topic.objects.all()), 1)
 
     def test_private_publish_create_notifications(self):
         """

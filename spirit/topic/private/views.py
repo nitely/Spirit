@@ -40,8 +40,8 @@ def publish(request, user_id=None):
         cform = CommentForm(user=user, data=request.POST)
         tpform = TopicPrivateManyForm(user=user, data=request.POST)
 
-        if (not request.is_limited and
-                all([tform.is_valid(), cform.is_valid(), tpform.is_valid()])):  # TODO: test!
+        if (all([tform.is_valid(), cform.is_valid(), tpform.is_valid()]) and
+                not request.is_limited()):
             if not user.st.update_post_hash(tform.get_topic_hash()):
                 return redirect(
                     request.POST.get('next', None) or

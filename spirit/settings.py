@@ -37,6 +37,9 @@ ST_UNICODE_SLUGS = True
 ST_UNIQUE_EMAILS = True
 ST_CASE_INSENSITIVE_EMAILS = True
 
+# Tests helpers
+ST_TESTS_RATELIMIT_NEVER_EXPIRE = False
+
 ST_BASE_DIR = os.path.dirname(__file__)
 
 #

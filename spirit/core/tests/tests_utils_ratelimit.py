@@ -33,21 +33,21 @@ class UtilsRateLimitTests(TestCase):
         req = RequestFactory().post('/')
         req.user = AnonymousUser()
         rl = RateLimit(req, 'func_name')
-        self.assertEqual(rl.split_rate('5/m'), (5, 60))
-        self.assertEqual(rl.split_rate('5/5m'), (5, 60 * 5))
-        self.assertEqual(rl.split_rate('5/s'), (5, 1))
-        self.assertEqual(rl.split_rate('5/5s'), (5, 1 * 5))
-        self.assertEqual(rl.split_rate('5/15s'), (5, 15))
-        self.assertEqual(rl.split_rate('15/15s'), (15, 15))
+        self.assertEqual(rl_module.split_rate('5/m'), (5, 60))
+        self.assertEqual(rl_module.split_rate('5/5m'), (5, 60 * 5))
+        self.assertEqual(rl_module.split_rate('5/s'), (5, 1))
+        self.assertEqual(rl_module.split_rate('5/5s'), (5, 1 * 5))
+        self.assertEqual(rl_module.split_rate('5/15s'), (5, 15))
+        self.assertEqual(rl_module.split_rate('15/15s'), (15, 15))
 
     def test_rate_limit_user_or_ip(self):
         req = RequestFactory().get('/')
         req.user = AnonymousUser()
         setup_request_factory_messages(req)
 
-        @ratelimit(method=['GET', ], rate='1/m')
+        @ratelimit(methods=['GET', ], rate='1/m')
         def limit_ip(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(limit_ip(req))
         self.assertTrue(limit_ip(req))
@@ -67,9 +67,9 @@ class UtilsRateLimitTests(TestCase):
         setup_request_factory_messages(get)
         setup_request_factory_messages(post)
 
-        @ratelimit(method=['POST', ], rate='1/m')
+        @ratelimit(methods=['POST', ], rate='1/m')
         def limit_post(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(limit_post(post))
         self.assertTrue(limit_post(post))
@@ -82,7 +82,7 @@ class UtilsRateLimitTests(TestCase):
 
         @ratelimit(field='username', rate='1/m')
         def username(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(username(req))
         self.assertTrue(username(req))
@@ -98,7 +98,7 @@ class UtilsRateLimitTests(TestCase):
 
         @ratelimit(field='username', rate='1/m')
         def username(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(username(empty))
 
@@ -114,7 +114,7 @@ class UtilsRateLimitTests(TestCase):
 
         @ratelimit(rate='2/m')
         def two(request):
-            return request.is_limited
+            return request.is_limited()
 
         self.assertFalse(two(req))
         self.assertFalse(two(req))
@@ -128,6 +128,7 @@ class UtilsRateLimitTests(TestCase):
         req.user = User()
         req.user.pk = 1
         rl = RateLimit(req, 'func_name')
+        rl.incr()
         self.assertEqual(
             len(rl.cache_keys[0]),
             len(settings.ST_RATELIMIT_CACHE_PREFIX) + 1 + 40)  # prefix:sha1_hash
@@ -144,8 +145,8 @@ class UtilsRateLimitTests(TestCase):
         req.user.pk = 1
 
         @ratelimit(rate='1/m')
-        def one(_):
-            pass
+        def one(request):
+            return request.is_limited()
 
         fixed_now = rl_module.time.time()
 
@@ -160,8 +161,8 @@ class UtilsRateLimitTests(TestCase):
                 one.__module__,
                 one.__name__,
                 req.user.pk,
-                RateLimit.get_fixed_window(period=60))
-            key_hash = RateLimit._make_hash(key_part)
+                rl_module.fixed_window(period=60))
+            key_hash = rl_module.make_hash(key_part)
             key = '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
 
             one(req)
@@ -184,20 +185,20 @@ class UtilsRateLimitTests(TestCase):
         org_time_time, rl_module.time.time = rl_module.time.time, fixed_time
         try:
             period = 10
-            window = RateLimit.get_fixed_window(period=period)
+            window = rl_module.fixed_window(period=period)
 
             # Same window 1 second later
             rl_module.time.time = lambda: fixed_time_future(seconds=1)
-            self.assertEqual(window, RateLimit.get_fixed_window(period=period))
+            self.assertEqual(window, rl_module.fixed_window(period=period))
 
             # Same window (period - 1) seconds later
             rl_module.time.time = lambda: fixed_time_future(seconds=period - 1)
-            self.assertEqual(window, RateLimit.get_fixed_window(period=period))
+            self.assertEqual(window, rl_module.fixed_window(period=period))
 
             # Next window on period seconds later
             rl_module.time.time = lambda: fixed_time_future(seconds=period)
-            self.assertNotEqual(window, RateLimit.get_fixed_window(period=period))
-            self.assertEqual(period, RateLimit.get_fixed_window(period=period) - window)
+            self.assertNotEqual(window, rl_module.fixed_window(period=period))
+            self.assertEqual(period, rl_module.fixed_window(period=period) - window)
         finally:
             rl_module.time.time = org_time_time
 
@@ -213,7 +214,7 @@ class UtilsRateLimitTests(TestCase):
 
         @ratelimit(rate='1/m')
         def one(request):
-            return request.is_limited
+            return request.is_limited()
 
         foo_cache = {
             'default': {
@@ -287,7 +288,7 @@ class UtilsRateLimitDeprecationsTests(TestCase):
         warning when period is zero
         """
         with warnings.catch_warnings(record=True) as w:
-            RateLimit.get_fixed_window(period=0)
+            rl_module.fixed_window(period=0)
             self.assertEqual(len(w), 1)
             self.assertEqual(
                 str(w[-1].message),

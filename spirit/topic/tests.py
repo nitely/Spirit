@@ -28,30 +28,54 @@ class TopicViewTest(TestCase):
         utils.cache_clear()
         self.user = utils.create_user()
 
+    @override_settings(ST_TESTS_RATELIMIT_NEVER_EXPIRE=True)
     def test_topic_publish(self):
         """
         POST, create topic
         """
+        self.assertEqual(len(Topic.objects.all()), 0)
+
         utils.login(self)
         category = utils.create_category()
         form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
-        response = self.client.post(reverse('spirit:topic:publish'),
-                                    form_data)
+        response = self.client.post(reverse('spirit:topic:publish'), form_data)
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
+        self.assertEqual(len(Topic.objects.all()), 1)
 
         # Make sure it does not creates an empty poll
         self.assertRaises(ObjectDoesNotExist, lambda: topic.poll)
 
         # ratelimit
-        response = self.client.post(reverse('spirit:topic:publish'),
-                                    form_data)
+        response = self.client.post(reverse('spirit:topic:publish'), form_data)
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(Topic.objects.all()), 1)
 
         # get
         response = self.client.get(reverse('spirit:topic:publish'))
         self.assertEqual(response.status_code, 200)
+
+    @override_settings(ST_TESTS_RATELIMIT_NEVER_EXPIRE=True)
+    def test_topic_publish_validate(self):
+        """
+        Should validate all forms even when errors
+        """
+        self.assertEqual(len(Topic.objects.all()), 0)
+
+        utils.login(self)
+        no_data = {}
+        response = self.client.post(reverse('spirit:topic:publish'), no_data)
+        self.assertEqual(len(Topic.objects.all()), 0)
+        self.assertTrue(bool(response.context['form'].errors))
+        self.assertTrue(bool(response.context['cform'].errors))
+        self.assertEqual(len(list(response.context['messages'])), 0)
+
+        # No rate-limit
+        category = utils.create_category()
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        self.client.post(reverse('spirit:topic:publish'), form_data)
+        self.assertEqual(len(Topic.objects.all()), 1)
 
     def test_topic_publish_long_title(self):
         """
@@ -67,6 +91,7 @@ class TopicViewTest(TestCase):
         self.assertEqual(len(Topic.objects.all()), 1)
         self.assertEqual(Topic.objects.last().slug, title[:50])
 
+    @override_settings(ST_TESTS_RATELIMIT_NEVER_EXPIRE=True)
     def test_topic_publish_in_category(self):
         """
         POST, create topic in category
