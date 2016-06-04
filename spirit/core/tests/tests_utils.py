@@ -258,8 +258,9 @@ class UtilsTimezoneTests(TestCase):
         """
         Timezones, requires pytz
         """
-        for tz, text in TIMEZONE_CHOICES:
-            timezone.activate(tz)
+        for __, time_zone_list in TIMEZONE_CHOICES:
+            for tz, text in time_zone_list:
+                timezone.activate(tz)
 
         self.assertRaises(Exception, timezone.activate, "badtimezone")
 
