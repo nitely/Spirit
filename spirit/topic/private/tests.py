@@ -61,6 +61,27 @@ class TopicPrivateViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:private:publish'))
         self.assertEqual(response.status_code, 200)
 
+    @override_settings(ST_TESTS_RATELIMIT_NEVER_EXPIRE=True)
+    def test_private_publishvalidate(self):
+        """
+        Should validate all forms even when errors
+        """
+        self.assertEqual(len(Topic.objects.all()), 0)
+
+        utils.login(self)
+        no_data = {}
+        response = self.client.post(reverse('spirit:topic:private:publish'), no_data)
+        self.assertEqual(len(Topic.objects.all()), 0)
+        self.assertTrue(bool(response.context['tform'].errors))
+        self.assertTrue(bool(response.context['cform'].errors))
+        self.assertTrue(bool(response.context['tpform'].errors))
+        self.assertEqual(len(list(response.context['messages'])), 0)
+
+        # No rate-limit
+        response = self.client.post(reverse('spirit:topic:private:publish'), no_data)
+        self.assertEqual(len(Topic.objects.all()), 0)
+        self.assertEqual(len(list(response.context['messages'])), 0)
+
     def test_private_publish_create_notifications(self):
         """
         Should create notifications for invited members

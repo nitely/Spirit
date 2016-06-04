@@ -18,7 +18,7 @@ def _is_limited(request, rate, rl):
     Wrapper to show an error\
     message when request is limited
     """
-    def wrapper(*args, **kwargs):
+    def inner(*args, **kwargs):
         is_limited = rl.is_limited(*args, **kwargs)
 
         if is_limited:
@@ -29,7 +29,7 @@ def _is_limited(request, rate, rl):
 
         return is_limited
 
-    return wrapper
+    return inner
 
 
 def ratelimit(methods=None, field=None, rate='5/5m'):

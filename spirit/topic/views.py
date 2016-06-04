@@ -34,7 +34,8 @@ def publish(request, category_id=None):
         form = TopicForm(user=user, data=request.POST)
         cform = CommentForm(user=user, data=request.POST)
 
-        if not request.is_limited() and all([form.is_valid(), cform.is_valid()]):  # TODO: test!
+        if (all([form.is_valid(), cform.is_valid()]) and
+                not request.is_limited()):
             if not user.st.update_post_hash(form.get_topic_hash()):
                 return redirect(
                     request.POST.get('next', None) or

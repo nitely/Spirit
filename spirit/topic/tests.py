@@ -56,6 +56,26 @@ class TopicViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:publish'))
         self.assertEqual(response.status_code, 200)
 
+    @override_settings(ST_TESTS_RATELIMIT_NEVER_EXPIRE=True)
+    def test_topic_publish_validate(self):
+        """
+        Should validate all forms even when errors
+        """
+        self.assertEqual(len(Topic.objects.all()), 0)
+
+        utils.login(self)
+        no_data = {}
+        response = self.client.post(reverse('spirit:topic:publish'), no_data)
+        self.assertEqual(len(Topic.objects.all()), 0)
+        self.assertTrue(bool(response.context['form'].errors))
+        self.assertTrue(bool(response.context['cform'].errors))
+        self.assertEqual(len(list(response.context['messages'])), 0)
+
+        # No rate-limit
+        response = self.client.post(reverse('spirit:topic:publish'), no_data)
+        self.assertEqual(len(Topic.objects.all()), 0)
+        self.assertEqual(len(list(response.context['messages'])), 0)
+
     def test_topic_publish_long_title(self):
         """
         POST, create topic with long title
