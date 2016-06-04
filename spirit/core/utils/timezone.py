@@ -14,10 +14,11 @@ TIMEZONE_CHOICES = []
 
 def is_standard_time(time_zone, date_time):
     try:
-        return (time_zone.dst(
-            date_time, is_dst=False) == datetime.timedelta(0))
+        dst_delta = time_zone.dst(date_time, is_dst=False)
     except TypeError:
-        return time_zone.dst(date_time) == datetime.timedelta(0)
+        dst_delta = time_zone.dst(date_time)
+
+    return dst_delta == datetime.timedelta(0)
 
 
 def utc_offset(time_zone, fixed_dt=None):
@@ -36,18 +37,19 @@ def utc_offset(time_zone, fixed_dt=None):
     return tz.localize(now, is_dst=False).strftime('%z')
 
 
+def offset_to_int(offset):
+    assert offset[0] in ('-', '+')
+
+    sign, hour, minutes = offset[0], offset[1:3], offset[3:5]
+    utc_offset_int = int(hour) + int(minutes) / 100
+
+    if sign == '-':
+        utc_offset_int *= -1
+
+    return utc_offset_int
+
+
 def timezones_by_offset():
-    def offset_to_int(offset):
-        assert offset[0] in ('-', '+')
-
-        sign, hour, minutes = offset[0], offset[1:3], offset[3:5]
-        utc_offset_int = int(hour) + int(minutes) / 100
-
-        if sign == '-':
-            utc_offset_int *= -1
-
-        return utc_offset_int
-
     return sorted(
         list((utc_offset(tz), tz)
              for tz in pytz.common_timezones),
@@ -75,7 +77,7 @@ def _populate_timezone():
     timezones_tree = {}
 
     for offset, tz in timezones_by_offset():
-        zone_parts = tz.split(u"/")
+        zone_parts = tz.split('/')
         zone = zone_parts[0]
         zone_list = timezones_tree.get(zone, [])
 
@@ -83,7 +85,7 @@ def _populate_timezone():
             TIMEZONE_CHOICES.append((zone, zone_list))
 
         if len(zone_parts) > 1:
-            zone_label = u", ".join(zone_parts[1:]).replace(u"_", u" ")
+            zone_label = ', '.join(zone_parts[1:]).replace('_', ' ')
         else:
             zone_label = zone
 
