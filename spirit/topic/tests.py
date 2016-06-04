@@ -72,9 +72,10 @@ class TopicViewTest(TestCase):
         self.assertEqual(len(list(response.context['messages'])), 0)
 
         # No rate-limit
-        response = self.client.post(reverse('spirit:topic:publish'), no_data)
-        self.assertEqual(len(Topic.objects.all()), 0)
-        self.assertEqual(len(list(response.context['messages'])), 0)
+        category = utils.create_category()
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        self.client.post(reverse('spirit:topic:publish'), form_data)
+        self.assertEqual(len(Topic.objects.all()), 1)
 
     def test_topic_publish_long_title(self):
         """

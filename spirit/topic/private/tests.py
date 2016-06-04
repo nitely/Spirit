@@ -78,9 +78,9 @@ class TopicPrivateViewTest(TestCase):
         self.assertEqual(len(list(response.context['messages'])), 0)
 
         # No rate-limit
-        response = self.client.post(reverse('spirit:topic:private:publish'), no_data)
-        self.assertEqual(len(Topic.objects.all()), 0)
-        self.assertEqual(len(list(response.context['messages'])), 0)
+        form_data = {'comment': 'foo', 'title': 'foobar', 'users': self.user2.username}
+        self.client.post(reverse('spirit:topic:private:publish'), form_data)
+        self.assertEqual(len(Topic.objects.all()), 1)
 
     def test_private_publish_create_notifications(self):
         """
