@@ -9,8 +9,6 @@ import pytz
 
 logger = logging.getLogger('django')
 
-TIMEZONE_CHOICES = []
-
 
 def is_standard_time(time_zone, date_time):
     try:
@@ -56,7 +54,7 @@ def timezones_by_offset():
         key=lambda x: offset_to_int(x[0]))
 
 
-def _populate_timezone():
+def timezones():
     """
     Result format::
 
@@ -74,24 +72,21 @@ def _populate_timezone():
             #...
         ]
     """
-    timezones_tree = {}
+    timezones_cache = {}
 
     for offset, tz in timezones_by_offset():
         zone_parts = tz.split('/')
         zone = zone_parts[0]
-        zone_list = timezones_tree.get(zone, [])
-
-        if not zone_list:
-            TIMEZONE_CHOICES.append((zone, zone_list))
 
         if len(zone_parts) > 1:
             zone_label = ', '.join(zone_parts[1:]).replace('_', ' ')
         else:
             zone_label = zone
 
-        zone_list.append((tz, '(UTC{}) {}'.format(offset, zone_label)))
-        timezones_tree[zone] = zone_list
+        (timezones_cache
+         .setdefault(zone, [])
+         .append((tz, '(UTC{}) {}'.format(offset, zone_label))))
 
-    TIMEZONE_CHOICES.sort(key=lambda x: x[0])
-
-_populate_timezone()
+    return sorted(
+        timezones_cache.items(),
+        key=lambda x: x[0])

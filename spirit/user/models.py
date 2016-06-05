@@ -10,8 +10,11 @@ from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
-from ..core.utils.timezone import TIMEZONE_CHOICES
+from ..core.utils.timezone import timezones
 from ..core.utils.models import AutoSlugField
+
+
+TIMEZONE_CHOICES = timezones()
 
 
 class UserProfile(models.Model):
