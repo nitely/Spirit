@@ -87,10 +87,10 @@ def timezones():
     timezones_cache = {}
 
     for offset, time_zone in timezones_by_offset():
-        zone, time_zone_utc = timezone_format(time_zone, offset)
+        zone, pretty_time_zone = timezone_format(time_zone, offset)
         (timezones_cache
          .setdefault(zone, [])
-         .append((time_zone, time_zone_utc)))
+         .append((time_zone, pretty_time_zone)))
 
     return sorted(
         timezones_cache.items(),
