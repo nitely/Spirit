@@ -49,9 +49,21 @@ def offset_to_int(offset):
 
 def timezones_by_offset():
     return sorted(
-        list((utc_offset(tz), tz)
-             for tz in pytz.common_timezones),
+        ((utc_offset(tz), tz)
+         for tz in pytz.common_timezones),
         key=lambda x: offset_to_int(x[0]))
+
+
+def timezone_format(time_zone, offset):
+    zone_parts = time_zone.split('/')
+    zone = zone_parts[0]
+
+    if len(zone_parts) > 1:
+        zone_label = ', '.join(zone_parts[1:]).replace('_', ' ')
+    else:
+        zone_label = zone
+
+    return zone, '(UTC{}) {}'.format(offset, zone_label)
 
 
 def timezones():
@@ -74,18 +86,11 @@ def timezones():
     """
     timezones_cache = {}
 
-    for offset, tz in timezones_by_offset():
-        zone_parts = tz.split('/')
-        zone = zone_parts[0]
-
-        if len(zone_parts) > 1:
-            zone_label = ', '.join(zone_parts[1:]).replace('_', ' ')
-        else:
-            zone_label = zone
-
+    for offset, time_zone in timezones_by_offset():
+        zone, time_zone_utc = timezone_format(time_zone, offset)
         (timezones_cache
          .setdefault(zone, [])
-         .append((tz, '(UTC{}) {}'.format(offset, zone_label))))
+         .append((time_zone, time_zone_utc)))
 
     return sorted(
         timezones_cache.items(),
