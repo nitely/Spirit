@@ -473,6 +473,19 @@ class UserFormTest(TestCase):
         form = UserForm(data=form_data, instance=self.user)
         self.assertEqual(form.is_valid(), True)
 
+    def test_profile_timezone_field(self):
+        form_data = {
+            'first_name': 'foo', 'last_name': 'bar',
+            'location': 'spirit', 'timezone': 'UTC'}
+
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), True)
+
+        form_data['timezone'] = 'badtimezone'
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), False)
+        self.assertTrue('timezone' in form.errors)
+
     def test_email_change(self):
         """
         email change
