@@ -24,7 +24,6 @@ from django.contrib.auth import get_user_model
 from ...category.models import Category
 from .. import utils
 from ..utils.forms import NestedModelChoiceField
-from ..utils.timezone import timezones
 from ..utils.decorators import moderator_required, administrator_required
 from ..tags import time as ttags_utils
 from . import utils as test_utils
@@ -250,19 +249,6 @@ class UtilsFormsTests(TestCase):
                                                        (category.pk, '%s' % category.title),
                                                        (subcategory.pk, '--- %s' % subcategory.title),
                                                        (category2.pk, '%s' % category2.title)])
-
-
-class UtilsTimezoneTests(TestCase):
-
-    def test_timezone(self):
-        """
-        Timezones, requires pytz
-        """
-        for __, time_zone_list in timezones():
-            for tz, text in time_zone_list:
-                timezone.activate(tz)
-
-        self.assertRaises(Exception, timezone.activate, "badtimezone")
 
 
 class UtilsDecoratorsTests(TestCase):

@@ -7,6 +7,9 @@ import datetime
 
 import pytz
 
+
+__all__ = ['timezones']
+
 logger = logging.getLogger('django')
 
 
@@ -51,7 +54,7 @@ def timezones_by_offset():
     return sorted(
         ((utc_offset(tz), tz)
          for tz in pytz.common_timezones),
-        key=lambda x: offset_to_int(x[0]))
+        key=lambda x: (offset_to_int(x[0]), x[1]))
 
 
 def timezone_format(time_zone, offset):
