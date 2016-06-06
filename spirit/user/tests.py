@@ -22,6 +22,7 @@ from ..comment.bookmark.models import CommentBookmark
 from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 from .utils.email import send_activation_email, send_email_change_email, sender
 from .utils import email
+from . import middleware
 
 User = get_user_model()
 
@@ -472,6 +473,19 @@ class UserFormTest(TestCase):
         form = UserForm(data=form_data, instance=self.user)
         self.assertEqual(form.is_valid(), True)
 
+    def test_profile_timezone_field(self):
+        form_data = {
+            'first_name': 'foo', 'last_name': 'bar',
+            'location': 'spirit', 'timezone': 'UTC'}
+
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), True)
+
+        form_data['timezone'] = 'badtimezone'
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), False)
+        self.assertTrue('timezone' in form.errors)
+
     def test_email_change(self):
         """
         email change
@@ -842,3 +856,57 @@ class UtilsUserTests(TestCase):
 
         self.assertEquals(len(mail.outbox), 1)
         self.assertEquals(mail.outbox[0].from_email, "foo@bar.com")
+
+
+class UserMiddlewareTest(TestCase):
+
+    def setUp(self):
+        timezone.deactivate()
+        utils.cache_clear()
+        self.user = utils.create_user()
+
+    @override_settings(TIME_ZONE='UTC')
+    def test_timezone(self):
+        """
+        Should activate the user timezone
+        """
+        timezone.deactivate()
+        utils.login(self)
+        req = RequestFactory().get('/')
+        req.user = self.user
+        time_zone = 'America/Argentina/Buenos_Aires'
+        self.user.st.timezone = time_zone
+
+        self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
+        middleware.TimezoneMiddleware().process_request(req)
+        self.assertEqual(timezone.get_current_timezone().zone, time_zone)
+
+    @override_settings(TIME_ZONE='UTC')
+    def test_timezone_bad_tz(self):
+        timezone.deactivate()
+        utils.login(self)
+        req = RequestFactory().get('/')
+        req.user = self.user
+        self.user.st.timezone = 'badtimezone'
+
+        time_zone = 'America/Argentina/Buenos_Aires'
+        timezone.activate(time_zone)
+        self.assertEqual(timezone.get_current_timezone().zone, time_zone)
+        middleware.TimezoneMiddleware().process_request(req)
+        self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
+
+    @override_settings(TIME_ZONE='UTC')
+    def test_timezone_anonymous_user(self):
+        class AnonymUserMock(object):
+            def is_authenticated(self):
+                return False
+
+        timezone.deactivate()
+        req = RequestFactory().get('/')
+        req.user = AnonymUserMock()
+
+        time_zone = 'America/Argentina/Buenos_Aires'
+        timezone.activate(time_zone)
+        self.assertEqual(timezone.get_current_timezone().zone, time_zone)
+        middleware.TimezoneMiddleware().process_request(req)
+        self.assertEqual(timezone.get_current_timezone().zone, 'UTC')

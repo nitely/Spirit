@@ -1,43 +1,100 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from __future__ import division
+import logging
+import datetime
 
-from django.utils.translation import ugettext as _
+import pytz
 
 
-TIMEZONE_CHOICES = [
-    ('Etc/GMT+12', _("(GMT -12:00) Eniwetok, Kwajalein")),
-    ('Etc/GMT+11', _("(GMT -11:00) Midway Island, Samoa")),
-    ('Etc/GMT+10', _("(GMT -10:00) Hawaii")),
-    ('Pacific/Marquesas', _("(GMT -9:30) Marquesas Islands")),
-    ('Etc/GMT+9', _("(GMT -9:00) Alaska")),
-    ('Etc/GMT+8', _("(GMT -8:00) Pacific Time (US & Canada)")),
-    ('Etc/GMT+7', _("(GMT -7:00) Mountain Time (US & Canada)")),
-    ('Etc/GMT+6', _("(GMT -6:00) Central Time (US & Canada), Mexico City")),
-    ('Etc/GMT+5', _("(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima")),
-    ('America/Caracas', _("(GMT -4:30) Venezuela")),
-    ('Etc/GMT+4', _("(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz")),
-    ('Etc/GMT+3', _("(GMT -3:00) Brazil, Buenos Aires, Georgetown")),
-    ('Etc/GMT+2', _("(GMT -2:00) Mid-Atlantic")),
-    ('Etc/GMT+1', _("(GMT -1:00) Azores, Cape Verde Islands")),
-    ('UTC', _("(GMT) Western Europe Time, London, Lisbon, Casablanca")),
-    ('Etc/GMT-1', _("(GMT +1:00) Brussels, Copenhagen, Madrid, Paris")),
-    ('Etc/GMT-2', _("(GMT +2:00) Kaliningrad, South Africa")),
-    ('Etc/GMT-3', _("(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg")),
-    ('Etc/GMT-4', _("(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi")),
-    ('Asia/Kabul', _("(GMT +4:30) Afghanistan")),
-    ('Etc/GMT-5', _("(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent")),
-    ('Asia/Kolkata', _("(GMT +5:30) India, Sri Lanka")),
-    ('Asia/Kathmandu', _("(GMT +5:45) Nepal")),
-    ('Etc/GMT-6', _("(GMT +6:00) Almaty, Dhaka, Colombo")),
-    ('Indian/Cocos', _("(GMT +6:30) Cocos Islands, Myanmar")),
-    ('Etc/GMT-7', _("(GMT +7:00) Bangkok, Hanoi, Jakarta")),
-    ('Etc/GMT-8', _("(GMT +8:00) Beijing, Perth, Singapore, Hong Kong")),
-    ('Australia/Eucla', _("(GMT +8:45) Australia (Eucla)")),
-    ('Etc/GMT-9', _("(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk")),
-    ('Australia/North', _("(GMT +9:30) Australia (Northern Territory)")),
-    ('Etc/GMT-10', _("(GMT +10:00) Eastern Australia, Guam, Vladivostok")),
-    ('Etc/GMT-11', _("(GMT +11:00) Magadan, Solomon Islands, New Caledonia")),
-    ('Pacific/Norfolk', _("(GMT +11:30) Norfolk Island")),
-    ('Etc/GMT-12', _("(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka")),
-]
+__all__ = ['timezones']
+
+logger = logging.getLogger('django')
+
+
+def is_standard_time(time_zone, date_time):
+    try:
+        dst_delta = time_zone.dst(date_time, is_dst=False)
+    except TypeError:
+        dst_delta = time_zone.dst(date_time)
+
+    return dst_delta == datetime.timedelta(0)
+
+
+def utc_offset(time_zone, fixed_dt=None):
+    tz = pytz.timezone(time_zone)
+    now = fixed_dt or datetime.datetime.now()
+
+    for __ in range(72):
+        if is_standard_time(time_zone=tz, date_time=now):
+            break
+
+        now += datetime.timedelta(days=30)
+    else:
+        logger.warning(
+            'Standard Time not found for %s, will use DST.' % time_zone)
+
+    return tz.localize(now, is_dst=False).strftime('%z')
+
+
+def offset_to_int(offset):
+    assert offset[0] in ('-', '+')
+
+    sign, hour, minutes = offset[0], offset[1:3], offset[3:5]
+    utc_offset_int = int(hour) + int(minutes) / 100
+
+    if sign == '-':
+        utc_offset_int *= -1
+
+    return utc_offset_int
+
+
+def timezones_by_offset():
+    return sorted(
+        ((utc_offset(tz), tz)
+         for tz in pytz.common_timezones),
+        key=lambda x: (offset_to_int(x[0]), x[1]))
+
+
+def timezone_format(time_zone, offset):
+    zone_parts = time_zone.split('/')
+    zone = zone_parts[0]
+
+    if len(zone_parts) > 1:
+        zone_label = ', '.join(zone_parts[1:]).replace('_', ' ')
+    else:
+        zone_label = zone
+
+    return zone, '(UTC{}) {}'.format(offset, zone_label)
+
+
+def timezones():
+    """
+    Result format::
+
+        [
+            ("Africa", [
+                ("Africa/Abidjan", "(UTC...) Abidjan"),
+                ("Africa/Accra", "(UTC...) Accra"),
+                #...
+            ]),
+            ("America", [
+                ("America/Argentina/Buenos_Aires",
+                 "(UTC...) Argentina, Buenos Aires"),
+                #...
+            ]),
+            #...
+        ]
+    """
+    timezones_cache = {}
+
+    for offset, time_zone in timezones_by_offset():
+        zone, pretty_time_zone = timezone_format(time_zone, offset)
+        (timezones_cache
+         .setdefault(zone, [])
+         .append((time_zone, pretty_time_zone)))
+
+    return sorted(
+        timezones_cache.items(),
+        key=lambda x: x[0])
