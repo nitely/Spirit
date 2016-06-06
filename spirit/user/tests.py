@@ -876,7 +876,9 @@ class UserMiddlewareTest(TestCase):
         req.user = self.user
         self.user.st.timezone = 'badtimezone'
 
-        self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
+        time_zone = 'America/Argentina/Buenos_Aires'
+        timezone.activate(time_zone)
+        self.assertEqual(timezone.get_current_timezone().zone, time_zone)
         middleware.TimezoneMiddleware().process_request(req)
         self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
 
@@ -890,6 +892,8 @@ class UserMiddlewareTest(TestCase):
         req = RequestFactory().get('/')
         req.user = AnonymUserMock()
 
-        self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
+        time_zone = 'America/Argentina/Buenos_Aires'
+        timezone.activate(time_zone)
+        self.assertEqual(timezone.get_current_timezone().zone, time_zone)
         middleware.TimezoneMiddleware().process_request(req)
         self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
