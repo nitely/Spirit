@@ -11,6 +11,13 @@ from django.utils import timezone
 
 from .models import UserProfile
 
+
+__all__ = [
+    'TimezoneMiddleware',
+    'LastIPMiddleware',
+    'LastSeenMiddleware',
+    'ActiveUserMiddleware']
+
 logger = logging.getLogger('django')
 
 
@@ -20,7 +27,7 @@ class TimezoneMiddleware(object):
         if request.user.is_authenticated():
             try:
                 timezone.activate(request.user.st.timezone)
-            except pytz.InvalidTimeError:
+            except pytz.exceptions.UnknownTimeZoneError:
                 timezone.deactivate()
                 logger.error(
                     '%s is not a valid timezone.' %
@@ -40,9 +47,9 @@ class LastIPMiddleware(object):
         if request.user.st.last_ip == last_ip:
             return
 
-        UserProfile.objects\
-            .filter(user__pk=request.user.pk)\
-            .update(last_ip=last_ip)
+        (UserProfile.objects
+            .filter(user__pk=request.user.pk)
+            .update(last_ip=last_ip))
 
 
 class LastSeenMiddleware(object):
@@ -57,9 +64,9 @@ class LastSeenMiddleware(object):
         if delta.seconds < threshold:
             return
 
-        UserProfile.objects\
-            .filter(user__pk=request.user.pk)\
-            .update(last_seen=timezone.now())
+        (UserProfile.objects
+            .filter(user__pk=request.user.pk)
+            .update(last_seen=timezone.now()))
 
 
 class ActiveUserMiddleware(object):
