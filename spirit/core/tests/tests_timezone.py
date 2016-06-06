@@ -72,7 +72,7 @@ class UtilsTimezoneTests(TestCase):
 
     def test_offset_to_int(self):
         """
-        Should convert a offset into its equivalent number
+        Should convert an offset into its equivalent number
         """
         self.assertEqual(utils_timezone.offset_to_int('-0330'), -3.3)
         self.assertEqual(utils_timezone.offset_to_int('+0000'), 0.0)
