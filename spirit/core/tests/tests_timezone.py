@@ -13,6 +13,19 @@ from ..utils.timezone import timezones
 
 class UtilsTimezoneTests(TestCase):
 
+    def test_timezones(self):
+        """
+        Should be ready to be use as choices
+        """
+        time_zones_dict = dict(timezones())
+        self.assertTrue('America', time_zones_dict)
+        time_zones_america_dict = dict(time_zones_dict['America'])
+        self.assertTrue(
+            'America/Argentina/Buenos_Aires' in time_zones_america_dict)
+        self.assertEqual(
+            time_zones_america_dict['America/Argentina/Buenos_Aires'],
+            '(UTC-0300) Argentina, Buenos Aires')
+
     def test_timezones_are_valid(self):
         """
         Should be valid timezones
@@ -83,9 +96,9 @@ class UtilsTimezoneTests(TestCase):
         def fake_utc_offset(tz):
             return fake_timezones_dict[tz]
 
-        common_timezones_org, utils_timezone.pytz.common_timezones = (
-            utils_timezone.pytz.common_timezones, fake_timezones)
-        utc_offset_org, utils_timezone.utc_offset = (
+        (common_timezones_org, utils_timezone.pytz.common_timezones,
+         utc_offset_org, utils_timezone.utc_offset) = (
+            utils_timezone.pytz.common_timezones, fake_timezones,
             utils_timezone.utc_offset, fake_utc_offset)
         try:
             self.assertEqual(
@@ -98,3 +111,15 @@ class UtilsTimezoneTests(TestCase):
         finally:
             utils_timezone.pytz.common_timezones = common_timezones_org
             utils_timezone.utc_offset = utc_offset_org
+
+    def test_timezone_format(self):
+        """
+        Should return the zone and the timezone description
+        """
+        self.assertEqual(
+            utils_timezone.timezone_format('UTC', '+0000'),
+            ('UTC', '(UTC+0000) UTC'))
+        self.assertEqual(
+            utils_timezone.timezone_format(
+                'America/Argentina/Buenos_Aires', '-0300'),
+            ('America', '(UTC-0300) Argentina, Buenos Aires'))
