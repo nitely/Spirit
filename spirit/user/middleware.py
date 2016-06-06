@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import logging
+
+import pytz
 
 from django.conf import settings
 from django.contrib.auth import logout
@@ -8,12 +11,20 @@ from django.utils import timezone
 
 from .models import UserProfile
 
+logger = logging.getLogger('django')
+
 
 class TimezoneMiddleware(object):
 
     def process_request(self, request):
         if request.user.is_authenticated():
-            timezone.activate(request.user.st.timezone)
+            try:
+                timezone.activate(request.user.st.timezone)
+            except pytz.InvalidTimeError:
+                timezone.deactivate()
+                logger.error(
+                    '%s is not a valid timezone.' %
+                    request.user.st.timezone)
         else:
             timezone.deactivate()
 
