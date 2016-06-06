@@ -9,9 +9,11 @@ from django.utils import timezone
 from django.template import defaultfilters
 from django.conf import settings
 
+from ..core.utils.timezone import timezones
 from .models import UserProfile
 
 User = get_user_model()
+TIMEZONE_CHOICES = timezones()
 
 
 class CleanEmailMixin(object):
@@ -70,6 +72,8 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
 
+    timezone = forms.ChoiceField(label=_("Time zone"), choices=TIMEZONE_CHOICES)
+
     class Meta:
         model = UserProfile
         fields = ("location", "timezone")
@@ -79,5 +83,4 @@ class UserProfileForm(forms.ModelForm):
         now = timezone.localtime(timezone.now())
         self.fields['timezone'].help_text = _('Current time is: %(date)s %(time)s') % {
             'date': defaultfilters.date(now),
-            'time': defaultfilters.time(now)
-        }
+            'time': defaultfilters.time(now)}
