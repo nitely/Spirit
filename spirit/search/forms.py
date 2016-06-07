@@ -20,8 +20,10 @@ class BaseSearchForm(SearchForm):
         q = self.cleaned_data['q']
 
         if len(q) < settings.ST_SEARCH_QUERY_MIN_LEN:
-            raise forms.ValidationError(_("Your search must contain at least %(length)s characters.")
-                                        % {'length': settings.ST_SEARCH_QUERY_MIN_LEN, })
+            raise forms.ValidationError(
+                _("Your search must contain at "
+                  "least %(length)s characters.") % {
+                    'length': settings.ST_SEARCH_QUERY_MIN_LEN})
 
         return q
 
@@ -35,19 +37,24 @@ class BasicSearchForm(BaseSearchForm):
             return sqs
 
         topics = sqs.models(Topic)
-        return topics.filter(is_removed=False, is_category_removed=False, is_subcategory_removed=False)
+        return topics.filter(
+            is_removed=False,
+            is_category_removed=False,
+            is_subcategory_removed=False)
 
 
 class AdvancedSearchForm(BaseSearchForm):
 
-    category = forms.ModelMultipleChoiceField(queryset=Category.objects.visible(),
-                                              required=False,
-                                              label=_('Filter by'),
-                                              widget=forms.CheckboxSelectMultiple)
+    category = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.visible(),
+        required=False,
+        label=_('Filter by'),
+        widget=forms.CheckboxSelectMultiple)
 
     def __init__(self, *args, **kwargs):
         super(AdvancedSearchForm, self).__init__(*args, **kwargs)
-        self.fields['category'].label_from_instance = lambda obj: smart_text(obj.title)
+        self.fields['category'].label_from_instance = (
+            lambda obj: smart_text(obj.title))
 
     def search(self):
         sqs = super(AdvancedSearchForm, self).search()
@@ -59,6 +66,10 @@ class AdvancedSearchForm(BaseSearchForm):
         categories = self.cleaned_data['category']
 
         if categories:
-            topics = topics.filter(category_id__in=[c.pk for c in categories])
+            topics = topics.filter(
+                category_id__in=[c.pk for c in categories])
 
-        return topics.filter(is_removed=False, is_category_removed=False, is_subcategory_removed=False)
+        return topics.filter(
+            is_removed=False,
+            is_category_removed=False,
+            is_subcategory_removed=False)

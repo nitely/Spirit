@@ -63,8 +63,10 @@ class SearchViewTest(TestCase):
         utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
-        self.topic = utils.create_topic(category=self.category, user=self.user, title="spirit search test foo")
-        self.topic2 = utils.create_topic(category=self.category, user=self.user, title="foo")
+        self.topic = utils.create_topic(
+            category=self.category, user=self.user, title="spirit search test foo")
+        self.topic2 = utils.create_topic(
+            category=self.category, user=self.user, title="foo")
 
         call_command("rebuild_index", verbosity=0, interactive=False)
 
