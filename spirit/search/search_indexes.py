@@ -14,11 +14,7 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     title = indexes.CharField(model_attr='title')
     category_id = indexes.IntegerField(model_attr='category_id')
-    is_removed = indexes.BooleanField(model_attr='is_removed')
-    is_category_removed = indexes.BooleanField(model_attr='category__is_removed')
-    is_subcategory_removed = indexes.BooleanField(
-        model_attr='category__parent__is_removed',
-        default=False)
+    is_removed = indexes.BooleanField()
 
     # Overridden
     def get_model(self):
@@ -29,3 +25,12 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
         return (self.get_model().objects
                 .all()
                 .exclude(category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK))
+
+    # Overridden
+    def get_updated_field(self):
+        return None
+
+    def prepare_is_removed(self, obj):
+        return (obj.is_removed and
+                obj.category.is_removed and
+                obj.main_category.is_removed)

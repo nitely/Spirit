@@ -19,7 +19,7 @@ class SearchView(BaseSearchView):
     Avoid doing ``{{ result.object }}`` to\
     prevent database hits.
     """
-    def __init__(self, *_args, **_kwargs):  # no-qa
+    def __init__(self, *args, **kwargs):  # no-qa
         super(SearchView, self).__init__(
             template='spirit/search/search.html',
             form_class=AdvancedSearchForm,
