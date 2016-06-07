@@ -28,9 +28,22 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
 
     # Overridden
     def get_updated_field(self):
-        return None
+        """
+        Topics will be re-indexed when a new comment\
+        is added to the topic. To re-index deleted topics,\
+        a full re-index must be ran.
+
+        :return: Last updated name field
+        """
+        return 'last_active'
 
     def prepare_is_removed(self, obj):
-        return (obj.is_removed and
-                obj.category.is_removed and
+        """
+        Populate the ``is_removed`` index field
+
+        :param obj: Topic
+        :return: whether the topic is removed or not
+        """
+        return (obj.is_removed or
+                obj.category.is_removed or
                 obj.main_category.is_removed)
