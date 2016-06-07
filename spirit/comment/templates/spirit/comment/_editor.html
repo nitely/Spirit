@@ -49,7 +49,9 @@
             callbacks: {
                 before_save: function(data) {return data},  // Avoid extra work
                 tpl_eval: function(tpl, map) {
-                    map.class_name = map.name.replace('_', '-').replace('+', 'plus');
+                    map.class_name = map.name
+                            .split('_').join('-')
+                            .split('+').join('plus');
 
                     try {
                         return tpl.replace(/\$\{([^\}]*)\}/g, function(tag, key, pos) {

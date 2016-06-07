@@ -14,7 +14,27 @@
         {
           "name": "+1"
         }, {
+          "name": "+1_tone1"
+        }, {
+          "name": "+1_tone2"
+        }, {
+          "name": "+1_tone3"
+        }, {
+          "name": "+1_tone4"
+        }, {
+          "name": "+1_tone5"
+        }, {
           "name": "-1"
+        }, {
+          "name": "-1_tone1"
+        }, {
+          "name": "-1_tone2"
+        }, {
+          "name": "-1_tone3"
+        }, {
+          "name": "-1_tone4"
+        }, {
+          "name": "-1_tone5"
         }, {
           "name": "100"
         }, {
@@ -30,23 +50,63 @@
         }, {
           "name": "abcd"
         }, {
+          "name": "ac"
+        }, {
           "name": "accept"
+        }, {
+          "name": "ad"
+        }, {
+          "name": "admission_tickets"
+        }, {
+          "name": "ae"
         }, {
           "name": "aerial_tramway"
         }, {
+          "name": "af"
+        }, {
+          "name": "ag"
+        }, {
+          "name": "ai"
+        }, {
           "name": "airplane"
+        }, {
+          "name": "airplane_arriving"
+        }, {
+          "name": "airplane_departure"
+        }, {
+          "name": "airplane_small"
+        }, {
+          "name": "al"
         }, {
           "name": "alarm_clock"
         }, {
+          "name": "alembic"
+        }, {
           "name": "alien"
         }, {
+          "name": "am"
+        }, {
           "name": "ambulance"
+        }, {
+          "name": "amphora"
         }, {
           "name": "anchor"
         }, {
           "name": "angel"
         }, {
+          "name": "angel_tone1"
+        }, {
+          "name": "angel_tone2"
+        }, {
+          "name": "angel_tone3"
+        }, {
+          "name": "angel_tone4"
+        }, {
+          "name": "angel_tone5"
+        }, {
           "name": "anger"
+        }, {
+          "name": "anger_right"
         }, {
           "name": "angry"
         }, {
@@ -54,9 +114,17 @@
         }, {
           "name": "ant"
         }, {
+          "name": "ao"
+        }, {
           "name": "apple"
         }, {
+          "name": "aq"
+        }, {
           "name": "aquarius"
+        }, {
+          "name": "ar"
+        }, {
+          "name": "archery"
         }, {
           "name": "aries"
         }, {
@@ -104,13 +172,33 @@
         }, {
           "name": "articulated_lorry"
         }, {
+          "name": "as"
+        }, {
+          "name": "asterisk"
+        }, {
           "name": "astonished"
+        }, {
+          "name": "at"
         }, {
           "name": "athletic_shoe"
         }, {
           "name": "atm"
         }, {
+          "name": "atom"
+        }, {
+          "name": "atom_symbol"
+        }, {
+          "name": "au"
+        }, {
+          "name": "aw"
+        }, {
+          "name": "ax"
+        }, {
+          "name": "az"
+        }, {
           "name": "b"
+        }, {
+          "name": "ba"
         }, {
           "name": "baby"
         }, {
@@ -120,11 +208,27 @@
         }, {
           "name": "baby_symbol"
         }, {
+          "name": "baby_tone1"
+        }, {
+          "name": "baby_tone2"
+        }, {
+          "name": "baby_tone3"
+        }, {
+          "name": "baby_tone4"
+        }, {
+          "name": "baby_tone5"
+        }, {
           "name": "back"
+        }, {
+          "name": "badminton"
         }, {
           "name": "baggage_claim"
         }, {
           "name": "balloon"
+        }, {
+          "name": "ballot_box"
+        }, {
+          "name": "ballot_box_with_ballot"
         }, {
           "name": "ballot_box_with_check"
         }, {
@@ -144,13 +248,49 @@
         }, {
           "name": "basketball"
         }, {
+          "name": "basketball_player"
+        }, {
+          "name": "basketball_player_tone1"
+        }, {
+          "name": "basketball_player_tone2"
+        }, {
+          "name": "basketball_player_tone3"
+        }, {
+          "name": "basketball_player_tone4"
+        }, {
+          "name": "basketball_player_tone5"
+        }, {
           "name": "bath"
+        }, {
+          "name": "bath_tone1"
+        }, {
+          "name": "bath_tone2"
+        }, {
+          "name": "bath_tone3"
+        }, {
+          "name": "bath_tone4"
+        }, {
+          "name": "bath_tone5"
         }, {
           "name": "bathtub"
         }, {
           "name": "battery"
         }, {
+          "name": "bb"
+        }, {
+          "name": "bd"
+        }, {
+          "name": "be"
+        }, {
+          "name": "beach"
+        }, {
+          "name": "beach_umbrella"
+        }, {
+          "name": "beach_with_umbrella"
+        }, {
           "name": "bear"
+        }, {
+          "name": "bed"
         }, {
           "name": "bee"
         }, {
@@ -164,17 +304,47 @@
         }, {
           "name": "bell"
         }, {
+          "name": "bellhop"
+        }, {
+          "name": "bellhop_bell"
+        }, {
           "name": "bento"
         }, {
+          "name": "bf"
+        }, {
+          "name": "bg"
+        }, {
+          "name": "bh"
+        }, {
+          "name": "bi"
+        }, {
           "name": "bicyclist"
+        }, {
+          "name": "bicyclist_tone1"
+        }, {
+          "name": "bicyclist_tone2"
+        }, {
+          "name": "bicyclist_tone3"
+        }, {
+          "name": "bicyclist_tone4"
+        }, {
+          "name": "bicyclist_tone5"
         }, {
           "name": "bike"
         }, {
           "name": "bikini"
         }, {
+          "name": "biohazard"
+        }, {
+          "name": "biohazard_sign"
+        }, {
           "name": "bird"
         }, {
           "name": "birthday"
+        }, {
+          "name": "bj"
+        }, {
+          "name": "bl"
         }, {
           "name": "black_circle"
         }, {
@@ -204,6 +374,12 @@
         }, {
           "name": "blush"
         }, {
+          "name": "bm"
+        }, {
+          "name": "bn"
+        }, {
+          "name": "bo"
+        }, {
           "name": "boar"
         }, {
           "name": "bomb"
@@ -220,17 +396,55 @@
         }, {
           "name": "boot"
         }, {
+          "name": "bottle_with_popping_cork"
+        }, {
           "name": "bouquet"
         }, {
           "name": "bow"
+        }, {
+          "name": "bow_and_arrow"
+        }, {
+          "name": "bow_tone1"
+        }, {
+          "name": "bow_tone2"
+        }, {
+          "name": "bow_tone3"
+        }, {
+          "name": "bow_tone4"
+        }, {
+          "name": "bow_tone5"
         }, {
           "name": "bowling"
         }, {
           "name": "boy"
         }, {
+          "name": "boy_tone1"
+        }, {
+          "name": "boy_tone2"
+        }, {
+          "name": "boy_tone3"
+        }, {
+          "name": "boy_tone4"
+        }, {
+          "name": "boy_tone5"
+        }, {
+          "name": "bq"
+        }, {
+          "name": "br"
+        }, {
           "name": "bread"
         }, {
           "name": "bride_with_veil"
+        }, {
+          "name": "bride_with_veil_tone1"
+        }, {
+          "name": "bride_with_veil_tone2"
+        }, {
+          "name": "bride_with_veil_tone3"
+        }, {
+          "name": "bride_with_veil_tone4"
+        }, {
+          "name": "bride_with_veil_tone5"
         }, {
           "name": "bridge_at_night"
         }, {
@@ -238,13 +452,21 @@
         }, {
           "name": "broken_heart"
         }, {
+          "name": "bs"
+        }, {
+          "name": "bt"
+        }, {
           "name": "bug"
+        }, {
+          "name": "building_construction"
         }, {
           "name": "bulb"
         }, {
           "name": "bullettrain_front"
         }, {
           "name": "bullettrain_side"
+        }, {
+          "name": "burrito"
         }, {
           "name": "bus"
         }, {
@@ -254,11 +476,23 @@
         }, {
           "name": "busts_in_silhouette"
         }, {
+          "name": "bv"
+        }, {
+          "name": "bw"
+        }, {
+          "name": "by"
+        }, {
+          "name": "bz"
+        }, {
+          "name": "ca"
+        }, {
           "name": "cactus"
         }, {
           "name": "cake"
         }, {
           "name": "calendar"
+        }, {
+          "name": "calendar_spiral"
         }, {
           "name": "calling"
         }, {
@@ -266,7 +500,13 @@
         }, {
           "name": "camera"
         }, {
+          "name": "camera_with_flash"
+        }, {
+          "name": "camping"
+        }, {
           "name": "cancer"
+        }, {
+          "name": "candle"
         }, {
           "name": "candy"
         }, {
@@ -274,7 +514,13 @@
         }, {
           "name": "capricorn"
         }, {
+          "name": "card_box"
+        }, {
+          "name": "card_file_box"
+        }, {
           "name": "card_index"
+        }, {
+          "name": "card_index_dividers"
         }, {
           "name": "carousel_horse"
         }, {
@@ -282,7 +528,19 @@
         }, {
           "name": "cat2"
         }, {
+          "name": "cc"
+        }, {
           "name": "cd"
+        }, {
+          "name": "cf"
+        }, {
+          "name": "cg"
+        }, {
+          "name": "ch"
+        }, {
+          "name": "chains"
+        }, {
+          "name": "champagne"
         }, {
           "name": "chart"
         }, {
@@ -291,6 +549,10 @@
           "name": "chart_with_upwards_trend"
         }, {
           "name": "checkered_flag"
+        }, {
+          "name": "cheese"
+        }, {
+          "name": "cheese_wedge"
         }, {
           "name": "cherries"
         }, {
@@ -302,11 +564,17 @@
         }, {
           "name": "children_crossing"
         }, {
+          "name": "chile"
+        }, {
+          "name": "chipmunk"
+        }, {
           "name": "chocolate_bar"
         }, {
           "name": "christmas_tree"
         }, {
           "name": "church"
+        }, {
+          "name": "ci"
         }, {
           "name": "cinema"
         }, {
@@ -318,13 +586,31 @@
         }, {
           "name": "city_sunset"
         }, {
+          "name": "cityscape"
+        }, {
+          "name": "ck"
+        }, {
           "name": "cl"
         }, {
           "name": "clap"
         }, {
+          "name": "clap_tone1"
+        }, {
+          "name": "clap_tone2"
+        }, {
+          "name": "clap_tone3"
+        }, {
+          "name": "clap_tone4"
+        }, {
+          "name": "clap_tone5"
+        }, {
           "name": "clapper"
         }, {
+          "name": "classical_building"
+        }, {
           "name": "clipboard"
+        }, {
+          "name": "clock"
         }, {
           "name": "clock1"
         }, {
@@ -382,15 +668,41 @@
         }, {
           "name": "cloud"
         }, {
+          "name": "cloud_lightning"
+        }, {
+          "name": "cloud_rain"
+        }, {
+          "name": "cloud_snow"
+        }, {
+          "name": "cloud_tornado"
+        }, {
+          "name": "cloud_with_lightning"
+        }, {
+          "name": "cloud_with_rain"
+        }, {
+          "name": "cloud_with_snow"
+        }, {
+          "name": "cloud_with_tornado"
+        }, {
           "name": "clubs"
         }, {
+          "name": "cm"
+        }, {
           "name": "cn"
+        }, {
+          "name": "co"
         }, {
           "name": "cocktail"
         }, {
           "name": "coffee"
         }, {
+          "name": "coffin"
+        }, {
           "name": "cold_sweat"
+        }, {
+          "name": "comet"
+        }, {
+          "name": "compression"
         }, {
           "name": "computer"
         }, {
@@ -400,11 +712,27 @@
         }, {
           "name": "confused"
         }, {
+          "name": "congo"
+        }, {
           "name": "congratulations"
         }, {
           "name": "construction"
         }, {
+          "name": "construction_site"
+        }, {
           "name": "construction_worker"
+        }, {
+          "name": "construction_worker_tone1"
+        }, {
+          "name": "construction_worker_tone2"
+        }, {
+          "name": "construction_worker_tone3"
+        }, {
+          "name": "construction_worker_tone4"
+        }, {
+          "name": "construction_worker_tone5"
+        }, {
+          "name": "control_knobs"
         }, {
           "name": "convenience_store"
         }, {
@@ -414,35 +742,81 @@
         }, {
           "name": "cop"
         }, {
+          "name": "cop_tone1"
+        }, {
+          "name": "cop_tone2"
+        }, {
+          "name": "cop_tone3"
+        }, {
+          "name": "cop_tone4"
+        }, {
+          "name": "cop_tone5"
+        }, {
           "name": "copyright"
         }, {
           "name": "corn"
         }, {
+          "name": "couch"
+        }, {
+          "name": "couch_and_lamp"
+        }, {
           "name": "couple"
+        }, {
+          "name": "couple_mm"
         }, {
           "name": "couple_with_heart"
         }, {
+          "name": "couple_with_heart_mm"
+        }, {
+          "name": "couple_with_heart_ww"
+        }, {
+          "name": "couple_ww"
+        }, {
           "name": "couplekiss"
+        }, {
+          "name": "couplekiss_mm"
+        }, {
+          "name": "couplekiss_ww"
         }, {
           "name": "cow"
         }, {
           "name": "cow2"
         }, {
+          "name": "cp"
+        }, {
+          "name": "cr"
+        }, {
+          "name": "crab"
+        }, {
+          "name": "crayon"
+        }, {
           "name": "credit_card"
         }, {
           "name": "crescent_moon"
         }, {
+          "name": "cricket"
+        }, {
+          "name": "cricket_bat_ball"
+        }, {
           "name": "crocodile"
+        }, {
+          "name": "cross"
         }, {
           "name": "crossed_flags"
         }, {
+          "name": "crossed_swords"
+        }, {
           "name": "crown"
+        }, {
+          "name": "cruise_ship"
         }, {
           "name": "cry"
         }, {
           "name": "crying_cat_face"
         }, {
           "name": "crystal_ball"
+        }, {
+          "name": "cu"
         }, {
           "name": "cupid"
         }, {
@@ -456,13 +830,39 @@
         }, {
           "name": "customs"
         }, {
+          "name": "cv"
+        }, {
+          "name": "cw"
+        }, {
+          "name": "cx"
+        }, {
+          "name": "cy"
+        }, {
           "name": "cyclone"
         }, {
+          "name": "cz"
+        }, {
+          "name": "dagger"
+        }, {
+          "name": "dagger_knife"
+        }, {
           "name": "dancer"
+        }, {
+          "name": "dancer_tone1"
+        }, {
+          "name": "dancer_tone2"
+        }, {
+          "name": "dancer_tone3"
+        }, {
+          "name": "dancer_tone4"
+        }, {
+          "name": "dancer_tone5"
         }, {
           "name": "dancers"
         }, {
           "name": "dango"
+        }, {
+          "name": "dark_sunglasses"
         }, {
           "name": "dart"
         }, {
@@ -476,6 +876,18 @@
         }, {
           "name": "department_store"
         }, {
+          "name": "derelict_house_building"
+        }, {
+          "name": "desert"
+        }, {
+          "name": "desert_island"
+        }, {
+          "name": "desktop"
+        }, {
+          "name": "desktop_computer"
+        }, {
+          "name": "dg"
+        }, {
           "name": "diamond_shape_with_a_dot_inside"
         }, {
           "name": "diamonds"
@@ -484,9 +896,19 @@
         }, {
           "name": "disappointed_relieved"
         }, {
+          "name": "dividers"
+        }, {
           "name": "dizzy"
         }, {
           "name": "dizzy_face"
+        }, {
+          "name": "dj"
+        }, {
+          "name": "dk"
+        }, {
+          "name": "dm"
+        }, {
+          "name": "do"
         }, {
           "name": "do_not_litter"
         }, {
@@ -502,7 +924,13 @@
         }, {
           "name": "door"
         }, {
+          "name": "double_vertical_bar"
+        }, {
           "name": "doughnut"
+        }, {
+          "name": "dove"
+        }, {
+          "name": "dove_of_peace"
         }, {
           "name": "dragon"
         }, {
@@ -516,11 +944,25 @@
         }, {
           "name": "dvd"
         }, {
+          "name": "dz"
+        }, {
           "name": "e-mail"
+        }, {
+          "name": "ea"
         }, {
           "name": "ear"
         }, {
           "name": "ear_of_rice"
+        }, {
+          "name": "ear_tone1"
+        }, {
+          "name": "ear_tone2"
+        }, {
+          "name": "ear_tone3"
+        }, {
+          "name": "ear_tone4"
+        }, {
+          "name": "ear_tone5"
         }, {
           "name": "earth_africa"
         }, {
@@ -528,9 +970,17 @@
         }, {
           "name": "earth_asia"
         }, {
+          "name": "ec"
+        }, {
+          "name": "ee"
+        }, {
+          "name": "eg"
+        }, {
           "name": "egg"
         }, {
           "name": "eggplant"
+        }, {
+          "name": "eh"
         }, {
           "name": "eight"
         }, {
@@ -550,7 +1000,13 @@
         }, {
           "name": "envelope_with_arrow"
         }, {
+          "name": "er"
+        }, {
           "name": "es"
+        }, {
+          "name": "et"
+        }, {
+          "name": "eu"
         }, {
           "name": "euro"
         }, {
@@ -564,15 +1020,53 @@
         }, {
           "name": "expressionless"
         }, {
+          "name": "eye"
+        }, {
+          "name": "eye_in_speech_bubble"
+        }, {
           "name": "eyeglasses"
         }, {
           "name": "eyes"
+        }, {
+          "name": "face_with_head_bandage"
+        }, {
+          "name": "face_with_rolling_eyes"
+        }, {
+          "name": "face_with_thermometer"
         }, {
           "name": "factory"
         }, {
           "name": "fallen_leaf"
         }, {
           "name": "family"
+        }, {
+          "name": "family_mmb"
+        }, {
+          "name": "family_mmbb"
+        }, {
+          "name": "family_mmg"
+        }, {
+          "name": "family_mmgb"
+        }, {
+          "name": "family_mmgg"
+        }, {
+          "name": "family_mwbb"
+        }, {
+          "name": "family_mwg"
+        }, {
+          "name": "family_mwgb"
+        }, {
+          "name": "family_mwgg"
+        }, {
+          "name": "family_wwb"
+        }, {
+          "name": "family_wwbb"
+        }, {
+          "name": "family_wwg"
+        }, {
+          "name": "family_wwgb"
+        }, {
+          "name": "family_wwgg"
         }, {
           "name": "fast_forward"
         }, {
@@ -584,7 +1078,19 @@
         }, {
           "name": "ferris_wheel"
         }, {
+          "name": "ferry"
+        }, {
+          "name": "fi"
+        }, {
+          "name": "field_hockey"
+        }, {
+          "name": "file_cabinet"
+        }, {
           "name": "file_folder"
+        }, {
+          "name": "film_frames"
+        }, {
+          "name": "film_projector"
         }, {
           "name": "fire"
         }, {
@@ -604,39 +1110,561 @@
         }, {
           "name": "fist"
         }, {
+          "name": "fist_tone1"
+        }, {
+          "name": "fist_tone2"
+        }, {
+          "name": "fist_tone3"
+        }, {
+          "name": "fist_tone4"
+        }, {
+          "name": "fist_tone5"
+        }, {
           "name": "five"
+        }, {
+          "name": "fj"
+        }, {
+          "name": "fk"
+        }, {
+          "name": "flag_ac"
+        }, {
+          "name": "flag_ad"
+        }, {
+          "name": "flag_ae"
+        }, {
+          "name": "flag_af"
+        }, {
+          "name": "flag_ag"
+        }, {
+          "name": "flag_ai"
+        }, {
+          "name": "flag_al"
+        }, {
+          "name": "flag_am"
+        }, {
+          "name": "flag_ao"
+        }, {
+          "name": "flag_aq"
+        }, {
+          "name": "flag_ar"
+        }, {
+          "name": "flag_as"
+        }, {
+          "name": "flag_at"
+        }, {
+          "name": "flag_au"
+        }, {
+          "name": "flag_aw"
+        }, {
+          "name": "flag_ax"
+        }, {
+          "name": "flag_az"
+        }, {
+          "name": "flag_ba"
+        }, {
+          "name": "flag_bb"
+        }, {
+          "name": "flag_bd"
+        }, {
+          "name": "flag_be"
+        }, {
+          "name": "flag_bf"
+        }, {
+          "name": "flag_bg"
+        }, {
+          "name": "flag_bh"
+        }, {
+          "name": "flag_bi"
+        }, {
+          "name": "flag_bj"
+        }, {
+          "name": "flag_bl"
+        }, {
+          "name": "flag_black"
+        }, {
+          "name": "flag_bm"
+        }, {
+          "name": "flag_bn"
+        }, {
+          "name": "flag_bo"
+        }, {
+          "name": "flag_bq"
+        }, {
+          "name": "flag_br"
+        }, {
+          "name": "flag_bs"
+        }, {
+          "name": "flag_bt"
+        }, {
+          "name": "flag_bv"
+        }, {
+          "name": "flag_bw"
+        }, {
+          "name": "flag_by"
+        }, {
+          "name": "flag_bz"
+        }, {
+          "name": "flag_ca"
+        }, {
+          "name": "flag_cc"
+        }, {
+          "name": "flag_cd"
+        }, {
+          "name": "flag_cf"
+        }, {
+          "name": "flag_cg"
+        }, {
+          "name": "flag_ch"
+        }, {
+          "name": "flag_ci"
+        }, {
+          "name": "flag_ck"
+        }, {
+          "name": "flag_cl"
+        }, {
+          "name": "flag_cm"
         }, {
           "name": "flag_cn"
         }, {
+          "name": "flag_co"
+        }, {
+          "name": "flag_cp"
+        }, {
+          "name": "flag_cr"
+        }, {
+          "name": "flag_cu"
+        }, {
+          "name": "flag_cv"
+        }, {
+          "name": "flag_cw"
+        }, {
+          "name": "flag_cx"
+        }, {
+          "name": "flag_cy"
+        }, {
+          "name": "flag_cz"
+        }, {
           "name": "flag_de"
+        }, {
+          "name": "flag_dg"
+        }, {
+          "name": "flag_dj"
+        }, {
+          "name": "flag_dk"
+        }, {
+          "name": "flag_dm"
+        }, {
+          "name": "flag_do"
+        }, {
+          "name": "flag_dz"
+        }, {
+          "name": "flag_ea"
+        }, {
+          "name": "flag_ec"
+        }, {
+          "name": "flag_ee"
+        }, {
+          "name": "flag_eg"
+        }, {
+          "name": "flag_eh"
+        }, {
+          "name": "flag_er"
         }, {
           "name": "flag_es"
         }, {
+          "name": "flag_et"
+        }, {
+          "name": "flag_eu"
+        }, {
+          "name": "flag_fi"
+        }, {
+          "name": "flag_fj"
+        }, {
+          "name": "flag_fk"
+        }, {
+          "name": "flag_fm"
+        }, {
+          "name": "flag_fo"
+        }, {
           "name": "flag_fr"
+        }, {
+          "name": "flag_ga"
         }, {
           "name": "flag_gb"
         }, {
+          "name": "flag_gd"
+        }, {
+          "name": "flag_ge"
+        }, {
+          "name": "flag_gf"
+        }, {
+          "name": "flag_gg"
+        }, {
+          "name": "flag_gh"
+        }, {
+          "name": "flag_gi"
+        }, {
+          "name": "flag_gl"
+        }, {
+          "name": "flag_gm"
+        }, {
+          "name": "flag_gn"
+        }, {
+          "name": "flag_gp"
+        }, {
+          "name": "flag_gq"
+        }, {
+          "name": "flag_gr"
+        }, {
+          "name": "flag_gs"
+        }, {
+          "name": "flag_gt"
+        }, {
+          "name": "flag_gu"
+        }, {
+          "name": "flag_gw"
+        }, {
+          "name": "flag_gy"
+        }, {
+          "name": "flag_hk"
+        }, {
+          "name": "flag_hm"
+        }, {
+          "name": "flag_hn"
+        }, {
+          "name": "flag_hr"
+        }, {
+          "name": "flag_ht"
+        }, {
+          "name": "flag_hu"
+        }, {
+          "name": "flag_ic"
+        }, {
+          "name": "flag_id"
+        }, {
+          "name": "flag_ie"
+        }, {
+          "name": "flag_il"
+        }, {
+          "name": "flag_im"
+        }, {
+          "name": "flag_in"
+        }, {
+          "name": "flag_io"
+        }, {
+          "name": "flag_iq"
+        }, {
+          "name": "flag_ir"
+        }, {
+          "name": "flag_is"
+        }, {
           "name": "flag_it"
+        }, {
+          "name": "flag_je"
+        }, {
+          "name": "flag_jm"
+        }, {
+          "name": "flag_jo"
         }, {
           "name": "flag_jp"
         }, {
+          "name": "flag_ke"
+        }, {
+          "name": "flag_kg"
+        }, {
+          "name": "flag_kh"
+        }, {
+          "name": "flag_ki"
+        }, {
+          "name": "flag_km"
+        }, {
+          "name": "flag_kn"
+        }, {
+          "name": "flag_kp"
+        }, {
           "name": "flag_kr"
+        }, {
+          "name": "flag_kw"
+        }, {
+          "name": "flag_ky"
+        }, {
+          "name": "flag_kz"
+        }, {
+          "name": "flag_la"
+        }, {
+          "name": "flag_lb"
+        }, {
+          "name": "flag_lc"
+        }, {
+          "name": "flag_li"
+        }, {
+          "name": "flag_lk"
+        }, {
+          "name": "flag_lr"
+        }, {
+          "name": "flag_ls"
+        }, {
+          "name": "flag_lt"
+        }, {
+          "name": "flag_lu"
+        }, {
+          "name": "flag_lv"
+        }, {
+          "name": "flag_ly"
+        }, {
+          "name": "flag_ma"
+        }, {
+          "name": "flag_mc"
+        }, {
+          "name": "flag_md"
+        }, {
+          "name": "flag_me"
+        }, {
+          "name": "flag_mf"
+        }, {
+          "name": "flag_mg"
+        }, {
+          "name": "flag_mh"
+        }, {
+          "name": "flag_mk"
+        }, {
+          "name": "flag_ml"
+        }, {
+          "name": "flag_mm"
+        }, {
+          "name": "flag_mn"
+        }, {
+          "name": "flag_mo"
+        }, {
+          "name": "flag_mp"
+        }, {
+          "name": "flag_mq"
+        }, {
+          "name": "flag_mr"
+        }, {
+          "name": "flag_ms"
+        }, {
+          "name": "flag_mt"
+        }, {
+          "name": "flag_mu"
+        }, {
+          "name": "flag_mv"
+        }, {
+          "name": "flag_mw"
+        }, {
+          "name": "flag_mx"
+        }, {
+          "name": "flag_my"
+        }, {
+          "name": "flag_mz"
+        }, {
+          "name": "flag_na"
+        }, {
+          "name": "flag_nc"
+        }, {
+          "name": "flag_ne"
+        }, {
+          "name": "flag_nf"
+        }, {
+          "name": "flag_ng"
+        }, {
+          "name": "flag_ni"
+        }, {
+          "name": "flag_nl"
+        }, {
+          "name": "flag_no"
+        }, {
+          "name": "flag_np"
+        }, {
+          "name": "flag_nr"
+        }, {
+          "name": "flag_nu"
+        }, {
+          "name": "flag_nz"
+        }, {
+          "name": "flag_om"
+        }, {
+          "name": "flag_pa"
+        }, {
+          "name": "flag_pe"
+        }, {
+          "name": "flag_pf"
+        }, {
+          "name": "flag_pg"
+        }, {
+          "name": "flag_ph"
+        }, {
+          "name": "flag_pk"
+        }, {
+          "name": "flag_pl"
+        }, {
+          "name": "flag_pm"
+        }, {
+          "name": "flag_pn"
+        }, {
+          "name": "flag_pr"
+        }, {
+          "name": "flag_ps"
+        }, {
+          "name": "flag_pt"
+        }, {
+          "name": "flag_pw"
+        }, {
+          "name": "flag_py"
+        }, {
+          "name": "flag_qa"
+        }, {
+          "name": "flag_re"
+        }, {
+          "name": "flag_ro"
+        }, {
+          "name": "flag_rs"
         }, {
           "name": "flag_ru"
         }, {
+          "name": "flag_rw"
+        }, {
+          "name": "flag_sa"
+        }, {
+          "name": "flag_sb"
+        }, {
+          "name": "flag_sc"
+        }, {
+          "name": "flag_sd"
+        }, {
+          "name": "flag_se"
+        }, {
+          "name": "flag_sg"
+        }, {
+          "name": "flag_sh"
+        }, {
+          "name": "flag_si"
+        }, {
+          "name": "flag_sj"
+        }, {
+          "name": "flag_sk"
+        }, {
+          "name": "flag_sl"
+        }, {
+          "name": "flag_sm"
+        }, {
+          "name": "flag_sn"
+        }, {
+          "name": "flag_so"
+        }, {
+          "name": "flag_sr"
+        }, {
+          "name": "flag_ss"
+        }, {
+          "name": "flag_st"
+        }, {
+          "name": "flag_sv"
+        }, {
+          "name": "flag_sx"
+        }, {
+          "name": "flag_sy"
+        }, {
+          "name": "flag_sz"
+        }, {
+          "name": "flag_ta"
+        }, {
+          "name": "flag_tc"
+        }, {
+          "name": "flag_td"
+        }, {
+          "name": "flag_tf"
+        }, {
+          "name": "flag_tg"
+        }, {
+          "name": "flag_th"
+        }, {
+          "name": "flag_tj"
+        }, {
+          "name": "flag_tk"
+        }, {
+          "name": "flag_tl"
+        }, {
+          "name": "flag_tm"
+        }, {
+          "name": "flag_tn"
+        }, {
+          "name": "flag_to"
+        }, {
+          "name": "flag_tr"
+        }, {
+          "name": "flag_tt"
+        }, {
+          "name": "flag_tv"
+        }, {
+          "name": "flag_tw"
+        }, {
+          "name": "flag_tz"
+        }, {
+          "name": "flag_ua"
+        }, {
+          "name": "flag_ug"
+        }, {
+          "name": "flag_um"
+        }, {
           "name": "flag_us"
+        }, {
+          "name": "flag_uy"
+        }, {
+          "name": "flag_uz"
+        }, {
+          "name": "flag_va"
+        }, {
+          "name": "flag_vc"
+        }, {
+          "name": "flag_ve"
+        }, {
+          "name": "flag_vg"
+        }, {
+          "name": "flag_vi"
+        }, {
+          "name": "flag_vn"
+        }, {
+          "name": "flag_vu"
+        }, {
+          "name": "flag_wf"
+        }, {
+          "name": "flag_white"
+        }, {
+          "name": "flag_ws"
+        }, {
+          "name": "flag_xk"
+        }, {
+          "name": "flag_ye"
+        }, {
+          "name": "flag_yt"
+        }, {
+          "name": "flag_za"
+        }, {
+          "name": "flag_zm"
+        }, {
+          "name": "flag_zw"
         }, {
           "name": "flags"
         }, {
           "name": "flame"
         }, {
+          "name": "flan"
+        }, {
           "name": "flashlight"
+        }, {
+          "name": "fleur-de-lis"
         }, {
           "name": "floppy_disk"
         }, {
           "name": "flower_playing_cards"
         }, {
           "name": "flushed"
+        }, {
+          "name": "fm"
+        }, {
+          "name": "fo"
+        }, {
+          "name": "fog"
         }, {
           "name": "foggy"
         }, {
@@ -646,6 +1674,10 @@
         }, {
           "name": "fork_and_knife"
         }, {
+          "name": "fork_and_knife_with_plate"
+        }, {
+          "name": "fork_knife_plate"
+        }, {
           "name": "fountain"
         }, {
           "name": "four"
@@ -653,6 +1685,10 @@
           "name": "four_leaf_clover"
         }, {
           "name": "fr"
+        }, {
+          "name": "frame_photo"
+        }, {
+          "name": "frame_with_picture"
         }, {
           "name": "free"
         }, {
@@ -664,21 +1700,41 @@
         }, {
           "name": "frowning"
         }, {
+          "name": "frowning2"
+        }, {
           "name": "fuelpump"
         }, {
           "name": "full_moon"
         }, {
           "name": "full_moon_with_face"
         }, {
+          "name": "funeral_urn"
+        }, {
+          "name": "ga"
+        }, {
           "name": "game_die"
         }, {
           "name": "gb"
+        }, {
+          "name": "gd"
+        }, {
+          "name": "ge"
+        }, {
+          "name": "gear"
         }, {
           "name": "gem"
         }, {
           "name": "gemini"
         }, {
+          "name": "gf"
+        }, {
+          "name": "gg"
+        }, {
+          "name": "gh"
+        }, {
           "name": "ghost"
+        }, {
+          "name": "gi"
         }, {
           "name": "gift"
         }, {
@@ -686,13 +1742,47 @@
         }, {
           "name": "girl"
         }, {
+          "name": "girl_tone1"
+        }, {
+          "name": "girl_tone2"
+        }, {
+          "name": "girl_tone3"
+        }, {
+          "name": "girl_tone4"
+        }, {
+          "name": "girl_tone5"
+        }, {
+          "name": "gl"
+        }, {
           "name": "globe_with_meridians"
+        }, {
+          "name": "gm"
+        }, {
+          "name": "gn"
         }, {
           "name": "goat"
         }, {
           "name": "golf"
         }, {
+          "name": "golfer"
+        }, {
+          "name": "gp"
+        }, {
+          "name": "gq"
+        }, {
+          "name": "gr"
+        }, {
           "name": "grandma"
+        }, {
+          "name": "grandma_tone1"
+        }, {
+          "name": "grandma_tone2"
+        }, {
+          "name": "grandma_tone3"
+        }, {
+          "name": "grandma_tone4"
+        }, {
+          "name": "grandma_tone5"
         }, {
           "name": "grapes"
         }, {
@@ -712,19 +1802,67 @@
         }, {
           "name": "grinning"
         }, {
+          "name": "gs"
+        }, {
+          "name": "gt"
+        }, {
+          "name": "gu"
+        }, {
           "name": "guardsman"
+        }, {
+          "name": "guardsman_tone1"
+        }, {
+          "name": "guardsman_tone2"
+        }, {
+          "name": "guardsman_tone3"
+        }, {
+          "name": "guardsman_tone4"
+        }, {
+          "name": "guardsman_tone5"
         }, {
           "name": "guitar"
         }, {
           "name": "gun"
         }, {
+          "name": "gw"
+        }, {
+          "name": "gy"
+        }, {
           "name": "haircut"
+        }, {
+          "name": "haircut_tone1"
+        }, {
+          "name": "haircut_tone2"
+        }, {
+          "name": "haircut_tone3"
+        }, {
+          "name": "haircut_tone4"
+        }, {
+          "name": "haircut_tone5"
         }, {
           "name": "hamburger"
         }, {
           "name": "hammer"
         }, {
+          "name": "hammer_and_pick"
+        }, {
+          "name": "hammer_and_wrench"
+        }, {
+          "name": "hammer_pick"
+        }, {
           "name": "hamster"
+        }, {
+          "name": "hand_splayed"
+        }, {
+          "name": "hand_splayed_tone1"
+        }, {
+          "name": "hand_splayed_tone2"
+        }, {
+          "name": "hand_splayed_tone3"
+        }, {
+          "name": "hand_splayed_tone4"
+        }, {
+          "name": "hand_splayed_tone5"
         }, {
           "name": "handbag"
         }, {
@@ -736,6 +1874,8 @@
         }, {
           "name": "hatching_chick"
         }, {
+          "name": "head_bandage"
+        }, {
           "name": "headphones"
         }, {
           "name": "hear_no_evil"
@@ -743,6 +1883,8 @@
           "name": "heart"
         }, {
           "name": "heart_decoration"
+        }, {
+          "name": "heart_exclamation"
         }, {
           "name": "heart_eyes"
         }, {
@@ -760,6 +1902,8 @@
         }, {
           "name": "heavy_dollar_sign"
         }, {
+          "name": "heavy_heart_exclamation_mark_ornament"
+        }, {
           "name": "heavy_minus_sign"
         }, {
           "name": "heavy_multiplication_x"
@@ -767,6 +1911,10 @@
           "name": "heavy_plus_sign"
         }, {
           "name": "helicopter"
+        }, {
+          "name": "helmet_with_cross"
+        }, {
+          "name": "helmet_with_white_cross"
         }, {
           "name": "herb"
         }, {
@@ -776,13 +1924,41 @@
         }, {
           "name": "high_heel"
         }, {
+          "name": "hk"
+        }, {
+          "name": "hm"
+        }, {
+          "name": "hn"
+        }, {
+          "name": "hockey"
+        }, {
+          "name": "hole"
+        }, {
+          "name": "homes"
+        }, {
           "name": "honey_pot"
         }, {
           "name": "horse"
         }, {
           "name": "horse_racing"
         }, {
+          "name": "horse_racing_tone1"
+        }, {
+          "name": "horse_racing_tone2"
+        }, {
+          "name": "horse_racing_tone3"
+        }, {
+          "name": "horse_racing_tone4"
+        }, {
+          "name": "horse_racing_tone5"
+        }, {
           "name": "hospital"
+        }, {
+          "name": "hot_dog"
+        }, {
+          "name": "hot_pepper"
+        }, {
+          "name": "hotdog"
         }, {
           "name": "hotel"
         }, {
@@ -794,11 +1970,29 @@
         }, {
           "name": "house"
         }, {
+          "name": "house_abandoned"
+        }, {
+          "name": "house_buildings"
+        }, {
           "name": "house_with_garden"
+        }, {
+          "name": "hr"
+        }, {
+          "name": "ht"
+        }, {
+          "name": "hu"
+        }, {
+          "name": "hugging"
+        }, {
+          "name": "hugging_face"
         }, {
           "name": "hushed"
         }, {
+          "name": "ic"
+        }, {
           "name": "ice_cream"
+        }, {
+          "name": "ice_skate"
         }, {
           "name": "icecream"
         }, {
@@ -806,13 +2000,33 @@
         }, {
           "name": "ideograph_advantage"
         }, {
+          "name": "ie"
+        }, {
+          "name": "il"
+        }, {
+          "name": "im"
+        }, {
           "name": "imp"
+        }, {
+          "name": "in"
         }, {
           "name": "inbox_tray"
         }, {
           "name": "incoming_envelope"
         }, {
+          "name": "indonesia"
+        }, {
           "name": "information_desk_person"
+        }, {
+          "name": "information_desk_person_tone1"
+        }, {
+          "name": "information_desk_person_tone2"
+        }, {
+          "name": "information_desk_person_tone3"
+        }, {
+          "name": "information_desk_person_tone4"
+        }, {
+          "name": "information_desk_person_tone5"
         }, {
           "name": "information_source"
         }, {
@@ -820,7 +2034,17 @@
         }, {
           "name": "interrobang"
         }, {
+          "name": "io"
+        }, {
           "name": "iphone"
+        }, {
+          "name": "iq"
+        }, {
+          "name": "ir"
+        }, {
+          "name": "is"
+        }, {
+          "name": "island"
         }, {
           "name": "it"
         }, {
@@ -836,21 +2060,47 @@
         }, {
           "name": "japanese_ogre"
         }, {
+          "name": "je"
+        }, {
           "name": "jeans"
+        }, {
+          "name": "jm"
+        }, {
+          "name": "jo"
         }, {
           "name": "joy"
         }, {
           "name": "joy_cat"
         }, {
+          "name": "joystick"
+        }, {
           "name": "jp"
+        }, {
+          "name": "kaaba"
+        }, {
+          "name": "ke"
         }, {
           "name": "key"
         }, {
-          "name": "keycap_ten"
+          "name": "key2"
+        }, {
+          "name": "keyboard"
+        }, {
+          "name": "keycap_asterisk"
+        }, {
+          "name": "kg"
+        }, {
+          "name": "kh"
+        }, {
+          "name": "ki"
         }, {
           "name": "kimono"
         }, {
           "name": "kiss"
+        }, {
+          "name": "kiss_mm"
+        }, {
+          "name": "kiss_ww"
         }, {
           "name": "kissing"
         }, {
@@ -862,13 +2112,29 @@
         }, {
           "name": "kissing_smiling_eyes"
         }, {
+          "name": "km"
+        }, {
+          "name": "kn"
+        }, {
           "name": "knife"
         }, {
           "name": "koala"
         }, {
           "name": "koko"
         }, {
+          "name": "kp"
+        }, {
           "name": "kr"
+        }, {
+          "name": "kw"
+        }, {
+          "name": "ky"
+        }, {
+          "name": "kz"
+        }, {
+          "name": "la"
+        }, {
+          "name": "label"
         }, {
           "name": "large_blue_circle"
         }, {
@@ -880,7 +2146,13 @@
         }, {
           "name": "last_quarter_moon_with_face"
         }, {
+          "name": "latin_cross"
+        }, {
           "name": "laughing"
+        }, {
+          "name": "lb"
+        }, {
+          "name": "lc"
         }, {
           "name": "leaves"
         }, {
@@ -898,15 +2170,41 @@
         }, {
           "name": "leopard"
         }, {
+          "name": "level_slider"
+        }, {
+          "name": "levitate"
+        }, {
+          "name": "li"
+        }, {
           "name": "libra"
+        }, {
+          "name": "lifter"
+        }, {
+          "name": "lifter_tone1"
+        }, {
+          "name": "lifter_tone2"
+        }, {
+          "name": "lifter_tone3"
+        }, {
+          "name": "lifter_tone4"
+        }, {
+          "name": "lifter_tone5"
         }, {
           "name": "light_rail"
         }, {
           "name": "link"
         }, {
+          "name": "linked_paperclips"
+        }, {
+          "name": "lion"
+        }, {
+          "name": "lion_face"
+        }, {
           "name": "lips"
         }, {
           "name": "lipstick"
+        }, {
+          "name": "lk"
         }, {
           "name": "lock"
         }, {
@@ -926,7 +2224,29 @@
         }, {
           "name": "low_brightness"
         }, {
+          "name": "lower_left_ballpoint_pen"
+        }, {
+          "name": "lower_left_crayon"
+        }, {
+          "name": "lower_left_fountain_pen"
+        }, {
+          "name": "lower_left_paintbrush"
+        }, {
+          "name": "lr"
+        }, {
+          "name": "ls"
+        }, {
+          "name": "lt"
+        }, {
+          "name": "lu"
+        }, {
+          "name": "lv"
+        }, {
+          "name": "ly"
+        }, {
           "name": "m"
+        }, {
+          "name": "ma"
         }, {
           "name": "mag"
         }, {
@@ -944,11 +2264,47 @@
         }, {
           "name": "man"
         }, {
+          "name": "man_in_business_suit_levitating"
+        }, {
+          "name": "man_tone1"
+        }, {
+          "name": "man_tone2"
+        }, {
+          "name": "man_tone3"
+        }, {
+          "name": "man_tone4"
+        }, {
+          "name": "man_tone5"
+        }, {
           "name": "man_with_gua_pi_mao"
+        }, {
+          "name": "man_with_gua_pi_mao_tone1"
+        }, {
+          "name": "man_with_gua_pi_mao_tone2"
+        }, {
+          "name": "man_with_gua_pi_mao_tone3"
+        }, {
+          "name": "man_with_gua_pi_mao_tone4"
+        }, {
+          "name": "man_with_gua_pi_mao_tone5"
         }, {
           "name": "man_with_turban"
         }, {
+          "name": "man_with_turban_tone1"
+        }, {
+          "name": "man_with_turban_tone2"
+        }, {
+          "name": "man_with_turban_tone3"
+        }, {
+          "name": "man_with_turban_tone4"
+        }, {
+          "name": "man_with_turban_tone5"
+        }, {
           "name": "mans_shoe"
+        }, {
+          "name": "mantlepiece_clock"
+        }, {
+          "name": "map"
         }, {
           "name": "maple_leaf"
         }, {
@@ -956,19 +2312,73 @@
         }, {
           "name": "massage"
         }, {
+          "name": "massage_tone1"
+        }, {
+          "name": "massage_tone2"
+        }, {
+          "name": "massage_tone3"
+        }, {
+          "name": "massage_tone4"
+        }, {
+          "name": "massage_tone5"
+        }, {
+          "name": "mc"
+        }, {
+          "name": "md"
+        }, {
+          "name": "me"
+        }, {
           "name": "meat_on_bone"
+        }, {
+          "name": "medal"
         }, {
           "name": "mega"
         }, {
           "name": "melon"
         }, {
+          "name": "menorah"
+        }, {
           "name": "mens"
+        }, {
+          "name": "metal"
+        }, {
+          "name": "metal_tone1"
+        }, {
+          "name": "metal_tone2"
+        }, {
+          "name": "metal_tone3"
+        }, {
+          "name": "metal_tone4"
+        }, {
+          "name": "metal_tone5"
         }, {
           "name": "metro"
         }, {
+          "name": "mf"
+        }, {
+          "name": "mg"
+        }, {
+          "name": "mh"
+        }, {
           "name": "microphone"
         }, {
+          "name": "microphone2"
+        }, {
           "name": "microscope"
+        }, {
+          "name": "middle_finger"
+        }, {
+          "name": "middle_finger_tone1"
+        }, {
+          "name": "middle_finger_tone2"
+        }, {
+          "name": "middle_finger_tone3"
+        }, {
+          "name": "middle_finger_tone4"
+        }, {
+          "name": "middle_finger_tone5"
+        }, {
+          "name": "military_medal"
         }, {
           "name": "milky_way"
         }, {
@@ -976,7 +2386,21 @@
         }, {
           "name": "minidisc"
         }, {
+          "name": "mk"
+        }, {
+          "name": "ml"
+        }, {
+          "name": "mm"
+        }, {
+          "name": "mn"
+        }, {
+          "name": "mo"
+        }, {
           "name": "mobile_phone_off"
+        }, {
+          "name": "money_mouth"
+        }, {
+          "name": "money_mouth_face"
         }, {
           "name": "money_with_wings"
         }, {
@@ -990,23 +2414,69 @@
         }, {
           "name": "mortar_board"
         }, {
+          "name": "mosque"
+        }, {
+          "name": "motorboat"
+        }, {
+          "name": "motorcycle"
+        }, {
+          "name": "motorway"
+        }, {
           "name": "mount_fuji"
         }, {
+          "name": "mountain"
+        }, {
           "name": "mountain_bicyclist"
+        }, {
+          "name": "mountain_bicyclist_tone1"
+        }, {
+          "name": "mountain_bicyclist_tone2"
+        }, {
+          "name": "mountain_bicyclist_tone3"
+        }, {
+          "name": "mountain_bicyclist_tone4"
+        }, {
+          "name": "mountain_bicyclist_tone5"
         }, {
           "name": "mountain_cableway"
         }, {
           "name": "mountain_railway"
         }, {
+          "name": "mountain_snow"
+        }, {
           "name": "mouse"
         }, {
           "name": "mouse2"
+        }, {
+          "name": "mouse_three_button"
         }, {
           "name": "movie_camera"
         }, {
           "name": "moyai"
         }, {
+          "name": "mp"
+        }, {
+          "name": "mq"
+        }, {
+          "name": "mr"
+        }, {
+          "name": "ms"
+        }, {
+          "name": "mt"
+        }, {
+          "name": "mu"
+        }, {
           "name": "muscle"
+        }, {
+          "name": "muscle_tone1"
+        }, {
+          "name": "muscle_tone2"
+        }, {
+          "name": "muscle_tone3"
+        }, {
+          "name": "muscle_tone4"
+        }, {
+          "name": "muscle_tone5"
         }, {
           "name": "mushroom"
         }, {
@@ -1018,13 +2488,45 @@
         }, {
           "name": "mute"
         }, {
+          "name": "mv"
+        }, {
+          "name": "mw"
+        }, {
+          "name": "mx"
+        }, {
+          "name": "my"
+        }, {
+          "name": "mz"
+        }, {
+          "name": "na"
+        }, {
           "name": "nail_care"
         }, {
+          "name": "nail_care_tone1"
+        }, {
+          "name": "nail_care_tone2"
+        }, {
+          "name": "nail_care_tone3"
+        }, {
+          "name": "nail_care_tone4"
+        }, {
+          "name": "nail_care_tone5"
+        }, {
           "name": "name_badge"
+        }, {
+          "name": "national_park"
+        }, {
+          "name": "nc"
+        }, {
+          "name": "ne"
         }, {
           "name": "necktie"
         }, {
           "name": "negative_squared_cross_mark"
+        }, {
+          "name": "nerd"
+        }, {
+          "name": "nerd_face"
         }, {
           "name": "neutral_face"
         }, {
@@ -1036,11 +2538,25 @@
         }, {
           "name": "newspaper"
         }, {
+          "name": "newspaper2"
+        }, {
+          "name": "next_track"
+        }, {
+          "name": "nf"
+        }, {
           "name": "ng"
+        }, {
+          "name": "ni"
+        }, {
+          "name": "nigeria"
         }, {
           "name": "night_with_stars"
         }, {
           "name": "nine"
+        }, {
+          "name": "nl"
+        }, {
+          "name": "no"
         }, {
           "name": "no_bell"
         }, {
@@ -1051,6 +2567,16 @@
           "name": "no_entry_sign"
         }, {
           "name": "no_good"
+        }, {
+          "name": "no_good_tone1"
+        }, {
+          "name": "no_good_tone2"
+        }, {
+          "name": "no_good_tone3"
+        }, {
+          "name": "no_good_tone4"
+        }, {
+          "name": "no_good_tone5"
         }, {
           "name": "no_mobile_phones"
         }, {
@@ -1064,13 +2590,33 @@
         }, {
           "name": "nose"
         }, {
+          "name": "nose_tone1"
+        }, {
+          "name": "nose_tone2"
+        }, {
+          "name": "nose_tone3"
+        }, {
+          "name": "nose_tone4"
+        }, {
+          "name": "nose_tone5"
+        }, {
           "name": "notebook"
         }, {
           "name": "notebook_with_decorative_cover"
         }, {
+          "name": "notepad_spiral"
+        }, {
           "name": "notes"
         }, {
+          "name": "np"
+        }, {
+          "name": "nr"
+        }, {
+          "name": "nu"
+        }, {
           "name": "nut_and_bolt"
+        }, {
+          "name": "nz"
         }, {
           "name": "o"
         }, {
@@ -1084,15 +2630,65 @@
         }, {
           "name": "office"
         }, {
+          "name": "oil"
+        }, {
+          "name": "oil_drum"
+        }, {
           "name": "ok"
         }, {
           "name": "ok_hand"
         }, {
+          "name": "ok_hand_tone1"
+        }, {
+          "name": "ok_hand_tone2"
+        }, {
+          "name": "ok_hand_tone3"
+        }, {
+          "name": "ok_hand_tone4"
+        }, {
+          "name": "ok_hand_tone5"
+        }, {
           "name": "ok_woman"
+        }, {
+          "name": "ok_woman_tone1"
+        }, {
+          "name": "ok_woman_tone2"
+        }, {
+          "name": "ok_woman_tone3"
+        }, {
+          "name": "ok_woman_tone4"
+        }, {
+          "name": "ok_woman_tone5"
+        }, {
+          "name": "old_key"
         }, {
           "name": "older_man"
         }, {
+          "name": "older_man_tone1"
+        }, {
+          "name": "older_man_tone2"
+        }, {
+          "name": "older_man_tone3"
+        }, {
+          "name": "older_man_tone4"
+        }, {
+          "name": "older_man_tone5"
+        }, {
           "name": "older_woman"
+        }, {
+          "name": "older_woman_tone1"
+        }, {
+          "name": "older_woman_tone2"
+        }, {
+          "name": "older_woman_tone3"
+        }, {
+          "name": "older_woman_tone4"
+        }, {
+          "name": "older_woman_tone5"
+        }, {
+          "name": "om"
+        }, {
+          "name": "om_symbol"
         }, {
           "name": "on"
         }, {
@@ -1110,15 +2706,29 @@
         }, {
           "name": "open_hands"
         }, {
+          "name": "open_hands_tone1"
+        }, {
+          "name": "open_hands_tone2"
+        }, {
+          "name": "open_hands_tone3"
+        }, {
+          "name": "open_hands_tone4"
+        }, {
+          "name": "open_hands_tone5"
+        }, {
           "name": "open_mouth"
         }, {
           "name": "ophiuchus"
         }, {
           "name": "orange_book"
         }, {
+          "name": "orthodox_cross"
+        }, {
           "name": "outbox_tray"
         }, {
           "name": "ox"
+        }, {
+          "name": "pa"
         }, {
           "name": "package"
         }, {
@@ -1128,11 +2738,17 @@
         }, {
           "name": "pager"
         }, {
+          "name": "paintbrush"
+        }, {
           "name": "palm_tree"
         }, {
           "name": "panda_face"
         }, {
           "name": "paperclip"
+        }, {
+          "name": "paperclips"
+        }, {
+          "name": "park"
         }, {
           "name": "parking"
         }, {
@@ -1140,11 +2756,27 @@
         }, {
           "name": "partly_sunny"
         }, {
+          "name": "passenger_ship"
+        }, {
           "name": "passport_control"
+        }, {
+          "name": "pause_button"
+        }, {
+          "name": "paw_prints"
+        }, {
+          "name": "pe"
+        }, {
+          "name": "peace"
+        }, {
+          "name": "peace_symbol"
         }, {
           "name": "peach"
         }, {
           "name": "pear"
+        }, {
+          "name": "pen_ballpoint"
+        }, {
+          "name": "pen_fountain"
         }, {
           "name": "pencil"
         }, {
@@ -1160,9 +2792,59 @@
         }, {
           "name": "person_frowning"
         }, {
+          "name": "person_frowning_tone1"
+        }, {
+          "name": "person_frowning_tone2"
+        }, {
+          "name": "person_frowning_tone3"
+        }, {
+          "name": "person_frowning_tone4"
+        }, {
+          "name": "person_frowning_tone5"
+        }, {
+          "name": "person_with_ball"
+        }, {
+          "name": "person_with_ball_tone1"
+        }, {
+          "name": "person_with_ball_tone2"
+        }, {
+          "name": "person_with_ball_tone3"
+        }, {
+          "name": "person_with_ball_tone4"
+        }, {
+          "name": "person_with_ball_tone5"
+        }, {
           "name": "person_with_blond_hair"
         }, {
+          "name": "person_with_blond_hair_tone1"
+        }, {
+          "name": "person_with_blond_hair_tone2"
+        }, {
+          "name": "person_with_blond_hair_tone3"
+        }, {
+          "name": "person_with_blond_hair_tone4"
+        }, {
+          "name": "person_with_blond_hair_tone5"
+        }, {
           "name": "person_with_pouting_face"
+        }, {
+          "name": "person_with_pouting_face_tone1"
+        }, {
+          "name": "person_with_pouting_face_tone2"
+        }, {
+          "name": "person_with_pouting_face_tone3"
+        }, {
+          "name": "person_with_pouting_face_tone4"
+        }, {
+          "name": "person_with_pouting_face_tone5"
+        }, {
+          "name": "pf"
+        }, {
+          "name": "pg"
+        }, {
+          "name": "ph"
+        }, {
+          "name": "pick"
         }, {
           "name": "pig"
         }, {
@@ -1174,19 +2856,83 @@
         }, {
           "name": "pineapple"
         }, {
+          "name": "ping_pong"
+        }, {
           "name": "pisces"
         }, {
           "name": "pizza"
         }, {
+          "name": "pk"
+        }, {
+          "name": "pl"
+        }, {
+          "name": "place_of_worship"
+        }, {
+          "name": "play_pause"
+        }, {
+          "name": "pm"
+        }, {
+          "name": "pn"
+        }, {
           "name": "point_down"
+        }, {
+          "name": "point_down_tone1"
+        }, {
+          "name": "point_down_tone2"
+        }, {
+          "name": "point_down_tone3"
+        }, {
+          "name": "point_down_tone4"
+        }, {
+          "name": "point_down_tone5"
         }, {
           "name": "point_left"
         }, {
+          "name": "point_left_tone1"
+        }, {
+          "name": "point_left_tone2"
+        }, {
+          "name": "point_left_tone3"
+        }, {
+          "name": "point_left_tone4"
+        }, {
+          "name": "point_left_tone5"
+        }, {
           "name": "point_right"
+        }, {
+          "name": "point_right_tone1"
+        }, {
+          "name": "point_right_tone2"
+        }, {
+          "name": "point_right_tone3"
+        }, {
+          "name": "point_right_tone4"
+        }, {
+          "name": "point_right_tone5"
         }, {
           "name": "point_up"
         }, {
           "name": "point_up_2"
+        }, {
+          "name": "point_up_2_tone1"
+        }, {
+          "name": "point_up_2_tone2"
+        }, {
+          "name": "point_up_2_tone3"
+        }, {
+          "name": "point_up_2_tone4"
+        }, {
+          "name": "point_up_2_tone5"
+        }, {
+          "name": "point_up_tone1"
+        }, {
+          "name": "point_up_tone2"
+        }, {
+          "name": "point_up_tone3"
+        }, {
+          "name": "point_up_tone4"
+        }, {
+          "name": "point_up_tone5"
         }, {
           "name": "police_car"
         }, {
@@ -1195,6 +2941,8 @@
           "name": "poodle"
         }, {
           "name": "poop"
+        }, {
+          "name": "popcorn"
         }, {
           "name": "post_office"
         }, {
@@ -1212,11 +2960,57 @@
         }, {
           "name": "pouting_cat"
         }, {
+          "name": "pr"
+        }, {
           "name": "pray"
+        }, {
+          "name": "pray_tone1"
+        }, {
+          "name": "pray_tone2"
+        }, {
+          "name": "pray_tone3"
+        }, {
+          "name": "pray_tone4"
+        }, {
+          "name": "pray_tone5"
+        }, {
+          "name": "prayer_beads"
+        }, {
+          "name": "previous_track"
         }, {
           "name": "princess"
         }, {
+          "name": "princess_tone1"
+        }, {
+          "name": "princess_tone2"
+        }, {
+          "name": "princess_tone3"
+        }, {
+          "name": "princess_tone4"
+        }, {
+          "name": "princess_tone5"
+        }, {
+          "name": "printer"
+        }, {
+          "name": "projector"
+        }, {
+          "name": "ps"
+        }, {
+          "name": "pt"
+        }, {
+          "name": "pudding"
+        }, {
           "name": "punch"
+        }, {
+          "name": "punch_tone1"
+        }, {
+          "name": "punch_tone2"
+        }, {
+          "name": "punch_tone3"
+        }, {
+          "name": "punch_tone4"
+        }, {
+          "name": "punch_tone5"
         }, {
           "name": "purple_heart"
         }, {
@@ -1226,35 +3020,113 @@
         }, {
           "name": "put_litter_in_its_place"
         }, {
+          "name": "pw"
+        }, {
+          "name": "py"
+        }, {
+          "name": "qa"
+        }, {
           "name": "question"
         }, {
           "name": "rabbit"
         }, {
           "name": "rabbit2"
         }, {
+          "name": "race_car"
+        }, {
           "name": "racehorse"
+        }, {
+          "name": "racing_car"
+        }, {
+          "name": "racing_motorcycle"
         }, {
           "name": "radio"
         }, {
           "name": "radio_button"
         }, {
+          "name": "radioactive"
+        }, {
+          "name": "radioactive_sign"
+        }, {
           "name": "rage"
         }, {
+          "name": "railroad_track"
+        }, {
           "name": "railway_car"
+        }, {
+          "name": "railway_track"
         }, {
           "name": "rainbow"
         }, {
           "name": "raised_hand"
         }, {
+          "name": "raised_hand_tone1"
+        }, {
+          "name": "raised_hand_tone2"
+        }, {
+          "name": "raised_hand_tone3"
+        }, {
+          "name": "raised_hand_tone4"
+        }, {
+          "name": "raised_hand_tone5"
+        }, {
+          "name": "raised_hand_with_fingers_splayed"
+        }, {
+          "name": "raised_hand_with_fingers_splayed_tone1"
+        }, {
+          "name": "raised_hand_with_fingers_splayed_tone2"
+        }, {
+          "name": "raised_hand_with_fingers_splayed_tone3"
+        }, {
+          "name": "raised_hand_with_fingers_splayed_tone4"
+        }, {
+          "name": "raised_hand_with_fingers_splayed_tone5"
+        }, {
+          "name": "raised_hand_with_part_between_middle_and_ring_fingers"
+        }, {
+          "name": "raised_hand_with_part_between_middle_and_ring_fingers_tone1"
+        }, {
+          "name": "raised_hand_with_part_between_middle_and_ring_fingers_tone2"
+        }, {
+          "name": "raised_hand_with_part_between_middle_and_ring_fingers_tone3"
+        }, {
+          "name": "raised_hand_with_part_between_middle_and_ring_fingers_tone4"
+        }, {
+          "name": "raised_hand_with_part_between_middle_and_ring_fingers_tone5"
+        }, {
           "name": "raised_hands"
         }, {
+          "name": "raised_hands_tone1"
+        }, {
+          "name": "raised_hands_tone2"
+        }, {
+          "name": "raised_hands_tone3"
+        }, {
+          "name": "raised_hands_tone4"
+        }, {
+          "name": "raised_hands_tone5"
+        }, {
           "name": "raising_hand"
+        }, {
+          "name": "raising_hand_tone1"
+        }, {
+          "name": "raising_hand_tone2"
+        }, {
+          "name": "raising_hand_tone3"
+        }, {
+          "name": "raising_hand_tone4"
+        }, {
+          "name": "raising_hand_tone5"
         }, {
           "name": "ram"
         }, {
           "name": "ramen"
         }, {
           "name": "rat"
+        }, {
+          "name": "re"
+        }, {
+          "name": "record_button"
         }, {
           "name": "recycle"
         }, {
@@ -1268,11 +3140,25 @@
         }, {
           "name": "relieved"
         }, {
+          "name": "reminder_ribbon"
+        }, {
           "name": "repeat"
         }, {
           "name": "repeat_one"
         }, {
           "name": "restroom"
+        }, {
+          "name": "reversed_hand_with_middle_finger_extended"
+        }, {
+          "name": "reversed_hand_with_middle_finger_extended_tone1"
+        }, {
+          "name": "reversed_hand_with_middle_finger_extended_tone2"
+        }, {
+          "name": "reversed_hand_with_middle_finger_extended_tone3"
+        }, {
+          "name": "reversed_hand_with_middle_finger_extended_tone4"
+        }, {
+          "name": "reversed_hand_with_middle_finger_extended_tone5"
         }, {
           "name": "revolving_hearts"
         }, {
@@ -1288,15 +3174,29 @@
         }, {
           "name": "rice_scene"
         }, {
+          "name": "right_anger_bubble"
+        }, {
           "name": "ring"
+        }, {
+          "name": "ro"
+        }, {
+          "name": "robot"
+        }, {
+          "name": "robot_face"
         }, {
           "name": "rocket"
         }, {
+          "name": "rolled_up_newspaper"
+        }, {
           "name": "roller_coaster"
+        }, {
+          "name": "rolling_eyes"
         }, {
           "name": "rooster"
         }, {
           "name": "rose"
+        }, {
+          "name": "rosette"
         }, {
           "name": "rotating_light"
         }, {
@@ -1304,13 +3204,37 @@
         }, {
           "name": "rowboat"
         }, {
+          "name": "rowboat_tone1"
+        }, {
+          "name": "rowboat_tone2"
+        }, {
+          "name": "rowboat_tone3"
+        }, {
+          "name": "rowboat_tone4"
+        }, {
+          "name": "rowboat_tone5"
+        }, {
+          "name": "rs"
+        }, {
           "name": "ru"
         }, {
           "name": "rugby_football"
         }, {
           "name": "runner"
         }, {
+          "name": "runner_tone1"
+        }, {
+          "name": "runner_tone2"
+        }, {
+          "name": "runner_tone3"
+        }, {
+          "name": "runner_tone4"
+        }, {
+          "name": "runner_tone5"
+        }, {
           "name": "running_shirt_with_sash"
+        }, {
+          "name": "rw"
         }, {
           "name": "sa"
         }, {
@@ -1324,17 +3248,41 @@
         }, {
           "name": "santa"
         }, {
+          "name": "santa_tone1"
+        }, {
+          "name": "santa_tone2"
+        }, {
+          "name": "santa_tone3"
+        }, {
+          "name": "santa_tone4"
+        }, {
+          "name": "santa_tone5"
+        }, {
           "name": "satellite"
+        }, {
+          "name": "satellite_orbital"
         }, {
           "name": "satisfied"
         }, {
+          "name": "saudi"
+        }, {
+          "name": "saudiarabia"
+        }, {
           "name": "saxophone"
+        }, {
+          "name": "sb"
+        }, {
+          "name": "sc"
+        }, {
+          "name": "scales"
         }, {
           "name": "school"
         }, {
           "name": "school_satchel"
         }, {
           "name": "scissors"
+        }, {
+          "name": "scorpion"
         }, {
           "name": "scorpius"
         }, {
@@ -1343,6 +3291,10 @@
           "name": "scream_cat"
         }, {
           "name": "scroll"
+        }, {
+          "name": "sd"
+        }, {
+          "name": "se"
         }, {
           "name": "seat"
         }, {
@@ -1354,11 +3306,21 @@
         }, {
           "name": "seven"
         }, {
+          "name": "sg"
+        }, {
+          "name": "sh"
+        }, {
+          "name": "shamrock"
+        }, {
           "name": "shaved_ice"
         }, {
           "name": "sheep"
         }, {
           "name": "shell"
+        }, {
+          "name": "shield"
+        }, {
+          "name": "shinto_shrine"
         }, {
           "name": "ship"
         }, {
@@ -1366,7 +3328,23 @@
         }, {
           "name": "shit"
         }, {
+          "name": "shopping_bags"
+        }, {
           "name": "shower"
+        }, {
+          "name": "si"
+        }, {
+          "name": "sign_of_the_horns"
+        }, {
+          "name": "sign_of_the_horns_tone1"
+        }, {
+          "name": "sign_of_the_horns_tone2"
+        }, {
+          "name": "sign_of_the_horns_tone3"
+        }, {
+          "name": "sign_of_the_horns_tone4"
+        }, {
+          "name": "sign_of_the_horns_tone5"
         }, {
           "name": "signal_strength"
         }, {
@@ -1374,15 +3352,41 @@
         }, {
           "name": "six_pointed_star"
         }, {
+          "name": "sj"
+        }, {
+          "name": "sk"
+        }, {
           "name": "skeleton"
         }, {
           "name": "ski"
         }, {
+          "name": "skier"
+        }, {
           "name": "skull"
+        }, {
+          "name": "skull_and_crossbones"
+        }, {
+          "name": "skull_crossbones"
+        }, {
+          "name": "sl"
         }, {
           "name": "sleeping"
         }, {
+          "name": "sleeping_accommodation"
+        }, {
           "name": "sleepy"
+        }, {
+          "name": "sleuth_or_spy"
+        }, {
+          "name": "sleuth_or_spy_tone1"
+        }, {
+          "name": "sleuth_or_spy_tone2"
+        }, {
+          "name": "sleuth_or_spy_tone3"
+        }, {
+          "name": "sleuth_or_spy_tone4"
+        }, {
+          "name": "sleuth_or_spy_tone5"
         }, {
           "name": "slight_frown"
         }, {
@@ -1393,6 +3397,10 @@
           "name": "slightly_smiling_face"
         }, {
           "name": "slot_machine"
+        }, {
+          "name": "sm"
+        }, {
+          "name": "small_airplane"
         }, {
           "name": "small_blue_diamond"
         }, {
@@ -1418,15 +3426,23 @@
         }, {
           "name": "smoking"
         }, {
+          "name": "sn"
+        }, {
           "name": "snail"
         }, {
           "name": "snake"
+        }, {
+          "name": "snow_capped_mountain"
         }, {
           "name": "snowboarder"
         }, {
           "name": "snowflake"
         }, {
           "name": "snowman"
+        }, {
+          "name": "snowman2"
+        }, {
+          "name": "so"
         }, {
           "name": "sob"
         }, {
@@ -1456,13 +3472,51 @@
         }, {
           "name": "speaker"
         }, {
+          "name": "speaking_head"
+        }, {
+          "name": "speaking_head_in_silhouette"
+        }, {
           "name": "speech_balloon"
         }, {
           "name": "speedboat"
         }, {
+          "name": "spider"
+        }, {
+          "name": "spider_web"
+        }, {
+          "name": "spiral_calendar_pad"
+        }, {
+          "name": "spiral_note_pad"
+        }, {
+          "name": "sports_medal"
+        }, {
+          "name": "spy"
+        }, {
+          "name": "spy_tone1"
+        }, {
+          "name": "spy_tone2"
+        }, {
+          "name": "spy_tone3"
+        }, {
+          "name": "spy_tone4"
+        }, {
+          "name": "spy_tone5"
+        }, {
+          "name": "sr"
+        }, {
+          "name": "ss"
+        }, {
+          "name": "st"
+        }, {
+          "name": "stadium"
+        }, {
           "name": "star"
         }, {
           "name": "star2"
+        }, {
+          "name": "star_and_crescent"
+        }, {
+          "name": "star_of_david"
         }, {
           "name": "stars"
         }, {
@@ -1474,6 +3528,10 @@
         }, {
           "name": "stew"
         }, {
+          "name": "stop_button"
+        }, {
+          "name": "stopwatch"
+        }, {
           "name": "straight_ruler"
         }, {
           "name": "strawberry"
@@ -1483,6 +3541,8 @@
           "name": "stuck_out_tongue_closed_eyes"
         }, {
           "name": "stuck_out_tongue_winking_eye"
+        }, {
+          "name": "studio_microphone"
         }, {
           "name": "sun_with_face"
         }, {
@@ -1498,9 +3558,21 @@
         }, {
           "name": "surfer"
         }, {
+          "name": "surfer_tone1"
+        }, {
+          "name": "surfer_tone2"
+        }, {
+          "name": "surfer_tone3"
+        }, {
+          "name": "surfer_tone4"
+        }, {
+          "name": "surfer_tone5"
+        }, {
           "name": "sushi"
         }, {
           "name": "suspension_railway"
+        }, {
+          "name": "sv"
         }, {
           "name": "sweat"
         }, {
@@ -1512,9 +3584,33 @@
         }, {
           "name": "swimmer"
         }, {
+          "name": "swimmer_tone1"
+        }, {
+          "name": "swimmer_tone2"
+        }, {
+          "name": "swimmer_tone3"
+        }, {
+          "name": "swimmer_tone4"
+        }, {
+          "name": "swimmer_tone5"
+        }, {
+          "name": "sx"
+        }, {
+          "name": "sy"
+        }, {
           "name": "symbols"
         }, {
+          "name": "synagogue"
+        }, {
           "name": "syringe"
+        }, {
+          "name": "sz"
+        }, {
+          "name": "ta"
+        }, {
+          "name": "table_tennis"
+        }, {
+          "name": "taco"
         }, {
           "name": "tada"
         }, {
@@ -1526,6 +3622,10 @@
         }, {
           "name": "taxi"
         }, {
+          "name": "tc"
+        }, {
+          "name": "td"
+        }, {
           "name": "tea"
         }, {
           "name": "telephone"
@@ -1534,27 +3634,109 @@
         }, {
           "name": "telescope"
         }, {
+          "name": "ten"
+        }, {
           "name": "tennis"
         }, {
           "name": "tent"
+        }, {
+          "name": "tf"
+        }, {
+          "name": "tg"
+        }, {
+          "name": "th"
+        }, {
+          "name": "thermometer"
+        }, {
+          "name": "thermometer_face"
+        }, {
+          "name": "thinking"
+        }, {
+          "name": "thinking_face"
         }, {
           "name": "thought_balloon"
         }, {
           "name": "three"
         }, {
+          "name": "three_button_mouse"
+        }, {
+          "name": "thumbdown"
+        }, {
+          "name": "thumbdown_tone1"
+        }, {
+          "name": "thumbdown_tone2"
+        }, {
+          "name": "thumbdown_tone3"
+        }, {
+          "name": "thumbdown_tone4"
+        }, {
+          "name": "thumbdown_tone5"
+        }, {
           "name": "thumbsdown"
+        }, {
+          "name": "thumbsdown_tone1"
+        }, {
+          "name": "thumbsdown_tone2"
+        }, {
+          "name": "thumbsdown_tone3"
+        }, {
+          "name": "thumbsdown_tone4"
+        }, {
+          "name": "thumbsdown_tone5"
         }, {
           "name": "thumbsup"
         }, {
+          "name": "thumbsup_tone1"
+        }, {
+          "name": "thumbsup_tone2"
+        }, {
+          "name": "thumbsup_tone3"
+        }, {
+          "name": "thumbsup_tone4"
+        }, {
+          "name": "thumbsup_tone5"
+        }, {
+          "name": "thumbup"
+        }, {
+          "name": "thumbup_tone1"
+        }, {
+          "name": "thumbup_tone2"
+        }, {
+          "name": "thumbup_tone3"
+        }, {
+          "name": "thumbup_tone4"
+        }, {
+          "name": "thumbup_tone5"
+        }, {
+          "name": "thunder_cloud_and_rain"
+        }, {
+          "name": "thunder_cloud_rain"
+        }, {
           "name": "ticket"
+        }, {
+          "name": "tickets"
         }, {
           "name": "tiger"
         }, {
           "name": "tiger2"
         }, {
+          "name": "timer"
+        }, {
+          "name": "timer_clock"
+        }, {
           "name": "tired_face"
         }, {
+          "name": "tj"
+        }, {
+          "name": "tk"
+        }, {
+          "name": "tl"
+        }, {
           "name": "tm"
+        }, {
+          "name": "tn"
+        }, {
+          "name": "to"
         }, {
           "name": "toilet"
         }, {
@@ -1564,9 +3746,19 @@
         }, {
           "name": "tongue"
         }, {
+          "name": "tools"
+        }, {
           "name": "top"
         }, {
           "name": "tophat"
+        }, {
+          "name": "tr"
+        }, {
+          "name": "track_next"
+        }, {
+          "name": "track_previous"
+        }, {
+          "name": "trackball"
         }, {
           "name": "tractor"
         }, {
@@ -1598,11 +3790,21 @@
         }, {
           "name": "trumpet"
         }, {
+          "name": "tt"
+        }, {
           "name": "tulip"
+        }, {
+          "name": "turkey"
+        }, {
+          "name": "turkmenistan"
         }, {
           "name": "turtle"
         }, {
+          "name": "tuvalu"
+        }, {
           "name": "tv"
+        }, {
+          "name": "tw"
         }, {
           "name": "twisted_rightwards_arrows"
         }, {
@@ -1613,6 +3815,8 @@
           "name": "two_men_holding_hands"
         }, {
           "name": "two_women_holding_hands"
+        }, {
+          "name": "tz"
         }, {
           "name": "u5272"
         }, {
@@ -1636,23 +3840,67 @@
         }, {
           "name": "u7a7a"
         }, {
+          "name": "ua"
+        }, {
+          "name": "ug"
+        }, {
+          "name": "um"
+        }, {
           "name": "umbrella"
+        }, {
+          "name": "umbrella2"
+        }, {
+          "name": "umbrella_on_ground"
         }, {
           "name": "unamused"
         }, {
           "name": "underage"
         }, {
+          "name": "unicorn"
+        }, {
+          "name": "unicorn_face"
+        }, {
           "name": "unlock"
         }, {
           "name": "up"
         }, {
+          "name": "upside_down"
+        }, {
+          "name": "upside_down_face"
+        }, {
+          "name": "urn"
+        }, {
           "name": "us"
+        }, {
+          "name": "uy"
+        }, {
+          "name": "uz"
         }, {
           "name": "v"
         }, {
+          "name": "v_tone1"
+        }, {
+          "name": "v_tone2"
+        }, {
+          "name": "v_tone3"
+        }, {
+          "name": "v_tone4"
+        }, {
+          "name": "v_tone5"
+        }, {
+          "name": "va"
+        }, {
+          "name": "vc"
+        }, {
+          "name": "ve"
+        }, {
           "name": "vertical_traffic_light"
         }, {
+          "name": "vg"
+        }, {
           "name": "vhs"
+        }, {
+          "name": "vi"
         }, {
           "name": "vibration_mode"
         }, {
@@ -1664,17 +3912,47 @@
         }, {
           "name": "virgo"
         }, {
+          "name": "vn"
+        }, {
           "name": "volcano"
+        }, {
+          "name": "volleyball"
         }, {
           "name": "vs"
         }, {
+          "name": "vu"
+        }, {
+          "name": "vulcan"
+        }, {
+          "name": "vulcan_tone1"
+        }, {
+          "name": "vulcan_tone2"
+        }, {
+          "name": "vulcan_tone3"
+        }, {
+          "name": "vulcan_tone4"
+        }, {
+          "name": "vulcan_tone5"
+        }, {
           "name": "walking"
+        }, {
+          "name": "walking_tone1"
+        }, {
+          "name": "walking_tone2"
+        }, {
+          "name": "walking_tone3"
+        }, {
+          "name": "walking_tone4"
+        }, {
+          "name": "walking_tone5"
         }, {
           "name": "waning_crescent_moon"
         }, {
           "name": "waning_gibbous_moon"
         }, {
           "name": "warning"
+        }, {
+          "name": "wastebasket"
         }, {
           "name": "watch"
         }, {
@@ -1683,6 +3961,20 @@
           "name": "watermelon"
         }, {
           "name": "wave"
+        }, {
+          "name": "wave_tone1"
+        }, {
+          "name": "wave_tone2"
+        }, {
+          "name": "wave_tone3"
+        }, {
+          "name": "wave_tone4"
+        }, {
+          "name": "wave_tone5"
+        }, {
+          "name": "waving_black_flag"
+        }, {
+          "name": "waving_white_flag"
         }, {
           "name": "wavy_dash"
         }, {
@@ -1696,9 +3988,25 @@
         }, {
           "name": "wedding"
         }, {
+          "name": "weight_lifter"
+        }, {
+          "name": "weight_lifter_tone1"
+        }, {
+          "name": "weight_lifter_tone2"
+        }, {
+          "name": "weight_lifter_tone3"
+        }, {
+          "name": "weight_lifter_tone4"
+        }, {
+          "name": "weight_lifter_tone5"
+        }, {
+          "name": "wf"
+        }, {
           "name": "whale"
         }, {
           "name": "whale2"
+        }, {
+          "name": "wheel_of_dharma"
         }, {
           "name": "wheelchair"
         }, {
@@ -1707,6 +4015,8 @@
           "name": "white_circle"
         }, {
           "name": "white_flower"
+        }, {
+          "name": "white_frowning_face"
         }, {
           "name": "white_large_square"
         }, {
@@ -1718,6 +4028,20 @@
         }, {
           "name": "white_square_button"
         }, {
+          "name": "white_sun_behind_cloud"
+        }, {
+          "name": "white_sun_behind_cloud_with_rain"
+        }, {
+          "name": "white_sun_cloud"
+        }, {
+          "name": "white_sun_rain_cloud"
+        }, {
+          "name": "white_sun_small_cloud"
+        }, {
+          "name": "white_sun_with_small_cloud"
+        }, {
+          "name": "wind_blowing_face"
+        }, {
           "name": "wind_chime"
         }, {
           "name": "wine_glass"
@@ -1728,27 +4052,73 @@
         }, {
           "name": "woman"
         }, {
+          "name": "woman_tone1"
+        }, {
+          "name": "woman_tone2"
+        }, {
+          "name": "woman_tone3"
+        }, {
+          "name": "woman_tone4"
+        }, {
+          "name": "woman_tone5"
+        }, {
           "name": "womans_clothes"
         }, {
           "name": "womans_hat"
         }, {
           "name": "womens"
         }, {
+          "name": "world_map"
+        }, {
           "name": "worried"
+        }, {
+          "name": "worship_symbol"
         }, {
           "name": "wrench"
         }, {
+          "name": "writing_hand"
+        }, {
+          "name": "writing_hand_tone1"
+        }, {
+          "name": "writing_hand_tone2"
+        }, {
+          "name": "writing_hand_tone3"
+        }, {
+          "name": "writing_hand_tone4"
+        }, {
+          "name": "writing_hand_tone5"
+        }, {
+          "name": "ws"
+        }, {
           "name": "x"
+        }, {
+          "name": "xk"
+        }, {
+          "name": "ye"
         }, {
           "name": "yellow_heart"
         }, {
           "name": "yen"
         }, {
+          "name": "yin_yang"
+        }, {
+          "name": "yt"
+        }, {
           "name": "yum"
+        }, {
+          "name": "za"
         }, {
           "name": "zap"
         }, {
           "name": "zero"
+        }, {
+          "name": "zipper_mouth"
+        }, {
+          "name": "zipper_mouth_face"
+        }, {
+          "name": "zm"
+        }, {
+          "name": "zw"
         }, {
           "name": "zzz"
         }
