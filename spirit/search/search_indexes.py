@@ -9,16 +9,32 @@ from haystack import indexes
 from ..topic.models import Topic
 
 
+# See: django-haystack issue #801
+class BooleanField(indexes.BooleanField):
+
+    bool_map = {'true': True, 'false': False}
+
+    def convert(self, value):
+        if value is None:
+            return None
+
+        if value in self.bool_map:
+            return self.bool_map[value]
+
+        return bool(value)
+
+
 class TopicIndex(indexes.SearchIndex, indexes.Indexable):
 
     text = indexes.CharField(document=True, use_template=True)
     category_id = indexes.IntegerField(model_attr='category_id')
-    is_removed = indexes.BooleanField()
+    is_removed = BooleanField()
 
     title = indexes.CharField(model_attr='title', indexed=False)
     slug = indexes.CharField(model_attr='slug', null=True, indexed=False)
-    main_category_name = indexes.CharField(indexed=False)
     comment_count = indexes.IntegerField(model_attr='comment_count', indexed=False)
+    last_active = indexes.DateTimeField(model_attr='last_active', indexed=False)
+    main_category_name = indexes.CharField(indexed=False)
 
     # Overridden
     def get_model(self):

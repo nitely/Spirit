@@ -86,11 +86,23 @@ class SearchViewTest(TestCase):
         advanced search by topic
         """
         utils.login(self)
-        data = {'q': 'spirit search', }
-        response = self.client.get(reverse('spirit:search:search'),
-                                   data)
+        data = {'q': 'spirit search'}
+        response = self.client.get(
+            reverse('spirit:search:search'), data)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual([s.object for s in response.context['page']], [self.topic, ])
+        self.assertEqual(
+            list(response.context['page']),
+            [{
+                'fields': {
+                    'text': self.topic.title + '\n\n',
+                    'category_id': self.topic.category.pk,
+                    'is_removed': False,
+                    'title': self.topic.title,
+                    'slug': self.topic.slug,
+                    'comment_count': self.topic.comment_count,
+                    'last_active': self.topic.last_active,
+                    'main_category_name': self.topic.main_category.title},
+                'pk': str(self.topic.pk)}])
 
     @override_djconfig(topics_per_page=1)
     def test_advanced_search_topics_paginate(self):
@@ -99,10 +111,22 @@ class SearchViewTest(TestCase):
         """
         utils.login(self)
         data = {'q': 'foo', }
-        response = self.client.get(reverse('spirit:search:search'),
-                                   data)
+        response = self.client.get(
+            reverse('spirit:search:search'), data)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual([s.object for s in response.context['page']], [self.topic2, ])
+        self.assertEqual(
+            list(response.context['page']),
+            [{
+                'fields': {
+                    'text': self.topic2.title + '\n\n',
+                    'category_id': self.topic2.category.pk,
+                    'is_removed': False,
+                    'title': self.topic2.title,
+                    'slug': self.topic2.slug,
+                    'comment_count': self.topic2.comment_count,
+                    'last_active': self.topic2.last_active,
+                    'main_category_name': self.topic2.main_category.title},
+                'pk': str(self.topic2.pk)}])
 
     def test_advanced_search_in_category(self):
         """

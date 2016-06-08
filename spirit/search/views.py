@@ -31,4 +31,7 @@ class SearchView(BaseSearchView):
             self.results,
             per_page=config.topics_per_page,
             page_number=self.request.GET.get('page', 1))
+        page = [
+            {'fields': r.get_stored_fields(), 'pk': r.pk}
+            for r in page]
         return paginator, page
