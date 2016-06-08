@@ -100,3 +100,11 @@ class Topic(models.Model):
         Topic.objects\
             .filter(pk=self.pk)\
             .update(comment_count=F('comment_count') - 1)
+
+    def get_all_comments_html(self):
+        """
+        For search indexing
+
+        :return: List of comments in HTML
+        """
+        return self.comment_set.values_list('comment_html', flat=True)
