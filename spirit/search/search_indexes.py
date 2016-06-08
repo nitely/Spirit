@@ -30,9 +30,9 @@ class BooleanField(indexes.BooleanField):
 
 class TopicIndex(indexes.SearchIndex, indexes.Indexable):
 
-    text = indexes.CharField(document=True, use_template=True)
-    category_id = indexes.IntegerField(model_attr='category_id')
-    is_removed = BooleanField()
+    text = indexes.CharField(document=True, use_template=True, stored=False)
+    category_id = indexes.IntegerField(model_attr='category_id', stored=False)
+    is_removed = BooleanField(stored=False)
 
     title = indexes.CharField(model_attr='title', indexed=False)
     slug = indexes.CharField(model_attr='slug', null=True, indexed=False)

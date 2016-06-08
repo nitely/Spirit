@@ -94,9 +94,6 @@ class SearchViewTest(TestCase):
             list(response.context['page']),
             [{
                 'fields': {
-                    'text': self.topic.title + '\n\n',
-                    'category_id': self.topic.category.pk,
-                    'is_removed': False,
                     'title': self.topic.title,
                     'slug': self.topic.slug,
                     'comment_count': self.topic.comment_count,
@@ -118,9 +115,6 @@ class SearchViewTest(TestCase):
             list(response.context['page']),
             [{
                 'fields': {
-                    'text': self.topic2.title + '\n\n',
-                    'category_id': self.topic2.category.pk,
-                    'is_removed': False,
                     'title': self.topic2.title,
                     'slug': self.topic2.slug,
                     'comment_count': self.topic2.comment_count,
