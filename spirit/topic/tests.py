@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from djconfig.utils import override_djconfig
 
+from spirit.comment.utils import comment_posted
 from ..core.tests import utils
 from . import utils as utils_topic
 from ..comment.models import MOVED
@@ -555,6 +556,15 @@ class TopicModelsTest(TestCase):
         Topic.objects.filter(pk=self.topic.pk).update(comment_count=10)
         self.topic.decrease_comment_count()
         self.assertEqual(Topic.objects.get(pk=self.topic.pk).comment_count, 9)
+
+    def test_topic_last_commenter(self):
+        """
+        update_last_commenter
+        """
+        new_user = utils.create_user()
+        comment = utils.create_comment(topic=self.topic, user=new_user)
+        comment_posted(comment=comment, mentions=None)
+        self.assertEqual(Topic.objects.get(pk=self.topic.pk).last_commenter, new_user)
 
     def test_topic_new_comments_count(self):
         """
