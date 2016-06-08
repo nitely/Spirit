@@ -10,6 +10,10 @@ from ..topic.models import Topic
 
 
 # See: django-haystack issue #801
+# convert() from search engine
+# stored value to python value,
+# so it only matters when using
+# search_result.get_stored_fields()
 class BooleanField(indexes.BooleanField):
 
     bool_map = {'true': True, 'false': False}
