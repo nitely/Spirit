@@ -18,7 +18,7 @@
         {% else %}
             <h1 class="headline">{% trans "Results" %}</h1>
 
-            {% if topics_page %}
+            {% if page %}
                 {% include "spirit/search/_render_list.html" with topics=page %}
                 {% render_paginator page %}
             {% else %}

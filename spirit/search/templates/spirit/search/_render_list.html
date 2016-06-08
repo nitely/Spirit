@@ -7,7 +7,7 @@
 
             <div class="row-title">
                 <a class="row-link" href="{% url 'spirit:topic:detail' pk=t.pk slug=t.fields.slug %}">
-                    {{ t.title }}
+                    {{ t.fields.title }}
                 </a>
             </div>
             <div class="row-info">
