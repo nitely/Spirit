@@ -5,6 +5,9 @@ from __future__ import unicode_literals
 from haystack.views import SearchView as BaseSearchView
 from djconfig import config
 
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 from .forms import AdvancedSearchForm
 from ..core.utils.paginator import yt_paginate
 
@@ -24,6 +27,10 @@ class SearchView(BaseSearchView):
             template='spirit/search/search.html',
             form_class=AdvancedSearchForm,
             load_all=False)
+
+    @method_decorator(login_required)
+    def __call__(self, request):
+        return super(SearchView, self).__call__(request)
 
     def build_page(self):
         paginator = None

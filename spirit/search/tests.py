@@ -140,6 +140,17 @@ class SearchViewTest(TestCase):
 
         rebuild_index()
 
+    def test_search_requires_login(self):
+        """
+        Should require to be logged-in
+        """
+        response = self.client.get(reverse('spirit:search:search'))
+        self.assertEqual(response.status_code, 302)
+
+        utils.login(self)
+        response = self.client.get(reverse('spirit:search:search'))
+        self.assertEqual(response.status_code, 200)
+
     def test_advanced_search_detail(self):
         """
         advanced search by topic
@@ -204,6 +215,27 @@ class SearchViewTest(TestCase):
         response = self.client.get(reverse('spirit:search:search'),
                                    data)
         self.assertEqual(len(response.context['page']), 1)
+
+    def test_search_removed_topics(self):
+        """
+        Should not include removed topics
+        """
+        utils.login(self)
+        data = {'q': 'spirit search'}
+
+        response = self.client.get(
+            reverse('spirit:search:search'), data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['page']), 1)
+
+        self.topic.is_removed = True
+        self.topic.save()
+        rebuild_index()
+        response = self.client.get(
+            reverse('spirit:search:search'), data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['page']), 0)
+
 
 
 class SearchFormTest(TestCase):
