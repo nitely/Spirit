@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
 from django.core.management import call_command
+from django.template.loader import render_to_string
 
 from haystack.query import SearchQuerySet
 from djconfig.utils import override_djconfig
@@ -125,6 +126,39 @@ class SearchTopicIndexTest(TestCase):
             list(self.topic_sqs.all())[0]
             .get_stored_fields()['main_category_name'],
             main_category.title)
+
+    def test_indexing_text_include_comments(self):
+        """
+        Should include topic title and all comments
+        """
+        category = utils.create_category()
+        topic = utils.create_topic(category, title='my title')
+        utils.create_comment(topic=topic, comment_html='<span>foo</span>')
+        utils.create_comment(topic=topic, comment_html='<b>bar</b>')
+        rebuild_index()
+        self.assertEqual(len(self.topic_sqs.all()), 1)
+        self.assertEqual(
+            len(self.topic_sqs.filter(text='my title foo bar')), 1)
+        self.assertEqual(
+            len(self.topic_sqs.filter(text='bar')), 1)
+        self.assertEqual(
+            len(self.topic_sqs.filter(text='<b>')), 0)
+        self.assertEqual(
+            len(self.topic_sqs.filter(text='span')), 0)
+
+    def test_indexing_text_template(self):
+        """
+        Should include topic title and all comments
+        """
+        category = utils.create_category()
+        topic = utils.create_topic(category, title='my title')
+        utils.create_comment(topic=topic, comment_html='<span>foo</span>')
+        utils.create_comment(topic=topic, comment_html='<b>bar</b>')
+        self.assertEqual(
+            render_to_string(
+                'search/indexes/spirit_topic/topic_text.txt',
+                context={'object': topic}),
+            'my title\n\nbar\n\nfoo\n\n')
 
 
 class SearchViewTest(TestCase):
