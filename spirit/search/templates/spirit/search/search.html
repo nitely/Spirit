@@ -18,10 +18,8 @@
         {% else %}
             <h1 class="headline">{% trans "Results" %}</h1>
 
-            {% get_topics_from_search_result results=page as topics_page %}
-
-            {% if topics_page %}
-                {% include "spirit/topic/_render_list.html" with topics=topics_page %}
+            {% if page %}
+                {% include "spirit/search/_render_list.html" with topics=page %}
                 {% render_paginator page %}
             {% else %}
                 <p>{% trans "There are no search results." %}</p>

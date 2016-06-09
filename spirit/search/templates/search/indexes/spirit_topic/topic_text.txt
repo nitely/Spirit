@@ -1,1 +1,4 @@
 {{ object.title }}
+{% for txt in object.get_all_comments_html %}
+{{ txt|striptags|safe }}
+{% endfor %}
