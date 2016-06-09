@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.conf import settings
@@ -237,7 +237,6 @@ class SearchViewTest(TestCase):
         self.assertEqual(len(response.context['page']), 0)
 
 
-
 class SearchFormTest(TestCase):
 
     def setUp(self):
@@ -253,6 +252,26 @@ class SearchFormTest(TestCase):
         form = BasicSearchForm(data)
         self.assertEqual(form.is_valid(), False)
 
+    @override_settings(ST_SEARCH_QUERY_MIN_LEN=1)
+    def test_basic_search_exclude_removed_topics(self):
+        """
+        Should not include removed topics
+        """
+        category = utils.create_category()
+        topic = utils.create_topic(category, title='sup?')
+        rebuild_index()
+        data = {'q': 'sup'}
+        form = BasicSearchForm(data)
+        self.assertEqual(form.is_valid(), True)
+        self.assertEqual(len(form.search()), 1)
+
+        topic.is_removed = True
+        topic.save()
+        rebuild_index()
+        form = BasicSearchForm(data)
+        self.assertEqual(form.is_valid(), True)
+        self.assertEqual(len(form.search()), 0)
+
     def test_advanced_search(self):
         data = {'q': 'foobar', }
         form = AdvancedSearchForm(data)
@@ -262,6 +281,26 @@ class SearchFormTest(TestCase):
         data = {'q': 'a' * (settings.ST_SEARCH_QUERY_MIN_LEN - 1), }
         form = AdvancedSearchForm(data)
         self.assertEqual(form.is_valid(), False)
+
+    @override_settings(ST_SEARCH_QUERY_MIN_LEN=1)
+    def test_advanced_search_exclude_removed_topics(self):
+        """
+        Should not include removed topics
+        """
+        category = utils.create_category()
+        topic = utils.create_topic(category, title='sup?')
+        rebuild_index()
+        data = {'q': 'sup'}
+        form = AdvancedSearchForm(data)
+        self.assertEqual(form.is_valid(), True)
+        self.assertEqual(len(form.search()), 1)
+
+        topic.is_removed = True
+        topic.save()
+        rebuild_index()
+        form = AdvancedSearchForm(data)
+        self.assertEqual(form.is_valid(), True)
+        self.assertEqual(len(form.search()), 0)
 
 
 class SearchTemplateTagTests(TestCase):
