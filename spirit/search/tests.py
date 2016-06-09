@@ -19,15 +19,18 @@ from .search_indexes import TopicIndex
 
 HAYSTACK_TEST = {
     'default': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
-    },
-}
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine'}}
+
+
+def rebuild_index():
+    call_command("rebuild_index", verbosity=0, interactive=False)
 
 
 class SearchTopicIndexTest(TestCase):
 
     def setUp(self):
         utils.cache_clear()
+        self.topic_sqs = SearchQuerySet().models(Topic)
 
     def test_index_queryset_excludes_private_topics(self):
         """
@@ -47,19 +50,86 @@ class SearchTopicIndexTest(TestCase):
         utils.create_private_topic()
         category = utils.create_category()
         topic = utils.create_topic(category)
-        call_command("rebuild_index", verbosity=0, interactive=False)
+        rebuild_index()
 
-        sqs = SearchQuerySet().models(Topic)
-        self.assertEqual([s.object for s in sqs], [topic, ])
+        self.assertEqual([s.object for s in self.topic_sqs], [topic])
+
+    def test_indexing_is_removed(self):
+        """
+        Should set the removed flag when either\
+        topic, subcategory or category are removed
+        """
+        main_category = utils.create_category()
+        category = utils.create_category(parent=main_category)
+        topic = utils.create_topic(category)
+
+        rebuild_index()
+        self.assertEqual(
+            len(self.topic_sqs.filter(is_removed=False)), 1)
+
+        topic.is_removed = True
+        topic.save()
+        rebuild_index()
+        self.assertEqual(
+            len(self.topic_sqs.filter(is_removed=False)), 0)
+
+        category.is_removed = True
+        category.save()
+        topic.is_removed = False
+        topic.save()
+        rebuild_index()
+        self.assertEqual(
+            len(self.topic_sqs.filter(is_removed=False)), 0)
+
+        main_category.is_removed = True
+        main_category.save()
+        category.is_removed = False
+        category.save()
+        topic.is_removed = False
+        topic.save()
+        rebuild_index()
+        self.assertEqual(
+            len(self.topic_sqs.filter(is_removed=False)), 0)
+
+        main_category.is_removed = False
+        main_category.save()
+        rebuild_index()
+        self.assertEqual(
+            len(self.topic_sqs.filter(is_removed=False)), 1)
+
+    def test_indexing_slug_empty(self):
+        """
+        Should store the slug as an empty string
+        """
+        category = utils.create_category()
+        topic = utils.create_topic(category)
+        topic.slug = ''
+        topic.save()
+        rebuild_index()
+        self.assertEqual(len(self.topic_sqs.all()), 1)
+        self.assertEqual(
+            list(self.topic_sqs.all())[0]
+            .get_stored_fields()['slug'],
+            '')
+
+    def test_indexing_main_category_name(self):
+        """
+        Should store the main category name
+        """
+        main_category = utils.create_category()
+        category = utils.create_category(parent=main_category)
+        utils.create_topic(category)
+        rebuild_index()
+        self.assertEqual(len(self.topic_sqs.all()), 1)
+        self.assertEqual(
+            list(self.topic_sqs.all())[0]
+            .get_stored_fields()['main_category_name'],
+            main_category.title)
 
 
 class SearchViewTest(TestCase):
 
     def setUp(self):
-        # TODO: simple backend wont work on django +1.6 coz of a bug on haystack 2.1
-        # self.connections = haystack.connections
-        # haystack.connections = haystack.loading.ConnectionHandler(HAYSTACK_TEST)
-
         utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
@@ -68,10 +138,7 @@ class SearchViewTest(TestCase):
         self.topic2 = utils.create_topic(
             category=self.category, user=self.user, title="foo")
 
-        call_command("rebuild_index", verbosity=0, interactive=False)
-
-    # def tearDown(self):
-        # haystack.connections = self.connections
+        rebuild_index()
 
     def test_advanced_search_detail(self):
         """

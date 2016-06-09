@@ -10,7 +10,7 @@ from ..topic.models import Topic
 
 
 # See: django-haystack issue #801
-# convert() from search engine
+# convert() from search-engine
 # stored value to python value,
 # so it only matters when using
 # search_result.get_stored_fields()
@@ -35,7 +35,7 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
     is_removed = BooleanField(stored=False)
 
     title = indexes.CharField(model_attr='title', indexed=False)
-    slug = indexes.CharField(model_attr='slug', null=True, indexed=False)
+    slug = indexes.CharField(model_attr='slug', indexed=False)
     comment_count = indexes.IntegerField(model_attr='comment_count', indexed=False)
     last_active = indexes.DateTimeField(model_attr='last_active', indexed=False)
     main_category_name = indexes.CharField(indexed=False)
