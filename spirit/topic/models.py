@@ -22,6 +22,7 @@ class Topic(models.Model):
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     date = models.DateTimeField(_("date"), default=timezone.now)
     last_active = models.DateTimeField(_("last active"), default=timezone.now)
+    modified_at = models.DateTimeField(_("modified at"), default=timezone.now)
 
     is_pinned = models.BooleanField(_("pinned"), default=False)
     is_globally_pinned = models.BooleanField(_("globally pinned"), default=False)
@@ -37,6 +38,10 @@ class Topic(models.Model):
         ordering = ['-last_active', '-pk']
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
+
+    def save(self, *args, **kwargs):
+        self.modified_at = timezone.now()
+        super(Topic, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         if self.category_id == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
