@@ -14,7 +14,15 @@ from ..core.utils.models import AutoSlugField
 
 
 class Topic(models.Model):
+    """
+    Topic model
 
+    :ivar modified_at: Last time this model was modified.\
+    Not every field change should update this\
+    (ie: `:py:attr:view_count`), since it makes\
+    the search re-index the topic, it must be set explicitly
+    :vartype modified_at: `:py:class:models.DateTimeField`
+    """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_topics')
     category = models.ForeignKey('spirit_category.Category', verbose_name=_("category"))
 
@@ -38,10 +46,6 @@ class Topic(models.Model):
         ordering = ['-last_active', '-pk']
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
-
-    def save(self, *args, **kwargs):
-        self.modified_at = timezone.now()
-        super(Topic, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         if self.category_id == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
