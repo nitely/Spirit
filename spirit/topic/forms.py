@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_bytes
+from django.utils import timezone
 
 from ..core import utils
 from ..core.utils.forms import NestedModelChoiceField
@@ -54,4 +55,5 @@ class TopicForm(forms.ModelForm):
         if not self.instance.pk:
             self.instance.user = self.user
 
+        self.instance.modified_at = timezone.now()
         return super(TopicForm, self).save(commit)
