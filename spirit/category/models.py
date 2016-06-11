@@ -6,18 +6,27 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils import timezone
 
 from .managers import CategoryQuerySet
 from ..core.utils.models import AutoSlugField
 
 
 class Category(models.Model):
+    """
+    Category model
 
+    :ivar modified_at: Last time this model was modified.\
+    Not every field change should update this, since it makes\
+    the search re-index the topic, it must be set explicitly
+    :vartype modified_at: `:py:class:models.DateTimeField`
+    """
     parent = models.ForeignKey('self', verbose_name=_("category parent"), null=True, blank=True)
 
     title = models.CharField(_("title"), max_length=75)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     description = models.CharField(_("description"), max_length=255, blank=True)
+    modified_at = models.DateTimeField(_("modified at"), default=timezone.now)
     is_global = models.BooleanField(_("global"), default=True,
                                     help_text=_('Designates whether the topics will be'
                                                 'displayed in the all-categories list.'))
