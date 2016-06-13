@@ -30,6 +30,9 @@ class SearchTopicIndexTest(TestCase):
     def setUp(self):
         utils.cache_clear()
         self.topic_sqs = SearchQuerySet().models(Topic)
+        self.now = timezone.now()
+        self.yesterday = timezone.now() - datetime.timedelta(days=1)
+        self.tomorrow = timezone.now() + datetime.timedelta(days=1)
 
     def test_index_queryset_excludes_private_topics(self):
         """
@@ -162,117 +165,101 @@ class SearchTopicIndexTest(TestCase):
         """
         Should update topics based on modified times
         """
-        now = timezone.now()
-        yesterday = timezone.now() - datetime.timedelta(days=1)
-        tomorrow = timezone.now() + datetime.timedelta(days=1)
-
         main_category = utils.create_category(
-            modified_at=yesterday)
+            modified_at=self.yesterday)
         category = utils.create_category(
-            parent=main_category, modified_at=yesterday)
+            parent=main_category, modified_at=self.yesterday)
         topic = utils.create_topic(
             category,
-            modified_at=yesterday, last_active=yesterday)
+            modified_at=self.yesterday, last_active=self.yesterday)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now)), 0)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=tomorrow)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
 
-        topic.modified_at = tomorrow
+        topic.modified_at = self.tomorrow
         topic.save()
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now)), 1)
+            len(TopicIndex().build_queryset(start_date=self.now)), 1)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=tomorrow)), 1)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=now)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
 
     def test_indexing_build_queryset_by_comment(self):
         """
         Should update topics based on modified times
         """
-        now = timezone.now()
-        yesterday = timezone.now() - datetime.timedelta(days=1)
-        tomorrow = timezone.now() + datetime.timedelta(days=1)
-
         main_category = utils.create_category(
-            modified_at=yesterday)
+            modified_at=self.yesterday)
         category = utils.create_category(
-            parent=main_category, modified_at=yesterday)
+            parent=main_category, modified_at=self.yesterday)
         topic = utils.create_topic(
             category,
-            modified_at=yesterday, last_active=yesterday)
+            modified_at=self.yesterday, last_active=self.yesterday)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now)), 0)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=tomorrow)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
 
-        topic.last_active = tomorrow
+        topic.last_active = self.tomorrow
         topic.save()
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now)), 1)
+            len(TopicIndex().build_queryset(start_date=self.now)), 1)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=tomorrow)), 1)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=now)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
 
     def test_indexing_build_queryset_by_category(self):
         """
         Should update topics based on modified times
         """
-        now = timezone.now()
-        yesterday = timezone.now() - datetime.timedelta(days=1)
-        tomorrow = timezone.now() + datetime.timedelta(days=1)
-
         main_category = utils.create_category(
-            modified_at=yesterday)
+            modified_at=self.yesterday)
         category = utils.create_category(
-            parent=main_category, modified_at=yesterday)
+            parent=main_category, modified_at=self.yesterday)
         utils.create_topic(
             category,
-            modified_at=yesterday, last_active=yesterday)
+            modified_at=self.yesterday, last_active=self.yesterday)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now)), 0)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=tomorrow)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
 
-        category.modified_at = tomorrow
+        category.modified_at = self.tomorrow
         category.save()
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now)), 1)
+            len(TopicIndex().build_queryset(start_date=self.now)), 1)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=tomorrow)), 1)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=now)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
 
     def test_indexing_build_queryset_by_subcategory(self):
         """
         Should update topics based on modified times
         """
-        now = timezone.now()
-        yesterday = timezone.now() - datetime.timedelta(days=1)
-        tomorrow = timezone.now() + datetime.timedelta(days=1)
-
         main_category = utils.create_category(
-            modified_at=yesterday)
+            modified_at=self.yesterday)
         category = utils.create_category(
-            parent=main_category, modified_at=yesterday)
+            parent=main_category, modified_at=self.yesterday)
         utils.create_topic(
             category,
-            modified_at=yesterday, last_active=yesterday)
+            modified_at=self.yesterday, last_active=self.yesterday)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now)), 0)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=tomorrow)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
 
-        main_category.modified_at = tomorrow
+        main_category.modified_at = self.tomorrow
         main_category.save()
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now)), 1)
+            len(TopicIndex().build_queryset(start_date=self.now)), 1)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=tomorrow)), 1)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
         self.assertEqual(
-            len(TopicIndex().build_queryset(start_date=now, end_date=now)), 0)
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
 
 
 class SearchViewTest(TestCase):
