@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
+from django.db.models import Q
 
 from haystack import indexes
 
@@ -52,20 +53,42 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
                 .select_related('category__parent'))
 
     # Overridden
-    def get_updated_field(self):
+    def build_queryset(self, using=None, start_date=None, end_date=None):
         """
         This specify what topics should be indexed,\
         based on the last time they were updated.
 
         Topics will be re-indexed when a new comment\
-        is posted. To re-index deleted topics,\
-        a full re-index must be ran.
+        is posted or the topic is modified or the\
+        category/subcategory is modified.
 
-        :return: Last updated name field
+        :return: Topic QuerySet filtered by active\
+        time and ordered by pk
         """
-        # todo: override build_queryset, and filter by comment
-        # updated_at, topic.updated_at, category.updated_at
-        return 'last_active'
+        lookup_comments = {}
+        lookup_topic = {}
+        lookup_category = {}
+        lookup_subcategory = {}
+
+        if start_date:
+            lookup_comments['last_active__gte'] = start_date
+            lookup_topic['modified_at__gte'] = start_date
+            lookup_category['category__modified_at__gte'] = start_date
+            lookup_subcategory['category__parent__modified_at__gte'] = start_date
+
+        if end_date:
+            lookup_comments['last_active__lte'] = end_date
+            lookup_topic['modified_at__lte'] = end_date
+            lookup_category['category__modified_at__lte'] = end_date
+            lookup_subcategory['category__parent__modified_at__lte'] = end_date
+
+        return (self.index_queryset(using=using)
+                .filter(
+                    Q(**lookup_comments) |
+                    Q(**lookup_topic) |
+                    Q(**lookup_category) |
+                    Q(**lookup_subcategory))
+                .order_by('pk'))
 
     def prepare_is_removed(self, obj):
         """
