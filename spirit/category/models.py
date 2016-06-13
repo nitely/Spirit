@@ -16,9 +16,10 @@ class Category(models.Model):
     """
     Category model
 
-    :ivar modified_at: Last time this model was modified.\
-    Not every field change should update this, since it makes\
-    the search re-index the topic, it must be set explicitly
+    :ivar modified_at: Last time this model was modified by\
+    an user action. Not every field change should update this,\
+    since it makes the search re-index the topic,\
+    it must be set explicitly
     :vartype modified_at: `:py:class:models.DateTimeField`
     """
     parent = models.ForeignKey('self', verbose_name=_("category parent"), null=True, blank=True)

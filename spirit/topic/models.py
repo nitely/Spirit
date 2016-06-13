@@ -17,8 +17,11 @@ class Topic(models.Model):
     """
     Topic model
 
-    :ivar modified_at: Last time this model was modified.\
-    Not every field change should update this\
+    :ivar last_active: Last time a comment was added/removed,\
+    it makes the search re-index the topic
+    :vartype last_active: `:py:class:models.DateTimeField`
+    :ivar modified_at: Last time this model was modified\
+    by an user action. Not every field change should update this\
     (ie: `:py:attr:view_count`), since it makes\
     the search re-index the topic, it must be set explicitly
     :vartype modified_at: `:py:class:models.DateTimeField`
