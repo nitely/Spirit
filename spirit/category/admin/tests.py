@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import datetime
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from ...core.tests import utils
 from . import views as category_views
@@ -139,3 +141,28 @@ class AdminFormTest(TestCase):
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('parent', form.cleaned_data)
 
+    def test_category_updates_modified_at(self):
+        """
+        Should update modified_at field
+        """
+        form_data = {
+            "parent": "",
+            "title": "foo",
+            "description": "",
+            "is_closed": False,
+            "is_removed": False,
+            "is_global": True,
+            "color": ""
+        }
+        yesterday = timezone.now() - datetime.timedelta(days=1)
+        category = utils.create_category(
+            modified_at=yesterday)
+        self.assertEqual(
+            category.modified_at,
+            yesterday)
+        form = CategoryForm(instance=category, data=form_data)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.assertGreater(
+            Category.objects.get(pk=category.pk).modified_at,
+            yesterday)
