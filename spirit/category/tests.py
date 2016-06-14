@@ -147,6 +147,32 @@ class CategoryViewTest(TestCase):
         self.assertEqual(list(response.context['topics']), [topic, ])
 
 
+class CategoryModelTest(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+
+    def test_is_subcategory(self):
+        """
+        Should return whether the category\
+        is a subcategory or not
+        """
+        category = utils.create_category()
+        subcategory = utils.create_category(parent=category)
+        self.assertEqual(category.is_subcategory, False)
+        self.assertEqual(subcategory.is_subcategory, True)
+
+    def test_modified_at(self):
+        """
+        Should not always update modified_at
+        """
+        category = utils.create_category()
+        modified_at = category.modified_at
+        category.save()  # No changes
+        self.assertEqual(
+            modified_at,
+            Category.objects.get(pk=category.pk).modified_at)
+
 
 class CategoryMigrationTest(TestCase):
 
