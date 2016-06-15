@@ -16,7 +16,7 @@ def _moderate(request, pk, field_name, to_value, action=None):
 
     if request.method == 'POST':
         count = (Topic.objects
-                 .filter(**{'pk': pk})
+                 .filter(pk=pk)
                  .exclude(**{field_name: to_value})
                  .update(**{
                     field_name: to_value,
