@@ -496,6 +496,25 @@ class TopicFormTest(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(form.get_topic_hash(), topic_hash)
 
+    def test_topic_updates_reindex_at(self):
+        """
+        Should update reindex_at field
+        """
+        yesterday = timezone.now() - datetime.timedelta(days=1)
+        category = utils.create_category()
+        topic = utils.create_topic(category, reindex_at=yesterday)
+        self.assertEqual(
+            topic.reindex_at,
+            yesterday)
+
+        form_data = {'title': 'foobar'}
+        form = TopicForm(self.user, data=form_data, instance=topic)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.assertGreater(
+            Topic.objects.get(pk=topic.pk).reindex_at,
+            yesterday)
+
 
 class TopicUtilsTest(TestCase):
 

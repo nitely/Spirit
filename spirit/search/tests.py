@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import datetime
 
 from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
@@ -8,6 +9,7 @@ from django.template import Template, Context
 from django.conf import settings
 from django.core.management import call_command
 from django.template.loader import render_to_string
+from django.utils import timezone
 
 from haystack.query import SearchQuerySet
 from djconfig.utils import override_djconfig
@@ -17,10 +19,6 @@ from ..topic.models import Topic
 from .forms import BasicSearchForm, AdvancedSearchForm
 from .tags import render_search_form
 from .search_indexes import TopicIndex
-
-HAYSTACK_TEST = {
-    'default': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine'}}
 
 
 def rebuild_index():
@@ -32,6 +30,9 @@ class SearchTopicIndexTest(TestCase):
     def setUp(self):
         utils.cache_clear()
         self.topic_sqs = SearchQuerySet().models(Topic)
+        self.now = timezone.now()
+        self.yesterday = timezone.now() - datetime.timedelta(days=1)
+        self.tomorrow = timezone.now() + datetime.timedelta(days=1)
 
     def test_index_queryset_excludes_private_topics(self):
         """
@@ -159,6 +160,106 @@ class SearchTopicIndexTest(TestCase):
                 'search/indexes/spirit_topic/topic_text.txt',
                 context={'object': topic}),
             'my title\n\nbar\n\nfoo\n\n')
+
+    def test_indexing_build_queryset_by_topic(self):
+        """
+        Should update topics based on modified times
+        """
+        main_category = utils.create_category(
+            reindex_at=self.yesterday)
+        category = utils.create_category(
+            parent=main_category, reindex_at=self.yesterday)
+        topic = utils.create_topic(
+            category,
+            reindex_at=self.yesterday, last_active=self.yesterday)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now)), 0)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
+
+        topic.reindex_at = self.tomorrow
+        topic.save()
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now)), 1)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
+
+    def test_indexing_build_queryset_by_comment(self):
+        """
+        Should update topics based on modified times
+        """
+        main_category = utils.create_category(
+            reindex_at=self.yesterday)
+        category = utils.create_category(
+            parent=main_category, reindex_at=self.yesterday)
+        topic = utils.create_topic(
+            category,
+            reindex_at=self.yesterday, last_active=self.yesterday)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now)), 0)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
+
+        topic.last_active = self.tomorrow
+        topic.save()
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now)), 1)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
+
+    def test_indexing_build_queryset_by_category(self):
+        """
+        Should update topics based on modified times
+        """
+        main_category = utils.create_category(
+            reindex_at=self.yesterday)
+        category = utils.create_category(
+            parent=main_category, reindex_at=self.yesterday)
+        utils.create_topic(
+            category,
+            reindex_at=self.yesterday, last_active=self.yesterday)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now)), 0)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
+
+        category.reindex_at = self.tomorrow
+        category.save()
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now)), 1)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
+
+    def test_indexing_build_queryset_by_subcategory(self):
+        """
+        Should update topics based on modified times
+        """
+        main_category = utils.create_category(
+            reindex_at=self.yesterday)
+        category = utils.create_category(
+            parent=main_category, reindex_at=self.yesterday)
+        utils.create_topic(
+            category,
+            reindex_at=self.yesterday, last_active=self.yesterday)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now)), 0)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
+
+        main_category.reindex_at = self.tomorrow
+        main_category.save()
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now)), 1)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
 
 
 class SearchViewTest(TestCase):

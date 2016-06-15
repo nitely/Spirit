@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import datetime
 
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from ...core.tests import utils
 from . import views as category_views
@@ -49,8 +51,9 @@ class AdminViewTest(TestCase):
         Category create
         """
         utils.login(self)
-        form_data = {"parent": "", "title": "foo", "description": "",
-                     "is_closed": False, "is_removed": False, "is_global": True, "color": ""}
+        form_data = {
+            "parent": "", "title": "foo", "description": "",
+            "is_closed": False, "is_removed": False, "is_global": True, "color": ""}
         response = self.client.post(reverse('spirit:admin:category:create'),
                                     form_data)
         expected_url = reverse("spirit:admin:category:index")
@@ -64,20 +67,24 @@ class AdminViewTest(TestCase):
         Category update
         """
         utils.login(self)
-        form_data = {"parent": "", "title": "foo", "description": "",
-                     "is_closed": False, "is_removed": False, "is_global": True, "color": "#ff0000"}
-        response = self.client.post(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
-                                    form_data)
+        form_data = {
+            "parent": "", "title": "foo", "description": "",
+            "is_closed": False, "is_removed": False, "is_global": True, "color": "#ff0000"}
+        response = self.client.post(
+            reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
+            form_data)
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }))
+        response = self.client.get(
+            reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }))
         self.assertEqual(response.status_code, 200)
 
     def test_category_form_color(self):
         """ Test category form raises exception on wrong color """
-        form_data = {"parent": "", "title": "foo", "description": "",
-                     "is_closed": False, "is_removed": False, "is_global": True, "color": "#QWERTZ"}
+        form_data = {
+            "parent": "", "title": "foo", "description": "",
+            "is_closed": False, "is_removed": False, "is_global": True, "color": "#QWERTZ"}
         form = CategoryForm(data=form_data)
 
         self.assertFalse(form.is_valid())
@@ -139,3 +146,27 @@ class AdminFormTest(TestCase):
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('parent', form.cleaned_data)
 
+    def test_category_updates_reindex_at(self):
+        """
+        Should update reindex_at field
+        """
+        form_data = {
+            "parent": "",
+            "title": "foo",
+            "description": "",
+            "is_closed": False,
+            "is_removed": False,
+            "is_global": True,
+            "color": ""}
+        yesterday = timezone.now() - datetime.timedelta(days=1)
+        category = utils.create_category(
+            reindex_at=yesterday)
+        self.assertEqual(
+            category.reindex_at,
+            yesterday)
+        form = CategoryForm(instance=category, data=form_data)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.assertGreater(
+            Category.objects.get(pk=category.pk).reindex_at,
+            yesterday)
