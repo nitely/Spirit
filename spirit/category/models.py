@@ -16,11 +16,10 @@ class Category(models.Model):
     """
     Category model
 
-    :ivar modified_at: Last time this model was modified by\
-    an user action. Not every field change should update this,\
-    since it makes the search re-index the topic,\
+    :ivar reindex_at: Last time this model was marked\
+    for reindex. It makes the search re-index the topic,\
     it must be set explicitly
-    :vartype modified_at: `:py:class:models.DateTimeField`
+    :vartype reindex_at: `:py:class:models.DateTimeField`
     """
     parent = models.ForeignKey('self', verbose_name=_("category parent"), null=True, blank=True)
 
@@ -29,7 +28,8 @@ class Category(models.Model):
     description = models.CharField(_("description"), max_length=255, blank=True)
     color = models.CharField(_("color"), max_length=7, blank=True,
                              help_text=_("Title color in hex format (i.e: #1aafd0)."))
-    modified_at = models.DateTimeField(_("modified at"), default=timezone.now)
+    reindex_at = models.DateTimeField(_("modified at"), default=timezone.now)
+
     is_global = models.BooleanField(_("global"), default=True,
                                     help_text=_('Designates whether the topics will be'
                                                 'displayed in the all-categories list.'))

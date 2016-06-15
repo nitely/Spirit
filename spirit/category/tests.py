@@ -162,16 +162,16 @@ class CategoryModelTest(TestCase):
         self.assertEqual(category.is_subcategory, False)
         self.assertEqual(subcategory.is_subcategory, True)
 
-    def test_modified_at(self):
+    def test_reindex_at(self):
         """
-        Should not always update modified_at
+        Should not always update reindex_at
         """
         category = utils.create_category()
-        modified_at = category.modified_at
+        reindex_at = category.reindex_at
         category.save()  # No changes
         self.assertEqual(
-            modified_at,
-            Category.objects.get(pk=category.pk).modified_at)
+            reindex_at,
+            Category.objects.get(pk=category.pk).reindex_at)
 
 
 class CategoryMigrationTest(TestCase):

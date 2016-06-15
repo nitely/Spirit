@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='category',
-            name='modified_at',
-            field=models.DateTimeField(verbose_name='modified at', default=django.utils.timezone.now),
+            name='reindex_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='modified at'),
         ),
     ]

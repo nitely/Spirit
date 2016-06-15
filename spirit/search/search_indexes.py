@@ -72,15 +72,15 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
 
         if start_date:
             lookup_comments['last_active__gte'] = start_date
-            lookup_topic['modified_at__gte'] = start_date
-            lookup_category['category__modified_at__gte'] = start_date
-            lookup_subcategory['category__parent__modified_at__gte'] = start_date
+            lookup_topic['reindex_at__gte'] = start_date
+            lookup_category['category__reindex_at__gte'] = start_date
+            lookup_subcategory['category__parent__reindex_at__gte'] = start_date
 
         if end_date:
             lookup_comments['last_active__lte'] = end_date
-            lookup_topic['modified_at__lte'] = end_date
-            lookup_category['category__modified_at__lte'] = end_date
-            lookup_subcategory['category__parent__modified_at__lte'] = end_date
+            lookup_topic['reindex_at__lte'] = end_date
+            lookup_category['category__reindex_at__lte'] = end_date
+            lookup_subcategory['category__parent__reindex_at__lte'] = end_date
 
         return (self.index_queryset(using=using)
                 .filter(

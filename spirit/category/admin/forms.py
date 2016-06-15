@@ -59,5 +59,5 @@ class CategoryForm(forms.ModelForm):
         return color
 
     def save(self, commit=True):
-        self.instance.modified_at = timezone.now()
+        self.instance.reindex_at = timezone.now()
         return super(CategoryForm, self).save(commit)

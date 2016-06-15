@@ -55,5 +55,5 @@ class TopicForm(forms.ModelForm):
         if not self.instance.pk:
             self.instance.user = self.user
 
-        self.instance.modified_at = timezone.now()
+        self.instance.reindex_at = timezone.now()
         return super(TopicForm, self).save(commit)

@@ -20,7 +20,7 @@ def _moderate(request, pk, field_name, to_value, action=None):
                  .exclude(**{field_name: to_value})
                  .update(**{
                     field_name: to_value,
-                    'modified_at': timezone.now()}))
+                    'reindex_at': timezone.now()}))
 
         if count and action is not None:
             Comment.create_moderation_action(

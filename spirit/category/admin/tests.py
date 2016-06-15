@@ -146,9 +146,9 @@ class AdminFormTest(TestCase):
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn('parent', form.cleaned_data)
 
-    def test_category_updates_modified_at(self):
+    def test_category_updates_reindex_at(self):
         """
-        Should update modified_at field
+        Should update reindex_at field
         """
         form_data = {
             "parent": "",
@@ -160,13 +160,13 @@ class AdminFormTest(TestCase):
             "color": ""}
         yesterday = timezone.now() - datetime.timedelta(days=1)
         category = utils.create_category(
-            modified_at=yesterday)
+            reindex_at=yesterday)
         self.assertEqual(
-            category.modified_at,
+            category.reindex_at,
             yesterday)
         form = CategoryForm(instance=category, data=form_data)
         self.assertEqual(form.is_valid(), True)
         form.save()
         self.assertGreater(
-            Category.objects.get(pk=category.pk).modified_at,
+            Category.objects.get(pk=category.pk).reindex_at,
             yesterday)

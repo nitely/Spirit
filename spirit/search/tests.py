@@ -166,18 +166,18 @@ class SearchTopicIndexTest(TestCase):
         Should update topics based on modified times
         """
         main_category = utils.create_category(
-            modified_at=self.yesterday)
+            reindex_at=self.yesterday)
         category = utils.create_category(
-            parent=main_category, modified_at=self.yesterday)
+            parent=main_category, reindex_at=self.yesterday)
         topic = utils.create_topic(
             category,
-            modified_at=self.yesterday, last_active=self.yesterday)
+            reindex_at=self.yesterday, last_active=self.yesterday)
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now)), 0)
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
 
-        topic.modified_at = self.tomorrow
+        topic.reindex_at = self.tomorrow
         topic.save()
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now)), 1)
@@ -191,12 +191,12 @@ class SearchTopicIndexTest(TestCase):
         Should update topics based on modified times
         """
         main_category = utils.create_category(
-            modified_at=self.yesterday)
+            reindex_at=self.yesterday)
         category = utils.create_category(
-            parent=main_category, modified_at=self.yesterday)
+            parent=main_category, reindex_at=self.yesterday)
         topic = utils.create_topic(
             category,
-            modified_at=self.yesterday, last_active=self.yesterday)
+            reindex_at=self.yesterday, last_active=self.yesterday)
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now)), 0)
         self.assertEqual(
@@ -216,18 +216,18 @@ class SearchTopicIndexTest(TestCase):
         Should update topics based on modified times
         """
         main_category = utils.create_category(
-            modified_at=self.yesterday)
+            reindex_at=self.yesterday)
         category = utils.create_category(
-            parent=main_category, modified_at=self.yesterday)
+            parent=main_category, reindex_at=self.yesterday)
         utils.create_topic(
             category,
-            modified_at=self.yesterday, last_active=self.yesterday)
+            reindex_at=self.yesterday, last_active=self.yesterday)
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now)), 0)
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
 
-        category.modified_at = self.tomorrow
+        category.reindex_at = self.tomorrow
         category.save()
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now)), 1)
@@ -241,18 +241,18 @@ class SearchTopicIndexTest(TestCase):
         Should update topics based on modified times
         """
         main_category = utils.create_category(
-            modified_at=self.yesterday)
+            reindex_at=self.yesterday)
         category = utils.create_category(
-            parent=main_category, modified_at=self.yesterday)
+            parent=main_category, reindex_at=self.yesterday)
         utils.create_topic(
             category,
-            modified_at=self.yesterday, last_active=self.yesterday)
+            reindex_at=self.yesterday, last_active=self.yesterday)
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now)), 0)
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
 
-        main_category.modified_at = self.tomorrow
+        main_category.reindex_at = self.tomorrow
         main_category.save()
         self.assertEqual(
             len(TopicIndex().build_queryset(start_date=self.now)), 1)

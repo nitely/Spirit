@@ -20,11 +20,10 @@ class Topic(models.Model):
     :ivar last_active: Last time a comment was added/removed,\
     it makes the search re-index the topic
     :vartype last_active: `:py:class:models.DateTimeField`
-    :ivar modified_at: Last time this model was modified\
-    by an user action. Not every field change should update this\
-    (ie: `:py:attr:view_count`), since it makes\
-    the search re-index the topic, it must be set explicitly
-    :vartype modified_at: `:py:class:models.DateTimeField`
+    :ivar reindex_at: Last time this model was marked\
+    for reindex. It makes the search re-index the topic,\
+    it must be set explicitly
+    :vartype reindex_at: `:py:class:models.DateTimeField`
     """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_topics')
     category = models.ForeignKey('spirit_category.Category', verbose_name=_("category"))
@@ -33,7 +32,7 @@ class Topic(models.Model):
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     date = models.DateTimeField(_("date"), default=timezone.now)
     last_active = models.DateTimeField(_("last active"), default=timezone.now)
-    modified_at = models.DateTimeField(_("modified at"), default=timezone.now)
+    reindex_at = models.DateTimeField(_("reindex at"), default=timezone.now)
 
     is_pinned = models.BooleanField(_("pinned"), default=False)
     is_globally_pinned = models.BooleanField(_("globally pinned"), default=False)

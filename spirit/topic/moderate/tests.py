@@ -28,8 +28,8 @@ class TopicViewTest(TestCase):
 
         yesterday = timezone.now() - datetime.timedelta(days=1)
         category = utils.create_category()
-        topic = utils.create_topic(category, modified_at=yesterday)
-        self.assertEqual(topic.modified_at, yesterday)
+        topic = utils.create_topic(category, reindex_at=yesterday)
+        self.assertEqual(topic.reindex_at, yesterday)
         response = self.client.post(
             reverse('spirit:topic:moderate:delete', kwargs={'pk': topic.pk}),
             data={})
@@ -38,7 +38,7 @@ class TopicViewTest(TestCase):
 
         topic = Topic.objects.get(pk=topic.pk)
         self.assertTrue(topic.is_removed)
-        self.assertGreater(topic.modified_at, yesterday)
+        self.assertGreater(topic.reindex_at, yesterday)
 
     def test_topic_moderate_undelete(self):
         """
@@ -50,8 +50,8 @@ class TopicViewTest(TestCase):
 
         yesterday = timezone.now() - datetime.timedelta(days=1)
         category = utils.create_category()
-        topic = utils.create_topic(category, is_removed=True, modified_at=yesterday)
-        self.assertEqual(topic.modified_at, yesterday)
+        topic = utils.create_topic(category, is_removed=True, reindex_at=yesterday)
+        self.assertEqual(topic.reindex_at, yesterday)
         response = self.client.post(
             reverse('spirit:topic:moderate:undelete', kwargs={'pk': topic.pk}),
             data={})
@@ -60,7 +60,7 @@ class TopicViewTest(TestCase):
 
         topic = Topic.objects.get(pk=topic.pk)
         self.assertFalse(topic.is_removed)
-        self.assertGreater(topic.modified_at, yesterday)
+        self.assertGreater(topic.reindex_at, yesterday)
 
     def test_topic_moderate_lock(self):
         """
