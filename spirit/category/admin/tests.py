@@ -51,8 +51,9 @@ class AdminViewTest(TestCase):
         Category create
         """
         utils.login(self)
-        form_data = {"parent": "", "title": "foo", "description": "",
-                     "is_closed": False, "is_removed": False, "is_global": True, "color": ""}
+        form_data = {
+            "parent": "", "title": "foo", "description": "",
+            "is_closed": False, "is_removed": False, "is_global": True, "color": ""}
         response = self.client.post(reverse('spirit:admin:category:create'),
                                     form_data)
         expected_url = reverse("spirit:admin:category:index")
@@ -66,20 +67,24 @@ class AdminViewTest(TestCase):
         Category update
         """
         utils.login(self)
-        form_data = {"parent": "", "title": "foo", "description": "",
-                     "is_closed": False, "is_removed": False, "is_global": True, "color": "#ff0000"}
-        response = self.client.post(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
-                                    form_data)
+        form_data = {
+            "parent": "", "title": "foo", "description": "",
+            "is_closed": False, "is_removed": False, "is_global": True, "color": "#ff0000"}
+        response = self.client.post(
+            reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
+            form_data)
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }))
+        response = self.client.get(
+            reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }))
         self.assertEqual(response.status_code, 200)
 
     def test_category_form_color(self):
         """ Test category form raises exception on wrong color """
-        form_data = {"parent": "", "title": "foo", "description": "",
-                     "is_closed": False, "is_removed": False, "is_global": True, "color": "#QWERTZ"}
+        form_data = {
+            "parent": "", "title": "foo", "description": "",
+            "is_closed": False, "is_removed": False, "is_global": True, "color": "#QWERTZ"}
         form = CategoryForm(data=form_data)
 
         self.assertFalse(form.is_valid())
@@ -152,8 +157,7 @@ class AdminFormTest(TestCase):
             "is_closed": False,
             "is_removed": False,
             "is_global": True,
-            "color": ""
-        }
+            "color": ""}
         yesterday = timezone.now() - datetime.timedelta(days=1)
         category = utils.create_category(
             modified_at=yesterday)
