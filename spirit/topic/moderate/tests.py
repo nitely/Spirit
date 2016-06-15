@@ -31,7 +31,8 @@ class TopicViewTest(TestCase):
         topic = utils.create_topic(category, modified_at=yesterday)
         self.assertEqual(topic.modified_at, yesterday)
         response = self.client.post(
-            reverse('spirit:topic:moderate:delete', kwargs={'pk': topic.pk}), {})
+            reverse('spirit:topic:moderate:delete', kwargs={'pk': topic.pk}),
+            data={})
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
 
@@ -52,7 +53,8 @@ class TopicViewTest(TestCase):
         topic = utils.create_topic(category, is_removed=True, modified_at=yesterday)
         self.assertEqual(topic.modified_at, yesterday)
         response = self.client.post(
-            reverse('spirit:topic:moderate:undelete', kwargs={'pk': topic.pk}), {})
+            reverse('spirit:topic:moderate:undelete', kwargs={'pk': topic.pk}),
+            data={})
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
 
