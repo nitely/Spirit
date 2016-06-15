@@ -722,10 +722,10 @@ class UtilsUserTests(TestCase):
             self.assertEqual(request, req)
             self.assertEqual(email, [self.user.email, ])
 
-            activation_token = UserActivationTokenGenerator()
-            token = activation_token.generate(self.user)
-            self.assertDictEqual(context, {'token': token, 'user_id': self.user.pk})
-
+            self.assertTrue(
+                UserActivationTokenGenerator().is_valid(
+                    self.user, context['token']))
+            self.assertEqual(context['user_id'], self.user.pk)
             self.assertEqual(subject, _("User activation"))
             self.assertEqual(template_name, 'spirit/user/activation_email.html')
 
