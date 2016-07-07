@@ -37,7 +37,7 @@ class BasicSearchForm(BaseSearchForm):
             return sqs
 
         topics = sqs.models(Topic)
-        return topics.filter(is_removed=False)
+        return topics.filter(is_removed=0)
 
 
 class AdvancedSearchForm(BaseSearchForm):
@@ -66,4 +66,4 @@ class AdvancedSearchForm(BaseSearchForm):
             topics = topics.filter(
                 category_id__in=[c.pk for c in categories])
 
-        return topics.filter(is_removed=False)
+        return topics.filter(is_removed=0)
