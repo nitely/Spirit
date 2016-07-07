@@ -37,6 +37,9 @@ class BasicSearchForm(BaseSearchForm):
             return sqs
 
         topics = sqs.models(Topic)
+
+        # See: haystack pull #1141 and #1093
+        # querying False won't work on elastic
         return topics.filter(is_removed=0)
 
 
@@ -66,4 +69,6 @@ class AdvancedSearchForm(BaseSearchForm):
             topics = topics.filter(
                 category_id__in=[c.pk for c in categories])
 
+        # See: haystack pull #1141 and #1093
+        # querying False won't work on elastic
         return topics.filter(is_removed=0)
