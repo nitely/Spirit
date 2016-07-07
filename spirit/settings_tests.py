@@ -68,3 +68,6 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 TEMPLATES[0]['OPTIONS']['debug'] = True
 
 ST_RATELIMIT_CACHE = 'st_rate_limit'
+
+HAYSTACK_CONNECTIONS['default']['STORAGE'] = 'ram'
+HAYSTACK_LIMIT_TO_REGISTERED_MODELS = False
