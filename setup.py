@@ -7,8 +7,16 @@ import os
 from setuptools import setup, find_packages
 
 
-README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
-REQUIREMENTS = open(os.path.join(os.path.dirname(__file__), 'requirements.txt')).read()
+BASE_DIR = os.path.join(os.path.dirname(__file__))
+
+with open(os.path.join(BASE_DIR, 'README.md')) as f:
+    README = f.read()
+
+with open(os.path.join(BASE_DIR, 'requirements.txt')) as f:
+    REQUIREMENTS = [
+        line.strip()
+        for line in f.readlines()
+        if line.strip()]
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
