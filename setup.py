@@ -13,23 +13,22 @@ with open(os.path.join(BASE_DIR, 'README.md')) as f:
     README = f.read()
 
 with open(os.path.join(BASE_DIR, 'requirements.txt')) as f:
-    REQUIREMENTS = [
-        line.strip()
-        for line in f.readlines()
-        if line.strip()]
+    REQUIREMENTS = f.read()
+
+VERSION = __import__('spirit').__version__
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-spirit',
-    version='0.4.7',
+    version=VERSION,
     description='Spirit is a Python based forum powered by Django.',
     author='Esteban Castro Borsani',
     author_email='ecastroborsani@gmail.com',
     long_description=README,
     url='http://spirit-project.com/',
-    packages=find_packages(exclude=['example', ]),
+    packages=find_packages(),
     test_suite="runtests.start",
     include_package_data=True,
     zip_safe=False,

@@ -1,3 +1,14 @@
 recursive-include spirit *
 include LICENSE
 include README.md
+include HISTORY.md
+include requirements.txt
+
+recursive-exclude example *
+
+graft spirit
+
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .git*
+global-exclude .DS_Store
