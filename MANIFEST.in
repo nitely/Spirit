@@ -1,12 +1,13 @@
-recursive-include spirit *
+include MANIFEST.in
 include LICENSE
 include README.md
 include HISTORY.md
 include requirements.txt
 
-recursive-exclude example *
-
 graft spirit
+
+prune example
+prune spirit/search/whoosh_index
 
 global-exclude __pycache__
 global-exclude *.py[co]
