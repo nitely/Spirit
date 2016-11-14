@@ -3,6 +3,7 @@
 
 * Drops support for Python 3.3
 * Adds support for Django 1.9 and 1.10
+* Remove deprecated `topic_poll` app
 
 0.4.8
 ==================
