@@ -44,9 +44,6 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(len(Topic.objects.all()), 1)
 
-        # Make sure it does not creates an empty poll
-        self.assertRaises(ObjectDoesNotExist, lambda: topic.poll)
-
         # ratelimit
         response = self.client.post(reverse('spirit:topic:publish'), form_data)
         self.assertEqual(response.status_code, 200)

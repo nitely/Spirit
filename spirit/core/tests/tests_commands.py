@@ -35,7 +35,7 @@ class CommandsTests(TestCase):
             out_put_err = err.getvalue().strip().splitlines()
             self.assertEqual(commands[0], 'makemessages')
             self.assertEqual(commands[1], 'compilemessages')
-            self.assertEqual(len(dirs), 46)
+            self.assertEqual(len(dirs), 44)
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
         finally:

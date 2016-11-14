@@ -70,7 +70,7 @@ INSTALLED_APPS = [
     'spirit.topic.favorite',
     'spirit.topic.moderate',
     'spirit.topic.notification',
-    'spirit.topic.poll',  # todo: remove in Spirit v0.5
+    'spirit.topic.poll',  # todo: remove in Spirit v0.6
     'spirit.topic.private',
     'spirit.topic.unread',
 
