@@ -12,7 +12,7 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 ## Compatibility
 
 * Python 2.7, 3.4 and 3.5 (recommended)
-* Django 1.8 LTS (recommended) and 1.9
+* Django 1.8 LTS (recommended), 1.9 and 1.10
 * PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
 ## Installing (Advanced)
