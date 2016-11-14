@@ -23,7 +23,7 @@ class User(AbstractUser):
 """
 
 
-def show_stopper(apps, schema_editor):
+def user_model_checker(apps, schema_editor):
     from django.conf import settings
 
     if not hasattr(settings, 'AUTH_USER_MODEL'):
@@ -66,5 +66,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(show_stopper, lambda *args: None),
+        migrations.RunPython(user_model_checker, lambda *args: None),
     ]
