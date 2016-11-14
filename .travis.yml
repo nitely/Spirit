@@ -7,10 +7,14 @@ python:
   - "2.7"
   - "3.4"
   - "3.5"
-
+env:
+  - DJANGO=1.8.16
+  - DJANGO=1.9.11
+  - DJANGO=1.10.3
 install:
   - pip install --upgrade pip
   - pip install -r requirements.txt
+  - pip install -q Django==$DJANGO
   - pip install coveralls pep8==1.5.7 flake8
 script:
   - flake8 --exit-zero
