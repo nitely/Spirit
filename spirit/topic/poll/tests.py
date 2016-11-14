@@ -6,6 +6,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.template import Template, Context
+from django.contrib.auth.models import AnonymousUser
 
 from ...core.tests import utils
 from .models import TopicPoll, TopicPollChoice, TopicPollVote
@@ -478,10 +479,8 @@ class TopicPollTemplateTagsTest(TestCase):
         poll_choice = TopicPollChoice.objects.create(poll=self.poll, description="op2")
         TopicPollVote.objects.create(user=self.user, choice=poll_choice)
 
-        self.user.is_authenticated = lambda: True
         context = render_poll_form(self.topic, self.user)
         self.assertDictEqual(context['form'].initial, {'choices': poll_choice})
 
-        self.user.is_authenticated = lambda: False
-        context = render_poll_form(self.topic, self.user)
+        context = render_poll_form(self.topic, AnonymousUser())
         self.assertDictEqual(context['form'].initial, {})
