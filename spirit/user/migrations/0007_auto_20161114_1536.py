@@ -54,7 +54,7 @@ def show_stopper(apps, schema_editor):
             '* Add `AUTH_USER_MODEL = \'my_custom_user.User\'` in settings.py.\n'
             '* Run `python manage.py makemigrations`, '
             'there should be new migrations in the custom user app.\n'
-            'Run `python manage.py migrate --fake-initial my_custom_user` '
+            '* Run `python manage.py migrate --fake-initial my_custom_user` '
             'where `my_custom_user` is the name of the custom user app.\n'
             'Required user model:' + _OLD_MODEL)
 

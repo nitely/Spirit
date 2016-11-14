@@ -4,8 +4,8 @@
 * Drops support for Python 3.3
 * Adds support for Django 1.9 and 1.10
 * Remove deprecated `topic_poll` app
-* Remove deprecated (since v0.2) `spirit_user.User`,
-  read the wiki for a workaround this
+* Remove deprecated (since v0.2) `spirit_user.User` (PR #141),
+  read the wiki or the PR for a workaround
 
 0.4.8
 ==================
