@@ -64,14 +64,3 @@ class UserProfile(models.Model):
                     .update(
                         last_post_hash=post_hash,
                         last_post_on=timezone.now()))
-
-
-class User(AbstractUser):
-    # Backward compatibility
-
-    class Meta(AbstractUser.Meta):
-        swappable = 'AUTH_USER_MODEL'
-        ordering = ['-date_joined', '-pk']
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
-        db_table = 'spirit_user_user'
