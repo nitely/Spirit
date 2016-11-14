@@ -1,3 +1,9 @@
+0.5.0
+==================
+
+* Drops support for Python 3.3
+* Adds support for Django 1.9
+
 0.4.8
 ==================
 
