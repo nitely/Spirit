@@ -50,9 +50,11 @@ class Comment(models.Model):
         verbose_name_plural = _("comments")
 
     def __str__(self):
-        return _('%s by %s at %s') % (
-            self.get_action_display(), self.user, self.date
-        )
+        return _('%(action)s by %(user)s at %(date)s') % {
+            'action': self.get_action_display(),
+            'user': self.user,
+            'date': self.date,
+        }
 
     def get_absolute_url(self):
         return reverse('spirit:comment:find', kwargs={'pk': str(self.id), })
