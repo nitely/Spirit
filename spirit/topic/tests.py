@@ -7,7 +7,6 @@ import hashlib
 from django.test import TestCase, RequestFactory, override_settings
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.core.exceptions import ObjectDoesNotExist
 
 from djconfig.utils import override_djconfig
 
@@ -548,6 +547,9 @@ class TopicModelsTest(TestCase):
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
+
+    def test_str(self):
+        self.assertEqual(self.topic.__str__(), self.topic.title)
 
     def test_topic_increase_view_count(self):
         """
