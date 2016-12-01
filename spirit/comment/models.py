@@ -51,7 +51,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return _('%s by %s at %s') % (
-            self.get_action_display().ucfirst(), self.user, self.date
+            self.get_action_display(), self.user, self.date
         )
 
     def get_absolute_url(self):
