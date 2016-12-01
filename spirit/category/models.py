@@ -3,15 +3,18 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from .managers import CategoryQuerySet
 from ..core.utils.models import AutoSlugField
 
 
+@python_2_unicode_compatible
 class Category(models.Model):
     """
     Category model
@@ -43,6 +46,9 @@ class Category(models.Model):
         ordering = ['title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
+
+    def __str__(self):
+        return self.title
 
     def get_absolute_url(self):
         if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:

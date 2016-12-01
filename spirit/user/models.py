@@ -5,6 +5,7 @@ from datetime import timedelta
 
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.conf import settings
@@ -12,6 +13,7 @@ from django.conf import settings
 from ..core.utils.models import AutoSlugField
 
 
+@python_2_unicode_compatible
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_("profile"), related_name='st')
 
@@ -36,6 +38,9 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = _("forum profile")
         verbose_name_plural = _("forum profiles")
+
+    def __str__(self):
+        return _('Forum profile for %s') % self.user
 
     def save(self, *args, **kwargs):
         if self.user.is_superuser:
