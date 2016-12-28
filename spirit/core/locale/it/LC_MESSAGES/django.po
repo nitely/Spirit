@@ -1,0 +1,124 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"PO-Revision-Date: 2016-12-27 17:04+0000\n"
+"Last-Translator:   <admin@t2g.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
+
+#: spirit-src/spirit/core/tags/time.py:33
+msgid "now"
+msgstr "ora"
+
+#: spirit-src/spirit/core/tags/time.py:37
+#, python-format
+msgid "%(count)ss"
+msgstr "%(count)ss"
+
+#: spirit-src/spirit/core/tags/time.py:41
+#, python-format
+msgid "%(count)sm"
+msgstr "%(count)sm"
+
+#: spirit-src/spirit/core/tags/time.py:44
+#, python-format
+msgid "%(count)sh"
+msgstr "%(count)sh"
+
+#: spirit-src/spirit/core/templates/403.html:10
+msgid "You do not have sufficient permissions to access this page"
+msgstr "Non si dispone di autorizzazioni sufficienti per accedere a questa pagina"
+
+#: spirit-src/spirit/core/templates/404.html:10
+msgid "what you are looking for is gone..."
+msgstr "quello che stai cercando non c'e' piu'..."
+
+#: spirit-src/spirit/core/templates/spirit/_base.html:33
+#, python-brace-format
+msgid "{user} has mention you on {topic}"
+msgstr "{user} ti ha menzionato su {topic}"
+
+#: spirit-src/spirit/core/templates/spirit/_base.html:34
+#, python-brace-format
+msgid "{user} has commented on {topic}"
+msgstr "{user} ha commentato su {topic}"
+
+#: spirit-src/spirit/core/templates/spirit/_base.html:35
+msgid "Show all"
+msgstr "Mostra tutti"
+
+#: spirit-src/spirit/core/templates/spirit/_base.html:36
+msgid "No new notifications, yet"
+msgstr "Nessuna nuova notifica"
+
+#: spirit-src/spirit/core/templates/spirit/_base.html:37
+msgid "unread"
+msgstr "da leggere"
+
+#: spirit-src/spirit/core/templates/spirit/_header.html:20
+msgid "Profile"
+msgstr "Profilo"
+
+#: spirit-src/spirit/core/templates/spirit/_header.html:21
+msgid "Topics"
+msgstr "Topics"
+
+#: spirit-src/spirit/core/templates/spirit/_header.html:22
+msgid "Unread topics"
+msgstr "Topics non letti"
+
+#: spirit-src/spirit/core/templates/spirit/_header.html:23
+msgid "Private topics"
+msgstr "Topics Privati"
+
+#: spirit-src/spirit/core/templates/spirit/_header.html:26
+msgid "Admin"
+msgstr "Admin"
+
+#: spirit-src/spirit/core/templates/spirit/_header.html:29
+msgid "Log out"
+msgstr "Log out"
+
+#: spirit-src/spirit/core/templates/spirit/_header.html:42
+msgid "Log in"
+msgstr "Log in"
+
+#: spirit-src/spirit/core/templates/spirit/utils/paginator/_paginator.html:4
+#, python-format
+msgid "Page %(number)s of %(num_pages)s"
+msgstr "Pagina %(number)s di %(num_pages)s"
+
+#: spirit-src/spirit/core/templates/spirit/utils/paginator/_paginator.html:8
+msgid "Last"
+msgstr "Ultimo"
+
+#: spirit-src/spirit/core/templates/spirit/utils/paginator/_paginator.html:10
+msgid "First"
+msgstr "Primo"
+
+#: spirit-src/spirit/core/templates/spirit/utils/paginator/_yt_paginator.html:5
+msgid "Page 1 of 1"
+msgstr "Pagina 1 di 1"
+
+#: spirit-src/spirit/core/utils/markdown/utils/quote.py:36
+#, python-format
+msgid "@%(username)s said:"
+msgstr "@%(username)s ha detto:"
+
+#: spirit-src/spirit/core/utils/ratelimit/decorators.py:27
+#, python-format
+msgid "Too many submissions, wait %(time)s."
+msgstr "Troppi salvataggi, attendi %(time)s."

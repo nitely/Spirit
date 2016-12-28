@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"PO-Revision-Date: 2016-12-28 17:53+0000\n"
+"Last-Translator:   <admin@t2g.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
+
+#: spirit-src/spirit/user/forms.py:35
+msgid "The email is taken."
+msgstr "L'email è gia' in uso."
+
+#: spirit-src/spirit/user/forms.py:45 spirit-src/spirit/user/forms.py:50 spirit-src/spirit/user/templates/spirit/user/profile_update.html:12
+msgid "Email"
+msgstr "Email"
+
+#: spirit-src/spirit/user/forms.py:51 spirit-src/spirit/user/templates/spirit/user/profile_update.html:15
+msgid "Password"
+msgstr "Password"
+
+#: spirit-src/spirit/user/forms.py:61
+msgid "The provided password is incorrect."
+msgstr "La password fornita non è corretta."
+
+#: spirit-src/spirit/user/forms.py:75
+msgid "Time zone"
+msgstr "Fuso orario"
+
+#: spirit-src/spirit/user/forms.py:84
+#, python-format
+msgid "Current time is: %(date)s %(time)s"
+msgstr "L'ora attuale è: %(date)s %(time)s"
+
+#: spirit-src/spirit/user/models.py:16
+msgid "profile"
+msgstr "profilo"
+
+#: spirit-src/spirit/user/models.py:19
+msgid "location"
+msgstr "posizione"
+
+#: spirit-src/spirit/user/models.py:20
+msgid "last seen"
+msgstr "visto l'ultima volta"
+
+#: spirit-src/spirit/user/models.py:21
+msgid "last ip"
+msgstr "ultimo ip"
+
+#: spirit-src/spirit/user/models.py:22
+msgid "time zone"
+msgstr "fuso orario"
+
+#: spirit-src/spirit/user/models.py:23
+msgid "administrator status"
+msgstr "stato di amministratore"
+
+#: spirit-src/spirit/user/models.py:24
+msgid "moderator status"
+msgstr "status di moderatore"
+
+#: spirit-src/spirit/user/models.py:25
+msgid "verified"
+msgstr "verificato"
+
+#: spirit-src/spirit/user/models.py:26
+msgid "Designates whether the user has verified his account by email or by other means. Un-select this to let the user activate his account."
+msgstr "Indica se l'utente ha verificato il suo account con e-mail o altri mezzi. De-seleziona questa opzione per consentire all'utente di attivare il suo account."
+
+#: spirit-src/spirit/user/models.py:30
+msgid "topic count"
+msgstr "numero di topics"
+
+#: spirit-src/spirit/user/models.py:31
+msgid "comment count"
+msgstr "numero di commenti"
+
+#: spirit-src/spirit/user/models.py:33
+msgid "last post hash"
+msgstr "hash dell'ultimo post"
+
+#: spirit-src/spirit/user/models.py:34
+msgid "last post on"
+msgstr "ultimo post il"
+
+#: spirit-src/spirit/user/models.py:37
+msgid "forum profile"
+msgstr "profilo del forum"
+
+#: spirit-src/spirit/user/models.py:38
+msgid "forum profiles"
+msgstr "profili del forum"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:12
+msgid "Joined at"
+msgstr "Unito il"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:16
+msgid "Seen"
+msgstr "Visto"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:22
+msgid "Last IP"
+msgstr "Ultimo IP"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:31 spirit-src/spirit/user/templates/spirit/user/profile_update.html:5 spirit-src/spirit/user/templates/spirit/user/profile_update.html:9
+msgid "Preferences"
+msgstr "Preferenze"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:35
+msgid "Private Message"
+msgstr "Messaggio Privato"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:41
+msgid "Edit user"
+msgstr "Modifica utente"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:46
+msgid "Comments"
+msgstr "Commenti"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:47 spirit-src/spirit/user/templates/spirit/user/menu.html:15
+msgid "Topics"
+msgstr "Argomenti"
+
+#: spirit-src/spirit/user/templates/spirit/user/_profile.html:48
+msgid "Likes"
+msgstr "Mi-piace"
+
+#: spirit-src/spirit/user/templates/spirit/user/_render_comments_list.html:36
+msgid "There are no comments here, yet"
+msgstr "Non ci sono commenti"
+
+#: spirit-src/spirit/user/templates/spirit/user/activation_email.html:2
+#, python-format
+msgid "You're receiving this email because you registered at %(site_name)s."
+msgstr "Stai ricevendo questa e-mail poiché sei registrato a %(site_name)s."
+
+#: spirit-src/spirit/user/templates/spirit/user/activation_email.html:4
+msgid "Please go to the following link to activate your account:"
+msgstr "Si prega di visitare il seguente link per attivare il tuo account:"
+
+#: spirit-src/spirit/user/templates/spirit/user/activation_email.html:8 spirit-src/spirit/user/templates/spirit/user/email_change_email.html:8
+msgid "Thanks for using our site!"
+msgstr "Grazie per l'utilizzo del nostro sito!"
+
+#: spirit-src/spirit/user/templates/spirit/user/email_change_email.html:2
+#, python-format
+msgid "You're receiving this because you changed your user email at %(site_name)s."
+msgstr "Ricevi questa perché hai cambiato la tua e-mail su %(site_name)s."
+
+#: spirit-src/spirit/user/templates/spirit/user/email_change_email.html:4
+msgid "Please go to the following link to confirm your email change:"
+msgstr "Si prega di visitare il seguente link per confermare la modifica alla tua e-mail:"
+
+#: spirit-src/spirit/user/templates/spirit/user/menu.html:7
+msgid "User menu"
+msgstr "Menu utente"
+
+#: spirit-src/spirit/user/templates/spirit/user/menu.html:11
+msgid "Menu"
+msgstr "Menu"
+
+#: spirit-src/spirit/user/templates/spirit/user/menu.html:14
+msgid "Profile"
+msgstr "Profilo"
+
+#: spirit-src/spirit/user/templates/spirit/user/menu.html:16
+msgid "Unread topics"
+msgstr "Topics non letti"
+
+#: spirit-src/spirit/user/templates/spirit/user/menu.html:17
+msgid "Private topics"
+msgstr "Topics privati"
+
+#: spirit-src/spirit/user/templates/spirit/user/menu.html:20
+msgid "Admin"
+msgstr "Admin"
+
+#: spirit-src/spirit/user/templates/spirit/user/menu.html:23
+msgid "Log out"
+msgstr "Log out"
+
+#: spirit-src/spirit/user/templates/spirit/user/notification_email.html:2
+#, python-format
+msgid "You have a new notification at %(site_name)s."
+msgstr "Hai nuove notifiche su %(site_name)s."
+
+#: spirit-src/spirit/user/templates/spirit/user/notification_email.html:4
+msgid "Please go to the following link to read the comment:"
+msgstr "Visita il seguente link per leggere il commento:"
+
+#: spirit-src/spirit/user/templates/spirit/user/notification_email.html:8
+msgid "If you don't want to keep receiving notifications, you can deactivate them on your profile preferences."
+msgstr "Se non desideri continuare a ricevere le notifiche, è possibile disattivarle sul tuo profilo."
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_comments.html:5
+msgid "comments"
+msgstr "commenti"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_email_change.html:5 spirit-src/spirit/user/templates/spirit/user/profile_email_change.html:9 spirit-src/spirit/user/tests.py:451 spirit-src/spirit/user/tests.py:765 spirit-src/spirit/user/utils/email.py:58
+msgid "Email change"
+msgstr "Cambia Email"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_email_change.html:15
+msgid "Change my email"
+msgstr "Cambia la mia e-mail"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_likes.html:5
+msgid "likes"
+msgstr "mi-piace"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_password_change.html:5 spirit-src/spirit/user/templates/spirit/user/profile_password_change.html:9
+msgid "Password change"
+msgstr "Modifi Password"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_password_change.html:15
+msgid "Change my password"
+msgstr "Cambia la mia password"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_topics.html:5
+msgid "topics"
+msgstr "topics"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_update.html:16
+msgid "Change password"
+msgstr "Cambia password"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_update.html:18
+msgid "Avatar"
+msgstr "Avatar"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_update.html:19
+msgid "Change avatar"
+msgstr "Cambiare avatar"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_update.html:20
+msgid "Go to gravatar.com and use your current email to change it"
+msgstr "Vai a gravatar.com e utilizzare la tua email per cambiarlo"
+
+#: spirit-src/spirit/user/templates/spirit/user/profile_update.html:28
+msgid "Save"
+msgstr "Salva"
+
+#: spirit-src/spirit/user/tests.py:729 spirit-src/spirit/user/utils/email.py:50
+msgid "User activation"
+msgstr "Attivazione utente"
+
+#: spirit-src/spirit/user/utils/email.py:67
+#, python-format
+msgid "New notification: %(topic_name)s"
+msgstr "Nuova notifica: %(topic_name)s"
+
+#: spirit-src/spirit/user/views.py:35
+msgid "Your profile has been updated!"
+msgstr "Il tuo profilo è stato aggiornato!"
+
+#: spirit-src/spirit/user/views.py:57
+msgid "Your password has been changed!"
+msgstr "La tua password è stata cambiata!"
+
+#: spirit-src/spirit/user/views.py:74
+msgid "We have sent you an email so you can confirm the change!"
+msgstr "Abbiamo inviato una e-mail in modo da poter confermare il cambiamento!"
+
+#: spirit-src/spirit/user/views.py:96
+msgid "Your email has been changed!"
+msgstr "La tua mail è stata cambiata!"
+
+#: spirit-src/spirit/user/views.py:99
+msgid "Sorry, we were not able to change your email."
+msgstr "Ci dispiace, non siamo stati in grado di cambiare la tua e-mail."
+
+#~ msgid "user"
+#~ msgstr "utente"
+
+#~ msgid "users"
+#~ msgstr "utenti"

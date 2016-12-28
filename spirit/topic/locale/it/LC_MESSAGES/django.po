@@ -1,0 +1,182 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"PO-Revision-Date: 2016-12-27 17:31+0000\n"
+"Last-Translator:   <admin@t2g.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
+
+#: spirit-src/spirit/topic/forms.py:35
+msgid "Category"
+msgstr "Categoria"
+
+#: spirit-src/spirit/topic/forms.py:36
+msgid "Chose a category"
+msgstr "Scegli una categoria"
+
+#: spirit-src/spirit/topic/models.py:29
+msgid "category"
+msgstr "categoria"
+
+#: spirit-src/spirit/topic/models.py:31
+msgid "title"
+msgstr "titolo"
+
+#: spirit-src/spirit/topic/models.py:33
+msgid "date"
+msgstr "data"
+
+#: spirit-src/spirit/topic/models.py:34
+msgid "last active"
+msgstr "ultima attivita'"
+
+#: spirit-src/spirit/topic/models.py:35
+msgid "reindex at"
+msgstr "reindicizza a"
+
+#: spirit-src/spirit/topic/models.py:37
+msgid "pinned"
+msgstr "pinnato"
+
+#: spirit-src/spirit/topic/models.py:38
+msgid "globally pinned"
+msgstr "pinnato a livello globale"
+
+#: spirit-src/spirit/topic/models.py:39
+msgid "closed"
+msgstr "chiuso"
+
+#: spirit-src/spirit/topic/models.py:42
+msgid "views count"
+msgstr "numero di visualizzazioni"
+
+#: spirit-src/spirit/topic/models.py:43
+msgid "comment count"
+msgstr "numero di commenti"
+
+#: spirit-src/spirit/topic/models.py:52
+msgid "topic"
+msgstr "topic"
+
+#: spirit-src/spirit/topic/models.py:53
+msgid "topics"
+msgstr "topics"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/_render_list.html:45
+msgid "There are no topics here, yet"
+msgstr "Non ci sono topics"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/_top_bar.html:8
+#: spirit-src/spirit/topic/templates/spirit/topic/_top_bar.html:19
+msgid "All Categories"
+msgstr "Tutte Le Categorie"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/_top_bar.html:17
+msgid "All Subcategories"
+msgstr "Tutte Le Sottocategorie"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/_top_bar.html:27
+#: spirit-src/spirit/topic/templates/spirit/topic/_top_bar.html:29
+msgid "Create Topic"
+msgstr "Crea Topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/active.html:5
+msgid "Latest active topics"
+msgstr "Ultimi topics attivi"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:10
+msgid "Main"
+msgstr "Principale"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:30
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:32
+msgid "edit"
+msgstr "modifica"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:42
+msgid "Select comments to move"
+msgstr "Selezionare commenti da spostare"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:45
+msgid "Undelete topic"
+msgstr "Rrpistina topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:47
+msgid "Delete topic"
+msgstr "Elimina topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:51
+msgid "Open topic"
+msgstr "Apri topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:53
+msgid "Close topic"
+msgstr "Chiudi topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:57
+msgid "Unpin topic"
+msgstr "Sblocca topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:59
+msgid "Pin topic"
+msgstr "Pinna topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:63
+msgid "Unpin topic globally"
+msgstr "Spinna topic a livello globale"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:65
+msgid "Pin topic globally"
+msgstr "Pinna topic a livello globale"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:74
+msgid "Topic id"
+msgstr "Topic Id"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:76
+msgid "Move"
+msgstr "Sposta"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/detail.html:90
+msgid "Reply"
+msgstr "Rispondi"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/moderate.html:5
+#: spirit-src/spirit/topic/templates/spirit/topic/moderate.html:9
+msgid "Moderate topic"
+msgstr "Modera topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/moderate.html:14
+msgid "Apply"
+msgstr "Applica"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/publish.html:5
+#: spirit-src/spirit/topic/templates/spirit/topic/publish.html:22
+msgid "Publish topic"
+msgstr "Pubblica topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/publish.html:40
+msgid "Publish"
+msgstr "Pubblica"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/update.html:5
+#: spirit-src/spirit/topic/templates/spirit/topic/update.html:11
+msgid "Update topic"
+msgstr "Aggiorna topic"
+
+#: spirit-src/spirit/topic/templates/spirit/topic/update.html:17
+msgid "Update"
+msgstr "Aggiorna"
