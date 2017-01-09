@@ -6,15 +6,20 @@ from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.urlresolvers import resolve
 
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:  # Django < 1.10
+    MiddlewareMixin = object
 
-class XForwardedForMiddleware(object):
+
+class XForwardedForMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if not settings.DEBUG:
             request.META['REMOTE_ADDR'] = request.META['HTTP_X_FORWARDED_FOR'].split(",")[-1].strip()
 
 
-class PrivateForumMiddleware(object):
+class PrivateForumMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if not settings.ST_PRIVATE_FORUM:
