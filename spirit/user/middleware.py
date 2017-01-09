@@ -9,6 +9,11 @@ from django.conf import settings
 from django.contrib.auth import logout
 from django.utils import timezone
 
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:  # Django < 1.10
+    MiddlewareMixin = object
+
 from .models import UserProfile
 
 
@@ -21,7 +26,7 @@ __all__ = [
 logger = logging.getLogger('django')
 
 
-class TimezoneMiddleware(object):
+class TimezoneMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if request.user.is_authenticated():
@@ -36,7 +41,7 @@ class TimezoneMiddleware(object):
             timezone.deactivate()
 
 
-class LastIPMiddleware(object):
+class LastIPMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if not request.user.is_authenticated():
@@ -52,7 +57,7 @@ class LastIPMiddleware(object):
             .update(last_ip=last_ip))
 
 
-class LastSeenMiddleware(object):
+class LastSeenMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if not request.user.is_authenticated():
@@ -69,7 +74,7 @@ class LastSeenMiddleware(object):
             .update(last_seen=timezone.now()))
 
 
-class ActiveUserMiddleware(object):
+class ActiveUserMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         if not request.user.is_authenticated():
