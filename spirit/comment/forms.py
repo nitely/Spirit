@@ -6,6 +6,7 @@ import os
 
 from django import forms
 from django.conf import settings
+from django.core.files.storage import default_storage
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_bytes
 
@@ -17,7 +18,6 @@ from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
-
     comment = forms.CharField(
         max_length=settings.ST_COMMENT_MAX_LEN,
         widget=forms.Textarea)
@@ -131,20 +131,10 @@ class CommentImageForm(forms.Form):
         return file
 
     def save(self):
-        # todo: use DEFAULT_FILE_STORAGE and MEDIA_URL
-
         file = self.cleaned_data['image']
         file_hash = utils.get_file_hash(file)
         file.name = ''.join((file_hash, '.', file.image.format.lower()))
-        upload_to = os.path.join('spirit', 'images', str(self.user.pk))
-        file.url = os.path.join(settings.MEDIA_URL, upload_to, file.name).replace("\\", "/")
-        media_path = os.path.join(settings.MEDIA_ROOT, upload_to)
-        utils.mkdir_p(media_path)
-
-        with open(os.path.join(media_path, file.name), 'wb') as fh:
-            for c in file.chunks():
-                fh.write(c)
-
-            file.close()
-
+        name = os.path.join('spirit', 'images', str(self.user.pk), file.name)
+        name = default_storage.save(name, file)
+        file.url = default_storage.url(name)
         return file
