@@ -28,10 +28,11 @@
       this.sendFile = bind(this.sendFile, this);
       this.el = $(el);
       this.options = $.extend({}, this.defaults, options);
+      this.formFile = $("<form/>");
       this.inputFile = $("<input/>", {
         type: "file",
         accept: "image/*"
-      });
+      }).appendTo(this.formFile);
       this.setUp();
     }
 
@@ -70,6 +71,11 @@
       post.fail((function(_this) {
         return function(jqxhr, textStatus, error) {
           return _this.addStatusError(textStatus, error, placeholder);
+        };
+      })(this));
+      post.always((function(_this) {
+        return function() {
+          return _this.formFile.get(0).reset();
         };
       })(this));
     };

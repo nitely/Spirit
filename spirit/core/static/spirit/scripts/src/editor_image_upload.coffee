@@ -17,7 +17,10 @@ class EditorImageUpload
     constructor: (el, options) ->
         @el = $(el)
         @options = $.extend({}, @defaults, options)
-        @inputFile = $("<input/>", {type: "file", accept: "image/*"})
+        @formFile = $("<form/>")
+        @inputFile = $("<input/>", {
+            type: "file",
+            accept: "image/*"}).appendTo(@formFile)
         @setUp()
 
     setUp: ->
@@ -55,6 +58,12 @@ class EditorImageUpload
 
         post.fail((jqxhr, textStatus, error) =>
             @addStatusError(textStatus, error, placeholder)
+        )
+
+        post.always(() =>
+            # Reset the input after uploading,
+            # fixes uploading the same image twice
+            @formFile.get(0).reset()
         )
 
         return
