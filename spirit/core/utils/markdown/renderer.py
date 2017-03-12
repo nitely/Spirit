@@ -42,14 +42,18 @@ class Renderer(mistune.Renderer):
 
         if not title:
             if self.options['no_follow']:
-                return '<a rel="nofollow" href="%s">%s</a>' % (link, text)
+                return (
+                    '<a rel="nofollow" href="%s">%s</a>'
+                    % (link, text))
 
             return '<a href="%s">%s</a>' % (link, text)
 
         title = escape(title)
 
         if self.options['no_follow']:
-            return '<a rel="nofollow" href="%s" title="%s">%s</a>' % (link, title, text)
+            return (
+                '<a rel="nofollow" href="%s" title="%s">%s</a>'
+                % (link, title, text))
 
         return '<a href="%s" title="%s">%s</a>' % (link, title, text)
 
@@ -69,52 +73,86 @@ class Renderer(mistune.Renderer):
 
         return '%s>' % html
 
+    def emoji(self, name_class, name_raw):
+        return (
+            '<i class="tw tw-{name_class}" '
+            'title=":{name_raw}:"></i>'
+            .format(
+                name_class=name_class,
+                name_raw=name_raw))
+
+    def mention(self, username, url):
+        return (
+            '<a class="comment-mention" rel="nofollow" '
+            'href="{url}">@{username}</a>'
+            .format(
+                username=username,
+                url=url))
+
+    def block_link(self, link):
+        return '<p>%s</p>\n' % self.autolink(link)
+
     def audio_link(self, link):
         link = sanitize_url(link)
-        return '<audio controls><source src="{link}">' \
-               '<a rel="nofollow" href="{link}">{link}</a></audio>\n'.format(link=link)
+        return (
+            '<audio controls><source src="{link}">'
+            '<a rel="nofollow" href="{link}">'
+            '{link}</a></audio>\n'
+            .format(link=link))
 
     def image_link(self, src, title, text):
         image = self.image(src, title, text)
         return '<p>{image}</p>\n'.format(image=image)
 
-    def emoji(self, name_class, name_raw):
-        # todo: add no-follow to links since we are going to need migration to fix emojis
-        return '<i class="tw tw-{name_class}" title=":{name_raw}:"></i>'.format(
-            name_class=name_class,
-            name_raw=name_raw
-        )
-
-    def mention(self, username, url):
-        return '<a class="comment-mention" rel="nofollow" href="{url}">@{username}</a>'.format(
-            username=username,
-            url=url
-        )
-
     def video_link(self, link):
         link = sanitize_url(link)
-        return '<video controls><source src="{link}">' \
-               '<a rel="nofollow" href="{link}">{link}</a></video>\n'.format(link=link)
+        return (
+            '<video controls><source src="{link}">'
+            '<a rel="nofollow" href="{link}">{link}</a></video>\n'
+            .format(link=link))
 
-    def youtube(self, video_id, start_hours=None, start_minutes=None, start_seconds=None):
+    def youtube_link(
+            self,
+            video_id,
+            start_hours=None,
+            start_minutes=None,
+            start_seconds=None):
         timestamp = 0
+
         if start_hours:
             timestamp += int(start_hours.replace('h', '')) * 60 * 60
+
         if start_minutes:
             timestamp += int(start_minutes.replace('m', '')) * 60
+
         if start_seconds:
             timestamp += int(start_seconds.replace('s', ''))
-        timestamp = ('&start=%s' % timestamp) if timestamp else ''
-        return '<span class="video"><iframe src="https://www.youtube.com/embed/{video_id}?html5=1{timestamp}" ' \
-               'allowfullscreen></iframe></span>\n'.format(video_id=video_id, timestamp=timestamp)
 
-    def vimeo(self, video_id):
-        return '<span class="video"><iframe src="https://player.vimeo.com/video/{video_id}" ' \
-               'allowfullscreen></iframe></span>\n'.format(video_id=video_id)
+        if timestamp:
+            timestamp = '&start=%s' % timestamp
+        else:
+            timestamp = ''
 
-    def gfycat(self, video_id):
-        return '<span class="video"><iframe src="https://gfycat.com/ifr/{video_id}" ' \
-               'frameborder="0" scrolling="no" allowfullscreen></iframe></span>\n'.format(video_id=video_id)
+        return (
+            '<span class="video"><iframe '
+            'src="https://www.youtube.com/embed/{video_id}?html5=1{timestamp}" '
+            'allowfullscreen></iframe></span>\n'
+            .format(
+                video_id=video_id,
+                timestamp=timestamp))
+
+    def vimeo_link(self, video_id):
+        return (
+            '<span class="video"><iframe '
+            'src="https://player.vimeo.com/video/{video_id}" '
+            'allowfullscreen></iframe></span>\n'
+            .format(video_id=video_id))
+
+    def gfycat_link(self, video_id):
+        return (
+            '<span class="video"><iframe src="https://gfycat.com/ifr/{video_id}" '
+            'frameborder="0" scrolling="no" allowfullscreen></iframe></span>\n'
+            .format(video_id=video_id))
 
     def poll(self, name):
         return '<poll name={name}>\n'.format(name=name)
