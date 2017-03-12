@@ -197,7 +197,7 @@ class UtilsMarkdownTests(TestCase):
             "https://www.youtube.com/embed/vsF0K3Ou1v0\n"
             "https://www.youtube.com/watch?v=<bad>\n"
             "https://www.noyoutube.com/watch?v=Z0UISCEe52Y\n"
-            "badbad https://www.youtube.com/watch?v=Z0UISCEe52Y\n"
+            "badbad https://www.youtube.com/watch?v=Z0UISCEe52Y\n\n"
             "https://www.youtube.com/watch?v=Z0UISCEe52Y badbad\n"
         )
         comment_md = Markdown().render(comment)
@@ -220,13 +220,13 @@ class UtilsMarkdownTests(TestCase):
                 'allowfullscreen></iframe></span>',
                 '<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?html5=1"'
                 ' allowfullscreen></iframe></span>',
-                '<p><a rel="nofollow" href="https://www.youtube.com/watch?v=">'
-                'https://www.youtube.com/watch?v=</a>&lt;bad&gt;<br>',  # smart_amp ain't smart
-                '<a rel="nofollow" href="https://www.noyoutube.com/watch?v=Z0UISCEe52Y">'
-                'https://www.noyoutube.com/watch?v=Z0UISCEe52Y</a><br>',
-                'badbad <a rel="nofollow" href="https://www.youtube.com/watch?v=Z0UISCEe52Y">'
-                'https://www.youtube.com/watch?v=Z0UISCEe52Y</a><br>',
-                '<a rel="nofollow" href="https://www.youtube.com/watch?v=Z0UISCEe52Y">'
+                '<p><a rel="nofollow" href="https://www.youtube.com/watch?v=&lt;bad&gt;">'
+                'https://www.youtube.com/watch?v=&lt;bad&gt;</a></p>',
+                '<p><a rel="nofollow" href="https://www.noyoutube.com/watch?v=Z0UISCEe52Y">'
+                'https://www.noyoutube.com/watch?v=Z0UISCEe52Y</a></p>',
+                '<p>badbad <a rel="nofollow" href="https://www.youtube.com/watch?v=Z0UISCEe52Y">'
+                'https://www.youtube.com/watch?v=Z0UISCEe52Y</a></p>',
+                '<p><a rel="nofollow" href="https://www.youtube.com/watch?v=Z0UISCEe52Y">'
                 'https://www.youtube.com/watch?v=Z0UISCEe52Y</a> badbad</p>'
             ]
         )
@@ -244,7 +244,7 @@ class UtilsMarkdownTests(TestCase):
             "https://vimeo.com/album/2222222/video/11111111\n"
             "https://vimeo.com/11111111?param=value\n"
             "https://novimeo.com/11111111\n"
-            "bad https://novimeo.com/11111111\n"
+            "bad https://novimeo.com/11111111\n\n"
             "https://novimeo.com/11111111 bad"
         )
         comment_md = Markdown().render(comment)
@@ -266,9 +266,9 @@ class UtilsMarkdownTests(TestCase):
                 '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" '
                 'allowfullscreen></iframe></span>',
 
-                '<p><a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a><br>',
-                'bad <a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a><br>',
-                '<a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a> bad</p>'
+                '<p><a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a></p>',
+                '<p>bad <a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a></p>',
+                '<p><a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a> bad</p>'
             ]
         )
 
@@ -776,9 +776,9 @@ class UtilsMarkdownTests(TestCase):
         self.assertEqual(
             comment_md.splitlines(),
             [
-                '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a><br>',
-                '<a rel="nofollow" href="http://foo.com?foo=1&amp;bar=2">http://foo.com?foo=1&amp;bar=2</a><br>',
-                '<a rel="nofollow" href="http://foo.com/">http://foo.com/</a>&lt;bad&gt;</p>'
+                '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>',
+                '<p><a rel="nofollow" href="http://foo.com?foo=1&amp;bar=2">http://foo.com?foo=1&amp;bar=2</a></p>',
+                '<p><a rel="nofollow" href="http://foo.com/&lt;bad&gt;">http://foo.com/&lt;bad&gt;</a></p>'
             ])
 
     def test_autolink_without_no_follow(self):

@@ -12,31 +12,16 @@ from .parsers.poll import PollParser
 
 class BlockGrammar(mistune.BlockGrammar):
 
-    # todo: remove all *_link
-    #link_block = re.compile(
-    #    r'^https?://[^\s]+'
-    #    r'(?:\n+|$)'
-    #)
-
-    audio_link = re.compile(
-        r'^https?://[^\s]+\.(mp3|ogg|wav)'
-        r'(\?[^\s]+)?'
+    block_link = re.compile(
+        r'^https?://[^\s]+'
         r'(?:\n+|$)'
     )
 
-    image_link = re.compile(
-        r'^https?://[^\s]+/(?P<image_name>[^\s]+)\.'
-        r'(?P<extension>png|jpg|jpeg|gif|bmp|tif|tiff)'
-        r'(\?[^\s]+)?'
-        r'(?:\n+|$)'
-    )
-
-    video_link = re.compile(
-        r'^https?://[^\s]+\.(mov|mp4|webm|ogv)'
-        r'(\?[^\s]+)?'
-        r'(?:\n+|$)'
-    )
-
+    # This is used their own matching rule,
+    # but matching once instead of X times is way faster
+    #
+    # youtube_link
+    #
     # Try to get the video ID. Works for URLs of the form:
     # * https://www.youtube.com/watch?v=Z0UISCEe52Y
     # * http://youtu.be/afyK1HSFfgw
@@ -49,19 +34,8 @@ class BlockGrammar(mistune.BlockGrammar):
     # * https://youtu.be/O1QQajfobPw?t=3698
     # * https://youtu.be/O1QQajfobPw?t=1h1m38s
     #
-    youtube = re.compile(
-        r'^https?://(www\.)?'
-        r'(youtube\.com/watch\?v='
-        r'|youtu\.be/'
-        r'|youtube\.com/embed/)'
-        r'(?P<id>[a-zA-Z0-9_\-]{11})'
-        r'((&|\?)('
-        r'|(t=(?P<start_hours>[0-9]{1,2}h)?(?P<start_minutes>[0-9]{1,4}m)?(?P<start_seconds>[0-9]{1,5}s?)?)'
-        r'|([^&\s]+)'
-        r')){,10}'
-        r'(?:\n+|$)'
-    )
-
+    # vimeo_link
+    #
     # Try to get the video ID. Works for URLs of the form:
     # * https://vimeo.com/11111111
     # * https://www.vimeo.com/11111111
@@ -70,16 +44,51 @@ class BlockGrammar(mistune.BlockGrammar):
     # * https://vimeo.com/groups/name/videos/11111111
     # * https://vimeo.com/album/2222222/video/11111111
     # * https://vimeo.com/11111111?param=value
-    vimeo = re.compile(
-        r'^https?://(www\.|player\.)?'
-        r'vimeo\.com/'
-        r'(channels/'
-        r'|groups/[^/]+/videos/'
-        r'|album/(\d+)/video/'
-        r'|video/)?'
-        r'(?P<id>\d+)'
-        r'(\?[^\s]+)?'
-        r'(?:\n+|$)'
+    #
+    sub_block_link = re.compile(
+        r'(?:'
+            r'(?P<youtube_link>'
+                r'^https?://(?:www\.)?'
+                r'(?:youtube\.com/watch\?v='
+                r'|youtu\.be/'
+                r'|youtube\.com/embed/)'
+                r'(?P<youtube_id>[a-zA-Z0-9_\-]{11})'
+                r'(?:(?:&|\?)(?:'
+                    r'|(?:t=(?P<youtube_start_hours>[0-9]{1,2}h)?'
+                    r'(?P<youtube_start_minutes>[0-9]{1,4}m)?'
+                    r'(?P<youtube_start_seconds>[0-9]{1,5}s?)?)'
+                    r'|(?:[^&\s]+)'
+                r')){,10}'
+                r'(?:\n+|$)'
+            r')|'
+            r'(?P<vimeo_link>'
+                r'^https?://(?:www\.|player\.)?'
+                r'vimeo\.com/'
+                r'(?:channels/'
+                r'|groups/[^/]+/videos/'
+                r'|album/(?:\d+)/video/'
+                r'|video/)?'
+                r'(?P<vimeo_id>\d+)'
+                r'(?:\?[^\s]+)?'
+                r'(?:\n+|$)'
+            r')|'
+            r'(?P<audio_link>'
+                r'^https?://[^\s]+\.(?:mp3|ogg|wav)'
+                r'(?:\?[^\s]+)?'
+                r'(?:\n+|$)'
+            r')|'
+            r'(?P<image_link>'
+                r'^https?://[^\s]+/(?P<image_name>[^\s]+)\.'
+                r'(?:png|jpg|jpeg|gif|bmp|tif|tiff)'
+                r'(?:\?[^\s]+)?'
+                r'(?:\n+|$)'
+            r')|'
+            r'(?P<video_link>'
+                r'^https?://[^\s]+\.(?:mov|mp4|webm|ogv)'
+                r'(?:\?[^\s]+)?'
+                r'(?:\n+|$)'
+            r')'
+        r')'
     )
 
     # Try to get the video ID. Works for URLs of the form:
@@ -120,13 +129,17 @@ class BlockGrammar(mistune.BlockGrammar):
 class BlockLexer(mistune.BlockLexer):
 
     default_rules = copy.copy(mistune.BlockLexer.default_rules)
-    default_rules.insert(0, 'audio_link')
-    default_rules.insert(0, 'image_link')
-    default_rules.insert(0, 'video_link')
-    default_rules.insert(0, 'youtube')
-    default_rules.insert(0, 'vimeo')
+    default_rules.insert(0, 'block_link')
     default_rules.insert(0, 'gfycat')
     default_rules.insert(0, 'poll')
+
+    _sub_block_links = (
+        'audio_link',
+        'image_link',
+        'video_link',
+        'youtube_link',
+        'vimeo_link',
+    )
 
     def __init__(self, rules=None, **kwargs):
         if rules is None:
@@ -138,6 +151,25 @@ class BlockLexer(mistune.BlockLexer):
             'polls': [],
             'choices': []
         }
+
+    def parse_block_link(self, m):
+        link = m.group(0).strip()
+        sub_match = BlockGrammar.sub_block_link.match(link)
+
+        if sub_match is not None:
+            groups = sub_match.groupdict()
+        else:
+            groups = {}
+
+        for sbl in self._sub_block_links:
+            if groups.get(sbl, None) is not None:
+                getattr(self, 'parse_%s' % sbl)(sub_match)
+                break
+        else:  # no-break
+            self.tokens.append({
+                'type': 'block_link',
+                'link': link
+            })
 
     def parse_audio_link(self, m):
         self.tokens.append({
@@ -161,19 +193,19 @@ class BlockLexer(mistune.BlockLexer):
             'link': m.group(0).strip()
         })
 
-    def parse_youtube(self, m):
+    def parse_youtube_link(self, m):
         self.tokens.append({
-            'type': 'youtube',
-            'video_id': m.group("id"),
-            'start_hours': m.group("start_hours"),
-            'start_minutes': m.group("start_minutes"),
-            'start_seconds': m.group("start_seconds"),
+            'type': 'youtube_link',
+            'video_id': m.group("youtube_id"),
+            'start_hours': m.group("youtube_start_hours"),
+            'start_minutes': m.group("youtube_start_minutes"),
+            'start_seconds': m.group("youtube_start_seconds"),
         })
 
-    def parse_vimeo(self, m):
+    def parse_vimeo_link(self, m):
         self.tokens.append({
-            'type': 'vimeo',
-            'video_id': m.group("id")
+            'type': 'vimeo_link',
+            'video_id': m.group("vimeo_id")
         })
 
     def parse_gfycat(self, m):
