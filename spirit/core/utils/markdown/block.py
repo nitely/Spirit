@@ -17,36 +17,21 @@ class BlockGrammar(mistune.BlockGrammar):
         r'(?:\n+|$)'
     )
 
-    # This is used their own matching rule,
+    # These used to be their own matching rule,
     # but matching once instead of X times is way faster
-    #
-    # youtube_link
-    #
-    # Try to get the video ID. Works for URLs of the form:
-    # * https://www.youtube.com/watch?v=Z0UISCEe52Y
-    # * http://youtu.be/afyK1HSFfgw
-    # * https://www.youtube.com/embed/vsF0K3Ou1v0
-    #
-    # Also works for timestamps:
-    # * https://www.youtube.com/watch?v=Z0UISCEe52Y&t=1m30s
-    # * https://www.youtube.com/watch?v=O1QQajfobPw&t=1h1m38s
-    # * https://www.youtube.com/watch?v=O1QQajfobPw&feature=youtu.be&t=3698
-    # * https://youtu.be/O1QQajfobPw?t=3698
-    # * https://youtu.be/O1QQajfobPw?t=1h1m38s
-    #
-    # vimeo_link
-    #
-    # Try to get the video ID. Works for URLs of the form:
-    # * https://vimeo.com/11111111
-    # * https://www.vimeo.com/11111111
-    # * https://player.vimeo.com/video/11111111
-    # * https://vimeo.com/channels/11111111
-    # * https://vimeo.com/groups/name/videos/11111111
-    # * https://vimeo.com/album/2222222/video/11111111
-    # * https://vimeo.com/11111111?param=value
-    #
     sub_block_link = re.compile(
         r'(?:'
+            # Try to get the video ID. Works for URLs of the form:
+            # * https://www.youtube.com/watch?v=Z0UISCEe52Y
+            # * http://youtu.be/afyK1HSFfgw
+            # * https://www.youtube.com/embed/vsF0K3Ou1v0
+            #
+            # Also works for timestamps:
+            # * https://www.youtube.com/watch?v=Z0UISCEe52Y&t=1m30s
+            # * https://www.youtube.com/watch?v=O1QQajfobPw&t=1h1m38s
+            # * https://www.youtube.com/watch?v=O1QQajfobPw&feature=youtu.be&t=3698
+            # * https://youtu.be/O1QQajfobPw?t=3698
+            # * https://youtu.be/O1QQajfobPw?t=1h1m38s
             r'(?P<youtube_link>'
                 r'^https?://(?:www\.)?'
                 r'(?:youtube\.com/watch\?v='
@@ -61,6 +46,14 @@ class BlockGrammar(mistune.BlockGrammar):
                 r')){,10}'
                 r'(?:\n+|$)'
             r')|'
+            # Try to get the video ID. Works for URLs of the form:
+            # * https://vimeo.com/11111111
+            # * https://www.vimeo.com/11111111
+            # * https://player.vimeo.com/video/11111111
+            # * https://vimeo.com/channels/11111111
+            # * https://vimeo.com/groups/name/videos/11111111
+            # * https://vimeo.com/album/2222222/video/11111111
+            # * https://vimeo.com/11111111?param=value
             r'(?P<vimeo_link>'
                 r'^https?://(?:www\.|player\.)?'
                 r'vimeo\.com/'
@@ -69,6 +62,18 @@ class BlockGrammar(mistune.BlockGrammar):
                 r'|album/(?:\d+)/video/'
                 r'|video/)?'
                 r'(?P<vimeo_id>\d+)'
+                r'(?:\?[^\s]+)?'
+                r'(?:\n+|$)'
+            r')|'
+            # Try to get the video ID. Works for URLs of the form:
+            # * https://gfycat.com/videoid
+            # * https://www.gfycat.com/videoid
+            # * http://gfycat.com/videoid
+            # * http://www.gfycat.com/videoid
+            r'(?P<gfycat_link>'
+                r'^https?://(?:www\.)?'
+                r'gfycat\.com/'
+                r'(?P<gfycat_id>\w+)'
                 r'(?:\?[^\s]+)?'
                 r'(?:\n+|$)'
             r')|'
@@ -89,19 +94,6 @@ class BlockGrammar(mistune.BlockGrammar):
                 r'(?:\n+|$)'
             r')'
         r')'
-    )
-
-    # Try to get the video ID. Works for URLs of the form:
-    # * https://gfycat.com/videoid
-    # * https://www.gfycat.com/videoid
-    # * http://gfycat.com/videoid
-    # * http://www.gfycat.com/videoid
-    gfycat = re.compile(
-        r'^https?://(www\.)?'
-        r'gfycat\.com/'
-        r'(?P<id>\w+)'
-        r'(\?[^\s]+)?'
-        r'(?:\n+|$)'
     )
 
     # Capture polls:
@@ -130,7 +122,6 @@ class BlockLexer(mistune.BlockLexer):
 
     default_rules = copy.copy(mistune.BlockLexer.default_rules)
     default_rules.insert(0, 'block_link')
-    default_rules.insert(0, 'gfycat')
     default_rules.insert(0, 'poll')
 
     _sub_block_links = (
@@ -139,6 +130,7 @@ class BlockLexer(mistune.BlockLexer):
         'video_link',
         'youtube_link',
         'vimeo_link',
+        'gfycat_link'
     )
 
     def __init__(self, rules=None, **kwargs):
@@ -208,10 +200,10 @@ class BlockLexer(mistune.BlockLexer):
             'video_id': m.group("vimeo_id")
         })
 
-    def parse_gfycat(self, m):
+    def parse_gfycat_link(self, m):
         self.tokens.append({
-            'type': 'gfycat',
-            'video_id': m.group("id")
+            'type': 'gfycat_link',
+            'video_id': m.group("gfycat_id")
         })
 
     def parse_poll(self, m):

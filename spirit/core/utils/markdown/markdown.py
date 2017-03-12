@@ -71,8 +71,10 @@ class Markdown(mistune.Markdown):
             video_id=self.token['video_id']
         )
 
-    def output_gfycat(self):
-        return self.renderer.gfycat(video_id=self.token['video_id'])
+    def output_gfycat_link(self):
+        return self.renderer.gfycat_link(
+            video_id=self.token['video_id']
+        )
 
     def output_poll(self):
         try:

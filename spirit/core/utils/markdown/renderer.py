@@ -148,9 +148,11 @@ class Renderer(mistune.Renderer):
             'allowfullscreen></iframe></span>\n'
             .format(video_id=video_id))
 
-    def gfycat(self, video_id):
-        return '<span class="video"><iframe src="https://gfycat.com/ifr/{video_id}" ' \
-               'frameborder="0" scrolling="no" allowfullscreen></iframe></span>\n'.format(video_id=video_id)
+    def gfycat_link(self, video_id):
+        return (
+            '<span class="video"><iframe src="https://gfycat.com/ifr/{video_id}" '
+            'frameborder="0" scrolling="no" allowfullscreen></iframe></span>\n'
+            .format(video_id=video_id))
 
     def poll(self, name):
         return '<poll name={name}>\n'.format(name=name)
