@@ -12,7 +12,9 @@ def sanitize_url(url):
     url = escape(url)  # & -> &amp; ...
     parts = url.split(':', 1)
 
-    if len(parts) == 1:  # No protocol (relative url)
+    # If there's not protocol then
+    # make sure is a relative path
+    if len(parts) == 1 and url.startswith('/'):
         return url
 
     if parts[0] in settings.ST_ALLOWED_URL_PROTOCOLS:
