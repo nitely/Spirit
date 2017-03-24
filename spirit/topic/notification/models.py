@@ -98,14 +98,21 @@ class TopicNotification(models.Model):
                         topic=comment.topic,
                         comment=comment,
                         action=MENTION,
-                        is_active=True
-                    )
+                        is_active=True)
             except IntegrityError:
                 pass
 
-        cls.objects\
-            .filter(user__in=mentions.values(), topic=comment.topic, is_read=True)\
-            .update(comment=comment, is_read=False, action=MENTION, date=timezone.now())
+        (cls.objects
+         .filter(
+            user__in=mentions.values(),
+            topic=comment.topic,
+            is_read=True,
+            date__lte=comment.date)
+         .update(
+            comment=comment,
+            is_read=False,
+            action=MENTION,
+            date=timezone.now()))
 
     @classmethod
     def bulk_create(cls, users, comment):
