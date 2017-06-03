@@ -4,23 +4,22 @@
 from __future__ import unicode_literals
 
 import os
+import io
 from setuptools import setup, find_packages
 
 
 BASE_DIR = os.path.join(os.path.dirname(__file__))
 
-with open(os.path.join(BASE_DIR, 'README.md')) as f:
+with io.open(os.path.join(BASE_DIR, 'README.md'), encoding='utf-8') as f:
     README = f.read()
 
 VERSION = __import__('spirit').__version__
 
-# allow setup.py to be run from any path
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
-
-
-with open(os.path.join(BASE_DIR, 'requirements.txt')) as fh:
+with io.open(os.path.join(BASE_DIR, 'requirements.txt'), encoding='utf-8') as fh:
     REQUIREMENTS = fh.read()
 
+# allow setup.py to be run from any path
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-spirit',
