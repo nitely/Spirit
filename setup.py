@@ -4,41 +4,22 @@
 from __future__ import unicode_literals
 
 import os
+import io
 from setuptools import setup, find_packages
 
 
 BASE_DIR = os.path.join(os.path.dirname(__file__))
 
-with open(os.path.join(BASE_DIR, 'README.md')) as f:
+with io.open(os.path.join(BASE_DIR, 'README.md'), encoding='utf-8') as f:
     README = f.read()
 
 VERSION = __import__('spirit').__version__
 
+with io.open(os.path.join(BASE_DIR, 'requirements.txt'), encoding='utf-8') as fh:
+    REQUIREMENTS = fh.read()
+
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
-
-
-with open(os.path.join(BASE_DIR, 'requirements.txt')) as f:
-    requirements = []
-    dependencies = []
-
-    for req in f.readlines():
-        req = req.strip()
-
-        if not req:
-            continue
-
-        if req.startswith(('git+', 'http://', 'https://')):
-            # Add 'git+http://...#egg=package-version'
-            # to dependencies and 'package==version'
-            # to requirements
-            _git, egg = req.split('#egg=')
-            package, version = egg.rsplit('-', 1)
-            requirements.append('%s==%s' % (package, version))
-            dependencies.append(req)
-        else:
-            requirements.append(req)
-
 
 setup(
     name='django-spirit',
@@ -52,8 +33,7 @@ setup(
     test_suite="runtests.start",
     include_package_data=True,
     zip_safe=False,
-    install_requires=requirements,
-    dependency_links=dependencies,
+    install_requires=REQUIREMENTS,
     license='MIT License',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

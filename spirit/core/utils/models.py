@@ -40,12 +40,14 @@ class AutoSlugField(SlugField):
         if value is None:
             return default
 
-        # TODO: Django 1.9 will support unicode slugs
-        if settings.ST_UNICODE_SLUGS:
-            # TODO: mark as safe?
-            slug = unicode_slugify(smart_text(value), ok='-')
-        else:
-            slug = slugify(smart_text(value))
+        try:
+            slug = slugify(smart_text(value), allow_unicode=settings.ST_UNICODE_SLUGS)
+        except TypeError:  # Django 1.8
+            if settings.ST_UNICODE_SLUGS:
+                # TODO: mark as safe?
+                slug = unicode_slugify(smart_text(value), ok='-_')
+            else:
+                slug = slugify(smart_text(value))
 
         slug = slug[:self.max_length].strip('-')
 

@@ -84,7 +84,7 @@ class UtilsModelsTests(TestCase):
         foo_model.save()
         self.assertEqual(foo_model.slug, "áéíóú")
 
-        title = "$~_@"
+        title = "$~@"
         foo_model = AutoSlugPopulateFromModel(title=title)
         foo_model.save()
         self.assertEqual(foo_model.slug, "")
