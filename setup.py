@@ -18,26 +18,8 @@ VERSION = __import__('spirit').__version__
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 
-with open(os.path.join(BASE_DIR, 'requirements.txt')) as f:
-    requirements = []
-    dependencies = []
-
-    for req in f.readlines():
-        req = req.strip()
-
-        if not req:
-            continue
-
-        if req.startswith(('git+', 'http://', 'https://')):
-            # Add 'git+http://...#egg=package-version'
-            # to dependencies and 'package==version'
-            # to requirements
-            _git, egg = req.split('#egg=')
-            package, version = egg.rsplit('-', 1)
-            requirements.append('%s==%s' % (package, version))
-            dependencies.append(req)
-        else:
-            requirements.append(req)
+with open(os.path.join(BASE_DIR, 'requirements.txt')) as fh:
+    REQUIREMENTS = fh.read()
 
 
 setup(
@@ -52,8 +34,7 @@ setup(
     test_suite="runtests.start",
     include_package_data=True,
     zip_safe=False,
-    install_requires=requirements,
-    dependency_links=dependencies,
+    install_requires=REQUIREMENTS,
     license='MIT License',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
