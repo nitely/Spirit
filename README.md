@@ -33,5 +33,3 @@ The `runtests.py` script enable you to run the test suite of spirit.
 ## License
 
 MIT
-
-## I am editing stuff
