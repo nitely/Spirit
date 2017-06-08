@@ -43,7 +43,7 @@ class Topic(models.Model):
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
 
     objects = TopicQuerySet.as_manager()
-    course_no = models.IntegerField(_("course number"), default=0)
+    course_no = models.IntegerField(_("course number"), blank=True, default=0)
 
     class Meta:
         ordering = ['-last_active', '-pk']
