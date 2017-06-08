@@ -7,7 +7,7 @@
 {% block content %}
 
         <ul class="nav">
-            <li><a href="{% url "spirit:topic:private:index" %}" >{% trans "Private topics" %}</a></li>
+            <li><a href="{% url "spirit:topic:private:index" %}" >{% trans "Private questions" %}</a></li>
         </ul>
 
         <h1 class="headline">{{ topic.title }}</h1>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="private-leave">
-                <a class="button" href="{% url "spirit:topic:private:access-remove" topic_private.pk %}" ><i class="fa fa-times"></i>{% trans "Leave topic" %}</a>
+                <a class="button" href="{% url "spirit:topic:private:access-remove" topic_private.pk %}" ><i class="fa fa-times"></i>{% trans "Leave question" %}</a>
             </div>
         </div>
 
