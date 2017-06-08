@@ -31,7 +31,9 @@
             {% elif user.pk == topic.user.pk and not topic.is_closed %}
                 <a class="head-edit-link" href="{% url "spirit:topic:update" topic.pk %}"><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
             {% endif %}
-            <div style="float: right;">{{topic.category.title}} {{ topic.course_no }}</div>
+            {% if topic.course_no != 0 %}
+                <div style="float: right;">{{topic.category.title}} {{ topic.course_no }}</div>
+            {% endif %}
         </h1>
         
 
