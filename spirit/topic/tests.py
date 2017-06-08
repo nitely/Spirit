@@ -37,7 +37,7 @@ class TopicViewTest(TestCase):
 
         utils.login(self)
         category = utils.create_category()
-        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk, 'course_no': 0}
         response = self.client.post(reverse('spirit:topic:publish'), form_data)
         topic = Topic.objects.last()
         expected_url = topic.get_absolute_url()
