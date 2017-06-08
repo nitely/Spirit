@@ -41,7 +41,7 @@ class Category(models.Model):
 
     class Meta:
         ordering = ['title', 'pk']
-        verbose_name = _("category")
+        verbose_name = _("category") 
         verbose_name_plural = _("categories")
 
     def get_absolute_url(self):

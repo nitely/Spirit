@@ -2,15 +2,15 @@
 
 {% load i18n %}
 
-{% block title %}{% trans "Category list" %}{% endblock %}
+{% block title %}{% trans "Subject list" %}{% endblock %}
 
 {% block content %}
 
     {% include "spirit/admin/_side_menu.html" with active="categories" %}
 
-    <h1 class="headline">{% trans "Category list" %}</h1>
+    <h1 class="headline">{% trans "Subject list" %}</h1>
 
-    <a class="button" href="{% url "spirit:admin:category:create" %}">{% trans "Create Category" %}</a>
+    <a class="button" href="{% url "spirit:admin:category:create" %}">{% trans "Create Subject" %}</a>
 
     <div class="rows">
 
