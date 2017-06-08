@@ -95,7 +95,7 @@ class TopicViewTest(TestCase):
         """
         utils.login(self)
         category = utils.create_category()
-        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': category.pk, 'course_no': 0}
         response = self.client.post(reverse('spirit:topic:publish', kwargs={'category_id': category.pk, }),
                                     form_data)
         topic = Topic.objects.last()
@@ -114,7 +114,7 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         subcategory = utils.create_subcategory(category)
-        form_data = {'comment': 'foo', 'title': 'foobar', 'category': subcategory.pk}
+        form_data = {'comment': 'foo', 'title': 'foobar', 'category': subcategory.pk, 'course_no': 0}
         response = self.client.post(reverse('spirit:topic:publish', kwargs={'category_id': subcategory.pk, }),
                                     form_data)
         topic = Topic.objects.last()
@@ -456,7 +456,8 @@ class TopicFormTest(TestCase):
         category = utils.create_category()
         form_data = {
             'title': 'foobar',
-            'category': category.pk}
+            'category': category.pk,
+            'course_no': 0}
         form = TopicForm(self.user, data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.get_category(), category)
@@ -469,7 +470,8 @@ class TopicFormTest(TestCase):
         title = 'title foobar'
         form_data = {
             'title': title,
-            'category': category.pk}
+            'category': category.pk,
+            'course_no': 0}
         form = TopicForm(self.user, data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(
@@ -488,7 +490,8 @@ class TopicFormTest(TestCase):
         form_data = {
             'title': 'foobar',
             'category': category.pk,
-            'topic_hash': topic_hash}
+            'topic_hash': topic_hash,
+            'course_no': 0}
         form = TopicForm(self.user, data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.get_topic_hash(), topic_hash)
