@@ -455,6 +455,7 @@ class TopicFormTest(TestCase):
         """
         category = utils.create_category()
         topic = utils.create_topic(category)
+        print(topic.course_no)
         form_data = {'title': 'foobar', }
         form = TopicForm(self.user, data=form_data, instance=topic)
         self.assertEqual(form.is_valid(), True)
