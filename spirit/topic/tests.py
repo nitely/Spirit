@@ -7,7 +7,6 @@ import hashlib
 from django.test import TestCase, RequestFactory, override_settings
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.core.exceptions import ObjectDoesNotExist
 
 from djconfig.utils import override_djconfig
 
@@ -114,7 +113,8 @@ class TopicViewTest(TestCase):
         utils.login(self)
         category = utils.create_category()
         subcategory = utils.create_subcategory(category)
-        form_data = {'comment': 'foo', 'title': 'foobar', 'category': subcategory.pk, 'course_no': 0}
+        form_data = {'comment': 'foo', 'title': 'foobar',
+                     'category': subcategory.pk, 'course_no': 0}
         response = self.client.post(reverse('spirit:topic:publish', kwargs={'category_id': subcategory.pk, }),
                                     form_data)
         topic = Topic.objects.last()
@@ -126,7 +126,8 @@ class TopicViewTest(TestCase):
         invalid topic category
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:publish', kwargs={'category_id': str(99), }))
+        response = self.client.get(
+            reverse('spirit:topic:publish', kwargs={'category_id': str(99), }))
         self.assertEqual(response.status_code, 404)
 
     @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=10)
@@ -211,7 +212,8 @@ class TopicViewTest(TestCase):
         form_data = {'title': 'foobar', 'category': category2.pk}
         self.client.post(reverse('spirit:topic:update', kwargs={'pk': topic.pk, }),
                          form_data)
-        self.assertEqual(len(Comment.objects.filter(user=self.user, topic_id=topic.pk, action=MOVED)), 1)
+        self.assertEqual(len(Comment.objects.filter(
+            user=self.user, topic_id=topic.pk, action=MOVED)), 1)
 
     def test_topic_update_invalid_user(self):
         """
@@ -239,7 +241,8 @@ class TopicViewTest(TestCase):
         comment2 = utils.create_comment(topic=topic)
         utils.create_comment(topic=topic2)
 
-        response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+        response = self.client.get(reverse('spirit:topic:detail', kwargs={
+                                   'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], topic)
         self.assertEqual(list(response.context['comments']), [comment1, comment2])
@@ -258,7 +261,8 @@ class TopicViewTest(TestCase):
         comment2 = utils.create_comment(topic=topic)
         utils.create_comment(topic=topic)  # comment3
 
-        response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+        response = self.client.get(reverse('spirit:topic:detail', kwargs={
+                                   'pk': topic.pk, 'slug': topic.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['comments']), [comment1, comment2])
 
@@ -275,7 +279,8 @@ class TopicViewTest(TestCase):
             utils.login(self)
             category = utils.create_category()
             topic = utils.create_topic(category=category, user=self.user)
-            response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+            response = self.client.get(reverse('spirit:topic:detail', kwargs={
+                                       'pk': topic.pk, 'slug': topic.slug}))
             self.assertEqual(response.status_code, 200)
             self.assertEqual(self._topic, topic)
             self.assertEqual(self._user, self.user)
@@ -313,8 +318,10 @@ class TopicViewTest(TestCase):
         topic_b = utils.create_topic(category=category, user=self.user, view_count=10)
         topic_c = utils.create_topic(category=category)
 
-        Topic.objects.filter(pk=topic_a.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
-        Topic.objects.filter(pk=topic_c.pk).update(last_active=timezone.now() - datetime.timedelta(days=5))
+        Topic.objects.filter(pk=topic_a.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=10))
+        Topic.objects.filter(pk=topic_c.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=5))
 
         response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertEqual(list(response.context['topics']), [topic_b, topic_c, topic_a])
@@ -329,7 +336,8 @@ class TopicViewTest(TestCase):
         topic_c = utils.create_topic(category=category)
         topic_d = utils.create_topic(category=category, is_globally_pinned=True)
         # show globally pinned first
-        Topic.objects.filter(pk=topic_d.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
+        Topic.objects.filter(pk=topic_d.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=10))
 
         response = self.client.get(reverse('spirit:topic:index-active'))
         self.assertEqual(list(response.context['topics']), [topic_d, topic_c, topic_b, topic_a])
@@ -391,7 +399,7 @@ class TopicViewTest(TestCase):
         topics ordered by activity paginated
         """
         category = utils.create_category()
-        topic_a = utils.create_topic(category=category)
+        # topic_a = utils.create_topic(category=category)
         topic_b = utils.create_topic(category=category, user=self.user, view_count=10)
 
         response = self.client.get(reverse('spirit:topic:index-active'))
@@ -410,8 +418,10 @@ class TopicFormTest(TestCase):
         """
         category = utils.create_category()
         subcategory = utils.create_subcategory(category)
-        form_data = {'comment': 'foo', 'title': 'foobar',
-                     'category': subcategory.pk}
+        form_data = {'comment': 'foo',
+                     'title': 'foobar',
+                     'category': subcategory.pk,
+                     'course_no': 0}
         form = TopicForm(self.user, data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -535,7 +545,8 @@ class TopicUtilsTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category=category, user=self.user)
         comment = utils.create_comment(topic=topic)
-        notification = TopicNotification.objects.create(user=topic.user, topic=topic, comment=comment, is_read=False)
+        notification = TopicNotification.objects.create(
+            user=topic.user, topic=topic, comment=comment, is_read=False)
         unread = TopicUnread.objects.create(user=topic.user, topic=topic, is_read=False)
         utils_topic.topic_viewed(req, topic)
         self.assertEqual(len(CommentBookmark.objects.filter(user=self.user, topic=topic)), 1)
@@ -615,13 +626,16 @@ class TopicModelsTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category=category, user=self.user, comment_count=1)
 
-        self.assertFalse(Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first().has_new_comments)
+        self.assertFalse(Topic.objects.filter(pk=topic.pk).with_bookmarks(
+            self.user).first().has_new_comments)
 
         CommentBookmark.objects.create(topic=topic, user=self.user, comment_number=1)
-        self.assertFalse(Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first().has_new_comments)
+        self.assertFalse(Topic.objects.filter(pk=topic.pk).with_bookmarks(
+            self.user).first().has_new_comments)
 
         Topic.objects.filter(pk=topic.pk).update(comment_count=2)
-        self.assertTrue(Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first().has_new_comments)
+        self.assertTrue(Topic.objects.filter(pk=topic.pk).with_bookmarks(
+            self.user).first().has_new_comments)
 
     def test_topic_is_visited(self):
         """
@@ -631,10 +645,12 @@ class TopicModelsTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category=category, user=self.user)
 
-        self.assertFalse(Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first().is_visited)
+        self.assertFalse(Topic.objects.filter(
+            pk=topic.pk).with_bookmarks(self.user).first().is_visited)
 
         CommentBookmark.objects.create(topic=topic, user=self.user)
-        self.assertTrue(Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first().is_visited)
+        self.assertTrue(Topic.objects.filter(
+            pk=topic.pk).with_bookmarks(self.user).first().is_visited)
 
     def test_topic_get_bookmark_url(self):
         """
@@ -646,14 +662,17 @@ class TopicModelsTest(TestCase):
 
         # No bookmark
         topic_with_bookmark = Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first()
-        self.assertEqual(topic_with_bookmark.get_bookmark_url(), topic_with_bookmark.get_absolute_url())
+        self.assertEqual(topic_with_bookmark.get_bookmark_url(),
+                         topic_with_bookmark.get_absolute_url())
 
         # With bookmark
         CommentBookmark.objects.create(topic=topic, user=self.user, comment_number=1)
         topic_with_bookmark2 = Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first()
-        self.assertEqual(topic_with_bookmark2.get_bookmark_url(), topic_with_bookmark2.bookmark.get_absolute_url())
+        self.assertEqual(topic_with_bookmark2.get_bookmark_url(),
+                         topic_with_bookmark2.bookmark.get_absolute_url())
 
         # With bookmark and new comment
         Topic.objects.filter(pk=topic.pk).update(comment_count=2)
         topic_with_bookmark3 = Topic.objects.filter(pk=topic.pk).with_bookmarks(self.user).first()
-        self.assertEqual(topic_with_bookmark3.get_bookmark_url(), topic_with_bookmark3.bookmark.get_new_comment_url())
+        self.assertEqual(topic_with_bookmark3.get_bookmark_url(),
+                         topic_with_bookmark3.bookmark.get_new_comment_url())
