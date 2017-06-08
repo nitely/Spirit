@@ -41,8 +41,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ['title', 'pk']
-        verbose_name = _("subject") #renamed category to subject
-        verbose_name_plural = _("subjects")
+        verbose_name = _("category") 
+        verbose_name_plural = _("categories")
 
     def get_absolute_url(self):
         if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
