@@ -35,6 +35,7 @@
                                 </a>
                             {% endif %}
                         {% endif %}
+                        {{ t.course_no }}
                     </div><!--
                     --><div><i class="fa fa-comment{% if t.has_new_comments %} js-comment-is-new{% endif %}"></i> {{ t.comment_count }}</div><!--
                  --><div title="{{ t.last_active }}"><i class="fa fa-clock-o"></i> {{ t.last_active|shortnaturaltime }}</div>
