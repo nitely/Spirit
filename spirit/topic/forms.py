@@ -22,7 +22,7 @@ class TopicForm(forms.ModelForm):
 
     class Meta:
         model = Topic
-        fields = ('title', 'category')
+        fields = ('title', 'category', 'course_no')
 
     def __init__(self, user, *args, **kwargs):
         super(TopicForm, self).__init__(*args, **kwargs)
