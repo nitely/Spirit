@@ -338,7 +338,6 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['comments']), [like.comment, ])
 
-    @override_settings(ROOT_URLCONF='spirit.core.tests.urls')
     def test_profile_update(self):
         """
         profile update
