@@ -26,4 +26,5 @@ patterns = [
 
 urlpatterns = [
     url(r'^', include(patterns, namespace='spirit', app_name='spirit')),
+    url(r'^tutor/', include('tutor.urls', namespace='tutor')), #added this for the menu bar in the forum
 ]
