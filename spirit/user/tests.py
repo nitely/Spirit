@@ -57,7 +57,8 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('spirit:user:email-change'))
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': "foo"}))
+        response = self.client.get(
+            reverse('spirit:user:email-change-confirm', kwargs={'token': "foo"}))
         self.assertEqual(response.status_code, 302)
 
     def test_profile_topics(self):
@@ -66,7 +67,7 @@ class UserViewTest(TestCase):
         """
         utils.login(self)
         response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+                                                                         'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['topics']), [self.topic, ])
         self.assertEqual(response.context['p_user'], self.user2)
@@ -82,12 +83,13 @@ class UserViewTest(TestCase):
         topic_b = utils.create_topic(category=category, user=self.user2)
         topic_c = utils.create_topic(category=category, user=self.user2)
 
-        Topic.objects.filter(pk=topic_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
+        Topic.objects.filter(pk=topic_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10))
         Topic.objects.filter(pk=topic_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
         response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+                                                                         'slug': self.user2.st.slug}))
         self.assertEqual(list(response.context['topics']), [topic_b, topic_c, topic_a])
 
     def test_profile_topics_bookmarks(self):
@@ -174,8 +176,10 @@ class UserViewTest(TestCase):
         comment_b = utils.create_comment(user=self.user2, topic=self.topic)
         comment_c = utils.create_comment(user=self.user2, topic=self.topic)
 
-        Comment.objects.filter(pk=comment_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
-        Comment.objects.filter(pk=comment_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
+        Comment.objects.filter(pk=comment_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10))
+        Comment.objects.filter(pk=comment_c.pk).update(
+            date=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
         response = self.client.get(reverse(
@@ -263,8 +267,10 @@ class UserViewTest(TestCase):
         CommentLike.objects.create(user=self.user2, comment=comment_b)
         like_c = CommentLike.objects.create(user=self.user2, comment=comment_c)
 
-        CommentLike.objects.filter(pk=like_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
-        CommentLike.objects.filter(pk=like_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
+        CommentLike.objects.filter(pk=like_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10))
+        CommentLike.objects.filter(pk=like_c.pk).update(
+            date=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
         response = self.client.get(reverse(
@@ -332,6 +338,7 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['comments']), [like.comment, ])
 
+    @override_settings(ROOT_URLCONF='spirit.core.tests.urls')
     def test_profile_update(self):
         """
         profile update
@@ -392,7 +399,8 @@ class UserViewTest(TestCase):
         utils.login(self)
         new_email = "newfoo@bar.com"
         token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
-        response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
+        response = self.client.get(
+            reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
@@ -406,7 +414,8 @@ class UserViewTest(TestCase):
         token = UserEmailChangeTokenGenerator().generate(self.user, old_email)
         new_email = "newfoo@bar.com"
         User.objects.filter(pk=self.user.pk).update(email=new_email)
-        response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
+        response = self.client.get(
+            reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
@@ -898,6 +907,7 @@ class UserMiddlewareTest(TestCase):
     @override_settings(TIME_ZONE='UTC')
     def test_timezone_anonymous_user(self):
         class AnonymUserMock(object):
+
             def is_authenticated(self):
                 return False
 
