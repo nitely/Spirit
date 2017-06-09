@@ -23,7 +23,7 @@
       <div>
         {% load static %}
         <script type="text/javascript" src="{% static 'select_course_no.js' %}"></script>
-        <form action="#" onSubmit="go_to_course_number()">
+        <form action="#" onSubmit="go_to_course_number('{{ category.get_absolute_url }}')">
           <label for="course_no"> Course Number</label>
           <input id="course_no" type="number"></input>
           <input type="submit" value="Go!">

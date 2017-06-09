@@ -2,7 +2,7 @@
 // When someone clicks 
 
 
-function go_to_course_number() {
+function go_to_course_number(url) {
   var no = document.getElementById("course_no").value
-  window.open(no, '_self', false); 
+  window.open(url + no, '_self', false) 
 }
