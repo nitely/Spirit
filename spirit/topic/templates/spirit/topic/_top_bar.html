@@ -20,6 +20,15 @@
                     {% endif %}
 				</ul>
 			</div>
+      <div>
+        {% load static %}
+        <script href="{% static 'select_course_no.js' %}"></script>
+        <form action="#" onSubmit="go_to_course_number()">
+          <label for="course_no"> Course Number</label>
+          <input id="course_no" type="number"></input>
+          <input type="submit" value="Go!">
+        </form>
+      </div>
 		</div>
 
         <div class="new-topic">
