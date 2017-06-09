@@ -20,6 +20,19 @@
                     {% endif %}
 				</ul>
 			</div>
+      <div>
+        {% load static %}
+        <script type="text/javascript" src="{% static 'select_course_no.js' %}"></script>
+        {% if category %}
+          <form action="#" onSubmit="go_to_course_number('{{ category.get_absolute_url }}')">
+        {% else %}
+          <form action="#" onSubmit="go_to_course_number('{% url "spirit:topic:index-active" %}')">
+        {% endif %}
+          <label for="course_no"> Course Number</label>
+          <input id="course_no" type="number"></input>
+          <input type="submit" value="Go!">
+        </form>
+      </div>
 		</div>
 
         <div class="new-topic">

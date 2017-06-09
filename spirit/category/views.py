@@ -13,7 +13,7 @@ from ..topic.models import Topic
 from .models import Category
 
 
-def detail(request, pk, slug):
+def detail(request, pk, slug, course_no):
     category = get_object_or_404(Category.objects.visible(),
                                  pk=pk)
 
@@ -30,6 +30,9 @@ def detail(request, pk, slug):
         .for_category(category=category)\
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
         .select_related('category')
+
+    if course_no:
+        topics = topics.filter(course_no=course_no)
 
     topics = yt_paginate(
         topics,
@@ -49,5 +52,5 @@ def detail(request, pk, slug):
 class IndexView(ListView):
 
     template_name = 'spirit/category/index.html'
-    context_object_name = "categories" 
+    context_object_name = "categories"
     queryset = Category.objects.visible().parents()

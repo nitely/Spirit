@@ -109,7 +109,7 @@ def detail(request, pk, slug):
     return render(request, 'spirit/topic/detail.html', context)
 
 
-def index_active(request):
+def index_active(request, course_no):
     categories = Category.objects\
         .visible()\
         .parents()
@@ -120,6 +120,9 @@ def index_active(request):
         .with_bookmarks(user=request.user)\
         .order_by('-is_globally_pinned', '-last_active')\
         .select_related('category')
+
+    if course_no:
+        topics = topics.filter(course_no=course_no)
 
     topics = yt_paginate(
         topics,
