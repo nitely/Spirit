@@ -21,7 +21,8 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', views.detail, kwargs={'slug': "", }, name='detail'),
     url(r'^(?P<pk>\d+)/(?P<slug>[\w-]+)/$', views.detail, name='detail'),
 
-    url(r'^active/$', views.index_active, name='index-active'),
+    url(r'^active/$', views.index_active, kwargs={'course_no': None}, name='index-active'),
+    url(r'^active/(?P<course_no>\d+)/$', views.index_active, name='index-active'),
 
     url(r'^moderate/', include(spirit.topic.moderate.urls, namespace='moderate')),
     url(r'^unread/', include(spirit.topic.unread.urls, namespace='unread')),

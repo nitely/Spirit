@@ -16,8 +16,6 @@ from .models import Category
 def detail(request, pk, slug, course_no):
     category = get_object_or_404(Category.objects.visible(),
                                  pk=pk)
-    print("hi")
-    print(course_no)
 
     if category.slug != slug:
         return HttpResponsePermanentRedirect(category.get_absolute_url())
