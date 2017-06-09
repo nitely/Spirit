@@ -4,6 +4,5 @@
 
 function go_to_course_number() {
   var no = document.getElementById("course_no").value
-  alert(no)
-
+  window.open(no, '_self', false); 
 }
