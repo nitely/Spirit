@@ -21,6 +21,7 @@
                             <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "Questions" %}</a></li>
                             <li><a class="menu-link" href="{% url "spirit:topic:unread:index" %}">{% trans "Unread questions" %}</a></li>
                             <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}">{% trans "Private questions" %}</a></li>
+                            <li><a class="menu-link" href="{% url "tutor:index" %}">{% trans "Go to Tutoring Homepage" %}</a></li>
 
                             {% if user.st.is_administrator %}
                                 <li><a class="menu-link" href="{% url "spirit:admin:index" %}">{% trans "Admin" %}</a></li>
