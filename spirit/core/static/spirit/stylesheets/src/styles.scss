@@ -107,11 +107,46 @@
 //topic list
 
 .categories {
-  @include span-columns(4);
+  @include span-columns(1);
   margin-bottom: $half-spacing-size;
   
   @include media( $medium ) {
+    @include span-columns(1);
+  }
+}
+
+.course-number-form {
+  @include span-columns(2);
+  
+  @include media( $medium ) {
+    @include span-columns(2);
+  }
+}
+
+.course-number-label {
+
+  line-height: 2;
+
+  @include span-columns(4);
+  
+  @include media( $medium ) {
     @include span-columns(4);
+  }
+}
+
+.course-number-field {
+  @include span-columns(3);
+  
+  @include media( $medium ) {
+    @include span-columns(3);
+  }
+}
+
+.course-number-button {
+  @include span-columns(1);
+  
+  @include media( $medium ) {
+    @include span-columns(1);
   }
 }
 
@@ -120,10 +155,10 @@
 }
 
 .new-topic {
-  @include span-columns(4);
+  @include span-columns(5);
   
   @include media( $medium ) {
-    @include span-columns(4);
+    @include span-columns(5);
 	text-align: right;
   }
 }
