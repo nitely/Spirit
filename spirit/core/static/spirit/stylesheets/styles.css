@@ -7016,6 +7016,7 @@ input[type="submit"].button,
         margin-right: 0; } }
 
 .course-number-label {
+  line-height: 2;
   float: left;
   display: block;
   margin-right: 7.42297%;

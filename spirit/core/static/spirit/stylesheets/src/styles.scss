@@ -124,6 +124,9 @@
 }
 
 .course-number-label {
+
+  line-height: 2;
+
   @include span-columns(4);
   
   @include media( $medium ) {
