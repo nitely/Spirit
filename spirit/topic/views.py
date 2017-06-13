@@ -132,7 +132,8 @@ def index_active(request, course_no):
 
     context = {
         'categories': categories,
-        'topics': topics
+        'topics': topics,
+        'course_no': course_no
     }
 
     return render(request, 'spirit/topic/active.html', context)

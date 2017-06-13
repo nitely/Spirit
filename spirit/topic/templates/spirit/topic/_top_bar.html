@@ -29,7 +29,11 @@
         <form action="#" onSubmit="go_to_course_number('{% url "spirit:topic:index-active" %}')">
       {% endif %}
         <label for="course_no">{% trans "Course Number" %}</label>
-        <input id="course_no" type="number"></input>
+          {% if course_no %}
+          <input id="course_no" type="number" value="{{ course_no }}"></input>
+          {% else %}
+            <input id="course_no" type="number"></input>
+          {% endif %}
         <input type="submit" value="Go!">
       </form>
     </div>
