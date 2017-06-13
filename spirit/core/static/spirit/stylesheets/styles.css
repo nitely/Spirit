@@ -6698,7 +6698,7 @@ h1 {
 
 h2 {
   font-size: 21.33333px;
-  line-height: 32.0px; }
+  line-height: 32px; }
 
 .comment-media::after, .container::after,
 .header::after, .row::after,
@@ -6986,7 +6986,7 @@ input[type="submit"].button,
   float: left;
   display: block;
   margin-right: 7.42297%;
-  width: 100%;
+  width: 46.28851%;
   margin-bottom: 12px; }
   .categories:last-child {
     margin-right: 0; }
@@ -6995,8 +6995,24 @@ input[type="submit"].button,
       float: left;
       display: block;
       margin-right: 3.57866%;
-      width: 48.21067%; }
+      width: 22.316%; }
       .categories:last-child {
+        margin-right: 0; } }
+
+.course-number {
+  float: left;
+  display: block;
+  margin-right: 7.42297%;
+  width: 46.28851%; }
+  .course-number:last-child {
+    margin-right: 0; }
+  @media screen and (min-width: 768px) {
+    .course-number {
+      float: left;
+      display: block;
+      margin-right: 3.57866%;
+      width: 22.316%; }
+      .course-number:last-child {
         margin-right: 0; } }
 
 .tab-content {
@@ -7006,7 +7022,7 @@ input[type="submit"].button,
   float: left;
   display: block;
   margin-right: 7.42297%;
-  width: 100%; }
+  width: 46.28851%; }
   .new-topic:last-child {
     margin-right: 0; }
   @media screen and (min-width: 768px) {
@@ -7014,7 +7030,7 @@ input[type="submit"].button,
       float: left;
       display: block;
       margin-right: 3.57866%;
-      width: 48.21067%;
+      width: 22.316%;
       text-align: right; }
       .new-topic:last-child {
         margin-right: 0; } }

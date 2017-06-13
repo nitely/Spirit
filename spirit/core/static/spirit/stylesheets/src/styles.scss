@@ -107,11 +107,19 @@
 //topic list
 
 .categories {
-  @include span-columns(4);
+  @include span-columns(2);
   margin-bottom: $half-spacing-size;
   
   @include media( $medium ) {
-    @include span-columns(4);
+    @include span-columns(2);
+  }
+}
+
+.course-number {
+  @include span-columns(2);
+  
+  @include media( $medium ) {
+    @include span-columns(2);
   }
 }
 
@@ -120,10 +128,10 @@
 }
 
 .new-topic {
-  @include span-columns(4);
+  @include span-columns(2);
   
   @include media( $medium ) {
-    @include span-columns(4);
+    @include span-columns(2);
 	text-align: right;
   }
 }
