@@ -6986,7 +6986,7 @@ input[type="submit"].button,
   float: left;
   display: block;
   margin-right: 7.42297%;
-  width: 46.28851%;
+  width: 19.43277%;
   margin-bottom: 12px; }
   .categories:last-child {
     margin-right: 0; }
@@ -6995,24 +6995,72 @@ input[type="submit"].button,
       float: left;
       display: block;
       margin-right: 3.57866%;
-      width: 22.316%; }
+      width: 9.36867%; }
       .categories:last-child {
         margin-right: 0; } }
 
-.course-number {
+.course-number-form {
   float: left;
   display: block;
   margin-right: 7.42297%;
   width: 46.28851%; }
-  .course-number:last-child {
+  .course-number-form:last-child {
     margin-right: 0; }
   @media screen and (min-width: 768px) {
-    .course-number {
+    .course-number-form {
       float: left;
       display: block;
       margin-right: 3.57866%;
       width: 22.316%; }
-      .course-number:last-child {
+      .course-number-form:last-child {
+        margin-right: 0; } }
+
+.course-number-label {
+  float: left;
+  display: block;
+  margin-right: 7.42297%;
+  width: 100%; }
+  .course-number-label:last-child {
+    margin-right: 0; }
+  @media screen and (min-width: 768px) {
+    .course-number-label {
+      float: left;
+      display: block;
+      margin-right: 3.57866%;
+      width: 48.21067%; }
+      .course-number-label:last-child {
+        margin-right: 0; } }
+
+.course-number-field {
+  float: left;
+  display: block;
+  margin-right: 7.42297%;
+  width: 73.14426%; }
+  .course-number-field:last-child {
+    margin-right: 0; }
+  @media screen and (min-width: 768px) {
+    .course-number-field {
+      float: left;
+      display: block;
+      margin-right: 3.57866%;
+      width: 35.26334%; }
+      .course-number-field:last-child {
+        margin-right: 0; } }
+
+.course-number-button {
+  float: left;
+  display: block;
+  margin-right: 7.42297%;
+  width: 19.43277%; }
+  .course-number-button:last-child {
+    margin-right: 0; }
+  @media screen and (min-width: 768px) {
+    .course-number-button {
+      float: left;
+      display: block;
+      margin-right: 3.57866%;
+      width: 9.36867%; }
+      .course-number-button:last-child {
         margin-right: 0; } }
 
 .tab-content {
@@ -7022,7 +7070,7 @@ input[type="submit"].button,
   float: left;
   display: block;
   margin-right: 7.42297%;
-  width: 46.28851%; }
+  width: 126.85574%; }
   .new-topic:last-child {
     margin-right: 0; }
   @media screen and (min-width: 768px) {
@@ -7030,7 +7078,7 @@ input[type="submit"].button,
       float: left;
       display: block;
       margin-right: 3.57866%;
-      width: 22.316%;
+      width: 61.158%;
       text-align: right; }
       .new-topic:last-child {
         margin-right: 0; } }
