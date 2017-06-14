@@ -7169,6 +7169,16 @@ input.move-comment-checkbox {
       display: inline;
       margin-left: 12px; } }
 
+.comment-tutor {
+  background-color: #B4111A;
+  color: #ffffff;
+  padding: 1px 4px;
+  border-radius: 5px; }
+  @media screen and (min-width: 768px) {
+    .comment-tutor {
+      display: inline;
+      margin-left: 12px; } }
+
 .comment-text blockquote {
   margin: 0;
   border-left: #cecece 4px solid;
