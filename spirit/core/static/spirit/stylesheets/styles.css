@@ -7169,6 +7169,13 @@ input.move-comment-checkbox {
       display: inline;
       margin-left: 12px; } }
 
+.comment-tutor {
+  background-color: #a70e16; }
+  @media screen and (min-width: 768px) {
+    .comment-tutor {
+      display: inline;
+      margin-left: 12px; } }
+
 .comment-text blockquote {
   margin: 0;
   border-left: #cecece 4px solid;

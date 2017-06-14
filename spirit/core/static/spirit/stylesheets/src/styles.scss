@@ -287,6 +287,16 @@ input.move-comment-checkbox {
   }
 }
 
+.comment-tutor {
+  //display: none;
+  background-color: #a70e16;
+
+  @include media( $medium ) {
+    display: inline;
+    margin-left: $half-spacing-size;
+  }
+}
+
 .comment-text {
   blockquote {
     margin: 0;
