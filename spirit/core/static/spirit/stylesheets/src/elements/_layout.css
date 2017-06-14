@@ -1,0 +1,30 @@
+@import url("/static/spirit/stylesheets/styles.all.min.css");
+
+html {
+  font-family: times;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
+  background-color: #A70E16;
+  cursor: default; }
+
+html {
+  position: relative;
+  min-height: 100%; }
+
+a {
+  color: white !important;
+}
+
+body {
+  margin-bottom: 100px; }
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100px;
+  width: 100%; }
+
+
+/*# sourceMappingURL=_layout.css.map */

@@ -1,17 +1,43 @@
-// Layout styles
 
-html {
-  font-family: $base-font-family;
-  font-size: $base-font-size;
-  line-height: $base-line-height;
-  color: $dark-grey;
-  background-color: $white;
-  cursor: default;
+@mixin sticky-footer($footer-height) {
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
+  body {
+    margin-bottom: $footer-height;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: $footer-height;
+    width: 100%;
+  }
 }
 
-body {
-  @include outer-container;
-  // if not visual-grid, add paddings
+
+// Font weights variables
+$light: 100;
+$regular: 400;
+$bold: 600;
+
+// Base Font variables
+$base-font-family: "Ubuntu" !default;
+$base-font-weight: $regular !default;
+$base-font-size: 16px !default;
+$base-line-height: $base-font-size * 1.5 !default;
+
+// Layout styles
+html {
+  font-family: times;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: white;
+  background-color: red;
+  cursor: default;
 }
 
 @include sticky-footer(100px);
