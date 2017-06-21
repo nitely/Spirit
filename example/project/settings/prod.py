@@ -27,6 +27,9 @@ ALLOWED_HOSTS = ['.example.com', ]
 DEFAULT_FROM_EMAIL = 'webmaster@localhost'  # Django default
 SERVER_EMAIL = DEFAULT_FROM_EMAIL  # For error notifications
 
+# Email sending timeout
+EMAIL_TIMEOUT = 20  # Default is None (infinite)
+
 # Extend the Spirit installed apps
 # Check out the .base.py file for more examples
 INSTALLED_APPS.extend([
