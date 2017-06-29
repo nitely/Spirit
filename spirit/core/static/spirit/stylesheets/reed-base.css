@@ -11,7 +11,7 @@ html {
   font-size: 16px;
   line-height: 24px;
   color: white;
-  background-color: #A70E16; }
+  background-color: #85070A; }
 
 html {
   position: relative;
@@ -20,19 +20,71 @@ html {
 a {
   color: white;
 }
+a:hover {
+  color: #787562;
+}
+
 
 /* governs styling of username in forum posts */
 .username {
   color: white;
   font-size: 17px;
   text-decoration: underline;
-  background-color: #A70E16 !important;
+  background-color: #85070A !important;
 }
 
 /* governs header/banner thingy across all pages */
+
 .header-logo {
+    background-color: #85070A;
+    background-repeat: no-repeat;
+    background-size: 140px 150px;
+    text-align: left;
+    padding-top: 20px;
+    margin: auto;
+    font-size: 30px;
+    color: white;
+    font-family: times, serif;
+    text-transform: uppercase;
+}
+.header-logo:hover {
+  color: white !important;
+}
+.header-div {
+  white-space: nowrap;
+    overflow: hidden;
+}
+
+.forumtopnav {
+    overflow: hidden;
+    padding-left: 40px;
+}
+.forumtopnav a {
+    overflow: hidden;
+    display: inline-block;
+    padding: 10px;
+    padding-left: 0;
+    padding-top: 2px;
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: 'Myriad', sans-serif;
+    letter-spacing: 1px;
+}
+.forumtopnav a:hover {
+  color: #787562;
+  transition-delay: .15s; /* delays for .15 seconds */
+  -webkit-transition-delay: .15s; /* ^for Safari & Chrome */
+}
+.forumtopnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/*.header-logo {
+  font-family: times;
+  text-transform: uppercase;
   color: white;
-  text-shadow: 3px 5px maroon;
   border-bottom: 4px solid white;
   border-radius: 8px;
 }
@@ -41,49 +93,68 @@ a {
   text-shadow: none;
   border-bottom: 4px solid black;
   border-radius: 8px;
-}
+} */
 
 /* governs styling of the rows of forum posts on forum home page */
 .row-title a{
   color: white !important;
 }
 .row-title a:hover{
-  color: black !important;
+  color: #787562 !important;
 }
 
 /* governs the drop down menus throughout the forum */
 .menu li {
-  background-color: #A70E16;
+  background-color: #85070A;
+  border-radius: 5px;
 }
 .menu a {
   color: white;
 }
 .menu a:hover {
-  color: black;
-  border-left: 6px solid black;
+  color: #787562;
+}
+.menu li:hover {
+  white-space: nowrap;
+  border-radius: 5px;
+  text-transform: none;
 }
 .dropdown-button {
   color: white;
 }
+.dropdown-button:active {
+  color: #787562 !important;
+}
+.dropdown-button:hover {
+  color: #787562 !important;
+}
 
 /* governs button styling across forum ... could be improved */
 .button {
-  border-radius: 10px;
+  border-radius: 15px;
   border: 1px solid black !important;
-  box-shadow: 2px 4px;
+  box-shadow: 1px 4px;
+  outline: none !important;
+}
+
+.button:hover {
+  box-shadow: 1px 4px black;
+  color: black !important;
 }
 
 /* governs input text on forms throughout the forum. 
 ie: when one is writing a post or inputting course #'s */
 input, textarea, select {
   color: black;
+  outline: 1px solid black;
 }
 
 /* styling for "admin" page */
 
 .statistics-box {
   border-radius : 15px;
-  border: 7px solid maroon;
+  border: 7px solid #787562;
+  text-transform: uppercase;
   box-shadow: 0px 0px 0px 1px black;
   background-color : white;
   color: maroon;
@@ -94,7 +165,8 @@ input, textarea, select {
   border-radius: 15px;
   background-color: white;
   color: maroon;
-  border: 7px solid maroon;
+  border: 7px solid #787562;
+  text-transform: uppercase;
   box-shadow: 0px 0px 0px 1px black;
 }
 
