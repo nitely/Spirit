@@ -57,7 +57,10 @@ a:hover {
 
 .forumtopnav {
     overflow: hidden;
-    padding-left: 40px;
+    border-bottom: 4px solid white;
+    border-right: 4px solid white;
+    border-radius: 10px;
+    width: 350px;
 }
 .forumtopnav a {
     overflow: hidden;
