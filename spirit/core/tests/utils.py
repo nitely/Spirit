@@ -33,6 +33,8 @@ def create_topic(category, **kwargs):
 
     if 'title' not in kwargs:
         kwargs['title'] = "topic_foo%d" % Topic.objects.all().count()
+    if 'course_no' not in kwargs:
+        kwargs['course_no'] = 0
 
     return Topic.objects.create(category=category, **kwargs)
 

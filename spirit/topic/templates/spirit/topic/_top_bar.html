@@ -1,32 +1,53 @@
 {% load i18n %}
+<div class="container">
+  <div class="categories js-tabs-container">
+    {% if category %}
+      <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{{ category.title }} <i class="fa fa-chevron-down"></i></a>
+    {% else %}
+      <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "All Subjects" %} <i class="fa fa-chevron-down"></i></a>
+    {% endif %}
+    <div class="tab-content js-tab-content js-categories-content">
+      <ul class="menu">
+        {% for c in categories %}
+          <li><a class="menu-link" href="{{ c.get_absolute_url }}" >{{ c.title }}</a></li>
+        {% endfor %}
+        {% if category.parent %}
+          <li><a class="menu-link" href="{{ category.parent.get_absolute_url }}" >{% trans "All Subcategories" %}</a></li>
+        {% else %}
+          <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}" >{% trans "All Subjects" %}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  <div class="course-number-form">
+    {% load static %}
+    <script type="text/javascript" src="{% static 'select_course_no.js' %}"></script>
+    {% if category %}
+      <form action="#" onSubmit="go_to_course_number('{{ category.get_absolute_url }}')">
+    {% else %}
+      <form action="#" onSubmit="go_to_course_number('{% url "spirit:topic:index-active" %}')">
+    {% endif %}
+      <div class="course-number-label">
+        {% trans "Course Number:" %}
+      </div>
+      <div class="course-number-field">
+        {% if course_no %}
+        <input id="course_no" type="number" value="{{ course_no }}"></input>
+        {% else %}
+          <input id="course_no" type="number"></input>
+        {% endif %}
+      </div>
+      <div class="course-number-button">
+        <input class="button" type="submit" value="Go!">
+      </div>
+    </form>
+  </div>
 
-    <div class="container">
-		<div class="categories js-tabs-container">
-            {% if category %}
-			    <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{{ category.title }} <i class="fa fa-chevron-down"></i></a>
-			{% else %}
-                <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "All Categories" %} <i class="fa fa-chevron-down"></i></a>
-            {% endif %}
-
-			<div class="tab-content js-tab-content js-categories-content">
-				<ul class="menu">
-                    {% for c in categories %}
-                        <li><a class="menu-link" href="{{ c.get_absolute_url }}" >{{ c.title }}</a></li>
-                    {% endfor %}
-                    {% if category.parent %}
-                        <li><a class="menu-link" href="{{ category.parent.get_absolute_url }}" >{% trans "All Subcategories" %}</a></li>
-                    {% else %}
-                        <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}" >{% trans "All Categories" %}</a></li>
-                    {% endif %}
-				</ul>
-			</div>
-		</div>
-
-        <div class="new-topic">
-            {% if category %}
-                <a class="button" href="{% url "spirit:topic:publish" category.pk %}">{% trans "Create Topic" %}</a>
-            {% else %}
-                <a class="button" href="{% url "spirit:topic:publish" %}">{% trans "Create Topic" %}</a>
-            {% endif %}
-		</div>
-	</div>
+  <div class="new-topic">
+    {% if category %}
+      <a class="button" href="{% url "spirit:topic:publish" category.pk %}">{% trans "Create Question" %}</a>
+    {% else %}
+      <a class="button" href="{% url "spirit:topic:publish" %}">{% trans "Create Question" %}</a>
+    {% endif %}
+  </div>
+</div>

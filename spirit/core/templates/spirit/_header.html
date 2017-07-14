@@ -1,8 +1,9 @@
 {% load spirit_tags i18n %}
 
     <header class="header js-tabs-container">
-		<a class="header-logo" href="{% url "spirit:index" %}">{{ config.site_name }}</a>
-
+		<div class="header-div">
+        <a class="header-logo" href="{% url "spirit:index" %}">{{ config.site_name }}</a>
+        </div>
         {% if user.is_authenticated %}
             {% has_topic_notifications user as has_notifications %}
 
@@ -11,16 +12,21 @@
              --><li><a class="header-tab-link js-tab-notification{% if has_notifications %} is-highlighted{% endif %}" href="{% url "spirit:topic:notification:index" %}" data-related=".js-notifications-content"><i class="fa fa-bell"></i></a></li><!--
              --><li><a class="header-tab-link js-tab" href="{% url "spirit:user:menu" %}" data-related=".js-user-content">{{ user.username }} <i class="fa fa-chevron-down"></i></a></li>
             </ul>
-
+        <div class="forumtopnav">
+        <a href="/">TUTORING HOMEPAGE</a>
+        <a href="/forum/">FORUM</a>
+        <a href="/tutor">TUTOR LOGIN </a>
+        </div>
             <div class="header-tabs-content">
 
                 <div class="header-tab-content js-tab-content js-user-content">
                     <nav class="header-nav">
                         <ul class="menu">
                             <li><a class="menu-link" href="{% url "spirit:user:detail" pk=user.pk slug=user.st.slug %}">{% trans "Profile" %}</a></li>
-                            <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "Topics" %}</a></li>
-                            <li><a class="menu-link" href="{% url "spirit:topic:unread:index" %}">{% trans "Unread topics" %}</a></li>
-                            <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}">{% trans "Private topics" %}</a></li>
+                            <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "Questions" %}</a></li>
+                            <li><a class="menu-link" href="{% url "spirit:topic:unread:index" %}">{% trans "Unread questions" %}</a></li>
+                            <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}">{% trans "Private questions" %}</a></li>
+                            <li><a class="menu-link" href="{% url "tutor:index" %}">{% trans "Go to Tutoring Homepage" %}</a></li>
 
                             {% if user.st.is_administrator %}
                                 <li><a class="menu-link" href="{% url "spirit:admin:index" %}">{% trans "Admin" %}</a></li>
@@ -38,6 +44,8 @@
                 </div>
 
             </div>
+
+
         {% else %}
             <a class="header-link" href="{% url "spirit:user:auth:login" %}?next={% firstof request.get_full_path|urlencode '/' %}">{% trans "Log in" %}</a>
         {% endif %}

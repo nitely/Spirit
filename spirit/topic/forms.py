@@ -22,7 +22,7 @@ class TopicForm(forms.ModelForm):
 
     class Meta:
         model = Topic
-        fields = ('title', 'category')
+        fields = ('title', 'category', 'course_no')
 
     def __init__(self, user, *args, **kwargs):
         super(TopicForm, self).__init__(*args, **kwargs)
@@ -32,8 +32,8 @@ class TopicForm(forms.ModelForm):
             related_name='category_set',
             parent_field='parent_id',
             label_field='title',
-            label=_("Category"),
-            empty_label=_("Chose a category"))
+            label=_("Subject"),
+            empty_label=_("Choose a subject"))
 
         if self.instance.pk and not user.st.is_moderator:
             del self.fields['category']

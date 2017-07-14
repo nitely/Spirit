@@ -4,13 +4,9 @@ language: python
 sudo: false
 
 python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
+  - "3.6"
 env:
-  - DJANGO=1.8.16
-  - DJANGO=1.9.11
-  - DJANGO=1.10.3
+  - DJANGO=1.11.1
 install:
   - pip install --upgrade pip
   - pip install -r requirements.txt

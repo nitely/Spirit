@@ -1,3 +1,6 @@
+#This does not work
+We put in a bunch of stuff that depends on the [paneity](https://github.com/reed-college/paneity) repo so this example will not work. If you clone the [original version of spirit](https://github.com/nitely/Spirit), that one will work.
+
 #Running the example application
 
 Assuming you use virtualenv, follow these steps to download and run the
