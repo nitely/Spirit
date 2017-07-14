@@ -1,8 +1,8 @@
 @import url("/static/spirit/stylesheets/styles.all.min.css");
 
-/* the code below overrides the original spirit style sheet imported above^, 
+/* the code below overrides the original spirit style sheet imported above^,
 which is mostly just keeping Spirit's formatting/page layouts for us. If you're having trouble
-changing things / overridng the original spirit style sheet, try using the !important attribute, 
+changing things / overridng the original spirit style sheet, try using the !important attribute,
 but be careful as it may also override code in this style sheet :) -corb */
 
 /* styling across all pages */
@@ -15,8 +15,11 @@ html {
 
 html {
   position: relative;
-  min-height: 100%; }
-
+  min-height: 100%;
+}
+.header {
+    margin: 5%;
+}
 a {
   color: white;
 }
@@ -40,7 +43,6 @@ a:hover {
     background-repeat: no-repeat;
     background-size: 140px 150px;
     text-align: left;
-    padding-top: 20px;
     margin: auto;
     font-size: 30px;
     color: white;
@@ -145,7 +147,7 @@ a:hover {
   color: black !important;
 }
 
-/* governs input text on forms throughout the forum. 
+/* governs input text on forms throughout the forum.
 ie: when one is writing a post or inputting course #'s */
 input, textarea, select {
   color: black;
@@ -184,5 +186,10 @@ body {
   height: 100px;
   width: 100%; }
 
+@media screen and (max-width: 780) {
+    .username {
+        font-size: 100px;
+    }
+}
 
 /*# sourceMappingURL=_layout.css.map */
