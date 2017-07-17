@@ -10,11 +10,13 @@ from django.http import HttpResponse
 def tutor(request):
     return HttpResponse("blah")
 
+
 tutor_patterns = [
     url(r'^$', tutor, name='index'),
+    url(r'^about/$', tutor, name='about'),
 ]
 
 
 urlpatterns += [
-    url(r'^tutor/', include(patterns, namespace='tutor', app_name='tutor')),
+    url(r'^tutor/', include(tutor_patterns, namespace='tutor', app_name='tutor')),
 ]
