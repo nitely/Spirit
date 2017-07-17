@@ -10,15 +10,16 @@ html {
   font-family: times;
   font-size: 16px;
   line-height: 24px;
-  color: white;
-  background-color: #85070A; }
+  color: black;
+  background-color: white;
+}
 
 html {
   position: relative;
   min-height: 100%; }
 
 a {
-  color: white;
+  color: black;
 }
 a:hover {
   color: #787562;
@@ -27,13 +28,24 @@ a:hover {
 
 /* governs styling of username in forum posts */
 .username {
-  color: white;
+  color: black;
   font-size: 17px;
   text-decoration: underline;
   background-color: #85070A !important;
 }
 
 /* governs header/banner thingy across all pages */
+header {
+  margin: 0px;
+}
+.header-banner {
+    background-color: #85070A;
+    background-size: 140px 150px;
+    text-align: left;
+    padding-left: 40px; /*4.25rem; /*85px; */
+    padding-bottom: 20px; 
+
+}
 
 .header-logo {
     background-color: #85070A;
@@ -57,9 +69,6 @@ a:hover {
 
 .forumtopnav {
     overflow: hidden;
-    border-bottom: 4px solid white;
-    border-right: 4px solid white;
-    border-radius: 10px;
     width: 350px;
 }
 .forumtopnav a {
@@ -81,7 +90,7 @@ a:hover {
 }
 .forumtopnav a.active {
     background-color: #4CAF50;
-    color: white;
+    color: black;
 }
 
 /*.header-logo {
@@ -100,7 +109,7 @@ a:hover {
 
 /* governs styling of the rows of forum posts on forum home page */
 .row-title a{
-  color: white !important;
+  color: black !important;
 }
 .row-title a:hover{
   color: #787562 !important;
@@ -112,7 +121,7 @@ a:hover {
   border-radius: 5px;
 }
 .menu a {
-  color: white;
+  color: black;
 }
 .menu a:hover {
   color: #787562;
@@ -123,7 +132,7 @@ a:hover {
   text-transform: none;
 }
 .dropdown-button {
-  color: white;
+  color: black;
 }
 .dropdown-button:active {
   color: #787562 !important;
@@ -174,8 +183,6 @@ input, textarea, select {
 }
 
 /* the following code was already in this file... I haven't touched it */
-body {
-  margin-bottom: 100px; }
 
 .footer {
   position: absolute;
@@ -183,6 +190,8 @@ body {
   bottom: 0;
   height: 100px;
   width: 100%; }
+
+
 
 
 /*# sourceMappingURL=_layout.css.map */

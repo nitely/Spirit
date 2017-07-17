@@ -1,50 +1,55 @@
 {% load spirit_tags i18n %}
 
-    <header class="header js-tabs-container">
-		<div class="header-div">
-        <a class="header-logo" href="{% url "spirit:index" %}">{{ config.site_name }}</a>
-        </div>
-        {% if user.is_authenticated %}
-            {% has_topic_notifications user as has_notifications %}
-
-            <ul class="header-tabs">
-                <li><a class="header-tab-link js-tab" href="{% url "spirit:search:search" %}" data-related=".js-search-content"><i class="fa fa-search"></i></a></li><!--
-             --><li><a class="header-tab-link js-tab-notification{% if has_notifications %} is-highlighted{% endif %}" href="{% url "spirit:topic:notification:index" %}" data-related=".js-notifications-content"><i class="fa fa-bell"></i></a></li><!--
-             --><li><a class="header-tab-link js-tab" href="{% url "spirit:user:menu" %}" data-related=".js-user-content">{{ user.username }} <i class="fa fa-chevron-down"></i></a></li>
-            </ul>
-        <div class="forumtopnav">
-        <a href="/">TUTORING HOMEPAGE</a>
-        <a href="/forum/">FORUM</a>
-        <a href="/tutor">TUTOR LOGIN </a>
-        </div>
-            <div class="header-tabs-content">
-
-                <div class="header-tab-content js-tab-content js-user-content">
-                    <nav class="header-nav">
-                        <ul class="menu">
-                            <li><a class="menu-link" href="{% url "spirit:user:detail" pk=user.pk slug=user.st.slug %}">{% trans "Profile" %}</a></li>
-                            <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "Questions" %}</a></li>
-                            <li><a class="menu-link" href="{% url "spirit:topic:unread:index" %}">{% trans "Unread questions" %}</a></li>
-                            <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}">{% trans "Private questions" %}</a></li>
-                            <li><a class="menu-link" href="{% url "tutor:index" %}">{% trans "Go to Tutoring Homepage" %}</a></li>
-
-                            {% if user.st.is_administrator %}
-                                <li><a class="menu-link" href="{% url "spirit:admin:index" %}">{% trans "Admin" %}</a></li>
-                            {% endif %}
-
-                            <li><a class="menu-link js-post" href="{% url "spirit:user:auth:logout" %}?next={% firstof request.get_full_path|urlencode '/' %}">{% trans "Log out" %}</a></li>
-                        </ul>
-                    </nav>
-                </div>
-
-                <div class="header-tab-content js-tab-content js-notifications-content"></div>
-
-                <div class="header-tab-content js-tab-content js-search-content">
-                    {% render_search_form %}
-                </div>
-
+    <header class="headerjs-tabs-container">
+        <div class="header-banner">
+    		<div class="header-div">
+                <a class="header-logo" href="{% url "spirit:index" %}">
+                    <h1 id="headertext">REED COLLEGE</h1>
+                </a>
             </div>
+            <div class="user-tabs">
+                {% if user.is_authenticated %}
+                    {% has_topic_notifications user as has_notifications %}
 
+                    <ul class="header-tabs">
+                        <li><a class="header-tab-link js-tab" href="{% url "spirit:search:search" %}" data-related=".js-search-content"><i class="fa fa-search"></i></a></li><!--
+                     --><li><a class="header-tab-link js-tab-notification{% if has_notifications %} is-highlighted{% endif %}" href="{% url "spirit:topic:notification:index" %}" data-related=".js-notifications-content"><i class="fa fa-bell"></i></a></li><!--
+                     --><li><a class="header-tab-link js-tab" href="{% url "spirit:user:menu" %}" data-related=".js-user-content">{{ user.username }} <i class="fa fa-chevron-down"></i></a></li>
+                    </ul>
+            </div>
+            <div class="forumtopnav">
+                <a href="/">TUTORING HOMEPAGE</a>
+                <a href="/forum/">FORUM</a>
+                <a href="/tutor">TUTOR LOGIN </a>
+            </div>
+                <div class="header-tabs-content">
+
+                    <div class="header-tab-content js-tab-content js-user-content">
+                        <nav class="header-nav">
+                            <ul class="menu">
+                                <li><a class="menu-link" href="{% url "spirit:user:detail" pk=user.pk slug=user.st.slug %}">{% trans "Profile" %}</a></li>
+                                <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "Questions" %}</a></li>
+                                <li><a class="menu-link" href="{% url "spirit:topic:unread:index" %}">{% trans "Unread questions" %}</a></li>
+                                <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}">{% trans "Private questions" %}</a></li>
+                                <li><a class="menu-link" href="{% url "tutor:index" %}">{% trans "Go to Tutoring Homepage" %}</a></li>
+
+                                {% if user.st.is_administrator %}
+                                    <li><a class="menu-link" href="{% url "spirit:admin:index" %}">{% trans "Admin" %}</a></li>
+                                {% endif %}
+
+                                <li><a class="menu-link js-post" href="{% url "spirit:user:auth:logout" %}?next={% firstof request.get_full_path|urlencode '/' %}">{% trans "Log out" %}</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="header-tab-content js-tab-content js-notifications-content"></div>
+
+                    <div class="header-tab-content js-tab-content js-search-content">
+                        {% render_search_form %}
+                    </div>
+
+                </div>
+        </div>    
 
         {% else %}
             <a class="header-link" href="{% url "spirit:user:auth:login" %}?next={% firstof request.get_full_path|urlencode '/' %}">{% trans "Log in" %}</a>
