@@ -74,3 +74,6 @@ docs/_build/
 
 # Tx
 .transifexrc
+
+# .DS_Store files
+.DS_Store
