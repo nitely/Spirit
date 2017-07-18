@@ -6,26 +6,22 @@ changing things / overridng the original spirit style sheet, try using the !impo
 but be careful as it may also override code in this style sheet :) -corb */
 
 /* styling across all pages */
+* {
+  box-sizing: border-box;
+}
+
 html {
-  font-family: times;
   font-size: 16px;
   line-height: 24px;
   color: black;
   background-color: white;
-}
-
-html {
   position: relative;
   min-height: 100%;
+  overflow-x: hidden;
 }
-.header {
-    margin: 5%;
-}
-a {
-  color: black;
-}
-a:hover {
-  color: #787562;
+
+body {
+  width: 100%;
 }
 
 
@@ -37,33 +33,23 @@ a:hover {
   background-color: #85070A !important;
 }
 
-/* governs header/banner thingy across all pages */
-header {
-  margin: 0px;
-}
+/* governs header/banner across all pages */
+
 .header-banner {
     background-color: #85070A;
-    background-size: 140px 150px;
     text-align: left;
     padding-left: 40px; /*4.25rem; /*85px; */
-    padding-bottom: 20px; 
-
+    margin: 0;
+    width: 100% !important;
 }
 
-.header-logo {
-    background-color: #85070A;
-    background-repeat: no-repeat;
-    background-size: 140px 150px;
-    text-align: left;
-    margin: auto;
-    font-size: 30px;
-    color: white;
-    font-family: times, serif;
-    text-transform: uppercase;
+#headertext {
+  font-family: times, serif;
+  text-align: left;
+  font-size: 1.875rem /* 1rem = 16px, 1.875rem = 30px */;
+  color: white;
 }
-.header-logo:hover {
-  color: white !important;
-}
+
 .header-div {
   white-space: nowrap;
     overflow: hidden;
@@ -72,7 +58,9 @@ header {
 .forumtopnav {
     overflow: hidden;
     width: 350px;
+    padding-top: 0;
 }
+
 .forumtopnav a {
     overflow: hidden;
     display: inline-block;
@@ -94,20 +82,6 @@ header {
     background-color: #4CAF50;
     color: black;
 }
-
-/*.header-logo {
-  font-family: times;
-  text-transform: uppercase;
-  color: white;
-  border-bottom: 4px solid white;
-  border-radius: 8px;
-}
-.header-logo:hover {
-  color: black;
-  text-shadow: none;
-  border-bottom: 4px solid black;
-  border-radius: 8px;
-} */
 
 /* governs styling of the rows of forum posts on forum home page */
 .row-title a{
