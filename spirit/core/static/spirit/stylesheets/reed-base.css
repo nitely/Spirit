@@ -14,16 +14,16 @@ html {
   font-size: 16px;
   line-height: 24px;
   color: black;
-  background-color: white;
   position: relative;
   min-height: 100%;
   overflow-x: hidden;
 }
 
-body {
+html, body {
+  height: 100%;
   width: 100%;
+  margin: 0;
 }
-
 
 /* governs styling of username in forum posts */
 .username {
@@ -40,7 +40,8 @@ body {
     text-align: left;
     padding-left: 40px; /*4.25rem; /*85px; */
     margin: 0;
-    width: 100% !important;
+    width: 100%;
+    position: fixed;
 }
 
 #headertext {
