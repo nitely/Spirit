@@ -46,9 +46,13 @@ html, body {
 
 #headertext {
   font-family: times, serif;
-  text-align: left;
   font-size: 1.875rem /* 1rem = 16px, 1.875rem = 30px */;
+  font-weight: lighter;
   color: white;
+  text-align: left;
+  position: relative;
+  margin-bottom: 0;
+  top: 6px;
 }
 
 .header-div {
@@ -59,21 +63,21 @@ html, body {
 .forumtopnav {
     overflow: hidden;
     width: 350px;
-    padding-top: 0;
 }
 
 .forumtopnav a {
     overflow: hidden;
     display: inline-block;
-    padding: 10px;
+    padding: 16px;
     padding-left: 0;
-    padding-top: 2px;
+    padding-top: 8px;
     color: #f2f2f2;
     text-decoration: none;
     font-size: 12px;
     font-family: 'Myriad', sans-serif;
     letter-spacing: 1px;
 }
+
 .forumtopnav a:hover {
   color: #787562;
   transition-delay: .15s; /* delays for .15 seconds */
@@ -93,10 +97,27 @@ html, body {
 }
 
 /* governs the drop down menus throughout the forum */
-.menu li {
-  background-color: #85070A;
-  border-radius: 5px;
+
+.header-tab-link {
+  color: white;
+  position: relative;
+  right: 20px;
+  bottom: 5px;
+  font-family: 'Myriad', sans-serif;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: lighter;
 }
+
+.header_nav {
+  color: orange;
+}
+
+.menu li {
+  background-color: rgba(133,7,10,0.5);
+
+}
+
 .menu a {
   color: black;
 }
@@ -119,15 +140,20 @@ html, body {
 }
 
 /* governs button styling across forum ... could be improved */
+.pagecontent {
+  position: relative;
+  top: 150px;
+  width: 100%;
+  padding: 0 20px;
+}
+
 .button {
   border-radius: 15px;
   border: 1px solid black !important;
-  box-shadow: 1px 4px;
   outline: none !important;
 }
 
 .button:hover {
-  box-shadow: 1px 4px black;
   color: black !important;
 }
 

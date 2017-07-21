@@ -56,7 +56,9 @@
 
     {% include 'spirit/_header.html' %}
     {% render_messages messages %}
+    <div class="pagecontent">
     {% block content %}{% endblock %}
+    </div>
     {% include 'spirit/_footer.html' %}
 
 
