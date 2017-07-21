@@ -102,33 +102,39 @@ html, body {
   color: white;
   position: relative;
   right: 20px;
-  bottom: 5px;
+  top: 5px;
   font-family: 'Myriad', sans-serif;
   font-size: 15px;
   letter-spacing: 1px;
   font-weight: lighter;
 }
 
-.header_nav {
-  color: orange;
+.header-nav {
+  position: relative;
+  top: 105px;
+}
+
+.menu {
+  background-color: rgba(133,7,10,0.7);
+  padding-bottom: 8px;
+  padding-top: 8px;
 }
 
 .menu li {
-  background-color: rgba(133,7,10,0.5);
-
+  background-color: rgba(133,7,10,0);
 }
 
 .menu a {
   color: black;
 }
+
 .menu a:hover {
-  color: #787562;
+  color: white;
 }
 .menu li:hover {
   white-space: nowrap;
-  border-radius: 5px;
-  text-transform: none;
 }
+
 .dropdown-button {
   color: black;
 }
