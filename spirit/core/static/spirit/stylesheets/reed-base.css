@@ -11,6 +11,7 @@ but be careful as it may also override code in this style sheet :) -corb */
 }
 
 html {
+  font-family: "Source Serif Pro";
   font-size: 16px;
   line-height: 24px;
   color: black;
@@ -41,7 +42,7 @@ html, body {
     padding-left: 40px; /*4.25rem; /*85px; */
     margin: 0;
     width: 100%;
-    position: fixed;
+    position: absolute;
 }
 
 #headertext {
@@ -154,13 +155,14 @@ html, body {
 }
 
 .button {
-  border-radius: 15px;
-  border: 1px solid black !important;
+  border-radius: 2px;
   outline: none !important;
+  background-color: #4d5a77;
+  color: white;
 }
 
 .button:hover {
-  color: black !important;
+  background-color: rgb(77,90,119,0.7);
 }
 
 /* governs input text on forms throughout the forum.
@@ -197,7 +199,6 @@ input, textarea, select {
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 100px;
   width: 100%; }
 
 @media screen and (max-width: 780) {
