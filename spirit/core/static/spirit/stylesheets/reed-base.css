@@ -11,7 +11,7 @@ but be careful as it may also override code in this style sheet :) -corb */
 }
 
 html {
-  font-family: "Source Serif Pro";
+  font-family: "Raleway";
   font-size: 16px;
   line-height: 24px;
   color: black;
@@ -157,12 +157,13 @@ html, body {
 .button {
   border-radius: 2px;
   outline: none !important;
-  background-color: #4d5a77;
-  color: white;
+  background-color: #4d5a77 !important;
+  color: white !important;
+  font-weight: lighter;
 }
 
 .button:hover {
-  background-color: rgb(77,90,119,0.7);
+  background-color: rgba(77, 90, 119, 0.3);
 }
 
 /* governs input text on forms throughout the forum.
@@ -193,13 +194,24 @@ input, textarea, select {
   box-shadow: 0px 0px 0px 1px black;
 }
 
+/* Styling for page that displays the questions in each subject */
+
+.question-title {
+  clear: right !important;
+
+}
+
+
+
 /* the following code was already in this file... I haven't touched it */
 
 .footer {
   position: absolute;
-  left: 0;
   bottom: 0;
-  width: 100%; }
+  width: 100%;
+  height: 20px;
+
+}
 
 @media screen and (max-width: 780) {
     .username {

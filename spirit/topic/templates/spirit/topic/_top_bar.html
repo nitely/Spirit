@@ -1,11 +1,16 @@
 {% load i18n %}
 <div class="container">
+  <div class="question-title">
+    <header class="categories js-tabs-container">
+      {% if category %}
+        <h2>Questions in {{ category.title }}</h2>
+      {% else %}
+        <h2>Questions in all subjects</h2>
+      {% endif %}
+    </header>
+  </div>
   <div class="categories js-tabs-container">
-    {% if category %}
-      <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{{ category.title }} <i class="fa fa-chevron-down"></i></a>
-    {% else %}
-      <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "All Subjects" %} <i class="fa fa-chevron-down"></i></a>
-    {% endif %}
+      <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">Select a subject<i class="fa fa-chevron-down"></i></a>
     <div class="tab-content js-tab-content js-categories-content">
       <ul class="menu">
         {% for c in categories %}
