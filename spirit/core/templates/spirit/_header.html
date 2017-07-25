@@ -1,7 +1,7 @@
 {% load spirit_tags i18n %}
 
 
-    <header class="headerjs-tabs-container">
+    <header class="header js-tabs-container">
         <div class="header-banner">
     		<div class="header-div">
                 <a class="header-logo" href="{% url 'spirit:index' %}">
@@ -32,8 +32,7 @@
                                 <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "Questions" %}</a></li>
                                 <li><a class="menu-link" href="{% url "spirit:topic:unread:index" %}">{% trans "Unread questions" %}</a></li>
                                 <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}">{% trans "Private questions" %}</a></li>
-                                <li><a class="menu-link" href="{% url "tutor:index" %}">{% trans "Go to Tutoring Homepage" %}</a></li>
-
+                                
                                 {% if user.st.is_administrator %}
                                     <li><a class="menu-link" href="{% url "spirit:admin:index" %}">{% trans "Admin" %}</a></li>
                                 {% endif %}

@@ -28,16 +28,22 @@ html, body {
 
 /* governs styling of username in forum posts */
 .username {
-  color: black;
+  color: #4d5a77;
   font-size: 17px;
   text-decoration: underline;
-  background-color: #85070A !important;
 }
 
 /* governs header/banner across all pages */
+.header {
+  padding: 0;
+  margin: 0;
+}
 
 .header-banner {
     background-color: #85070A;
+    background-image: url("../images/griffin.png");
+    background-repeat: no-repeat;
+    background-size: 140px 150px;
     text-align: left;
     padding-left: 40px; /*4.25rem; /*85px; */
     margin: 0;
@@ -53,7 +59,6 @@ html, body {
   text-align: left;
   position: relative;
   margin-bottom: 0;
-  top: 6px;
 }
 
 .header-div {
@@ -71,7 +76,7 @@ html, body {
     display: inline-block;
     padding: 16px;
     padding-left: 0;
-    padding-top: 8px;
+    padding-top: 2px;
     color: #f2f2f2;
     text-decoration: none;
     font-size: 12px;
@@ -103,26 +108,30 @@ html, body {
   color: white;
   position: relative;
   right: 20px;
-  top: 5px;
+  top: 8px;
   font-family: 'Myriad', sans-serif;
   font-size: 15px;
   letter-spacing: 1px;
   font-weight: lighter;
 }
 
-.header-nav {
+.header-tab-link:hover {
+  color: black;
+}
+
+.header-tabs-content {
   position: relative;
-  top: 105px;
+  top: 113px;
 }
 
 .menu {
-  background-color: rgba(133,7,10,0.7);
-  padding-bottom: 8px;
-  padding-top: 8px;
+  background-color: rgba(239,232,232,0.7);
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .menu li {
-  background-color: rgba(133,7,10,0);
+  background-color: rgba(239,232,232,0);
 }
 
 .menu a {
@@ -130,7 +139,7 @@ html, body {
 }
 
 .menu a:hover {
-  color: white;
+  font-weight: bolder;
 }
 .menu li:hover {
   white-space: nowrap;
@@ -139,17 +148,15 @@ html, body {
 .dropdown-button {
   color: black;
 }
-.dropdown-button:active {
-  color: #787562 !important;
-}
+
 .dropdown-button:hover {
-  color: #787562 !important;
+  color: #4d5a77 !important;
 }
 
 /* governs button styling across forum ... could be improved */
 .pagecontent {
   position: relative;
-  top: 150px;
+  top: 125px;
   width: 100%;
   padding: 0 20px;
 }
@@ -163,7 +170,8 @@ html, body {
 }
 
 .button:hover {
-  background-color: rgba(77, 90, 119, 0.3);
+  color: #4d5a77 !important;
+  background-color: #efe8e8 !important;
 }
 
 /* governs input text on forms throughout the forum.
@@ -176,38 +184,21 @@ input, textarea, select {
 /* styling for "admin" page */
 
 .statistics-box {
-  border-radius : 15px;
-  border: 7px solid #787562;
-  text-transform: uppercase;
   box-shadow: 0px 0px 0px 1px black;
-  background-color : white;
-  color: maroon;
+  background-color: white;
+  color: #4d5a77;
   margin : auto;
 }
 
 .messages-info {
-  border-radius: 15px;
   background-color: white;
-  color: maroon;
-  border: 7px solid #787562;
-  text-transform: uppercase;
   box-shadow: 0px 0px 0px 1px black;
 }
-
-/* Styling for page that displays the questions in each subject */
-
-.question-title {
-  clear: right !important;
-
-}
-
-
 
 /* the following code was already in this file... I haven't touched it */
 
 .footer {
   position: absolute;
-  bottom: 0;
   width: 100%;
   height: 20px;
 

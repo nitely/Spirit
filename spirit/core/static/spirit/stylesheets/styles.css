@@ -7066,7 +7066,7 @@ input[type="submit"].button,
 
 .tab-content {
   display: none; }
-
+/*
 .new-topic {
   float: left;
   display: block;
@@ -7082,7 +7082,7 @@ input[type="submit"].button,
       width: 61.158%;
       text-align: right; }
       .new-topic:last-child {
-        margin-right: 0; } }
+        margin-right: 0; } }*/
 
 .topic-moderation {
   margin-bottom: 24px; }
