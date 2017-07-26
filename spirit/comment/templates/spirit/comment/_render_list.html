@@ -17,7 +17,15 @@
                         <div class="comment-info">
 
                             <div class="comment-username">
-                                <a class="username{% if c.user.st.is_administrator %} is-admin{% elif c.user.st.is_moderator %} is-mod{% endif %}" href="{{ c.user.st.get_absolute_url }}">{{ c.user.username }}</a><span class="comment-realname">{{ c.user.get_full_name }}</span>
+                                <a class="username{% if c.user.st.is_administrator %} is-admin{% elif c.user.st.is_moderator %} is-mod{% endif %}" href="{{ c.user.st.get_absolute_url }}">{{ c.user.username }}</a>
+                            <span class="comment-realname">
+                              {{ c.user.get_full_name }}
+                            </span>
+                            {% if c.user.student.tutor %}
+                              <span class="comment-tutor">
+                                Tutor
+                              </span> 
+                            {% endif %}
                             </div>
 
                             <ul class="comment-date">

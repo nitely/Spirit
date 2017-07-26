@@ -1,0 +1,215 @@
+@import url("/static/spirit/stylesheets/styles.all.min.css");
+
+/* the code below overrides the original spirit style sheet imported above^,
+which is mostly just keeping Spirit's formatting/page layouts for us. If you're having trouble
+changing things / overridng the original spirit style sheet, try using the !important attribute,
+but be careful as it may also override code in this style sheet :) -corb */
+
+/* styling across all pages */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Raleway";
+  font-size: 16px;
+  line-height: 24px;
+  color: black;
+  position: relative;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+/* governs styling of username in forum posts */
+.username {
+  color: #4d5a77;
+  font-size: 17px;
+  text-decoration: underline;
+}
+
+/* governs header/banner across all pages */
+.header {
+  padding: 0;
+  margin: 0;
+}
+
+.header-banner {
+    background-color: #85070A;
+    background-image: url("../images/griffin.png");
+    background-repeat: no-repeat;
+    background-size: 140px 150px;
+    text-align: left;
+    padding-left: 40px; /*4.25rem; /*85px; */
+    margin: 0;
+    width: 100%;
+    position: absolute;
+}
+
+#headertext {
+  font-family: times, serif;
+  font-size: 1.875rem /* 1rem = 16px, 1.875rem = 30px */;
+  font-weight: lighter;
+  color: white;
+  text-align: left;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.header-div {
+  white-space: nowrap;
+    overflow: hidden;
+}
+
+.forumtopnav {
+    overflow: hidden;
+    width: 350px;
+}
+
+.forumtopnav a {
+    overflow: hidden;
+    display: inline-block;
+    padding: 4px;
+    padding-left: 0;
+    padding-top: 2px;
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: 'Myriad', sans-serif;
+    letter-spacing: 1px;
+}
+
+.forumtopnav a:hover {
+  color: #787562;
+  transition-delay: .15s; /* delays for .15 seconds */
+  -webkit-transition-delay: .15s; /* ^for Safari & Chrome */
+}
+.forumtopnav a.active {
+    background-color: #4CAF50;
+    color: black;
+}
+
+/* governs styling of the rows of forum posts on forum home page */
+.row-title a{
+  color: black !important;
+}
+.row-title a:hover{
+  color: #787562 !important;
+}
+
+/* governs the drop down menus throughout the forum */
+
+.header-tab-link {
+  color: white;
+  position: relative;
+  right: 20px;
+  top: 8px;
+  font-family: 'Myriad', sans-serif;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: lighter;
+}
+
+.header-tab-link:hover {
+  color: black;
+}
+
+.header-tabs-content {
+  position: relative;
+  top: 106px;
+}
+
+.menu {
+  background-color: rgba(239,232,232,0.7);
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.menu li {
+  background-color: rgba(239,232,232,0);
+}
+
+.menu a {
+  color: black;
+}
+
+.menu a:hover {
+  font-weight: bolder;
+}
+.menu li:hover {
+  white-space: nowrap;
+}
+
+.dropdown-button {
+  color: black;
+}
+
+.dropdown-button:hover {
+  color: #4d5a77 !important;
+}
+
+/* governs button styling across forum ... could be improved */
+.pagecontent {
+  position: relative;
+  top: 125px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.button {
+  border-radius: 2px;
+  outline: none !important;
+  background-color: #4d5a77 !important;
+  color: white !important;
+  font-weight: lighter;
+}
+
+.button:hover {
+  color: #4d5a77 !important;
+  background-color: #efe8e8 !important;
+}
+
+/* governs input text on forms throughout the forum.
+ie: when one is writing a post or inputting course #'s */
+input, textarea, select {
+  color: black;
+  outline: 1px solid black;
+}
+
+/* styling for "admin" page */
+
+.statistics-box {
+  box-shadow: 0px 0px 0px 1px black;
+  background-color: white;
+  color: #4d5a77;
+  margin : auto;
+}
+
+.messages-info {
+  background-color: white;
+  box-shadow: 0px 0px 0px 1px black;
+}
+
+/* the following code was already in this file... I haven't touched it */
+
+.footer {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+
+}
+
+@media screen and (max-width: 780) {
+    .username {
+        font-size: 100px;
+    }
+}
+
+
+
+/*# sourceMappingURL=_layout.css.map */

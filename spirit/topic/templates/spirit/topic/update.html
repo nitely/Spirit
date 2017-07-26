@@ -2,12 +2,12 @@
 
 {% load i18n %}
 
-{% block title %}{% trans "Update topic" %}{% endblock %}
+{% block title %}{% trans "Update question" %}{% endblock %}
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Update topic" %}</h1>
-    
+    <h1 class="headline">{% trans "Update question" %}</h1>
+
     <form action="." method="post">
         {% csrf_token %}
         {% include "spirit/_form.html" %}

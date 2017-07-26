@@ -35,6 +35,9 @@
                                 </a>
                             {% endif %}
                         {% endif %}
+                        {% if t.course_no != 0 %}
+                          {{ t.course_no }}
+                        {% endif %}
                     </div><!--
                     --><div><i class="fa fa-comment{% if t.has_new_comments %} js-comment-is-new{% endif %}"></i> {{ t.comment_count }}</div><!--
                  --><div title="{{ t.last_active }}"><i class="fa fa-clock-o"></i> {{ t.last_active|shortnaturaltime }}</div>
@@ -42,7 +45,7 @@
 
 			</div>
         {% empty %}
-            <p>{% trans "There are no topics here, yet" %}</p>
+            <p>{% trans "There are no questions here, yet" %}</p>
         {% endfor %}
 
 		</div>

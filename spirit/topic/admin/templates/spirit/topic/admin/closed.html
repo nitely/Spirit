@@ -2,16 +2,16 @@
 
 {% load spirit_tags i18n %}
 
-{% block title %}{% trans "Closed topics" %}{% endblock %}
+{% block title %}{% trans "Closed Questions" %}{% endblock %}
 
 {% block content %}
 
     {% include "spirit/admin/_side_menu.html" with active="topics" %}
 
-    <h1 class="headline">{% trans "Closed topics" %}</h1>
-    
+    <h1 class="headline">{% trans "Closed questions" %}</h1>
+
     {% include "spirit/topic/admin/_tabs.html" with active_tab="closed" %}
-    
+
     {% include "spirit/topic/_render_list.html" %}
 
     {% render_paginator topics %}

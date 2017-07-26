@@ -13,7 +13,7 @@ from ..topic.models import Topic
 from .models import Category
 
 
-def detail(request, pk, slug):
+def detail(request, pk, slug, course_no):
     category = get_object_or_404(Category.objects.visible(),
                                  pk=pk)
 
@@ -30,6 +30,9 @@ def detail(request, pk, slug):
         .for_category(category=category)\
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
         .select_related('category')
+
+    if course_no:
+        topics = topics.filter(course_no=course_no)
 
     topics = yt_paginate(
         topics,
