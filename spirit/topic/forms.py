@@ -33,7 +33,7 @@ class TopicForm(forms.ModelForm):
             parent_field='parent_id',
             label_field='title',
             label=_("Category"),
-            empty_label=_("Chose a category"))
+            empty_label=_("Choose a category"))
 
         if self.instance.pk and not user.st.is_moderator:
             del self.fields['category']
