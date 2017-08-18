@@ -28,6 +28,9 @@ ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 ST_PRIVATE_FORUM = False
 
 # PNG is not allowed by default due to:
+# An HTML file can be uploaded as an image
+# if that file contains a valid PNG header
+# followed by malicious HTML. See:
 # https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'gif')
 ST_ALLOWED_URL_PROTOCOLS = {
