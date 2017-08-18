@@ -27,7 +27,9 @@ ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 
 ST_PRIVATE_FORUM = False
 
-ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'png', 'gif')
+# PNG is not allowed by default due to:
+# https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content
+ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'gif')
 ST_ALLOWED_URL_PROTOCOLS = {
     'http', 'https', 'mailto', 'ftp', 'ftps',
     'git', 'svn', 'magnet', 'irc', 'ircs'}
