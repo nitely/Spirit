@@ -15,9 +15,18 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 * Django 1.8 LTS (recommended), 1.9 and 1.10
 * PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
-## Installing (Advanced)
+## Usage
 
-Check out the [example project](https://github.com/nitely/Spirit/tree/master/example).
+```python
+pip install django-spirit
+spirit startproject mysite
+cd mysite
+python manage.py spiritinstall
+python manage.py createsuperuser
+python manage.py runserver
+```
+
+Visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## Upgrading
 
