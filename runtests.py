@@ -11,14 +11,7 @@ import django
 from django.test.runner import DiscoverRunner
 
 
-EXAMPLE = 'example' in sys.argv
-
-if EXAMPLE:
-    # Run tests with example settings
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'example.project.settings.test'  # pragma: no cover
-else:
-    # Run tests with tests settings
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'spirit.settings_tests'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'spirit.settings_tests'
 
 
 def log_warnings():

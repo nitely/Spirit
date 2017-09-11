@@ -18,7 +18,6 @@ install:
   - pip install coveralls pep8==1.5.7 flake8
 script:
   - flake8 --exit-zero
-  - ./runtests.py example
   - coverage run --source=. runtests.py
 after_success:
   - coveralls
