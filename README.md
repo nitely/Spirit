@@ -34,10 +34,9 @@ Detailed upgrade instructions are listed in [Upgrading Spirit](https://github.co
 
 ## Testing
 
-The `runtests.py` script enable you to run the test suite of spirit.
-
-- Type `./runtests.py` to run the test suite using the settings from the `spirit` folder.
-- Type `./runtests.py example` to run the test suite using the settings from the `example` folder.
+```python
+$ python runtests.py
+```
 
 ## License
 
