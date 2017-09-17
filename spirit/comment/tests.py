@@ -456,6 +456,45 @@ class CommentViewTest(TestCase):
         self.assertIn('error', res.keys())
         self.assertIn('image', res['error'].keys())
 
+    @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
+    def test_comment_file_upload(self):
+        """
+        comment file upload
+        """
+        utils.login(self)
+        file = BytesIO(b'PDFa\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                      b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {'file': SimpleUploadedFile('file.pdf', file.read(), content_type='application/pdf'), }
+        response = self.client.post(reverse('spirit:comment:file-upload-ajax'),
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+                                    data=files)
+        res = json.loads(response.content.decode('utf-8'))
+        file_url = os.path.join(
+            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk),  "dec7cd2c076275866cb76a4f48abffbb.file.pdf"
+        ).replace("\\", "/")
+        self.assertEqual(res['url'], file_url)
+        file_path = os.path.join(
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "dec7cd2c076275866cb76a4f48abffbb.file.pdf"
+        )
+        self.assertTrue(os.path.isfile(file_path))
+        shutil.rmtree(settings.MEDIA_ROOT)  # cleanup
+
+    def test_comment_file_upload_invalid(self):
+        """
+        comment file upload, invalid file
+        """
+        utils.login(self)
+        file = BytesIO(b'BAD\x02D\x01\x00;')
+        file.name = 'file.pdf'
+        file.content_type = 'application/pdf'
+        files = {'file': SimpleUploadedFile(file.name, file.read()), }
+        response = self.client.post(reverse('spirit:comment:file-upload-ajax'),
+                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+                                    data=files)
+        res = json.loads(response.content.decode('utf-8'))
+        self.assertIn('error', res.keys())
+        self.assertIn('file', res['error'].keys())
+
 
 class CommentModelsTest(TestCase):
 
