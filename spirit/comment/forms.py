@@ -138,3 +138,34 @@ class CommentImageForm(forms.Form):
         name = default_storage.save(name, file)
         file.url = default_storage.url(name)
         return file
+
+
+class CommentFileForm(forms.Form):
+
+    file = forms.FileField()
+
+    def __init__(self, user=None, *args, **kwargs):
+        super(CommentFileForm, self).__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_file(self):
+        file = self.cleaned_data['file']
+
+        # Probably not reliable, but better than no validations
+        # https://stackoverflow.com/questions/6460848/how-to-limit-file-types-on-file-uploads-for-modelforms-with-filefields
+        if file.content_type not in settings.ST_ALLOWED_UPLOAD_FILE_FORMAT:
+            raise forms.ValidationError(
+                _("Unsupported file format. Supported formats are %s."
+                  % ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_FORMAT))
+            )
+
+        return file
+
+    def save(self):
+        file = self.cleaned_data['file']
+        file_hash = utils.get_file_hash(file)
+        file.name = ''.join((file_hash, '.', file.name.lower()))
+        name = os.path.join('spirit', 'files', str(self.user.pk), file.name)
+        name = default_storage.save(name, file)
+        file.url = default_storage.url(name)
+        return file

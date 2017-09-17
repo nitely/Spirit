@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/undelete/$', views.delete, kwargs={'remove': False, }, name='undelete'),
 
     url(r'^upload/$', views.image_upload_ajax, name='image-upload-ajax'),
+    url(r'^upload/file/$', views.file_upload_ajax, name='file-upload-ajax'),
 
     url(r'^bookmark/', include(spirit.comment.bookmark.urls, namespace='bookmark')),
     url(r'^flag/', include(spirit.comment.flag.urls, namespace='flag')),

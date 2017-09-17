@@ -15,7 +15,7 @@ from ..core.utils.decorators import moderator_required
 from ..core.utils import markdown, paginator, render_form_errors, json_response
 from ..topic.models import Topic
 from .models import Comment
-from .forms import CommentForm, CommentMoveForm, CommentImageForm
+from .forms import CommentForm, CommentMoveForm, CommentImageForm, CommentFileForm
 from .utils import comment_posted, post_comment_update, pre_comment_update
 
 
@@ -133,5 +133,20 @@ def image_upload_ajax(request):
     if form.is_valid():
         image = form.save()
         return json_response({'url': image.url, })
+
+    return json_response({'error': dict(form.errors.items()), })
+
+
+@require_POST
+@login_required
+def file_upload_ajax(request):
+    if not request.is_ajax():
+        return Http404()
+
+    form = CommentFileForm(user=request.user, data=request.POST, files=request.FILES)
+
+    if form.is_valid():
+        file = form.save()
+        return json_response({'url': file.url, })
 
     return json_response({'error': dict(form.errors.items()), })

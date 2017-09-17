@@ -33,6 +33,11 @@ ST_PRIVATE_FORUM = False
 # followed by malicious HTML. See:
 # https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'gif')
+ST_ALLOWED_UPLOAD_FILE_FORMAT = (
+    'application/pdf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  # .docx
+    'application/msword'  # .doc
+)
 ST_ALLOWED_URL_PROTOCOLS = {
     'http', 'https', 'mailto', 'ftp', 'ftps',
     'git', 'svn', 'magnet', 'irc', 'ircs'}
