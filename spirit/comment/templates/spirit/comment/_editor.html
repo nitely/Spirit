@@ -27,7 +27,8 @@
             smartypants: false
         } );
 
-        $( '.js-reply' ).find( 'textarea' ).editor_image_upload( {
+        $( '.js-reply' ).find( 'textarea' )
+        .editor_image_upload( {
 			csrfToken: "{{ csrf_token }}",
 			target: "{% url "spirit:comment:image-upload-ajax" %}",
 			placeholderText: "{% trans "uploading {image_name}" %}"
@@ -35,8 +36,9 @@
         .editor_file_upload({
             csrfToken: "{{ csrf_token }}",
             target: "{% url "spirit:comment:file-upload-ajax" %}",
-            placeholderText: "{% trans "uploading {file_name}" %}"
-		})
+            placeholderText: "{% trans "uploading {file_name}" %}",
+            allowedFileMedia: "{{ file_media_type|safeseq|join:", " }}"
+		} )
         .editor( {
 			boldedText: "{% trans "bolded text" %}",
 			italicisedText: "{% trans "italicised text" %}",

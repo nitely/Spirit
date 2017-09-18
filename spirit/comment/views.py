@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
@@ -53,7 +54,9 @@ def publish(request, topic_id, pk=None):
 
     context = {
         'form': form,
-        'topic': topic}
+        'topic': topic,
+        'file_media_type': [".{}".format(t) for t in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()],
+    }
 
     return render(request, 'spirit/comment/publish.html', context)
 
@@ -73,7 +76,10 @@ def update(request, pk):
     else:
         form = CommentForm(instance=comment)
 
-    context = {'form': form, }
+    context = {
+        'form': form,
+        'file_media_type': [".{}".format(t) for t in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()],
+    }
 
     return render(request, 'spirit/comment/update.html', context)
 

@@ -153,10 +153,10 @@ class CommentFileForm(forms.Form):
 
         # Probably not reliable, but better than no validations
         # https://stackoverflow.com/questions/6460848/how-to-limit-file-types-on-file-uploads-for-modelforms-with-filefields
-        if file.content_type not in settings.ST_ALLOWED_UPLOAD_FILE_FORMAT:
+        if file.content_type not in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values():
             raise forms.ValidationError(
                 _("Unsupported file format. Supported formats are %s."
-                  % ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_FORMAT))
+                  % ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE))
             )
 
         return file

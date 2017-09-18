@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.utils.translation import ugettext as _
 from django.utils.html import mark_safe
+from django.conf import settings
 
 from ..core.tags.registry import register
 from .poll.utils.render import render_polls
@@ -14,7 +15,12 @@ from .models import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
 @register.inclusion_tag('spirit/comment/_form.html')
 def render_comments_form(topic, next=None):
     form = CommentForm()
-    return {'form': form, 'topic_id': topic.pk, 'next': next}
+    return {
+        'form': form,
+        'topic_id': topic.pk,
+        'file_media_type': [".{}".format(t) for t in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()],
+        'next': next,
+    }
 
 
 @register.simple_tag()
