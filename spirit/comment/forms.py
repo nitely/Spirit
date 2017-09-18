@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 import os
 
+import magic
 from django import forms
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -150,13 +151,26 @@ class CommentFileForm(forms.Form):
 
     def clean_file(self):
         file = self.cleaned_data['file']
+        file_mime = magic.from_buffer(file.read(), mime=True)
 
-        # Probably not reliable, but better than no validations
-        # https://stackoverflow.com/questions/6460848/how-to-limit-file-types-on-file-uploads-for-modelforms-with-filefields
-        if file.content_type not in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values():
+        valid_ext = False
+        for file_ext in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys():
+            if file.name.endswith(file_ext):
+                valid_ext = True
+
+        if valid_ext is False:
+            ext = file.name.split('.')[-1]
             raise forms.ValidationError(
-                _("Unsupported file format. Supported formats are %s."
-                  % ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE))
+                _("Unsupported file extension %s. Supported extensions are %s."
+                  % (ext, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
+                )
+            )
+
+        if file_mime not in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values():
+            raise forms.ValidationError(
+                _("Unsupported file mime type %s. Supported types are %s."
+                  % (file_mime, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values()))
+                )
             )
 
         return file

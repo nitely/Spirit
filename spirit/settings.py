@@ -5,6 +5,7 @@
 
 from __future__ import unicode_literals
 import os
+from collections import OrderedDict
 
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
 
@@ -36,11 +37,11 @@ ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'gif')
 
 # Only media types are allowed:
 # https://www.iana.org/assignments/media-types/media-types.xhtml
-ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE = {
-    'pdf': 'application/pdf',
-    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  # .docx
-    'doc': 'application/msword'  # .doc
-}
+ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE = OrderedDict([
+    ('doc', 'application/msword'),  # .doc
+    ('docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),  # .docx
+    ('pdf', 'application/pdf'),
+])
 
 ST_ALLOWED_URL_PROTOCOLS = {
     'http', 'https', 'mailto', 'ftp', 'ftps',
