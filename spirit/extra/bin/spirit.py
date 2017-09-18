@@ -10,14 +10,13 @@ from importlib import import_module
 from subprocess import call
 
 
-# Todo: make it a django-admin command as well
 def create_project(project_name, path, exit_err):
     try:
         import_module(project_name)
     except ImportError:
         pass
     else:
-        raise argparse.ArgumentTypeError(
+        exit_err(
             "'%s' conflicts with the name of an existing "
             "Python module and cannot be used as a project "
             "name" % project_name)
