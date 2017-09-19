@@ -96,3 +96,18 @@ describe "editor file upload plugin tests", ->
         spyOn(inputFile, 'get').and.returnValue {files: [file, ]}
         inputFile.trigger 'change'
         expect(textarea.val()).toEqual "foobar[error: foo statusError bar error]()"
+
+    it "checks for default media file extensions if none are provided", ->
+        expect(inputFile[0].outerHTML).toContain(".doc,.docx,.pdf")
+
+    it "checks for custom media file extensions if they are provided", ->
+        textarea3 = $('#id_comment3').editor_file_upload {
+            csrfToken: "foo csrf_token",
+            target: "/foo/",
+            placeholderText: "foo uploading {file_name}"
+            allowedFileMedia: [".superdoc"]
+        }
+        editorFileUpload3 = textarea3.first().data 'plugin_editor_file_upload'
+        inputFile3 = editorFileUpload3.inputFile
+        expect(inputFile3[0].outerHTML).not.toContain(".doc,.docx,.pdf")
+        expect(inputFile3[0].outerHTML).toContain(".superdoc")

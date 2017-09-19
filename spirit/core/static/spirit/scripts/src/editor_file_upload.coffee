@@ -11,7 +11,8 @@ class EditorFileUpload
     defaults: {
         csrfToken: "csrf_token",
         target: "target url",
-        placeholderText: "uploading {file_name}"
+        placeholderText: "uploading {file_name}",
+        allowedFileMedia: [".doc", ".docx", ".pdf"]
     }
 
     constructor: (el, options) ->
@@ -20,7 +21,7 @@ class EditorFileUpload
         @formFile = $("<form/>")
         @inputFile = $("<input/>", {
             type: "file",
-            accept: ".doc, .docx, .pdf"}).appendTo(@formFile)
+            accept: @options.allowedFileMedia}).appendTo(@formFile)
         @setUp()
 
     setUp: ->
