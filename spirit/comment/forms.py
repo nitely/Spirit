@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import os
 
 import magic
+import logging
 from django import forms
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -17,6 +18,7 @@ from ..topic.models import Topic
 from .poll.models import CommentPoll, CommentPollChoice
 from .models import Comment
 
+logger = logging.getLogger(__name__)
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
@@ -154,7 +156,8 @@ class CommentFileForm(forms.Form):
         try:
             file_mime = magic.from_buffer(file.read(131072), mime=True)
         except magic.MagicException as e:
-            raise forms.ValidationError(_(e.message))
+            logger.exception(e)
+            raise forms.ValidationError(_("The file could not be validated"))
         else:
             # Won't ever raise. Has at most one '.' so lstrip is fine here
             ext = os.path.splitext(file.name)[1].lstrip('.')
