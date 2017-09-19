@@ -151,29 +151,29 @@ class CommentFileForm(forms.Form):
 
     def clean_file(self):
         file = self.cleaned_data['file']
-        file_mime = magic.from_buffer(file.read(), mime=True)
+        try:
+            file_mime = magic.from_buffer(file.read(131072), mime=True)
+        except magic.MagicException as e:
+            raise forms.ValidationError(_(e.message))
+        else:
+            # Won't ever raise. Has at most one '.' so lstrip is fine here
+            ext = os.path.splitext(file.name)[1].lstrip('.')
 
-        valid_ext = False
-        for file_ext in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys():
-            if file.name.endswith(file_ext):
-                valid_ext = True
-
-        if valid_ext is False:
-            ext = file.name.split('.')[-1]
-            raise forms.ValidationError(
-                _("Unsupported file extension %s. Supported extensions are %s."
-                  % (ext, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
+            mime = settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.get(ext, None)
+            if mime is None:
+                raise forms.ValidationError(
+                    _("Unsupported file extension %s. Supported extensions are %s."
+                      % (ext, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
+                    )
                 )
-            )
-
-        if file_mime not in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values():
-            raise forms.ValidationError(
-                _("Unsupported file mime type %s. Supported types are %s."
-                  % (file_mime, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values()))
+            if mime != file_mime:
+                raise forms.ValidationError(
+                    _("Unsupported file mime type %s. Supported types are %s."
+                      % (file_mime, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values()))
+                    )
                 )
-            )
 
-        return file
+            return file
 
     def save(self):
         file = self.cleaned_data['file']

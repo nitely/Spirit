@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load spirit_tags i18n %}
 {% load static from staticfiles %}
 
 <div class="comment-text js-box-preview-content" style="display:none;"></div>
@@ -37,7 +37,7 @@
             csrfToken: "{{ csrf_token }}",
             target: "{% url "spirit:comment:file-upload-ajax" %}",
             placeholderText: "{% trans "uploading {file_name}" %}",
-            allowedFileMedia: "{{ file_media_type|safeseq|join:", " }}"
+            allowedFileMedia: "{% get_allowed_file_types %}"
 		} )
         .editor( {
 			boldedText: "{% trans "bolded text" %}",

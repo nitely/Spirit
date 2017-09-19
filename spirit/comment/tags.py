@@ -18,9 +18,13 @@ def render_comments_form(topic, next=None):
     return {
         'form': form,
         'topic_id': topic.pk,
-        'file_media_type': [".{}".format(t) for t in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()],
         'next': next,
     }
+
+
+@register.simple_tag()
+def get_allowed_file_types():
+    return ".{}".format(", .".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
 
 
 @register.simple_tag()

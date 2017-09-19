@@ -55,7 +55,6 @@ def publish(request, category_id=None):
     context = {
         'form': form,
         'cform': cform,
-        'file_media_type': [".{}".format(t) for t in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()],
     }
 
     return render(request, 'spirit/topic/publish.html', context)
@@ -81,7 +80,6 @@ def update(request, pk):
 
     context = {
         'form': form,
-        'file_media_type': [".{}".format(t) for t in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()],
     }
 
     return render(request, 'spirit/topic/update.html', context)
