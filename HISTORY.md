@@ -3,6 +3,11 @@
 
 * Drops support for Python 3.3
 * Adds support for Django 1.9 and 1.10
+* Adds python-magic dependency (to check uploaded files)
+* New: file upload on comments
+* Improvement: Adds `ST_UPLOAD_IMAGE_ENABLED`
+  to enable/disable image uploads and `ST_UPLOAD_FILE_ENABLED`
+  to enable/disable file uploads
 * Remove deprecated `topic_poll` app
 * Remove deprecated (since v0.2) `spirit_user.User` (PR #141),
   read the wiki or the PR for a workaround
