@@ -5,49 +5,60 @@
  */
 
 (function() {
-  var $, EditorImageUpload,
+  var $, EditorUpload,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   $ = jQuery;
 
-  EditorImageUpload = (function() {
-    EditorImageUpload.prototype.defaults = {
+  EditorUpload = (function() {
+    EditorUpload.prototype.defaults = {
       csrfToken: "csrf_token",
       target: "target url",
-      placeholderText: "uploading {image_name}"
+      placeholderText: "uploading {name}",
+      allowedFileMedia: ["*/*"]
     };
 
-    function EditorImageUpload(el, options) {
+    EditorUpload.prototype._meta = {
+      fieldName: "file",
+      tag: "[{text}]({url})",
+      elm: ".js-box-file"
+    };
+
+    function EditorUpload(el, options, meta) {
+      if (meta == null) {
+        meta = {};
+      }
       this.openFileDialog = bind(this.openFileDialog, this);
       this.textReplace = bind(this.textReplace, this);
       this.addStatusError = bind(this.addStatusError, this);
       this.addError = bind(this.addError, this);
-      this.addImage = bind(this.addImage, this);
+      this.addFile = bind(this.addFile, this);
       this.buildFormData = bind(this.buildFormData, this);
       this.addPlaceholder = bind(this.addPlaceholder, this);
       this.sendFile = bind(this.sendFile, this);
       this.el = $(el);
       this.options = $.extend({}, this.defaults, options);
+      this.meta = $.extend({}, this._meta, meta);
       this.formFile = $("<form/>");
       this.inputFile = $("<input/>", {
         type: "file",
-        accept: "image/*"
+        accept: this.options.allowedFileMedia
       }).appendTo(this.formFile);
       this.setUp();
     }
 
-    EditorImageUpload.prototype.setUp = function() {
-      var $boxImage;
+    EditorUpload.prototype.setUp = function() {
+      var $boxElm;
       if (window.FormData == null) {
         return;
       }
       this.inputFile.on('change', this.sendFile);
-      $boxImage = $(".js-box-image");
-      $boxImage.on('click', this.openFileDialog);
-      return $boxImage.on('click', this.stopClick);
+      $boxElm = $(this.meta.elm);
+      $boxElm.on('click', this.openFileDialog);
+      return $boxElm.on('click', this.stopClick);
     };
 
-    EditorImageUpload.prototype.sendFile = function() {
+    EditorUpload.prototype.sendFile = function() {
       var file, formData, placeholder, post;
       file = this.inputFile.get(0).files[0];
       placeholder = this.addPlaceholder(file);
@@ -62,7 +73,7 @@
       post.done((function(_this) {
         return function(data) {
           if ("url" in data) {
-            return _this.addImage(data, file, placeholder);
+            return _this.addFile(data, file, placeholder);
           } else {
             return _this.addError(data, placeholder);
           }
@@ -80,75 +91,95 @@
       })(this));
     };
 
-    EditorImageUpload.prototype.addPlaceholder = function(file) {
+    EditorUpload.prototype.addPlaceholder = function(file) {
       var placeholder;
-      placeholder = $.format("![" + this.options.placeholderText + "]()", {
-        image_name: file.name
+      placeholder = $.format(this.meta.tag, {
+        text: $.format(this.options.placeholderText, {
+          name: file.name
+        }),
+        url: ""
       });
       this.el.val(this.el.val() + placeholder);
       return placeholder;
     };
 
-    EditorImageUpload.prototype.buildFormData = function(file) {
+    EditorUpload.prototype.buildFormData = function(file) {
       var formData;
       formData = new FormData();
       formData.append('csrfmiddlewaretoken', this.options.csrfToken);
-      formData.append('image', file);
+      formData.append(this.meta.fieldName, file);
       return formData;
     };
 
-    EditorImageUpload.prototype.addImage = function(data, file, placeholder) {
+    EditorUpload.prototype.addFile = function(data, file, placeholder) {
       var imageTag;
-      imageTag = $.format("![{name}]({url})", {
-        name: file.name,
+      imageTag = $.format(this.meta.tag, {
+        text: file.name,
         url: data.url
       });
       return this.textReplace(placeholder, imageTag);
     };
 
-    EditorImageUpload.prototype.addError = function(data, placeholder) {
+    EditorUpload.prototype.addError = function(data, placeholder) {
       var error;
       error = JSON.stringify(data);
-      return this.textReplace(placeholder, "![" + error + "]()");
+      return this.textReplace(placeholder, $.format(this.meta.tag, {
+        text: error,
+        url: ""
+      }));
     };
 
-    EditorImageUpload.prototype.addStatusError = function(textStatus, error, placeholder) {
+    EditorUpload.prototype.addStatusError = function(textStatus, error, placeholder) {
       var errorTag;
-      errorTag = $.format("![error: {code} {error}]()", {
-        code: textStatus,
-        error: error
+      errorTag = $.format(this.meta.tag, {
+        text: $.format("error: {code} {error}", {
+          code: textStatus,
+          error: error
+        }),
+        url: ""
       });
       return this.textReplace(placeholder, errorTag);
     };
 
-    EditorImageUpload.prototype.textReplace = function(find, replace) {
+    EditorUpload.prototype.textReplace = function(find, replace) {
       this.el.val(this.el.val().replace(find, replace));
     };
 
-    EditorImageUpload.prototype.openFileDialog = function() {
+    EditorUpload.prototype.openFileDialog = function() {
       this.inputFile.trigger('click');
     };
 
-    EditorImageUpload.prototype.stopClick = function(e) {
+    EditorUpload.prototype.stopClick = function(e) {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
     };
 
-    return EditorImageUpload;
+    return EditorUpload;
 
   })();
 
   $.fn.extend({
+    editor_file_upload: function(options) {
+      return this.each(function() {
+        if (!$(this).data('plugin_editor_file_upload')) {
+          return $(this).data('plugin_editor_file_upload', new EditorUpload(this, options));
+        }
+      });
+    },
     editor_image_upload: function(options) {
       return this.each(function() {
         if (!$(this).data('plugin_editor_image_upload')) {
-          return $(this).data('plugin_editor_image_upload', new EditorImageUpload(this, options));
+          return $(this).data('plugin_editor_image_upload', new EditorUpload(this, options, {
+            fieldName: "image",
+            tag: "![{text}]({url})",
+            elm: ".js-box-image"
+          }));
         }
       });
     }
   });
 
-  $.fn.editor_image_upload.EditorImageUpload = EditorImageUpload;
+  $.fn.editor_upload.EditorUpload = EditorUpload;
 
 }).call(this);
