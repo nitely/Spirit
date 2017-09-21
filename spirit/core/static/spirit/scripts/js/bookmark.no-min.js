@@ -63,17 +63,16 @@
     };
 
     Bookmark.prototype.sendCommentNumber = function() {
-      var post, sentCommentNumber;
+      var sentCommentNumber;
       if (this.mark.isSending) {
         return;
       }
       this.mark.isSending = true;
       sentCommentNumber = this.mark.commentNumber;
-      post = $.post(this.options.target, {
+      return $.post(this.options.target, {
         csrfmiddlewaretoken: this.options.csrfToken,
         comment_number: this.mark.commentNumber
-      });
-      return post.always((function(_this) {
+      }).always((function(_this) {
         return function() {
           _this.mark.isSending = false;
           if (_this.mark.commentNumber > sentCommentNumber) {

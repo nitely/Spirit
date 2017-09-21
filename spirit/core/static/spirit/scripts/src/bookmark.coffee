@@ -57,15 +57,14 @@ class Bookmark
         @mark.isSending = true
         sentCommentNumber = @mark.commentNumber
 
-        post = $.post(
+        $.post(
             @options.target,
             {
                 csrfmiddlewaretoken: @options.csrfToken,
                 comment_number: @mark.commentNumber
             }
         )
-
-        post.always( =>
+        .always( =>
             @mark.isSending = false
 
             if @mark.commentNumber > sentCommentNumber
