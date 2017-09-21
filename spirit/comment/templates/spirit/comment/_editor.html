@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load spirit_tags i18n %}
 {% load static from staticfiles %}
 
 <div class="comment-text js-box-preview-content" style="display:none;"></div>
@@ -8,6 +8,7 @@
  --><li><a class="js-box-list" href="#" title="{% trans "List" %}"><i class="fa fa-list"></i></a></li><!--
  --><li><a class="js-box-url" href="#" title="{% trans "URL" %}"><i class="fa fa-link"></i></a></li><!--
  --><li><a class="js-box-image" href="#" title="{% trans "Image" %}"><i class="fa fa-picture-o"></i></a></li><!--
+ --><li><a class="js-box-file" href="#" title="{% trans "File" %}"><i class="fa fa-file"></i></a></li><!--
  --><li><a class="js-box-poll" href="#" title="{% trans "Poll" %}"><i class="fa fa-bar-chart-o"></i></a></li><!--
  --><li><a class="js-box-preview" href="#" title="{% trans "Preview" %}"><i class="fa fa-eye"></i></a></li>
 </ul>
@@ -26,10 +27,17 @@
             smartypants: false
         } );
 
-        $( '.js-reply' ).find( 'textarea' ).editor_image_upload( {
+        $( '.js-reply' ).find( 'textarea' )
+        .editor_image_upload( {
 			csrfToken: "{{ csrf_token }}",
 			target: "{% url "spirit:comment:image-upload-ajax" %}",
 			placeholderText: "{% trans "uploading {image_name}" %}"
+		} )
+        .editor_file_upload({
+            csrfToken: "{{ csrf_token }}",
+            target: "{% url "spirit:comment:file-upload-ajax" %}",
+            placeholderText: "{% trans "uploading {file_name}" %}",
+            allowedFileMedia: "{% get_allowed_file_types %}"
 		} )
         .editor( {
 			boldedText: "{% trans "bolded text" %}",
@@ -39,6 +47,8 @@
 			linkUrlText: "{% trans "link url" %}",
 			imageText: "{% trans "image text" %}",
 			imageUrlText: "{% trans "image url" %}",
+            fileText: "{% trans "file text" %}",
+            fileUrlText: "{% trans "file url" %}",
 			pollTitleText: "{% trans "Title" %}",
 			pollChoiceText: "{% trans "Description" %}"
 		} )

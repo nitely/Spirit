@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponsePermanentRedirect
+from django.conf import settings
 
 from djconfig import config
 
@@ -53,7 +54,8 @@ def publish(request, category_id=None):
 
     context = {
         'form': form,
-        'cform': cform}
+        'cform': cform,
+    }
 
     return render(request, 'spirit/topic/publish.html', context)
 
@@ -76,7 +78,9 @@ def update(request, pk):
     else:
         form = TopicForm(user=request.user, instance=topic)
 
-    context = {'form': form, }
+    context = {
+        'form': form,
+    }
 
     return render(request, 'spirit/topic/update.html', context)
 

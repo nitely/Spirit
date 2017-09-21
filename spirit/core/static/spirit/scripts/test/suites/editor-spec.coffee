@@ -14,7 +14,9 @@ describe "editor plugin tests", ->
             linkText: "foo link text",
             linkUrlText: "foo link url",
             imageText: "foo image text",
-            imageUrlText: "foo image url"
+            imageUrlText: "foo image url",
+            fileText: "foo file text",
+            fileUrlText: "foo file url"
         }
         editor = textarea.data 'plugin_editor'
 
@@ -51,12 +53,17 @@ describe "editor plugin tests", ->
         $('.js-box-image').trigger 'click'
         expect(textarea.val()).toEqual "![foo image text](foo image url)"
 
+    it "adds file", ->
+        $('.js-box-file').trigger 'click'
+        expect(textarea.val()).toEqual "[foo file text](foo file url)"
+
     it "adds all", ->
         $('.js-box-bold').trigger 'click'
         $('.js-box-italic').trigger 'click'
         $('.js-box-list').trigger 'click'
         $('.js-box-url').trigger 'click'
         $('.js-box-image').trigger 'click'
+        $('.js-box-file').trigger 'click'
     # expect(textarea.val()).toEqual "![foo image text](foo image url)[foo link text](foo link url)\n* foo list item*foo italicised text***foo bolded text**"
 
     it "wraps the selected text, bold", ->
@@ -98,6 +105,14 @@ describe "editor plugin tests", ->
 
         $('.js-box-image').trigger 'click'
         expect(textarea.val()).toEqual "bir![foo](foo image url)bar"
+
+    it "wraps the selected text, file", ->
+        textarea.val "birfoobar"
+        textarea.first()[0].selectionStart = 3
+        textarea.first()[0].selectionEnd = 6
+
+        $('.js-box-file').trigger 'click'
+        expect(textarea.val()).toEqual "bir[foo](foo file url)bar"
 
     it "shows html preview", ->
         textarea.val "*foo*"

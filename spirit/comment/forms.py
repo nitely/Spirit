@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 
 import os
 
+import magic
+import logging
 from django import forms
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -16,6 +18,7 @@ from ..topic.models import Topic
 from .poll.models import CommentPoll, CommentPollChoice
 from .models import Comment
 
+logger = logging.getLogger(__name__)
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
@@ -135,6 +138,51 @@ class CommentImageForm(forms.Form):
         file_hash = utils.get_file_hash(file)
         file.name = ''.join((file_hash, '.', file.image.format.lower()))
         name = os.path.join('spirit', 'images', str(self.user.pk), file.name)
+        name = default_storage.save(name, file)
+        file.url = default_storage.url(name)
+        return file
+
+
+class CommentFileForm(forms.Form):
+
+    file = forms.FileField()
+
+    def __init__(self, user=None, *args, **kwargs):
+        super(CommentFileForm, self).__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_file(self):
+        file = self.cleaned_data['file']
+        try:
+            file_mime = magic.from_buffer(file.read(131072), mime=True)
+        except magic.MagicException as e:
+            logger.exception(e)
+            raise forms.ValidationError(_("The file could not be validated"))
+        else:
+            # Won't ever raise. Has at most one '.' so lstrip is fine here
+            ext = os.path.splitext(file.name)[1].lstrip('.')
+
+            mime = settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.get(ext, None)
+            if mime is None:
+                raise forms.ValidationError(
+                    _("Unsupported file extension %s. Supported extensions are %s."
+                      % (ext, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
+                    )
+                )
+            if mime != file_mime:
+                raise forms.ValidationError(
+                    _("Unsupported file mime type %s. Supported types are %s."
+                      % (file_mime, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values()))
+                    )
+                )
+
+            return file
+
+    def save(self):
+        file = self.cleaned_data['file']
+        file_hash = utils.get_file_hash(file)
+        file.name = ''.join((file_hash, '.', file.name.lower()))
+        name = os.path.join('spirit', 'files', str(self.user.pk), file.name)
         name = default_storage.save(name, file)
         file.url = default_storage.url(name)
         return file
