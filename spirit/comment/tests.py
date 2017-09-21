@@ -495,7 +495,7 @@ class CommentViewTest(TestCase):
     @override_settings(
         MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
         FILE_UPLOAD_MAX_MEMORY_SIZE=1)
-    def test_comment_file_upload_in_memory(self):
+    def test_comment_file_upload_tmp_file(self):
         """
         Check (tmp) upload files are checked
         """
