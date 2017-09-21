@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.utils.html import mark_safe
 from django.conf import settings
 
@@ -24,23 +24,22 @@ def render_comments_form(topic, next=None):
 
 @register.simple_tag()
 def get_allowed_file_types():
-    return ".{}".format(", .".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
+    return ", ".join(
+        '.%s' % ext
+        for ext in sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
+
+
+ACTIONS = {
+    MOVED: _("This topic has been moved"),
+    CLOSED: _("This topic has been closed"),
+    UNCLOSED: _("This topic has been unclosed"),
+    PINNED: _("This topic has been pinned"),
+    UNPINNED: _("This topic has been unpinned")}
 
 
 @register.simple_tag()
 def get_comment_action_text(action):
-    if action == MOVED:
-        return _("This topic has been moved")
-    elif action == CLOSED:
-        return _("This topic has been closed")
-    elif action == UNCLOSED:
-        return _("This topic has been unclosed")
-    elif action == PINNED:
-        return _("This topic has been pinned")
-    elif action == UNPINNED:
-        return _("This topic has been unpinned")
-    else:
-        return _("Unknown topic moderation action")
+    return ACTIONS.get(action, _("Unknown topic moderation action"))
 
 
 @register.simple_tag(takes_context=True)

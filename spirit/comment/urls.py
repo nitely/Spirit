@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import url, include
+from django.conf import settings
 
 import spirit.comment.bookmark.urls
 import spirit.comment.flag.urls
@@ -23,12 +24,17 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/delete/$', views.delete, name='delete'),
     url(r'^(?P<pk>\d+)/undelete/$', views.delete, kwargs={'remove': False, }, name='undelete'),
 
-    url(r'^upload/$', views.image_upload_ajax, name='image-upload-ajax'),
-    url(r'^upload/file/$', views.file_upload_ajax, name='file-upload-ajax'),
-
     url(r'^bookmark/', include(spirit.comment.bookmark.urls, namespace='bookmark')),
     url(r'^flag/', include(spirit.comment.flag.urls, namespace='flag')),
     url(r'^history/', include(spirit.comment.history.urls, namespace='history')),
     url(r'^like/', include(spirit.comment.like.urls, namespace='like')),
     url(r'^poll/', include(spirit.comment.poll.urls, namespace='poll')),
 ]
+
+if settings.ST_UPLOAD_IMAGE_ENABLED:
+    urlpatterns.append(
+        url(r'^upload/$', views.image_upload_ajax, name='image-upload-ajax'))
+
+if settings.ST_UPLOAD_FILE_ENABLED:
+    urlpatterns.append(
+        url(r'^upload/file/$', views.file_upload_ajax, name='file-upload-ajax'))
