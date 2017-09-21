@@ -601,6 +601,11 @@ class UserModelTest(TestCase):
     def setUp(self):
         utils.cache_clear()
 
+    def test_str(self):
+        user = User()
+        user.save()
+        self.assertEquals(user.st.__str__(), 'Forum profile for %s' % user)
+
     def test_user_superuser(self):
         """
         is_superuser should always be is_administrator and is_moderator

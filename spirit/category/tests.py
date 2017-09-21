@@ -152,6 +152,10 @@ class CategoryModelTest(TestCase):
     def setUp(self):
         utils.cache_clear()
 
+    def test_str(self):
+        category = utils.create_category()
+        self.assertEqual(category.__str__(), category.title)
+
     def test_is_subcategory(self):
         """
         Should return whether the category\

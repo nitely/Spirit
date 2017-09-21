@@ -3,10 +3,11 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db.models import F
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from .managers import CommentQuerySet
@@ -24,6 +25,7 @@ ACTION = (
 )
 
 
+@python_2_unicode_compatible
 class Comment(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_comments')
@@ -46,6 +48,13 @@ class Comment(models.Model):
         ordering = ['-date', '-pk']
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
+
+    def __str__(self):
+        return _('%(action)s by %(user)s at %(date)s') % {
+            'action': self.get_action_display(),
+            'user': self.user,
+            'date': self.date,
+        }
 
     def get_absolute_url(self):
         return reverse('spirit:comment:find', kwargs={'pk': str(self.id), })

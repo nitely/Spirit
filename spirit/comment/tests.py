@@ -431,7 +431,7 @@ class CommentViewTest(TestCase):
                                     data=files)
         res = json.loads(response.content.decode('utf-8'))
         image_url = os.path.join(
-            settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),  "bf21c3043d749d5598366c26e7e4ab44.gif"
+            settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk), "bf21c3043d749d5598366c26e7e4ab44.gif"
         ).replace("\\", "/")
         self.assertEqual(res['url'], image_url)
         image_path = os.path.join(
@@ -582,6 +582,10 @@ class CommentModelsTest(TestCase):
         self.user = utils.create_user()
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
+
+    def test_str(self):
+        comment = utils.create_comment(topic=self.topic)
+        self.assertTrue(comment.__str__())
 
     def test_comment_increase_modified_count(self):
         """
