@@ -36,14 +36,15 @@
             .editor_image_upload( {
                 csrfToken: "{{ csrf_token }}",
                 target: "{% url "spirit:comment:image-upload-ajax" %}",
-                placeholderText: "{% trans "uploading {image_name}" %}"
+                placeholderText: "{% trans "uploading {name}" %}",
+                allowedFileMedia: "{% get_allowed_image_types %}"
             } )
         {% endif %}
         {% if st_settings.ST_UPLOAD_FILE_ENABLED %}
             .editor_file_upload({
                 csrfToken: "{{ csrf_token }}",
                 target: "{% url "spirit:comment:file-upload-ajax" %}",
-                placeholderText: "{% trans "uploading {file_name}" %}",
+                placeholderText: "{% trans "uploading {name}" %}",
                 allowedFileMedia: "{% get_allowed_file_types %}"
             } )
         {% endif %}

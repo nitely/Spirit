@@ -29,6 +29,13 @@ def get_allowed_file_types():
         for ext in sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
 
 
+@register.simple_tag()
+def get_allowed_image_types():
+    return ", ".join(
+        '.%s' % ext
+        for ext in sorted(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT))
+
+
 ACTIONS = {
     MOVED: _("This topic has been moved"),
     CLOSED: _("This topic has been closed"),

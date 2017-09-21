@@ -33,7 +33,7 @@ ST_PRIVATE_FORUM = False
 # if that file contains a valid PNG header
 # followed by malicious HTML. See:
 # https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content
-ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'gif')
+ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'jpg', 'gif')
 ST_UPLOAD_IMAGE_ENABLED = True
 
 # Only media types are allowed:
