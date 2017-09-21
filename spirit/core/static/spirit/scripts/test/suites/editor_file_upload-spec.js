@@ -1,8 +1,8 @@
 (function() {
-  describe("editor image upload plugin tests", function() {
-    var data, editorImageUpload, file, inputFile, post, textarea;
+  describe("editor file upload plugin tests", function() {
+    var data, editorFileUpload, file, inputFile, post, textarea;
     textarea = null;
-    editorImageUpload = null;
+    editorFileUpload = null;
     data = null;
     inputFile = null;
     file = null;
@@ -20,18 +20,19 @@
         return d.promise();
       });
       data = {
-        url: "/path/image.jpg"
+        url: "/path/file.pdf"
       };
       file = {
-        name: "foo.jpg"
+        name: "foo.pdf"
       };
-      textarea = $('#id_comment').editor_image_upload({
+      textarea = $('#id_comment').editor_file_upload({
         csrfToken: "foo csrf_token",
         target: "/foo/",
-        placeholderText: "foo uploading {name}"
+        placeholderText: "foo uploading {name}",
+        allowedFileMedia: ".doc,.docx,.pdf"
       });
-      editorImageUpload = textarea.first().data('plugin_editor_image_upload');
-      return inputFile = editorImageUpload.inputFile;
+      editorFileUpload = textarea.first().data('plugin_editor_file_upload');
+      return inputFile = editorFileUpload.inputFile;
     });
     it("doesnt break selector chaining", function() {
       expect(textarea).toEqual($('#id_comment'));
@@ -42,11 +43,11 @@
       org_formData = window.FormData;
       window.FormData = null;
       try {
-        $(".js-box-image").off('click');
-        textarea2 = $('#id_comment2').editor_image_upload();
-        inputFile2 = textarea2.data('plugin_editor_image_upload').inputFile;
+        $(".js-box-file").off('click');
+        textarea2 = $('#id_comment2').editor_file_upload();
+        inputFile2 = textarea2.data('plugin_editor_file_upload').inputFile;
         trigger = spyOn(inputFile2, 'trigger');
-        $(".js-box-image").trigger('click');
+        $(".js-box-file").trigger('click');
         return expect(trigger).not.toHaveBeenCalled();
       } finally {
         window.FormData = org_formData;
@@ -55,10 +56,10 @@
     it("opens the file choose dialog", function() {
       var trigger;
       trigger = spyOn(inputFile, 'trigger');
-      $(".js-box-image").trigger('click');
+      $(".js-box-file").trigger('click');
       return expect(trigger).toHaveBeenCalled();
     });
-    it("uploads the image", function() {
+    it("uploads the file", function() {
       var formDataMock;
       expect($.ajax.calls.any()).toEqual(false);
       formDataMock = jasmine.createSpyObj('formDataMock', ['append']);
@@ -78,23 +79,9 @@
         }
       ]);
       expect(formDataMock.append).toHaveBeenCalledWith('csrfmiddlewaretoken', 'foo csrf_token');
-      return expect(formDataMock.append).toHaveBeenCalledWith('image', {
-        name: 'foo.jpg'
+      return expect(formDataMock.append).toHaveBeenCalledWith('file', {
+        name: 'foo.pdf'
       });
-    });
-    it("adds the placeholder", function() {
-      textarea.val("foobar");
-      post.and.callFake(function(req) {
-        var d;
-        expect(textarea.val()).toEqual("foobar![foo uploading foo.jpg]()");
-        d = $.Deferred();
-        d.resolve(data);
-        return d.promise();
-      });
-      spyOn(inputFile, 'get').and.returnValue({
-        files: [file]
-      });
-      return inputFile.trigger('change');
     });
     it("changes the placeholder on upload success", function() {
       textarea.val("foobar");
@@ -102,7 +89,7 @@
         files: [file]
       });
       inputFile.trigger('change');
-      return expect(textarea.val()).toEqual("foobar![foo.jpg](/path/image.jpg)");
+      return expect(textarea.val()).toEqual("foobar[foo.pdf](/path/file.pdf)");
     });
     it("changes the placeholder on upload error", function() {
       textarea.val("foobar");
@@ -115,9 +102,9 @@
         files: [file]
       });
       inputFile.trigger('change');
-      return expect(textarea.val()).toEqual("foobar![{\"error\":{\"foo\":\"foo error\"}}]()");
+      return expect(textarea.val()).toEqual("foobar[{\"error\":{\"foo\":\"foo error\"}}]()");
     });
-    return it("changes the placeholder on upload failure", function() {
+    it("changes the placeholder on upload failure", function() {
       var d;
       textarea.val("foobar");
       d = $.Deferred();
@@ -129,10 +116,26 @@
         files: [file]
       });
       inputFile.trigger('change');
-      return expect(textarea.val()).toEqual("foobar![error: foo statusError bar error]()");
+      return expect(textarea.val()).toEqual("foobar[error: foo statusError bar error]()");
+    });
+    it("checks for default media file extensions if none are provided", function() {
+      return expect(inputFile[0].outerHTML).toContain(".doc,.docx,.pdf");
+    });
+    return it("checks for custom media file extensions if they are provided", function() {
+      var editorFileUpload3, inputFile3, textarea3;
+      textarea3 = $('#id_comment3').editor_file_upload({
+        csrfToken: "foo csrf_token",
+        target: "/foo/",
+        placeholderText: "foo uploading {file_name}",
+        allowedFileMedia: [".superdoc"]
+      });
+      editorFileUpload3 = textarea3.first().data('plugin_editor_file_upload');
+      inputFile3 = editorFileUpload3.inputFile;
+      expect(inputFile3[0].outerHTML).not.toContain(".doc,.docx,.pdf");
+      return expect(inputFile3[0].outerHTML).toContain(".superdoc");
     });
   });
 
 }).call(this);
 
-//# sourceMappingURL=editor_image_upload-spec.js.map
+//# sourceMappingURL=editor_file_upload-spec.js.map

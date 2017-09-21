@@ -3,7 +3,9 @@
     return it("returns the emoji list", function() {
       var emojis;
       emojis = $.emoji_list();
-      return expect(emojis[0]).toEqual("+1");
+      return expect(emojis[0]).toEqual({
+        "name": "+1"
+      });
     });
   });
 

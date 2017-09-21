@@ -26,7 +26,8 @@ describe "editor file upload plugin tests", ->
         textarea = $('#id_comment').editor_file_upload {
             csrfToken: "foo csrf_token",
             target: "/foo/",
-            placeholderText: "foo uploading {file_name}"
+            placeholderText: "foo uploading {name}",
+            allowedFileMedia: ".doc,.docx,.pdf"
         }
         editorFileUpload = textarea.first().data 'plugin_editor_file_upload'
         inputFile = editorFileUpload.inputFile

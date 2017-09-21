@@ -26,7 +26,7 @@
 
     function EditorUpload(el, options, meta) {
       if (meta == null) {
-        meta = {};
+        meta = null;
       }
       this.openFileDialog = bind(this.openFileDialog, this);
       this.textReplace = bind(this.textReplace, this);
@@ -38,7 +38,7 @@
       this.sendFile = bind(this.sendFile, this);
       this.el = $(el);
       this.options = $.extend({}, this.defaults, options);
-      this.meta = $.extend({}, this._meta, meta);
+      this.meta = $.extend({}, this._meta, meta || {});
       this.formFile = $("<form/>");
       this.inputFile = $("<input/>", {
         type: "file",
@@ -59,18 +59,17 @@
     };
 
     EditorUpload.prototype.sendFile = function() {
-      var file, formData, placeholder, post;
+      var file, formData, placeholder;
       file = this.inputFile.get(0).files[0];
       placeholder = this.addPlaceholder(file);
       formData = this.buildFormData(file);
-      post = $.ajax({
+      $.ajax({
         url: this.options.target,
         data: formData,
         processData: false,
         contentType: false,
         type: 'POST'
-      });
-      post.done((function(_this) {
+      }).done((function(_this) {
         return function(data) {
           if ("url" in data) {
             return _this.addFile(data, file, placeholder);
@@ -78,13 +77,11 @@
             return _this.addError(data, placeholder);
           }
         };
-      })(this));
-      post.fail((function(_this) {
+      })(this)).fail((function(_this) {
         return function(jqxhr, textStatus, error) {
           return _this.addStatusError(textStatus, error, placeholder);
         };
-      })(this));
-      post.always((function(_this) {
+      })(this)).always((function(_this) {
         return function() {
           return _this.formFile.get(0).reset();
         };
@@ -179,7 +176,5 @@
       });
     }
   });
-
-  $.fn.editor_upload.EditorUpload = EditorUpload;
 
 }).call(this);

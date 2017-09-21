@@ -20,10 +20,10 @@ class EditorUpload
         elm: ".js-box-file"
     }
 
-    constructor: (el, options, meta={}) ->
+    constructor: (el, options, meta=null) ->
         @el = $(el)  # Editor box
         @options = $.extend({}, @defaults, options)
-        @meta = $.extend({}, @_meta, meta)
+        @meta = $.extend({}, @_meta, meta or {})
         @formFile = $("<form/>")
         @inputFile = $("<input/>", {
             type: "file",
@@ -48,26 +48,23 @@ class EditorUpload
         placeholder = @addPlaceholder(file)
         formData = @buildFormData(file)
 
-        post = $.ajax({
+        $.ajax({
             url: @options.target,
             data: formData,
             processData: false,
             contentType: false,
             type: 'POST'
         })
-
-        post.done((data) =>
+        .done((data) =>
             if "url" of data
                 @addFile(data, file, placeholder)
             else
                 @addError(data, placeholder)
         )
-
-        post.fail((jqxhr, textStatus, error) =>
+        .fail((jqxhr, textStatus, error) =>
             @addStatusError(textStatus, error, placeholder)
         )
-
-        post.always(() =>
+        .always(() =>
             # Reset the input after uploading,
             # fixes uploading the same image twice
             @formFile.get(0).reset()
@@ -136,5 +133,3 @@ $.fn.extend
                     elm: ".js-box-image"
                 }))
         )
-
-$.fn.editor_upload.EditorUpload = EditorUpload
