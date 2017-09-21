@@ -479,11 +479,11 @@ class CommentViewTest(TestCase):
 
         res = json.loads(response.content.decode('utf-8'))
         file_url = os.path.join(
-            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk),  "fadcb2389bb2b69b46bc54185de0ae91.file.pdf"
+            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk),  "file_fadcb2389bb2b69b46bc54185de0ae91.pdf"
         ).replace("\\", "/")
         self.assertEqual(res['url'], file_url)
         file_path = os.path.join(
-            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.file.pdf"
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "file_fadcb2389bb2b69b46bc54185de0ae91.pdf"
         )
 
         with open(file_path, 'rb') as fh:
@@ -515,11 +515,11 @@ class CommentViewTest(TestCase):
 
         res = json.loads(response.content.decode('utf-8'))
         file_url = os.path.join(
-            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.file_large.pdf"
+            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk), "file_large_fadcb2389bb2b69b46bc54185de0ae91.pdf"
         ).replace("\\", "/")
         self.assertEqual(res['url'], file_url)
         file_path = os.path.join(
-            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.file_large.pdf"
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "file_large_fadcb2389bb2b69b46bc54185de0ae91.pdf"
         )
 
         with open(file_path, 'rb') as fh:

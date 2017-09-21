@@ -189,7 +189,8 @@ class CommentFileForm(forms.Form):
     def save(self):
         file = self.cleaned_data['file']
         file_hash = utils.get_file_hash(file)
-        file.name = ''.join((file_hash, '.', file.name.lower()))
+        file_name, file_ext = os.path.splitext(file.name.lower())
+        file.name = ''.join((file_name, '_', file_hash, file_ext))
         name = os.path.join('spirit', 'files', str(self.user.pk), file.name)
         name = default_storage.save(name, file)
         file.url = default_storage.url(name)
