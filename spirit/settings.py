@@ -33,15 +33,16 @@ ST_PRIVATE_FORUM = False
 # if that file contains a valid PNG header
 # followed by malicious HTML. See:
 # https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content
-ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'gif')
+ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'jpg', 'gif')
+ST_UPLOAD_IMAGE_ENABLED = True
 
 # Only media types are allowed:
 # https://www.iana.org/assignments/media-types/media-types.xhtml
-ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE = OrderedDict([
-    ('doc', 'application/msword'),  # .doc
-    ('docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),  # .docx
-    ('pdf', 'application/pdf'),
-])
+ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE = {
+    'doc': 'application/msword',
+    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'pdf': 'application/pdf'}
+ST_UPLOAD_FILE_ENABLED = True
 
 ST_ALLOWED_URL_PROTOCOLS = {
     'http', 'https', 'mailto', 'ftp', 'ftps',

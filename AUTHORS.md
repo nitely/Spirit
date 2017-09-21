@@ -10,3 +10,4 @@ various contributors:
 * Robert Kolner @RobertKolner <robert.kolner@gmail.com>
 * Benjamin Murden @benmurden <benmurden@github.com>
 * Li Dashuang @lidashuang <ldshuang@gmail.com>
+* Rick Miyamoto @rkenmi

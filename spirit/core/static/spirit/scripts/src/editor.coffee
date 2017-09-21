@@ -16,8 +16,6 @@ class Editor
         linkUrlText: "link url",
         imageText: "image text",
         imageUrlText: "image url",
-        fileText: "file text",
-        fileUrlText: "file url",
         pollTitleText: "Title",
         pollChoiceText: "Description"
     }
@@ -37,7 +35,6 @@ class Editor
         $('.js-box-list').on('click', @addList)
         $('.js-box-url').on('click', @addUrl)
         $('.js-box-image').on('click', @addImage)
-        $('.js-box-file').on('click', @addFile)
         $('.js-box-poll').on('click', @addPoll)
         $('.js-box-preview').on('click', @togglePreview)
 
@@ -75,10 +72,6 @@ class Editor
 
     addImage: =>
         @wrapSelection("![", "](#{ @options.imageUrlText })", @options.imageText)
-        return false
-
-    addFile: =>
-        @wrapSelection("[", "](#{ @options.fileUrlText })", @options.fileText)
         return false
 
     addPoll: =>

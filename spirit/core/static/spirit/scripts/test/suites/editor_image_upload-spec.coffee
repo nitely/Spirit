@@ -26,7 +26,7 @@ describe "editor image upload plugin tests", ->
         textarea = $('#id_comment').editor_image_upload {
             csrfToken: "foo csrf_token",
             target: "/foo/",
-            placeholderText: "foo uploading {image_name}"
+            placeholderText: "foo uploading {name}"
         }
         editorImageUpload = textarea.first().data 'plugin_editor_image_upload'
         inputFile = editorImageUpload.inputFile
@@ -71,12 +71,15 @@ describe "editor image upload plugin tests", ->
     it "adds the placeholder", ->
         textarea.val "foobar"
 
-        ajaxMock = jasmine.createSpyObj('ajax', ['done', 'fail'])
-        post.and.returnValue ajaxMock
+        post.and.callFake (req) ->
+            expect(textarea.val()).toEqual "foobar![foo uploading foo.jpg]()"
+
+            d = $.Deferred()
+            d.resolve(data)
+            return d.promise()
 
         spyOn(inputFile, 'get').and.returnValue {files: [file, ]}
         inputFile.trigger 'change'
-        expect(textarea.val()).toEqual "foobar![foo uploading foo.jpg]()"
 
     it "changes the placeholder on upload success", ->
         textarea.val "foobar"

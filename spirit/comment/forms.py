@@ -3,14 +3,16 @@
 from __future__ import unicode_literals
 
 import os
+import logging
 
 import magic
-import logging
+
 from django import forms
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_bytes
+from django.core.files.uploadedfile import TemporaryUploadedFile
 
 from ..core import utils
 from ..core.utils.markdown import Markdown
@@ -19,6 +21,7 @@ from .poll.models import CommentPoll, CommentPollChoice
 from .models import Comment
 
 logger = logging.getLogger(__name__)
+
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
@@ -153,35 +156,41 @@ class CommentFileForm(forms.Form):
 
     def clean_file(self):
         file = self.cleaned_data['file']
+
         try:
-            file_mime = magic.from_buffer(file.read(131072), mime=True)
+            if isinstance(file, TemporaryUploadedFile):
+                file_mime = magic.from_file(file.temporary_file_path(), mime=True)
+            else:  # In-memory file
+                file_mime = magic.from_buffer(file.read(), mime=True)
         except magic.MagicException as e:
             logger.exception(e)
             raise forms.ValidationError(_("The file could not be validated"))
-        else:
-            # Won't ever raise. Has at most one '.' so lstrip is fine here
-            ext = os.path.splitext(file.name)[1].lstrip('.')
 
-            mime = settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.get(ext, None)
-            if mime is None:
-                raise forms.ValidationError(
-                    _("Unsupported file extension %s. Supported extensions are %s."
-                      % (ext, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
-                    )
-                )
-            if mime != file_mime:
-                raise forms.ValidationError(
-                    _("Unsupported file mime type %s. Supported types are %s."
-                      % (file_mime, ", ".join(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values()))
-                    )
-                )
+        # Won't ever raise. Has at most one '.' so lstrip is fine here
+        ext = os.path.splitext(file.name)[1].lstrip('.')
+        mime = settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.get(ext, None)
 
-            return file
+        if mime is None:
+            raise forms.ValidationError(
+                _("Unsupported file extension %s. Supported extensions are %s." % (
+                    ext,
+                    ", ".join(
+                        sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys())))))
+
+        if mime != file_mime:
+            raise forms.ValidationError(
+                _("Unsupported file mime type %s. Supported types are %s." % (
+                    file_mime,
+                    ", ".join(
+                        sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values())))))
+
+        return file
 
     def save(self):
         file = self.cleaned_data['file']
         file_hash = utils.get_file_hash(file)
-        file.name = ''.join((file_hash, '.', file.name.lower()))
+        file_name, file_ext = os.path.splitext(file.name.lower())
+        file.name = ''.join((file_name, '_', file_hash, file_ext))
         name = os.path.join('spirit', 'files', str(self.user.pk), file.name)
         name = default_storage.save(name, file)
         file.url = default_storage.url(name)

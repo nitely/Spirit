@@ -1,8 +1,10 @@
 # Spirit
-spirit/search/whoosh_index/
-db.sqlite3
-example/media/
-example/static/
+/spirit/search/whoosh_index/
+/db.sqlite3
+/example/media/
+/example/static/
+/manage.py
+/project
 
 # Node
 node_modules

@@ -6,18 +6,24 @@
 $ = jQuery
 
 
-class EditorFileUpload
+class EditorUpload
 
     defaults: {
         csrfToken: "csrf_token",
         target: "target url",
-        placeholderText: "uploading {file_name}",
-        allowedFileMedia: [".doc", ".docx", ".pdf"]
+        placeholderText: "uploading {name}",
+        allowedFileMedia: ["*/*"]
+    }
+    _meta: {
+        fieldName: "file",
+        tag: "[{text}]({url})",
+        elm: ".js-box-file"
     }
 
-    constructor: (el, options) ->
-        @el = $(el)
+    constructor: (el, options, meta=null) ->
+        @el = $(el)  # Editor box
         @options = $.extend({}, @defaults, options)
+        @meta = $.extend({}, @_meta, meta or {})
         @formFile = $("<form/>")
         @inputFile = $("<input/>", {
             type: "file",
@@ -33,35 +39,32 @@ class EditorFileUpload
         # TODO: fixme, having multiple editors
         # in the same page would open several
         # dialogs on box-image click
-        $boxImage = $(".js-box-file")
-        $boxImage.on('click', @openFileDialog)
-        $boxImage.on('click', @stopClick)
+        $boxElm = $(@meta.elm)
+        $boxElm.on('click', @openFileDialog)
+        $boxElm.on('click', @stopClick)
 
     sendFile: =>
         file = @inputFile.get(0).files[0]
         placeholder = @addPlaceholder(file)
         formData = @buildFormData(file)
 
-        post = $.ajax({
+        $.ajax({
             url: @options.target,
             data: formData,
             processData: false,
             contentType: false,
             type: 'POST'
         })
-
-        post.done((data) =>
+        .done((data) =>
             if "url" of data
                 @addFile(data, file, placeholder)
             else
                 @addError(data, placeholder)
         )
-
-        post.fail((jqxhr, textStatus, error) =>
+        .fail((jqxhr, textStatus, error) =>
             @addStatusError(textStatus, error, placeholder)
         )
-
-        post.always(() =>
+        .always(() =>
             # Reset the input after uploading,
             # fixes uploading the same image twice
             @formFile.get(0).reset()
@@ -70,27 +73,34 @@ class EditorFileUpload
         return
 
     addPlaceholder: (file) =>
-        placeholder = $.format("[#{ @options.placeholderText }]()", {file_name: file.name, })
+        placeholder = $.format(@meta.tag, {
+            text: $.format(@options.placeholderText, {name: file.name}),
+            url: ""})
         @el.val(@el.val() + placeholder)
         return placeholder
 
     buildFormData: (file) =>
         formData = new FormData()
         formData.append('csrfmiddlewaretoken', @options.csrfToken)
-        formData.append('file', file)
+        formData.append(@meta.fieldName, file)
         return formData
 
     addFile: (data, file, placeholder) =>
-        # format as a link to the file
-        fileTag = $.format("[{name}]({url})", {name: file.name, url: data.url})
-        @textReplace(placeholder, fileTag)
+        imageTag = $.format(@meta.tag, {text: file.name, url: data.url})
+        @textReplace(placeholder, imageTag)
 
     addError: (data, placeholder) =>
         error = JSON.stringify(data)
-        @textReplace(placeholder, "[#{ error }]()")
+        @textReplace(
+            placeholder,
+            $.format(@meta.tag, {text: error, url: ""}))
 
     addStatusError: (textStatus, error, placeholder) =>
-        errorTag = $.format("[error: {code} {error}]()", {code: textStatus, error: error})
+        errorTag = $.format(@meta.tag, {
+            text: $.format("error: {code} {error}", {
+                code: textStatus,
+                error: error}),
+            url: ""})
         @textReplace(placeholder, errorTag)
 
     textReplace: (find, replace) =>
@@ -112,7 +122,14 @@ $.fn.extend
     editor_file_upload: (options) ->
         @each( ->
             if not $(@).data('plugin_editor_file_upload')
-                $(@).data('plugin_editor_file_upload', new EditorFileUpload(@, options))
+                $(@).data('plugin_editor_file_upload', new EditorUpload(@, options))
         )
-
-$.fn.editor_file_upload.EditorFileUpload = EditorFileUpload
+    editor_image_upload: (options) ->
+        @each( ->
+            if not $(@).data('plugin_editor_image_upload')
+                $(@).data('plugin_editor_image_upload', new EditorUpload(@, options, {
+                    fieldName: "image",
+                    tag: "![{text}]({url})",
+                    elm: ".js-box-image"
+                }))
+        )

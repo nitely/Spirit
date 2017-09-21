@@ -1,6 +1,8 @@
 {% load spirit_tags i18n %}
 {% load static from staticfiles %}
 
+{% load_settings 'ST_UPLOAD_IMAGE_ENABLED' 'ST_UPLOAD_FILE_ENABLED' %}
+
 <div class="comment-text js-box-preview-content" style="display:none;"></div>
 <ul class="reply-markdown">
 	<li><a class="js-box-bold" href="#" title="{% trans "Bold" %}"><i class="fa fa-bold"></i></a></li><!--
@@ -8,7 +10,9 @@
  --><li><a class="js-box-list" href="#" title="{% trans "List" %}"><i class="fa fa-list"></i></a></li><!--
  --><li><a class="js-box-url" href="#" title="{% trans "URL" %}"><i class="fa fa-link"></i></a></li><!--
  --><li><a class="js-box-image" href="#" title="{% trans "Image" %}"><i class="fa fa-picture-o"></i></a></li><!--
- --><li><a class="js-box-file" href="#" title="{% trans "File" %}"><i class="fa fa-file"></i></a></li><!--
+ -->{% if st_settings.ST_UPLOAD_FILE_ENABLED %}<li>
+        <a class="js-box-file" href="#" title="{% trans "File" %}"><i class="fa fa-file"></i></a>
+    </li>{% endif %}<!--
  --><li><a class="js-box-poll" href="#" title="{% trans "Poll" %}"><i class="fa fa-bar-chart-o"></i></a></li><!--
  --><li><a class="js-box-preview" href="#" title="{% trans "Preview" %}"><i class="fa fa-eye"></i></a></li>
 </ul>
@@ -28,17 +32,22 @@
         } );
 
         $( '.js-reply' ).find( 'textarea' )
-        .editor_image_upload( {
-			csrfToken: "{{ csrf_token }}",
-			target: "{% url "spirit:comment:image-upload-ajax" %}",
-			placeholderText: "{% trans "uploading {image_name}" %}"
-		} )
-        .editor_file_upload({
-            csrfToken: "{{ csrf_token }}",
-            target: "{% url "spirit:comment:file-upload-ajax" %}",
-            placeholderText: "{% trans "uploading {file_name}" %}",
-            allowedFileMedia: "{% get_allowed_file_types %}"
-		} )
+        {% if st_settings.ST_UPLOAD_IMAGE_ENABLED %}
+            .editor_image_upload( {
+                csrfToken: "{{ csrf_token }}",
+                target: "{% url "spirit:comment:image-upload-ajax" %}",
+                placeholderText: "{% trans "uploading {name}" %}",
+                allowedFileMedia: "{% get_allowed_image_types %}"
+            } )
+        {% endif %}
+        {% if st_settings.ST_UPLOAD_FILE_ENABLED %}
+            .editor_file_upload({
+                csrfToken: "{{ csrf_token }}",
+                target: "{% url "spirit:comment:file-upload-ajax" %}",
+                placeholderText: "{% trans "uploading {name}" %}",
+                allowedFileMedia: "{% get_allowed_file_types %}"
+            } )
+        {% endif %}
         .editor( {
 			boldedText: "{% trans "bolded text" %}",
 			italicisedText: "{% trans "italicised text" %}",

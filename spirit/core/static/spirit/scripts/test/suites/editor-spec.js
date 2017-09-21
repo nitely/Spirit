@@ -56,7 +56,8 @@
       $('.js-box-italic').trigger('click');
       $('.js-box-list').trigger('click');
       $('.js-box-url').trigger('click');
-      return $('.js-box-image').trigger('click');
+      $('.js-box-image').trigger('click');
+      return $('.js-box-file').trigger('click');
     });
     it("wraps the selected text, bold", function() {
       textarea.val("birfoobar");
