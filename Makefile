@@ -1,6 +1,9 @@
 clean:
 	rm -fr dist/ build/ *.egg-info/
 
+docs:
+	cd docs && make clean && make html
+
 test:
 	python runtests.py
 
@@ -10,4 +13,4 @@ sdist: test clean
 release: test clean
 	python setup.py sdist upload
 
-.PHONY: clean test sdist release
+.PHONY: clean test sdist release docs
