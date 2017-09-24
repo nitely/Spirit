@@ -28,9 +28,11 @@ python manage.py runserver
 
 Visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-## Upgrading
+For detailed installation and setup docs, see [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
 
-Detailed upgrade instructions are listed in [Upgrading Spirit](https://github.com/nitely/Spirit/wiki/Upgrading)
+## Documentation
+
+Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
 
 ## Testing
 
