@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import url, include
-from django.conf import settings
 
+from ..core.conf import settings
 import spirit.comment.bookmark.urls
 import spirit.comment.flag.urls
 import spirit.comment.history.urls
