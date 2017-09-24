@@ -6,6 +6,23 @@
 from __future__ import unicode_literals
 import os
 
+import warnings
+
+class RemovedInNextVersionWarning2(DeprecationWarning):
+    """"""
+
+warnings.simplefilter("default", RemovedInNextVersionWarning2)
+
+warnings.warn(
+    "`spirit.settings` is deprecated and it will be removed in Spirit 0.6. "
+    "You are most likely seeing this because settings.base.py contains "
+    "`from spirit.settings import *`. "
+    "The best way to procede is to create a clean project (run "
+    "`spirit startproject mysite`) and modify the settings as needed. "
+    "It's a straightforward procedure.",
+    category=RemovedInNextVersionWarning2,
+    stacklevel=2)
+
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
 
 ST_RATELIMIT_ENABLE = True
