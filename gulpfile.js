@@ -49,7 +49,7 @@ gulp.task('coffee', function() {
             pathVendors + '**/*.coffee',
             pathCoffee + 'util.coffee',
             pathCoffee + 'tab.coffee',
-            pathCoffee + 'editor_image_upload.coffee',
+            pathCoffee + 'editor_file_upload.coffee',
             pathCoffee + '*.coffee'
         ])
         .pipe(sourcemaps.init())

@@ -57,6 +57,7 @@ describe "editor plugin tests", ->
         $('.js-box-list').trigger 'click'
         $('.js-box-url').trigger 'click'
         $('.js-box-image').trigger 'click'
+        $('.js-box-file').trigger 'click'
     # expect(textarea.val()).toEqual "![foo image text](foo image url)[foo link text](foo link url)\n* foo list item*foo italicised text***foo bolded text**"
 
     it "wraps the selected text, bold", ->

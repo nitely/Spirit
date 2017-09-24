@@ -456,6 +456,124 @@ class CommentViewTest(TestCase):
         self.assertIn('error', res.keys())
         self.assertIn('image', res['error'].keys())
 
+    @override_settings(
+        MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
+        FILE_UPLOAD_MAX_MEMORY_SIZE=2621440)
+    def test_comment_file_upload(self):
+        """
+        Check (in-memory) upload files are checked
+        """
+        utils.login(self)
+
+        # sample valid pdf - https://stackoverflow.com/a/17280876
+        file = BytesIO(
+            b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
+            b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
+            b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
+            b'f\n149\n%EOF\n')
+        files = {'file': SimpleUploadedFile('file.pdf', file.read(), content_type='application/pdf'), }
+        response = self.client.post(
+            reverse('spirit:comment:file-upload-ajax'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+            data=files)
+
+        res = json.loads(response.content.decode('utf-8'))
+        file_url = os.path.join(
+            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk),  "file_fadcb2389bb2b69b46bc54185de0ae91.pdf"
+        ).replace("\\", "/")
+        self.assertEqual(res['url'], file_url)
+        file_path = os.path.join(
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "file_fadcb2389bb2b69b46bc54185de0ae91.pdf"
+        )
+
+        with open(file_path, 'rb') as fh:
+            file.seek(0)
+            self.assertEqual(fh.read(), file.read())
+
+        shutil.rmtree(settings.MEDIA_ROOT)  # cleanup
+
+    @override_settings(
+        MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
+        FILE_UPLOAD_MAX_MEMORY_SIZE=1)
+    def test_comment_file_upload_tmp_file(self):
+        """
+        Check (tmp) upload files are checked
+        """
+        utils.login(self)
+        file = BytesIO(
+            b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
+            b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
+            b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
+            b'f\n149\n%EOF\n')
+        files = {
+            'file': SimpleUploadedFile(
+                'file_large.pdf', file.read(), content_type='application/pdf'),}
+        response = self.client.post(
+            reverse('spirit:comment:file-upload-ajax'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+            data=files)
+
+        res = json.loads(response.content.decode('utf-8'))
+        file_url = os.path.join(
+            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk), "file_large_fadcb2389bb2b69b46bc54185de0ae91.pdf"
+        ).replace("\\", "/")
+        self.assertEqual(res['url'], file_url)
+        file_path = os.path.join(
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "file_large_fadcb2389bb2b69b46bc54185de0ae91.pdf"
+        )
+
+        with open(file_path, 'rb') as fh:
+            file.seek(0)
+            self.assertEqual(fh.read(), file.read())
+
+        shutil.rmtree(settings.MEDIA_ROOT)  # cleanup
+
+    def test_comment_file_upload_invalid_ext(self):
+        """
+        comment file upload, invalid file extension
+        """
+        utils.login(self)
+        # sample valid pdf - https://stackoverflow.com/a/17280876
+        file = BytesIO(
+            b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
+            b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
+            b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
+            b'f\n149\n%EOF\n')
+        files = {'file': SimpleUploadedFile('fake.gif', file.read(), content_type='application/pdf'), }
+        response = self.client.post(
+            reverse('spirit:comment:file-upload-ajax'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+            data=files)
+        res = json.loads(response.content.decode('utf-8'))
+        self.assertIn('error', res)
+        self.assertIn('file', res['error'])
+        self.assertEqual(
+            res['error']['file'],
+            ['Unsupported file extension gif. Supported extensions are doc, docx, pdf.'])
+
+    def test_comment_file_upload_invalid_mime(self):
+        """
+        comment file upload, invalid mime type
+        """
+        utils.login(self)
+        file = BytesIO(b'BAD\x02D\x01\x00;')
+        files = {
+            'file': SimpleUploadedFile(
+                'file.pdf', file.read(), content_type='application/pdf')}
+        response = self.client.post(
+            reverse('spirit:comment:file-upload-ajax'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+            data=files)
+        res = json.loads(response.content.decode('utf-8'))
+        self.assertIn('error', res)
+        self.assertIn('file', res['error'])
+        self.assertEqual(
+            res['error']['file'],
+            ['Unsupported file mime type application/octet-stream. '
+             'Supported types are application/msword, '
+             'application/pdf, '
+             'application/vnd.openxmlformats-officedocument.wordprocessingml.document.'])
+
 
 class CommentModelsTest(TestCase):
 

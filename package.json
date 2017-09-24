@@ -11,11 +11,17 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.6",
-    "karma": "^0.13.10",
-    "karma-cli": "^0.1.1",
-    "karma-jasmine": "^0.2.2"
+    "jasmine-core": "^2.8.0",
+    "karma": "^1.7.1",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.1.0"
   },
   "scripts": {
     "gulp": "gulp"
-  }
+  },
+  "name": "Spirit",
+  "version": "1.0.0",
+  "repository": "https://github.com/nitely/Spirit.git",
+  "author": "nitely <ecastroborsani@gmail.com>",
+  "license": "MIT"
 }

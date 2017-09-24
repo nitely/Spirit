@@ -35,7 +35,7 @@
     };
 
     Storage.prototype.updateStorage = function() {
-      var err, error, value;
+      var err, value;
       value = this.el.val();
       try {
         localStorage[this.lsKey] = value;

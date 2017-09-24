@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
@@ -15,7 +16,7 @@ from ..core.utils.decorators import moderator_required
 from ..core.utils import markdown, paginator, render_form_errors, json_response
 from ..topic.models import Topic
 from .models import Comment
-from .forms import CommentForm, CommentMoveForm, CommentImageForm
+from .forms import CommentForm, CommentMoveForm, CommentImageForm, CommentFileForm
 from .utils import comment_posted, post_comment_update, pre_comment_update
 
 
@@ -53,7 +54,8 @@ def publish(request, topic_id, pk=None):
 
     context = {
         'form': form,
-        'topic': topic}
+        'topic': topic,
+    }
 
     return render(request, 'spirit/comment/publish.html', context)
 
@@ -73,7 +75,9 @@ def update(request, pk):
     else:
         form = CommentForm(instance=comment)
 
-    context = {'form': form, }
+    context = {
+        'form': form,
+    }
 
     return render(request, 'spirit/comment/update.html', context)
 
@@ -133,5 +137,20 @@ def image_upload_ajax(request):
     if form.is_valid():
         image = form.save()
         return json_response({'url': image.url, })
+
+    return json_response({'error': dict(form.errors.items()), })
+
+
+@require_POST
+@login_required
+def file_upload_ajax(request):
+    if not request.is_ajax():
+        return Http404()
+
+    form = CommentFileForm(user=request.user, data=request.POST, files=request.FILES)
+
+    if form.is_valid():
+        file = form.save()
+        return json_response({'url': file.url, })
 
     return json_response({'error': dict(form.errors.items()), })
