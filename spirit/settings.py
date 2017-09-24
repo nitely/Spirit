@@ -6,6 +6,8 @@
 from __future__ import unicode_literals
 import os
 
+# TODO: Remove this whole module in Spirit 0.6
+
 import warnings
 
 class RemovedInNextVersionWarning2(DeprecationWarning):
