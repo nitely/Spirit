@@ -51,6 +51,8 @@ ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 #: all users to be logged-in to access any section
 ST_PRIVATE_FORUM = False
 
+#: Enable/disable image uploads within posts
+ST_UPLOAD_IMAGE_ENABLED = True
 #: Uploaded images will be validated against these formats.
 #: Also, the file choosing dialog will filter by these extensions.
 #: See the `Pillow docs <http://pillow.readthedocs.io/en/latest/handbook/image-file-formats.html>`_
@@ -60,6 +62,22 @@ ST_PRIVATE_FORUM = False
 #:     Allowing PNG files is a security risk as it may contain malicious HTML.
 #:     See `Django notes <https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content>`_
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'jpg', 'gif')
+
+#: Enable/disable file uploads within posts
+ST_UPLOAD_FILE_ENABLED = True
+#: Uploaded files will be validated against these formats.
+#: This is a map of extension and media-type. Both are used for validation.
+#:
+#: .. Note::
+#:     To find a media-type just add an extension and an empty media-type,
+#:     then try uploading a valid file for that extension and the expected
+#:     media-type will be printed within the validation error.
+#:     Either that or use the Linux ``file --mime-type ./my_file`` command
+ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE = {
+    'doc': 'application/msword',
+    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'pdf': 'application/pdf'}
+
 #: Link protocols allowed within posts
 ST_ALLOWED_URL_PROTOCOLS = {
     'http', 'https', 'mailto', 'ftp', 'ftps',
