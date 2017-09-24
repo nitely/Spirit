@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import os
 
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
 
@@ -40,3 +41,9 @@ ST_CASE_INSENSITIVE_EMAILS = True
 
 # Tests helpers
 ST_TESTS_RATELIMIT_NEVER_EXPIRE = False
+
+# Full route to the spirit package
+ST_BASE_DIR = (
+    os.path.dirname(
+        os.path.dirname(
+            os.path.dirname(__file__))))
