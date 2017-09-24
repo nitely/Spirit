@@ -11,7 +11,7 @@ import django
 from django.test.runner import DiscoverRunner
 
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'spirit.settings_tests'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'project.project.settings.test'
 
 
 def log_warnings():
@@ -21,8 +21,9 @@ def log_warnings():
 
 
 def run_tests():
-    sys.stdout.write("\nRunning spirit test suite, using settings %(settings)r\n\n"
-                     % {"settings": os.environ['DJANGO_SETTINGS_MODULE'], })
+    sys.stdout.write(
+        "\nRunning spirit test suite, using settings %(settings)r\n\n" %
+        {"settings": os.environ['DJANGO_SETTINGS_MODULE']})
     test_runner = DiscoverRunner()
     failures = test_runner.run_tests([])
     sys.exit(failures)

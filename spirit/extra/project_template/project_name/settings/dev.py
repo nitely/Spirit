@@ -5,7 +5,7 @@
 
 # Create your own dev_local.py
 # import * this module there and use it like this:
-# python manage.py runserver --settings=project.settings.dev_local
+# python manage.py runserver --settings={{ project_name }}.settings.dev_local
 
 from __future__ import unicode_literals
 

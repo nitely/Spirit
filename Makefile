@@ -1,5 +1,5 @@
 clean:
-	rm -fr dist/ *.egg-info/
+	rm -fr dist/ build/ *.egg-info/
 
 test:
 	python runtests.py

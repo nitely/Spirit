@@ -14,9 +14,6 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 from __future__ import unicode_literals
 
 import os
-import sys
-
-from spirit.settings import *
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/{{ docs_version }}/howto/deployment/checklist/
@@ -24,39 +21,115 @@ from spirit.settings import *
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
-# This will be the default in next version
-ST_RATELIMIT_CACHE = 'st_rate_limit'
-
 # Application definition
 
-INSTALLED_APPS.extend([
-    # 'my_app1',
-    # 'my_app2',
-])
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 
-# same here, check out the spirit.settings.py
-MIDDLEWARE_CLASSES.extend([
-    # 'my_middleware1',
-    # 'my_middleware2',
-])
+    'spirit.core',
+    'spirit.admin',
+    'spirit.search',
 
-# same here
-TEMPLATES[0]['OPTIONS']['context_processors'].extend([
-    # 'my_template_proc1',
-    # 'my_template_proc2',
-])
+    'spirit.user',
+    'spirit.user.admin',
+    'spirit.user.auth',
 
-# same here (we update the Spirit caches)
-CACHES.update({
-    # 'default': {
-    #   'BACKEND': 'my.backend.path',
-    # },
-})
+    'spirit.category',
+    'spirit.category.admin',
 
+    'spirit.topic',
+    'spirit.topic.admin',
+    'spirit.topic.favorite',
+    'spirit.topic.moderate',
+    'spirit.topic.notification',
+    'spirit.topic.poll',  # todo: remove in Spirit v0.6
+    'spirit.topic.private',
+    'spirit.topic.unread',
 
-ROOT_URLCONF = 'project.urls'
+    'spirit.comment',
+    'spirit.comment.bookmark',
+    'spirit.comment.flag',
+    'spirit.comment.flag.admin',
+    'spirit.comment.history',
+    'spirit.comment.like',
+    'spirit.comment.poll',
 
-WSGI_APPLICATION = 'project.wsgi.application'
+    'djconfig',
+    'haystack',
+]
+
+MIDDLEWARE_CLASSES = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'spirit.core.middleware.XForwardedForMiddleware',
+    'spirit.user.middleware.TimezoneMiddleware',
+    'spirit.user.middleware.LastIPMiddleware',
+    'spirit.user.middleware.LastSeenMiddleware',
+    'spirit.user.middleware.ActiveUserMiddleware',
+    'spirit.core.middleware.PrivateForumMiddleware',
+    'djconfig.middleware.DjConfigMiddleware',
+]
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.template.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                'djconfig.context_processors.config',
+            ],
+        },
+    },
+]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'spirit_cache',
+    },
+    'st_rate_limit': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'spirit_rl_cache',
+        'TIMEOUT': None
+    }
+}
+
+AUTHENTICATION_BACKENDS = [
+    'spirit.user.auth.backends.UsernameAuthBackend',
+    'spirit.user.auth.backends.EmailAuthBackend',
+]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'st_search'),
+    },
+}
+
+ROOT_URLCONF = '{{ project_name }}.urls'
+
+WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
+
+LOGIN_URL = 'spirit:user:auth:login'
+LOGIN_REDIRECT_URL = 'spirit:user:update'
 
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/

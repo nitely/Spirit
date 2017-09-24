@@ -4,7 +4,7 @@
 
 # Create your own prod_local.py
 # import * this module there and use it like this:
-# python manage.py runserver --settings=project.settings.prod_local
+# python manage.py runserver --settings={{ project_name }}.settings.prod_local
 
 from __future__ import unicode_literals
 

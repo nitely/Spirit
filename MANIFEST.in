@@ -6,9 +6,6 @@ include requirements.txt
 
 graft spirit
 
-prune example
-prune spirit/search/whoosh_index
-
 global-exclude __pycache__
 global-exclude *.py[co]
 global-exclude .git*

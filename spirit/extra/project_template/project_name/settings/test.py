@@ -1,20 +1,33 @@
 # -*- coding: utf-8 -*-
 
-# THIS IS FOR DEVELOPMENT ENVIRONMENT
-# DO NOT USE IT IN PRODUCTION
-
-# This is used to test settings and urls from example directory
-# with `./runtests.py example`
+"""
+Django settings for running the tests of spirit app
+"""
 
 from __future__ import unicode_literals
 
 from .base import *
 
-SECRET_KEY = "TEST"
 
-INSTALLED_APPS.extend([
+SECRET_KEY = 'TEST'
+
+INSTALLED_APPS += [
     'spirit.core.tests',
-])
+]
+
+ROOT_URLCONF = 'spirit.urls'
+
+USE_TZ = True
+
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_test')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_test')
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['127.0.0.1', ]
 
 DATABASES = {
     'default': {
@@ -23,12 +36,36 @@ DATABASES = {
     }
 }
 
-ROOT_URLCONF = 'example.project.urls'
+CACHES.update({
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'st_rate_limit': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'spirit_rl_cache',
+        'TIMEOUT': None
+    }
+})
 
+# speedup tests requiring login
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.MD5PasswordHasher',
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_test')
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_test')
+# Keep templates in memory
+del TEMPLATES[0]['APP_DIRS']
+TEMPLATES[0]['OPTIONS']['loaders'] = [
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+]
+
+TEMPLATES[0]['OPTIONS']['debug'] = True
+
+ST_RATELIMIT_CACHE = 'st_rate_limit'
+
+HAYSTACK_CONNECTIONS['default']['STORAGE'] = 'ram'
+HAYSTACK_LIMIT_TO_REGISTERED_MODELS = False
