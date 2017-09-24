@@ -7,8 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.template import defaultfilters
-from django.conf import settings
 
+from ..core.conf import settings
 from ..core.utils.timezone import timezones
 from .models import UserProfile
 

@@ -3,13 +3,13 @@
 from __future__ import unicode_literals
 
 from django import forms
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_text
 
 from haystack.forms import SearchForm
 from haystack.query import EmptySearchQuerySet
 
+from ..core.conf import settings
 from ..topic.models import Topic
 from ..category.models import Category
 

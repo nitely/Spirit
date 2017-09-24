@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
-from django.conf import settings
 from django.utils.encoding import smart_bytes
 
+from ...core.conf import settings
 from ...core import utils
 from ...core.utils.widgets import MultipleInput
 from ...topic.models import Topic

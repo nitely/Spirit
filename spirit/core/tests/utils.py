@@ -3,9 +3,9 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import get_user_model
-from django.conf import settings
 from django.core.cache import caches, cache
 
+from ...core.conf import settings
 from ...topic.models import Topic
 from ...category.models import Category
 from ...comment.models import Comment

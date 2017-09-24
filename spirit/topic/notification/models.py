@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
 from django.utils import timezone
 from django.db import IntegrityError, transaction
 
 from .managers import TopicNotificationQuerySet
+from ...core.conf import settings
 
 
 UNDEFINED, MENTION, COMMENT = range(3)

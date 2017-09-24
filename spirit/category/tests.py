@@ -7,10 +7,10 @@ import datetime
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.conf import settings
 
 from djconfig.utils import override_djconfig
 
+from ..core.conf import settings
 from ..core.tests import utils
 from ..topic.models import Topic
 from ..comment.bookmark.models import CommentBookmark

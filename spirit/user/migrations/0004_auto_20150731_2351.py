@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
 
 
 def migrate_profiles(apps, schema_editor):
+    from ...core.conf import settings
+
     User = apps.get_model(settings.AUTH_USER_MODEL)
     UserProfile = apps.get_model('spirit_user', 'UserProfile')
 

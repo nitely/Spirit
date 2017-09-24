@@ -7,12 +7,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import Http404, HttpResponse
-from django.conf import settings
 from django.contrib import messages
 from django.utils.html import escape
 
 from djconfig import config
 
+from ...core.conf import settings
 from ...core import utils
 from ...core.utils.paginator import yt_paginate
 from ...core.utils.paginator.infinite_paginator import paginate

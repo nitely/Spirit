@@ -24,7 +24,7 @@ class User(AbstractUser):
 
 
 def user_model_checker(apps, schema_editor):
-    from django.conf import settings
+    from ...core.conf import settings
 
     if not hasattr(settings, 'AUTH_USER_MODEL'):
         return

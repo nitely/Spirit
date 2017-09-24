@@ -6,13 +6,13 @@ import warnings
 from django.test import TestCase, RequestFactory, override_settings
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages.storage.fallback import FallbackStorage
-from django.conf import settings
 from django.core.cache import caches
 
 from . import utils
 from ..utils.ratelimit import ratelimit as rl_module
 from ..utils.ratelimit import RateLimit
 from ..utils.ratelimit.decorators import ratelimit
+from ..conf import settings
 
 
 def setup_request_factory_messages(req):

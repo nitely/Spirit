@@ -9,10 +9,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import HttpResponsePermanentRedirect
-from django.conf import settings
 
 from djconfig import config
 
+from ...core.conf import settings
 from ...core import utils
 from ...core.utils.paginator import paginate, yt_paginate
 from ...core.utils.ratelimit.decorators import ratelimit

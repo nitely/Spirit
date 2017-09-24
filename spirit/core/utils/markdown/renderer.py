@@ -4,8 +4,9 @@ from __future__ import unicode_literals
 
 import mistune
 
-from django.conf import settings
 from django.utils.html import escape
+
+from ...conf import settings
 
 
 def sanitize_url(url):

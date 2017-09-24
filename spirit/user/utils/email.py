@@ -7,11 +7,13 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import ugettext as _
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
-from django.conf import settings
 
-from .tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from ...core.conf import settings
+from .tokens import (
+    UserActivationTokenGenerator,
+    UserEmailChangeTokenGenerator)
 
-logger = logging.getLogger('django')
+logger = logging.getLogger(__name__)
 
 
 def sender(request, subject, template_name, context, to):

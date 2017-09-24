@@ -3,7 +3,8 @@
 from __future__ import unicode_literals
 
 from django.core.paginator import InvalidPage
-from django.conf import settings
+
+from ...conf import settings
 
 
 class YTPaginator(object):

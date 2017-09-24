@@ -4,13 +4,16 @@ from __future__ import unicode_literals, division
 
 from django.db import models, transaction
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.db.models import F
 
+from ...core.conf import settings
 from ...core.utils import get_query_string
-from .managers import CommentPollQuerySet, CommentPollChoiceQuerySet, CommentPollVoteQuerySet
+from .managers import (
+    CommentPollQuerySet,
+    CommentPollChoiceQuerySet,
+    CommentPollVoteQuerySet)
 
 
 class PollMode(object):

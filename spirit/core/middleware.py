@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.urlresolvers import resolve
 
@@ -10,6 +9,8 @@ try:
     from django.utils.deprecation import MiddlewareMixin
 except ImportError:  # Django < 1.10
     MiddlewareMixin = object
+
+from .conf import settings
 
 
 class XForwardedForMiddleware(MiddlewareMixin):
