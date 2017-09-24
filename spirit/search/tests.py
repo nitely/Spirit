@@ -6,7 +6,6 @@ import datetime
 from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
-from django.conf import settings
 from django.core.management import call_command
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -14,6 +13,7 @@ from django.utils import timezone
 from haystack.query import SearchQuerySet
 from djconfig.utils import override_djconfig
 
+from ..core.conf import settings
 from ..core.tests import utils
 from ..topic.models import Topic
 from .forms import BasicSearchForm, AdvancedSearchForm

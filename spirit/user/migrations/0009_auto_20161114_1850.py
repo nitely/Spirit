@@ -6,7 +6,7 @@ from django.db import migrations
 
 
 def user_model_content_type(apps, schema_editor):
-    from django.conf import settings
+    from ...core.conf import settings
 
     if not hasattr(settings, 'AUTH_USER_MODEL'):
         return

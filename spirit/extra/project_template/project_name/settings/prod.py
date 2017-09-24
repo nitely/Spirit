@@ -4,23 +4,22 @@
 
 # Create your own prod_local.py
 # import * this module there and use it like this:
-# python manage.py runserver --settings=project.settings.prod_local
+# python manage.py runserver --settings={{ project_name }}.settings.prod_local
 
 from __future__ import unicode_literals
 
 from .base import *
 
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# https://docs.djangoproject.com/en/dev/ref/settings/#admins
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#admins
 ADMINS = (('John', 'john@example.com'), )
 
-# Secret key generator: https://djskgen.herokuapp.com/
-# You should set your key as an environ variable
-SECRET_KEY = os.environ.get("SECRET_KEY", "")
+SECRET_KEY = os.environ.get("SECRET_KEY", '{{ secret_key }}')
 
-# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['.example.com', ]
 
 # You can change this to something like 'MyForum <noreply@example.com>'
@@ -36,7 +35,9 @@ INSTALLED_APPS.extend([
     # 'my_app1',
 ])
 
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+# Database
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -45,9 +46,6 @@ DATABASES = {
         'PASSWORD': 'mypassword',
         'HOST': '127.0.0.1',
         'PORT': '5432',
-        # Django default is 0,
-        # close after every request
-        # 'CONN_MAX_AGE': 0,  # todo: Spirit v0.5 change to Keep alive 60 secs, uncomment
     }
 }
 

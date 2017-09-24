@@ -2,11 +2,11 @@
 
 from __future__ import unicode_literals
 
-from django.conf import settings
 from django.db.models import Q
 
 from haystack import indexes
 
+from ..core.conf import settings
 from ..topic.models import Topic
 
 

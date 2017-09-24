@@ -24,3 +24,8 @@ indent_size = 2
 [*.scss]
 indent_style = space
 indent_size = 2
+
+# Override for Makefile
+[{Makefile, makefile, GNUmakefile}]
+indent_style = tab
+indent_size = 4

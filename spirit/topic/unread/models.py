@@ -4,8 +4,9 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
 from django.utils import timezone
+
+from ...core.conf import settings
 
 
 class TopicUnread(models.Model):

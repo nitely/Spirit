@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
 
 
 def default_categories(apps, schema_editor):
+    from ...core.conf import settings
+
     Category = apps.get_model("spirit_category", "Category")
 
     if not Category.objects.filter(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK).exists():

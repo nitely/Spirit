@@ -6,7 +6,8 @@ from functools import wraps
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import redirect
-from django.conf import settings
+
+from ..conf import settings
 
 
 def moderator_required(view_func):

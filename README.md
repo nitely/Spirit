@@ -15,20 +15,30 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 * Django 1.8 LTS (recommended), 1.9 and 1.10
 * PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
-## Installing (Advanced)
+## Usage
 
-Check out the [example project](https://github.com/nitely/Spirit/tree/master/example).
+```python
+pip install django-spirit
+spirit startproject mysite
+cd mysite
+python manage.py spiritinstall
+python manage.py createsuperuser
+python manage.py runserver
+```
 
-## Upgrading
+Visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-Detailed upgrade instructions are listed in [Upgrading Spirit](https://github.com/nitely/Spirit/wiki/Upgrading)
+For detailed installation and setup docs, see [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
+
+## Documentation
+
+Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
 
 ## Testing
 
-The `runtests.py` script enable you to run the test suite of spirit.
-
-- Type `./runtests.py` to run the test suite using the settings from the `spirit` folder.
-- Type `./runtests.py example` to run the test suite using the settings from the `example` folder.
+```python
+$ python runtests.py
+```
 
 ## License
 

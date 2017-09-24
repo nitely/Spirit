@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import mark_safe
-from django.conf import settings
 
+from ..core.conf import settings
 from ..core.tags.registry import register
 from .poll.utils.render import render_polls
 from .forms import CommentForm

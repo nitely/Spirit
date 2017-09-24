@@ -11,6 +11,7 @@
 * Remove deprecated `topic_poll` app
 * Remove deprecated (since v0.2) `spirit_user.User` (PR #141),
   read the wiki or the PR for a workaround
+* Deprecates `spirit.settings`. It will be removed in future releases
 
 0.4.8
 ==================

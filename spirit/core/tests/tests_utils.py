@@ -14,13 +14,13 @@ from django.utils import timezone
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils.timezone import utc
 from django.utils.http import urlunquote
 from django.contrib.auth import get_user_model
 
+from ..conf import settings
 from ...category.models import Category
 from .. import utils
 from ..utils.forms import NestedModelChoiceField

@@ -7,11 +7,11 @@ import hashlib
 from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
-from django.conf import settings
 from django.utils import timezone
 
 from djconfig.utils import override_djconfig
 
+from ...core.conf import settings
 from ...core.tests import utils
 from ...category.models import Category
 from .models import TopicPrivate

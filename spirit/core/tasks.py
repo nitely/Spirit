@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.conf import settings
+from .conf import settings
 
 try:
     # TODO: remove this try block.

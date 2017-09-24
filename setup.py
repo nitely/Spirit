@@ -31,6 +31,10 @@ setup(
     url='http://spirit-project.com/',
     packages=find_packages(),
     test_suite="runtests.start",
+    entry_points="""
+[console_scripts]
+spirit=spirit.extra.bin.spirit:main
+""",
     include_package_data=True,
     zip_safe=False,
     install_requires=REQUIREMENTS,

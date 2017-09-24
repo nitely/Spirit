@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 import re
 import copy
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
 
 import mistune
 
+from ...conf import settings
 from .utils.emoji import emojis
 
 User = get_user_model()

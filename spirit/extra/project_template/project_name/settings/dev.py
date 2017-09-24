@@ -5,7 +5,7 @@
 
 # Create your own dev_local.py
 # import * this module there and use it like this:
-# python manage.py runserver --settings=project.settings.dev_local
+# python manage.py runserver --settings={{ project_name }}.settings.dev_local
 
 from __future__ import unicode_literals
 
@@ -15,7 +15,7 @@ from .base import *
 DEBUG = True
 
 TEMPLATES[0]['OPTIONS']['debug'] = True
-# TEMPLATES[0]['OPTIONS']['string_if_invalid'] = '{{ %s }}'  # Some Django templates relies on this being the default
+# TEMPLATES[0]['OPTIONS']['string_if_invalid'] = '\{\{%s\}\}'  # Some Django templates relies on this being the default
 
 ADMINS = (('John', 'john@example.com'), )  # Log email to console when DEBUG = False
 
@@ -26,6 +26,9 @@ ALLOWED_HOSTS = ['127.0.0.1', ]
 # INSTALLED_APPS.extend([
 #    'debug_toolbar',
 # ])
+
+# Database
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
 
 DATABASES = {
     'default': {

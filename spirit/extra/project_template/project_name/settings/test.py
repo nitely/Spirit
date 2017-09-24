@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
+
 """
 Django settings for running the tests of spirit app
 """
 
 from __future__ import unicode_literals
 
-import os
+from .base import *
 
-from spirit.settings import *
-
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = 'TEST'
 

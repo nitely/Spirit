@@ -5,12 +5,12 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-from django.conf import settings
 from django.utils import timezone
 from django.db.models import F
 
 from .managers import TopicQuerySet
 from ..core.utils.models import AutoSlugField
+from ..core.conf import settings
 
 
 class Topic(models.Model):

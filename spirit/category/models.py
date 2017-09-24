@@ -5,11 +5,11 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-from django.conf import settings
 from django.utils import timezone
 
-from .managers import CategoryQuerySet
+from ..core.conf import settings
 from ..core.utils.models import AutoSlugField
+from .managers import CategoryQuerySet
 
 
 class Category(models.Model):

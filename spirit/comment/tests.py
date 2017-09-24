@@ -12,11 +12,11 @@ from django.core.urlresolvers import reverse
 from django.template import Template, Context
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
-from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
 from django.utils.six import BytesIO
 
+from ..core.conf import settings
 from ..core.tests import utils
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm

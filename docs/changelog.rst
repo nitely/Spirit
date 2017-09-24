@@ -1,0 +1,4 @@
+Changelog
+*********
+
+.. include:: ../HISTORY.md

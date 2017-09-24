@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 import hashlib
 import time
 
-from django.conf import settings
 from django.core.cache import caches
 
+from ...conf import settings
 from ..deprecations import warn
 
 

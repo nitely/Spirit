@@ -8,12 +8,12 @@ import logging
 import magic
 
 from django import forms
-from django.conf import settings
 from django.core.files.storage import default_storage
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_bytes
 from django.core.files.uploadedfile import TemporaryUploadedFile
 
+from ..core.conf import settings
 from ..core import utils
 from ..core.utils.markdown import Markdown
 from ..topic.models import Topic

@@ -5,7 +5,6 @@ import logging
 
 import pytz
 
-from django.conf import settings
 from django.contrib.auth import logout
 from django.utils import timezone
 
@@ -14,6 +13,7 @@ try:
 except ImportError:  # Django < 1.10
     MiddlewareMixin = object
 
+from ..core.conf import settings
 from .models import UserProfile
 
 

@@ -4,8 +4,9 @@ from __future__ import unicode_literals
 import re
 
 from django.utils.translation import ugettext as _
-from django.conf import settings
 from django.utils import translation
+
+from ....conf import settings
 
 
 _PATTERN_POLL = re.compile(
