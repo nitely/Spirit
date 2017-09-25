@@ -5,8 +5,6 @@ from __future__ import unicode_literals
 import os
 import logging
 
-import magic
-
 from django import forms
 from django.core.files.storage import default_storage
 from django.utils.translation import ugettext_lazy as _
@@ -21,6 +19,13 @@ from .poll.models import CommentPoll, CommentPollChoice
 from .models import Comment
 
 logger = logging.getLogger(__name__)
+
+# Mostly for Windows users who don't need file upload
+try:
+    import magic
+except ImportError as err:
+    logger.exceptioin(err)
+    magic = None
 
 
 class CommentForm(forms.ModelForm):
@@ -158,14 +163,8 @@ class CommentFileForm(forms.Form):
     def clean_file(self):
         file = self.cleaned_data['file']
 
-        try:
-            if isinstance(file, TemporaryUploadedFile):
-                file_mime = magic.from_file(file.temporary_file_path(), mime=True)
-            else:  # In-memory file
-                file_mime = magic.from_buffer(file.read(), mime=True)
-        except magic.MagicException as e:
-            logger.exception(e)
-            raise forms.ValidationError(_("The file could not be validated"))
+        if not magic:
+           raise forms.ValidationError(_("The file could not be validated"))
 
         # Won't ever raise. Has at most one '.' so lstrip is fine here
         ext = os.path.splitext(file.name)[1].lstrip('.')
@@ -177,6 +176,15 @@ class CommentFileForm(forms.Form):
                     ext,
                     ", ".join(
                         sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys())))))
+
+        try:
+            if isinstance(file, TemporaryUploadedFile):
+                file_mime = magic.from_file(file.temporary_file_path(), mime=True)
+            else:  # In-memory file
+                file_mime = magic.from_buffer(file.read(), mime=True)
+        except magic.MagicException as e:
+            logger.exception(e)
+            raise forms.ValidationError(_("The file could not be validated"))
 
         if mime != file_mime:
             raise forms.ValidationError(
