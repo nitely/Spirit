@@ -13,6 +13,8 @@ Compatibility
 Get started
 -----------
 
+    New in Spirit 0.5
+
 Latest version can be installed through pip::
 
 1. Install Spirit::

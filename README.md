@@ -17,7 +17,9 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 
 ## Usage
 
-```python
+> New in Spirit 0.5
+
+```
 pip install django-spirit
 spirit startproject mysite
 cd mysite
@@ -36,8 +38,8 @@ Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/lat
 
 ## Testing
 
-```python
-$ python runtests.py
+```
+python runtests.py
 ```
 
 ## License
