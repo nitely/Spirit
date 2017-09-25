@@ -755,21 +755,28 @@ class CommentFormTest(TestCase):
 
     def test_comment_image_upload_no_extension(self):
         """
-        Image upload no extension
+        Image upload without extension should raise an error
         """
         img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
                       b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile('image', img.read(), content_type='image/gif'), }
         form = CommentImageForm(user=self.user, data={}, files=files)
-        self.assertTrue(form.is_valid())
-        image = form.save()
-        self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
-        os.remove(os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name))
+        self.assertFalse(form.is_valid())
+
+    def test_comment_image_upload_not_allowed_ext(self):
+        """
+        Image upload with good mime but not allowed extension should raise an error
+        """
+        img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+                      b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {'image': SimpleUploadedFile('image.png', img.read(), content_type='image/png'), }
+        form = CommentImageForm(user=self.user, data={}, files=files)
+        self.assertFalse(form.is_valid())
 
     @override_settings(ST_ALLOWED_UPLOAD_IMAGE_FORMAT=['png', ])
     def test_comment_image_upload_not_allowed_format(self):
         """
-        Image upload, invalid format
+        Image upload without allowed mime but good extension should raise an error
         """
         img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
                       b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
@@ -780,7 +787,7 @@ class CommentFormTest(TestCase):
 
     def test_comment_image_upload_invalid(self):
         """
-        Image upload, bad image
+        Image upload with bad content but good extension should raise an error
         """
         img = BytesIO(b'bad\x00;')
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }

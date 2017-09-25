@@ -127,12 +127,13 @@ class CommentImageForm(forms.Form):
 
     def clean_image(self):
         file = self.cleaned_data['image']
+        ext = os.path.splitext(file.name)[1].lstrip('.')
 
-        if file.image.format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT:
+        if (ext not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT or
+                file.image.format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT):
             raise forms.ValidationError(
-                _("Unsupported file format. Supported formats are %s."
-                  % ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT))
-            )
+                _("Unsupported file format. Supported formats are %s." %
+                  ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT)))
 
         return file
 
