@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 try:
     import magic
 except ImportError as err:
-    logger.exceptioin(err)
+    logger.exception(err)
     magic = None
 
 
