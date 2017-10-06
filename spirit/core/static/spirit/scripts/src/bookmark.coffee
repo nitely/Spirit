@@ -5,9 +5,7 @@
 
 
 class Mark
-    """
-    This is shared among a set of bookmarks
-    """
+    ## This is shared among a set of bookmarks
 
     defaults: {
         csrfToken: "csrf_token",

@@ -9,7 +9,6 @@
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Mark = (function() {
-    "This is shared among a set of bookmarks";
     Mark.prototype.defaults = {
       csrfToken: "csrf_token",
       target: "target url"

@@ -130,4 +130,33 @@ describe "bookmark plugin tests", ->
         bookmark_1.onWaypoint()
         expect(post.calls.any()).toEqual(false)
 
-    # todo: test the fetch().catch()
+    it "sends next after server error", ->
+        post.calls.reset()
+        expect(post.calls.any()).toEqual(false)
+
+        post.and.callFake( -> return {
+            then: (func) -> (
+                # isSending == true, so this should just put it in queue
+                bookmark_2 = bookmarks[bookmarks.length - 1]
+                bookmark_2.onWaypoint()
+                return {
+                    catch: (func) -> (
+                      func({message: 'connection error'})
+                    )
+                }
+            )
+        })
+
+        log = spyOn(console, 'log')
+        log.and.callFake( -> return)
+
+        mark.commentNumber = -1
+        bookmark_1 = bookmarks[0]
+        bookmark_1.onWaypoint()
+        expect(post.calls.count()).toEqual(2)
+        expect(post.calls.argsFor(0)[1].body.get('comment_number')).toEqual('1')
+        expect(post.calls.argsFor(1)[1].body.get('comment_number')).toEqual('2')
+
+        expect(log.calls.count()).toEqual(2)
+        expect(log.calls.argsFor(0)[0]).toEqual('connection error')
+        expect(log.calls.argsFor(1)[0]).toEqual('connection error')

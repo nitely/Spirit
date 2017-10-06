@@ -103,7 +103,7 @@
       expect(post.calls.any()).toEqual(true);
       return expect(mark.isSending).toEqual(false);
     });
-    return it("sends current comment number after sending previous when current > previous", function() {
+    it("sends current comment number after sending previous when current > previous", function() {
       var bookmark_1;
       post.calls.reset();
       expect(post.calls.any()).toEqual(false);
@@ -131,6 +131,38 @@
       post.calls.reset();
       bookmark_1.onWaypoint();
       return expect(post.calls.any()).toEqual(false);
+    });
+    return it("sends next after server error", function() {
+      var bookmark_1, log;
+      post.calls.reset();
+      expect(post.calls.any()).toEqual(false);
+      post.and.callFake(function() {
+        return {
+          then: function(func) {
+            var bookmark_2;
+            bookmark_2 = bookmarks[bookmarks.length - 1];
+            bookmark_2.onWaypoint();
+            return {
+              "catch": function(func) {
+                return func({
+                  message: 'connection error'
+                });
+              }
+            };
+          }
+        };
+      });
+      log = spyOn(console, 'log');
+      log.and.callFake(function() {});
+      mark.commentNumber = -1;
+      bookmark_1 = bookmarks[0];
+      bookmark_1.onWaypoint();
+      expect(post.calls.count()).toEqual(2);
+      expect(post.calls.argsFor(0)[1].body.get('comment_number')).toEqual('1');
+      expect(post.calls.argsFor(1)[1].body.get('comment_number')).toEqual('2');
+      expect(log.calls.count()).toEqual(2);
+      expect(log.calls.argsFor(0)[0]).toEqual('connection error');
+      return expect(log.calls.argsFor(1)[0]).toEqual('connection error');
     });
   });
 
