@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-			</div>
+            </div>
         {% endfor %}
 
     </div>
@@ -49,14 +49,11 @@
 
     <script>
 
-	$( document ).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            hljs.initHighlightingOnLoad();
+            stModules.commentDiff(document.querySelectorAll('.comment-text'));
+        });
 
-        hljs.initHighlightingOnLoad();
-
-        $('.comment-text').comment_diff();
-
-	});
-
-	</script>
+    </script>
 
 {% endblock %}
