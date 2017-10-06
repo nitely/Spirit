@@ -1,4 +1,6 @@
-## Installation (Ubuntu 16.04)
+# Installation
+
+## Ubuntu 16.04
 
 ### Install Node.js
 
@@ -19,20 +21,37 @@ $ sudo apt-get update && sudo apt-get install yarn
 
 > On Ubuntu 17 you may want to remove `cmdtest` if you get any error `sudo apt remove cmdtest`
 
-### Install dependencies
+## Fedora 26
+
+### Install Node.js
+
+```
+$ sudo dnf install -y gcc-c++ make
+$ curl -sL https://rpm.nodesource.com/setup_6.x | sudo -E bash -
+$ sudo dnf install -y nodejs
+```
+
+### Install yarn (js package manager)
+
+```
+$ sudo wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
+$ sudo dnf install -y yarn
+```
+
+# Install dependencies
 
 ```
 $ cd ./Spirit
 $ yarn
 ```
 
-## Build
+# Build
 
 ```
 $ npm run gulp coffee
 ```
 
-## Test
+# Test
 
 ```
 $ npm run gulp test

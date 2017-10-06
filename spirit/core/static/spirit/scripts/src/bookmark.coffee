@@ -1,16 +1,24 @@
 ###
     A library to tell the server how far you have scrolled down.
-    requires: waypoints
+    requires: modules, waypoints
 ###
-
-$ = jQuery
 
 
 class Mark
+    """
+    This is shared among a set of bookmarks
+    """
 
-    constructor: ->
+    defaults: {
+        csrfToken: "csrf_token",
+        target: "target url"
+    }
+
+    constructor: (options) ->
+        @options = Object.assign({}, @defaults, options)
         @isSending = false
         @commentNumber = @_getCommentNumber()
+        @numberQueued = @commentNumber
 
     _getCommentNumber: ->
         commentNumber = window.location.hash.split("#c")[1]
@@ -24,62 +32,76 @@ class Mark
 
         return commentNumber
 
+    canSend: (number) =>
+        Number.isInteger(number) or console.error('not a number')
+        return number > @commentNumber
+
+    sendMark: (number) =>
+        if not @canSend(number)
+            return
+
+        @numberQueued = number
+
+        if @isSending
+            return
+
+        @isSending = true
+        @commentNumber = number
+
+        form = new FormData()
+        form.append('csrfmiddlewaretoken', @options.csrfToken)
+        form.append('comment_number', String(number))
+        headers = new Headers()
+        headers.append("X-Requested-With", "XMLHttpRequest")
+        fetch(@options.target, {
+            method: "POST",
+            headers: headers,
+            credentials: 'same-origin',
+            body: form
+        })
+        .then((response) =>
+            @isSending = false
+            @sendMark(@numberQueued)
+            response.ok or console.log({
+                status: response.status,
+                statusText: response.statusText
+            })
+        )
+        .catch((error) =>
+            @isSending = false
+            @sendMark(@numberQueued)
+            console.log(error.message)
+        )
+
 
 class Bookmark
 
-    defaults: {
-        csrfToken: "csrf_token",
-        target: "target url"
-    }
-
-    constructor: (el, mark, options) ->
-        @el = $(el)
+    constructor: (el, mark) ->
+        @el = el
         @mark = mark
-        @options = $.extend({}, @defaults, options)
-        @setUp()
+        @number = @_getNumber()
+        @waypoint = new Waypoint({
+            element: @el,
+            handler: @onWaypoint,
+            offset: '100%'
+        })
 
-    setUp: ->
-        @el.waypoint(@onWaypoint, {offset: '100%'})
+    _getNumber: =>
+        number = parseInt(@el.dataset.number, 10)
+        not isNaN(number) or console.error('comment number is NaN')
+        return number
 
     onWaypoint: =>
-        newCommentNumber = @el.data('number')
-
-        if newCommentNumber > @mark.commentNumber
-            @mark.commentNumber = newCommentNumber
-            @sendCommentNumber()
-
+        @mark.sendMark(@number)
         return
 
-    sendCommentNumber: =>
-        if @mark.isSending
-            return
 
-        @mark.isSending = true
-        sentCommentNumber = @mark.commentNumber
+stModules.bookmark = (elms, options) ->
+    mark = new Mark(options)
 
-        $.post(
-            @options.target,
-            {
-                csrfmiddlewaretoken: @options.csrfToken,
-                comment_number: @mark.commentNumber
-            }
-        )
-        .always( =>
-            @mark.isSending = false
+    return Array.from(elms).map((elm) ->
+        return new Bookmark(elm, mark)
+    )
 
-            if @mark.commentNumber > sentCommentNumber
-                @sendCommentNumber()
-        )
-
-
-$.fn.extend
-    bookmark: (options) ->
-        mark = new Mark()
-
-        @each( ->
-            if not $(@).data('plugin_bookmark')
-                $(@).data('plugin_bookmark', new Bookmark(@, mark, options))
-        )
-
-$.fn.bookmark.Bookmark = Bookmark
-$.fn.bookmark.Mark = Mark
+stModules.Bookmark = Bookmark
+stModules.Mark = Mark
