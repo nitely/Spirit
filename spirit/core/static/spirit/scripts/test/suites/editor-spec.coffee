@@ -5,9 +5,9 @@ describe "editor plugin tests", ->
     beforeEach ->
         fixtures = do jasmine.getFixtures
         fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures 'editor.html'
+        loadFixtures('editor.html')
 
-        textarea = $('#id_comment').editor {
+        editor = stModules.editor(document.querySelectorAll('.js-reply'), {
             boldedText: "foo bolded text",
             italicisedText: "foo italicised text",
             listItemText: "foo list item",
@@ -15,99 +15,101 @@ describe "editor plugin tests", ->
             linkUrlText: "foo link url",
             imageText: "foo image text",
             imageUrlText: "foo image url"
-        }
-        editor = textarea.data 'plugin_editor'
-
-    it "doesnt break selector chaining", ->
-        expect(textarea).toEqual $('#id_comment')
-        expect(textarea.length).toEqual 1
+        })[0]
+        textarea = document.querySelector('textarea')
 
     it "adds bold", ->
-        $('.js-box-bold').trigger 'click'
-        expect(textarea.val()).toEqual "**foo bolded text**"
+        document.querySelector('.js-box-bold').click()
+        expect(textarea.value).toEqual("**foo bolded text**")
 
     it "adds italic", ->
-        $('.js-box-italic').trigger 'click'
-        expect(textarea.val()).toEqual "*foo italicised text*"
+        document.querySelector('.js-box-italic').click()
+        expect(textarea.value).toEqual("*foo italicised text*")
 
     it "adds list", ->
-        $('.js-box-list').trigger 'click'
-        expect(textarea.val()).toEqual "\n* foo list item"
+        document.querySelector('.js-box-list').click()
+        expect(textarea.value).toEqual("\n* foo list item")
 
     it "adds url", ->
-        $('.js-box-url').trigger 'click'
-        expect(textarea.val()).toEqual "[foo link text](foo link url)"
+        document.querySelector('.js-box-url').click()
+        expect(textarea.value).toEqual("[foo link text](foo link url)")
 
     it "adds poll", ->
-        $('.js-box-poll').trigger 'click'
+        document.querySelector('.js-box-poll').click()
         expected = "\n\n[poll name=1]\n# Title\n1. Description\n2. Description\n[/poll]\n"
-        expect(textarea.val()).toEqual expected
+        expect(textarea.value).toEqual(expected)
 
         # Increase name
-        $('.js-box-poll').trigger 'click'
-        expect(textarea.val()).toEqual expected + "\n\n[poll name=2]\n# Title\n1. Description\n2. Description\n[/poll]\n"
+        document.querySelector('.js-box-poll').click()
+        expect(textarea.value).toEqual(
+          expected + "\n\n[poll name=2]\n# Title\n1. Description\n2. Description\n[/poll]\n")
 
     it "adds image", ->
-        $('.js-box-image').trigger 'click'
-        expect(textarea.val()).toEqual "![foo image text](foo image url)"
+        document.querySelector('.js-box-image').click()
+        expect(textarea.value).toEqual("![foo image text](foo image url)")
 
     it "adds all", ->
-        $('.js-box-bold').trigger 'click'
-        $('.js-box-italic').trigger 'click'
-        $('.js-box-list').trigger 'click'
-        $('.js-box-url').trigger 'click'
-        $('.js-box-image').trigger 'click'
-        $('.js-box-file').trigger 'click'
-    # expect(textarea.val()).toEqual "![foo image text](foo image url)[foo link text](foo link url)\n* foo list item*foo italicised text***foo bolded text**"
+        document.querySelector('.js-box-bold').click()
+        document.querySelector('.js-box-italic').click()
+        document.querySelector('.js-box-list').click()
+        document.querySelector('.js-box-url').click()
+        document.querySelector('.js-box-image').click()
+        document.querySelector('.js-box-file').click()
+        expect(textarea.value).toEqual(
+            "**foo bolded text***foo italicised text*" +
+            "\n* foo list item[foo link text](foo link url)![foo image text](foo image url)")
 
     it "wraps the selected text, bold", ->
-        textarea.val "birfoobar"
-        textarea.first()[0].selectionStart = 3
-        textarea.first()[0].selectionEnd = 6
+        textarea.value = "birfoobar"
+        textarea.selectionStart = 3
+        textarea.selectionEnd = 6
 
-        $('.js-box-bold').trigger 'click'
-        expect(textarea.val()).toEqual "bir**foo**bar"
+        document.querySelector('.js-box-bold').click()
+        expect(textarea.value).toEqual("bir**foo**bar")
 
     it "wraps the selected text, italic", ->
-        textarea.val "birfoobar"
-        textarea.first()[0].selectionStart = 3
-        textarea.first()[0].selectionEnd = 6
+        textarea.value = "birfoobar"
+        textarea.selectionStart = 3
+        textarea.selectionEnd = 6
 
-        $('.js-box-italic').trigger 'click'
-        expect(textarea.val()).toEqual "bir*foo*bar"
+        document.querySelector('.js-box-italic').click()
+        expect(textarea.value).toEqual("bir*foo*bar")
 
     it "wraps the selected text, list", ->
-        textarea.val "birfoobar"
-        textarea.first()[0].selectionStart = 3
-        textarea.first()[0].selectionEnd = 6
+        textarea.value = "birfoobar"
+        textarea.selectionStart = 3
+        textarea.selectionEnd = 6
 
-        $('.js-box-list').trigger 'click'
-        expect(textarea.val()).toEqual "bir\n* foobar"
+        document.querySelector('.js-box-list').click()
+        expect(textarea.value).toEqual("bir\n* foobar")
 
     it "wraps the selected text, url", ->
-        textarea.val "birfoobar"
-        textarea.first()[0].selectionStart = 3
-        textarea.first()[0].selectionEnd = 6
+        textarea.value = "birfoobar"
+        textarea.selectionStart = 3
+        textarea.selectionEnd = 6
 
-        $('.js-box-url').trigger 'click'
-        expect(textarea.val()).toEqual "bir[foo](foo link url)bar"
+        document.querySelector('.js-box-url').click()
+        expect(textarea.value).toEqual("bir[foo](foo link url)bar")
 
     it "wraps the selected text, image", ->
-        textarea.val "birfoobar"
-        textarea.first()[0].selectionStart = 3
-        textarea.first()[0].selectionEnd = 6
+        textarea.value = "birfoobar"
+        textarea.selectionStart = 3
+        textarea.selectionEnd = 6
 
-        $('.js-box-image').trigger 'click'
-        expect(textarea.val()).toEqual "bir![foo](foo image url)bar"
+        document.querySelector('.js-box-image').click()
+        expect(textarea.value).toEqual("bir![foo](foo image url)bar")
 
     it "shows html preview", ->
-        textarea.val "*foo*"
-        $('.js-box-preview').trigger 'click'
-        expect(textarea.is ":visible").toEqual false
-        expect($(".js-box-preview-content").is ":visible").toEqual true
-        expect($(".js-box-preview-content").html()).toEqual "<p><em>foo</em></p>\n"
+        textarea.value = "*foo*"
+        document.querySelector('.js-box-preview').click()
+        expect(textarea.style.display).toEqual('none')
+        expect(document.querySelector('.js-box-preview-content').style.display).toEqual('block')
+        expect(document.querySelector('.js-box-preview-content').innerHTML).toEqual(
+          "<p><em>foo</em></p>\n")
 
         # clicking again should hide the preview and show the textarea
-        $('.js-box-preview').trigger 'click'
-        expect(textarea.is ":visible").toEqual true
-        expect($(".js-box-preview-content").is ":visible").toEqual false
+        document.querySelector('.js-box-preview').click()
+        expect(textarea.style.display).toEqual('block')
+        expect(document.querySelector('.js-box-preview-content').style.display).toEqual('none')
+
+    # todo: test pointer location
