@@ -1,14 +1,12 @@
 
 /*
     Markdown editor
-    requires: marked.js
+    requires: modules, marked.js
  */
 
 (function() {
-  var $, Editor,
+  var Editor,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-  $ = jQuery;
 
   Editor = (function() {
     Editor.prototype.defaults = {
@@ -24,7 +22,6 @@
     };
 
     function Editor(el, options) {
-      this.replyButton = bind(this.replyButton, this);
       this.togglePreview = bind(this.togglePreview, this);
       this.addPoll = bind(this.addPoll, this);
       this.addImage = bind(this.addImage, this);
@@ -33,102 +30,101 @@
       this.addItalic = bind(this.addItalic, this);
       this.addBold = bind(this.addBold, this);
       this.wrapSelection = bind(this.wrapSelection, this);
-      this.el = $(el);
-      this.options = $.extend({}, this.defaults, options);
+      this.el = el;
+      this.options = Object.assign({}, this.defaults, options);
+      this.textBox = el.querySelector('textarea');
+      this.preview = el.querySelector('.js-box-preview-content');
       this.pollCounter = 1;
+      this.isPreviewOn = false;
       this.setUp();
     }
 
     Editor.prototype.setUp = function() {
-      $('.js-box-bold').on('click', this.addBold);
-      $('.js-box-italic').on('click', this.addItalic);
-      $('.js-box-list').on('click', this.addList);
-      $('.js-box-url').on('click', this.addUrl);
-      $('.js-box-image').on('click', this.addImage);
-      $('.js-box-poll').on('click', this.addPoll);
-      $('.js-box-preview').on('click', this.togglePreview);
-      return $('.js-reply-button').on('click', this.replyButton);
+      this.el.querySelector('.js-box-bold').addEventListener('click', this.addBold);
+      this.el.querySelector('.js-box-italic').addEventListener('click', this.addItalic);
+      this.el.querySelector('.js-box-list').addEventListener('click', this.addList);
+      this.el.querySelector('.js-box-url').addEventListener('click', this.addUrl);
+      this.el.querySelector('.js-box-image').addEventListener('click', this.addImage);
+      this.el.querySelector('.js-box-poll').addEventListener('click', this.addPoll);
+      return this.el.querySelector('.js-box-preview').addEventListener('click', this.togglePreview);
     };
 
     Editor.prototype.wrapSelection = function(preTxt, postTxt, defaultTxt) {
-      var postSelection, preSelection, selection;
-      preSelection = this.el.val().substring(0, this.el[0].selectionStart);
-      selection = this.el.val().substring(this.el[0].selectionStart, this.el[0].selectionEnd);
-      postSelection = this.el.val().substring(this.el[0].selectionEnd);
+      var pointerLocation, postSelection, preSelection, selection;
+      preSelection = this.textBox.value.substring(0, this.textBox.selectionStart);
+      selection = this.textBox.value.substring(this.textBox.selectionStart, this.textBox.selectionEnd);
+      postSelection = this.textBox.value.substring(this.textBox.selectionEnd);
       if (!selection) {
         selection = defaultTxt;
       }
-      return this.el.val(preSelection + preTxt + selection + postTxt + postSelection);
+      this.textBox.value = preSelection + preTxt + selection + postTxt + postSelection;
+      pointerLocation = this.textBox.value.length - postSelection.length;
+      this.textBox.setSelectionRange(pointerLocation, pointerLocation);
+      return this.textBox.focus();
     };
 
-    Editor.prototype.addBold = function() {
+    Editor.prototype.addBold = function(e) {
       this.wrapSelection("**", "**", this.options.boldedText);
-      $('#id_comment').focus();
-      return false;
+      return this.stopClick(e);
     };
 
-    Editor.prototype.addItalic = function() {
+    Editor.prototype.addItalic = function(e) {
       this.wrapSelection("*", "*", this.options.italicisedText);
-      $('#id_comment').focus();
-      return false;
+      return this.stopClick(e);
     };
 
-    Editor.prototype.addList = function() {
+    Editor.prototype.addList = function(e) {
       this.wrapSelection("\n* ", "", this.options.listItemText);
-      $('#id_comment').focus();
-      return false;
+      return this.stopClick(e);
     };
 
-    Editor.prototype.addUrl = function() {
+    Editor.prototype.addUrl = function(e) {
       this.wrapSelection("[", "](" + this.options.linkUrlText + ")", this.options.linkText);
-      $('#id_comment').focus();
-      return false;
+      return this.stopClick(e);
     };
 
-    Editor.prototype.addImage = function() {
+    Editor.prototype.addImage = function(e) {
       this.wrapSelection("![", "](" + this.options.imageUrlText + ")", this.options.imageText);
-      $('#id_comment').focus();
-      return false;
+      return this.stopClick(e);
     };
 
-    Editor.prototype.addPoll = function() {
+    Editor.prototype.addPoll = function(e) {
       var poll;
       poll = ("\n\n[poll name=" + this.pollCounter + "]\n") + ("# " + this.options.pollTitleText + "\n") + ("1. " + this.options.pollChoiceText + "\n") + ("2. " + this.options.pollChoiceText + "\n") + "[/poll]\n";
       this.wrapSelection("", poll, "");
       this.pollCounter++;
-      $('#id_comment').focus();
-      return false;
+      return this.stopClick(e);
     };
 
-    Editor.prototype.togglePreview = function() {
-      var $preview;
-      $preview = $('.js-box-preview-content');
-      this.el.toggle();
-      $preview.toggle();
-      $preview.html(marked(this.el.val()));
-      return false;
+    Editor.prototype.togglePreview = function(e) {
+      if (this.isPreviewOn) {
+        this.isPreviewOn = false;
+        this.textBox.style.display = 'block';
+        this.preview.style.display = 'none';
+      } else {
+        this.isPreviewOn = true;
+        this.textBox.style.display = 'none';
+        this.preview.style.display = 'block';
+        this.preview.innerHTML = marked(this.textBox.value);
+      }
+      return this.stopClick(e);
     };
 
-    Editor.prototype.replyButton = function(e) {
-      this.wrapSelection(" ", " ", $(e.currentTarget).attr("data"));
-      $('#id_comment').focus();
-      return false;
+    Editor.prototype.stopClick = function(e) {
+      e.preventDefault();
+      return e.stopPropagation();
     };
 
     return Editor;
 
   })();
 
-  $.fn.extend({
-    editor: function(options) {
-      return this.each(function() {
-        if (!$(this).data('plugin_editor')) {
-          return $(this).data('plugin_editor', new Editor(this, options));
-        }
-      });
-    }
-  });
+  stModules.editor = function(elms, options) {
+    return Array.from(elms).map(function(elm) {
+      return new Editor(elm, options);
+    });
+  };
 
-  $.fn.editor.Editor = Editor;
+  stModules.Editor = Editor;
 
 }).call(this);

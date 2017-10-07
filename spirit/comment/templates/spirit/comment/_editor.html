@@ -5,7 +5,7 @@
 
 <div class="comment-text js-box-preview-content" style="display:none;"></div>
 <ul class="reply-markdown">
-	<li><a class="js-box-bold" href="#" title="{% trans "Bold" %}"><i class="fa fa-bold"></i></a></li><!--
+    <li><a class="js-box-bold" href="#" title="{% trans "Bold" %}"><i class="fa fa-bold"></i></a></li><!--
  --><li><a class="js-box-italic" href="#" title="{% trans "Italic" %}"><i class="fa fa-italic"></i></a></li><!--
  --><li><a class="js-box-list" href="#" title="{% trans "List" %}"><i class="fa fa-list"></i></a></li><!--
  --><li><a class="js-box-url" href="#" title="{% trans "URL" %}"><i class="fa fa-link"></i></a></li><!--
@@ -18,9 +18,9 @@
 </ul>
 
 <script>
-    $( document ).ready(function() {
+    document.addEventListener('DOMContentLoaded', function() {
 
-        marked.setOptions( {
+        marked.setOptions({
             renderer: new marked.Renderer(),
             gfm: true,
             tables: false,
@@ -29,7 +29,25 @@
             sanitize: true,
             smartLists: false,
             smartypants: false
-        } );
+        });
+
+        (function () {
+            var editorElms = document.querySelectorAll('.js-reply');
+
+            stModules.editor(editorElms, {
+                boldedText: "{% trans "bolded text" %}",
+                italicisedText: "{% trans "italicised text" %}",
+                listItemText: "{% trans "list item" %}",
+                linkText: "{% trans "link text" %}",
+                linkUrlText: "{% trans "link url" %}",
+                imageText: "{% trans "image text" %}",
+                imageUrlText: "{% trans "image url" %}",
+                fileText: "{% trans "file text" %}",
+                fileUrlText: "{% trans "file url" %}",
+                pollTitleText: "{% trans "Title" %}",
+                pollChoiceText: "{% trans "Description" %}"
+            });
+        })();
 
         $( '.js-reply' ).find( 'textarea' )
         {% if st_settings.ST_UPLOAD_IMAGE_ENABLED %}
@@ -48,19 +66,6 @@
                 allowedFileMedia: "{% get_allowed_file_types %}"
             } )
         {% endif %}
-        .editor( {
-			boldedText: "{% trans "bolded text" %}",
-			italicisedText: "{% trans "italicised text" %}",
-			listItemText: "{% trans "list item" %}",
-			linkText: "{% trans "link text" %}",
-			linkUrlText: "{% trans "link url" %}",
-			imageText: "{% trans "image text" %}",
-			imageUrlText: "{% trans "image url" %}",
-            fileText: "{% trans "file text" %}",
-            fileUrlText: "{% trans "file url" %}",
-			pollTitleText: "{% trans "Title" %}",
-			pollChoiceText: "{% trans "Description" %}"
-		} )
         .atwho({
 			at: ':',
 			tpl: "<li data-value=':${name}:'><i class=\"tw tw-${class_name}\"></i> ${name} </li>",
@@ -69,8 +74,8 @@
                 before_save: function(data) {return data},  // Avoid extra work
                 tpl_eval: function(tpl, map) {
                     map.class_name = map.name
-                            .split('_').join('-')
-                            .split('+').join('plus');
+                        .split('_').join('-')
+                        .split('+').join('plus');
 
                     try {
                         return tpl.replace(/\$\{([^\}]*)\}/g, function(tag, key, pos) {
