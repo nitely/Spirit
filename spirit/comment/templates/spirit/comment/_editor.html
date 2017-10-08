@@ -34,6 +34,24 @@
         (function () {
             var editorElms = document.querySelectorAll('.js-reply');
 
+            {% if st_settings.ST_UPLOAD_IMAGE_ENABLED %}
+                stModules.editorImageUpload(editorElms, {
+                    csrfToken: "{{ csrf_token }}",
+                    target: "{% url "spirit:comment:image-upload-ajax" %}",
+                    placeholderText: "{% trans "uploading {name}" %}",
+                    allowedFileMedia: "{% get_allowed_image_types %}"
+                });
+            {% endif %}
+
+            {% if st_settings.ST_UPLOAD_FILE_ENABLED %}
+                stModules.editorFileUpload(editorElms, {
+                    csrfToken: "{{ csrf_token }}",
+                    target: "{% url "spirit:comment:file-upload-ajax" %}",
+                    placeholderText: "{% trans "uploading {name}" %}",
+                    allowedFileMedia: "{% get_allowed_file_types %}"
+                });
+            {% endif %}
+
             stModules.editor(editorElms, {
                 boldedText: "{% trans "bolded text" %}",
                 italicisedText: "{% trans "italicised text" %}",
@@ -50,22 +68,6 @@
         })();
 
         $( '.js-reply' ).find( 'textarea' )
-        {% if st_settings.ST_UPLOAD_IMAGE_ENABLED %}
-            .editor_image_upload( {
-                csrfToken: "{{ csrf_token }}",
-                target: "{% url "spirit:comment:image-upload-ajax" %}",
-                placeholderText: "{% trans "uploading {name}" %}",
-                allowedFileMedia: "{% get_allowed_image_types %}"
-            } )
-        {% endif %}
-        {% if st_settings.ST_UPLOAD_FILE_ENABLED %}
-            .editor_file_upload({
-                csrfToken: "{{ csrf_token }}",
-                target: "{% url "spirit:comment:file-upload-ajax" %}",
-                placeholderText: "{% trans "uploading {name}" %}",
-                allowedFileMedia: "{% get_allowed_file_types %}"
-            } )
-        {% endif %}
         .atwho({
 			at: ':',
 			tpl: "<li data-value=':${name}:'><i class=\"tw tw-${class_name}\"></i> ${name} </li>",

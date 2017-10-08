@@ -3,7 +3,7 @@
     requires: util.js
 ###
 
-$ = jQuery
+utils = stModules.utils
 
 
 class EditorUpload
@@ -21,62 +21,68 @@ class EditorUpload
     }
 
     constructor: (el, options, meta=null) ->
-        @el = $(el)  # Editor box
-        @options = $.extend({}, @defaults, options)
-        @meta = $.extend({}, @_meta, meta or {})
-        @formFile = $("<form/>")
-        @inputFile = $("<input/>", {
-            type: "file",
-            accept: @options.allowedFileMedia}).appendTo(@formFile)
+        @el = el
+        @options = Object.assign({}, @defaults, options)
+        @meta = Object.assign({}, @_meta, meta or {})
+        @textBox = el.querySelector('textarea')
+        @formFile = document.createElement('form')
+        @inputFile = document.createElement('input')
+        @inputFile.type = "file"
+        @inputFile.accept = @options.allowedFileMedia
         @setUp()
 
     setUp: ->
-        if not window.FormData?
-            return
-
-        @inputFile.on('change', @sendFile)
-
-        # TODO: fixme, having multiple editors
-        # in the same page would open several
-        # dialogs on box-image click
-        $boxElm = $(@meta.elm)
-        $boxElm.on('click', @openFileDialog)
-        $boxElm.on('click', @stopClick)
+        @formFile.appendChild(@inputFile)
+        @inputFile.addEventListener('change', @sendFile)
+        @el.querySelector(@meta.elm).addEventListener('click', @openFileDialog)
 
     sendFile: =>
-        file = @inputFile.get(0).files[0]
+        # todo: allow many files
+        file = @inputFile.files[0]
         placeholder = @addPlaceholder(file)
         formData = @buildFormData(file)
 
-        $.ajax({
-            url: @options.target,
-            data: formData,
-            processData: false,
-            contentType: false,
-            type: 'POST'
+        # Reset the input fixes uploading the same image twice
+        @formFile.reset()
+
+        headers = new Headers()
+        headers.append("X-Requested-With", "XMLHttpRequest")
+
+        fetch(@options.target, {
+            method: "POST",
+            headers: headers,
+            credentials: 'same-origin',
+            body: formData
         })
-        .done((data) =>
+        .then((response) =>
+            if response.ok
+                return response.json()  # Promise
+            else
+                throw new Error(
+                  utils.format("error: {status} {message}", {
+                    status: response.status,
+                    message: response.statusText})
+                )
+        )
+        .then((data) =>
             if "url" of data
                 @addFile(data, file, placeholder)
             else
-                @addError(data, placeholder)
+                @addError(data.error, placeholder)
         )
-        .fail((jqxhr, textStatus, error) =>
-            @addStatusError(textStatus, error, placeholder)
-        )
-        .always(() =>
-            # Reset the input after uploading,
-            # fixes uploading the same image twice
-            @formFile.get(0).reset()
+        .catch((error) =>
+            console.log(error.message)
+            @addError(error.message, placeholder)
         )
 
         return
 
     addPlaceholder: (file) =>
-        placeholder = $.format(@meta.tag, {
-            text: $.format(@options.placeholderText, {name: file.name}),
+        placeholder = utils.format(@meta.tag, {
+            text: utils.format(@options.placeholderText, {name: file.name}),
             url: ""})
-        @el.val(@el.val() + placeholder)
+        # todo: add at current pointer position
+        @textBox.value += placeholder
         return placeholder
 
     buildFormData: (file) =>
@@ -86,50 +92,34 @@ class EditorUpload
         return formData
 
     addFile: (data, file, placeholder) =>
-        imageTag = $.format(@meta.tag, {text: file.name, url: data.url})
+        imageTag = utils.format(@meta.tag, {text: file.name, url: data.url})
         @textReplace(placeholder, imageTag)
 
-    addError: (data, placeholder) =>
-        error = JSON.stringify(data)
+    addError: (error, placeholder) =>
         @textReplace(
             placeholder,
-            $.format(@meta.tag, {text: error, url: ""}))
-
-    addStatusError: (textStatus, error, placeholder) =>
-        errorTag = $.format(@meta.tag, {
-            text: $.format("error: {code} {error}", {
-                code: textStatus,
-                error: error}),
-            url: ""})
-        @textReplace(placeholder, errorTag)
+            utils.format(@meta.tag, {text: error, url: ""}))
 
     textReplace: (find, replace) =>
-        @el.val(@el.val().replace(find, replace))
+        @textBox.value = @textBox.value.replace(find, replace)
         return
 
-    openFileDialog: =>
-        @inputFile.trigger('click')
-        return
-
-    stopClick: (e) ->
+    openFileDialog: (e) =>
+        @inputFile.click()
         e.preventDefault()
         e.stopPropagation()
+        # Avoid default editor button-click handler
         e.stopImmediatePropagation()
-        return
 
 
-$.fn.extend
-    editor_file_upload: (options) ->
-        @each( ->
-            if not $(@).data('plugin_editor_file_upload')
-                $(@).data('plugin_editor_file_upload', new EditorUpload(@, options))
-        )
-    editor_image_upload: (options) ->
-        @each( ->
-            if not $(@).data('plugin_editor_image_upload')
-                $(@).data('plugin_editor_image_upload', new EditorUpload(@, options, {
-                    fieldName: "image",
-                    tag: "![{text}]({url})",
-                    elm: ".js-box-image"
-                }))
-        )
+stModules.editorFileUpload = (elms, options) ->
+    return Array.from(elms).map((elm) -> new EditorUpload(elm, options))
+
+stModules.editorImageUpload = (elms, options) ->
+    return Array.from(elms).map((elm) -> new EditorUpload(elm, options, {
+        fieldName: "image",
+        tag: "![{text}]({url})",
+        elm: ".js-box-image"
+    }))
+
+stModules.EditorUpload = EditorUpload

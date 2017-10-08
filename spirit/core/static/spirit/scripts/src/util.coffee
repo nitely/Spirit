@@ -11,3 +11,12 @@ $.extend
             str = str.replace("{#{key}}", String(value))
 
         return str
+
+
+stModules.utils = {
+    format: (str, kwargs) ->
+        for key, value of kwargs
+            str = str.replace("{#{key}}", String(value))
+
+        return str
+}

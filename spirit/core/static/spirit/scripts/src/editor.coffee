@@ -85,11 +85,11 @@ class Editor
     togglePreview: (e) =>
         if @isPreviewOn
             @isPreviewOn = false
-            @textBox.style.display = 'block';
-            @preview.style.display = 'none';
+            @textBox.style.display = 'block'
+            @preview.style.display = 'none'
         else
             @isPreviewOn = true
-            @textBox.style.display = 'none';
+            @textBox.style.display = 'none'
             @preview.style.display = 'block'
             @preview.innerHTML = marked(@textBox.value)
 
