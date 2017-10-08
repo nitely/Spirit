@@ -20,9 +20,9 @@ class EditorUpload
         elm: ".js-box-file"
     }
 
-    constructor: (el, options, meta=null) ->
+    constructor: (el, options=null, meta=null) ->
         @el = el
-        @options = Object.assign({}, @defaults, options)
+        @options = Object.assign({}, @defaults, options or {})
         @meta = Object.assign({}, @_meta, meta or {})
         @textBox = el.querySelector('textarea')
         @formFile = document.createElement('form')
@@ -55,20 +55,19 @@ class EditorUpload
             body: formData
         })
         .then((response) =>
-            if response.ok
-                return response.json()  # Promise
-            else
+            if not response.ok
                 throw new Error(
-                  utils.format("error: {status} {message}", {
-                    status: response.status,
-                    message: response.statusText})
-                )
+                    utils.format("error: {status} {message}", {
+                        status: response.status,
+                        message: response.statusText}))
+
+            return response.json()  # Promise
         )
         .then((data) =>
             if "url" of data
-                @addFile(data, file, placeholder)
+                @addFile(file.name, data.url, placeholder)
             else
-                @addError(data.error, placeholder)
+                @addError(JSON.stringify(data.error), placeholder)
         )
         .catch((error) =>
             console.log(error.message)
@@ -91,8 +90,8 @@ class EditorUpload
         formData.append(@meta.fieldName, file)
         return formData
 
-    addFile: (data, file, placeholder) =>
-        imageTag = utils.format(@meta.tag, {text: file.name, url: data.url})
+    addFile: (name, url, placeholder) =>
+        imageTag = utils.format(@meta.tag, {text: name, url: url})
         @textReplace(placeholder, imageTag)
 
     addError: (error, placeholder) =>
@@ -101,6 +100,7 @@ class EditorUpload
             utils.format(@meta.tag, {text: error, url: ""}))
 
     textReplace: (find, replace) =>
+        # todo: put current pointer position back
         @textBox.value = @textBox.value.replace(find, replace)
         return
 

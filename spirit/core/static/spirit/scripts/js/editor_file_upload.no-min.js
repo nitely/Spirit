@@ -25,6 +25,9 @@
     };
 
     function EditorUpload(el, options, meta) {
+      if (options == null) {
+        options = null;
+      }
       if (meta == null) {
         meta = null;
       }
@@ -36,7 +39,7 @@
       this.addPlaceholder = bind(this.addPlaceholder, this);
       this.sendFile = bind(this.sendFile, this);
       this.el = el;
-      this.options = Object.assign({}, this.defaults, options);
+      this.options = Object.assign({}, this.defaults, options || {});
       this.meta = Object.assign({}, this._meta, meta || {});
       this.textBox = el.querySelector('textarea');
       this.formFile = document.createElement('form');
@@ -67,21 +70,20 @@
         body: formData
       }).then((function(_this) {
         return function(response) {
-          if (response.ok) {
-            return response.json();
-          } else {
+          if (!response.ok) {
             throw new Error(utils.format("error: {status} {message}", {
               status: response.status,
               message: response.statusText
             }));
           }
+          return response.json();
         };
       })(this)).then((function(_this) {
         return function(data) {
           if ("url" in data) {
-            return _this.addFile(data, file, placeholder);
+            return _this.addFile(file.name, data.url, placeholder);
           } else {
-            return _this.addError(data.error, placeholder);
+            return _this.addError(JSON.stringify(data.error), placeholder);
           }
         };
       })(this))["catch"]((function(_this) {
@@ -112,11 +114,11 @@
       return formData;
     };
 
-    EditorUpload.prototype.addFile = function(data, file, placeholder) {
+    EditorUpload.prototype.addFile = function(name, url, placeholder) {
       var imageTag;
       imageTag = utils.format(this.meta.tag, {
-        text: file.name,
-        url: data.url
+        text: name,
+        url: url
       });
       return this.textReplace(placeholder, imageTag);
     };
