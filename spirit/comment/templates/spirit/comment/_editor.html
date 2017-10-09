@@ -65,31 +65,33 @@
                 pollTitleText: "{% trans "Title" %}",
                 pollChoiceText: "{% trans "Description" %}"
             });
-        })();
 
-        $( '.js-reply' ).find( 'textarea' )
-        .atwho({
-			at: ':',
-			tpl: "<li data-value=':${name}:'><i class=\"tw tw-${class_name}\"></i> ${name} </li>",
-			data: $.emoji_list(),
-            callbacks: {
-                before_save: function(data) {return data},  // Avoid extra work
-                tpl_eval: function(tpl, map) {
-                    map.class_name = map.name
+            var editor = new Textcomplete.editors.Textarea(
+                document.querySelector('.js-reply').querySelector('textarea'));
+            var textcomplete = new Textcomplete(editor, {
+                dropdown: {className: 'textcomplete', maxCount: 5}});
+            textcomplete.register([{
+                match: /(^|\s):([a-z0-9+\-\_]*)$/,
+                search: function (term, callback) {
+                    callback(stModules.emojiList.filter(function (emoji) {
+                        return emoji.startsWith(term);
+                    }));
+                },
+                replace: function (value) {
+                    return '$1:' + value + ': ';
+                },
+                template: function (name) {
+                    var clsName = name
                         .split('_').join('-')
                         .split('+').join('plus');
-
-                    try {
-                        return tpl.replace(/\$\{([^\}]*)\}/g, function(tag, key, pos) {
-                            return map[key]
-                        });
-                    } catch (error) {
-                        return "";
-                    }
+                    return "<li><i class=\"tw tw-" + clsName + "\"></i> " + name + "</li>"
                 }
-
-            }
-		});
+            }]);
+            textcomplete.on('rendered', function () {
+                // Auto select first item
+                textcomplete.dropdown.items[0].activate();
+            });
+        })();
 
 	});
 </script>
