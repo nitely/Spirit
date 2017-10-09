@@ -20,7 +20,13 @@
               ok: true
             });
             return {
-              "catch": function(func) {}
+              "catch": function() {
+                return {
+                  then: function(func) {
+                    return func();
+                  }
+                };
+              }
             };
           }
         };
@@ -117,7 +123,13 @@
               ok: true
             });
             return {
-              "catch": function(func) {}
+              "catch": function() {
+                return {
+                  then: function(func) {
+                    return func();
+                  }
+                };
+              }
             };
           }
         };
@@ -138,15 +150,20 @@
       expect(post.calls.any()).toEqual(false);
       post.and.callFake(function() {
         return {
-          then: function(func) {
+          then: function() {
             var bookmark_2;
             bookmark_2 = bookmarks[bookmarks.length - 1];
             bookmark_2.onWaypoint();
             return {
               "catch": function(func) {
-                return func({
+                func({
                   message: 'connection error'
                 });
+                return {
+                  then: function(func) {
+                    return func();
+                  }
+                };
               }
             };
           }

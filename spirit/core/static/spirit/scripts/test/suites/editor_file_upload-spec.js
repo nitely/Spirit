@@ -102,6 +102,7 @@
       return expect(textarea.value).toEqual('foobar[{"foo":"foo error"}]()');
     });
     it("changes the placeholder on upload failure", function() {
+      var log;
       post.calls.reset();
       textarea.value = "foobar";
       post.and.callFake(function() {
@@ -129,9 +130,12 @@
           }
         };
       });
+      log = spyOn(console, 'log');
+      log.and.callFake(function() {});
       triggerFakeUpload('foo.doc');
       expect(post.calls.any()).toEqual(true);
-      return expect(textarea.value).toEqual("foobar[error: 500 foo error]()");
+      expect(textarea.value).toEqual("foobar[error: 500 foo error]()");
+      return expect(log.calls.argsFor(0)[0]).toEqual('error: 500 foo error');
     });
     it("checks for default media file extensions if none are provided", function() {
       return expect(editor.inputFile.accept).toEqual(".doc,.docx,.pdf");

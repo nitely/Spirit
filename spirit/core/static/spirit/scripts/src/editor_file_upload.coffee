@@ -105,11 +105,11 @@ class EditorUpload
         return
 
     openFileDialog: (e) =>
-        @inputFile.click()
         e.preventDefault()
         e.stopPropagation()
         # Avoid default editor button-click handler
         e.stopImmediatePropagation()
+        @inputFile.click()
 
 
 stModules.editorFileUpload = (elms, options) ->

@@ -34,6 +34,8 @@
 
     Like.prototype.sendLike = function(e) {
       var formData, headers;
+      e.preventDefault();
+      e.stopPropagation();
       if (this.isSending) {
         return;
       }
@@ -42,7 +44,7 @@
       formData.append('csrfmiddlewaretoken', this.options.csrfToken);
       headers = new Headers();
       headers.append("X-Requested-With", "XMLHttpRequest");
-      fetch(this.el.href, {
+      fetch(this.el.getAttribute('href'), {
         method: "POST",
         headers: headers,
         credentials: 'same-origin',
@@ -60,9 +62,9 @@
       })(this)).then((function(_this) {
         return function(data) {
           if (data.url_delete) {
-            return _this.addLike(data);
+            return _this.addLike(data.url_delete);
           } else if (data.url_create) {
-            return _this.removeLike(data);
+            return _this.removeLike(data.url_create);
           } else {
             return _this.apiError();
           }
@@ -77,20 +79,18 @@
           return _this.isSending = false;
         };
       })(this));
-      e.preventDefault();
-      e.stopPropagation();
     };
 
-    Like.prototype.addLike = function(data) {
-      this.el.href = data.url_delete;
+    Like.prototype.addLike = function(urlDelete) {
+      this.el.setAttribute('href', urlDelete);
       this.el.dataset.count = String(parseInt(this.el.dataset.count, 10) + 1);
       return this.el.innerHTML = utils.format(this.options.removeLikeText, {
         count: this.el.dataset.count
       });
     };
 
-    Like.prototype.removeLike = function(data) {
-      this.el.href = data.url_create;
+    Like.prototype.removeLike = function(urlCreate) {
+      this.el.setAttribute('href', urlCreate);
       this.el.dataset.count = String(parseInt(this.el.dataset.count, 10) - 1);
       return this.el.innerHTML = utils.format(this.options.likeText, {
         count: this.el.dataset.count
@@ -98,7 +98,7 @@
     };
 
     Like.prototype.apiError = function() {
-      return this.el.text("api error");
+      return this.el.innerText = "api error";
     };
 
     return Like;

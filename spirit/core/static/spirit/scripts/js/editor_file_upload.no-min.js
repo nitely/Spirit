@@ -135,10 +135,10 @@
     };
 
     EditorUpload.prototype.openFileDialog = function(e) {
-      this.inputFile.click();
       e.preventDefault();
       e.stopPropagation();
-      return e.stopImmediatePropagation();
+      e.stopImmediatePropagation();
+      return this.inputFile.click();
     };
 
     return EditorUpload;

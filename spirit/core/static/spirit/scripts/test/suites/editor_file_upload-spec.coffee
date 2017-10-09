@@ -91,10 +91,13 @@ describe "editor file upload plugin tests", ->
                         }
                     }
         })
+        log = spyOn(console, 'log')
+        log.and.callFake( -> )
 
         triggerFakeUpload('foo.doc')
         expect(post.calls.any()).toEqual(true)
         expect(textarea.value).toEqual("foobar[error: 500 foo error]()")
+        expect(log.calls.argsFor(0)[0]).toEqual('error: 500 foo error')
 
     it "checks for default media file extensions if none are provided", ->
         expect(editor.inputFile.accept).toEqual(".doc,.docx,.pdf")

@@ -13,13 +13,12 @@ describe "bookmark plugin tests", ->
 
         # Promise is async, so must callFake a sync thing
         post = spyOn(window, 'fetch')
-        post.and.callFake( -> return {
-            then: (func) -> (
+        post.and.callFake( -> {
+            then: (func) ->
                 func({ok: true})
                 return {
-                    catch: (func) -> return
+                    catch: -> {then: (func) -> func()}
                 }
-            )
         })
 
         comments = document.querySelectorAll('.comment')
@@ -106,16 +105,15 @@ describe "bookmark plugin tests", ->
         post.calls.reset()
         expect(post.calls.any()).toEqual(false)
 
-        post.and.callFake( -> return {
-            then: (func) -> (
+        post.and.callFake( -> {
+            then: (func) ->
                 # isSending == true, so this should just put it in queue
                 bookmark_2 = bookmarks[bookmarks.length - 1]
                 bookmark_2.onWaypoint()
                 func({ok: true})
                 return {
-                    catch: (func) -> return
+                    catch: -> {then: (func) -> func()}
                 }
-            )
         })
 
         mark.commentNumber = -1
@@ -134,21 +132,20 @@ describe "bookmark plugin tests", ->
         post.calls.reset()
         expect(post.calls.any()).toEqual(false)
 
-        post.and.callFake( -> return {
-            then: (func) -> (
+        post.and.callFake( -> {
+            then: ->
                 # isSending == true, so this should just put it in queue
                 bookmark_2 = bookmarks[bookmarks.length - 1]
                 bookmark_2.onWaypoint()
                 return {
-                    catch: (func) -> (
+                    catch: (func) ->
                       func({message: 'connection error'})
-                    )
+                      return {then: (func) -> func()}
                 }
-            )
         })
 
         log = spyOn(console, 'log')
-        log.and.callFake( -> return)
+        log.and.callFake( -> )
 
         mark.commentNumber = -1
         bookmark_1 = bookmarks[0]

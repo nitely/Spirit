@@ -24,6 +24,9 @@ class Like
         @el.addEventListener('click', @sendLike)
 
     sendLike: (e) =>
+        e.preventDefault()
+        e.stopPropagation()
+
         if @isSending
             return
 
@@ -34,7 +37,7 @@ class Like
         headers = new Headers()
         headers.append("X-Requested-With", "XMLHttpRequest")
 
-        fetch(@el.href, {
+        fetch(@el.getAttribute('href'), {
             method: "POST",
             headers: headers,
             credentials: 'same-origin',
@@ -51,9 +54,9 @@ class Like
         )
         .then((data) =>
             if data.url_delete
-                @addLike(data)
+                @addLike(data.url_delete)
             else if data.url_create
-                @removeLike(data)
+                @removeLike(data.url_create)
             else
                 @apiError()
         )
@@ -65,22 +68,20 @@ class Like
             @isSending = false
         )
 
-        e.preventDefault()
-        e.stopPropagation()
         return
 
-    addLike: (data) =>
-        @el.href = data.url_delete
+    addLike: (urlDelete) =>
+        @el.setAttribute('href', urlDelete)
         @el.dataset.count = String(parseInt(@el.dataset.count, 10) + 1)
         @el.innerHTML = utils.format(@options.removeLikeText, {count: @el.dataset.count})
 
-    removeLike: (data) =>
-        @el.href = data.url_create
+    removeLike: (urlCreate) =>
+        @el.setAttribute('href', urlCreate)
         @el.dataset.count = String(parseInt(@el.dataset.count, 10) - 1)
         @el.innerHTML = utils.format(@options.likeText, {count: @el.dataset.count})
 
     apiError: =>
-        @el.text("api error")
+        @el.innerText = "api error"
 
 
 stModules.like = (elms, options) ->
