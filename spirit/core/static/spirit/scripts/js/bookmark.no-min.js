@@ -63,8 +63,6 @@
         body: form
       }).then((function(_this) {
         return function(response) {
-          _this.isSending = false;
-          _this.sendMark(_this.numberQueued);
           return response.ok || console.log({
             status: response.status,
             statusText: response.statusText
@@ -72,9 +70,12 @@
         };
       })(this))["catch"]((function(_this) {
         return function(error) {
-          _this.isSending = false;
-          _this.sendMark(_this.numberQueued);
           return console.log(error.message);
+        };
+      })(this)).then((function(_this) {
+        return function() {
+          _this.isSending = false;
+          return _this.sendMark(_this.numberQueued);
         };
       })(this));
     };

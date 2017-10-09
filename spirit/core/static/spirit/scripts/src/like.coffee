@@ -3,6 +3,8 @@
     requires: modules, util.js
 ###
 
+utils = stModules.utils
+
 
 class Like
 
@@ -69,13 +71,13 @@ class Like
 
     addLike: (data) =>
         @el.href = data.url_delete
-        @el.dataset.count += 1
-        @el.innerHTML = $.format(@options.removeLikeText, {count: @el.dataset.count})
+        @el.dataset.count = String(parseInt(@el.dataset.count, 10) + 1)
+        @el.innerHTML = utils.format(@options.removeLikeText, {count: @el.dataset.count})
 
     removeLike: (data) =>
         @el.href = data.url_create
-        @el.dataset.count -= 1
-        @el.innerHTML = $.format(@options.likeText, {count: @el.dataset.count})
+        @el.dataset.count = String(parseInt(@el.dataset.count, 10) - 1)
+        @el.innerHTML = utils.format(@options.likeText, {count: @el.dataset.count})
 
     apiError: =>
         @el.text("api error")

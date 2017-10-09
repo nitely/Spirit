@@ -135,8 +135,8 @@
         {% if user.is_authenticated %}
             stModules.like(document.querySelectorAll('.js-like'), {
                 csrfToken: "{{ csrf_token }}",
-                likeText: "{% trans "like" %} ({count})",
-                removeLikeText: '{% trans "remove like" %} ({count})'
+                likeText: "<span class=\"fa fa-heart\"></span> " + "{% trans "like" %} ({count})",
+                removeLikeText: "<span class=\"fa fa-heart\"></span> " + "{% trans "remove like" %} ({count})"
             });
         {% endif %}
 
