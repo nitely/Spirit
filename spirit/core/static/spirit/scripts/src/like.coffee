@@ -1,9 +1,7 @@
 ###
     Post likes via Ajax
-    requires: util.js
+    requires: modules, util.js
 ###
-
-$ = jQuery
 
 
 class Like
@@ -15,24 +13,41 @@ class Like
     }
 
     constructor: (el, options) ->
-        @el = $(el)
-        @options = $.extend({}, @defaults, options)
+        @el = el
+        @options = Object.assign({}, @defaults, options)
         @isSending = false
         @setUp()
 
     setUp: ->
-        @el.on('click', @sendLike)
-        @el.on('click', @stopClick)
+        @el.addEventListener('click', @sendLike)
 
-    sendLike: =>
+    sendLike: (e) =>
         if @isSending
             return
 
         @isSending = true
 
-        post = $.post(@el.attr('href'), {csrfmiddlewaretoken: @options.csrfToken})
+        formData = new FormData()
+        formData.append('csrfmiddlewaretoken', @options.csrfToken)
+        headers = new Headers()
+        headers.append("X-Requested-With", "XMLHttpRequest")
 
-        post.done((data) =>
+        fetch(@el.href, {
+            method: "POST",
+            headers: headers,
+            credentials: 'same-origin',
+            body: formData
+        })
+        .then((response) =>
+            if not response.ok
+                throw new Error(
+                    utils.format("error: {status} {message}", {
+                        status: response.status,
+                        message: response.statusText}))
+
+            return response.json()  # Promise
+        )
+        .then((data) =>
             if data.url_delete
                 @addLike(data)
             else if data.url_create
@@ -40,43 +55,33 @@ class Like
             else
                 @apiError()
         )
-
-        post.always( =>
+        .catch((error) =>
+            console.log(error.message)
+            @apiError()
+        )
+        .then( =>
             @isSending = false
         )
 
-        return
-
-    addLike: (data) =>
-        @el.attr('href', data.url_delete)
-        count = @el.data('count')
-        count += 1
-        @el.data('count', count)
-        removeLikeText = $.format(@options.removeLikeText, {count: count})
-        @el.text(removeLikeText)
-
-    removeLike: (data) =>
-        @el.attr('href', data.url_create)
-        count = @el.data('count')
-        count -= 1
-        @el.data('count', count)
-        likeText = $.format(@options.likeText, {count: count})
-        @el.text(likeText)
-
-    apiError: =>
-        @el.text("api error")
-
-    stopClick: (e) ->
         e.preventDefault()
         e.stopPropagation()
         return
 
+    addLike: (data) =>
+        @el.href = data.url_delete
+        @el.dataset.count += 1
+        @el.innerHTML = $.format(@options.removeLikeText, {count: @el.dataset.count})
 
-$.fn.extend
-    like: (options) ->
-        @each( ->
-            if not $(@).data('plugin_like')
-                $(@).data('plugin_like', new Like(@, options))
-        )
+    removeLike: (data) =>
+        @el.href = data.url_create
+        @el.dataset.count -= 1
+        @el.innerHTML = $.format(@options.likeText, {count: @el.dataset.count})
 
-$.fn.like.Like = Like
+    apiError: =>
+        @el.text("api error")
+
+
+stModules.like = (elms, options) ->
+    return Array.from(elms).map((elm) -> new Like(elm, options))
+
+stModules.Like = Like

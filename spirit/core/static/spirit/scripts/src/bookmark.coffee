@@ -58,17 +58,17 @@ class Mark
             body: form
         })
         .then((response) =>
-            @isSending = false
-            @sendMark(@numberQueued)
             response.ok or console.log({
                 status: response.status,
                 statusText: response.statusText
             })
         )
         .catch((error) =>
+            console.log(error.message)
+        )
+        .then( =>
             @isSending = false
             @sendMark(@numberQueued)
-            console.log(error.message)
         )
 
 
