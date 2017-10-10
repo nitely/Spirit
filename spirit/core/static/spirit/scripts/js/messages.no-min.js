@@ -5,8 +5,10 @@
  */
 
 (function() {
-  var Messages, hasHash,
+  var Messages, hasHash, utils,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+  utils = stModules.utils;
 
   hasHash = function() {
     var hash;
@@ -61,9 +63,7 @@
     };
 
     Messages.prototype.hasVisibleMessages = function() {
-      return Array.from(this.el.querySelectorAll('.js-messages-set')).filter(function(elm) {
-        return elm.style.display !== 'none';
-      }).length > 0;
+      return !utils.isHidden(this.el.querySelectorAll('.js-messages-set'));
     };
 
     return Messages;

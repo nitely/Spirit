@@ -27,6 +27,11 @@
         str = str.replace("{" + key + "}", String(value));
       }
       return str;
+    },
+    isHidden: function(elms) {
+      return Array.from(elms).filter(function(elm) {
+        return elm.style.display !== 'none';
+      }).length === 0;
     }
   };
 

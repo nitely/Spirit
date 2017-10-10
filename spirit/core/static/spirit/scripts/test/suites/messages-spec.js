@@ -1,11 +1,7 @@
 (function() {
   describe("messages plugin tests", function() {
     var isHidden;
-    isHidden = function(elms) {
-      return Array.from(elms).filter(function(elm) {
-        return elm.style.display !== 'none';
-      }).length === 0;
-    };
+    isHidden = stModules.utils.isHidden;
     beforeEach(function() {
       var fixtures;
       fixtures = jasmine.getFixtures();

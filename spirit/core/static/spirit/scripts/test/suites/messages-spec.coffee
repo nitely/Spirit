@@ -1,7 +1,6 @@
 describe "messages plugin tests", ->
 
-    isHidden = (elms) ->
-        return Array.from(elms).filter((elm) -> elm.style.display != 'none').length == 0
+    isHidden = stModules.utils.isHidden
 
     beforeEach ->
         fixtures = jasmine.getFixtures()

@@ -49,8 +49,10 @@ class Mark
         form = new FormData()
         form.append('csrfmiddlewaretoken', @options.csrfToken)
         form.append('comment_number', String(number))
+
         headers = new Headers()
         headers.append("X-Requested-With", "XMLHttpRequest")
+
         fetch(@options.target, {
             method: "POST",
             headers: headers,

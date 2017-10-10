@@ -19,4 +19,6 @@ stModules.utils = {
             str = str.replace("{#{key}}", String(value))
 
         return str
+    isHidden: (elms) ->
+        return Array.from(elms).filter((elm) -> elm.style.display != 'none').length == 0
 }

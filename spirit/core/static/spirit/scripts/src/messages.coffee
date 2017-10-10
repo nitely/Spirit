@@ -3,6 +3,9 @@
     top of the window when the url contains a hash
 ###
 
+utils = stModules.utils
+
+
 hasHash = ->
     hash = window.location.hash.split("#")[1]
     return hash? and hash.length > 0
@@ -49,10 +52,8 @@ class Messages
 
         return
 
-    hasVisibleMessages: () =>
-        return Array.from(@el.querySelectorAll('.js-messages-set')).filter((elm) ->
-            return elm.style.display != 'none'
-        ).length > 0
+    hasVisibleMessages: =>
+        return not utils.isHidden(@el.querySelectorAll('.js-messages-set'))
 
 
 stModules.messages = (elms) ->
