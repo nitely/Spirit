@@ -24,7 +24,12 @@ logger = logging.getLogger(__name__)
 try:
     import magic
 except ImportError as err:
-    logger.exception(err)
+    # There used to be a logger.exception here but
+    # the traceback made things confusing when an unhandled was raised
+    logger.warning(
+        'Can\'t load python-magic. '
+        'Is libmagic installed?')
+    logger.error(err)
     magic = None
 
 
