@@ -31,6 +31,7 @@
       e.preventDefault();
       e.stopPropagation();
       formElm = document.createElement('form');
+      formElm.className = 'js-move-comment-form';
       formElm.action = this.options.target;
       formElm.method = 'POST';
       formElm.style.display = 'none';
@@ -56,7 +57,7 @@
     };
 
     MoveCommentBox.prototype.show = function() {
-      this.el.style.display === 'block';
+      this.el.style.display = 'block';
     };
 
     return MoveCommentBox;

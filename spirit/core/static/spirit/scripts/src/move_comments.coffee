@@ -23,6 +23,7 @@ class MoveCommentBox
         e.stopPropagation()
 
         formElm = document.createElement('form')
+        formElm.className = 'js-move-comment-form'
         formElm.action = @options.target
         formElm.method = 'POST'
         formElm.style.display = 'none'
@@ -52,7 +53,7 @@ class MoveCommentBox
         return @el.style.display == 'none'
 
     show: =>
-        @el.style.display == 'block'
+        @el.style.display = 'block'
         return
 
 
