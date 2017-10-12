@@ -81,4 +81,6 @@
 
   $.tab.Tab = Tab;
 
+  stModules.Tab = Tab;
+
 }).call(this);

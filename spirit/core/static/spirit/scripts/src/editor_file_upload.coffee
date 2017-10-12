@@ -56,10 +56,7 @@ class EditorUpload
         })
         .then((response) =>
             if not response.ok
-                throw new Error(
-                    utils.format("error: {status} {message}", {
-                        status: response.status,
-                        message: response.statusText}))
+                throw new Error("error: #{response.status} #{response.statusText}")
 
             return response.json()  # Promise
         )

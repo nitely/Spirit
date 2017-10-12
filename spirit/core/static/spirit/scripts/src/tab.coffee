@@ -58,3 +58,4 @@ $.extend
         )
 
 $.tab.Tab = Tab
+stModules.Tab = Tab

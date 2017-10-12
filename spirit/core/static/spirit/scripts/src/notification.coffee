@@ -3,7 +3,10 @@
     requires: util.js, tab.js
 ###
 
-$ = jQuery
+utils = stModules.utils
+Tab = stModules.Tab
+
+# todo: short-polling (with back-off) and fetch notifications every time
 
 
 class Notification
@@ -19,78 +22,107 @@ class Notification
     }
 
     constructor: (el, options) ->
-        @el = $(el)
-        @options = $.extend({}, @defaults, options)
-        @tabNotificationContent = $(@el.data("related"))
+        @el = el
+        @options = Object.assign({}, @defaults, options)
+        @contentElm = document.querySelector(el.dataset.related)
         @setUp()
 
     setUp: ->
-# on first click
-        @el.one('click', @tabSwitch)
-        @el.one('click', @stopClick)
+        @el.addEventListener('click', @tabSwitch)
 
-    tabSwitch: =>
-        get = $.getJSON(@options.notificationUrl)
+    tabSwitch: (e) =>
+        e.preventDefault()
+        e.stopPropagation()
 
-        get.done((data, status, jqXHR) =>
+        # Detach the event so notification are fetched just once,
+        # following clicks will show the cached notifications
+        @el.removeEventListener('click', @tabSwitch)
+
+        headers = new Headers()
+        headers.append("X-Requested-With", "XMLHttpRequest")
+
+        fetch(@options.notificationUrl, {
+            method: "GET",
+            headers: headers,
+            credentials: 'same-origin'
+        })
+        .then((response) =>
+            if not response.ok
+                throw new Error("error: #{response.status} #{response.statusText}")
+
+            return response.json()  # Promise
+        )
+        .then((data) =>
             if data.n.length > 0
-                @addNotifications(data)
+                @addNotifications(data.n)
+                @addShowMoreLink()
             else
                 @addIsEmptyTxt()
         )
-
-        get.fail((jqxhr, textStatus, error) =>
-            @addErrorTxt(textStatus, error)
+        .catch((error) =>
+            console.log(error.message)
+            @addErrorTxt(error.message)
         )
-
-        get.always( =>
+        .then( =>
             @ajaxDone()
         )
 
         return
 
-    addNotifications: (data) =>
-        unread = "<span class=\"row-unread\">#{@options.unread}</span>"
-
-        $.each(data.n, (i, obj) =>
-            if obj.action is 1
+    addNotifications: (notifications) =>
+        notifications.forEach((n) =>
+            # todo: actions should be pass in options as an object map
+            if n.action is 1
                 txt = @options.mentionTxt
             else
                 txt = @options.commentTxt
 
-            if not obj.is_read
-                txt = "#{txt} #{unread}"
+            linkElm = document.createElement('a')
+            linkElm.setAttribute('href', n.url)
+            linkElm.textContent = n.title  # Untrusted
 
-            link = "<a href=\"#{obj.url}\">#{obj.title}</a>"
-            txt = $.format(txt, {user: obj.user, topic: link})
-            @tabNotificationContent.append("<div>#{txt}</div>")
+            txtElm = document.createElement('div')
+            txtElm.innerHTML = utils.format(txt, {user: n.user, topic: linkElm.outerHTML})
+
+            if not n.is_read
+                unreadElm = document.createElement('span')
+                unreadElm.className = 'row-unread'
+                unreadElm.innerHTML = @options.unread
+
+                txtElm.innerHTML += " "
+                txtElm.appendChild(unreadElm)
+
+            @contentElm.appendChild(txtElm)
+            return
         )
 
-        showAllLink = "<a href=\"#{@options.notificationListUrl}\">#{@options.showAll}</a>"
-        @tabNotificationContent.append("<div>#{showAllLink}</div>")
+    addShowMoreLink: =>
+        showAllContainerElm = document.createElement('div')
+
+        showAllLinkElm = document.createElement('a')
+        showAllLinkElm.setAttribute('href', @options.notificationListUrl)
+        showAllLinkElm.innerHTML = @options.showAll
+        showAllContainerElm.appendChild(showAllLinkElm)
+
+        @contentElm.appendChild(showAllContainerElm)
 
     addIsEmptyTxt: =>
-        @tabNotificationContent.append("<div>#{@options.empty}</div>")
+        emptyElm = document.createElement('div')
+        emptyElm.innerHTML = @options.empty
+        @contentElm.appendChild(emptyElm)
 
-    addErrorTxt: (textStatus, error) =>
-        @tabNotificationContent.append("<div>Error: #{textStatus}, #{error}</div>")
+    addErrorTxt: (message) =>
+        ErrorElm = document.createElement('div')
+        ErrorElm.textContent = message
+        @contentElm.appendChild(ErrorElm)
 
     ajaxDone: =>
-        @el.addClass("js-tab")
-        $.tab()
-        @el.trigger('click')
-
-    stopClick: (e) ->
-        e.preventDefault()
-        e.stopPropagation()
-        return
+        @el.classList.add('js-tab')
+        new Tab(@el)
+        @el.click()
 
 
-$.extend
-    notification: (options) ->
-        $('.js-tab-notification').each( ->
-            if not $(@).data('plugin_notification')
-                $(@).data('plugin_notification', new Notification(@, options))
-        )
+stModules.notification = (elms, options) ->
+    return Array.from(elms).map((elm) -> new Notification(elm, options))
 
-$.notification.Notification = Notification
+stModules.Notification = Notification

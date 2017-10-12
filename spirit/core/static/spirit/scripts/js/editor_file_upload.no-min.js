@@ -71,10 +71,7 @@
       }).then((function(_this) {
         return function(response) {
           if (!response.ok) {
-            throw new Error(utils.format("error: {status} {message}", {
-              status: response.status,
-              message: response.statusText
-            }));
+            throw new Error("error: " + response.status + " " + response.statusText);
           }
           return response.json();
         };

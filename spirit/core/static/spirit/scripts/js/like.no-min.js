@@ -52,10 +52,7 @@
       }).then((function(_this) {
         return function(response) {
           if (!response.ok) {
-            throw new Error(utils.format("error: {status} {message}", {
-              status: response.status,
-              message: response.statusText
-            }));
+            throw new Error("error: " + response.status + " " + response.statusText);
           }
           return response.json();
         };
@@ -98,7 +95,7 @@
     };
 
     Like.prototype.apiError = function() {
-      return this.el.innerText = "api error";
+      return this.el.textContent = "api error";
     };
 
     return Like;

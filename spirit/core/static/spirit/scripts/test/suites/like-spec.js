@@ -62,28 +62,28 @@
       };
       likeElms[0].click();
       expect(post.calls.argsFor(0)[0]).toEqual('/foo/create/');
-      expect(likeElms[0].innerText).toEqual("foo remove like (1)");
+      expect(likeElms[0].textContent).toEqual("foo remove like (1)");
       post.calls.reset();
       responseData = {
         url_create: "/foo/create/"
       };
       likeElms[0].click();
       expect(post.calls.argsFor(0)[0]).toEqual('/foo/delete/');
-      expect(likeElms[0].innerText).toEqual("foo like (0)");
+      expect(likeElms[0].textContent).toEqual("foo like (0)");
       post.calls.reset();
       responseData = {
         url_delete: "/foo/delete/"
       };
       likeElms[0].click();
       expect(post.calls.argsFor(0)[0]).toEqual('/foo/create/');
-      return expect(likeElms[0].innerText).toEqual("foo remove like (1)");
+      return expect(likeElms[0].textContent).toEqual("foo remove like (1)");
     });
     it("will tell about an api change", function() {
       responseData = {
         unknown: null
       };
       likeElms[0].click();
-      return expect(likeElms[0].innerText).toEqual("api error");
+      return expect(likeElms[0].textContent).toEqual("api error");
     });
     it("prevents from multiple posts while sending", function() {
       post.and.callFake(function() {

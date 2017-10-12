@@ -45,10 +45,7 @@ class Like
         })
         .then((response) =>
             if not response.ok
-                throw new Error(
-                    utils.format("error: {status} {message}", {
-                        status: response.status,
-                        message: response.statusText}))
+                throw new Error("error: #{response.status} #{response.statusText}")
 
             return response.json()  # Promise
         )
@@ -81,7 +78,7 @@ class Like
         @el.innerHTML = utils.format(@options.likeText, {count: @el.dataset.count})
 
     apiError: =>
-        @el.innerText = "api error"
+        @el.textContent = "api error"
 
 
 stModules.like = (elms, options) ->
