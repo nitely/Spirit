@@ -142,13 +142,6 @@
       expect(get.calls.count()).toEqual(1);
       return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>error: 500 server error</div>');
     });
-    it("shows tab content and is selected on click", function() {
-      expect(tab.classList.contains("is-selected")).toEqual(false);
-      expect(isHidden(document.querySelectorAll('.js-notifications-content'))).toEqual(true);
-      tab.click();
-      expect(tab.classList.contains("is-selected")).toEqual(true);
-      return expect(isHidden(document.querySelectorAll('.js-notifications-content'))).toEqual(false);
-    });
     return it("prevents the default click behaviour", function() {
       var evt, preventDefault, stopPropagation;
       evt = document.createEvent("HTMLEvents");

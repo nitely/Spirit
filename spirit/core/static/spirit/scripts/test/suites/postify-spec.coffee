@@ -1,36 +1,46 @@
 describe "postify plugin tests", ->
     a_post = null
     plugin_postify = null
-    Postify = null
+
+    isHidden = stModules.utils.isHidden
 
     beforeEach ->
-        fixtures = do jasmine.getFixtures
+        fixtures = jasmine.getFixtures()
         fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures 'postify.html'
+        loadFixtures('postify.html')
 
-        a_post = $('a.js-post').postify {csrfToken: "foobar", }
-        plugin_postify = a_post.first().data 'plugin_postify'
-        Postify = $.fn.postify.Postify
+        a_post = document.querySelectorAll('.js-post')
+        plugin_postify = stModules.postify(a_post, {
+            csrfToken: "foobar"
+        })
 
-    it "doesnt break selector chaining", ->
-        expect(a_post).toEqual $('.js-post')
-        expect(a_post.length).toEqual 2
+    afterEach ->
+        Array.from(document.querySelectorAll('.js-postify-form')).forEach((elm) ->
+            elm.parentNode.removeChild(elm)
+        )
 
     it "prevents the default click behaviour on click", ->
-        event = {type: 'click', stopPropagation: (->), preventDefault: (->)}
-        stopPropagation = spyOn event, 'stopPropagation'
-        preventDefault = spyOn event, 'preventDefault'
+        evt = document.createEvent("HTMLEvents")
+        evt.initEvent("click", false, true)
+        stopPropagation = spyOn(evt, 'stopPropagation')
+        preventDefault = spyOn(evt, 'preventDefault')
 
-        spyOn plugin_postify, 'formSubmit'
-        $(".js-post").first().trigger event
+        submit = spyOn(window.HTMLFormElement.prototype, 'submit')
+        submit.and.callFake( -> )
+
+        a_post[0].dispatchEvent(evt)
+        expect(submit.calls.count()).toEqual(1)
         expect(stopPropagation).toHaveBeenCalled()
         expect(preventDefault).toHaveBeenCalled()
 
     it "submits the form", ->
-        formSubmit = spyOn plugin_postify, 'formSubmit'
+        submit = spyOn(window.HTMLFormElement.prototype, 'submit')
+        submit.and.callFake( -> )
 
-        $('.js-post').first().trigger 'click'
-        expect(formSubmit).toHaveBeenCalled()
-        expect($("form").last().attr('action')).toEqual "/link1/"
-        expect($("form").last().is ":visible").toEqual false
-        expect($("input[name=csrfmiddlewaretoken]").val()).toEqual "foobar"
+        a_post[0].click()
+        form = document.querySelector('.js-postify-form')
+
+        expect(submit.calls.count()).toEqual(1)
+        expect(form.getAttribute('action')).toEqual("/link1/")
+        expect(isHidden([form])).toEqual(true)
+        expect(document.querySelector('input[name=csrfmiddlewaretoken]').value).toEqual("foobar")

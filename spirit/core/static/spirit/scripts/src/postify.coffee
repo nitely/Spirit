@@ -2,8 +2,6 @@
     Make post on anchor click
 ###
 
-$ = jQuery
-
 
 class Postify
 
@@ -12,46 +10,35 @@ class Postify
     }
 
     constructor: (el, options) ->
-        @el = $(el)
-        @options = $.extend({}, @defaults, options)
+        @el = el
+        @options = Object.assign({}, @defaults, options)
         @setUp()
 
     setUp: ->
-        @el.on('click', @makePost)
-        @el.on('click', @stopClick)
+        @el.addEventListener('click', @makePost)
 
-    makePost: =>
-        $form = $("<form/>", {
-            action: @el.attr('href'),
-            method: "post"
-        }).hide()
-          .appendTo($('body'))
-
-        # inputCsrfToken
-        $("<input/>", {
-            name: "csrfmiddlewaretoken",
-            type: "hidden",
-            value: @options.csrfToken
-        }).appendTo($form)
-
-        @formSubmit($form)
-
-        return
-
-    formSubmit: ($form) ->
-        $form.submit()
-
-    stopClick: (e) ->
+    makePost: (e) =>
         e.preventDefault()
         e.stopPropagation()
+
+        formElm = document.createElement('form')
+        formElm.className = 'js-postify-form'
+        formElm.action = @el.getAttribute('href')
+        formElm.method = 'POST'
+        formElm.style.display = 'none'
+        document.body.appendChild(formElm)
+
+        inputCSRFElm = document.createElement('input')
+        inputCSRFElm.name = 'csrfmiddlewaretoken'
+        inputCSRFElm.type = 'hidden'
+        inputCSRFElm.value = @options.csrfToken
+        formElm.appendChild(inputCSRFElm)
+
+        formElm.submit()
         return
 
 
-$.fn.extend
-    postify: (options) ->
-        @each( ->
-            if not $(@).data('plugin_postify')
-                $(@).data('plugin_postify', new Postify(@, options))
-        )
+stModules.postify = (elms, options) ->
+    return Array.from(elms).map((elm) -> new Postify(elm, options))
 
-$.fn.postify.Postify = Postify
+stModules.Postify = Postify
