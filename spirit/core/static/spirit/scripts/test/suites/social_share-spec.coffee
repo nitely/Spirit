@@ -1,18 +1,13 @@
 describe "social-share plugin tests", ->
     social_share = null
-    SocialShare = null
 
     beforeEach ->
-        fixtures = do jasmine.getFixtures
+        fixtures = jasmine.getFixtures()
         fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures 'social_share.html'
+        loadFixtures('social_share.html')
 
-        social_share = $('.js-share').social_share()
-        SocialShare = $.fn.social_share.SocialShare
-
-    it "doesnt break selector chaining", ->
-        expect(social_share).toEqual $('.js-share')
-        expect(social_share.length).toEqual 2
+        social_share = document.querySelectorAll('.js-share')
+        stModules.socialShare(social_share)
 
     it "shows the share dialog", ->
         expect($('.test-1').is ":visible").toEqual false

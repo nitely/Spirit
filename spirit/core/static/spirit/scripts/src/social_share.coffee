@@ -2,53 +2,55 @@
     Social share popup
 ###
 
-$ = jQuery
-
 
 class SocialShare
 
     constructor: (el) ->
-        @el = $(el)
-        @dialog = $(@el.data("dialog"))
+        @el = el
+        @dialog = document.querySelector(@el.dataset.dialog)
+        @allDialogs = document.querySelectorAll('.share')
         @setUp()
 
     setUp: ->
-        @el.on('click', @showDialog)
-        @el.on('click', @stopClick)
+        @el.addEventListener('click', @showDialog)
+        @dialog.querySelector('.share-close').addEventListener('click', @closeDialog)
 
-        $shareClose = @dialog.find('.share-close')
-        $shareClose.on('click', @closeDialog)
-        $shareClose.on('click', @stopClick)
+        shareInput = @dialog.querySelector('.share-url')
+        shareInput.addEventListener('focus', @select)
+        # Hijack click, so it gets always selected
+        shareInput.addEventListener('mouseup', @stopEvent)
 
-        # Auto selection
-        $shareInput = @dialog.find('.share-url')
-        $shareInput.on('focus', @select)
-        $shareInput.on('mouseup', @stopClick)  # Fix for chrome and safari
+    showDialog: (e) =>
+        e.preventDefault()
+        e.stopPropagation()
 
-    showDialog: =>
-        $('.share').hide()
-        @dialog.show()
+        Array.from(@allDialogs).forEach((elm) ->
+            elm.style.display = 'none'
+        )
+        @dialog.style.display = 'block'
         return
 
-    closeDialog: =>
-        @dialog.hide()
+    closeDialog: (e) =>
+        e.preventDefault()
+        e.stopPropagation()
+
+        @dialog.style.display = 'none'
         return
 
-    select: ->
-        $(@).select()
+    select: (e) ->
+        e.preventDefault()
+        e.stopPropagation()
+
+        @.setSelectionRange(0, @.value.length - 1)
         return
 
-    stopClick: (e) ->
+    stopEvent: (e) ->
         e.preventDefault()
         e.stopPropagation()
         return
 
 
-$.fn.extend
-    social_share: ->
-        @each( ->
-            if not $(@).data('plugin_social_share')
-                $(@).data('plugin_social_share', new SocialShare(@))
-        )
+stModules.socialShare = (elms) ->
+    return Array.from(elms).map((elm) -> new SocialShare(elm))
 
-$.fn.social_share.SocialShare = SocialShare
+stModules.SocialShare = SocialShare
