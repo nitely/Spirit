@@ -18,10 +18,12 @@
     }
 
     SocialShare.prototype.setUp = function() {
+      var shareInput;
       this.el.addEventListener('click', this.showDialog);
       this.dialog.querySelector('.share-close').addEventListener('click', this.closeDialog);
-      this.dialog.querySelector('.share-url').addEventListener('focus', this.select);
-      return this.dialog.querySelector('.share-url').addEventListener('click', this.stopClick);
+      shareInput = this.dialog.querySelector('.share-url');
+      shareInput.addEventListener('focus', this.select);
+      return shareInput.addEventListener('mouseup', this.stopEvent);
     };
 
     SocialShare.prototype.showDialog = function(e) {
@@ -45,10 +47,9 @@
       this.setSelectionRange(0, this.value.length - 1);
     };
 
-    SocialShare.prototype.stopClick = function(e) {
+    SocialShare.prototype.stopEvent = function(e) {
       e.preventDefault();
       e.stopPropagation();
-      this.focus();
     };
 
     return SocialShare;
