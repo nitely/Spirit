@@ -80,9 +80,12 @@ class Bookmark
         @el = el
         @mark = mark
         @number = @_getNumber()
-        @waypoint = new Waypoint({
-            element: @el,
-            handler: @onWaypoint,
+        @waypoint = @_addWaypointListener(el, @onWaypoint)
+
+    _addWaypointListener: (elm, handler) ->
+        return new Waypoint({
+            element: elm,
+            handler: handler,
             offset: '100%'
         })
 

@@ -7,9 +7,12 @@
 {% block head-extra %}
     <script>
 
-	$( document ).ready(function() {
+    document.addEventListener('DOMContentLoaded', function() {
 
-		$( "textarea" ).store( "topic_publish_comment" );
+        stModules.store(
+            document.querySelector('textarea'),
+            'topic_publish_comment'
+        );
 
 	});
 

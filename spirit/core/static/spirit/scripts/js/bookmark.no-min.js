@@ -91,12 +91,16 @@
       this.el = el;
       this.mark = mark;
       this.number = this._getNumber();
-      this.waypoint = new Waypoint({
-        element: this.el,
-        handler: this.onWaypoint,
+      this.waypoint = this._addWaypointListener(el, this.onWaypoint);
+    }
+
+    Bookmark.prototype._addWaypointListener = function(elm, handler) {
+      return new Waypoint({
+        element: elm,
+        handler: handler,
         offset: '100%'
       });
-    }
+    };
 
     Bookmark.prototype._getNumber = function() {
       var number;

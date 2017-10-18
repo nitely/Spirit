@@ -1,64 +1,65 @@
-$ = jQuery
+###
+    A storage for form elements (inputs, text-areas, ets)
+    It auto-clears on form submission. Also auto-sync across tabs.
+###
 
 
 class Storage
 
     constructor: (el, lsKey) ->
-        @el = $(el)
+        @el = el
         @lsKey = lsKey
+        @isUpdating = false
         @setUp()
 
     setUp: ->
-        if not localStorage?
-            return
-
         if @lsKey of localStorage
             @updateField()
 
-        # localStorage on change
-        $(window).on('storage', @updateField)
+        window.addEventListener('storage', @updateField)  # On change
+        @el.addEventListener('input', @updateStorage)
+        @el.addEventListener('change', @updateStorage)
+        @el.addEventListener('propertychange', @updateStorage)
+        @el.closest('form').addEventListener('submit', @clearStorage)
 
-        @el.on('input change propertychange', =>
-            # storage gets triggered in the current tab/window in some browsers
-            $(window).off('storage', @updateField)
-            @updateStorage()
-            $(window).on('storage', @updateField)
-            return
-        )
-
-        # This gets called for every el,
-        # even if they belong to the same form,
-        # it's ok though.
-        $form = @el.closest("form")
-        $form.on('submit', @clearStorage)
-
-    updateStorage: =>
-        value = @el.val()
+    _updateStorage: =>
+        value = @el.value
 
         try
             # May trigger storage
             localStorage[@lsKey] = value
         catch err
-            # The localStorage is probably full, nothing to do other than clear it
+            # The localStorage is probably full, nothing to do other than clearing it
             localStorage.clear()
 
         return
 
+    updateStorage: =>
+        @isUpdating = true
+        try
+            @_updateStorage()
+        finally
+            @isUpdating = false
+
+        return
+
     updateField: =>
-        @el.val(localStorage[@lsKey])
+        if @isUpdating
+            return
+
+        @el.value = localStorage[@lsKey]
         return
 
     clearStorage: =>
-        # Triggers storage
-        delete localStorage[@lsKey]
+        @isUpdating = true
+        try
+            # Triggers storage
+            delete localStorage[@lsKey]
+        finally
+            @isUpdating = false
+
         return
 
 
-$.fn.extend
-    store: (lsKey) ->
-        @each( ->
-            if not $(@).data('plugin_store')
-                $(@).data('plugin_store', new Storage(@, lsKey))
-        )
-
-$.fn.store.Storage = Storage
+stModules.store = (elm, lsKey) -> new Storage(elm, lsKey)
+stModules.Storage = Storage
