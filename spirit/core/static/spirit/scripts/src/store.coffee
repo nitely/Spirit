@@ -13,6 +13,10 @@ class Storage
         @setUp()
 
     setUp: ->
+        if not localStorage?
+            console.log('No localStorage support. Bailing out')
+            return
+
         if @lsKey of localStorage
             @updateField()
 
@@ -27,10 +31,11 @@ class Storage
 
         try
             # May trigger storage
-            localStorage[@lsKey] = value
+            localStorage.setItem(@lsKey, value)
         catch err
             # The localStorage is probably full, nothing to do other than clearing it
-            localStorage.clear()
+            if localStorage.length > 0
+                localStorage.clear()
 
         return
 
@@ -47,14 +52,14 @@ class Storage
         if @isUpdating
             return
 
-        @el.value = localStorage[@lsKey]
+        @el.value = localStorage.getItem(@lsKey)
         return
 
     clearStorage: =>
         @isUpdating = true
         try
             # Triggers storage
-            delete localStorage[@lsKey]
+            localStorage.removeItem(@lsKey)
         finally
             @isUpdating = false
 

@@ -21,6 +21,10 @@
     }
 
     Storage.prototype.setUp = function() {
+      if (typeof localStorage === "undefined" || localStorage === null) {
+        console.log('No localStorage support. Bailing out');
+        return;
+      }
       if (this.lsKey in localStorage) {
         this.updateField();
       }
@@ -35,10 +39,12 @@
       var err, value;
       value = this.el.value;
       try {
-        localStorage[this.lsKey] = value;
+        localStorage.setItem(this.lsKey, value);
       } catch (error) {
         err = error;
-        localStorage.clear();
+        if (localStorage.length > 0) {
+          localStorage.clear();
+        }
       }
     };
 
@@ -55,13 +61,13 @@
       if (this.isUpdating) {
         return;
       }
-      this.el.value = localStorage[this.lsKey];
+      this.el.value = localStorage.getItem(this.lsKey);
     };
 
     Storage.prototype.clearStorage = function() {
       this.isUpdating = true;
       try {
-        delete localStorage[this.lsKey];
+        localStorage.removeItem(this.lsKey);
       } finally {
         this.isUpdating = false;
       }
