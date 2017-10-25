@@ -38,15 +38,28 @@ describe "store plugin tests", ->
         expect(localStorage.getItem('unique-id')).toEqual("foobar")
 
     it "wont (re)update the field on input", ->
-        # "storage" gets triggered while updating the Storage,
+        # "storage" gets triggered (maybe) while updating the Storage,
         # however this should not (re)update the text-area
-        spyOn(storage, 'updateField')
+
+        localStorage.setItem('unique-id', "no-foobar")
+        textarea.value = "foobar"
+
+        setItem = spyOn(Storage.prototype, 'setItem')
+        setItem.and.callFake( ->
+            # Force storage event
+            evt = document.createEvent("HTMLEvents")
+            evt.initEvent("storage", false, true)
+            window.dispatchEvent(evt)
+        )
 
         evt = document.createEvent("HTMLEvents")
         evt.initEvent("input", false, true)
         textarea.dispatchEvent(evt)
 
-        expect(storage.updateField.calls.count()).toEqual(0)
+        expect(setItem.calls.count()).toEqual(1)
+        expect(localStorage.getItem('unique-id')).toEqual("no-foobar")
+        expect(textarea.value).toEqual("foobar")
+
 
     it "gets cleared on submit", ->
         localStorage.setItem('unique-id', "text")

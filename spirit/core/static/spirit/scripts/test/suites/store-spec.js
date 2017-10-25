@@ -36,12 +36,23 @@
       return expect(localStorage.getItem('unique-id')).toEqual("foobar");
     });
     it("wont (re)update the field on input", function() {
-      var evt;
-      spyOn(storage, 'updateField');
+      var evt, setItem;
+      localStorage.setItem('unique-id', "no-foobar");
+      textarea.value = "foobar";
+      setItem = spyOn(Storage.prototype, 'setItem');
+      setItem.and.callFake(function() {
+        var evt;
+        evt = document.createEvent("HTMLEvents");
+        evt.initEvent("storage", false, true);
+        window.dispatchEvent(evt);
+        return storage.updateField();
+      });
       evt = document.createEvent("HTMLEvents");
       evt.initEvent("input", false, true);
       textarea.dispatchEvent(evt);
-      return expect(storage.updateField.calls.count()).toEqual(0);
+      expect(setItem.calls.count()).toEqual(1);
+      expect(localStorage.getItem('unique-id')).toEqual("no-foobar");
+      return expect(textarea.value).toEqual("foobar");
     });
     return it("gets cleared on submit", function() {
       var evt, form;
