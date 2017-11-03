@@ -3,7 +3,9 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
+from django.utils.translation import ugettext as _
 
 from djconfig import config
 
@@ -16,6 +18,12 @@ from ..models import Comment
 def detail(request, comment_id):
     comment = get_object_or_404(Comment.objects.for_access(request.user),
                                 pk=comment_id)
+
+    # not comment author and not moderator:
+    if request.user != comment.user and not request.user.st.is_moderator:
+        raise Http404(
+            _("You have no right to view other's modification history.")
+        )
 
     comments = CommentHistory.objects\
         .filter(comment_fk=comment)\
