@@ -35,6 +35,7 @@ except ImportError as err:
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
+        label=_('Comment'),
         max_length=settings.ST_COMMENT_MAX_LEN,
         widget=forms.Textarea)
     comment_hash = forms.CharField(

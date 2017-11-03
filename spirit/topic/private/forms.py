@@ -65,6 +65,7 @@ class TopicPrivateManyForm(forms.Form):
 
     # Only good for create
     users = forms.ModelMultipleChoiceField(
+        label=_("Invite users"),
         queryset=User.objects.all(),
         to_field_name=User.USERNAME_FIELD,
         widget=MultipleInput(attrs={'placeholder': _("user1, user2, ...")}))
