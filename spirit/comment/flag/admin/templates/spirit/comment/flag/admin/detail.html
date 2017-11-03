@@ -51,7 +51,11 @@
                 </div>
 
 				<ul class="comment-actions">
-					<li><a href="#">{% trans "delete" %}</a></li>
+                    {% if not flag.comment.is_removed %}
+                        <li><a href="{% url "spirit:comment:delete" flag.comment.pk %}" target="_blank">{% trans "delete" %}</a></li>
+                    {% else %}
+                        <li><a href="{% url "spirit:comment:undelete" flag.comment.pk %}" target="_blank">{% trans "undelete" %}</a></li>
+                    {% endif %}
 				</ul>
             </div>
 
