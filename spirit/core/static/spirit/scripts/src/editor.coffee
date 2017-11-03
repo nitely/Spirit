@@ -37,6 +37,7 @@ class Editor
         $('.js-box-image').on('click', @addImage)
         $('.js-box-poll').on('click', @addPoll)
         $('.js-box-preview').on('click', @togglePreview)
+        $('.js-reply-button').on('click', @replyButton)
 
     wrapSelection: (preTxt, postTxt, defaultTxt) =>
         preSelection = @el
@@ -91,6 +92,11 @@ class Editor
         $preview.toggle()
         $preview.html(marked(@el.val()))
 
+        return false
+
+    replyButton: (e) =>
+        @wrapSelection(" ", " ", $(e.currentTarget).attr("data"))
+        $('#id_comment').focus()
         return false
 
 
