@@ -54,27 +54,38 @@ class Editor
 
         @el.val(preSelection + preTxt + selection + postTxt + postSelection)
 
-    addBold: =>
+    addBold: (e) =>
+        e.preventDefault()
         @wrapSelection("**", "**", @options.boldedText)
+        $('#id_comment').focus()
         return false
 
-    addItalic: =>
+    addItalic: (e) =>
+        e.preventDefault()
         @wrapSelection("*", "*", @options.italicisedText)
+        $('#id_comment').focus()
         return false
 
-    addList: =>
+    addList: (e) =>
+        e.preventDefault()
         @wrapSelection("\n* ", "", @options.listItemText)
+        $('#id_comment').focus()
         return false
 
-    addUrl: =>
+    addUrl: (e) =>
+        e.preventDefault()
         @wrapSelection("[", "](#{ @options.linkUrlText })", @options.linkText)
+        $('#id_comment').focus()
         return false
 
-    addImage: =>
+    addImage: (e) =>
+        e.preventDefault()
         @wrapSelection("![", "](#{ @options.imageUrlText })", @options.imageText)
+        $('#id_comment').focus()
         return false
 
-    addPoll: =>
+    addPoll: (e) =>
+        e.preventDefault()
         poll = "\n\n[poll name=#{@pollCounter}]\n" +
             "# #{@options.pollTitleText}\n" +
             "1. #{@options.pollChoiceText}\n" +
@@ -82,6 +93,7 @@ class Editor
             "[/poll]\n"
         @wrapSelection("", poll, "")  # todo: append to current pointer position
         @pollCounter++
+        $('#id_comment').focus()
         return false
 
     togglePreview: =>
