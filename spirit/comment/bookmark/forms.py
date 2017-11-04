@@ -23,5 +23,7 @@ class BookmarkForm(forms.ModelForm):
 
         # Bookmark is created/updated on topic view.
         CommentBookmark.objects\
-            .filter(user=self.user, topic=self.topic)\
+            .filter(user=self.user,
+                    topic=self.topic,
+                    comment_number__lt=comment_number)\
             .update(comment_number=comment_number)

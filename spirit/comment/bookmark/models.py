@@ -56,10 +56,20 @@ class CommentBookmark(models.Model):
         if comment_number is None:
             return
 
-        bookmark, created = cls.objects.update_or_create(
-            user=user,
-            topic=topic,
-            defaults={'comment_number': comment_number, }
-        )
+        changed = False
+        try:
+            bookmark = cls.objects.get(user=user, topic=topic)
+        except cls.DoesNotExist:
+            changed = True
+            bookmark = cls.objects.create(user=user,
+                                          topic=topic,
+                                          comment_number=0)
+
+        if comment_number > bookmark.comment_number:
+            changed = True
+            bookmark.comment_number = comment_number
+
+        if changed:
+            bookmark.save()
 
         return bookmark
