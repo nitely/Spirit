@@ -5,7 +5,7 @@
 {% block title %}{% trans "Unread notifications" %}{% endblock %}
 
 {% block content %}
-
+    <h1 class="headline"><a href="{% url 'spirit:topic:notification:index' %}">{% trans "Notifications" %}</a></h1>
     <h1 class="headline">{% trans "Unread notifications" %}</h1>
 
     <div class="rows">

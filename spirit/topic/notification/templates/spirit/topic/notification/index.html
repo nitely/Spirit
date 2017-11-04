@@ -7,7 +7,7 @@
 {% block content %}
 
     <h1 class="headline">{% trans "Notifications" %}</h1>
-
+    <h1 class="headline"><a href="{% url 'spirit:topic:notification:index-unread' %}">{% trans "Unread notifications" %}</a></h1>
     <div class="rows">
         {% include "spirit/topic/notification/_render_list.html" %}
     </div>
