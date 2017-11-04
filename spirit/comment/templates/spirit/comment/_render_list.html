@@ -1,9 +1,10 @@
 {% load spirit_tags i18n %}
 
 <div class="comments">
-
+    {% load_settings "ST_CUSTOMIZE_HIDE_DELETED_COMMENTS" %}
     {% for c in comments %}
-
+        {# moderator can view anything or; SHOW_DELETED shows anything or; show if not_removed. #}
+        {% if user.st.is_moderator or not st_settings.ST_CUSTOMIZE_HIDE_DELETED_COMMENTS or not c.is_removed %}
 		<div class="comment{% if c.action %} is-highlighted{% endif %}" id="c{{forloop.counter0|add:comments.start_index }}" data-number="{{ forloop.counter0|add:comments.start_index }}" data-pk="{{ c.pk }}">
 
             {% if not c.is_removed %}
@@ -122,7 +123,7 @@
             {% endif %}
 
 		</div>
-
+        {% endif %}
 	{% endfor %}
 
 </div>
