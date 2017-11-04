@@ -4,6 +4,7 @@ various contributors:
 * Esteban Castro Borsani @nitely <ecastroborsani@gmail.com>
 * Benjamin Abel @benjaminabel <bbig26@gmail.com>
 * Ales Kocjancic @alesdotio <alesdotio@gmail.com>
+* @cryptogun <safetychinese@gmail.com>
 * Robert Kessler @sheepsy90 <sheepsy90@gmail.com>
 * KwangYoun Jung @initialkommit <initialkommit@gmail.com>
 * Damien Marie @mdamien <damien@dam.io>
