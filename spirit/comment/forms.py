@@ -7,6 +7,7 @@ import logging
 
 from django import forms
 from django.core.files.storage import default_storage
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_bytes
 from django.core.files.uploadedfile import TemporaryUploadedFile
@@ -17,6 +18,14 @@ from ..core.utils.markdown import Markdown
 from ..topic.models import Topic
 from .poll.models import CommentPoll, CommentPollChoice
 from .models import Comment
+
+from PIL import Image as PImage
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    # python3
+    from io import BytesIO as StringIO
 
 logger = logging.getLogger(__name__)
 
@@ -149,6 +158,28 @@ class CommentImageForm(forms.Form):
 
     def save(self):
         file = self.cleaned_data['image']
+
+        if file.size > 1 * 1024 * 1024:  # 1MB
+            img = PImage.open(file)
+            if img.mode != 'RGB':
+                img = img.convert('RGB')
+            new_img = StringIO()
+            img.save(new_img, format='JPEG', quality=70)
+            new_img.seek(0)
+            if hasattr(new_img, 'len'):
+                size = new_img.len
+            else:
+                size = new_img.tell()
+            file = InMemoryUploadedFile(
+                new_img,
+                'ImageField',
+                "%s.jpg" % file.name.split('.')[0],
+                'image/jpeg',
+                size,
+                None,
+            )
+            file.image = img
+
         file_hash = utils.get_file_hash(file)
         file.name = ''.join((file_hash, '.', file.image.format.lower()))
         name = os.path.join('spirit', 'images', str(self.user.pk), file.name)
