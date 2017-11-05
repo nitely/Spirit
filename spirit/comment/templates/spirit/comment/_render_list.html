@@ -1,7 +1,7 @@
 {% load spirit_tags i18n %}
 
 <div class="comments">
-    {% load_settings "ST_CUSTOMIZE_ALLOW_OTHERS_VIEWING_MODIFICATION_HISTORY" %}
+    {% load_settings "ST_PRIVATE_COMMENT_HISTORY" %}
     {% for c in comments %}
 
 		<div class="comment{% if c.action %} is-highlighted{% endif %}" id="c{{forloop.counter0|add:comments.start_index }}" data-number="{{ forloop.counter0|add:comments.start_index }}" data-pk="{{ c.pk }}">
@@ -22,7 +22,7 @@
 
                             <ul class="comment-date">
                                 {% if c.modified_count > 0 %}
-                                    {% if user.st.is_moderator or st_settings.ST_CUSTOMIZE_ALLOW_OTHERS_VIEWING_MODIFICATION_HISTORY or c.user == user %}
+                                    {% if not st_settings.ST_PRIVATE_COMMENT_HISTORY or c.user == user or user.st.is_moderator %}
                                     <li><a href="{% url "spirit:comment:history:detail" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
                                     {% endif %}
                                 {% endif %}

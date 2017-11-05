@@ -9,6 +9,7 @@ from django.utils.translation import ugettext as _
 
 from djconfig import config
 
+from ...core.conf import settings
 from ...core.utils.paginator import yt_paginate
 from .models import CommentHistory
 from ..models import Comment
@@ -19,8 +20,10 @@ def detail(request, comment_id):
     comment = get_object_or_404(Comment.objects.for_access(request.user),
                                 pk=comment_id)
 
-    # not comment author and not moderator:
-    if request.user != comment.user and not request.user.st.is_moderator:
+    # Block if private is set and not comment author and not moderator:
+    if (settings.ST_PRIVATE_COMMENT_HISTORY and
+            request.user != comment.user and
+            not request.user.st.is_moderator):
         raise Http404(
             _("You have no right to view other's modification history.")
         )

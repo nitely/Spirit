@@ -101,4 +101,4 @@ ST_BASE_DIR = (
         os.path.dirname(
             os.path.dirname(__file__))))
 
-ST_CUSTOMIZE_ALLOW_OTHERS_VIEWING_MODIFICATION_HISTORY = False
+ST_PRIVATE_COMMENT_HISTORY = True
