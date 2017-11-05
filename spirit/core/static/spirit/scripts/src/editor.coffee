@@ -54,38 +54,32 @@ class Editor
 
         @el.val(preSelection + preTxt + selection + postTxt + postSelection)
 
-    addBold: (e) =>
-        e.preventDefault()
+    addBold: =>
         @wrapSelection("**", "**", @options.boldedText)
         $('#id_comment').focus()
         return false
 
-    addItalic: (e) =>
-        e.preventDefault()
+    addItalic: =>
         @wrapSelection("*", "*", @options.italicisedText)
         $('#id_comment').focus()
         return false
 
-    addList: (e) =>
-        e.preventDefault()
+    addList: =>
         @wrapSelection("\n* ", "", @options.listItemText)
         $('#id_comment').focus()
         return false
 
-    addUrl: (e) =>
-        e.preventDefault()
+    addUrl: =>
         @wrapSelection("[", "](#{ @options.linkUrlText })", @options.linkText)
         $('#id_comment').focus()
         return false
 
-    addImage: (e) =>
-        e.preventDefault()
+    addImage: =>
         @wrapSelection("![", "](#{ @options.imageUrlText })", @options.imageText)
         $('#id_comment').focus()
         return false
 
-    addPoll: (e) =>
-        e.preventDefault()
+    addPoll: =>
         poll = "\n\n[poll name=#{@pollCounter}]\n" +
             "# #{@options.pollTitleText}\n" +
             "1. #{@options.pollChoiceText}\n" +
