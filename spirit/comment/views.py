@@ -90,7 +90,7 @@ def delete(request, pk, remove=True):
             .filter(pk=pk)\
             .update(is_removed=remove)
 
-        return redirect(comment.get_absolute_url())
+        return redirect(request.GET.get('next', comment.get_absolute_url()))
 
     context = {'comment': comment, }
 

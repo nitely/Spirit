@@ -52,9 +52,9 @@
 
 				<ul class="comment-actions">
                     {% if not flag.comment.is_removed %}
-                        <li><a href="{% url "spirit:comment:delete" flag.comment.pk %}" target="_blank">{% trans "delete" %}</a></li>
+                        <li><a class="js-post" href="{% url "spirit:comment:delete" flag.comment.pk %}?next={% firstof request.get_full_path|urlencode '/' %}">{% trans "delete" %}</a></li>
                     {% else %}
-                        <li><a href="{% url "spirit:comment:undelete" flag.comment.pk %}" target="_blank">{% trans "undelete" %}</a></li>
+                        <li><a class="js-post" href="{% url "spirit:comment:undelete" flag.comment.pk %}?next={% firstof request.get_full_path|urlencode '/' %}">{% trans "undelete" %}</a></li>
                     {% endif %}
 				</ul>
             </div>
