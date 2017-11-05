@@ -48,12 +48,11 @@ class Tab
         return
 
 
-$.extend
-    tab: ->
-        $('.js-tab').each( ->
-            if not $(@).data('plugin_tab')
-                $(@).data('plugin_tab', new Tab(@))
-        )
+stModules.tab = (elms) ->
+    $('.js-tab').each( ->
+        if not $(@).data('plugin_tab')
+            $(@).data('plugin_tab', new Tab(@))
+    )
 
 $.tab.Tab = Tab
 stModules.Tab = Tab
