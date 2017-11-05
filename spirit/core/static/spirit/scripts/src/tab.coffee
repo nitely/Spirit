@@ -2,13 +2,11 @@
     Generic tabs
 ###
 
-$ = jQuery
-
 
 class Tab
 
     constructor: (el) ->
-        @el = $(el)
+        @el = el
         @setUp()
 
     setUp: ->
