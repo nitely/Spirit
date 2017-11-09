@@ -15,31 +15,24 @@
     <script src="{% static "spirit/scripts/all.min.js" %}"></script>
 
     <script>
-
-	$( document ).ready(function() {
-
-        $.tab();
-
-        $( 'a.js-post' ).postify( {
-            csrfToken: "{{ csrf_token }}",
-        } );
-
-        $('.js-messages').messages();
-
+    document.addEventListener('DOMContentLoaded', function() {
+        stModules.tab(document.querySelectorAll('.js-tab'));
+        stModules.postify(document.querySelectorAll('.js-post'), {
+            csrfToken: "{{ csrf_token }}"
+        });
+        stModules.messages(document.querySelectorAll('.js-messages'));
         {% if user.is_authenticated %}
-            $.notification( {
+            stModules.notification(document.querySelectorAll('.js-tab-notification'), {
                 notificationUrl: "{% url "spirit:topic:notification:index-ajax" %}",
                 notificationListUrl: "{% url "spirit:topic:notification:index-unread" %}",
                 mentionTxt: "{% trans "{user} has mention you on {topic}" %}",
                 commentTxt: "{% trans "{user} has commented on {topic}" %}",
                 showAll: "{% trans "Show all" %}",
                 empty: "{% trans "No new notifications, yet" %}",
-                unread: "{% trans "unread" %}",
-            } );
+                unread: "{% trans "unread" %}"
+            });
         {% endif %}
-
-	});
-
+    });
 	</script>
 
     {% block head-extra %}{% endblock %}
