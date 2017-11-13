@@ -81,9 +81,9 @@
                             {% with comment_url=c.get_absolute_url %}
                                 <input class="share-url" type="text" value="{% get_share_url url=comment_url %}" />
                                 <ul class="share-actions">
-                                    <li><a href="{% get_twitter_share_url url=comment_url title=topic.title %}" target="_blank"><i class="fa fa-twitter"></i></a></li><!--
-                                 --><li><a href="{% get_facebook_share_url url=comment_url title=topic.title %}" target="_blank"><i class="fa fa-facebook"></i></a></li><!--
-                                 --><li><a href="{% get_gplus_share_url url=comment_url %}" target="_blank"><i class="fa fa-google-plus"></i></a></li><!--
+                                    <li><a href="{% get_twitter_share_url url=comment_url title=topic.title %}" target="_blank" rel="noopener noreferrer nofollow"><i class="fa fa-twitter"></i></a></li><!--
+                                 --><li><a href="{% get_facebook_share_url url=comment_url title=topic.title %}" target="_blank" rel="noopener noreferrer nofollow"><i class="fa fa-facebook"></i></a></li><!--
+                                 --><li><a href="{% get_gplus_share_url url=comment_url %}" target="_blank" rel="noopener noreferrer nofollow"><i class="fa fa-google-plus"></i></a></li><!--
                                  --><li><a href="{% get_email_share_url url=comment_url title=topic.title %}" ><i class="fa fa-envelope"></i></a></li>
                                 </ul>
                             {% endwith %}
