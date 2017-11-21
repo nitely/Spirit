@@ -87,7 +87,7 @@
                                         <li><a href="{% url 'userprofile:profile' request.user.username %}">{% trans 'Dashboard' %}</a></li>
                                         <li><a href="{% url 'userprofile:settings:general' %}">{% trans 'Settings' %}</a></li>
                                         <li><a href="help.html">{% trans 'Help center' %}</a></li>
-                                        <li class="divider"></li>
+                                        <li class="divider1"></li>
                                         <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
                                     {% else %}
                                         <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
