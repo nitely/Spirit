@@ -1,0 +1,38 @@
+{% load i18n %}
+{% load static %}
+{% load profit %}
+
+{{ config.template_footer|safe }}
+
+    <footer class="footer">
+        <footer class="footer-distributed">
+            <div class="container1">
+                <div class="footer-right">
+                    <a href="https://www.facebook.com/projectprofit/" class="footer-a"><i class="fa fa-facebook"></i></a>
+                    <a href="https://twitter.com/PROFIT_platform" class="footer-a"><i class="fa fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/company/profit-project" class="footer-a"><i class="fa fa-linkedin"></i></a>
+                    <a href="" class="footer-a"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="footer-left">
+                    <p class="footer-links">
+                        {# TODO - links #}
+                        <a href="/">{% trans 'Home' %}</a>
+                        ·
+                        <a href="about.html">{% trans 'About' %}</a>
+                        ·
+                        <a href="help.html">{% trans 'Help Center' %}</a>
+                        ·
+                        <a href="privacy.html">{% trans 'Privacy' %}</a>
+                        ·
+                        <a href="terms.html">{% trans 'Terms' %}</a>
+                        ·
+                        <a href="{% url 'contact:form' %}">{% trans 'Contact' %}</a>
+                        ·
+                        <a href="{% url 'feedback:broken_feature' %}?next={{ request.path|urlencode }}">{% trans 'Report broken feature' %}</a>
+                    </p>
+                    <p>{% trans 'PROFIT Team' %} &copy; 2017</p>
+                </div>
+            </div>
+        </footer>
+	</footer>
+

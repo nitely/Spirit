@@ -1,0 +1,99 @@
+{% load i18n %}
+{% load static %}
+{% load profit %}
+
+{{ config.template_footer|safe }}
+
+        <nav class="nav1bar nav1bar-default nav1bar-fixed-top" id="top">
+            <div class="container1 logo1">
+                <div class="nav1bar-header">
+                    <button type="button" class="nav1bar-toggle collapse1d1" data-toggle="collapse1" data-target="#nav1bar" aria-expanded="false" aria-controls="nav1bar">
+                        <span class="sr-only1">{% trans 'Toggle nav1igation' %}</span>
+                        <span class="icon-bar1"></span>
+                        <span class="icon-bar1"></span>
+                        <span class="icon-bar1"></span>
+                    </button>
+                    <a class="nav1bar-brand" href="/"><img src="{% static 'images/profit_small.png' %}" height="44" alt="PROFIT logo"></a>
+                </div>
+
+                <div id="nav1bar" class="nav1bar-collapse1 collapse1">
+                    <div class="nav1bar-right">
+                        <form class="nav1bar-form nav1bar-left" role="search" id="custom-search-input">
+                            <div class="input-group1">
+                                <input type="text" class="form-control1" placeholder="{% trans 'Search' %}">
+                                <span class="input-group1-btn1">
+                                    <button class="btn1 btn1-default" type="button">
+                                        <img src="{% static 'images/platform_icons/zoom-blue.svg' %}" height="20"
+                                             alt="{% trans 'Search' %}">
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+
+                        <ul class="nav1 nav1bar-nav1 nav1bar-right">
+                            <li class="dropdown1">
+                                <a href="#" class="dropdown1-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img class="menu_icons1" src="{% static 'images/platform_icons/chart_top_menu-blue.svg' %}" height="20" alt="{% trans 'Platform activity' %}" title="{% trans 'Platform activity' %}">
+                                </a>
+                                <ul class="dropdown1-menu" role="menu">
+                                    <li><a href="{% url 'article:articles' %}">{% trans 'Articles' %}</a></li>
+                                    <li><a href="{% url 'polls:index' %}">{% trans 'Polls' %}</a></li>
+                                    <li><a href="{% url 'spirit:index' %}">{% trans 'Discussions' %}</a></li>
+                                    <li><a href="#">{% trans 'Graphs' %}</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown1">
+                                <a href="#" class="dropdown1-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img class="menu_icons1" src="{% static 'images/platform_icons/read-blue.svg' %}" height="20" alt="{% trans 'Learning center' %}" title="{% trans 'Learning center' %}">
+                                </a>
+                                <ul class="dropdown1-menu" role="menu">
+                                    <li><a href="{% url 'financial_toolkit:test' %}">{% trans 'Financial literacy test' %}</a></li>
+                                    <li><a href="{% url 'financial_toolkit:thematic_units' %}">{% trans 'Educational material' %}</a></li>
+                                    <li><a href="{% url 'sentiment:sentiment_recession' %}">{% trans 'Market sentiment' %}</a></li>
+                                    <li><a href="{% url 'forecasting:forecast_oil' %}">{% trans 'Forecasting results' %}</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown1">
+                                <a href="#" class="dropdown1-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img class="menu_icons1" src="{% static 'images/platform_icons/write-blue.svg' %}" height="20" alt="{% trans 'Contribute' %}" title="{% trans 'Contribute' %}">
+									<span class="visible-xs-inline icon-label">{% trans 'Contribute' %}</span>
+                                </a>
+                                <ul class="dropdown1-menu" role="menu">
+                                    <li><a href="{% url 'article:manage:user:create' %}">{% trans 'Create/Upload article' %}</a></li>
+                                    <li><a href="{% url 'polls:addPolls' %}">{% trans 'Create/Edit Poll' %}</a></li>
+                                    <li><a href="#">{% trans 'Create/Upload educational material' %}</a></li>
+                                    <li><a href="#">{% trans 'Edit educational material' %}</a></li>
+                                    <li><a href="#">{% trans 'Update knowledge graph' %}</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown1">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {% if request.user.is_authenticated and request.user.userprofile.profile_image %}
+                                        <img class="menu_icons img-rounded" src="{{ request.user.userprofile.profile_image.thumbnail.url }}" height="20" alt="{% trans 'User profile' %}" title="{% trans 'User profile' %}">
+                                        <span class="visible-xs-inline icon-label">{% trans 'User profile' %}</span>
+                                    {% else %}
+                                        <img class="menu_icons" src="{% static 'images/platform_icons/user_top_menu-blue.svg' %}" height="20" alt="{% trans 'Login/Register' %}" title="{% trans 'Login/Register' %}">
+                                        <span class="visible-xs-inline icon-label">{% trans 'Login/Register' %}</span>
+                                    {% endif %}
+                                </a>
+                                <ul class="dropdown1-menu" role="menu">
+                                    {# TODO - upraviť odkazy, pridať podľa profile.html #}
+                                    {% if request.user.is_authenticated %}
+                                        {# TODO: active link should have class=dp-active #}
+                                        <li><a href="{% url 'userprofile:profile' request.user.username %}">{% trans 'Dashboard' %}</a></li>
+                                        <li><a href="{% url 'userprofile:settings:general' %}">{% trans 'Settings' %}</a></li>
+                                        <li><a href="help.html">{% trans 'Help center' %}</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
+                                        <li><a href="{% url 'registration_register' %}">{% trans 'Register' %}</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
