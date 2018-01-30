@@ -24,6 +24,7 @@
     };
 
     function Editor(el, options) {
+      this.replyButton = bind(this.replyButton, this);
       this.togglePreview = bind(this.togglePreview, this);
       this.addPoll = bind(this.addPoll, this);
       this.addImage = bind(this.addImage, this);
@@ -45,7 +46,8 @@
       $('.js-box-url').on('click', this.addUrl);
       $('.js-box-image').on('click', this.addImage);
       $('.js-box-poll').on('click', this.addPoll);
-      return $('.js-box-preview').on('click', this.togglePreview);
+      $('.js-box-preview').on('click', this.togglePreview);
+      return $('.js-reply-button').on('click', this.replyButton);
     };
 
     Editor.prototype.wrapSelection = function(preTxt, postTxt, defaultTxt) {
@@ -61,26 +63,31 @@
 
     Editor.prototype.addBold = function() {
       this.wrapSelection("**", "**", this.options.boldedText);
+      $('#id_comment').focus();
       return false;
     };
 
     Editor.prototype.addItalic = function() {
       this.wrapSelection("*", "*", this.options.italicisedText);
+      $('#id_comment').focus();
       return false;
     };
 
     Editor.prototype.addList = function() {
       this.wrapSelection("\n* ", "", this.options.listItemText);
+      $('#id_comment').focus();
       return false;
     };
 
     Editor.prototype.addUrl = function() {
       this.wrapSelection("[", "](" + this.options.linkUrlText + ")", this.options.linkText);
+      $('#id_comment').focus();
       return false;
     };
 
     Editor.prototype.addImage = function() {
       this.wrapSelection("![", "](" + this.options.imageUrlText + ")", this.options.imageText);
+      $('#id_comment').focus();
       return false;
     };
 
@@ -89,6 +96,7 @@
       poll = ("\n\n[poll name=" + this.pollCounter + "]\n") + ("# " + this.options.pollTitleText + "\n") + ("1. " + this.options.pollChoiceText + "\n") + ("2. " + this.options.pollChoiceText + "\n") + "[/poll]\n";
       this.wrapSelection("", poll, "");
       this.pollCounter++;
+      $('#id_comment').focus();
       return false;
     };
 
@@ -98,6 +106,12 @@
       this.el.toggle();
       $preview.toggle();
       $preview.html(marked(this.el.val()));
+      return false;
+    };
+
+    Editor.prototype.replyButton = function(e) {
+      this.wrapSelection(" ", " ", $(e.currentTarget).attr("data"));
+      $('#id_comment').focus();
       return false;
     };
 
