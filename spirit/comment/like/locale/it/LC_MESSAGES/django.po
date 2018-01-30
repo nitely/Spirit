@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"POT-Creation-Date: 2018-01-30 15:20+0000\n"
 "PO-Revision-Date: 2016-12-28 17:51+0000\n"
 "Last-Translator:   <admin@t2g.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,32 +19,34 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: spirit-src/spirit/comment/like/forms.py:30
+#: forms.py:30
 msgid "This like already exists"
 msgstr "Questo mi-piace esiste  già"
 
-#: spirit-src/spirit/comment/like/models.py:22
+#: models.py:23
 msgid "like"
 msgstr "mi-piace"
 
-#: spirit-src/spirit/comment/like/models.py:23
+#: models.py:24
 msgid "likes"
 msgstr "mi-piace"
 
-#: spirit-src/spirit/comment/like/templates/spirit/comment/like/create.html:5 spirit-src/spirit/comment/like/templates/spirit/comment/like/create.html:14
+#: templates/spirit/comment/like/create.html:5
+#: templates/spirit/comment/like/create.html:14
 msgid "Like"
 msgstr "Mi-piace"
 
-#: spirit-src/spirit/comment/like/templates/spirit/comment/like/create.html:9
+#: templates/spirit/comment/like/create.html:9
 #, python-format
 msgid "Like %(username)s's comment"
 msgstr "Mi-piace il commento di %(username)s"
 
-#: spirit-src/spirit/comment/like/templates/spirit/comment/like/delete.html:5 spirit-src/spirit/comment/like/templates/spirit/comment/like/delete.html:13
+#: templates/spirit/comment/like/delete.html:5
+#: templates/spirit/comment/like/delete.html:13
 msgid "Remove like"
 msgstr "Rimuovi mi-piace"
 
-#: spirit-src/spirit/comment/like/templates/spirit/comment/like/delete.html:9
+#: templates/spirit/comment/like/delete.html:9
 #, python-format
 msgid "Remove %(username)s's comment like"
 msgstr "Rimuovere mi-piace al commeto di %(username)s"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"POT-Creation-Date: 2018-01-30 15:20+0000\n"
 "PO-Revision-Date: 2016-12-27 17:20+0000\n"
 "Last-Translator:   <admin@t2g.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,156 +19,167 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: spirit-src/spirit/comment/poll/forms.py:31
-#: spirit-src/spirit/comment/poll/forms.py:37
+#: forms.py:31 forms.py:37
 msgid "Poll choices"
 msgstr "Scelte del sondaggio"
 
-#: spirit-src/spirit/comment/poll/forms.py:63
+#: forms.py:63
 #, python-format
 msgid "Too many selected choices. Limit is %s"
 msgstr "Troppe selezioni. Il massimo e' %s"
 
-#: spirit-src/spirit/comment/poll/forms.py:69
+#: forms.py:69
 #, python-format
 msgid "Too few selected choices. Minimum is %s"
 msgstr "Troppe poche selezioni. Il minimo è %s"
 
-#: spirit-src/spirit/comment/poll/forms.py:79
+#: forms.py:79
 msgid "This poll is closed"
 msgstr "Questo sondaggio è chiuso"
 
-#: spirit-src/spirit/comment/poll/models.py:31
+#: models.py:34
 msgid "name"
 msgstr "nome"
 
-#: spirit-src/spirit/comment/poll/models.py:32
+#: models.py:35
 msgid "title"
 msgstr "titolo"
 
-#: spirit-src/spirit/comment/poll/models.py:33
+#: models.py:36
 msgid "choice min"
 msgstr "scelta min"
 
-#: spirit-src/spirit/comment/poll/models.py:34
+#: models.py:37
 msgid "choice max"
 msgstr "scelta max"
 
-#: spirit-src/spirit/comment/poll/models.py:35
+#: models.py:38
 msgid "mode"
 msgstr "modalità"
 
-#: spirit-src/spirit/comment/poll/models.py:36
+#: models.py:39
 msgid "auto close at"
 msgstr "chiudi automaticamente"
 
-#: spirit-src/spirit/comment/poll/models.py:45
+#: models.py:48
 msgid "comment poll"
 msgstr "commento del sondaggio"
 
-#: spirit-src/spirit/comment/poll/models.py:46
+#: models.py:49
 msgid "comments polls"
 msgstr "commenti del sondaggi"
 
-#: spirit-src/spirit/comment/poll/models.py:133
+#: models.py:136
 msgid "number"
 msgstr "numero"
 
-#: spirit-src/spirit/comment/poll/models.py:134
+#: models.py:137
 msgid "choice description"
 msgstr "descrizione della scelta"
 
-#: spirit-src/spirit/comment/poll/models.py:135
+#: models.py:138
 msgid "vote count"
 msgstr "conto dei voti"
 
-#: spirit-src/spirit/comment/poll/models.py:143
+#: models.py:146
 msgid "poll choice"
 msgstr "scelta del sondaggio"
 
-#: spirit-src/spirit/comment/poll/models.py:144
+#: models.py:147
 msgid "poll choices"
 msgstr "scelte del sondaggio"
 
-#: spirit-src/spirit/comment/poll/models.py:215
+#: models.py:218
 msgid "poll vote"
 msgstr "voto del sondaggio"
 
-#: spirit-src/spirit/comment/poll/models.py:216
+#: models.py:219
 msgid "poll votes"
 msgstr "voti del sondaggio"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:23
+#: templates/spirit/comment/poll/_form.html:23
 #, python-format
 msgid "Closes on %(date)s."
 msgstr "Si chiude il %(date)s."
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:27
+#: templates/spirit/comment/poll/_form.html:27
 #, python-format
 msgid "You must select %(choice_min)s choices."
 msgstr "È necessario selezionare %(choice_min)s scelte."
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:29
+#: templates/spirit/comment/poll/_form.html:29
 #, python-format
 msgid "You may select up to %(choice_max)s choices."
 msgstr "Si possono selezionare fino a %(choice_max)s scelte."
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:31
+#: templates/spirit/comment/poll/_form.html:31
 #, python-format
-msgid "You may select no less than %(choice_min)s and no more than %(choice_max)s choices."
-msgstr "Si può scegliere non meno di %(choice_min)s e non più di %(choice_max)s scelte."
+msgid ""
+"You may select no less than %(choice_min)s and no more than %(choice_max)s "
+"choices."
+msgstr ""
+"Si può scegliere non meno di %(choice_min)s e non più di %(choice_max)s "
+"scelte."
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:35
+#: templates/spirit/comment/poll/_form.html:35
 msgid "Results will be available when the poll is closed."
 msgstr "I risultati saranno disponibili quando il sondaggio è chiuso."
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:41
+#: templates/spirit/comment/poll/_form.html:41
 msgid "Vote"
 msgstr "Voto"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:45
+#: templates/spirit/comment/poll/_form.html:45
 msgid "Show results"
 msgstr "Risultati"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:52
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_results.html:39
+#: templates/spirit/comment/poll/_form.html:52
+#: templates/spirit/comment/poll/_results.html:39
 msgid "open"
 msgstr "apri"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_form.html:56
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_results.html:43
+#: templates/spirit/comment/poll/_form.html:56
+#: templates/spirit/comment/poll/_results.html:43
 msgid "close"
 msgstr "chiudi"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_results.html:15
+#: templates/spirit/comment/poll/_results.html:15
 #, python-format
 msgid "%(choice)s, %(percentage)s%%"
 msgstr "%(choice)s, %(percentage)s%%"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_results.html:17
+#: templates/spirit/comment/poll/_results.html:17
 msgid "View voters"
 msgstr "Vedi votanti"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_results.html:27
+#: templates/spirit/comment/poll/_results.html:27
 msgid "Votes"
 msgstr "Voti"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_results.html:32
+#: templates/spirit/comment/poll/_results.html:32
 msgid "Show vote choices"
 msgstr "vedi le scelte del voto"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_static.html:25
+#: templates/spirit/comment/poll/_static.html:25
 #, python-format
-msgid "Name: %(poll_name)s, choice selection: from %(choice_min)s up to %(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
-msgstr "Nome: %(poll_name)s, selezione: da %(choice_min)s a %(choice_max)s, modalità: %(mode)s, chiude il: %(close_at)s"
+msgid ""
+"Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
+"%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
+msgstr ""
+"Nome: %(poll_name)s, selezione: da %(choice_min)s a %(choice_max)s, "
+"modalità: %(mode)s, chiude il: %(close_at)s"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/_static.html:29
+#: templates/spirit/comment/poll/_static.html:29
 #, python-format
-msgid "Name: %(poll_name)s, choice selection: from %(choice_min)s up to %(choice_max)s, mode: %(mode)s"
-msgstr "Nome: %(poll_name)s, scelta: da %(choice_min)s a %(choice_max)s, modalità: <code>%(mode)s</code>"
+msgid ""
+"Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
+"%(choice_max)s, mode: %(mode)s"
+msgstr ""
+"Nome: %(poll_name)s, scelta: da %(choice_min)s a %(choice_max)s, modalità: "
+"<code>%(mode)s</code>"
 
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/voters.html:5
-#: spirit-src/spirit/comment/poll/templates/spirit/comment/poll/voters.html:10
+#: templates/spirit/comment/poll/voters.html:5
+#: templates/spirit/comment/poll/voters.html:10
 #, python-format
 msgid "Voters for %(choice_description)s"
 msgstr "Votanti per %(choice_description)s"

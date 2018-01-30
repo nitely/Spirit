@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"POT-Creation-Date: 2018-01-30 15:20+0000\n"
 "PO-Revision-Date: 2016-12-27 16:55+0000\n"
 "Last-Translator:   <admin@t2g.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,54 +19,56 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: spirit-src/spirit/category/models.py:24
+#: models.py:24
 msgid "category parent"
 msgstr "categoria padre"
 
-#: spirit-src/spirit/category/models.py:26
+#: models.py:26
 msgid "title"
 msgstr "titolo"
 
-#: spirit-src/spirit/category/models.py:28
+#: models.py:28
 msgid "description"
 msgstr "descrizione"
 
-#: spirit-src/spirit/category/models.py:29
+#: models.py:29
 msgid "color"
 msgstr "colore"
 
-#: spirit-src/spirit/category/models.py:30
+#: models.py:30
 msgid "Title color in hex format (i.e: #1aafd0)."
 msgstr "Colore del titolo in formato esadecimale (io.e: #1aafd0)."
 
-#: spirit-src/spirit/category/models.py:31
+#: models.py:31
 msgid "modified at"
 msgstr "modificato il"
 
-#: spirit-src/spirit/category/models.py:33
+#: models.py:33
 msgid "global"
 msgstr "globale"
 
-#: spirit-src/spirit/category/models.py:34
-msgid "Designates whether the topics will bedisplayed in the all-categories list."
-msgstr "Consente di specificare se i topics saranno mostrati in tutte le categorie."
+#: models.py:34
+msgid ""
+"Designates whether the topics will bedisplayed in the all-categories list."
+msgstr ""
+"Consente di specificare se i topics saranno mostrati in tutte le categorie."
 
-#: spirit-src/spirit/category/models.py:36
+#: models.py:36
 msgid "closed"
 msgstr "chiuso"
 
-#: spirit-src/spirit/category/models.py:37
+#: models.py:37
 msgid "removed"
 msgstr "canellato"
 
-#: spirit-src/spirit/category/models.py:38
+#: models.py:38
 msgid "private"
 msgstr "privato"
 
-#: spirit-src/spirit/category/models.py:47
+#: models.py:44
 msgid "category"
 msgstr "categoria"
 
-#: spirit-src/spirit/category/models.py:48
+#: models.py:45
 msgid "categories"
 msgstr "categorie"
