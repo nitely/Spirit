@@ -1,0 +1,71 @@
+#
+# Translators:
+# sirex <sirexas@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-30 14:34+0000\n"
+"PO-Revision-Date: 2017-09-22 18:26+0000\n"
+"Last-Translator: sirex <sirexas@gmail.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/"
+"language/lt/)\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: models.py:24
+msgid "category parent"
+msgstr "tėvinė kategorija"
+
+#: models.py:26
+msgid "title"
+msgstr "antraštė"
+
+#: models.py:28
+msgid "description"
+msgstr "aprašymas"
+
+#: models.py:29
+msgid "color"
+msgstr ""
+
+#: models.py:30
+msgid "Title color in hex format (i.e: #1aafd0)."
+msgstr ""
+
+#: models.py:31
+msgid "modified at"
+msgstr ""
+
+#: models.py:33
+msgid "global"
+msgstr "globali"
+
+#: models.py:34
+msgid ""
+"Designates whether the topics will bedisplayed in the all-categories list."
+msgstr "Žymi ar temos bus rodomos visų kategorijų sąraše."
+
+#: models.py:36
+msgid "closed"
+msgstr "uždaryta"
+
+#: models.py:37
+msgid "removed"
+msgstr "ištrinta"
+
+#: models.py:38
+msgid "private"
+msgstr "privati"
+
+#: models.py:44
+msgid "category"
+msgstr "kategorija"
+
+#: models.py:45
+msgid "categories"
+msgstr "kategorijos"

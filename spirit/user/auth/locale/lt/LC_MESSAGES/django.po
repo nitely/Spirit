@@ -1,0 +1,216 @@
+#
+# Translators:
+# sirex <sirexas@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-30 14:34+0000\n"
+"PO-Revision-Date: 2017-09-22 18:26+0000\n"
+"Last-Translator: sirex <sirexas@gmail.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/"
+"language/lt/)\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: forms.py:19
+msgid "Email confirmation"
+msgstr "El. pašto patvirtinimas"
+
+#: forms.py:22
+msgid "Enter the same email as above, for verification."
+msgstr "Įveskite tą patį el. pašto adresą kaip viršuje, kad patvirtintumėte."
+
+#: forms.py:25
+msgid "Password"
+msgstr "Slaptažodis"
+
+#: forms.py:26
+msgid "Leave blank"
+msgstr "Palikti tuščią"
+
+#: forms.py:41
+msgid "Do not fill this field."
+msgstr "Nepildyti šio lauko."
+
+#: forms.py:53
+msgid "The username is taken."
+msgstr "Naudotojo vardas užimtas."
+
+#: forms.py:66
+msgid "The two email fields didn't match."
+msgstr "Du el. pašto laukai nesutampa."
+
+#: forms.py:79
+msgid "Username or Email"
+msgstr "Naudotojo vardas arba el. paštas"
+
+#: forms.py:83
+msgid "The password is not valid."
+msgstr "Slaptažodis neteisingas."
+
+#: forms.py:115
+#, python-format
+msgid "No account matches %(username)s."
+msgstr "%(username)s neatitinka jokios paskyros."
+
+#: forms.py:125
+msgid "Email"
+msgstr "El. paštas"
+
+#: forms.py:138
+msgid "The provided email does not exists."
+msgstr "Pateiktas el. pašto adresas neegzistuoja."
+
+#: forms.py:146
+msgid "This account is verified, try logging-in."
+msgstr "Še paskyra patvirtinta, bandykite prisijungti."
+
+#: templates/spirit/user/auth/activation_resend.html:5
+#: templates/spirit/user/auth/activation_resend.html:9
+#: templates/spirit/user/auth/login.html:23
+msgid "Resend activation email"
+msgstr "Pakartotinai išsiųsti aktyvavimo el. laišką"
+
+#: templates/spirit/user/auth/activation_resend.html:16
+msgid "Resend email"
+msgstr "Pakartotinai išsiųsti el. laišką"
+
+#: templates/spirit/user/auth/login.html:5
+#: templates/spirit/user/auth/login.html:9
+#: templates/spirit/user/auth/login.html:16
+msgid "Login"
+msgstr "Prisijungti"
+
+#: templates/spirit/user/auth/login.html:21
+msgid "Create an account"
+msgstr "Kurti paskyra"
+
+#: templates/spirit/user/auth/login.html:22
+msgid "I don't know my password"
+msgstr "Nežinau savo slaptažodžio"
+
+#: templates/spirit/user/auth/logout.html:5
+#: templates/spirit/user/auth/logout.html:15
+msgid "Log out"
+msgstr "Atsijungti"
+
+#: templates/spirit/user/auth/logout.html:9
+msgid "Are you sure you want to log out?"
+msgstr "Ar tikrai norite atsijungti?"
+
+#: templates/spirit/user/auth/password_reset_complete.html:7
+#: templates/spirit/user/auth/password_reset_complete.html:11
+msgid "Password change successful"
+msgstr "Slaptažodis pakeistas sėkmingai"
+
+#: templates/spirit/user/auth/password_reset_complete.html:13
+msgid "Continue to login"
+msgstr "Tęsti prisijungimą"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr "Slaptažodžio atstatymo patvirtinimas"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:11
+msgid "Enter new password"
+msgstr "Įvesti naują slaptažodį"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:16
+msgid "Save"
+msgstr "Saugoti"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:21
+msgid "Password reset unsuccessful"
+msgstr "Slaptažodžio atstatymas nesėkmingas"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:23
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"Slaptažodžio atstatymo nuoroda neteisinga, galimai dėl to, kad ji jau buvo "
+"panaudota. Prašome pakartoti slaptažodžio atstatymą iš naujo."
+
+#: templates/spirit/user/auth/password_reset_done.html:5
+#: templates/spirit/user/auth/password_reset_done.html:9
+msgid "Password reset successful"
+msgstr "Slaptažodžio atstatymas sėkmingas"
+
+#: templates/spirit/user/auth/password_reset_done.html:11
+msgid ""
+"We've emailed you instructions for setting your password. You should be "
+"receiving them shortly."
+msgstr ""
+"Išsiuntėme slaptažodžio atstatymo instrukcijas el. paštu. Turėtumėte jas "
+"gauti netrukus."
+
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:113
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Jei negaunate el. laiško, prašome įsitikinti ar įvedėte el. pašto adresą, "
+"kuriuo registravotės ir patikrinkite šlamšto katalogą."
+
+#: templates/spirit/user/auth/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Gavote šį laišką, kadangi pateikėte slaptažodžio atstatymo užklausą savo "
+"paskyrai %(site_name)s svetainėje."
+
+#: templates/spirit/user/auth/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Prašome eiti į šį puslapį ir pasirinkite naują slaptažodį:"
+
+#: templates/spirit/user/auth/password_reset_email.html:9
+msgid "Thanks for using our site!"
+msgstr "Ačiū, kad naudojatės mūsų svetaine!"
+
+#: templates/spirit/user/auth/password_reset_email.html:11
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "%(site_name)s komanda"
+
+#: templates/spirit/user/auth/password_reset_form.html:5
+#: templates/spirit/user/auth/password_reset_form.html:9
+msgid "Password reset"
+msgstr "Slaptažodžio atstatymas"
+
+#: templates/spirit/user/auth/password_reset_form.html:15
+msgid "Reset my password"
+msgstr "Atstatyti mano slaptažodį"
+
+#: templates/spirit/user/auth/password_reset_subject.txt:2
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr "Slaptažodžio atstatymas %(site_name)s svetainėje"
+
+#: templates/spirit/user/auth/register.html:5
+#: templates/spirit/user/auth/register.html:22
+#: templates/spirit/user/auth/register.html:28
+msgid "Register"
+msgstr "Registracija"
+
+#: tests/tests.py:90 tests/tests.py:225
+msgid "User activation"
+msgstr "Naudotojo aktyvavimas"
+
+#: views.py:67
+#, python-format
+msgid ""
+"We have sent you an email to %(email)s so you can activate your account!"
+msgstr ""
+"Išsiuntėme el. laišką %(email)s adresu, kad galėtumėte aktyvuoti savo "
+"paskyrą!"
+
+#: views.py:94
+msgid "Your account has been activated!"
+msgstr "Jūsų paskyra aktyvuota."

@@ -1,0 +1,116 @@
+#
+# Translators:
+# sirex <sirexas@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-30 14:34+0000\n"
+"PO-Revision-Date: 2017-09-22 18:26+0000\n"
+"Last-Translator: sirex <sirexas@gmail.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/"
+"language/lt/)\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: forms.py:13
+msgid "site name"
+msgstr "svetainės pavadinmias"
+
+#: forms.py:14
+msgid "site description"
+msgstr "svetainės aprašymas"
+
+#: forms.py:15
+msgid "footer snippet"
+msgstr "puslapio poraštės iškarpa"
+
+#: forms.py:17
+msgid "This gets rendered just before the footer in your template."
+msgstr "Tai bus atvaizduota iš karto prieš puslapio poraštę jūsų šablone."
+
+#: forms.py:18
+msgid "comments per page"
+msgstr "komentarų puslapyje"
+
+#: forms.py:19
+msgid "topics per page"
+msgstr "temų puslapyje"
+
+#: templates/spirit/admin/_side_menu.html:3
+msgid "Show menu"
+msgstr "Rodyti meniu"
+
+#: templates/spirit/admin/_side_menu.html:9
+#: templates/spirit/admin/dashboard.html:5
+#: templates/spirit/admin/dashboard.html:11
+msgid "Dashboard"
+msgstr "Skydelis"
+
+#: templates/spirit/admin/_side_menu.html:10
+msgid "Basic settings"
+msgstr "Pagrindiniai nustatymai"
+
+#: templates/spirit/admin/_side_menu.html:11
+#: templates/spirit/admin/dashboard.html:47
+msgid "Categories"
+msgstr "Kategorijos"
+
+#: templates/spirit/admin/_side_menu.html:12
+#: templates/spirit/admin/dashboard.html:31
+msgid "Topics"
+msgstr "Temos"
+
+#: templates/spirit/admin/_side_menu.html:13
+msgid "Users"
+msgstr "Naudotojai"
+
+#: templates/spirit/admin/_side_menu.html:14
+#: templates/spirit/admin/dashboard.html:43
+msgid "Flags"
+msgstr "Pranešimai"
+
+#: templates/spirit/admin/config_basic.html:5
+#: templates/spirit/admin/config_basic.html:11
+msgid "Basic Settings"
+msgstr "Pagrindiniai nustatymai"
+
+#: templates/spirit/admin/config_basic.html:17
+msgid "Save"
+msgstr "Saugoti"
+
+#: templates/spirit/admin/dashboard.html:14
+msgid "Software"
+msgstr "Programinė įranga"
+
+#: templates/spirit/admin/dashboard.html:17
+msgid "Installed"
+msgstr "Įdiegta"
+
+#: templates/spirit/admin/dashboard.html:18
+msgid "Latest"
+msgstr "Naujausia"
+
+#: templates/spirit/admin/dashboard.html:22
+msgid "Statistics"
+msgstr "Statistika"
+
+#: templates/spirit/admin/dashboard.html:27
+msgid "Members"
+msgstr "Nariai"
+
+#: templates/spirit/admin/dashboard.html:35
+msgid "Comments"
+msgstr "Komentarai"
+
+#: templates/spirit/admin/dashboard.html:39
+msgid "Likes"
+msgstr "Patinka"
+
+#: views.py:30
+msgid "Settings updated!"
+msgstr "Nustatymai atnaujinti!"
