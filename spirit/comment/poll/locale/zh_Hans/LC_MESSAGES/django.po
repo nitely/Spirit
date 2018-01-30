@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:32+0000\n"
+"POT-Creation-Date: 2018-01-30 16:30+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: cryptogun <safetychinese@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
+"spirit/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:31 forms.py:37
@@ -116,7 +117,8 @@ msgstr "你最多可以选择%(choice_max)s个选项。"
 msgid ""
 "You may select no less than %(choice_min)s and no more than %(choice_max)s "
 "choices."
-msgstr "你至少可以选择 %(choice_min)s个选项，最多可以选择%(choice_max)s个选项。"
+msgstr ""
+"你至少可以选择 %(choice_min)s个选项，最多可以选择%(choice_max)s个选项。"
 
 #: templates/spirit/comment/poll/_form.html:35
 msgid "Results will be available when the poll is closed."
@@ -162,14 +164,17 @@ msgstr "显示投票选项"
 msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
-msgstr "名字：%(poll_name)s，选项：从%(choice_min)s到%(choice_max)s，类型：%(mode)s，关闭于：%(close_at)s。"
+msgstr ""
+"名字：%(poll_name)s，选项：从%(choice_min)s到%(choice_max)s，类型：%(mode)s，"
+"关闭于：%(close_at)s。"
 
 #: templates/spirit/comment/poll/_static.html:29
 #, python-format
 msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s"
-msgstr "名字：%(poll_name)s，选项：从%(choice_min)s到%(choice_max)s，类型：%(mode)s。"
+msgstr ""
+"名字：%(poll_name)s，选项：从%(choice_min)s到%(choice_max)s，类型：%(mode)s。"
 
 #: templates/spirit/comment/poll/voters.html:5
 #: templates/spirit/comment/poll/voters.html:10

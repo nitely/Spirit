@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # datKater <imperator.katz@gmail.com>, 2016
 # Sven Hessenmüller <sven.hessenmueller@gmail.com>, 2016
@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:31+0000\n"
+"POT-Creation-Date: 2018-01-30 16:30+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Sven Hessenmüller <sven.hessenmueller@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:19
@@ -22,7 +23,8 @@ msgstr "E-Mail Bestätigung"
 
 #: forms.py:22
 msgid "Enter the same email as above, for verification."
-msgstr "Gib die selbe E-Mail-Adresse wie oben ein, um Tippfehler auszuschließen."
+msgstr ""
+"Gib die selbe E-Mail-Adresse wie oben ein, um Tippfehler auszuschließen."
 
 #: forms.py:25
 msgid "Password"
@@ -131,7 +133,9 @@ msgstr "Zurücksetzen des Passworts nicht erfolgreich"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
-msgstr "Der Link zum Passwort zurücksetzen war ungültig. Möglicherweise war er schon benutzt. Bitte fordere ein nochmaliges Zurücksetzen des Passwortes an."
+msgstr ""
+"Der Link zum Passwort zurücksetzen war ungültig. Möglicherweise war er schon "
+"benutzt. Bitte fordere ein nochmaliges Zurücksetzen des Passwortes an."
 
 #: templates/spirit/user/auth/password_reset_done.html:5
 #: templates/spirit/user/auth/password_reset_done.html:9
@@ -142,20 +146,27 @@ msgstr "Zurücksetzen des Passwortes erfolgreich"
 msgid ""
 "We've emailed you instructions for setting your password. You should be "
 "receiving them shortly."
-msgstr "Wir haben dir eine Anleitung zum zurücksetzen deines Passwortes per E-Mail gesendet. Du solltest sie in Kürze erhalten."
+msgstr ""
+"Wir haben dir eine Anleitung zum zurücksetzen deines Passwortes per E-Mail "
+"gesendet. Du solltest sie in Kürze erhalten."
 
 #: templates/spirit/user/auth/password_reset_done.html:12 views.py:113
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr "Wenn du keine E-Mail erhältst, überprüfe bitte ob du die E-Mailadresse angegeben hast, mit welcher du registriert bist und überprüfe deinen SPAM-Ordner."
+msgstr ""
+"Wenn du keine E-Mail erhältst, überprüfe bitte ob du die E-Mailadresse "
+"angegeben hast, mit welcher du registriert bist und überprüfe deinen SPAM-"
+"Ordner."
 
 #: templates/spirit/user/auth/password_reset_email.html:2
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
-msgstr "Du erhältst diese Email da du um das Zurücksetzen deines Passwortes bei %(site_name)s angesucht hast."
+msgstr ""
+"Du erhältst diese Email da du um das Zurücksetzen deines Passwortes bei "
+"%(site_name)s angesucht hast."
 
 #: templates/spirit/user/auth/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -198,7 +209,9 @@ msgstr "Benutzer-Aktivierung"
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
-msgstr "Wir haben dir eine E-Mail an %(email)s gesandt damit du deinen Zugang aktivieren kannst!"
+msgstr ""
+"Wir haben dir eine E-Mail an %(email)s gesandt damit du deinen Zugang "
+"aktivieren kannst!"
 
 #: views.py:94
 msgid "Your account has been activated!"

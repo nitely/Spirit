@@ -1,18 +1,19 @@
-# 
+#
 # Translators:
 # cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:31+0000\n"
+"POT-Creation-Date: 2018-01-30 16:30+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: cryptogun <safetychinese@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
+"spirit/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:19
@@ -147,7 +148,9 @@ msgstr "我们已经用email通知了你修改密码重置的事项。"
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr "如果你没有收到邮件，请检查输入的email是不是你帐号绑定的邮箱，或检查垃圾邮件目录"
+msgstr ""
+"如果你没有收到邮件，请检查输入的email是不是你帐号绑定的邮箱，或检查垃圾邮件目"
+"录"
 
 #: templates/spirit/user/auth/password_reset_email.html:2
 #, python-format

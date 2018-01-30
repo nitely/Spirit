@@ -1,17 +1,18 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:31+0000\n"
+"POT-Creation-Date: 2018-01-30 16:30+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/"
+"language/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:24
@@ -45,7 +46,8 @@ msgstr "globale"
 #: models.py:34
 msgid ""
 "Designates whether the topics will bedisplayed in the all-categories list."
-msgstr "Consente di specificare se i topics saranno mostrati in tutte le categorie."
+msgstr ""
+"Consente di specificare se i topics saranno mostrati in tutte le categorie."
 
 #: models.py:36
 msgid "closed"

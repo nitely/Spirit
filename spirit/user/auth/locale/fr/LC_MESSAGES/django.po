@@ -1,17 +1,18 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:31+0000\n"
+"POT-Creation-Date: 2018-01-30 16:30+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/spirit-project/spirit/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/spirit-project/spirit/"
+"language/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: forms.py:19
@@ -146,7 +147,9 @@ msgstr ""
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr "Si vous ne recevez pas d'email, assurez vous d'avoir entré l'adresse avec laquelle vous êtes inscrit et vérifiez votre dossier de spam."
+msgstr ""
+"Si vous ne recevez pas d'email, assurez vous d'avoir entré l'adresse avec "
+"laquelle vous êtes inscrit et vérifiez votre dossier de spam."
 
 #: templates/spirit/user/auth/password_reset_email.html:2
 #, python-format

@@ -1,24 +1,25 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:32+0000\n"
+"POT-Creation-Date: 2018-01-30 16:30+0000\n"
 "PO-Revision-Date: 2018-01-30 16:04+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/language/sv/)\n"
+"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/"
+"language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:35
 msgid "Category"
 msgstr "Kategori"
 
-#: forms.py:27
+#: forms.py:36
 msgid "Choose a category"
 msgstr "Välj en kategori"
 
@@ -157,8 +158,7 @@ msgstr "Moderera ämne"
 msgid "Apply"
 msgstr "Verkställ"
 
-#: templates/spirit/topic/publish.html:5
-#: templates/spirit/topic/publish.html:21
+#: templates/spirit/topic/publish.html:5 templates/spirit/topic/publish.html:21
 msgid "Publish topic"
 msgstr "Publicera ämne"
 

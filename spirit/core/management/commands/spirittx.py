@@ -16,8 +16,9 @@ class Command(BaseCommand):
         # todo: test!
         # Requires ``pip install transifex-client``
 
-        call_command('spirittxpull', stdout=self.stdout, stderr=self.stderr)
         call_command('spiritmakelocales', stdout=self.stdout, stderr=self.stderr)
         call_command('spirittxpush', stdout=self.stdout, stderr=self.stderr)
+        call_command('spirittxpull', stdout=self.stdout, stderr=self.stderr)
+        call_command('spiritmakelocales', stdout=self.stdout, stderr=self.stderr)
 
         self.stdout.write('ok')

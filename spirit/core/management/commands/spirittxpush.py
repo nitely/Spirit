@@ -11,7 +11,7 @@ from ... import utils
 
 
 class Command(BaseCommand):
-    help = 'Pushes all the local files listed in ./.tx/config to transifex'
+    help = 'Pushes all locale sources listed in ./.tx/config to transifex'
 
     requires_system_checks = False
 

@@ -1,18 +1,19 @@
-# 
+#
 # Translators:
 # Sven Hessenmüller <sven.hessenmueller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:31+0000\n"
+"POT-Creation-Date: 2018-01-30 16:30+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:35
@@ -76,7 +77,10 @@ msgstr "verifiziert"
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
-msgstr "Zeigt an ob der Benutzer seinen Zugang via E-Mail oder mit anderen Mitteln verifiziert hat. Deaktiviere dieses Feld um den Benutzer (erneut) seinen Zugang aktivieren zu lassen"
+msgstr ""
+"Zeigt an ob der Benutzer seinen Zugang via E-Mail oder mit anderen Mitteln "
+"verifiziert hat. Deaktiviere dieses Feld um den Benutzer (erneut) seinen "
+"Zugang aktivieren zu lassen"
 
 #: models.py:30
 msgid "topic count"
@@ -147,7 +151,8 @@ msgstr "Es gibt noch keine Kommentare, bis jetzt"
 #: templates/spirit/user/activation_email.html:2
 #, python-format
 msgid "You're receiving this email because you registered at %(site_name)s."
-msgstr "Du erhältst diese E-Mail da du dich auf %(site_name)s registriert hast "
+msgstr ""
+"Du erhältst diese E-Mail da du dich auf %(site_name)s registriert hast "
 
 #: templates/spirit/user/activation_email.html:4
 msgid "Please go to the following link to activate your account:"
@@ -162,11 +167,15 @@ msgstr "Danke für das Benutzen unserer Website!"
 #, python-format
 msgid ""
 "You're receiving this because you changed your user email at %(site_name)s."
-msgstr "Du erhältst diese E-Mail, da du deine E-Mailadresse auf %(site_name)s geändert hast."
+msgstr ""
+"Du erhältst diese E-Mail, da du deine E-Mailadresse auf %(site_name)s "
+"geändert hast."
 
 #: templates/spirit/user/email_change_email.html:4
 msgid "Please go to the following link to confirm your email change:"
-msgstr "Bitte klicke auf den folgenden Link um die Änderung deiner E-Mailadresse zu bestätigen:"
+msgstr ""
+"Bitte klicke auf den folgenden Link um die Änderung deiner E-Mailadresse zu "
+"bestätigen:"
 
 #: templates/spirit/user/menu.html:7
 msgid "User menu"
@@ -209,7 +218,9 @@ msgstr "Bitte klicke auf den folgenden Link um den Kommentar zu lesen:"
 msgid ""
 "If you don't want to keep receiving notifications, you can deactivate them "
 "on your profile preferences."
-msgstr "Falls du keine weiteren Benachrichtigungen erhalten möchtest, deaktiviere diese bitte in deinen Profileinstellungen."
+msgstr ""
+"Falls du keine weiteren Benachrichtigungen erhalten möchtest, deaktiviere "
+"diese bitte in deinen Profileinstellungen."
 
 #: templates/spirit/user/profile_comments.html:5
 msgid "comments"
@@ -256,7 +267,9 @@ msgstr "Avatar ändern"
 
 #: templates/spirit/user/profile_update.html:20
 msgid "Go to gravatar.com and use your current email to change it"
-msgstr "Gehe auf gravatar.com und benutze deine aktuelle E-Mail-Adresse um es zu ändern"
+msgstr ""
+"Gehe auf gravatar.com und benutze deine aktuelle E-Mail-Adresse um es zu "
+"ändern"
 
 #: templates/spirit/user/profile_update.html:28
 msgid "Save"
@@ -281,7 +294,8 @@ msgstr "Dein Passwort wurde geändert!"
 
 #: views.py:74
 msgid "We have sent you an email so you can confirm the change!"
-msgstr "Wir haben Dir eine E-Mail gesandt, nun kannst du die Änderungen bestätigen!"
+msgstr ""
+"Wir haben Dir eine E-Mail gesandt, nun kannst du die Änderungen bestätigen!"
 
 #: views.py:96
 msgid "Your email has been changed!"

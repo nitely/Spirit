@@ -1,17 +1,18 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 15:31+0000\n"
+"POT-Creation-Date: 2018-01-30 16:30+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/"
+"language/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:35
@@ -75,7 +76,10 @@ msgstr "verificato"
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
-msgstr "Indica se l'utente ha verificato il suo account con e-mail o altri mezzi. De-seleziona questa opzione per consentire all'utente di attivare il suo account."
+msgstr ""
+"Indica se l'utente ha verificato il suo account con e-mail o altri mezzi. De-"
+"seleziona questa opzione per consentire all'utente di attivare il suo "
+"account."
 
 #: models.py:30
 msgid "topic count"
@@ -165,7 +169,9 @@ msgstr "Ricevi questa perché hai cambiato la tua e-mail su %(site_name)s."
 
 #: templates/spirit/user/email_change_email.html:4
 msgid "Please go to the following link to confirm your email change:"
-msgstr "Si prega di visitare il seguente link per confermare la modifica alla tua e-mail:"
+msgstr ""
+"Si prega di visitare il seguente link per confermare la modifica alla tua e-"
+"mail:"
 
 #: templates/spirit/user/menu.html:7
 msgid "User menu"
@@ -208,7 +214,9 @@ msgstr "Visita il seguente link per leggere il commento:"
 msgid ""
 "If you don't want to keep receiving notifications, you can deactivate them "
 "on your profile preferences."
-msgstr "Se non desideri continuare a ricevere le notifiche, è possibile disattivarle sul tuo profilo."
+msgstr ""
+"Se non desideri continuare a ricevere le notifiche, è possibile disattivarle "
+"sul tuo profilo."
 
 #: templates/spirit/user/profile_comments.html:5
 msgid "comments"
