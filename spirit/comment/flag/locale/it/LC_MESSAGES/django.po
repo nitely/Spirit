@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"PO-Revision-Date: 2016-12-27 17:07+0000\n"
+"Last-Translator:   <admin@t2g.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
+
+#: spirit-src/spirit/comment/flag/forms.py:32
+msgid "This flag already exists"
+msgstr "Questo flag esiste già"
+
+#: spirit-src/spirit/comment/flag/models.py:12
+msgid "Spam"
+msgstr "Spam"
+
+#: spirit-src/spirit/comment/flag/models.py:13
+msgid "Other"
+msgstr "Altri"
+
+#: spirit-src/spirit/comment/flag/models.py:28
+msgid "comment flag"
+msgstr "segnala commento"
+
+#: spirit-src/spirit/comment/flag/models.py:29
+msgid "comments flags"
+msgstr "segnala commenti"
+
+#: spirit-src/spirit/comment/flag/models.py:41
+msgid "reason"
+msgstr "motivazione"
+
+#: spirit-src/spirit/comment/flag/models.py:42
+msgid "body"
+msgstr "corpo"
+
+#: spirit-src/spirit/comment/flag/models.py:47
+msgid "flag"
+msgstr "segnalazione"
+
+#: spirit-src/spirit/comment/flag/models.py:48
+msgid "flags"
+msgstr "segnalazioni"
+
+#: spirit-src/spirit/comment/flag/templates/spirit/comment/flag/create.html:5
+#: spirit-src/spirit/comment/flag/templates/spirit/comment/flag/create.html:14
+msgid "Report"
+msgstr "Report"
+
+#: spirit-src/spirit/comment/flag/templates/spirit/comment/flag/create.html:9
+#, python-format
+msgid "Reporting %(username)s's comment"
+msgstr "Report del commento di %(username)s"

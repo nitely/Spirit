@@ -1,0 +1,118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"PO-Revision-Date: 2016-12-27 18:06+0000\n"
+"Last-Translator:   <admin@t2g.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
+
+#: spirit-src/spirit/admin/forms.py:13
+msgid "site name"
+msgstr "nome del sito"
+
+#: spirit-src/spirit/admin/forms.py:14
+msgid "site description"
+msgstr "descrizione del sito"
+
+#: spirit-src/spirit/admin/forms.py:15
+msgid "footer snippet"
+msgstr "snippet di piè di pagina"
+
+#: spirit-src/spirit/admin/forms.py:17
+msgid "This gets rendered just before the footer in your template."
+msgstr "Questo viene visualizzato appena prima che il piè di pagina nel template."
+
+#: spirit-src/spirit/admin/forms.py:18
+msgid "comments per page"
+msgstr "commenti per pagina"
+
+#: spirit-src/spirit/admin/forms.py:19
+msgid "topics per page"
+msgstr "topics per pagina"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/_side_menu.html:3
+msgid "Show menu"
+msgstr "Mostra menu"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/_side_menu.html:9
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:5
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:11
+msgid "Dashboard"
+msgstr "Cruscotto"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/_side_menu.html:10
+msgid "Basic settings"
+msgstr "Impostazioni di base"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/_side_menu.html:11
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:47
+msgid "Categories"
+msgstr "Categorie"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/_side_menu.html:12
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:31
+msgid "Topics"
+msgstr "Topics"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/_side_menu.html:13
+msgid "Users"
+msgstr "Utenti"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/_side_menu.html:14
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:43
+msgid "Flags"
+msgstr "Segnalazioni"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/config_basic.html:5
+#: spirit-src/spirit/admin/templates/spirit/admin/config_basic.html:11
+msgid "Basic Settings"
+msgstr "Impostazioni Di Base"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/config_basic.html:17
+msgid "Save"
+msgstr "Salva"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:14
+msgid "Software"
+msgstr "Software"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:17
+msgid "Installed"
+msgstr "Installato"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:18
+msgid "Latest"
+msgstr "Ultima"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:22
+msgid "Statistics"
+msgstr "Statistiche"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:27
+msgid "Members"
+msgstr "Membri"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:35
+msgid "Comments"
+msgstr "Commenti"
+
+#: spirit-src/spirit/admin/templates/spirit/admin/dashboard.html:39
+msgid "Likes"
+msgstr "Mi Piace"
+
+#: spirit-src/spirit/admin/views.py:30
+msgid "Settings updated!"
+msgstr "Impostazioni aggiornate!"

@@ -1,0 +1,92 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"PO-Revision-Date: 2016-12-27 17:14+0000\n"
+"Last-Translator:   <admin@t2g.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
+
+#: spirit-src/spirit/topic/notification/forms.py:37
+msgid "This notification already exists"
+msgstr "Questa notifica esiste  già"
+
+#: spirit-src/spirit/topic/notification/forms.py:43
+msgid "You can't subscribe to a topic with no comments"
+msgstr "Non è sottoscriversi ad un topic con nessun commento"
+
+#: spirit-src/spirit/topic/notification/models.py:17
+msgid "Undefined"
+msgstr "Non definito"
+
+#: spirit-src/spirit/topic/notification/models.py:18
+msgid "Mention"
+msgstr "Menzione"
+
+#: spirit-src/spirit/topic/notification/models.py:19
+msgid "Comment"
+msgstr "Commento"
+
+#: spirit-src/spirit/topic/notification/models.py:39
+msgid "topic notification"
+msgstr "notifica di topic"
+
+#: spirit-src/spirit/topic/notification/models.py:40
+msgid "topics notification"
+msgstr "notifiche di topics"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/_form.html:12
+msgid "Unnotify Me"
+msgstr "Non noitficarmi piu'"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/_form.html:14
+msgid "Notify Me"
+msgstr "Notificami"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/_render_list.html:9
+#, python-format
+msgid "<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> ha commentato su <a href=\"%(url_topic)s\">%(topic_title)s</a>"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/_render_list.html:11
+#, python-format
+msgid "<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> ti ha menzionato su <a href=\"%(url_topic)s\">%(topic_title)s</a>"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/_render_list.html:17
+msgid "unread"
+msgstr "da leggere"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/_render_list.html:21
+msgid "There are no notifications, yet"
+msgstr "Non ci sono notifiche"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/index.html:5
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/index.html:9
+msgid "Notifications"
+msgstr "Notifiche"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/index_unread.html:5
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/index_unread.html:9
+msgid "Unread notifications"
+msgstr "Notifiche non lette"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/index_unread.html:15
+msgid "There are no new notifications"
+msgstr "Non ci sono nuove notifiche"
+
+#: spirit-src/spirit/topic/notification/templates/spirit/topic/notification/index_unread.html:22
+msgid "Next"
+msgstr "Prossima"

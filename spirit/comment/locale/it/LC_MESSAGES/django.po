@@ -1,0 +1,234 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"PO-Revision-Date: 2016-12-28 17:52+0000\n"
+"Last-Translator:   <admin@t2g.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
+
+#: spirit-src/spirit/comment/forms.py:39
+msgid "Write comment..."
+msgstr "Scrivi un commento..."
+
+#: spirit-src/spirit/comment/forms.py:127
+#, python-format
+msgid "Unsupported file format. Supported formats are %s."
+msgstr "Formato di file non supportato. I formati supportati sono: %s."
+
+#: spirit-src/spirit/comment/models.py:18 spirit-src/spirit/comment/models.py:32 spirit-src/spirit/comment/models.py:47
+msgid "comment"
+msgstr "commento"
+
+#: spirit-src/spirit/comment/models.py:19
+msgid "topic moved"
+msgstr "topic spostato"
+
+#: spirit-src/spirit/comment/models.py:20
+msgid "topic closed"
+msgstr "topic chiuso"
+
+#: spirit-src/spirit/comment/models.py:21
+msgid "topic unclosed"
+msgstr "topic riaperti"
+
+#: spirit-src/spirit/comment/models.py:22
+msgid "topic pinned"
+msgstr "topic pinnati"
+
+#: spirit-src/spirit/comment/models.py:23
+msgid "topic unpinned"
+msgstr "topic non pinnati"
+
+#: spirit-src/spirit/comment/models.py:33
+msgid "comment html"
+msgstr "commento html"
+
+#: spirit-src/spirit/comment/models.py:34
+msgid "action"
+msgstr "azione"
+
+#: spirit-src/spirit/comment/models.py:40
+msgid "modified count"
+msgstr "numero di modifiche"
+
+#: spirit-src/spirit/comment/models.py:41
+msgid "likes count"
+msgstr "numero di mi-piace"
+
+#: spirit-src/spirit/comment/models.py:48
+msgid "comments"
+msgstr "commenti"
+
+#: spirit-src/spirit/comment/tags.py:23
+msgid "This topic has been moved"
+msgstr "Questo topic è stato spostato"
+
+#: spirit-src/spirit/comment/tags.py:25
+msgid "This topic has been closed"
+msgstr "Questo topic è stato chiuso"
+
+#: spirit-src/spirit/comment/tags.py:27
+msgid "This topic has been unclosed"
+msgstr "Questo topic è stata riaperto"
+
+#: spirit-src/spirit/comment/tags.py:29
+msgid "This topic has been pinned"
+msgstr "Questo topic è stato pinnato"
+
+#: spirit-src/spirit/comment/tags.py:31
+msgid "This topic has been unpinned"
+msgstr "Questo topic è stato unpinnato"
+
+#: spirit-src/spirit/comment/tags.py:33
+msgid "Unknown topic moderation action"
+msgstr "Azione di moderazione del topic sconosciuta"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:6
+msgid "Bold"
+msgstr "Grassetto"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:7
+msgid "Italic"
+msgstr "Corsivo"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:8
+msgid "List"
+msgstr "Elenco"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:9
+msgid "URL"
+msgstr "URL"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:10
+msgid "Image"
+msgstr "Immagine"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:11
+msgid "Poll"
+msgstr "Sondaggio"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:12
+msgid "Preview"
+msgstr "Anteprima"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:32
+#, python-brace-format
+msgid "uploading {image_name}"
+msgstr "il caricamento di {nome_immagine}"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:35
+msgid "bolded text"
+msgstr "testo in grassetto"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:36
+msgid "italicised text"
+msgstr "testo in corsivo"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:37
+msgid "list item"
+msgstr "voce di elenco"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:38
+msgid "link text"
+msgstr "testo del link"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:39
+msgid "link url"
+msgstr "url del link"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:40
+msgid "image text"
+msgstr "testo dell'immagine"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:41
+msgid "image url"
+msgstr "url immagine"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:42
+msgid "Title"
+msgstr "Titolo"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_editor.html:43
+msgid "Description"
+msgstr "Descrizione"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_form.html:17 spirit-src/spirit/comment/templates/spirit/comment/publish.html:18 spirit-src/spirit/comment/templates/spirit/comment/update.html:18
+msgid "Publish"
+msgstr "Pubblica"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:47
+msgid "delete"
+msgstr "elimina"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:50
+msgid "report"
+msgstr "report"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:53
+msgid "share"
+msgstr "condividi"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:57 spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:139
+msgid "remove like"
+msgstr "rimuovere mi-piace"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:60 spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:138
+msgid "like"
+msgstr "mi-piace"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:67
+msgid "edit"
+msgstr "modifica"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:71
+msgid "quote"
+msgstr "citazione"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:72
+msgid "reply"
+msgstr "rispondi"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:79
+msgid "close"
+msgstr "chiudi"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:110
+msgid "This comment was deleted"
+msgstr "Questo commento è stato eliminato"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/_render_list.html:118
+msgid "undelete"
+msgstr "ripristina"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/moderate.html:5 spirit-src/spirit/comment/templates/spirit/comment/moderate.html:9
+msgid "Moderate comment"
+msgstr "commento di moderazione"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/moderate.html:14
+msgid "Apply"
+msgstr "Applica"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/publish.html:5
+msgid "Publish comment"
+msgstr "Pubblica commento"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/publish.html:9
+msgid "Publishing comment on"
+msgstr "Pubblica commento su"
+
+#: spirit-src/spirit/comment/templates/spirit/comment/update.html:5 spirit-src/spirit/comment/templates/spirit/comment/update.html:9
+msgid "Edit comment"
+msgstr "Modifica commento"
