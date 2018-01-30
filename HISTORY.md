@@ -5,6 +5,7 @@
 * Adds support for Python 3.6
 * Adds support for Django 1.9, 1.10 and 1.11
 * Adds python-magic dependency (to check uploaded files)
+* New: Lithuanian translation, thanks to @sirex
 * New: file upload on comments
 * Improvement: Adds `ST_UPLOAD_IMAGE_ENABLED`
   to enable/disable image uploads and `ST_UPLOAD_FILE_ENABLED`
@@ -14,6 +15,7 @@
   read the wiki or the PR for a workaround
 * Updates mistune, haystack and woosh dependencies
 * Deprecates `spirit.settings`. It will be removed in future releases
+* Updates locales
 
 0.4.8
 ==================

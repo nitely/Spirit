@@ -74,12 +74,6 @@ source_file = spirit/topic/notification/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[spirit.topic_poll]
-file_filter = spirit/topic/poll/locale/<lang>/LC_MESSAGES/django.po
-source_file = spirit/topic/poll/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
 [spirit.topic_private]
 file_filter = spirit/topic/private/locale/<lang>/LC_MESSAGES/django.po
 source_file = spirit/topic/private/locale/en/LC_MESSAGES/django.po
