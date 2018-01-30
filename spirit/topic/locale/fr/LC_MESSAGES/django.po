@@ -19,8 +19,8 @@ msgstr ""
 msgid "Category"
 msgstr "Categorie"
 
-#: forms.py:36
-msgid "Chose a category"
+#: forms.py:27
+msgid "Choose a category"
 msgstr "Choisir un categorie"
 
 #: models.py:29

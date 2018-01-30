@@ -22,7 +22,7 @@ msgid "Category"
 msgstr "Kategorija"
 
 #: forms.py:36
-msgid "Chose a category"
+msgid "Choose a category"
 msgstr "Pasirinkite kategoriją"
 
 #: models.py:29
