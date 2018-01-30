@@ -14,17 +14,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # todo: test!
-        # Requires "pip install transifex-client==0.11"
+        # Requires ``pip install transifex-client``
 
         call_command('spirittxpull', stdout=self.stdout, stderr=self.stderr)
         call_command('spiritmakelocales', stdout=self.stdout, stderr=self.stderr)
-        message = (
-            "Push is destructive, please review "
-            "the locale changes, run `$ git diff`\n"
-            "Do you want to push the changes? y/n: "
-        )
-
-        if input(message).lower() == "y":
-            call_command('spirittxpush', stdout=self.stdout, stderr=self.stderr)
+        call_command('spirittxpush', stdout=self.stdout, stderr=self.stderr)
 
         self.stdout.write('ok')
