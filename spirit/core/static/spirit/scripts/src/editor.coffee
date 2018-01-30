@@ -56,22 +56,27 @@ class Editor
 
     addBold: =>
         @wrapSelection("**", "**", @options.boldedText)
+        $('#id_comment').focus()
         return false
 
     addItalic: =>
         @wrapSelection("*", "*", @options.italicisedText)
+        $('#id_comment').focus()
         return false
 
     addList: =>
         @wrapSelection("\n* ", "", @options.listItemText)
+        $('#id_comment').focus()
         return false
 
     addUrl: =>
         @wrapSelection("[", "](#{ @options.linkUrlText })", @options.linkText)
+        $('#id_comment').focus()
         return false
 
     addImage: =>
         @wrapSelection("![", "](#{ @options.imageUrlText })", @options.imageText)
+        $('#id_comment').focus()
         return false
 
     addPoll: =>
@@ -82,6 +87,7 @@ class Editor
             "[/poll]\n"
         @wrapSelection("", poll, "")  # todo: append to current pointer position
         @pollCounter++
+        $('#id_comment').focus()
         return false
 
     togglePreview: =>
