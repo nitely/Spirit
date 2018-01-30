@@ -51,7 +51,11 @@
                 </div>
 
 				<ul class="comment-actions">
-					<li><a href="#">{% trans "delete" %}</a></li>
+                    {% if not flag.comment.is_removed %}
+                        <li><a class="js-post" href="{% url "spirit:comment:delete" flag.comment.pk %}?next={% firstof request.get_full_path|urlencode '/' %}">{% trans "delete" %}</a></li>
+                    {% else %}
+                        <li><a class="js-post" href="{% url "spirit:comment:undelete" flag.comment.pk %}?next={% firstof request.get_full_path|urlencode '/' %}">{% trans "undelete" %}</a></li>
+                    {% endif %}
 				</ul>
             </div>
 
