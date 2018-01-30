@@ -38,6 +38,8 @@ spirit=spirit.extra.bin.spirit:main
     include_package_data=True,
     zip_safe=False,
     install_requires=REQUIREMENTS,
+    extras_require={
+        'files': ['python-magic==0.4.15']},
     license='MIT License',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

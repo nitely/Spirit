@@ -3,8 +3,9 @@ django-haystack==2.7.dev0
 whoosh==2.7.4
 mistune==0.7.4
 Pillow==4.2.1
+olefile==0.45.1
 django-infinite-scroll-pagination>=0.2.0,<0.3
 django-djconfig>=0.5.1,<0.6
 uni-slugify==0.1.4
+Unidecode==1.0.22
 pytz
-python-magic==0.4.13
