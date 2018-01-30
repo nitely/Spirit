@@ -63,12 +63,12 @@ ST_UPLOAD_IMAGE_ENABLED = True
 #:     See `Django notes <https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content>`_
 ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'jpg', 'gif')
 
-#: Enable/disable file uploads within posts
-ST_UPLOAD_FILE_ENABLED = True
-#: Uploaded files will be validated against these formats.
-#: This is a map of extension and media-type. Both are used for validation.
+#: Enable/disable file uploads within posts.
 #: Requires running ``pip install django-spirit[files]`` to install
 #: `python-magic <https://github.com/ahupp/python-magic#installation>`_
+ST_UPLOAD_FILE_ENABLED = False
+#: Uploaded files will be validated against these formats.
+#: This is a map of extension and media-type. Both are used for validation
 #:
 #: .. Note::
 #:     To find a media-type just add an extension and an empty media-type,
