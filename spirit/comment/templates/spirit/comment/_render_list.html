@@ -1,9 +1,11 @@
 {% load spirit_tags i18n %}
 
 <div class="comments">
-
+    {# load_settings "ST_CUSTOMIZE_HIDE_ACTIONS" "ST_..." etc... #}
+    {% load_settings "ST_CUSTOMIZE_HIDE_ACTIONS" %}
     {% for c in comments %}
-
+        {# moderator can view anything or; SHOW_ACTIONS shows anything or; show if is_comment_is_not_action. #}
+        {% if user.st.is_moderator or not st_settings.ST_CUSTOMIZE_HIDE_ACTIONS or c.action == 0 %}
 		<div class="comment{% if c.action %} is-highlighted{% endif %}" id="c{{forloop.counter0|add:comments.start_index }}" data-number="{{ forloop.counter0|add:comments.start_index }}" data-pk="{{ c.pk }}">
 
             {% if not c.is_removed %}
@@ -122,7 +124,7 @@
             {% endif %}
 
 		</div>
-
+        {% endif %}
 	{% endfor %}
 
 </div>
