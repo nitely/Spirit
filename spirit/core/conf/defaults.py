@@ -67,6 +67,8 @@ ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'jpg', 'gif')
 ST_UPLOAD_FILE_ENABLED = True
 #: Uploaded files will be validated against these formats.
 #: This is a map of extension and media-type. Both are used for validation.
+#: Requires running ``pip install django-spirit[files]`` to install
+#: `python-magic <https://github.com/ahupp/python-magic#installation>`_
 #:
 #: .. Note::
 #:     To find a media-type just add an extension and an empty media-type,
