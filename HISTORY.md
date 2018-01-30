@@ -13,6 +13,8 @@
   gunicorn error. PR #216 (thanks to @cryptogun)
 * Improvement: Add `@username` on comment editor
   when clicking on a reply link. PR #212 (thanks to @cryptogun)
+* Improvement: notifications page drop-down
+  menu for read/unread. PR #213 (thanks to @cryptogun)
 * New: lithuanian translation, thanks to @sirex
 * New: file upload on comments
 * Improvement: Adds `ST_UPLOAD_IMAGE_ENABLED`
