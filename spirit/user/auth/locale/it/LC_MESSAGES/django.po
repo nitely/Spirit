@@ -194,7 +194,7 @@ msgstr "Attivazione utente"
 #: spirit-src/spirit/user/auth/views.py:67
 #, python-format
 msgid "We have sent you an email to %(email)s so you can activate your account!"
-msgstr "Abbiamo inviato una e-mail a %(e-mail)s così potrai attivare il tuo account!"
+msgstr "Abbiamo inviato una e-mail a %(email)s così potrai attivare il tuo account!"
 
 #: spirit-src/spirit/user/auth/views.py:94
 msgid "Your account has been activated!"
