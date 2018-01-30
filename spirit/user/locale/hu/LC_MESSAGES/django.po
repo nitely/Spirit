@@ -1,12 +1,14 @@
 #
 # Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015-2016
+# Zsolt Nagy <imaginaeruum@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:35+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 15:26+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -15,144 +17,154 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:33
+#: forms.py:35
 msgid "The email is taken."
-msgstr ""
+msgstr "Ez az e-mail cím már foglalt."
 
-#: forms.py:43 forms.py:48 templates/spirit/user/profile_update.html:12
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:12
 msgid "Email"
-msgstr ""
+msgstr "E-mail "
 
-#: forms.py:49 templates/spirit/user/profile_update.html:15
+#: forms.py:51 templates/spirit/user/profile_update.html:15
 msgid "Password"
-msgstr ""
+msgstr "Jelszó"
 
-#: forms.py:59
+#: forms.py:61
 msgid "The provided password is incorrect."
-msgstr ""
+msgstr "A jelszó érvénytelen"
 
-#: forms.py:80
+#: forms.py:75
+#, fuzzy
+#| msgid "time zone"
+msgid "Time zone"
+msgstr "időzóna"
+
+#: forms.py:84
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
-msgstr ""
+msgstr "A jelenlegi idő: %(date)s %(time)s"
 
 #: models.py:16
 msgid "profile"
-msgstr ""
+msgstr "profil"
 
 #: models.py:19
 msgid "location"
-msgstr ""
+msgstr "hely"
 
 #: models.py:20
 msgid "last seen"
-msgstr ""
+msgstr "utoljára itt"
 
 #: models.py:21
 msgid "last ip"
-msgstr ""
+msgstr "utolsó IP"
 
 #: models.py:22
 msgid "time zone"
-msgstr ""
+msgstr "időzóna"
 
 #: models.py:23
 msgid "administrator status"
-msgstr ""
+msgstr "adminisztrátor"
 
 #: models.py:24
 msgid "moderator status"
-msgstr ""
+msgstr "moderátor"
 
 #: models.py:25
 msgid "verified"
-msgstr ""
+msgstr "ellenőrizve"
 
 #: models.py:26
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr ""
+"Jelzi, hogy a felhasználó megerősítette-e e a fiókját. Ha ezt kikapcsolod, "
+"akkor aktiválnia kell."
 
 #: models.py:30
 msgid "topic count"
-msgstr ""
+msgstr "témák száma"
 
 #: models.py:31
 msgid "comment count"
+msgstr "hozzászólások száma"
+
+#: models.py:33
+msgid "last post hash"
 msgstr ""
 
 #: models.py:34
+#, fuzzy
+#| msgid "last seen"
+msgid "last post on"
+msgstr "utoljára itt"
+
+#: models.py:37
 msgid "forum profile"
-msgstr ""
+msgstr "fórum profil"
 
-#: models.py:35
+#: models.py:38
 msgid "forum profiles"
-msgstr ""
-
-#: models.py:56
-msgid "user"
-msgstr ""
-
-#: models.py:57
-msgid "users"
-msgstr ""
+msgstr "fórum profilok"
 
 #: templates/spirit/user/_profile.html:12
 msgid "Joined at"
-msgstr ""
+msgstr "Csatlakozott"
 
 #: templates/spirit/user/_profile.html:16
 msgid "Seen"
-msgstr ""
+msgstr "Utoljára itt"
 
 #: templates/spirit/user/_profile.html:22
 msgid "Last IP"
-msgstr ""
+msgstr "Utolsó IP"
 
 #: templates/spirit/user/_profile.html:31
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
-msgstr ""
+msgstr "Beállítások"
 
 #: templates/spirit/user/_profile.html:35
 msgid "Private Message"
-msgstr ""
+msgstr "Privát üzenet"
 
 #: templates/spirit/user/_profile.html:41
 msgid "Edit user"
-msgstr ""
+msgstr "Felhasználó szerkesztése"
 
 #: templates/spirit/user/_profile.html:46
 msgid "Comments"
-msgstr ""
+msgstr "Hozzászólások"
 
 #: templates/spirit/user/_profile.html:47 templates/spirit/user/menu.html:15
 msgid "Topics"
-msgstr ""
+msgstr "Témák"
 
 #: templates/spirit/user/_profile.html:48
 msgid "Likes"
-msgstr ""
+msgstr "Kedvelések"
 
 #: templates/spirit/user/_render_comments_list.html:36
 msgid "There are no comments here, yet"
-msgstr ""
+msgstr "Még nincsenek hozzászólások"
 
 #: templates/spirit/user/activation_email.html:2
 #, python-format
 msgid "You're receiving this email because you registered at %(site_name)s."
-msgstr ""
+msgstr "Azért kapod ezt a levelet, mert regisztráltál itt: %(site_name)s."
 
 #: templates/spirit/user/activation_email.html:4
 msgid "Please go to the following link to activate your account:"
-msgstr ""
+msgstr "Látogasd meg a következő linket a fiókod aktiválásához:"
 
 #: templates/spirit/user/activation_email.html:8
 #: templates/spirit/user/email_change_email.html:8
 msgid "Thanks for using our site!"
-msgstr ""
+msgstr "Köszönjük, hogy használod az oldalunkat!"
 
 #: templates/spirit/user/email_change_email.html:2
 #, python-format
@@ -182,7 +194,7 @@ msgstr ""
 
 #: templates/spirit/user/menu.html:17
 msgid "Private topics"
-msgstr ""
+msgstr "Privát témák"
 
 #: templates/spirit/user/menu.html:20
 msgid "Admin"
@@ -212,8 +224,8 @@ msgid "comments"
 msgstr ""
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:435 tests.py:694
-#: utils/email.py:58
+#: templates/spirit/user/profile_email_change.html:9 tests.py:451 tests.py:765
+#: utils/email.py:60
 msgid "Email change"
 msgstr ""
 
@@ -258,11 +270,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: tests.py:658 utils/email.py:50
+#: tests.py:729 utils/email.py:52
 msgid "User activation"
 msgstr ""
 
-#: utils/email.py:67
+#: utils/email.py:69
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr ""
@@ -286,3 +298,9 @@ msgstr ""
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
 msgstr ""
+
+#~ msgid "user"
+#~ msgstr "felhasználó"
+
+#~ msgid "users"
+#~ msgstr "felhasználók"

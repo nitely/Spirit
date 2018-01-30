@@ -1,12 +1,13 @@
 #
 # Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:56+0000\n"
-"PO-Revision-Date: 2015-07-31 05:14+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 15:26+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -17,30 +18,30 @@ msgstr ""
 
 #: templates/spirit/topic/admin/_tabs.html:4
 msgid "Deleted"
-msgstr ""
+msgstr "Törölt"
 
 #: templates/spirit/topic/admin/_tabs.html:5
 msgid "Closed"
-msgstr ""
+msgstr "Lezárt"
 
 #: templates/spirit/topic/admin/_tabs.html:6
 msgid "Pinned"
-msgstr ""
+msgstr "Kitűzött"
 
 #: templates/spirit/topic/admin/closed.html:5
 #: templates/spirit/topic/admin/closed.html:11
 msgid "Closed topics"
-msgstr ""
+msgstr "Lezárt témák"
 
 #: templates/spirit/topic/admin/deleted.html:5
 msgid "Deleted Topics"
-msgstr ""
+msgstr "Törölt témák"
 
 #: templates/spirit/topic/admin/deleted.html:11
 msgid "Deleted topics"
-msgstr ""
+msgstr "Törölt témák"
 
 #: templates/spirit/topic/admin/pinned.html:5
 #: templates/spirit/topic/admin/pinned.html:11
 msgid "Pinned topics"
-msgstr ""
+msgstr "Kitűzött témák"

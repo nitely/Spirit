@@ -12,7 +12,9 @@ from ... import utils
 
 class Command(BaseCommand):
     help = 'Creates or updates .po files and compiles them to .mo ' \
-           'files for use with the builtin gettext support'
+           'files for use with the builtin gettext support. Run ' \
+           '`python manage.py spiritmakelocales > out` to read ' \
+           'the output later (look for warnings)'
 
     requires_system_checks = False
 

@@ -1,12 +1,13 @@
 #
 # Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:38+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
 "spirit/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -15,18 +16,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:22
+#: models.py:23
 msgid "topic unread"
 msgstr "未读主题"
 
-#: models.py:23
+#: models.py:24
 msgid "topics unread"
 msgstr "未读主题"
 
 #: templates/spirit/topic/unread/index.html:5
 #: templates/spirit/topic/unread/index.html:9
 msgid "Unread topics replies"
-msgstr "未读的主题回复"
+msgstr "你关注的且有新回复的主题"
 
 #: templates/spirit/topic/unread/index.html:15
 msgid "Next"

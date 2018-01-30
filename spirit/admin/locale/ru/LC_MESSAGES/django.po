@@ -1,16 +1,22 @@
 #
+# Translators:
+# Timour Ghinatoulline <t.ginatullin@plusone.su>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: forms.py:13
 msgid "site name"
@@ -22,19 +28,19 @@ msgstr "Описание сайта"
 
 #: forms.py:15
 msgid "footer snippet"
-msgstr ""
+msgstr "сниппет \"подвала\""
 
 #: forms.py:17
 msgid "This gets rendered just before the footer in your template."
-msgstr ""
+msgstr "Отображается сразу над \"подвалом\" в вашем шаблоне."
 
 #: forms.py:18
 msgid "comments per page"
-msgstr ""
+msgstr "комментариев на странице"
 
 #: forms.py:19
 msgid "topics per page"
-msgstr ""
+msgstr "тем на странице"
 
 #: templates/spirit/admin/_side_menu.html:3
 msgid "Show menu"
@@ -84,11 +90,11 @@ msgstr "Программное обеспечение"
 
 #: templates/spirit/admin/dashboard.html:17
 msgid "Installed"
-msgstr ""
+msgstr "Установленная версия"
 
 #: templates/spirit/admin/dashboard.html:18
 msgid "Latest"
-msgstr ""
+msgstr "Последняя версия"
 
 #: templates/spirit/admin/dashboard.html:22
 msgid "Statistics"
@@ -104,7 +110,7 @@ msgstr "Комментарии"
 
 #: templates/spirit/admin/dashboard.html:39
 msgid "Likes"
-msgstr ""
+msgstr "Лайки"
 
 #: views.py:30
 msgid "Settings updated!"

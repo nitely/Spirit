@@ -1,12 +1,13 @@
 #
 # Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:56+0000\n"
-"PO-Revision-Date: 2015-07-31 05:20+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 15:26+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -15,108 +16,114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:41
+#: forms.py:68
+#, fuzzy
+#| msgid "Invite user"
+msgid "Invite users"
+msgstr "Felhasználó meghívása"
+
+#: forms.py:71
 msgid "user1, user2, ..."
-msgstr ""
+msgstr "felhasználó1, felhasználó2, ..."
 
-#: forms.py:73
+#: forms.py:103
 msgid "username"
-msgstr ""
+msgstr "felhasználónév"
 
-#: forms.py:74
+#: forms.py:104
 msgid "Invite user"
-msgstr ""
+msgstr "Felhasználó meghívása"
 
-#: forms.py:92 forms.py:126
+#: forms.py:122 forms.py:156
 #, python-format
 msgid "%(username)s is already a participant"
-msgstr ""
+msgstr "%(username)s már résztvevő"
 
 #: models.py:25
 msgid "private topic"
-msgstr ""
+msgstr "privát téma"
 
 #: models.py:26
 msgid "private topics"
-msgstr ""
+msgstr "privát témák"
 
 #: templates/spirit/topic/private/_invite_form.html:7
 msgid "Invite"
-msgstr ""
+msgstr "Meghívás"
 
 #: templates/spirit/topic/private/_top_bar.html:6
 #: templates/spirit/topic/private/_top_bar.html:14
 msgid "Participating in"
-msgstr ""
+msgstr "Részvétel itt:"
 
 #: templates/spirit/topic/private/_top_bar.html:8
 #: templates/spirit/topic/private/_top_bar.html:13
 msgid "Left"
-msgstr ""
+msgstr "Elment"
 
 #: templates/spirit/topic/private/_top_bar.html:20
 msgid "Create private topic"
-msgstr ""
+msgstr "Privát téma létrehozása"
 
 #: templates/spirit/topic/private/delete.html:5
 msgid "Remove user from private topic"
-msgstr ""
+msgstr "Felhasználó eltávolítása a témából"
 
 #: templates/spirit/topic/private/delete.html:9
 #, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
-msgstr ""
+msgstr "%(username)s felhasználó eltávolítása a témából: %(topic_title)s"
 
 #: templates/spirit/topic/private/delete.html:13
 msgid "Remove"
-msgstr ""
+msgstr "Eltávolít"
 
 #: templates/spirit/topic/private/detail.html:10
 #: templates/spirit/topic/private/index.html:5
 msgid "Private topics"
-msgstr ""
+msgstr "Privát témák"
 
 #: templates/spirit/topic/private/detail.html:17
 msgid "Participants"
-msgstr ""
+msgstr "Résztvevők"
 
 #: templates/spirit/topic/private/detail.html:33
 msgid "Leave topic"
-msgstr ""
+msgstr "Téma elhagyása"
 
 #: templates/spirit/topic/private/index_author.html:5
 msgid "Created private topics"
-msgstr ""
+msgstr "Létrehozott privát témák"
 
 #: templates/spirit/topic/private/index_author.html:15
 msgid "join"
-msgstr ""
+msgstr "csatlakozás"
 
 #: templates/spirit/topic/private/index_author.html:18
 msgid "There are no topics here, yet"
-msgstr ""
+msgstr "Még nincsenek témák"
 
 #: templates/spirit/topic/private/join.html:5
 msgid "Join topic"
-msgstr ""
+msgstr "Csatlakozás a témához"
 
 #: templates/spirit/topic/private/join.html:10
 #, python-format
 msgid "Do you want to join %(topic_title)s?"
-msgstr ""
+msgstr "Biztosan csatlakozol ehhez a témához: %(topic_title)s?"
 
 #: templates/spirit/topic/private/join.html:18
 msgid "Join"
-msgstr ""
+msgstr "Csatlakozás"
 
 #: templates/spirit/topic/private/publish.html:5
 msgid "Publish a private topic"
-msgstr ""
+msgstr "Privát téma publikálása"
 
 #: templates/spirit/topic/private/publish.html:9
 msgid "Publish private topic"
-msgstr ""
+msgstr "Privát téma publikálása"
 
 #: templates/spirit/topic/private/publish.html:23
 msgid "Publish"
-msgstr ""
+msgstr "Publikál"

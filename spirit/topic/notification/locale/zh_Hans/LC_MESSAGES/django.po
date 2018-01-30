@@ -1,12 +1,13 @@
 #
 # Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:37+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
 "spirit/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -21,7 +22,7 @@ msgstr "提醒已经存在"
 
 #: forms.py:43
 msgid "You can't subscribe to a topic with no comments"
-msgstr ""
+msgstr "无法订阅没有回帖的主题"
 
 #: models.py:17
 msgid "Undefined"
@@ -80,7 +81,7 @@ msgstr "暂无提醒"
 #: templates/spirit/topic/notification/index.html:5
 #: templates/spirit/topic/notification/index.html:9
 msgid "Notifications"
-msgstr "提醒"
+msgstr "所有提醒"
 
 #: templates/spirit/topic/notification/index_unread.html:5
 #: templates/spirit/topic/notification/index_unread.html:9

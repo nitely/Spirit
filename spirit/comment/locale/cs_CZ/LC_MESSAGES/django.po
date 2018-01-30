@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
 "PO-Revision-Date: 2015-10-14 19:38+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/spirit-"
@@ -15,149 +15,180 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: forms.py:30
+#: forms.py:38
+msgid "Comment"
+msgstr ""
+
+#: forms.py:56
 msgid "Write comment..."
 msgstr ""
 
-#: forms.py:101
+#: forms.py:146
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr ""
 
-#: models.py:20 models.py:34 models.py:49
+#: forms.py:173 forms.py:193
+msgid "The file could not be validated"
+msgstr ""
+
+#: forms.py:181
+#, python-format
+msgid "Unsupported file extension %s. Supported extensions are %s."
+msgstr ""
+
+#: forms.py:197
+#, python-format
+msgid "Unsupported file mime type %s. Supported types are %s."
+msgstr ""
+
+#: models.py:18 models.py:32 models.py:47
 msgid "comment"
 msgstr ""
 
-#: models.py:21
+#: models.py:19
 msgid "topic moved"
 msgstr ""
 
-#: models.py:22
+#: models.py:20
 msgid "topic closed"
 msgstr ""
 
-#: models.py:23
+#: models.py:21
 msgid "topic unclosed"
 msgstr ""
 
-#: models.py:24
+#: models.py:22
 msgid "topic pinned"
 msgstr ""
 
-#: models.py:25
+#: models.py:23
 msgid "topic unpinned"
 msgstr ""
 
-#: models.py:35
+#: models.py:33
 msgid "comment html"
 msgstr ""
 
-#: models.py:36
+#: models.py:34
 msgid "action"
 msgstr ""
 
-#: models.py:42
+#: models.py:40
 msgid "modified count"
 msgstr ""
 
-#: models.py:43
+#: models.py:41
 msgid "likes count"
 msgstr ""
 
-#: models.py:50
+#: models.py:48
 msgid "comments"
 msgstr ""
 
-#: tags.py:23
+#: tags.py:40
 msgid "This topic has been moved"
 msgstr ""
 
-#: tags.py:25
+#: tags.py:41
 msgid "This topic has been closed"
 msgstr ""
 
-#: tags.py:27
+#: tags.py:42
 msgid "This topic has been unclosed"
 msgstr ""
 
-#: tags.py:29
+#: tags.py:43
 msgid "This topic has been pinned"
 msgstr ""
 
-#: tags.py:31
+#: tags.py:44
 msgid "This topic has been unpinned"
 msgstr ""
 
-#: tags.py:33
+#: tags.py:49
 msgid "Unknown topic moderation action"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:6
+#: templates/spirit/comment/_editor.html:8
 msgid "Bold"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:7
+#: templates/spirit/comment/_editor.html:9
 msgid "Italic"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:10
 msgid "List"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:11
 msgid "URL"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:12
 msgid "Image"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:11
+#: templates/spirit/comment/_editor.html:14
+msgid "File"
+msgstr ""
+
+#: templates/spirit/comment/_editor.html:16
 msgid "Poll"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:12
+#: templates/spirit/comment/_editor.html:17
 msgid "Preview"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:32
+#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:47
 #, python-brace-format
-msgid "uploading {image_name}"
+msgid "uploading {name}"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:35
+#: templates/spirit/comment/_editor.html:52
 msgid "bolded text"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:36
+#: templates/spirit/comment/_editor.html:53
 msgid "italicised text"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:37
+#: templates/spirit/comment/_editor.html:54
 msgid "list item"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:38
+#: templates/spirit/comment/_editor.html:55
 msgid "link text"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:56
 msgid "link url"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:40
+#: templates/spirit/comment/_editor.html:57
 msgid "image text"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:41
+#: templates/spirit/comment/_editor.html:58
 msgid "image url"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:42
+#: templates/spirit/comment/_editor.html:59
+msgid "file text"
+msgstr ""
+
+#: templates/spirit/comment/_editor.html:60
+msgid "file url"
+msgstr ""
+
+#: templates/spirit/comment/_editor.html:61
 msgid "Title"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:43
+#: templates/spirit/comment/_editor.html:62
 msgid "Description"
 msgstr ""
 

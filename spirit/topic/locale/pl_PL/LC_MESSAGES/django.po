@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:36+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/spirit-project/"
 "spirit/language/pl_PL/)\n"
@@ -13,62 +13,67 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: forms.py:26
+#: forms.py:35
 msgid "Category"
 msgstr "Kategoria"
 
-#: forms.py:27
+#: forms.py:36
 msgid "Chose a category"
 msgstr "Wybierz kategorię"
 
-#: models.py:19
+#: models.py:29
 msgid "category"
 msgstr "kategoria"
 
-#: models.py:21
+#: models.py:31
 msgid "title"
 msgstr "tytuł"
 
-#: models.py:23
+#: models.py:33
 msgid "date"
 msgstr "data"
 
-#: models.py:24
+#: models.py:34
 msgid "last active"
 msgstr "ostatnio aktywny"
 
-#: models.py:26
+#: models.py:35
+msgid "reindex at"
+msgstr ""
+
+#: models.py:37
 msgid "pinned"
 msgstr "przypięty"
 
-#: models.py:27
+#: models.py:38
 msgid "globally pinned"
 msgstr ""
 
-#: models.py:28
+#: models.py:39
 msgid "closed"
 msgstr "zamknięto"
 
-#: models.py:31
+#: models.py:42
 msgid "views count"
 msgstr "liczba wyświetleń"
 
-#: models.py:32
+#: models.py:43
 msgid "comment count"
 msgstr "liczba komentarzy"
 
-#: models.py:38
+#: models.py:49
 msgid "topic"
 msgstr "wątek"
 
-#: models.py:39
+#: models.py:50
 msgid "topics"
 msgstr "wątki"
 
-#: templates/spirit/topic/_render_list.html:37
+#: templates/spirit/topic/_render_list.html:45
 msgid "There are no topics here, yet"
 msgstr "Nie ma tu jeszcze wątków."
 
@@ -155,8 +160,7 @@ msgstr "Moderuj wątek"
 msgid "Apply"
 msgstr "Zastosuj"
 
-#: templates/spirit/topic/publish.html:5
-#: templates/spirit/topic/publish.html:21
+#: templates/spirit/topic/publish.html:5 templates/spirit/topic/publish.html:21
 msgid "Publish topic"
 msgstr "Publikuj wątek"
 

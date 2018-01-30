@@ -16,7 +16,8 @@ class Command(BaseCommand):
     requires_system_checks = False
 
     def handle(self, *args, **options):
-        # Requires python27 and "pip install transifex-client==0.11b3"
+        # Requires `pip install transifex-client``
+        # also: ``$ tx init`` to create credentials
         root = os.path.split(settings.ST_BASE_DIR)[0]
         tx_dir = os.path.join(root, '.tx')
 

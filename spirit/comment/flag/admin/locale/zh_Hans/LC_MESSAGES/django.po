@@ -1,12 +1,13 @@
 #
 # Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:37+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
 "spirit/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -17,25 +18,25 @@ msgstr ""
 
 #: templates/spirit/comment/flag/admin/_list.html:9
 msgid "moderate"
-msgstr "编辑"
+msgstr "审核"
 
 #: templates/spirit/comment/flag/admin/_tabs.html:4
 msgid "Open"
-msgstr "开启"
+msgstr "未处理"
 
 #: templates/spirit/comment/flag/admin/_tabs.html:5
 msgid "Closed"
-msgstr "关闭的"
+msgstr "已处理"
 
 #: templates/spirit/comment/flag/admin/closed.html:5
 #: templates/spirit/comment/flag/admin/closed.html:11
 msgid "Closed flags"
-msgstr "关闭的标记"
+msgstr "已处理的举报"
 
 #: templates/spirit/comment/flag/admin/detail.html:5
 #: templates/spirit/comment/flag/admin/detail.html:14
 msgid "Flag"
-msgstr "标记"
+msgstr "举报"
 
 #: templates/spirit/comment/flag/admin/detail.html:10
 msgid "Admin"
@@ -43,11 +44,11 @@ msgstr "管理中心"
 
 #: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Flags"
-msgstr "标记"
+msgstr "举报"
 
 #: templates/spirit/comment/flag/admin/detail.html:18
 msgid "Moderated by"
-msgstr "编辑"
+msgstr "审核者"
 
 #: templates/spirit/comment/flag/admin/detail.html:27
 msgid "Save"
@@ -55,7 +56,7 @@ msgstr "保存"
 
 #: templates/spirit/comment/flag/admin/detail.html:30
 msgid "Comment flagged"
-msgstr "被标记的评论"
+msgstr "被举报的评论"
 
 #: templates/spirit/comment/flag/admin/detail.html:54
 msgid "delete"
@@ -68,8 +69,8 @@ msgstr "报告者"
 #: templates/spirit/comment/flag/admin/open.html:5
 #: templates/spirit/comment/flag/admin/open.html:11
 msgid "Open flags"
-msgstr "开启标记"
+msgstr "未处理的举报"
 
 #: views.py:27
 msgid "The flag has been moderated!"
-msgstr "该标记已经被编辑"
+msgstr "举报审核完成！"

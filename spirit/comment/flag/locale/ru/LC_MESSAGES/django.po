@@ -1,59 +1,65 @@
 #
+# Translators:
+# Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: forms.py:32
 msgid "This flag already exists"
-msgstr ""
+msgstr "Эта пометка уже существует."
 
-#: models.py:12
+#: models.py:13
 msgid "Spam"
 msgstr "Спам"
 
-#: models.py:13
+#: models.py:14
 msgid "Other"
 msgstr "Другой"
 
-#: models.py:28
-msgid "comment flag"
-msgstr ""
-
 #: models.py:29
-msgid "comments flags"
-msgstr ""
+msgid "comment flag"
+msgstr "пометка комментария"
 
-#: models.py:41
+#: models.py:30
+msgid "comments flags"
+msgstr "пометки комментариев"
+
+#: models.py:42
 msgid "reason"
 msgstr "причина"
 
-#: models.py:42
+#: models.py:43
 msgid "body"
-msgstr ""
-
-#: models.py:47
-msgid "flag"
-msgstr ""
+msgstr "тело"
 
 #: models.py:48
+msgid "flag"
+msgstr "пометка"
+
+#: models.py:49
 msgid "flags"
-msgstr ""
+msgstr "пометки"
 
 #: templates/spirit/comment/flag/create.html:5
 #: templates/spirit/comment/flag/create.html:14
 msgid "Report"
-msgstr "Отчёт"
+msgstr "Пожаловаться"
 
 #: templates/spirit/comment/flag/create.html:9
 #, python-format
 msgid "Reporting %(username)s's comment"
-msgstr ""
+msgstr "Пожаловаться на комментарий пользователя %(username)s"

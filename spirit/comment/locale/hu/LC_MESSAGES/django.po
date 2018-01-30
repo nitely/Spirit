@@ -1,13 +1,14 @@
 #
 # Translators:
 # istvanf <istvan.farkas@gmail.com>, 2015
+# istvanf <istvan.farkas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:38+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 15:26+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -16,151 +17,191 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:30
+#: forms.py:38
+#, fuzzy
+#| msgid "comment"
+msgid "Comment"
+msgstr "hozzászólás"
+
+#: forms.py:56
 msgid "Write comment..."
 msgstr "Hozzászólás..."
 
-#: forms.py:101
+#: forms.py:146
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Érvénytelen fájlformátum. A támogatott formátumok: %s."
 
-#: models.py:20 models.py:34 models.py:49
+#: forms.py:173 forms.py:193
+msgid "The file could not be validated"
+msgstr ""
+
+#: forms.py:181
+#, fuzzy, python-format
+#| msgid "Unsupported file format. Supported formats are %s."
+msgid "Unsupported file extension %s. Supported extensions are %s."
+msgstr "Érvénytelen fájlformátum. A támogatott formátumok: %s."
+
+#: forms.py:197
+#, fuzzy, python-format
+#| msgid "Unsupported file format. Supported formats are %s."
+msgid "Unsupported file mime type %s. Supported types are %s."
+msgstr "Érvénytelen fájlformátum. A támogatott formátumok: %s."
+
+#: models.py:18 models.py:32 models.py:47
 msgid "comment"
 msgstr "hozzászólás"
 
-#: models.py:21
+#: models.py:19
 msgid "topic moved"
 msgstr "téma átmozgatva"
 
-#: models.py:22
+#: models.py:20
 msgid "topic closed"
 msgstr "téma lezárva"
 
-#: models.py:23
+#: models.py:21
 msgid "topic unclosed"
 msgstr "téma újra megnyitva"
 
-#: models.py:24
+#: models.py:22
 msgid "topic pinned"
 msgstr "téma kiemelve"
 
-#: models.py:25
+#: models.py:23
 msgid "topic unpinned"
 msgstr "téma kiemelés megszüntetve"
 
-#: models.py:35
+#: models.py:33
 msgid "comment html"
 msgstr "hozzászólás HTML"
 
-#: models.py:36
+#: models.py:34
 msgid "action"
 msgstr "akció"
 
-#: models.py:42
+#: models.py:40
 msgid "modified count"
 msgstr "módosítások száma"
 
-#: models.py:43
+#: models.py:41
 msgid "likes count"
 msgstr "kedvelések száma"
 
-#: models.py:50
+#: models.py:48
 msgid "comments"
 msgstr "hozzászólások"
 
-#: tags.py:23
+#: tags.py:40
 msgid "This topic has been moved"
 msgstr "A téma át lett mozgatva"
 
-#: tags.py:25
+#: tags.py:41
 msgid "This topic has been closed"
 msgstr "A téma le lett zárva"
 
-#: tags.py:27
+#: tags.py:42
 msgid "This topic has been unclosed"
 msgstr "A téma újra meg lett nyitva"
 
-#: tags.py:29
+#: tags.py:43
 msgid "This topic has been pinned"
 msgstr "A téma ki lett emelve"
 
-#: tags.py:31
+#: tags.py:44
 msgid "This topic has been unpinned"
 msgstr "A téma kiemelése meg lett szüntetve"
 
-#: tags.py:33
+#: tags.py:49
 msgid "Unknown topic moderation action"
 msgstr "Ismeretlen moderálás akció"
 
-#: templates/spirit/comment/_editor.html:6
+#: templates/spirit/comment/_editor.html:8
 msgid "Bold"
 msgstr "Félkövér"
 
-#: templates/spirit/comment/_editor.html:7
+#: templates/spirit/comment/_editor.html:9
 msgid "Italic"
 msgstr "Dőlt"
 
-#: templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:10
 msgid "List"
 msgstr "Lista"
 
-#: templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:11
 msgid "URL"
 msgstr "Link"
 
-#: templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:12
 msgid "Image"
 msgstr "Kép"
 
-#: templates/spirit/comment/_editor.html:11
-msgid "Poll"
+#: templates/spirit/comment/_editor.html:14
+msgid "File"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:12
+#: templates/spirit/comment/_editor.html:16
+msgid "Poll"
+msgstr "Szavazás"
+
+#: templates/spirit/comment/_editor.html:17
 msgid "Preview"
 msgstr "Előnézet"
 
-#: templates/spirit/comment/_editor.html:32
-#, python-brace-format
-msgid "uploading {image_name}"
+#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:47
+#, fuzzy, python-brace-format
+#| msgid "uploading {image_name}"
+msgid "uploading {name}"
 msgstr " {image_name} feltöltése folyamatban"
 
-#: templates/spirit/comment/_editor.html:35
+#: templates/spirit/comment/_editor.html:52
 msgid "bolded text"
 msgstr "félkövér szöveg"
 
-#: templates/spirit/comment/_editor.html:36
+#: templates/spirit/comment/_editor.html:53
 msgid "italicised text"
 msgstr "dőlt szöveg"
 
-#: templates/spirit/comment/_editor.html:37
+#: templates/spirit/comment/_editor.html:54
 msgid "list item"
 msgstr "listaelem"
 
-#: templates/spirit/comment/_editor.html:38
+#: templates/spirit/comment/_editor.html:55
 msgid "link text"
 msgstr "link szövege"
 
-#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:56
 msgid "link url"
 msgstr "link url"
 
-#: templates/spirit/comment/_editor.html:40
+#: templates/spirit/comment/_editor.html:57
 msgid "image text"
 msgstr "kép szövege"
 
-#: templates/spirit/comment/_editor.html:41
+#: templates/spirit/comment/_editor.html:58
 msgid "image url"
 msgstr "kép url"
 
-#: templates/spirit/comment/_editor.html:42
-msgid "Title"
-msgstr ""
+#: templates/spirit/comment/_editor.html:59
+#, fuzzy
+#| msgid "image text"
+msgid "file text"
+msgstr "kép szövege"
 
-#: templates/spirit/comment/_editor.html:43
+#: templates/spirit/comment/_editor.html:60
+#, fuzzy
+#| msgid "image url"
+msgid "file url"
+msgstr "kép url"
+
+#: templates/spirit/comment/_editor.html:61
+msgid "Title"
+msgstr "Cím"
+
+#: templates/spirit/comment/_editor.html:62
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: templates/spirit/comment/_form.html:17
 #: templates/spirit/comment/publish.html:18

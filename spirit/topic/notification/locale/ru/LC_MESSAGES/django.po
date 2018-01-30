@@ -1,12 +1,13 @@
 #
 # Translators:
+# Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:37+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
 "Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -19,11 +20,11 @@ msgstr ""
 
 #: forms.py:37
 msgid "This notification already exists"
-msgstr ""
+msgstr "Это уведомление уже существует"
 
 #: forms.py:43
 msgid "You can't subscribe to a topic with no comments"
-msgstr ""
+msgstr "Невозможно подписаться на тему, не имеющую комментариев"
 
 #: models.py:17
 msgid "Undefined"
@@ -47,11 +48,11 @@ msgstr "уведомления тем"
 
 #: templates/spirit/topic/notification/_form.html:12
 msgid "Unnotify Me"
-msgstr ""
+msgstr "Отписаться от уведомлений"
 
 #: templates/spirit/topic/notification/_form.html:14
 msgid "Notify Me"
-msgstr ""
+msgstr "Подписаться на уведомления"
 
 #: templates/spirit/topic/notification/_render_list.html:9
 #, python-format
@@ -59,6 +60,8 @@ msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href="
 "\"%(url_topic)s\">%(topic_title)s</a>"
 msgstr ""
+"Пользователь <a href=\"%(url_profile)s\">%(username)s</a> прокомментировал "
+"тему <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
 #: templates/spirit/topic/notification/_render_list.html:11
 #, python-format
@@ -66,6 +69,8 @@ msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href="
 "\"%(url_topic)s\">%(topic_title)s</a>"
 msgstr ""
+"Пользователь <a href=\"%(url_profile)s\">%(username)s</a> упомянул вас в "
+"теме <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
 #: templates/spirit/topic/notification/_render_list.html:17
 msgid "unread"
@@ -73,7 +78,7 @@ msgstr "непрочитано"
 
 #: templates/spirit/topic/notification/_render_list.html:21
 msgid "There are no notifications, yet"
-msgstr ""
+msgstr "Пока уведомления отстутствуют"
 
 #: templates/spirit/topic/notification/index.html:5
 #: templates/spirit/topic/notification/index.html:9
@@ -87,7 +92,7 @@ msgstr "Непрочитанные уведомления"
 
 #: templates/spirit/topic/notification/index_unread.html:15
 msgid "There are no new notifications"
-msgstr ""
+msgstr "Нет новых уведомлений"
 
 #: templates/spirit/topic/notification/index_unread.html:22
 msgid "Next"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
 "PO-Revision-Date: 2015-10-14 19:36+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/spirit-"
@@ -15,59 +15,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: forms.py:26
+#: forms.py:35
 msgid "Category"
 msgstr ""
 
-#: forms.py:27
+#: forms.py:36
 msgid "Chose a category"
 msgstr ""
 
-#: models.py:19
+#: models.py:29
 msgid "category"
 msgstr ""
 
-#: models.py:21
+#: models.py:31
 msgid "title"
 msgstr ""
 
-#: models.py:23
+#: models.py:33
 msgid "date"
 msgstr ""
 
-#: models.py:24
+#: models.py:34
 msgid "last active"
 msgstr ""
 
-#: models.py:26
+#: models.py:35
+msgid "reindex at"
+msgstr ""
+
+#: models.py:37
 msgid "pinned"
 msgstr ""
 
-#: models.py:27
+#: models.py:38
 msgid "globally pinned"
 msgstr ""
 
-#: models.py:28
+#: models.py:39
 msgid "closed"
 msgstr ""
 
-#: models.py:31
+#: models.py:42
 msgid "views count"
 msgstr ""
 
-#: models.py:32
+#: models.py:43
 msgid "comment count"
 msgstr ""
 
-#: models.py:38
+#: models.py:49
 msgid "topic"
 msgstr ""
 
-#: models.py:39
+#: models.py:50
 msgid "topics"
 msgstr ""
 
-#: templates/spirit/topic/_render_list.html:37
+#: templates/spirit/topic/_render_list.html:45
 msgid "There are no topics here, yet"
 msgstr ""
 
@@ -154,8 +158,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: templates/spirit/topic/publish.html:5
-#: templates/spirit/topic/publish.html:21
+#: templates/spirit/topic/publish.html:5 templates/spirit/topic/publish.html:21
 msgid "Publish topic"
 msgstr ""
 

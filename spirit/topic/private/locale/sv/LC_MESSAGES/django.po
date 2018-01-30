@@ -1,30 +1,39 @@
 #
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:56+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/"
+"language/sv/)\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:41
+#: forms.py:68
+#, fuzzy
+#| msgid "Invite user"
+msgid "Invite users"
+msgstr "Bjud in användare"
+
+#: forms.py:71
 msgid "user1, user2, ..."
 msgstr "användare1, användare2, ..."
 
-#: forms.py:73
+#: forms.py:103
 msgid "username"
 msgstr "användarnamn"
 
-#: forms.py:74
+#: forms.py:104
 msgid "Invite user"
 msgstr "Bjud in användare"
 
-#: forms.py:92 forms.py:126
+#: forms.py:122 forms.py:156
 #, python-format
 msgid "%(username)s is already a participant"
 msgstr "%(username)s deltar redan"

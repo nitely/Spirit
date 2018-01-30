@@ -1,16 +1,20 @@
 #
+# Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
+"spirit/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: tags/time.py:33
 msgid "now"
@@ -47,7 +51,7 @@ msgstr "{user} 在主题 {topic} 提到了你"
 #: templates/spirit/_base.html:34
 #, python-brace-format
 msgid "{user} has commented on {topic}"
-msgstr "{user} 在主题 {topic} 回复了你"
+msgstr "{user} 回复了主题 {topic}"
 
 #: templates/spirit/_base.html:35
 msgid "Show all"
@@ -106,154 +110,114 @@ msgstr "首页"
 msgid "Page 1 of 1"
 msgstr "1/1页"
 
-#: utils/markdown/utils/quote.py:36
+#: utils/markdown/utils/quote.py:37
 #, python-format
 msgid "@%(username)s said:"
-msgstr ""
+msgstr "@%(username)s 评论道:"
 
-#: utils/ratelimit/decorators.py:25
+#: utils/ratelimit/decorators.py:27
 #, python-format
 msgid "Too many submissions, wait %(time)s."
 msgstr "太多提交次数，请等待%(time)s"
 
-#: utils/timezone.py:9
-msgid "(GMT -12:00) Eniwetok, Kwajalein"
-msgstr "(GMT -12:00) Eniwetok, Kwajalein"
+#~ msgid "(GMT -12:00) Eniwetok, Kwajalein"
+#~ msgstr "(GMT -12:00) Eniwetok, Kwajalein"
 
-#: utils/timezone.py:10
-msgid "(GMT -11:00) Midway Island, Samoa"
-msgstr "(GMT -11:00) Midway Island, Samoa"
+#~ msgid "(GMT -11:00) Midway Island, Samoa"
+#~ msgstr "(GMT -11:00) Midway Island, Samoa"
 
-#: utils/timezone.py:11
-msgid "(GMT -10:00) Hawaii"
-msgstr "(GMT -10:00) Hawaii"
+#~ msgid "(GMT -10:00) Hawaii"
+#~ msgstr "(GMT -10:00) Hawaii"
 
-#: utils/timezone.py:12
-msgid "(GMT -9:30) Marquesas Islands"
-msgstr "(GMT -9:30) Marquesas Islands"
+#~ msgid "(GMT -9:30) Marquesas Islands"
+#~ msgstr "(GMT -9:30) Marquesas Islands"
 
-#: utils/timezone.py:13
-msgid "(GMT -9:00) Alaska"
-msgstr "(GMT -9:00) Alaska"
+#~ msgid "(GMT -9:00) Alaska"
+#~ msgstr "(GMT -9:00) Alaska"
 
-#: utils/timezone.py:14
-msgid "(GMT -8:00) Pacific Time (US & Canada)"
-msgstr "(GMT -8:00) Pacific Time (US & Canada)"
+#~ msgid "(GMT -8:00) Pacific Time (US & Canada)"
+#~ msgstr "(GMT -8:00) Pacific Time (US & Canada)"
 
-#: utils/timezone.py:15
-msgid "(GMT -7:00) Mountain Time (US & Canada)"
-msgstr "(GMT -7:00) Mountain Time (US & Canada)"
+#~ msgid "(GMT -7:00) Mountain Time (US & Canada)"
+#~ msgstr "(GMT -7:00) Mountain Time (US & Canada)"
 
-#: utils/timezone.py:16
-msgid "(GMT -6:00) Central Time (US & Canada), Mexico City"
-msgstr "(GMT -6:00) Central Time (US & Canada), Mexico City"
+#~ msgid "(GMT -6:00) Central Time (US & Canada), Mexico City"
+#~ msgstr "(GMT -6:00) Central Time (US & Canada), Mexico City"
 
-#: utils/timezone.py:17
-msgid "(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima"
-msgstr "(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima"
+#~ msgid "(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima"
+#~ msgstr "(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima"
 
-#: utils/timezone.py:18
-msgid "(GMT -4:30) Venezuela"
-msgstr "(GMT -4:30) Venezuela"
+#~ msgid "(GMT -4:30) Venezuela"
+#~ msgstr "(GMT -4:30) Venezuela"
 
-#: utils/timezone.py:19
-msgid "(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz"
-msgstr "(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz"
+#~ msgid "(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz"
+#~ msgstr "(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz"
 
-#: utils/timezone.py:20
-msgid "(GMT -3:00) Brazil, Buenos Aires, Georgetown"
-msgstr "(GMT -3:00) Brazil, Buenos Aires, Georgetown"
+#~ msgid "(GMT -3:00) Brazil, Buenos Aires, Georgetown"
+#~ msgstr "(GMT -3:00) Brazil, Buenos Aires, Georgetown"
 
-#: utils/timezone.py:21
-msgid "(GMT -2:00) Mid-Atlantic"
-msgstr "(GMT -2:00) Mid-Atlantic"
+#~ msgid "(GMT -2:00) Mid-Atlantic"
+#~ msgstr "(GMT -2:00) Mid-Atlantic"
 
-#: utils/timezone.py:22
-msgid "(GMT -1:00) Azores, Cape Verde Islands"
-msgstr "(GMT -1:00) Azores, Cape Verde Islands"
+#~ msgid "(GMT -1:00) Azores, Cape Verde Islands"
+#~ msgstr "(GMT -1:00) Azores, Cape Verde Islands"
 
-#: utils/timezone.py:23
-msgid "(GMT) Western Europe Time, London, Lisbon, Casablanca"
-msgstr "(GMT) Western Europe Time, London, Lisbon, Casablanca"
+#~ msgid "(GMT) Western Europe Time, London, Lisbon, Casablanca"
+#~ msgstr "(GMT) Western Europe Time, London, Lisbon, Casablanca"
 
-#: utils/timezone.py:24
-msgid "(GMT +1:00) Brussels, Copenhagen, Madrid, Paris"
-msgstr "(GMT +1:00) Brussels, Copenhagen, Madrid, Paris"
+#~ msgid "(GMT +1:00) Brussels, Copenhagen, Madrid, Paris"
+#~ msgstr "(GMT +1:00) Brussels, Copenhagen, Madrid, Paris"
 
-#: utils/timezone.py:25
-msgid "(GMT +2:00) Kaliningrad, South Africa"
-msgstr "(GMT +2:00) Kaliningrad, South Africa"
+#~ msgid "(GMT +2:00) Kaliningrad, South Africa"
+#~ msgstr "(GMT +2:00) Kaliningrad, South Africa"
 
-#: utils/timezone.py:26
-msgid "(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg"
-msgstr "(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg"
+#~ msgid "(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg"
+#~ msgstr "(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg"
 
-#: utils/timezone.py:27
-msgid "(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi"
-msgstr "(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi"
+#~ msgid "(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi"
+#~ msgstr "(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi"
 
-#: utils/timezone.py:28
-msgid "(GMT +4:30) Afghanistan"
-msgstr "(GMT +4:30) Afghanistan"
+#~ msgid "(GMT +4:30) Afghanistan"
+#~ msgstr "(GMT +4:30) Afghanistan"
 
-#: utils/timezone.py:29
-msgid "(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent"
-msgstr "(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent"
+#~ msgid "(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent"
+#~ msgstr "(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent"
 
-#: utils/timezone.py:30
-msgid "(GMT +5:30) India, Sri Lanka"
-msgstr "(GMT +5:30) India, Sri Lanka"
+#~ msgid "(GMT +5:30) India, Sri Lanka"
+#~ msgstr "(GMT +5:30) India, Sri Lanka"
 
-#: utils/timezone.py:31
-msgid "(GMT +5:45) Nepal"
-msgstr "(GMT +5:45) Nepal"
+#~ msgid "(GMT +5:45) Nepal"
+#~ msgstr "(GMT +5:45) Nepal"
 
-#: utils/timezone.py:32
-msgid "(GMT +6:00) Almaty, Dhaka, Colombo"
-msgstr "(GMT +6:00) Almaty, Dhaka, Colombo"
+#~ msgid "(GMT +6:00) Almaty, Dhaka, Colombo"
+#~ msgstr "(GMT +6:00) Almaty, Dhaka, Colombo"
 
-#: utils/timezone.py:33
-msgid "(GMT +6:30) Cocos Islands, Myanmar"
-msgstr "(GMT +6:30) Cocos Islands, Myanmar"
+#~ msgid "(GMT +6:30) Cocos Islands, Myanmar"
+#~ msgstr "(GMT +6:30) Cocos Islands, Myanmar"
 
-#: utils/timezone.py:34
-msgid "(GMT +7:00) Bangkok, Hanoi, Jakarta"
-msgstr "(GMT +7:00) Bangkok, Hanoi, Jakarta"
+#~ msgid "(GMT +7:00) Bangkok, Hanoi, Jakarta"
+#~ msgstr "(GMT +7:00) Bangkok, Hanoi, Jakarta"
 
-#: utils/timezone.py:35
-msgid "(GMT +8:00) Beijing, Perth, Singapore, Hong Kong"
-msgstr "(GMT +8:00) 北京,新加坡,香港,佩斯"
+#~ msgid "(GMT +8:00) Beijing, Perth, Singapore, Hong Kong"
+#~ msgstr "(GMT +8:00) 北京,新加坡,香港,佩斯"
 
-#: utils/timezone.py:36
-msgid "(GMT +8:45) Australia (Eucla)"
-msgstr "(GMT +8:45) Australia (Eucla)"
+#~ msgid "(GMT +8:45) Australia (Eucla)"
+#~ msgstr "(GMT +8:45) Australia (Eucla)"
 
-#: utils/timezone.py:37
-msgid "(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk"
-msgstr "(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk"
+#~ msgid "(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk"
+#~ msgstr "(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk"
 
-#: utils/timezone.py:38
-msgid "(GMT +9:30) Australia (Northern Territory)"
-msgstr "(GMT +9:30) Australia (Northern Territory)"
+#~ msgid "(GMT +9:30) Australia (Northern Territory)"
+#~ msgstr "(GMT +9:30) Australia (Northern Territory)"
 
-#: utils/timezone.py:39
-msgid "(GMT +10:00) Eastern Australia, Guam, Vladivostok"
-msgstr "(GMT +10:00) Eastern Australia, Guam, Vladivostok"
+#~ msgid "(GMT +10:00) Eastern Australia, Guam, Vladivostok"
+#~ msgstr "(GMT +10:00) Eastern Australia, Guam, Vladivostok"
 
-#: utils/timezone.py:40
-msgid "(GMT +11:00) Magadan, Solomon Islands, New Caledonia"
-msgstr "(GMT +11:00) Magadan, Solomon Islands, New Caledonia"
+#~ msgid "(GMT +11:00) Magadan, Solomon Islands, New Caledonia"
+#~ msgstr "(GMT +11:00) Magadan, Solomon Islands, New Caledonia"
 
-#: utils/timezone.py:41
-msgid "(GMT +11:30) Norfolk Island"
-msgstr "(GMT +11:30) Norfolk Island"
+#~ msgid "(GMT +11:30) Norfolk Island"
+#~ msgstr "(GMT +11:30) Norfolk Island"
 
-#: utils/timezone.py:42
-msgid "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
-msgstr "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
-
-#~ msgid "User activation"
-#~ msgstr "用户激活"
-
-#~ msgid "Email change"
-#~ msgstr "Email修改"
+#~ msgid "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
+#~ msgstr "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"

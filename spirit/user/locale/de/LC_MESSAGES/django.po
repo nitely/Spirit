@@ -1,12 +1,13 @@
 #
 # Translators:
+# Sven Hessenmüller <sven.hessenmueller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:35+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Sven Hessenmüller <sven.hessenmueller@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
 "language/de/)\n"
 "Language: de\n"
@@ -15,30 +16,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:33
+#: forms.py:35
 msgid "The email is taken."
-msgstr ""
+msgstr "Diese E-Mailadresse ist bereits vergeben."
 
-#: forms.py:43 forms.py:48 templates/spirit/user/profile_update.html:12
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:12
 msgid "Email"
 msgstr "E-Mail"
 
-#: forms.py:49 templates/spirit/user/profile_update.html:15
+#: forms.py:51 templates/spirit/user/profile_update.html:15
 msgid "Password"
 msgstr "Passwort"
 
-#: forms.py:59
+#: forms.py:61
 msgid "The provided password is incorrect."
-msgstr ""
+msgstr "Das eingegebene Passwort ist falsch."
 
-#: forms.py:80
+#: forms.py:75
+#, fuzzy
+#| msgid "time zone"
+msgid "Time zone"
+msgstr "Zeitzone"
+
+#: forms.py:84
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr "Aktuelle Zeit: %(date)s %(time)s"
 
 #: models.py:16
 msgid "profile"
-msgstr ""
+msgstr "Profil"
 
 #: models.py:19
 msgid "location"
@@ -66,13 +73,16 @@ msgstr "Moderator Status"
 
 #: models.py:25
 msgid "verified"
-msgstr ""
+msgstr "verifiziert"
 
 #: models.py:26
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr ""
+"Zeigt an ob der Benutzer seinen Zugang via E-Mail oder mit anderen Mitteln "
+"verifiziert hat. Deaktiviere dieses Feld um den Benutzer (erneut) seinen "
+"Zugang aktivieren zu lassen"
 
 #: models.py:30
 msgid "topic count"
@@ -82,21 +92,23 @@ msgstr "Themen"
 msgid "comment count"
 msgstr "Kommentare"
 
+#: models.py:33
+msgid "last post hash"
+msgstr ""
+
 #: models.py:34
+#, fuzzy
+#| msgid "last seen"
+msgid "last post on"
+msgstr "zuletzt gesehen"
+
+#: models.py:37
 msgid "forum profile"
-msgstr ""
+msgstr "Forum Profil"
 
-#: models.py:35
+#: models.py:38
 msgid "forum profiles"
-msgstr ""
-
-#: models.py:56
-msgid "user"
-msgstr "Benutzer_in"
-
-#: models.py:57
-msgid "users"
-msgstr "Benutzer"
+msgstr "Forum Profile"
 
 #: templates/spirit/user/_profile.html:12
 msgid "Joined at"
@@ -219,8 +231,8 @@ msgid "comments"
 msgstr "Kommentare"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:435 tests.py:694
-#: utils/email.py:58
+#: templates/spirit/user/profile_email_change.html:9 tests.py:451 tests.py:765
+#: utils/email.py:60
 msgid "Email change"
 msgstr "E-Mailadresse ändern"
 
@@ -260,16 +272,18 @@ msgstr "Avatar ändern"
 #: templates/spirit/user/profile_update.html:20
 msgid "Go to gravatar.com and use your current email to change it"
 msgstr ""
+"Gehe auf gravatar.com und benutze deine aktuelle E-Mail-Adresse um es zu "
+"ändern"
 
 #: templates/spirit/user/profile_update.html:28
 msgid "Save"
 msgstr "speichern"
 
-#: tests.py:658 utils/email.py:50
+#: tests.py:729 utils/email.py:52
 msgid "User activation"
 msgstr "Benutzer_innen-Aktivierung"
 
-#: utils/email.py:67
+#: utils/email.py:69
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr "Neue Benachrichtigung: %(topic_name)s"
@@ -293,4 +307,10 @@ msgstr "Deine E-Mailadresse wurde geändert!"
 
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
-msgstr ""
+msgstr "Sorry, es ist uns nicht möglich deine E-Mail-Adresse zu ändern."
+
+#~ msgid "user"
+#~ msgstr "Benutzer_in"
+
+#~ msgid "users"
+#~ msgstr "Benutzer"

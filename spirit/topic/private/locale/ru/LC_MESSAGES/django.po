@@ -1,41 +1,53 @@
 #
+# Translators:
+# Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:56+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: forms.py:41
+#: forms.py:68
+#, fuzzy
+#| msgid "Invite user"
+msgid "Invite users"
+msgstr "Пригласить пользователя"
+
+#: forms.py:71
 msgid "user1, user2, ..."
-msgstr ""
+msgstr "пользователь1, пользователь2, ..."
 
-#: forms.py:73
+#: forms.py:103
 msgid "username"
 msgstr "Имя пользователя"
 
-#: forms.py:74
+#: forms.py:104
 msgid "Invite user"
 msgstr "Пригласить пользователя"
 
-#: forms.py:92 forms.py:126
+#: forms.py:122 forms.py:156
 #, python-format
 msgid "%(username)s is already a participant"
-msgstr ""
+msgstr "Пользователь %(username)s уже участвует в теме"
 
 #: models.py:25
 msgid "private topic"
-msgstr ""
+msgstr "приватная тема"
 
 #: models.py:26
 msgid "private topics"
-msgstr ""
+msgstr "приватные темы"
 
 #: templates/spirit/topic/private/_invite_form.html:7
 msgid "Invite"
@@ -44,12 +56,12 @@ msgstr "инвайт"
 #: templates/spirit/topic/private/_top_bar.html:6
 #: templates/spirit/topic/private/_top_bar.html:14
 msgid "Participating in"
-msgstr ""
+msgstr "Участие в приватных темах"
 
 #: templates/spirit/topic/private/_top_bar.html:8
 #: templates/spirit/topic/private/_top_bar.html:13
 msgid "Left"
-msgstr ""
+msgstr "Покинутые приватные темы"
 
 #: templates/spirit/topic/private/_top_bar.html:20
 msgid "Create private topic"
@@ -57,12 +69,12 @@ msgstr "Создать приватную тему"
 
 #: templates/spirit/topic/private/delete.html:5
 msgid "Remove user from private topic"
-msgstr ""
+msgstr "Удалить участника из приватной темы"
 
 #: templates/spirit/topic/private/delete.html:9
 #, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
-msgstr ""
+msgstr "Удаление участника %(username)s's из темы %(topic_title)s"
 
 #: templates/spirit/topic/private/delete.html:13
 msgid "Remove"
@@ -75,15 +87,15 @@ msgstr "Приватные темы"
 
 #: templates/spirit/topic/private/detail.html:17
 msgid "Participants"
-msgstr ""
+msgstr "Участники"
 
 #: templates/spirit/topic/private/detail.html:33
 msgid "Leave topic"
-msgstr ""
+msgstr "Покинуть тему"
 
 #: templates/spirit/topic/private/index_author.html:5
 msgid "Created private topics"
-msgstr ""
+msgstr "Созданные приватные темы"
 
 #: templates/spirit/topic/private/index_author.html:15
 msgid "join"
@@ -95,12 +107,12 @@ msgstr "Здесь пока нет тем"
 
 #: templates/spirit/topic/private/join.html:5
 msgid "Join topic"
-msgstr ""
+msgstr "Присоединиться к теме"
 
 #: templates/spirit/topic/private/join.html:10
 #, python-format
 msgid "Do you want to join %(topic_title)s?"
-msgstr ""
+msgstr "Желаете присоединиться к теме %(topic_title)s?"
 
 #: templates/spirit/topic/private/join.html:18
 msgid "Join"
@@ -108,11 +120,11 @@ msgstr "Присоединиться"
 
 #: templates/spirit/topic/private/publish.html:5
 msgid "Publish a private topic"
-msgstr ""
+msgstr "Опубликовать приватную тему"
 
 #: templates/spirit/topic/private/publish.html:9
 msgid "Publish private topic"
-msgstr ""
+msgstr "Опубликовать приватную тему"
 
 #: templates/spirit/topic/private/publish.html:23
 msgid "Publish"

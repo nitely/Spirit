@@ -1,13 +1,13 @@
 #
 # Translators:
-# AlperB <ihtiyaroyuncu@yandex.com>, 2015
+# Alper Buluc <ihtiyaroyuncu@yandex.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:56+0000\n"
-"PO-Revision-Date: 2015-09-15 19:44+0000\n"
-"Last-Translator: AlperB <ihtiyaroyuncu@yandex.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Alper Buluc <ihtiyaroyuncu@yandex.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/"
 "language/tr/)\n"
 "Language: tr\n"

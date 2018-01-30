@@ -1,12 +1,13 @@
 #
 # Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:36+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
 "spirit/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -15,43 +16,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:16
+#: models.py:24
 msgid "category parent"
 msgstr "父分类"
 
-#: models.py:18
+#: models.py:26
 msgid "title"
 msgstr "标题"
 
-#: models.py:20
+#: models.py:28
 msgid "description"
 msgstr "描述"
 
-#: models.py:21
-msgid "global"
+#: models.py:29
+msgid "color"
 msgstr ""
 
-#: models.py:22
+#: models.py:30
+msgid "Title color in hex format (i.e: #1aafd0)."
+msgstr ""
+
+#: models.py:31
+msgid "modified at"
+msgstr ""
+
+#: models.py:33
+msgid "global"
+msgstr "全局"
+
+#: models.py:34
 msgid ""
 "Designates whether the topics will bedisplayed in the all-categories list."
-msgstr ""
+msgstr "这个帖子是否在全部分类列表下显示。"
 
-#: models.py:24
+#: models.py:36
 msgid "closed"
 msgstr "关闭的"
 
-#: models.py:25
+#: models.py:37
 msgid "removed"
 msgstr "删除的"
 
-#: models.py:26
+#: models.py:38
 msgid "private"
 msgstr "私密的"
 
-#: models.py:34
+#: models.py:44
 msgid "category"
 msgstr "分类"
 
-#: models.py:35
+#: models.py:45
 msgid "categories"
 msgstr "分类"

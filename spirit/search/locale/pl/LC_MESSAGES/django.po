@@ -1,23 +1,28 @@
 #
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/"
+"language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: forms.py:23
+#: forms.py:24
 #, python-format
 msgid "Your search must contain at least %(length)s characters."
 msgstr "Szukana fraza musi zawierać przynajmniej %(length)s znaków."
 
-#: forms.py:45
+#: forms.py:51
 msgid "Filter by"
 msgstr "Filtruj według"
 
@@ -31,6 +36,6 @@ msgstr "Szukaj"
 msgid "Results"
 msgstr "Wyniki"
 
-#: templates/spirit/search/search.html:27
+#: templates/spirit/search/search.html:25
 msgid "There are no search results."
 msgstr "Nie ma wyników wyszukiwania."

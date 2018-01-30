@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
 "PO-Revision-Date: 2015-07-31 05:21+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/spirit-project/"
@@ -21,35 +21,35 @@ msgstr ""
 msgid "This flag already exists"
 msgstr ""
 
-#: models.py:12
+#: models.py:13
 msgid "Spam"
 msgstr ""
 
-#: models.py:13
+#: models.py:14
 msgid "Other"
 msgstr ""
 
-#: models.py:28
+#: models.py:29
 msgid "comment flag"
 msgstr ""
 
-#: models.py:29
+#: models.py:30
 msgid "comments flags"
 msgstr ""
 
-#: models.py:41
+#: models.py:42
 msgid "reason"
 msgstr ""
 
-#: models.py:42
+#: models.py:43
 msgid "body"
 msgstr ""
 
-#: models.py:47
+#: models.py:48
 msgid "flag"
 msgstr ""
 
-#: models.py:48
+#: models.py:49
 msgid "flags"
 msgstr ""
 

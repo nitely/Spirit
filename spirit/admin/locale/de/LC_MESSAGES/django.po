@@ -1,16 +1,20 @@
 #
+# Translators:
+# Sven Hessenmüller <sven.hessenmueller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Sven Hessenmüller <sven.hessenmueller@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:13
 msgid "site name"
@@ -22,7 +26,7 @@ msgstr "Beschreibung der Seite"
 
 #: forms.py:15
 msgid "footer snippet"
-msgstr ""
+msgstr "Footer Schnipsel"
 
 #: forms.py:17
 msgid "This gets rendered just before the footer in your template."
@@ -30,11 +34,11 @@ msgstr "Das wird in Ihrem Template direkt vor dem Footer gerendert."
 
 #: forms.py:18
 msgid "comments per page"
-msgstr ""
+msgstr "Kommentare pro Seite"
 
 #: forms.py:19
 msgid "topics per page"
-msgstr ""
+msgstr "Themen pro Seite"
 
 #: templates/spirit/admin/_side_menu.html:3
 msgid "Show menu"

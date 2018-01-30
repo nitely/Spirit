@@ -1,18 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2015-10-14 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/spirit-project/"
+"spirit/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,63 +36,63 @@ msgstr ""
 msgid "This poll is closed"
 msgstr ""
 
-#: models.py:31
+#: models.py:34
 msgid "name"
 msgstr ""
 
-#: models.py:32
+#: models.py:35
 msgid "title"
 msgstr ""
 
-#: models.py:33
+#: models.py:36
 msgid "choice min"
 msgstr ""
 
-#: models.py:34
+#: models.py:37
 msgid "choice max"
 msgstr ""
 
-#: models.py:35
+#: models.py:38
 msgid "mode"
 msgstr ""
 
-#: models.py:36
+#: models.py:39
 msgid "auto close at"
 msgstr ""
 
-#: models.py:45
+#: models.py:48
 msgid "comment poll"
 msgstr ""
 
-#: models.py:46
+#: models.py:49
 msgid "comments polls"
 msgstr ""
 
-#: models.py:133
+#: models.py:136
 msgid "number"
 msgstr ""
 
-#: models.py:134
+#: models.py:137
 msgid "choice description"
 msgstr ""
 
-#: models.py:135
+#: models.py:138
 msgid "vote count"
 msgstr ""
 
-#: models.py:143
+#: models.py:146
 msgid "poll choice"
 msgstr ""
 
-#: models.py:144
+#: models.py:147
 msgid "poll choices"
 msgstr ""
 
-#: models.py:215
+#: models.py:218
 msgid "poll vote"
 msgstr ""
 
-#: models.py:216
+#: models.py:219
 msgid "poll votes"
 msgstr ""
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-20 13:36+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 16:27+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
 "language/es/)\n"
@@ -37,63 +37,63 @@ msgstr "Muy pocas opciones seleccionadas. El minimo es %s"
 msgid "This poll is closed"
 msgstr "Esta encuesta esta cerrada"
 
-#: models.py:31
+#: models.py:34
 msgid "name"
 msgstr "nombre"
 
-#: models.py:32
+#: models.py:35
 msgid "title"
 msgstr "titulo"
 
-#: models.py:33
+#: models.py:36
 msgid "choice min"
 msgstr "min. opciones"
 
-#: models.py:34
+#: models.py:37
 msgid "choice max"
 msgstr "max. opciones"
 
-#: models.py:35
+#: models.py:38
 msgid "mode"
 msgstr "modo"
 
-#: models.py:36
+#: models.py:39
 msgid "auto close at"
 msgstr "auto cerrar"
 
-#: models.py:45
+#: models.py:48
 msgid "comment poll"
 msgstr "encuesta de comentario"
 
-#: models.py:46
+#: models.py:49
 msgid "comments polls"
 msgstr "encuestas de comentarios"
 
-#: models.py:133
+#: models.py:136
 msgid "number"
 msgstr "numero"
 
-#: models.py:134
+#: models.py:137
 msgid "choice description"
 msgstr "descripción de opcion"
 
-#: models.py:135
+#: models.py:138
 msgid "vote count"
 msgstr "cantidad de votos"
 
-#: models.py:143
+#: models.py:146
 msgid "poll choice"
 msgstr "opción de encuesta"
 
-#: models.py:144
+#: models.py:147
 msgid "poll choices"
 msgstr "opciones de encuesta"
 
-#: models.py:215
+#: models.py:218
 msgid "poll vote"
 msgstr "voto de encuesta"
 
-#: models.py:216
+#: models.py:219
 msgid "poll votes"
 msgstr "votos de encuesta"
 

@@ -1,12 +1,13 @@
 #
 # Translators:
 # istvanf <istvan.farkas@gmail.com>, 2015
+# istvanf <istvan.farkas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:38+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 15:26+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
 "language/hu/)\n"

@@ -1,12 +1,13 @@
 #
 # Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-07-31 05:19+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 15:26+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -17,12 +18,12 @@ msgstr ""
 
 #: forms.py:30
 msgid "This favorite already exists"
-msgstr ""
-
-#: models.py:21
-msgid "favorite"
-msgstr ""
+msgstr "Ez a téma már a kedvencek között van"
 
 #: models.py:22
+msgid "favorite"
+msgstr "kedvenc"
+
+#: models.py:23
 msgid "favorites"
-msgstr ""
+msgstr "kedvencek"

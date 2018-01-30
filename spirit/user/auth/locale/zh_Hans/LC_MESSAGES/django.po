@@ -1,12 +1,13 @@
 #
 # Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:36+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
 "spirit/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -15,33 +16,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:18
+#: forms.py:19
+msgid "Email confirmation"
+msgstr "确认邮件地址"
+
+#: forms.py:22
+msgid "Enter the same email as above, for verification."
+msgstr "请再次输入邮箱，以确保相同。"
+
+#: forms.py:25
+msgid "Password"
+msgstr "密码"
+
+#: forms.py:26
 msgid "Leave blank"
 msgstr "留空"
 
-#: forms.py:33
+#: forms.py:41
 msgid "Do not fill this field."
 msgstr "不要填写此栏"
 
-#: forms.py:45
+#: forms.py:53
 msgid "The username is taken."
 msgstr "用户名已经存在"
 
-#: forms.py:56
+#: forms.py:66
+msgid "The two email fields didn't match."
+msgstr "2次填入的邮箱不一致。"
+
+#: forms.py:79
 msgid "Username or Email"
 msgstr "用户名 或 邮箱"
 
-#: forms.py:61
+#: forms.py:83
+msgid "The password is not valid."
+msgstr "密码不正确。"
+
+#: forms.py:115
+#, python-format
+msgid "No account matches %(username)s."
+msgstr "用户名%(username)s不存在。"
+
+#: forms.py:125
 msgid "Email"
 msgstr "邮箱"
 
-#: forms.py:74
+#: forms.py:138
 msgid "The provided email does not exists."
 msgstr "email不存在"
 
-#: forms.py:82
+#: forms.py:146
 msgid "This account is verified, try logging-in."
-msgstr ""
+msgstr "帐号已经认证，请尝试登录。"
 
 #: templates/spirit/user/auth/activation_resend.html:5
 #: templates/spirit/user/auth/activation_resend.html:9
@@ -166,15 +192,15 @@ msgstr "%(site_name)s 的密码重置"
 msgid "Register"
 msgstr "注册"
 
-#: tests/tests.py:89 tests/tests.py:210
+#: tests/tests.py:90 tests/tests.py:225
 msgid "User activation"
-msgstr ""
+msgstr "用户激活"
 
 #: views.py:67
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
-msgstr ""
+msgstr "我们已经向%(email)s发送了激活邮件，请前往您的邮箱查收并激活帐号。"
 
 #: views.py:94
 msgid "Your account has been activated!"

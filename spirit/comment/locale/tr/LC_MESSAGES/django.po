@@ -1,12 +1,12 @@
 #
 # Translators:
-# AlperB <ihtiyaroyuncu@yandex.com>, 2015
+# Alper Buluc <ihtiyaroyuncu@yandex.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:38+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/"
 "language/tr/)\n"
@@ -16,149 +16,189 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:30
+#: forms.py:38
+#, fuzzy
+#| msgid "comment"
+msgid "Comment"
+msgstr "yorum"
+
+#: forms.py:56
 msgid "Write comment..."
 msgstr "Yorum yapın..."
 
-#: forms.py:101
+#: forms.py:146
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Desteklenmeyen dosya format. Desteklenen formatlar %s."
 
-#: models.py:20 models.py:34 models.py:49
+#: forms.py:173 forms.py:193
+msgid "The file could not be validated"
+msgstr ""
+
+#: forms.py:181
+#, fuzzy, python-format
+#| msgid "Unsupported file format. Supported formats are %s."
+msgid "Unsupported file extension %s. Supported extensions are %s."
+msgstr "Desteklenmeyen dosya format. Desteklenen formatlar %s."
+
+#: forms.py:197
+#, fuzzy, python-format
+#| msgid "Unsupported file format. Supported formats are %s."
+msgid "Unsupported file mime type %s. Supported types are %s."
+msgstr "Desteklenmeyen dosya format. Desteklenen formatlar %s."
+
+#: models.py:18 models.py:32 models.py:47
 msgid "comment"
 msgstr "yorum"
 
-#: models.py:21
+#: models.py:19
 msgid "topic moved"
 msgstr "konu taşındı"
 
-#: models.py:22
+#: models.py:20
 msgid "topic closed"
 msgstr "konu kitlendi"
 
-#: models.py:23
+#: models.py:21
 msgid "topic unclosed"
 msgstr "konu açıldı"
 
-#: models.py:24
+#: models.py:22
 msgid "topic pinned"
 msgstr "konu sabitlendi"
 
-#: models.py:25
+#: models.py:23
 msgid "topic unpinned"
 msgstr "konu ayrıldı"
 
-#: models.py:35
+#: models.py:33
 msgid "comment html"
 msgstr "html yorum"
 
-#: models.py:36
+#: models.py:34
 msgid "action"
 msgstr "eylem"
 
-#: models.py:42
+#: models.py:40
 msgid "modified count"
 msgstr "düzenlenme sayısı"
 
-#: models.py:43
+#: models.py:41
 msgid "likes count"
 msgstr "beğeni sayısı"
 
-#: models.py:50
+#: models.py:48
 msgid "comments"
 msgstr "yorumlar"
 
-#: tags.py:23
+#: tags.py:40
 msgid "This topic has been moved"
 msgstr "Bu konu taşındı"
 
-#: tags.py:25
+#: tags.py:41
 msgid "This topic has been closed"
 msgstr "Bu konu kilitlendi"
 
-#: tags.py:27
+#: tags.py:42
 msgid "This topic has been unclosed"
 msgstr "Bu konu açıldı"
 
-#: tags.py:29
+#: tags.py:43
 msgid "This topic has been pinned"
 msgstr "Bu konu sabitlendi"
 
-#: tags.py:31
+#: tags.py:44
 msgid "This topic has been unpinned"
 msgstr "Bu konu ayrıldı"
 
-#: tags.py:33
+#: tags.py:49
 msgid "Unknown topic moderation action"
 msgstr "Bilinmeyen konu yönetimi eylemi"
 
-#: templates/spirit/comment/_editor.html:6
+#: templates/spirit/comment/_editor.html:8
 msgid "Bold"
 msgstr "Koyu"
 
-#: templates/spirit/comment/_editor.html:7
+#: templates/spirit/comment/_editor.html:9
 msgid "Italic"
 msgstr "Eğik"
 
-#: templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:10
 msgid "List"
 msgstr "Liste"
 
-#: templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:11
 msgid "URL"
 msgstr "URL"
 
-#: templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:12
 msgid "Image"
 msgstr "Resim"
 
-#: templates/spirit/comment/_editor.html:11
+#: templates/spirit/comment/_editor.html:14
+msgid "File"
+msgstr ""
+
+#: templates/spirit/comment/_editor.html:16
 msgid "Poll"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:12
+#: templates/spirit/comment/_editor.html:17
 msgid "Preview"
 msgstr "Önizleme"
 
-#: templates/spirit/comment/_editor.html:32
-#, python-brace-format
-msgid "uploading {image_name}"
+#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:47
+#, fuzzy, python-brace-format
+#| msgid "uploading {image_name}"
+msgid "uploading {name}"
 msgstr "{image_name} yükleniyor"
 
-#: templates/spirit/comment/_editor.html:35
+#: templates/spirit/comment/_editor.html:52
 msgid "bolded text"
 msgstr "koyu metin"
 
-#: templates/spirit/comment/_editor.html:36
+#: templates/spirit/comment/_editor.html:53
 msgid "italicised text"
 msgstr "eğik meti"
 
-#: templates/spirit/comment/_editor.html:37
+#: templates/spirit/comment/_editor.html:54
 msgid "list item"
 msgstr "liste öğesi"
 
-#: templates/spirit/comment/_editor.html:38
+#: templates/spirit/comment/_editor.html:55
 msgid "link text"
 msgstr "bağlantı metni"
 
-#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:56
 msgid "link url"
 msgstr "bağlantı url'i"
 
-#: templates/spirit/comment/_editor.html:40
+#: templates/spirit/comment/_editor.html:57
 msgid "image text"
 msgstr "resim metni"
 
-#: templates/spirit/comment/_editor.html:41
+#: templates/spirit/comment/_editor.html:58
 msgid "image url"
 msgstr "resim url'i"
 
-#: templates/spirit/comment/_editor.html:42
+#: templates/spirit/comment/_editor.html:59
+#, fuzzy
+#| msgid "image text"
+msgid "file text"
+msgstr "resim metni"
+
+#: templates/spirit/comment/_editor.html:60
+#, fuzzy
+#| msgid "image url"
+msgid "file url"
+msgstr "resim url'i"
+
+#: templates/spirit/comment/_editor.html:61
 msgid "Title"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:43
+#: templates/spirit/comment/_editor.html:62
 msgid "Description"
 msgstr ""
 

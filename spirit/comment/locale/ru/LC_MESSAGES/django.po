@@ -1,12 +1,13 @@
 #
 # Translators:
+# Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:38+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
 "Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -17,151 +18,191 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: forms.py:30
+#: forms.py:38
+#, fuzzy
+#| msgid "comment"
+msgid "Comment"
+msgstr "комментарий"
+
+#: forms.py:56
 msgid "Write comment..."
 msgstr "Написать комментарий..."
 
-#: forms.py:101
+#: forms.py:146
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Неподдерживаемый формат. Поддерживаемые форматы %s."
 
-#: models.py:20 models.py:34 models.py:49
+#: forms.py:173 forms.py:193
+msgid "The file could not be validated"
+msgstr ""
+
+#: forms.py:181
+#, fuzzy, python-format
+#| msgid "Unsupported file format. Supported formats are %s."
+msgid "Unsupported file extension %s. Supported extensions are %s."
+msgstr "Неподдерживаемый формат. Поддерживаемые форматы %s."
+
+#: forms.py:197
+#, fuzzy, python-format
+#| msgid "Unsupported file format. Supported formats are %s."
+msgid "Unsupported file mime type %s. Supported types are %s."
+msgstr "Неподдерживаемый формат. Поддерживаемые форматы %s."
+
+#: models.py:18 models.py:32 models.py:47
 msgid "comment"
 msgstr "комментарий"
 
-#: models.py:21
+#: models.py:19
 msgid "topic moved"
 msgstr "тема перемещена"
 
-#: models.py:22
+#: models.py:20
 msgid "topic closed"
 msgstr "тема закрыта"
 
-#: models.py:23
+#: models.py:21
 msgid "topic unclosed"
 msgstr "тема открыта"
 
-#: models.py:24
+#: models.py:22
 msgid "topic pinned"
 msgstr "тема прикреплена"
 
-#: models.py:25
+#: models.py:23
 msgid "topic unpinned"
 msgstr "тема откреплена"
 
-#: models.py:35
+#: models.py:33
 msgid "comment html"
 msgstr "комментарий HTML"
 
-#: models.py:36
+#: models.py:34
 msgid "action"
 msgstr "действие"
 
-#: models.py:42
+#: models.py:40
 msgid "modified count"
 msgstr "количество изменений"
 
-#: models.py:43
+#: models.py:41
 msgid "likes count"
 msgstr "количество лайков"
 
-#: models.py:50
+#: models.py:48
 msgid "comments"
 msgstr "комментарии"
 
-#: tags.py:23
+#: tags.py:40
 msgid "This topic has been moved"
-msgstr ""
+msgstr "Эта тема была перемещена."
 
-#: tags.py:25
+#: tags.py:41
 msgid "This topic has been closed"
-msgstr ""
+msgstr "Эта тема была закрыта."
 
-#: tags.py:27
+#: tags.py:42
 msgid "This topic has been unclosed"
-msgstr ""
+msgstr "Эта тема была открыта."
 
-#: tags.py:29
+#: tags.py:43
 msgid "This topic has been pinned"
-msgstr ""
+msgstr "Эта тема была закреплена."
 
-#: tags.py:31
+#: tags.py:44
 msgid "This topic has been unpinned"
-msgstr ""
+msgstr "Эта тема была откреплена."
 
-#: tags.py:33
+#: tags.py:49
 msgid "Unknown topic moderation action"
-msgstr ""
+msgstr "Неизвестное действие модерации темы"
 
-#: templates/spirit/comment/_editor.html:6
+#: templates/spirit/comment/_editor.html:8
 msgid "Bold"
 msgstr "Жирный"
 
-#: templates/spirit/comment/_editor.html:7
+#: templates/spirit/comment/_editor.html:9
 msgid "Italic"
 msgstr "Курсив"
 
-#: templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:10
 msgid "List"
 msgstr "Список"
 
-#: templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:11
 msgid "URL"
 msgstr "адрес"
 
-#: templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:12
 msgid "Image"
 msgstr "Изображение"
 
-#: templates/spirit/comment/_editor.html:11
-msgid "Poll"
+#: templates/spirit/comment/_editor.html:14
+msgid "File"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:12
+#: templates/spirit/comment/_editor.html:16
+msgid "Poll"
+msgstr "Опрос"
+
+#: templates/spirit/comment/_editor.html:17
 msgid "Preview"
 msgstr "Предварительный просмотр"
 
-#: templates/spirit/comment/_editor.html:32
-#, python-brace-format
-msgid "uploading {image_name}"
-msgstr ""
+#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:47
+#, fuzzy, python-brace-format
+#| msgid "uploading {image_name}"
+msgid "uploading {name}"
+msgstr "загрузка {image_name}"
 
-#: templates/spirit/comment/_editor.html:35
+#: templates/spirit/comment/_editor.html:52
 msgid "bolded text"
 msgstr "жирный текст"
 
-#: templates/spirit/comment/_editor.html:36
+#: templates/spirit/comment/_editor.html:53
 msgid "italicised text"
 msgstr "курсив"
 
-#: templates/spirit/comment/_editor.html:37
+#: templates/spirit/comment/_editor.html:54
 msgid "list item"
 msgstr "элемент списка"
 
-#: templates/spirit/comment/_editor.html:38
+#: templates/spirit/comment/_editor.html:55
 msgid "link text"
 msgstr "текст ссылки"
 
-#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:56
 msgid "link url"
 msgstr "адрес ссылки"
 
-#: templates/spirit/comment/_editor.html:40
+#: templates/spirit/comment/_editor.html:57
 msgid "image text"
 msgstr "название изображения"
 
-#: templates/spirit/comment/_editor.html:41
+#: templates/spirit/comment/_editor.html:58
 msgid "image url"
 msgstr "адрес изображения"
 
-#: templates/spirit/comment/_editor.html:42
-msgid "Title"
-msgstr ""
+#: templates/spirit/comment/_editor.html:59
+#, fuzzy
+#| msgid "image text"
+msgid "file text"
+msgstr "название изображения"
 
-#: templates/spirit/comment/_editor.html:43
+#: templates/spirit/comment/_editor.html:60
+#, fuzzy
+#| msgid "image url"
+msgid "file url"
+msgstr "адрес изображения"
+
+#: templates/spirit/comment/_editor.html:61
+msgid "Title"
+msgstr "Заголовок"
+
+#: templates/spirit/comment/_editor.html:62
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: templates/spirit/comment/_form.html:17
 #: templates/spirit/comment/publish.html:18
@@ -171,7 +212,7 @@ msgstr "Опубликовать"
 
 #: templates/spirit/comment/_render_list.html:47
 msgid "delete"
-msgstr ""
+msgstr "удалить"
 
 #: templates/spirit/comment/_render_list.html:50
 msgid "report"
@@ -179,17 +220,17 @@ msgstr "отчёт"
 
 #: templates/spirit/comment/_render_list.html:53
 msgid "share"
-msgstr ""
+msgstr "поделиться"
 
 #: templates/spirit/comment/_render_list.html:57
 #: templates/spirit/comment/_render_list.html:139
 msgid "remove like"
-msgstr ""
+msgstr "удалить лайк"
 
 #: templates/spirit/comment/_render_list.html:60
 #: templates/spirit/comment/_render_list.html:138
 msgid "like"
-msgstr ""
+msgstr "лайкнуть"
 
 #: templates/spirit/comment/_render_list.html:67
 msgid "edit"
@@ -213,7 +254,7 @@ msgstr "Этот комментарий был удалён"
 
 #: templates/spirit/comment/_render_list.html:118
 msgid "undelete"
-msgstr ""
+msgstr "отменить удаление"
 
 #: templates/spirit/comment/moderate.html:5
 #: templates/spirit/comment/moderate.html:9

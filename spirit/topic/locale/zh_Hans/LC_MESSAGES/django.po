@@ -1,12 +1,13 @@
 #
 # Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:36+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
 "spirit/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -15,59 +16,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:26
+#: forms.py:35
 msgid "Category"
 msgstr "分类"
 
-#: forms.py:27
+#: forms.py:36
 msgid "Chose a category"
 msgstr "选择分类"
 
-#: models.py:19
+#: models.py:29
 msgid "category"
 msgstr "分类"
 
-#: models.py:21
+#: models.py:31
 msgid "title"
 msgstr "标题"
 
-#: models.py:23
+#: models.py:33
 msgid "date"
 msgstr "日期"
 
-#: models.py:24
+#: models.py:34
 msgid "last active"
 msgstr "上次活动"
 
-#: models.py:26
+#: models.py:35
+msgid "reindex at"
+msgstr ""
+
+#: models.py:37
 msgid "pinned"
 msgstr "置顶的"
 
-#: models.py:27
+#: models.py:38
 msgid "globally pinned"
-msgstr ""
+msgstr "主题已置顶"
 
-#: models.py:28
+#: models.py:39
 msgid "closed"
 msgstr "关闭的"
 
-#: models.py:31
+#: models.py:42
 msgid "views count"
 msgstr "浏览次数"
 
-#: models.py:32
+#: models.py:43
 msgid "comment count"
 msgstr "评论次数"
 
-#: models.py:38
+#: models.py:49
 msgid "topic"
 msgstr "主题"
 
-#: models.py:39
+#: models.py:50
 msgid "topics"
 msgstr "主题"
 
-#: templates/spirit/topic/_render_list.html:37
+#: templates/spirit/topic/_render_list.html:45
 msgid "There are no topics here, yet"
 msgstr "还没有主题"
 
@@ -127,11 +132,11 @@ msgstr "置顶主题"
 
 #: templates/spirit/topic/detail.html:63
 msgid "Unpin topic globally"
-msgstr ""
+msgstr "撤销置顶主题"
 
 #: templates/spirit/topic/detail.html:65
 msgid "Pin topic globally"
-msgstr ""
+msgstr "置顶主题"
 
 #: templates/spirit/topic/detail.html:74
 msgid "Topic id"
@@ -154,8 +159,7 @@ msgstr "操作主题"
 msgid "Apply"
 msgstr "应用"
 
-#: templates/spirit/topic/publish.html:5
-#: templates/spirit/topic/publish.html:21
+#: templates/spirit/topic/publish.html:5 templates/spirit/topic/publish.html:21
 msgid "Publish topic"
 msgstr "发布主题"
 

@@ -1,12 +1,14 @@
 #
 # Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:38+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
 "spirit/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -15,151 +17,191 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:30
+#: forms.py:38
+#, fuzzy
+#| msgid "comment"
+msgid "Comment"
+msgstr "评论"
+
+#: forms.py:56
 msgid "Write comment..."
 msgstr "发表评论"
 
-#: forms.py:101
+#: forms.py:146
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "文件格式不支持，支持的文件格式有：%s."
 
-#: models.py:20 models.py:34 models.py:49
+#: forms.py:173 forms.py:193
+msgid "The file could not be validated"
+msgstr ""
+
+#: forms.py:181
+#, fuzzy, python-format
+#| msgid "Unsupported file format. Supported formats are %s."
+msgid "Unsupported file extension %s. Supported extensions are %s."
+msgstr "文件格式不支持，支持的文件格式有：%s."
+
+#: forms.py:197
+#, fuzzy, python-format
+#| msgid "Unsupported file format. Supported formats are %s."
+msgid "Unsupported file mime type %s. Supported types are %s."
+msgstr "文件格式不支持，支持的文件格式有：%s."
+
+#: models.py:18 models.py:32 models.py:47
 msgid "comment"
 msgstr "评论"
 
-#: models.py:21
+#: models.py:19
 msgid "topic moved"
 msgstr "主题已转移"
 
-#: models.py:22
+#: models.py:20
 msgid "topic closed"
 msgstr "主题已关闭"
 
-#: models.py:23
+#: models.py:21
 msgid "topic unclosed"
 msgstr "主题已重新开启"
 
-#: models.py:24
+#: models.py:22
 msgid "topic pinned"
 msgstr "主题已置顶"
 
-#: models.py:25
+#: models.py:23
 msgid "topic unpinned"
 msgstr "主题已取消置顶"
 
-#: models.py:35
+#: models.py:33
 msgid "comment html"
 msgstr "评论html"
 
-#: models.py:36
+#: models.py:34
 msgid "action"
 msgstr "动作"
 
-#: models.py:42
+#: models.py:40
 msgid "modified count"
 msgstr "编辑次数"
 
-#: models.py:43
+#: models.py:41
 msgid "likes count"
 msgstr "被喜欢的次数"
 
-#: models.py:50
+#: models.py:48
 msgid "comments"
 msgstr "评论"
 
-#: tags.py:23
+#: tags.py:40
 msgid "This topic has been moved"
 msgstr "主题已经移动"
 
-#: tags.py:25
+#: tags.py:41
 msgid "This topic has been closed"
 msgstr "主题已经关闭"
 
-#: tags.py:27
+#: tags.py:42
 msgid "This topic has been unclosed"
 msgstr "主题已经重新开启"
 
-#: tags.py:29
+#: tags.py:43
 msgid "This topic has been pinned"
 msgstr "主题已经置顶"
 
-#: tags.py:31
+#: tags.py:44
 msgid "This topic has been unpinned"
 msgstr "主题已经取消置顶"
 
-#: tags.py:33
+#: tags.py:49
 msgid "Unknown topic moderation action"
 msgstr "未知的主题操作"
 
-#: templates/spirit/comment/_editor.html:6
+#: templates/spirit/comment/_editor.html:8
 msgid "Bold"
 msgstr "粗体"
 
-#: templates/spirit/comment/_editor.html:7
+#: templates/spirit/comment/_editor.html:9
 msgid "Italic"
 msgstr "斜体"
 
-#: templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:10
 msgid "List"
 msgstr "列表"
 
-#: templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:11
 msgid "URL"
 msgstr "URL"
 
-#: templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:12
 msgid "Image"
 msgstr "图片"
 
-#: templates/spirit/comment/_editor.html:11
-msgid "Poll"
+#: templates/spirit/comment/_editor.html:14
+msgid "File"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:12
+#: templates/spirit/comment/_editor.html:16
+msgid "Poll"
+msgstr "投票"
+
+#: templates/spirit/comment/_editor.html:17
 msgid "Preview"
 msgstr "预览"
 
-#: templates/spirit/comment/_editor.html:32
-#, python-brace-format
-msgid "uploading {image_name}"
+#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:47
+#, fuzzy, python-brace-format
+#| msgid "uploading {image_name}"
+msgid "uploading {name}"
 msgstr "正在上传 {image_name}"
 
-#: templates/spirit/comment/_editor.html:35
+#: templates/spirit/comment/_editor.html:52
 msgid "bolded text"
 msgstr "加粗的文字"
 
-#: templates/spirit/comment/_editor.html:36
+#: templates/spirit/comment/_editor.html:53
 msgid "italicised text"
 msgstr "斜体的文字"
 
-#: templates/spirit/comment/_editor.html:37
+#: templates/spirit/comment/_editor.html:54
 msgid "list item"
 msgstr "列表项"
 
-#: templates/spirit/comment/_editor.html:38
+#: templates/spirit/comment/_editor.html:55
 msgid "link text"
 msgstr "链接文字"
 
-#: templates/spirit/comment/_editor.html:39
+#: templates/spirit/comment/_editor.html:56
 msgid "link url"
 msgstr "链接URL"
 
-#: templates/spirit/comment/_editor.html:40
+#: templates/spirit/comment/_editor.html:57
 msgid "image text"
 msgstr "图片文字"
 
-#: templates/spirit/comment/_editor.html:41
+#: templates/spirit/comment/_editor.html:58
 msgid "image url"
 msgstr "图片URL"
 
-#: templates/spirit/comment/_editor.html:42
-msgid "Title"
-msgstr ""
+#: templates/spirit/comment/_editor.html:59
+#, fuzzy
+#| msgid "image text"
+msgid "file text"
+msgstr "图片文字"
 
-#: templates/spirit/comment/_editor.html:43
+#: templates/spirit/comment/_editor.html:60
+#, fuzzy
+#| msgid "image url"
+msgid "file url"
+msgstr "图片URL"
+
+#: templates/spirit/comment/_editor.html:61
+msgid "Title"
+msgstr "投票标题"
+
+#: templates/spirit/comment/_editor.html:62
 msgid "Description"
-msgstr ""
+msgstr "选项"
 
 #: templates/spirit/comment/_form.html:17
 #: templates/spirit/comment/publish.html:18
@@ -216,7 +258,7 @@ msgstr "恢复"
 #: templates/spirit/comment/moderate.html:5
 #: templates/spirit/comment/moderate.html:9
 msgid "Moderate comment"
-msgstr "版主评论"
+msgstr "管理评论"
 
 #: templates/spirit/comment/moderate.html:14
 msgid "Apply"
@@ -228,7 +270,7 @@ msgstr "发表评论"
 
 #: templates/spirit/comment/publish.html:9
 msgid "Publishing comment on"
-msgstr "发表评论于"
+msgstr "发表评论到"
 
 #: templates/spirit/comment/update.html:5
 #: templates/spirit/comment/update.html:9

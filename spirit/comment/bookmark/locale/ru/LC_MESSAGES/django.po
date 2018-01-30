@@ -1,12 +1,13 @@
 #
 # Translators:
+# Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:38+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
 "Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -19,8 +20,8 @@ msgstr ""
 
 #: models.py:23
 msgid "comment bookmark"
-msgstr ""
+msgstr "закладка комментария"
 
 #: models.py:24
 msgid "comments bookmarks"
-msgstr ""
+msgstr "закладки комментариев"

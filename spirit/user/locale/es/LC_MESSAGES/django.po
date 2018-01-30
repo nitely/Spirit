@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-20 13:41+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
 "language/es/)\n"
@@ -16,23 +16,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:33
+#: forms.py:35
 msgid "The email is taken."
 msgstr "El email ya esta registrado."
 
-#: forms.py:43 forms.py:48 templates/spirit/user/profile_update.html:12
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:12
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:49 templates/spirit/user/profile_update.html:15
+#: forms.py:51 templates/spirit/user/profile_update.html:15
 msgid "Password"
 msgstr "Contraseña"
 
-#: forms.py:59
+#: forms.py:61
 msgid "The provided password is incorrect."
 msgstr "La contraseña es incorrecta"
 
-#: forms.py:80
+#: forms.py:75
+#, fuzzy
+#| msgid "time zone"
+msgid "Time zone"
+msgstr "zona horaria"
+
+#: forms.py:84
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr "El tiempo actual es: %(date)s %(time)s"
@@ -85,21 +91,23 @@ msgstr "contador de temas"
 msgid "comment count"
 msgstr "comentario contador"
 
+#: models.py:33
+msgid "last post hash"
+msgstr ""
+
 #: models.py:34
+#, fuzzy
+#| msgid "last seen"
+msgid "last post on"
+msgstr "visto por ultima vez"
+
+#: models.py:37
 msgid "forum profile"
 msgstr "perfil de foro"
 
-#: models.py:35
+#: models.py:38
 msgid "forum profiles"
 msgstr "perfiles de foro"
-
-#: models.py:56
-msgid "user"
-msgstr "usuario"
-
-#: models.py:57
-msgid "users"
-msgstr "usuarios"
 
 #: templates/spirit/user/_profile.html:12
 msgid "Joined at"
@@ -217,8 +225,8 @@ msgid "comments"
 msgstr "comentarios"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:435 tests.py:694
-#: utils/email.py:58
+#: templates/spirit/user/profile_email_change.html:9 tests.py:451 tests.py:765
+#: utils/email.py:60
 msgid "Email change"
 msgstr "Cambiar email"
 
@@ -263,11 +271,11 @@ msgstr "Ve a gravatar.con y usa tu email actual para cambiarlo"
 msgid "Save"
 msgstr "Guardar"
 
-#: tests.py:658 utils/email.py:50
+#: tests.py:729 utils/email.py:52
 msgid "User activation"
 msgstr "Activación de usuario"
 
-#: utils/email.py:67
+#: utils/email.py:69
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr "Nueva notificación: %(topic_name)s"
@@ -291,3 +299,9 @@ msgstr "Tu email ha sido cambiado!"
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
 msgstr "Lo sentimos, no pudimos cambiar tu email."
+
+#~ msgid "user"
+#~ msgstr "usuario"
+
+#~ msgid "users"
+#~ msgstr "usuarios"

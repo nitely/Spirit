@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:56+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
 "PO-Revision-Date: 2015-07-31 05:20+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/spirit-"
@@ -15,19 +15,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:41
+#: forms.py:68
+msgid "Invite users"
+msgstr ""
+
+#: forms.py:71
 msgid "user1, user2, ..."
 msgstr ""
 
-#: forms.py:73
+#: forms.py:103
 msgid "username"
 msgstr ""
 
-#: forms.py:74
+#: forms.py:104
 msgid "Invite user"
 msgstr ""
 
-#: forms.py:92 forms.py:126
+#: forms.py:122 forms.py:156
 #, python-format
 msgid "%(username)s is already a participant"
 msgstr ""

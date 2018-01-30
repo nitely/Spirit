@@ -17,7 +17,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # todo: test!
-        # Requires python27 and "pip install transifex-client==0.11b3"
+        # Requires ``pip install transifex-client``
+        # ``tx pull -l es-ES`` to pull a new lang
         root = os.path.split(settings.ST_BASE_DIR)[0]
         tx_dir = os.path.join(root, '.tx')
 
@@ -25,6 +26,6 @@ class Command(BaseCommand):
             raise CommandError('Can\'t find the .tx folder in %s' % (root, ))
 
         with utils.pushd(root):
-            call(["tx", "pull", "-a"])
+            call(["tx", "pull", "-f"])
 
         self.stdout.write('ok')

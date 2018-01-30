@@ -1,12 +1,14 @@
 #
 # Translators:
+# cryptogun <safetychinese@gmail.com>, 2017
+# cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:35+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
 "spirit/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -15,30 +17,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:33
+#: forms.py:35
 msgid "The email is taken."
-msgstr ""
+msgstr "邮箱已注册。"
 
-#: forms.py:43 forms.py:48 templates/spirit/user/profile_update.html:12
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:12
 msgid "Email"
 msgstr "邮箱"
 
-#: forms.py:49 templates/spirit/user/profile_update.html:15
+#: forms.py:51 templates/spirit/user/profile_update.html:15
 msgid "Password"
 msgstr "密码"
 
-#: forms.py:59
+#: forms.py:61
 msgid "The provided password is incorrect."
-msgstr ""
+msgstr "密码错误。"
 
-#: forms.py:80
+#: forms.py:75
+#, fuzzy
+#| msgid "time zone"
+msgid "Time zone"
+msgstr "时区"
+
+#: forms.py:84
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr "当前时间：%(date)s %(time)s"
 
 #: models.py:16
 msgid "profile"
-msgstr ""
+msgstr "用户资料"
 
 #: models.py:19
 msgid "location"
@@ -46,11 +54,11 @@ msgstr "位置"
 
 #: models.py:20
 msgid "last seen"
-msgstr "上次所见"
+msgstr "上次访问"
 
 #: models.py:21
 msgid "last ip"
-msgstr "上次IP"
+msgstr "上次访问IP"
 
 #: models.py:22
 msgid "time zone"
@@ -66,13 +74,15 @@ msgstr "版主状态"
 
 #: models.py:25
 msgid "verified"
-msgstr ""
+msgstr "邮箱激活"
 
 #: models.py:26
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr ""
+"表明用户是否通过邮箱或者其他方式激活了他的帐号。取消选择本项可以让用户重新激"
+"活他的帐号。"
 
 #: models.py:30
 msgid "topic count"
@@ -80,35 +90,37 @@ msgstr "主题数"
 
 #: models.py:31
 msgid "comment count"
-msgstr "评论次数"
+msgstr "评论数"
+
+#: models.py:33
+msgid "last post hash"
+msgstr ""
 
 #: models.py:34
+#, fuzzy
+#| msgid "last seen"
+msgid "last post on"
+msgstr "上次访问"
+
+#: models.py:37
 msgid "forum profile"
-msgstr ""
+msgstr "论坛个人资料"
 
-#: models.py:35
+#: models.py:38
 msgid "forum profiles"
-msgstr ""
-
-#: models.py:56
-msgid "user"
-msgstr "用户"
-
-#: models.py:57
-msgid "users"
-msgstr "用户"
+msgstr "论坛个人资料"
 
 #: templates/spirit/user/_profile.html:12
 msgid "Joined at"
-msgstr "参加于"
+msgstr "注册日期"
 
 #: templates/spirit/user/_profile.html:16
 msgid "Seen"
-msgstr "见于"
+msgstr "上次访问"
 
 #: templates/spirit/user/_profile.html:22
 msgid "Last IP"
-msgstr "上次IP"
+msgstr "上次访问IP"
 
 #: templates/spirit/user/_profile.html:31
 #: templates/spirit/user/profile_update.html:5
@@ -118,7 +130,7 @@ msgstr "偏好设置"
 
 #: templates/spirit/user/_profile.html:35
 msgid "Private Message"
-msgstr "私信"
+msgstr "私信 TA"
 
 #: templates/spirit/user/_profile.html:41
 msgid "Edit user"
@@ -134,7 +146,7 @@ msgstr "主题"
 
 #: templates/spirit/user/_profile.html:48
 msgid "Likes"
-msgstr "喜欢"
+msgstr "获得的喜欢"
 
 #: templates/spirit/user/_render_comments_list.html:36
 msgid "There are no comments here, yet"
@@ -212,8 +224,8 @@ msgid "comments"
 msgstr "评论"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:435 tests.py:694
-#: utils/email.py:58
+#: templates/spirit/user/profile_email_change.html:9 tests.py:451 tests.py:765
+#: utils/email.py:60
 msgid "Email change"
 msgstr "Email修改"
 
@@ -223,7 +235,7 @@ msgstr "修改我的"
 
 #: templates/spirit/user/profile_likes.html:5
 msgid "likes"
-msgstr "喜欢"
+msgstr "获得的喜欢"
 
 #: templates/spirit/user/profile_password_change.html:5
 #: templates/spirit/user/profile_password_change.html:9
@@ -258,11 +270,11 @@ msgstr "请到gravataar.com以你的邮箱注册，以显示头像"
 msgid "Save"
 msgstr "保存"
 
-#: tests.py:658 utils/email.py:50
+#: tests.py:729 utils/email.py:52
 msgid "User activation"
 msgstr "用户激活"
 
-#: utils/email.py:67
+#: utils/email.py:69
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr "新提醒: %(topic_name)s"
@@ -285,4 +297,10 @@ msgstr "你的email已经修改"
 
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
-msgstr ""
+msgstr "对不起，我们无法更改你的邮箱。"
+
+#~ msgid "user"
+#~ msgstr "用户"
+
+#~ msgid "users"
+#~ msgstr "用户"

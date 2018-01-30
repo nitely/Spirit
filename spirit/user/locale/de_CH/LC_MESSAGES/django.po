@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
 "PO-Revision-Date: 2015-10-14 19:35+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: German (Switzerland) (http://www.transifex.com/spirit-project/"
@@ -15,23 +15,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:33
+#: forms.py:35
 msgid "The email is taken."
 msgstr ""
 
-#: forms.py:43 forms.py:48 templates/spirit/user/profile_update.html:12
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:12
 msgid "Email"
 msgstr ""
 
-#: forms.py:49 templates/spirit/user/profile_update.html:15
+#: forms.py:51 templates/spirit/user/profile_update.html:15
 msgid "Password"
 msgstr ""
 
-#: forms.py:59
+#: forms.py:61
 msgid "The provided password is incorrect."
 msgstr ""
 
-#: forms.py:80
+#: forms.py:75
+msgid "Time zone"
+msgstr ""
+
+#: forms.py:84
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr ""
@@ -82,20 +86,20 @@ msgstr ""
 msgid "comment count"
 msgstr ""
 
+#: models.py:33
+msgid "last post hash"
+msgstr ""
+
 #: models.py:34
+msgid "last post on"
+msgstr ""
+
+#: models.py:37
 msgid "forum profile"
 msgstr ""
 
-#: models.py:35
+#: models.py:38
 msgid "forum profiles"
-msgstr ""
-
-#: models.py:56
-msgid "user"
-msgstr ""
-
-#: models.py:57
-msgid "users"
 msgstr ""
 
 #: templates/spirit/user/_profile.html:12
@@ -212,8 +216,8 @@ msgid "comments"
 msgstr ""
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:435 tests.py:694
-#: utils/email.py:58
+#: templates/spirit/user/profile_email_change.html:9 tests.py:451 tests.py:765
+#: utils/email.py:60
 msgid "Email change"
 msgstr ""
 
@@ -258,11 +262,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: tests.py:658 utils/email.py:50
+#: tests.py:729 utils/email.py:52
 msgid "User activation"
 msgstr ""
 
-#: utils/email.py:67
+#: utils/email.py:69
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr ""

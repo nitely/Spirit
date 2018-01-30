@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-20 13:38+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
 "language/es/)\n"
@@ -16,31 +16,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:18
+#: forms.py:19
+msgid "Email confirmation"
+msgstr "Email confirmación"
+
+#: forms.py:22
+msgid "Enter the same email as above, for verification."
+msgstr "Ingresa el mismo email anterior, como verificaión."
+
+#: forms.py:25
+msgid "Password"
+msgstr "Contraseña"
+
+#: forms.py:26
 msgid "Leave blank"
 msgstr "Dejar en blanco"
 
-#: forms.py:33
+#: forms.py:41
 msgid "Do not fill this field."
 msgstr "No rellenes este campo."
 
-#: forms.py:45
+#: forms.py:53
 msgid "The username is taken."
 msgstr "El nombre de usuario ya esta en uso."
 
-#: forms.py:56
+#: forms.py:66
+msgid "The two email fields didn't match."
+msgstr "Los dos emails no coinciden."
+
+#: forms.py:79
 msgid "Username or Email"
 msgstr "Usuario o Email"
 
-#: forms.py:61
+#: forms.py:83
+msgid "The password is not valid."
+msgstr "La contraseña no es valida."
+
+#: forms.py:115
+#, python-format
+msgid "No account matches %(username)s."
+msgstr "%(username)s no coincide con una cuenta."
+
+#: forms.py:125
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:74
+#: forms.py:138
 msgid "The provided email does not exists."
 msgstr "El email ingresado no existe."
 
-#: forms.py:82
+#: forms.py:146
 msgid "This account is verified, try logging-in."
 msgstr "Esta cuenta esta verificada, intenta ingresar."
 
@@ -173,7 +198,7 @@ msgstr "Restablecimiento de contraseña en %(site_name)s"
 msgid "Register"
 msgstr "Registrar"
 
-#: tests/tests.py:89 tests/tests.py:210
+#: tests/tests.py:90 tests/tests.py:225
 msgid "User activation"
 msgstr "Activación de usuario"
 

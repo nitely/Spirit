@@ -1,12 +1,13 @@
 #
 # Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-10-14 19:37+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 15:26+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -17,39 +18,39 @@ msgstr ""
 
 #: forms.py:37
 msgid "This notification already exists"
-msgstr ""
+msgstr "Ez az értesítés már létezik"
 
 #: forms.py:43
 msgid "You can't subscribe to a topic with no comments"
-msgstr ""
+msgstr "Nem lehet üres témára felíratkozni"
 
 #: models.py:17
 msgid "Undefined"
-msgstr ""
+msgstr "Érvénytelen"
 
 #: models.py:18
 msgid "Mention"
-msgstr ""
+msgstr "Említés"
 
 #: models.py:19
 msgid "Comment"
-msgstr ""
+msgstr "Hozzászólás"
 
 #: models.py:39
 msgid "topic notification"
-msgstr ""
+msgstr "téma értesítés"
 
 #: models.py:40
 msgid "topics notification"
-msgstr ""
+msgstr "téma értesítések"
 
 #: templates/spirit/topic/notification/_form.html:12
 msgid "Unnotify Me"
-msgstr ""
+msgstr "Ne értesítsen"
 
 #: templates/spirit/topic/notification/_form.html:14
 msgid "Notify Me"
-msgstr ""
+msgstr "Értesítsen"
 
 #: templates/spirit/topic/notification/_render_list.html:9
 #, python-format
@@ -57,6 +58,8 @@ msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href="
 "\"%(url_topic)s\">%(topic_title)s</a>"
 msgstr ""
+"<a href=\"%(url_profile)s\">%(username)s</a> hozzászólt ehhez: <a href="
+"\"%(url_topic)s\">%(topic_title)s</a>"
 
 #: templates/spirit/topic/notification/_render_list.html:11
 #, python-format
@@ -64,29 +67,31 @@ msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href="
 "\"%(url_topic)s\">%(topic_title)s</a>"
 msgstr ""
+"<a href=\"%(url_profile)s\">%(username)s</a> megemlített itt: <a href="
+"\"%(url_topic)s\">%(topic_title)s</a>"
 
 #: templates/spirit/topic/notification/_render_list.html:17
 msgid "unread"
-msgstr ""
+msgstr "olvasatlan"
 
 #: templates/spirit/topic/notification/_render_list.html:21
 msgid "There are no notifications, yet"
-msgstr ""
+msgstr "Még nincsenek értesítések"
 
 #: templates/spirit/topic/notification/index.html:5
 #: templates/spirit/topic/notification/index.html:9
 msgid "Notifications"
-msgstr ""
+msgstr "Értesítések"
 
 #: templates/spirit/topic/notification/index_unread.html:5
 #: templates/spirit/topic/notification/index_unread.html:9
 msgid "Unread notifications"
-msgstr ""
+msgstr "Olvasatlan értesítések"
 
 #: templates/spirit/topic/notification/index_unread.html:15
 msgid "There are no new notifications"
-msgstr ""
+msgstr "Nincsenek új értesítések"
 
 #: templates/spirit/topic/notification/index_unread.html:22
 msgid "Next"
-msgstr ""
+msgstr "Következő"

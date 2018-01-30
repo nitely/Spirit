@@ -1,116 +1,120 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
+# Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 16:27+0000\n"
+"Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
+"language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: forms.py:31 forms.py:37
 msgid "Poll choices"
-msgstr ""
+msgstr "Варианты для опроса"
 
 #: forms.py:63
 #, python-format
 msgid "Too many selected choices. Limit is %s"
 msgstr ""
+"Выбрано слишком много вариантов. Максимально допустимое число вариантов: %s"
 
 #: forms.py:69
 #, python-format
 msgid "Too few selected choices. Minimum is %s"
 msgstr ""
+"Выбрано слишком мало вариантов. Минимально допустимое число вариантов: %s"
 
 #: forms.py:79
 msgid "This poll is closed"
-msgstr ""
-
-#: models.py:31
-msgid "name"
-msgstr ""
-
-#: models.py:32
-msgid "title"
-msgstr ""
-
-#: models.py:33
-msgid "choice min"
-msgstr ""
+msgstr "Этот опрос окончен"
 
 #: models.py:34
-msgid "choice max"
-msgstr ""
+msgid "name"
+msgstr "название"
 
 #: models.py:35
-msgid "mode"
-msgstr ""
+msgid "title"
+msgstr "заголовок"
 
 #: models.py:36
+msgid "choice min"
+msgstr "минимально допустимое число вариантов"
+
+#: models.py:37
+msgid "choice max"
+msgstr "максимально допустимое число вариантов"
+
+#: models.py:38
+msgid "mode"
+msgstr "режим"
+
+#: models.py:39
 msgid "auto close at"
-msgstr ""
+msgstr "время автоматического окончания"
 
-#: models.py:45
+#: models.py:48
 msgid "comment poll"
-msgstr ""
+msgstr "опрос в комментарии"
 
-#: models.py:46
+#: models.py:49
 msgid "comments polls"
-msgstr ""
+msgstr "опросы в комментариях"
 
-#: models.py:133
+#: models.py:136
 msgid "number"
-msgstr ""
+msgstr "число"
 
-#: models.py:134
+#: models.py:137
 msgid "choice description"
-msgstr ""
+msgstr "описание варианта"
 
-#: models.py:135
+#: models.py:138
 msgid "vote count"
-msgstr ""
+msgstr "количество голосов"
 
-#: models.py:143
+#: models.py:146
 msgid "poll choice"
-msgstr ""
+msgstr "вариант для опроса"
 
-#: models.py:144
+#: models.py:147
 msgid "poll choices"
-msgstr ""
+msgstr "варианты для опросов"
 
-#: models.py:215
+#: models.py:218
 msgid "poll vote"
-msgstr ""
+msgstr "голос опроса"
 
-#: models.py:216
+#: models.py:219
 msgid "poll votes"
-msgstr ""
+msgstr "голоса опросов"
 
 #: templates/spirit/comment/poll/_form.html:23
 #, python-format
 msgid "Closes on %(date)s."
-msgstr ""
+msgstr "Время окончания: %(date)s."
 
 #: templates/spirit/comment/poll/_form.html:27
 #, python-format
 msgid "You must select %(choice_min)s choices."
-msgstr ""
+msgstr "Выберите не менее %(choice_min)s вариантов."
 
 #: templates/spirit/comment/poll/_form.html:29
 #, python-format
 msgid "You may select up to %(choice_max)s choices."
-msgstr ""
+msgstr "Можно выбрать не более %(choice_max)s вариантов."
 
 #: templates/spirit/comment/poll/_form.html:31
 #, python-format
@@ -118,45 +122,46 @@ msgid ""
 "You may select no less than %(choice_min)s and no more than %(choice_max)s "
 "choices."
 msgstr ""
+"Можно выбрать не менее %(choice_min)s и не более %(choice_max)s вариантов."
 
 #: templates/spirit/comment/poll/_form.html:35
 msgid "Results will be available when the poll is closed."
-msgstr ""
+msgstr "Результаты будут доступны по окончании опроса."
 
 #: templates/spirit/comment/poll/_form.html:41
 msgid "Vote"
-msgstr ""
+msgstr "Голосовать"
 
 #: templates/spirit/comment/poll/_form.html:45
 msgid "Show results"
-msgstr ""
+msgstr "Показать результаты"
 
 #: templates/spirit/comment/poll/_form.html:52
 #: templates/spirit/comment/poll/_results.html:39
 msgid "open"
-msgstr ""
+msgstr "открыть"
 
 #: templates/spirit/comment/poll/_form.html:56
 #: templates/spirit/comment/poll/_results.html:43
 msgid "close"
-msgstr ""
+msgstr "закрыть"
 
 #: templates/spirit/comment/poll/_results.html:15
 #, python-format
 msgid "%(choice)s, %(percentage)s%%"
-msgstr ""
+msgstr "%(choice)s, %(percentage)s%%"
 
 #: templates/spirit/comment/poll/_results.html:17
 msgid "View voters"
-msgstr ""
+msgstr "Кто принял участие в опросе"
 
 #: templates/spirit/comment/poll/_results.html:27
 msgid "Votes"
-msgstr ""
+msgstr "Голоса"
 
 #: templates/spirit/comment/poll/_results.html:32
 msgid "Show vote choices"
-msgstr ""
+msgstr "Показать варианты "
 
 #: templates/spirit/comment/poll/_static.html:25
 #, python-format
@@ -164,6 +169,9 @@ msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
 msgstr ""
+"Название: %(poll_name)s, допустимое количество выбранных вариантов: от "
+"%(choice_min)s до %(choice_max)s, режим: %(mode)s, дата и время окончания: "
+"%(close_at)s"
 
 #: templates/spirit/comment/poll/_static.html:29
 #, python-format
@@ -171,9 +179,11 @@ msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s"
 msgstr ""
+"Название: %(poll_name)s, допустимое количество выбранных вариантов: от "
+"%(choice_min)s до %(choice_max)s, режим: %(mode)s"
 
 #: templates/spirit/comment/poll/voters.html:5
 #: templates/spirit/comment/poll/voters.html:10
 #, python-format
 msgid "Voters for %(choice_description)s"
-msgstr ""
+msgstr "Участники, выбравшие вариант \"%(choice_description)s\""

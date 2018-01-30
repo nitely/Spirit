@@ -1,21 +1,28 @@
 #
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: 2015-07-25 18:00+0000\n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 12:39+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spirit\n"
-"Language: \n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
+"spirit/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:35
+#: forms.py:47
 msgid ""
 "The category you are updating can not have a parent since it has childrens"
 msgstr "你要更新的分类无法选择父分类，因为他已经是一个父分类。"
+
+#: forms.py:57
+msgid "The input is not a valid hex color."
+msgstr ""
 
 #: templates/spirit/category/admin/create.html:5
 #: templates/spirit/category/admin/create.html:9

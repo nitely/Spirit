@@ -1,18 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
+# istvanf <istvan.farkas@gmail.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 19:55+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2018-01-30 14:15+0000\n"
+"PO-Revision-Date: 2017-09-22 16:27+0000\n"
+"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
+"language/hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,96 +21,96 @@ msgstr ""
 
 #: forms.py:31 forms.py:37
 msgid "Poll choices"
-msgstr ""
+msgstr "Válasz lehetőségek"
 
 #: forms.py:63
 #, python-format
 msgid "Too many selected choices. Limit is %s"
-msgstr ""
+msgstr "Túl sok lehetőség lett kiválasztva. Maximum %s lehet"
 
 #: forms.py:69
 #, python-format
 msgid "Too few selected choices. Minimum is %s"
-msgstr ""
+msgstr "Túl kevés lehetőség lett kiválasztva. Legalább %s kell"
 
 #: forms.py:79
 msgid "This poll is closed"
-msgstr ""
-
-#: models.py:31
-msgid "name"
-msgstr ""
-
-#: models.py:32
-msgid "title"
-msgstr ""
-
-#: models.py:33
-msgid "choice min"
-msgstr ""
+msgstr "A szavazás le lett zárva"
 
 #: models.py:34
-msgid "choice max"
-msgstr ""
+msgid "name"
+msgstr "elnevezés"
 
 #: models.py:35
-msgid "mode"
-msgstr ""
+msgid "title"
+msgstr "cím"
 
 #: models.py:36
+msgid "choice min"
+msgstr "min. választható"
+
+#: models.py:37
+msgid "choice max"
+msgstr "max. választható"
+
+#: models.py:38
+msgid "mode"
+msgstr "mód"
+
+#: models.py:39
 msgid "auto close at"
-msgstr ""
+msgstr "automata lezárás ekkor:"
 
-#: models.py:45
+#: models.py:48
 msgid "comment poll"
-msgstr ""
+msgstr "szavazás"
 
-#: models.py:46
+#: models.py:49
 msgid "comments polls"
-msgstr ""
+msgstr "szavazások"
 
-#: models.py:133
+#: models.py:136
 msgid "number"
-msgstr ""
+msgstr "szám"
 
-#: models.py:134
+#: models.py:137
 msgid "choice description"
-msgstr ""
+msgstr "válasz leírása"
 
-#: models.py:135
+#: models.py:138
 msgid "vote count"
-msgstr ""
+msgstr "szavazatok száma"
 
-#: models.py:143
+#: models.py:146
 msgid "poll choice"
-msgstr ""
+msgstr "válasz"
 
-#: models.py:144
+#: models.py:147
 msgid "poll choices"
-msgstr ""
+msgstr "válaszok"
 
-#: models.py:215
+#: models.py:218
 msgid "poll vote"
-msgstr ""
+msgstr "szavazat"
 
-#: models.py:216
+#: models.py:219
 msgid "poll votes"
-msgstr ""
+msgstr "szavazatok"
 
 #: templates/spirit/comment/poll/_form.html:23
 #, python-format
 msgid "Closes on %(date)s."
-msgstr ""
+msgstr "Le lesz zárva ekkor: %(date)s."
 
 #: templates/spirit/comment/poll/_form.html:27
 #, python-format
 msgid "You must select %(choice_min)s choices."
-msgstr ""
+msgstr "Legalább %(choice_min)s lehetőséget meg kell jelölni."
 
 #: templates/spirit/comment/poll/_form.html:29
 #, python-format
 msgid "You may select up to %(choice_max)s choices."
-msgstr ""
+msgstr "Maximum %(choice_max)s lehetőséget lehet megjelölni."
 
 #: templates/spirit/comment/poll/_form.html:31
 #, python-format
@@ -117,45 +118,47 @@ msgid ""
 "You may select no less than %(choice_min)s and no more than %(choice_max)s "
 "choices."
 msgstr ""
+"Legalább %(choice_min)s lehetőséget kötelező megjelölni, maximum "
+"%(choice_max)s darabot lehet."
 
 #: templates/spirit/comment/poll/_form.html:35
 msgid "Results will be available when the poll is closed."
-msgstr ""
+msgstr "Az eredmények a szavazás lezárásakor lesznek láthatóak."
 
 #: templates/spirit/comment/poll/_form.html:41
 msgid "Vote"
-msgstr ""
+msgstr "Szavazás"
 
 #: templates/spirit/comment/poll/_form.html:45
 msgid "Show results"
-msgstr ""
+msgstr "Eredmények megjelenítése"
 
 #: templates/spirit/comment/poll/_form.html:52
 #: templates/spirit/comment/poll/_results.html:39
 msgid "open"
-msgstr ""
+msgstr "nyitott"
 
 #: templates/spirit/comment/poll/_form.html:56
 #: templates/spirit/comment/poll/_results.html:43
 msgid "close"
-msgstr ""
+msgstr "lezárt"
 
 #: templates/spirit/comment/poll/_results.html:15
 #, python-format
 msgid "%(choice)s, %(percentage)s%%"
-msgstr ""
+msgstr "%(choice)s, %(percentage)s%%"
 
 #: templates/spirit/comment/poll/_results.html:17
 msgid "View voters"
-msgstr ""
+msgstr "Szavazók megtekintése"
 
 #: templates/spirit/comment/poll/_results.html:27
 msgid "Votes"
-msgstr ""
+msgstr "Szavazatok"
 
 #: templates/spirit/comment/poll/_results.html:32
 msgid "Show vote choices"
-msgstr ""
+msgstr "Válaszok megtekintése"
 
 #: templates/spirit/comment/poll/_static.html:25
 #, python-format
@@ -163,6 +166,8 @@ msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
 msgstr ""
+"Név: %(poll_name)s, ennyi választható: %(choice_min)s - %(choice_max)s, mód: "
+"%(mode)s, lezárul: %(close_at)s"
 
 #: templates/spirit/comment/poll/_static.html:29
 #, python-format
@@ -170,9 +175,11 @@ msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s"
 msgstr ""
+"Név: %(poll_name)s, ennyi választható: %(choice_min)s - %(choice_max)s, mód: "
+"%(mode)s"
 
 #: templates/spirit/comment/poll/voters.html:5
 #: templates/spirit/comment/poll/voters.html:10
 #, python-format
 msgid "Voters for %(choice_description)s"
-msgstr ""
+msgstr "Szavazatok erre: %(choice_description)s"
