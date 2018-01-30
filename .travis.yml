@@ -12,10 +12,11 @@ env:
   - DJANGO=1.8.18
   - DJANGO=1.9.13
   - DJANGO=1.10.8
-  - DJANGO=1.11.5
+  - DJANGO=1.11.9
 install:
   - pip install --upgrade pip
-  - pip install -r requirements.txt
+  - pip install .[files]
+  - pip uninstall django-spirit -y
   - pip install -q Django==$DJANGO
   - pip install coveralls pep8==1.5.7 flake8
 script:
