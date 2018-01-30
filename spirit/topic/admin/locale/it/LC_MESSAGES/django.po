@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"POT-Creation-Date: 2018-01-30 15:20+0000\n"
 "PO-Revision-Date: 2016-12-27 17:40+0000\n"
 "Last-Translator:   <admin@t2g.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,32 +19,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/_tabs.html:4
+#: templates/spirit/topic/admin/_tabs.html:4
 msgid "Deleted"
 msgstr "Eliminato"
 
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/_tabs.html:5
+#: templates/spirit/topic/admin/_tabs.html:5
 msgid "Closed"
 msgstr "Chiuso"
 
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/_tabs.html:6
+#: templates/spirit/topic/admin/_tabs.html:6
 msgid "Pinned"
 msgstr "Pinnato"
 
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/closed.html:5
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/closed.html:11
+#: templates/spirit/topic/admin/closed.html:5
+#: templates/spirit/topic/admin/closed.html:11
 msgid "Closed topics"
 msgstr "Topic chiuso"
 
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/deleted.html:5
+#: templates/spirit/topic/admin/deleted.html:5
 msgid "Deleted Topics"
 msgstr "Topics Eliminati"
 
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/deleted.html:11
+#: templates/spirit/topic/admin/deleted.html:11
 msgid "Deleted topics"
 msgstr "Topics Eliminati"
 
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/pinned.html:5
-#: spirit-src/spirit/topic/admin/templates/spirit/topic/admin/pinned.html:11
+#: templates/spirit/topic/admin/pinned.html:5
+#: templates/spirit/topic/admin/pinned.html:11
 msgid "Pinned topics"
 msgstr "Topics pinnati"

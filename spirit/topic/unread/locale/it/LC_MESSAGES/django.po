@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"POT-Creation-Date: 2018-01-30 15:20+0000\n"
 "PO-Revision-Date: 2016-12-27 17:32+0000\n"
 "Last-Translator:   <admin@t2g.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,19 +19,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: spirit-src/spirit/topic/unread/models.py:22
+#: models.py:23
 msgid "topic unread"
 msgstr "topic non letti"
 
-#: spirit-src/spirit/topic/unread/models.py:23
+#: models.py:24
 msgid "topics unread"
 msgstr "topics non letti"
 
-#: spirit-src/spirit/topic/unread/templates/spirit/topic/unread/index.html:5
-#: spirit-src/spirit/topic/unread/templates/spirit/topic/unread/index.html:9
+#: templates/spirit/topic/unread/index.html:5
+#: templates/spirit/topic/unread/index.html:9
 msgid "Unread topics replies"
 msgstr "Risposte non lette"
 
-#: spirit-src/spirit/topic/unread/templates/spirit/topic/unread/index.html:15
+#: templates/spirit/topic/unread/index.html:15
 msgid "Next"
 msgstr "Prossimo"

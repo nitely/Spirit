@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 14:16+0000\n"
+"POT-Creation-Date: 2018-01-30 15:20+0000\n"
 "PO-Revision-Date: 2016-12-27 17:28+0000\n"
 "Last-Translator:   <admin@t2g.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,26 +19,25 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: spirit-src/spirit/search/forms.py:24
+#: forms.py:24
 #, python-format
 msgid "Your search must contain at least %(length)s characters."
 msgstr "La ricerca deve contenere almeno %(length)s caratteri."
 
-#: spirit-src/spirit/search/forms.py:51
+#: forms.py:51
 msgid "Filter by"
 msgstr "Filtra per"
 
-#: spirit-src/spirit/search/templates/spirit/search/_form.html:6
-#: spirit-src/spirit/search/templates/spirit/search/search.html:5
-#: spirit-src/spirit/search/templates/spirit/search/search.html:10
-#: spirit-src/spirit/search/templates/spirit/search/search.html:15
+#: templates/spirit/search/_form.html:6 templates/spirit/search/search.html:5
+#: templates/spirit/search/search.html:10
+#: templates/spirit/search/search.html:15
 msgid "Search"
 msgstr "Cerca"
 
-#: spirit-src/spirit/search/templates/spirit/search/search.html:19
+#: templates/spirit/search/search.html:19
 msgid "Results"
 msgstr "Risultati"
 
-#: spirit-src/spirit/search/templates/spirit/search/search.html:25
+#: templates/spirit/search/search.html:25
 msgid "There are no search results."
 msgstr "La ricerca non ha prodotto risultati."
