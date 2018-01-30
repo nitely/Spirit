@@ -5,8 +5,7 @@
 {% block title %}{% trans "Unread notifications" %}{% endblock %}
 
 {% block content %}
-
-    <h1 class="headline">{% trans "Unread notifications" %}</h1>
+    {% include "spirit/topic/notification/_top_bar.html" with active="unread_notifications" %}
 
     <div class="rows">
         {% if page %}

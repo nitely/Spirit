@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Notifications" %}</h1>
+    {% include "spirit/topic/notification/_top_bar.html" with active="notifications" %}
 
     <div class="rows">
         {% include "spirit/topic/notification/_render_list.html" %}
