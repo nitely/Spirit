@@ -1,4 +1,4 @@
-#
+# 
 # Translators:
 # alff0x1f <alff3one@gmail.com>, 2016
 msgid ""
@@ -6,17 +6,14 @@ msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 15:31+0000\n"
-"PO-Revision-Date: 2017-09-22 12:39+0000\n"
-"Last-Translator: alff0x1f <alff3one@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
-"language/ru/)\n"
-"Language: ru\n"
+"PO-Revision-Date: 2018-01-30 15:40+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: tags/time.py:33
 msgid "now"
@@ -121,105 +118,3 @@ msgstr "@%(username)s сказал:"
 #, python-format
 msgid "Too many submissions, wait %(time)s."
 msgstr "Слишком много представлений, подождите %(time)s."
-
-#~ msgid "(GMT -12:00) Eniwetok, Kwajalein"
-#~ msgstr "(GMT -12:00) Эниветок, Кваджелейн"
-
-#~ msgid "(GMT -11:00) Midway Island, Samoa"
-#~ msgstr "(GMT -11:00) Остров Мидуэй, Самоа"
-
-#~ msgid "(GMT -10:00) Hawaii"
-#~ msgstr "(GMT -10:00) Гавайи"
-
-#~ msgid "(GMT -9:30) Marquesas Islands"
-#~ msgstr "(GMT -9:30) Маркизские острова"
-
-#~ msgid "(GMT -9:00) Alaska"
-#~ msgstr "(GMT -9:00) Аляска"
-
-#~ msgid "(GMT -8:00) Pacific Time (US & Canada)"
-#~ msgstr "(GMT -8:00) Тихоокеанское время (США и Канада)"
-
-#~ msgid "(GMT -7:00) Mountain Time (US & Canada)"
-#~ msgstr "(GMT -7:00) Стандартное горное время (США и Канада)"
-
-#~ msgid "(GMT -6:00) Central Time (US & Canada), Mexico City"
-#~ msgstr "(GMT -6:00) Центральное время (США и Канада), Мексика"
-
-#~ msgid "(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima"
-#~ msgstr "(GMT -5:00) Восточное время (США и Канада), Богота, Лима"
-
-#~ msgid "(GMT -4:30) Venezuela"
-#~ msgstr "(GMT -4:30) Венесуэла"
-
-#~ msgid "(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz"
-#~ msgstr "(GMT -4:00) Атлантическое время (Канада), Каракас, Ла-Пас"
-
-#~ msgid "(GMT -3:00) Brazil, Buenos Aires, Georgetown"
-#~ msgstr "(GMT -3:00) Бразилия, Буэнос-Айрес, Джорджтаун"
-
-#~ msgid "(GMT -2:00) Mid-Atlantic"
-#~ msgstr "(GMT -2:00) Срединно-Атлантический"
-
-#~ msgid "(GMT -1:00) Azores, Cape Verde Islands"
-#~ msgstr "(GMT -1:00) Азорские острова, острова Зеленого Мыса"
-
-#~ msgid "(GMT) Western Europe Time, London, Lisbon, Casablanca"
-#~ msgstr "(GMT) Западно Европейское Время, Лондон, Лиссабон, Касабланка"
-
-#~ msgid "(GMT +1:00) Brussels, Copenhagen, Madrid, Paris"
-#~ msgstr "(GMT +1:00) Брюссель, Копенгаген, Мадрид, Париж"
-
-#~ msgid "(GMT +2:00) Kaliningrad, South Africa"
-#~ msgstr "(GMT +2:00) Калининград, Южная Африка"
-
-#~ msgid "(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg"
-#~ msgstr "(GMT +3:00) Москва, Санкт-Петербург, Багдад, Эр-Рияд"
-
-#~ msgid "(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi"
-#~ msgstr "(GMT +4:00) Абу-Даби, Мускат, Баку, Тбилиси"
-
-#~ msgid "(GMT +4:30) Afghanistan"
-#~ msgstr "(GMT +4:30) Афганистан"
-
-#~ msgid "(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent"
-#~ msgstr "(GMT +5:00) Екатеринбург, Исламабад, Карачи, Ташкент"
-
-#~ msgid "(GMT +5:30) India, Sri Lanka"
-#~ msgstr "(GMT +5:30) Индия, Шри-Ланка"
-
-#~ msgid "(GMT +5:45) Nepal"
-#~ msgstr "(GMT +5:45) Непал"
-
-#~ msgid "(GMT +6:00) Almaty, Dhaka, Colombo"
-#~ msgstr "(GMT +6:00) Алматы, Дака, Коломбо"
-
-#~ msgid "(GMT +6:30) Cocos Islands, Myanmar"
-#~ msgstr "(GMT +6:30) Кокосовые острова, Мьянма"
-
-#~ msgid "(GMT +7:00) Bangkok, Hanoi, Jakarta"
-#~ msgstr "(GMT +7:00) Бангкок, Ханой, Джакарта"
-
-#~ msgid "(GMT +8:00) Beijing, Perth, Singapore, Hong Kong"
-#~ msgstr "(GMT +8:00) Пекин, Перт, Сингапур, Гонконг"
-
-#~ msgid "(GMT +8:45) Australia (Eucla)"
-#~ msgstr "(GMT +8:45) Австралия (Eucla)"
-
-#~ msgid "(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk"
-#~ msgstr "(GMT +9:00) Токио, Сеул, Осака, Саппоро, Якутск"
-
-#~ msgid "(GMT +9:30) Australia (Northern Territory)"
-#~ msgstr "(GMT +9:30) Австралия (Северная территория)"
-
-#~ msgid "(GMT +10:00) Eastern Australia, Guam, Vladivostok"
-#~ msgstr "(GMT +10:00) Восточная Австралия, Гуам, Владивосток"
-
-#~ msgid "(GMT +11:00) Magadan, Solomon Islands, New Caledonia"
-#~ msgstr "(GMT +11:00) Магадан, Соломоновы острова, Новая Каледония"
-
-#~ msgid "(GMT +11:30) Norfolk Island"
-#~ msgstr "(GMT +11:30) Остров Норфолк"
-
-#~ msgid "(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka"
-#~ msgstr "(GMT +12:00) Окленд, Веллингтон, Фиджи, Камчатка"

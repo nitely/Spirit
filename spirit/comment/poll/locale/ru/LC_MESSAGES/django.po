@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
@@ -9,17 +9,14 @@ msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 15:32+0000\n"
-"PO-Revision-Date: 2017-09-22 16:27+0000\n"
+"PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
-"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: forms.py:31 forms.py:37
 msgid "Poll choices"
@@ -28,14 +25,12 @@ msgstr "Варианты для опроса"
 #: forms.py:63
 #, python-format
 msgid "Too many selected choices. Limit is %s"
-msgstr ""
-"Выбрано слишком много вариантов. Максимально допустимое число вариантов: %s"
+msgstr "Выбрано слишком много вариантов. Максимально допустимое число вариантов: %s"
 
 #: forms.py:69
 #, python-format
 msgid "Too few selected choices. Minimum is %s"
-msgstr ""
-"Выбрано слишком мало вариантов. Минимально допустимое число вариантов: %s"
+msgstr "Выбрано слишком мало вариантов. Минимально допустимое число вариантов: %s"
 
 #: forms.py:79
 msgid "This poll is closed"
@@ -121,8 +116,7 @@ msgstr "Можно выбрать не более %(choice_max)s вариант�
 msgid ""
 "You may select no less than %(choice_min)s and no more than %(choice_max)s "
 "choices."
-msgstr ""
-"Можно выбрать не менее %(choice_min)s и не более %(choice_max)s вариантов."
+msgstr "Можно выбрать не менее %(choice_min)s и не более %(choice_max)s вариантов."
 
 #: templates/spirit/comment/poll/_form.html:35
 msgid "Results will be available when the poll is closed."
@@ -168,19 +162,14 @@ msgstr "Показать варианты "
 msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
-msgstr ""
-"Название: %(poll_name)s, допустимое количество выбранных вариантов: от "
-"%(choice_min)s до %(choice_max)s, режим: %(mode)s, дата и время окончания: "
-"%(close_at)s"
+msgstr "Название: %(poll_name)s, допустимое количество выбранных вариантов: от %(choice_min)s до %(choice_max)s, режим: %(mode)s, дата и время окончания: %(close_at)s"
 
 #: templates/spirit/comment/poll/_static.html:29
 #, python-format
 msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s"
-msgstr ""
-"Название: %(poll_name)s, допустимое количество выбранных вариантов: от "
-"%(choice_min)s до %(choice_max)s, режим: %(mode)s"
+msgstr "Название: %(poll_name)s, допустимое количество выбранных вариантов: от %(choice_min)s до %(choice_max)s, режим: %(mode)s"
 
 #: templates/spirit/comment/poll/voters.html:5
 #: templates/spirit/comment/poll/voters.html:10

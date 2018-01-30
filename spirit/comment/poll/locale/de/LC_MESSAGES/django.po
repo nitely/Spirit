@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
@@ -10,22 +10,21 @@ msgstr ""
 "POT-Creation-Date: 2018-01-30 15:32+0000\n"
 "PO-Revision-Date: 2015-10-14 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
-"language/de/)\n"
-"Language: de\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:31 forms.py:37
 msgid "Poll choices"
-msgstr ""
+msgstr "Auswahlmöglichkeiten"
 
 #: forms.py:63
 #, python-format
 msgid "Too many selected choices. Limit is %s"
-msgstr ""
+msgstr "Zu viel ausgewählt. Das Limit beträgt %s"
 
 #: forms.py:69
 #, python-format
@@ -34,7 +33,7 @@ msgstr ""
 
 #: forms.py:79
 msgid "This poll is closed"
-msgstr ""
+msgstr "Diese Umfrage ist geschlossen"
 
 #: models.py:34
 msgid "name"
@@ -42,7 +41,7 @@ msgstr ""
 
 #: models.py:35
 msgid "title"
-msgstr ""
+msgstr "Titel"
 
 #: models.py:36
 msgid "choice min"
@@ -74,7 +73,7 @@ msgstr ""
 
 #: models.py:137
 msgid "choice description"
-msgstr ""
+msgstr "Auswahlbeschreibung"
 
 #: models.py:138
 msgid "vote count"
@@ -82,7 +81,7 @@ msgstr ""
 
 #: models.py:146
 msgid "poll choice"
-msgstr ""
+msgstr "Auswahl"
 
 #: models.py:147
 msgid "poll choices"
@@ -124,7 +123,7 @@ msgstr ""
 
 #: templates/spirit/comment/poll/_form.html:41
 msgid "Vote"
-msgstr ""
+msgstr "Abstimmen"
 
 #: templates/spirit/comment/poll/_form.html:45
 msgid "Show results"
@@ -138,7 +137,7 @@ msgstr ""
 #: templates/spirit/comment/poll/_form.html:56
 #: templates/spirit/comment/poll/_results.html:43
 msgid "close"
-msgstr ""
+msgstr "Schließen"
 
 #: templates/spirit/comment/poll/_results.html:15
 #, python-format

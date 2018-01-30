@@ -1,4 +1,4 @@
-#
+# 
 # Translators:
 # alff0x1f <alff3one@gmail.com>, 2016
 # Evgenii <djcoollin@gmail.com>, 2015
@@ -8,17 +8,14 @@ msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 15:31+0000\n"
-"PO-Revision-Date: 2017-09-22 12:39+0000\n"
-"Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
-"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
-"language/ru/)\n"
-"Language: ru\n"
+"PO-Revision-Date: 2018-01-30 15:40+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: forms.py:35
 msgid "The email is taken."
@@ -37,10 +34,8 @@ msgid "The provided password is incorrect."
 msgstr "Пароль неверный"
 
 #: forms.py:75
-#, fuzzy
-#| msgid "time zone"
 msgid "Time zone"
-msgstr "часовой пояс"
+msgstr ""
 
 #: forms.py:84
 #, python-format
@@ -83,9 +78,7 @@ msgstr "Проверено"
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
-msgstr ""
-"Означает, что пользователь подтвердил свой аккаунт по электронной почте или "
-"иным способом. Снимите галку, чтобы пользователь выполнил активацию аккаунта."
+msgstr "Означает, что пользователь подтвердил свой аккаунт по электронной почте или иным способом. Снимите галку, чтобы пользователь выполнил активацию аккаунта."
 
 #: models.py:30
 msgid "topic count"
@@ -100,10 +93,8 @@ msgid "last post hash"
 msgstr ""
 
 #: models.py:34
-#, fuzzy
-#| msgid "last seen"
 msgid "last post on"
-msgstr "последний раз пользователь появлялся"
+msgstr ""
 
 #: models.py:37
 msgid "forum profile"
@@ -158,9 +149,7 @@ msgstr "Пока нет комментариев"
 #: templates/spirit/user/activation_email.html:2
 #, python-format
 msgid "You're receiving this email because you registered at %(site_name)s."
-msgstr ""
-"Вы получили настоящее сообщение, поскольку вы зарегистрировались на сайте "
-"%(site_name)s."
+msgstr "Вы получили настоящее сообщение, поскольку вы зарегистрировались на сайте %(site_name)s."
 
 #: templates/spirit/user/activation_email.html:4
 msgid "Please go to the following link to activate your account:"
@@ -175,15 +164,11 @@ msgstr "Благодарим за пользование нашим сайтом
 #, python-format
 msgid ""
 "You're receiving this because you changed your user email at %(site_name)s."
-msgstr ""
-"Вы получили настоящее сообщение, поскольку ваш адрес электронной почты была "
-"изменен на сайте %(site_name)s."
+msgstr "Вы получили настоящее сообщение, поскольку ваш адрес электронной почты была изменен на сайте %(site_name)s."
 
 #: templates/spirit/user/email_change_email.html:4
 msgid "Please go to the following link to confirm your email change:"
-msgstr ""
-"Пройдите по следующей ссылке для подтверждения смены адреса электронной "
-"почты:"
+msgstr "Пройдите по следующей ссылке для подтверждения смены адреса электронной почты:"
 
 #: templates/spirit/user/menu.html:7
 msgid "User menu"
@@ -220,15 +205,13 @@ msgstr "Новое уведомление на сайте %(site_name)s."
 
 #: templates/spirit/user/notification_email.html:4
 msgid "Please go to the following link to read the comment:"
-msgstr ""
-"Пожалуйста, перейдите по следующей ссылке, чтобы прочитать комментарий:"
+msgstr "Пожалуйста, перейдите по следующей ссылке, чтобы прочитать комментарий:"
 
 #: templates/spirit/user/notification_email.html:8
 msgid ""
 "If you don't want to keep receiving notifications, you can deactivate them "
 "on your profile preferences."
-msgstr ""
-"Чтобы отписаться от уведомлений, отключите их в настройках вашего профиля."
+msgstr "Чтобы отписаться от уведомлений, отключите их в настройках вашего профиля."
 
 #: templates/spirit/user/profile_comments.html:5
 msgid "comments"
@@ -275,9 +258,7 @@ msgstr "Сменить аватар"
 
 #: templates/spirit/user/profile_update.html:20
 msgid "Go to gravatar.com and use your current email to change it"
-msgstr ""
-"Чтобы изменить, перейдите на сайт gravatar.com и войдите в ваш текущий "
-"аккаунт."
+msgstr "Чтобы изменить, перейдите на сайт gravatar.com и войдите в ваш текущий аккаунт."
 
 #: templates/spirit/user/profile_update.html:28
 msgid "Save"
@@ -311,9 +292,3 @@ msgstr "Ваш адрес электронной почты был измене�
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
 msgstr "К сожалению, мы не смогли изменить Вашу электронную почту."
-
-#~ msgid "user"
-#~ msgstr "пользователь"
-
-#~ msgid "users"
-#~ msgstr "пользователи"

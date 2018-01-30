@@ -1,21 +1,18 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 15:31+0000\n"
-"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/spirit-project/"
-"spirit/language/pl_PL/)\n"
-"Language: pl_PL\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/spirit-project/spirit/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: forms.py:35
 msgid "The email is taken."
@@ -34,10 +31,8 @@ msgid "The provided password is incorrect."
 msgstr ""
 
 #: forms.py:75
-#, fuzzy
-#| msgid "time zone"
 msgid "Time zone"
-msgstr "strefa czasowa"
+msgstr ""
 
 #: forms.py:84
 #, python-format
@@ -95,10 +90,8 @@ msgid "last post hash"
 msgstr ""
 
 #: models.py:34
-#, fuzzy
-#| msgid "last seen"
 msgid "last post on"
-msgstr "ostatnio widziany"
+msgstr ""
 
 #: models.py:37
 msgid "forum profile"
@@ -168,8 +161,7 @@ msgstr "Dziękujemy za korzystanie z naszej strony!"
 #, python-format
 msgid ""
 "You're receiving this because you changed your user email at %(site_name)s."
-msgstr ""
-"Otrzymujesz tę wiadomość, bo zmieniłeś adres email na stronie %(site_name)s."
+msgstr "Otrzymujesz tę wiadomość, bo zmieniłeś adres email na stronie %(site_name)s."
 
 #: templates/spirit/user/email_change_email.html:4
 msgid "Please go to the following link to confirm your email change:"
@@ -216,9 +208,7 @@ msgstr "Przejdź pod podany adres aby przeczytać komentarz:"
 msgid ""
 "If you don't want to keep receiving notifications, you can deactivate them "
 "on your profile preferences."
-msgstr ""
-"Jeśli nie chcesz otrzymywać powiadomień, możesz je wyłączyć w preferencjach "
-"swojego profilu."
+msgstr "Jeśli nie chcesz otrzymywać powiadomień, możesz je wyłączyć w preferencjach swojego profilu."
 
 #: templates/spirit/user/profile_comments.html:5
 msgid "comments"
@@ -299,9 +289,3 @@ msgstr "Twój email został zmieniony!"
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
 msgstr ""
-
-#~ msgid "user"
-#~ msgstr "użytkownik"
-
-#~ msgid "users"
-#~ msgstr "użytkownicy"

@@ -1,27 +1,22 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 15:31+0000\n"
-"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/"
-"language/pl/)\n"
-"Language: pl\n"
+"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: forms.py:38
-#, fuzzy
-#| msgid "comment"
 msgid "Comment"
-msgstr "komentarz"
+msgstr "Komentarz"
 
 #: forms.py:56
 msgid "Write comment..."
@@ -37,16 +32,14 @@ msgid "The file could not be validated"
 msgstr ""
 
 #: forms.py:181
-#, fuzzy, python-format
-#| msgid "Unsupported file format. Supported formats are %s."
+#, python-format
 msgid "Unsupported file extension %s. Supported extensions are %s."
-msgstr "Niewspierany format pliku. Wspierane formaty to %s."
+msgstr ""
 
 #: forms.py:197
-#, fuzzy, python-format
-#| msgid "Unsupported file format. Supported formats are %s."
+#, python-format
 msgid "Unsupported file mime type %s. Supported types are %s."
-msgstr "Niewspierany format pliku. Wspierane formaty to %s."
+msgstr ""
 
 #: models.py:18 models.py:32 models.py:47
 msgid "comment"
@@ -142,7 +135,7 @@ msgstr ""
 
 #: templates/spirit/comment/_editor.html:16
 msgid "Poll"
-msgstr ""
+msgstr "Ankieta"
 
 #: templates/spirit/comment/_editor.html:17
 msgid "Preview"
@@ -150,10 +143,9 @@ msgstr "Podgląd"
 
 #: templates/spirit/comment/_editor.html:39
 #: templates/spirit/comment/_editor.html:47
-#, fuzzy, python-brace-format
-#| msgid "uploading {image_name}"
+#, python-brace-format
 msgid "uploading {name}"
-msgstr "ładuję {image_name}"
+msgstr ""
 
 #: templates/spirit/comment/_editor.html:52
 msgid "bolded text"
@@ -184,16 +176,12 @@ msgid "image url"
 msgstr "url obrazka"
 
 #: templates/spirit/comment/_editor.html:59
-#, fuzzy
-#| msgid "image text"
 msgid "file text"
-msgstr "tekst obrazka"
+msgstr ""
 
 #: templates/spirit/comment/_editor.html:60
-#, fuzzy
-#| msgid "image url"
 msgid "file url"
-msgstr "url obrazka"
+msgstr ""
 
 #: templates/spirit/comment/_editor.html:61
 msgid "Title"

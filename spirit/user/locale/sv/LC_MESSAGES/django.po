@@ -1,18 +1,17 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 15:31+0000\n"
-"PO-Revision-Date: 2017-09-22 12:39+0000\n"
+"PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/"
-"language/sv/)\n"
-"Language: sv\n"
+"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:35
@@ -32,10 +31,8 @@ msgid "The provided password is incorrect."
 msgstr ""
 
 #: forms.py:75
-#, fuzzy
-#| msgid "time zone"
 msgid "Time zone"
-msgstr "tidszon"
+msgstr ""
 
 #: forms.py:84
 #, python-format
@@ -93,10 +90,8 @@ msgid "last post hash"
 msgstr ""
 
 #: models.py:34
-#, fuzzy
-#| msgid "last seen"
 msgid "last post on"
-msgstr "senast sedd"
+msgstr ""
 
 #: models.py:37
 msgid "forum profile"
@@ -213,9 +208,7 @@ msgstr "Vänligen följ nedanstående länk för att läsa kommentaren:"
 msgid ""
 "If you don't want to keep receiving notifications, you can deactivate them "
 "on your profile preferences."
-msgstr ""
-"Om du inte längre vill få meddelanden kan du stänga av dem i dina "
-"profilinställningar,"
+msgstr "Om du inte längre vill få meddelanden kan du stänga av dem i dina profilinställningar,"
 
 #: templates/spirit/user/profile_comments.html:5
 msgid "comments"
@@ -296,9 +289,3 @@ msgstr "Din Email-adress har ändrats!"
 #: views.py:99
 msgid "Sorry, we were not able to change your email."
 msgstr ""
-
-#~ msgid "user"
-#~ msgstr "användare"
-
-#~ msgid "users"
-#~ msgstr "användare"

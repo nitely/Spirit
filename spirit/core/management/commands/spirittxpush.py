@@ -25,6 +25,9 @@ class Command(BaseCommand):
             raise CommandError('Can\'t find the .tx folder in %s' % (root, ))
 
         with utils.pushd(root):
+            # -t will update the translation,
+            # only if it was updated locally,
+            # so use when fixing something
             call(["tx", "push", "-s", "--skip"])
 
         self.stdout.write('ok')

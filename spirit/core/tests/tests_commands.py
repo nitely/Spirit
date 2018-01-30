@@ -55,7 +55,7 @@ class CommandsTests(TestCase):
             call_command('spirittxpush', stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
-            self.assertEqual(self._command, ["tx", "push", "-s", "-t", "--skip"])
+            self.assertEqual(self._command, ["tx", "push", "-s", "--skip"])
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
         finally:

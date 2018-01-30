@@ -1,4 +1,4 @@
-#
+# 
 # Translators:
 # cryptogun <safetychinese@gmail.com>, 2017
 # cryptogun <safetychinese@gmail.com>, 2017
@@ -7,19 +7,16 @@ msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-30 15:31+0000\n"
-"PO-Revision-Date: 2017-09-22 12:39+0000\n"
-"Last-Translator: cryptogun <safetychinese@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
-"spirit/language/zh_CN/)\n"
-"Language: zh_CN\n"
+"PO-Revision-Date: 2018-01-30 15:40+0000\n"
+"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:38
-#, fuzzy
-#| msgid "comment"
 msgid "Comment"
 msgstr "评论"
 
@@ -37,16 +34,14 @@ msgid "The file could not be validated"
 msgstr ""
 
 #: forms.py:181
-#, fuzzy, python-format
-#| msgid "Unsupported file format. Supported formats are %s."
+#, python-format
 msgid "Unsupported file extension %s. Supported extensions are %s."
-msgstr "文件格式不支持，支持的文件格式有：%s."
+msgstr ""
 
 #: forms.py:197
-#, fuzzy, python-format
-#| msgid "Unsupported file format. Supported formats are %s."
+#, python-format
 msgid "Unsupported file mime type %s. Supported types are %s."
-msgstr "文件格式不支持，支持的文件格式有：%s."
+msgstr ""
 
 #: models.py:18 models.py:32 models.py:47
 msgid "comment"
@@ -150,10 +145,9 @@ msgstr "预览"
 
 #: templates/spirit/comment/_editor.html:39
 #: templates/spirit/comment/_editor.html:47
-#, fuzzy, python-brace-format
-#| msgid "uploading {image_name}"
+#, python-brace-format
 msgid "uploading {name}"
-msgstr "正在上传 {image_name}"
+msgstr ""
 
 #: templates/spirit/comment/_editor.html:52
 msgid "bolded text"
@@ -184,16 +178,12 @@ msgid "image url"
 msgstr "图片URL"
 
 #: templates/spirit/comment/_editor.html:59
-#, fuzzy
-#| msgid "image text"
 msgid "file text"
-msgstr "图片文字"
+msgstr ""
 
 #: templates/spirit/comment/_editor.html:60
-#, fuzzy
-#| msgid "image url"
 msgid "file url"
-msgstr "图片URL"
+msgstr ""
 
 #: templates/spirit/comment/_editor.html:61
 msgid "Title"
