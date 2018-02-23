@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^resend-activation/$', views.resend_activation_email, name='resend-activation'),
 
-    url(r'^activation/(?P<pk>\d+)/(?P<token>[0-9A-Za-z_\-\.]+)/$', views.registration_activation,
+    url(r'^activation/(?P<pk>[0-9]+)/(?P<token>[0-9A-Za-z_\-\.]+)/$', views.registration_activation,
         name='registration-activation'),
     url(r'^password-reset/$', views.custom_password_reset,
         {

@@ -8,6 +8,6 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^(?P<topic_id>\d+)/create/$', views.create, name='create'),
-    url(r'^(?P<topic_id>\d+)/find/$', views.find, name='find'),
+    url(r'^(?P<topic_id>[0-9]+)/create/$', views.create, name='create'),
+    url(r'^(?P<topic_id>[0-9]+)/find/$', views.find, name='find'),
 ]

@@ -11,7 +11,7 @@ from ....conf import settings
 
 _PATTERN_POLL = re.compile(
     r'^(?:\[poll[^\]]*\])\n+'
-    r'(?:\d+[^\n]*\n+)+'
+    r'(?:[0-9]+[^\n]*\n+)+'
     r'(?:\[/poll\])',
     flags=re.MULTILINE
 )

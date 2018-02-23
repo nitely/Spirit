@@ -11,6 +11,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^unread/$', views.index_unread, name='index-unread'),
     url(r'^ajax/$', views.index_ajax, name='index-ajax'),
-    url(r'^(?P<topic_id>\d+)/create/$', views.create, name='create'),
-    url(r'^(?P<pk>\d+)/update/$', views.update, name='update'),
+    url(r'^(?P<topic_id>[0-9]+)/create/$', views.create, name='create'),
+    url(r'^(?P<pk>[0-9]+)/update/$', views.update, name='update'),
 ]

@@ -14,15 +14,15 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^(?P<topic_id>\d+)/publish/$', views.publish, name='publish'),
-    url(r'^(?P<topic_id>\d+)/publish/(?P<pk>\d+)/quote/$', views.publish, name='publish'),
+    url(r'^(?P<topic_id>[0-9]+)/publish/$', views.publish, name='publish'),
+    url(r'^(?P<topic_id>[0-9]+)/publish/(?P<pk>[0-9]+)/quote/$', views.publish, name='publish'),
 
-    url(r'^(?P<pk>\d+)/update/$', views.update, name='update'),
-    url(r'^(?P<pk>\d+)/find/$', views.find, name='find'),
-    url(r'^(?P<topic_id>\d+)/move/$', views.move, name='move'),
+    url(r'^(?P<pk>[0-9]+)/update/$', views.update, name='update'),
+    url(r'^(?P<pk>[0-9]+)/find/$', views.find, name='find'),
+    url(r'^(?P<topic_id>[0-9]+)/move/$', views.move, name='move'),
 
-    url(r'^(?P<pk>\d+)/delete/$', views.delete, name='delete'),
-    url(r'^(?P<pk>\d+)/undelete/$', views.delete, kwargs={'remove': False, }, name='undelete'),
+    url(r'^(?P<pk>[0-9]+)/delete/$', views.delete, name='delete'),
+    url(r'^(?P<pk>[0-9]+)/undelete/$', views.delete, kwargs={'remove': False, }, name='undelete'),
 
     url(r'^bookmark/', include(spirit.comment.bookmark.urls, namespace='bookmark')),
     url(r'^flag/', include(spirit.comment.flag.urls, namespace='flag')),
