@@ -37,6 +37,7 @@
                         {% endif %}
                     </div><!--
                     --><div><i class="fa fa-comment{% if t.has_new_comments %} js-comment-is-new{% endif %}"></i> {{ t.comment_count }}</div><!--
+                    --><div><i class="fa fa-hand-pointer-o"></i> {{ t.view_count }}</div><!--
                  --><div title="{{ t.last_active }}"><i class="fa fa-clock-o"></i> {{ t.last_active|shortnaturaltime }}</div>
                 </div>
 
