@@ -35,6 +35,7 @@ class Editor
         $('.js-box-list').on('click', @addList)
         $('.js-box-url').on('click', @addUrl)
         $('.js-box-image').on('click', @addImage)
+        $('.js-box-url-image').on('click', @addUrlImage)
         $('.js-box-poll').on('click', @addPoll)
         $('.js-box-preview').on('click', @togglePreview)
         $('.js-reply-button').on('click', @replyButton)
@@ -72,6 +73,12 @@ class Editor
 
     addUrl: =>
         @wrapSelection("[", "](#{ @options.linkUrlText })", @options.linkText)
+        $('#id_comment').focus()
+        return false
+
+    addUrlImage: (e) =>
+        e.preventDefault()
+        @wrapSelection("![", "](#{ @options.imageUrlText })", @options.imageText)
         $('#id_comment').focus()
         return false
 
