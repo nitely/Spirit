@@ -102,3 +102,5 @@ ST_BASE_DIR = (
     os.path.dirname(
         os.path.dirname(
             os.path.dirname(__file__))))
+
+ST_PRIVATE_COMMENT_HISTORY = True
