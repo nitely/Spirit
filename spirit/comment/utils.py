@@ -21,8 +21,11 @@ def pre_comment_update(comment):
     CommentHistory.create_maybe(comment)
 
 
-def post_comment_update(comment):
+def post_comment_update(comment, mentions=None):
     comment.increase_modified_count()
 
     comment.comment_html = post_render_static_polls(comment)
     CommentHistory.create(comment)
+
+    TopicNotification.notify_new_mentions(
+        comment=comment, mentions=mentions)

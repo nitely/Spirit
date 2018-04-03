@@ -69,7 +69,7 @@ def update(request, pk):
         if form.is_valid():
             pre_comment_update(comment=Comment.objects.get(pk=comment.pk))
             comment = form.save()
-            post_comment_update(comment=comment)
+            post_comment_update(comment=comment, mentions=form.mentions)
             return redirect(request.POST.get('next', comment.get_absolute_url()))
     else:
         form = CommentForm(instance=comment)
