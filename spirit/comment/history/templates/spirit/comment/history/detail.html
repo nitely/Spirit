@@ -17,7 +17,7 @@
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img class="comment-avatar" src="{% get_gravatar_url user=c.comment_fk.user size=50 %}" />
+                        <img class="comment-avatar" src="{{ MEDIA_URL }}{{ c.comment_fk.user.st.image }}"/>
                     </div>
 
                     <div class="comment-body">
@@ -28,7 +28,7 @@
                             </div>
 
                             <ul class="comment-date">
-                                <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+                                <li title="{{ c.date }}">{{ c.date }}</li>
                             </ul>
 
                         </div>

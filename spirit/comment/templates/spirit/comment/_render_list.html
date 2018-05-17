@@ -10,7 +10,7 @@
 
                 <div class="comment-media">
                     <div class="comment-img">
-                        <img class="comment-avatar" src="{% get_gravatar_url user=c.user size=50 %}" />
+                        <img class="comment-avatar" src="{{ MEDIA_URL }}{{ c.user.st.image }}"/>
                     </div>
 
                     <div class="comment-body">
@@ -25,7 +25,7 @@
                                     <li><a href="{% url "spirit:comment:history:detail" comment_id=c.pk %}"><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
                                 {% endif %}
 
-                                <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+                                <li title="{{ c.date }}">{{ c.date }}</li>
                             </ul>
 
                         </div>
