@@ -1,4 +1,8 @@
 {% extends "spirit/_base.html" %}
+{% load spirit_tags i18n %}
+{% load static from staticfiles %}
+
+{% load_settings 'ST_UPLOAD_IMAGE_ENABLED' 'ST_UPLOAD_FILE_ENABLED' %}
 
 {% load i18n %}
 
@@ -16,12 +20,13 @@
 	   <dd class="preference-desc"><a href="{% url "spirit:user:password-change" %}"><i class="fa fa-pencil"></i> {% trans "Change password" %}</a></dd>
 
 	   <dt class="preference-label">{% trans "Avatar" %}:</dt>
-	   <dd class="preference-desc"><a href="https://gravatar.com"><i class="fa fa-pencil"></i> {% trans "Change avatar" %}</a>
-           ({% trans "Go to gravatar.com and use your current email to change it" %})</dd>
+
 	</dl>
 
-    <form action="." method="post">
+
+    <form enctype="multipart/form-data" autocomplete="off" action="." method="post">
         {% csrf_token %}
+        <input type="file" name="image" id="upload-photo" style="margin-bottom: 20px" />
         {% include "spirit/_form.html" with form=uform %}
         {% include "spirit/_form.html" %}
 

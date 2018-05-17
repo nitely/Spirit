@@ -56,7 +56,7 @@
 
             <div class="comment-media">
                 <div class="comment-img">
-                    <img class="comment-avatar" src="{% get_gravatar_url user=user size=50 %}" />
+                    <img class="comment-avatar" src="{{ MEDIA_URL }}{{ request.user.st.image }}"/>
                 </div>
 
                 <div class="comment-body">
