@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponsePermanentRedirect
+from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from djconfig import config
 
@@ -133,7 +135,7 @@ def index_active(request):
         .visible()\
         .global_()\
         .with_bookmarks(user=request.user)\
-        .order_by('-is_globally_pinned', '-last_active')\
+        .order_by('-is_top', '-is_globally_pinned', '-last_active')\
         .select_related('category')
 
     topics = yt_paginate(
@@ -148,3 +150,20 @@ def index_active(request):
     }
 
     return render(request, 'spirit/topic/active.html', context)
+
+
+@login_required
+def is_top(request, topic_id):
+    topic = get_object_or_404(Topic, pk=topic_id)
+    topic.is_top = True
+    topic.last_active = timezone.now()
+    topic.save()
+    return redirect(reverse('spirit:index'))
+
+@login_required
+def no_top(request, pk):
+    topic = get_object_or_404(Topic, pk=pk)
+    topic.is_top = False
+    topic.last_active = timezone.now()
+    topic.save()
+    return redirect(reverse('spirit:index'))
