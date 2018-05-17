@@ -7043,7 +7043,7 @@ input[type="submit"].button,
   position: absolute;
   background-color: #f6f6f6;
   left: 0;
-  top: 25%;
+  top: 10%;
 }
 
 .new-topic {
