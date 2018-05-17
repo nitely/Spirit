@@ -31,8 +31,13 @@
             {% elif user.pk == topic.user.pk and not topic.is_closed %}
                 <a class="head-edit-link" href="{% url "spirit:topic:update" topic.pk %}"><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
             {% endif %}
-        </h1>
 
+            <div class='question-content'>
+                {% for first_comment in first_content %}
+                    {{ first_comment.comment_html|safe }}
+                {% endfor %}
+            </div>
+        </h1>
         {% if user.st.is_moderator %}
             <div class="topic-moderation js-tabs-container">
                 <a class="dropdown-button js-tab" href="#" data-related=".js-mod-content"><i class="fa fa-cogs"></i></a>
@@ -71,9 +76,9 @@
 
             <div class="move-comments" style="display:none;">
                 <div class="move-container">
-                    <label class="move-label">{% trans "Topic id" %}:</label><!--
-                 --><div class="move-input"><input id="id_move_comments_topic" name="topic" type="text" value="" /></div><!--
-                 --><a class="move-link js-move-comments" href="#move_to">{% trans "Move" %}</a>
+                    <label class="move-label">{% trans "Topic id" %}:</label>
+                    <div class="move-input"><input id="id_move_comments_topic" name="topic" type="text" value="" /></div>
+                    <a class="move-link js-move-comments" href="#move_to">{% trans "Move" %}</a>
                 </div>
             </div>
         {% endif %}
