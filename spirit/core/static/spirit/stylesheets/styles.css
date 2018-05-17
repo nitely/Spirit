@@ -1,3 +1,4 @@
+
 .tw {
   display: inline-block;
   height: 20px;
@@ -6197,7 +6198,9 @@ html {
  * Remove default margin.
  */
 body {
-  margin: 0; }
+  margin: 0;
+  position: relative;
+}
 
 /* HTML5 display definitions
    ========================================================================== */
@@ -6546,9 +6549,10 @@ th {
 i {
   color: inherit; }
 
-p {
+.comments > p {
   margin: 0;
-  margin-bottom: 24px; }
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 24px; }
 
 hr {
   display: block;
@@ -6625,12 +6629,13 @@ html {
   min-height: 100%; }
 
 body {
-  margin-bottom: 100px; }
+  margin-bottom: 100px;
+}
 
 .footer {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -100px;
   height: 100px;
   width: 100%; }
 
@@ -6751,14 +6756,16 @@ input[type="submit"].button,
 .button, .dropdown-button {
   line-height: 2;
   height: 2em;
-  color: #444444; }
+  color: #fff; }
 
 input[type="submit"].button,
 .button {
   display: block;
   width: 100%;
   text-align: center;
-  background-color: #cecece; }
+  background-color: #4db3c7;
+  border-radius: 3px;
+}
   input[type="submit"].button.is-undo,
   .button.is-undo {
     background-color: #c65555; }
@@ -6773,7 +6780,16 @@ input[type="submit"].button,
 
 .comment-img {
   float: left; }
-
+.comment-like-count{
+  display: inline-block;
+  line-height: 24px;
+}
+.dropdown-button{
+  color: #333!important;
+}
+.dropdown-button i{
+  color: #333!important;
+}
 .comment-body {
   overflow: hidden; }
 
@@ -6834,15 +6850,18 @@ input[type="submit"].button,
   .side-menu-close:focus, .side-menu-close:hover {
     color: #fefefe; }
 
-.container,
 .header {
-  margin-bottom: 24px; }
+  margin-bottom: 24px;
+  background-color: #4db3c7;
+  position: relative;
+}
 
 .header-logo {
   float: left;
   font-size: 28px;
+  margin-left: 10px;
   line-height: 48px;
-  color: #444444; }
+  color: #fff; }
 
 .header-link {
   float: right;
@@ -6852,8 +6871,12 @@ input[type="submit"].button,
   float: right;
   line-height: 48px; }
   .header-tabs li {
-    margin-left: 24px; }
-
+    margin-left: 24px;
+}
+.header-tabs li a{
+  color: #fff;
+  margin-right: 10px; 
+}
 .header-tab-link.is-selected {
   color: #1c1c1c; }
 .header-tab-link.is-highlighted {
@@ -6865,7 +6888,11 @@ input[type="submit"].button,
 .header-tab-content {
   display: none;
   padding-bottom: 24px;
-  border-bottom: #cecece 1px solid; }
+  border-bottom: #cecece 1px solid;
+  position: absolute;
+  right: 0;
+  background-color: #f6f6f6;
+}
 
 @media screen and (min-width: 768px) {
   .header-nav {
@@ -6873,6 +6900,9 @@ input[type="submit"].button,
 .header-nav .menu {
   text-align: left; }
 
+.likeCount{
+  font-size: 25px;
+}
 .footer-container {
   max-width: 68em;
   margin-left: auto;
@@ -6888,8 +6918,17 @@ input[type="submit"].button,
   margin-top: 50px; }
 
 .headline {
-  font-weight: normal; }
-
+  font-weight: 600; 
+  color: #333;
+}
+.question-content{
+  margin-left: 20px;
+}
+.question-content p{
+  font-weight: normal !important;
+  color: #666 !important;
+  font-size: 16px;
+}
 .field {
   margin-bottom: 24px; }
 
@@ -6923,7 +6962,7 @@ input[type="submit"].button,
 .row,
 .comment {
   padding: 12px;
-  border-top: #cecece 1px solid; }
+  border-bottom: #cecece 1px solid; }
   .row:last-child,
   .comment:last-child {
     border-bottom: #cecece 1px solid; }
@@ -7000,7 +7039,12 @@ input[type="submit"].button,
         margin-right: 0; } }
 
 .tab-content {
-  display: none; }
+  display: none;
+  position: absolute;
+  background-color: #f6f6f6;
+  left: 0;
+  top: 25%;
+}
 
 .new-topic {
   float: left;
@@ -7081,15 +7125,16 @@ input.move-comment-checkbox {
   background: #ffffe9; }
 
 .comment-img {
-  width: 50px;
-  margin-right: 24px; }
+  width: 20px;
+  margin-right: 15px; }
 
 .comment-avatar {
   border-radius: 25px; }
 
 .comment-info {
   font-size: 14px;
-  margin-bottom: 12px; }
+  display: inline-block;
+}
 
 .comment-username {
   float: left; }
@@ -7124,8 +7169,9 @@ input.move-comment-checkbox {
 
 .comment-actions {
   font-size: 14px;
-  text-align: right; }
-
+  text-align: right; 
+  float: right;
+}
 .comment-removed {
   font-size: 14px;
   word-wrap: break-word; }
