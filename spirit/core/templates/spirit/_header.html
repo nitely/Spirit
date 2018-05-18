@@ -7,13 +7,12 @@
             {% has_topic_notifications user as has_notifications %}
 
             <ul class="header-tabs">
-                <li><a class="header-tab-link js-tab" href="{% url "spirit:search:search" %}" data-related=".js-search-content"><i class="fa fa-search"></i></a></li><!--
-             --><li><a class="header-tab-link js-tab-notification{% if has_notifications %} is-highlighted{% endif %}" href="{% url "spirit:topic:notification:index" %}" data-related=".js-notifications-content"><i class="fa fa-bell"></i></a></li><!--
-             --><li><a class="header-tab-link js-tab" href="{% url "spirit:user:menu" %}" data-related=".js-user-content">{{ user.username }} <i class="fa fa-chevron-down"></i></a></li>
+                <li><a class="header-tab-link js-tab" href="{% url "spirit:search:search" %}" data-related=".js-search-content"><i class="fa fa-search"></i></a></li>
+                <li><a class="header-tab-link js-tab-notification{% if has_notifications %} is-highlighted{% endif %}" href="{% url "spirit:topic:notification:index" %}" data-related=".js-notifications-content"><i class="fa fa-bell"></i></a></li>
+                <li><a class="header-tab-link js-tab" href="{% url "spirit:user:menu" %}" data-related=".js-user-content">{{ user.username }} <i class="fa fa-chevron-down"></i></a></li>
             </ul>
 
             <div class="header-tabs-content">
-
                 <div class="header-tab-content js-tab-content js-user-content">
                     <nav class="header-nav">
                         <ul class="menu">

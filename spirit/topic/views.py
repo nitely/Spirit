@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect, HttpResponse
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
@@ -167,4 +167,3 @@ def no_top(request, pk):
     topic.last_active = timezone.now()
     topic.save()
     return HttpResponseRedirect(reverse('spirit:topic:detail', kwargs={'pk': pk}))
-

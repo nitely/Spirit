@@ -5,13 +5,6 @@
 {% block title %}{{ topic.title }}{% endblock %}
 
 {% block content %}
- {% if user.is_authenticated %}
-                    {% if topic.is_top %}
-                        <a href="{% url "spirit:topic:no-top" topic.pk %}" ><i class="fa fa-close likeCount"></i></a>
-                    {% else %}
-                        <a href="{% url "spirit:topic:top" topic.pk %}" ><i class="fa fa fa-flag likeCount"></i></a>
-                    {% endif %}
- {% endif %}
         <ul class="nav">
             <li><a href="{% url "spirit:index" %}" >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
 
@@ -43,6 +36,13 @@
                     {{ first_comment.comment_html|safe }}
                 {% endfor %}
             </div>
+            {% if user.is_superuser %}
+                   {% if topic.is_top %}
+                       <a class="isTopBut" href="{% url "spirit:topic:no-top" topic.pk %}" >取消置顶</a >
+                   {% else %}
+                       <a class="isTopBut" href="{% url "spirit:topic:top" topic.pk %}" >置顶</a >
+                   {% endif %}
+            {% endif %}
         </h1>
         {% if user.st.is_moderator %}
             <div class="topic-moderation js-tabs-container">

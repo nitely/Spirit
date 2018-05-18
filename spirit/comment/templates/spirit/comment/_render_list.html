@@ -3,7 +3,6 @@
 <div class="comments">
     <p>{{ count }}  Answers</p>
     {% for c in comments %}
-
 		<div class="comment{% if c.action %} is-highlighted{% endif %}" id="c{{forloop.counter0|add:comments.start_index }}" data-number="{{ forloop.counter0|add:comments.start_index }}" data-pk="{{ c.pk }}">
 
             {% if not c.is_removed %}
@@ -11,17 +10,17 @@
                     <div class="comment-like-count" style="display: flex;-webkit-display:flex;flex-direction: column;margin-right: 20px">
                     {% if user.is_authenticated %}
                         {% if c.like %}
-                            <a class="js-like" href="{% url "spirit:comment:like:delete" c.like.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-close likeCount"></i></a>
+                            <a class="js-like" href="{% url "spirit:comment:like:delete" c.like.pk %}" data-count="{{ c.likes_count }}" title="This answer is not useful"><i class="fa fa-thumbs-o-down"></i></a>
                         {% else %}
                             {% ifnotequal c.user user  %}
-                                <a class="js-like" class="like" href="{% url "spirit:comment:like:create" c.pk %}" data-count="{{ c.likes_count }}" ><i class="fa fa-caret-up likeCount"></i></a>  
+                                <a class="js-like" class="like" href="{% url "spirit:comment:like:create" c.pk %}" data-count="{{ c.likes_count }}"  title="This answer is useful"><i class="fa fa-caret-up likeCount"></i></a>  
                             {% else %}
                                 <i class="fa fa-caret-up likeCount"></i>
                             {% endifnotequal %}                      
                         {% endif %}
                     {% endif %}
                     {{c.likes_count}}
-                    <i class="fa fa-caret-down likeCount"></i>
+                    <i class="fa fa-caret-down likeCount" title="Realization..."></i>
                     </div>
                     <div class="comment-body">
                         <div class="comment-text">
@@ -61,7 +60,7 @@
                             <li><a href="{% url "spirit:comment:flag:create" c.pk %}"><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
                         {% endif %}
 
-                        <li><a class="js-share" href="#" data-dialog=".js-share-{{ c.pk }}"><i class="fa fa-share"></i> {% trans "share" %}</a></li>
+                        <li><a class="js-share" href="#" data-dialog=".js-share-{{ c.pk }}"><i class="fa fa-share-alt"></i> {% trans "share" %}</a></li>
 
                         {% if user.is_authenticated %}
 
@@ -70,7 +69,7 @@
                             {% endif %}
 
                             {% ifnotequal c.user.pk user.pk %}
-                                <li><a href="{% url "spirit:comment:publish" topic_id=topic.pk pk=c.pk %}" >{% trans "quote" %}</a></li>
+                                <li><a href="{% url "spirit:comment:publish" topic_id=topic.pk pk=c.pk %}" ><i class="fa fa-share"></i>{% trans "quote" %}</a></li>
                                 <li><a href="#reply" class="js-reply-button" data="@{{ c.user.username }}" >{% trans "reply" %}</a></li>
                             {% endifnotequal %}
                         {% endif %}

@@ -6199,7 +6199,6 @@ html {
  */
 body {
   margin: 0;
-  position: relative;
 }
 
 /* HTML5 display definitions
@@ -6552,7 +6551,7 @@ i {
 .comments > p {
   margin: 0;
   border-bottom: 1px solid #ccc;
-  padding-bottom: 24px; }
+}
 
 hr {
   display: block;
@@ -6865,7 +6864,10 @@ input[type="submit"].button,
 
 .header-link {
   float: right;
-  line-height: 48px; }
+  margin-right: 10px;
+  line-height: 48px;
+  color: #fff!important;
+}
 
 .header-tabs {
   float: right;
@@ -6892,8 +6894,19 @@ input[type="submit"].button,
   position: absolute;
   right: 0;
   background-color: #f6f6f6;
+  box-shadow:2px 2px 10px #909090;
+  z-index: 1000;
+  padding: 10px 10px;
 }
-
+.js-search-content{
+  width: auto;
+}
+.js-search-content > form > input{
+  margin: 0 auto;
+}
+.field > input{
+  width: auto!important;
+}
 @media screen and (min-width: 768px) {
   .header-nav {
     text-align: right; } }
@@ -6920,6 +6933,7 @@ input[type="submit"].button,
 .headline {
   font-weight: 600; 
   color: #333;
+  position: relative;
 }
 .question-content{
   margin-left: 20px;
@@ -6966,7 +6980,34 @@ input[type="submit"].button,
   .row:last-child,
   .comment:last-child {
     border-bottom: #cecece 1px solid; }
-
+.row{
+  position: relative;
+}
+.rowIsTop{
+  position: absolute;
+  background: #4db3c7;
+  z-index: 999;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 70%;
+  padding: 2px 4px 0;
+  top: 2px;
+  left: -20px;
+  line-height: 1.4;
+  -ms-transform: rotate(-7deg);
+  -webkit-transform: rotate(-7deg);
+  transform: rotate(-7deg);
+  -webkit-transition: 0 0.1s ease-in;
+  -moz-transition: 0 0.1s ease-in;
+  -o-transition: 0 0.1s ease-in;
+  transition: transform 0.1s ease-in;
+}
+.row:hover .rowIsTop {
+  transform: rotate(-14deg);
+  -ms-transform: rotate(-14deg);
+  -webkit-transform: rotate(-14deg);
+  /* This combined with the transition properties above rotates the badge on hover. */
+}
 .row-title {
   float: left;
   display: block;
@@ -7024,6 +7065,7 @@ input[type="submit"].button,
 .categories {
   float: left;
   display: block;
+  position: relative;
   margin-right: 7.42297%;
   width: 100%;
   margin-bottom: 12px; }
@@ -7042,10 +7084,25 @@ input[type="submit"].button,
   display: none;
   position: absolute;
   background-color: #f6f6f6;
-  left: 0;
-  top: 10%;
+  left: 0; 
+  border-radius: 5px;
+  box-shadow:2px 2px 10px #909090;
+  z-index: 1000;
 }
-
+.isTopBut{
+  display: block;
+  background-color: #4db3c7;
+  padding: 0px 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 3px;
+  width:8%;
+  text-align: center;
+  box-shadow:2px 2px 10px #909090;
+}
 .new-topic {
   float: left;
   display: block;
