@@ -5,7 +5,13 @@
 {% block title %}{{ topic.title }}{% endblock %}
 
 {% block content %}
-
+ {% if user.is_authenticated %}
+                    {% if topic.is_top %}
+                        <a href="{% url "spirit:topic:no-top" topic.pk %}" ><i class="fa fa-close likeCount"></i></a>
+                    {% else %}
+                        <a href="{% url "spirit:topic:top" topic.pk %}" ><i class="fa fa fa-flag likeCount"></i></a>
+                    {% endif %}
+ {% endif %}
         <ul class="nav">
             <li><a href="{% url "spirit:index" %}" >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
 

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
@@ -158,7 +158,7 @@ def is_top(request, topic_id):
     topic.is_top = True
     topic.last_active = timezone.now()
     topic.save()
-    return redirect(reverse('spirit:index'))
+    return HttpResponseRedirect(reverse('spirit:topic:detail', kwargs={'pk': topic_id}))
 
 @login_required
 def no_top(request, pk):
@@ -166,4 +166,5 @@ def no_top(request, pk):
     topic.is_top = False
     topic.last_active = timezone.now()
     topic.save()
-    return redirect(reverse('spirit:index'))
+    return HttpResponseRedirect(reverse('spirit:topic:detail', kwargs={'pk': pk}))
+

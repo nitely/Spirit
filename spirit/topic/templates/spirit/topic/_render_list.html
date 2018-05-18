@@ -38,13 +38,6 @@
                     </div><!--
                     --><div><i class="fa fa-comment{% if t.has_new_comments %} js-comment-is-new{% endif %}"></i> {{ t.comment_count|add:-1 }}</div><!--
                  --><div title="{{ t.last_active }}"><i class="fa fa-clock-o"></i> {{ t.last_active }}</div>
-                {% if user.is_authenticated %}
-                    {% if t.is_top %}
-                        <a class="js-like" href="{% url "spirit:topic:no-top" t.pk %}" ><i class="fa fa-close likeCount"></i></a>
-                    {% else %}
-                        <a class="js-like" href="{% url "spirit:topic:top" t.pk %}" ><i class="fa fa fa-flag likeCount"></i></a>
-                    {% endif %}
-                {% endif %}
                 </div>
 
 			</div>
