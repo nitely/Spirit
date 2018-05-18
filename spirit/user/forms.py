@@ -84,3 +84,9 @@ class UserProfileForm(forms.ModelForm):
         self.fields['timezone'].help_text = _('Current time is: %(date)s %(time)s') % {
             'date': defaultfilters.date(now),
             'time': defaultfilters.time(now)}
+
+
+class UploadImageForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ["image"]

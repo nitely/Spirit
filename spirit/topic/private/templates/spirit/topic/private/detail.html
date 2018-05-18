@@ -10,7 +10,14 @@
             <li><a href="{% url "spirit:topic:private:index" %}" >{% trans "Private topics" %}</a></li>
         </ul>
 
-        <h1 class="headline">{{ topic.title }}</h1>
+        <h1 class="headline">
+            {{ topic.title }}
+            <div class='question-content'>
+                {% for first_comment in first_content %}
+                    {{ first_comment.comment_html|safe }}
+                {% endfor %}
+            </div>
+        </h1>
 
         <div class="container">
             <div class="private-participants js-tabs-container">
@@ -49,7 +56,7 @@
 
             <div class="comment-media">
                 <div class="comment-img">
-                    <img class="comment-avatar" src="{% get_gravatar_url user=user size=50 %}" />
+                    <img class="comment-avatar" src="{{ MEDIA_URL }}{{ request.user.st.image }}"/>
                 </div>
 
                 <div class="comment-body">

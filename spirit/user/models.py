@@ -19,7 +19,7 @@ class UserProfile(models.Model):
     location = models.CharField(_("location"), max_length=75, blank=True)
     last_seen = models.DateTimeField(_("last seen"), auto_now=True)
     last_ip = models.GenericIPAddressField(_("last ip"), blank=True, null=True)
-    timezone = models.CharField(_("time zone"), max_length=32, default='UTC')
+    timezone = models.CharField(_("time zone"), max_length=32, default='Asia/Shanghai')
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)
     is_verified = models.BooleanField(_('verified'), default=False,
@@ -32,6 +32,7 @@ class UserProfile(models.Model):
 
     last_post_hash = models.CharField(_("last post hash"), max_length=32, blank=True)
     last_post_on = models.DateTimeField(_("last post on"), null=True, blank=True)
+    image = models.ImageField(upload_to="image", default=u"image/default.png", max_length=100)
 
     class Meta:
         verbose_name = _("forum profile")

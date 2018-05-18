@@ -5,16 +5,16 @@
 
 <div class="comment-text js-box-preview-content" style="display:none;"></div>
 <ul class="reply-markdown">
-	<li><a class="js-box-bold" href="#" title="{% trans "Bold" %}"><i class="fa fa-bold"></i></a></li><!--
- --><li><a class="js-box-italic" href="#" title="{% trans "Italic" %}"><i class="fa fa-italic"></i></a></li><!--
- --><li><a class="js-box-list" href="#" title="{% trans "List" %}"><i class="fa fa-list"></i></a></li><!--
- --><li><a class="js-box-url" href="#" title="{% trans "URL" %}"><i class="fa fa-link"></i></a></li><!--
- --><li><a class="js-box-image" href="#" title="{% trans "Image" %}"><i class="fa fa-picture-o"></i></a></li><!--
- -->{% if st_settings.ST_UPLOAD_FILE_ENABLED %}<li>
+	<li><a class="js-box-bold" href="#" title="{% trans "Bold" %}"><i class="fa fa-bold"></i></a></li>
+    <li><a class="js-box-italic" href="#" title="{% trans "Italic" %}"><i class="fa fa-italic"></i></a></li>
+    <li><a class="js-box-list" href="#" title="{% trans "List" %}"><i class="fa fa-list"></i></a></li>
+    <li><a class="js-box-url" href="#" title="{% trans "URL" %}"><i class="fa fa-link"></i></a></li>
+    <li><a class="js-box-image" href="#" title="{% trans "Image" %}"><i class="fa fa-picture-o"></i></a></li>
+    {% if st_settings.ST_UPLOAD_FILE_ENABLED %}<li>
         <a class="js-box-file" href="#" title="{% trans "File" %}"><i class="fa fa-file"></i></a>
-    </li>{% endif %}<!--
- --><li><a class="js-box-poll" href="#" title="{% trans "Poll" %}"><i class="fa fa-bar-chart-o"></i></a></li><!--
- --><li><a class="js-box-preview" href="#" title="{% trans "Preview" %}"><i class="fa fa-eye"></i></a></li>
+    </li>{% endif %}
+    <li><a class="js-box-poll" href="#" title="{% trans "Poll" %}"><i class="fa fa-bar-chart-o"></i></a></li>
+    <li><a class="js-box-preview" href="#" title="{% trans "Preview" %}"><i class="fa fa-eye"></i></a></li>
 </ul>
 
 <script>
