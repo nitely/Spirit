@@ -3,12 +3,12 @@
     <div class="container">
 		<div class="categories js-tabs-container">
             {% ifequal active "participating" %}
-                <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "Participating in" %} <i class="fa fa-chevron-down"></i></a>
+                <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content" style="position: relative">{% trans "Participating in" %} <i class="fa fa-chevron-down"></i></a>
             {% else %}
-                <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "Left" %} <i class="fa fa-chevron-down"></i></a>
+                <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content" style="position: relative">{% trans "Left" %} <i class="fa fa-chevron-down"></i></a>
             {% endifequal %}
 
-			<div class="tab-content js-tab-content js-categories-content">
+			<div class="tab-content js-tab-content js-categories-content private-menu" style="position: absolute;background-color: #fff;box-shadow:2px 2px 10px #909090;display:none;z-index: 1000;">
 				<ul class="menu">
                     <li><a class="menu-link" href="{% url "spirit:topic:private:index-author" %}" >{% trans "Left" %}</a></li>
                     <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}" >{% trans "Participating in" %}</a></li>

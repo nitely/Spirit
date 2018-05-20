@@ -81,6 +81,28 @@ def update(request, pk):
     return render(request, 'spirit/comment/update.html', context)
 
 
+@login_required
+def update_content(request, pk):
+    comment = Comment.objects.for_update_or_404(pk, request.user)
+
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST, instance=comment)
+
+        if form.is_valid():
+            pre_comment_update(comment=Comment.objects.get(pk=comment.pk))
+            comment = form.save()
+            post_comment_update(comment=comment)
+            return redirect(request.POST.get('next', comment.get_absolute_url()))
+    else:
+        form = CommentForm(instance=comment)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'spirit/comment/update_content.html', context)
+
+
 @moderator_required
 def delete(request, pk, remove=True):
     comment = get_object_or_404(Comment, pk=pk)

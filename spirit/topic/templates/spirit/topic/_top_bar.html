@@ -1,23 +1,28 @@
 {% load i18n %}
 
-    <div class="container">
+    <div class="container" style="background-color: #f0f8ff;">
 		<div class="categories js-tabs-container">
-            {% if category %}
+            <!-- {% if category %}
 			    <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{{ category.title }} <i class="fa fa-chevron-down"></i></a>
 			{% else %}
                 <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "All Categories" %} <i class="fa fa-chevron-down"></i></a>
-            {% endif %}
+            {% endif %} -->
 
 			<div class="tab-content js-tab-content js-categories-content">
 				<ul class="menu">
-                    {% for c in categories %}
-                        <li><a class="menu-link" href="{{ c.get_absolute_url }}" >{{ c.title }}</a></li>
-                    {% endfor %}
                     {% if category.parent %}
                         <li><a class="menu-link" href="{{ category.parent.get_absolute_url }}" >{% trans "All Subcategories" %}</a></li>
                     {% else %}
-                        <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}" >{% trans "All Categories" %}</a></li>
+                        <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}" {% if not id %} style="background-color: #fff;border-top: 2px solid orangered" {% endif %} >{% trans "All Categories" %}</a></li>
                     {% endif %}
+                    
+                    {% for c in categories %}
+                            {% ifequal id c.id|stringformat:"i" %}
+                                <li><a class="menu-link" href="{{ c.get_absolute_url }}" style="background-color: #fff;border-top: 2px solid orangered">{{ c.title }} </a></li>
+                            {% else %}
+                                <li><a class="menu-link" href="{{ c.get_absolute_url }}" >{{ c.title }}</a></li>
+                            {% endifequal %}
+                    {% endfor %}                  
 				</ul>
 			</div>
 		</div>

@@ -88,11 +88,14 @@ def detail(request, topic_id, slug):
 
     topic_viewed(request=request, topic=topic)
 
-    comments = Comment.objects\
+    comment = Comment.objects.for_topic(topic=topic).order_by('date')[:1]
+
+    comments = Comment.objects \
+        .exclude(id=comment[0].id)\
         .for_topic(topic=topic)\
         .with_likes(user=request.user)\
         .with_polls(user=request.user)\
-        .order_by('date')
+        .order_by('-likes_count', 'date')
 
     comments = paginate(
         comments,
@@ -100,9 +103,18 @@ def detail(request, topic_id, slug):
         page_number=request.GET.get('page', 1)
     )
 
+    counts = Comment.objects \
+        .exclude(id=comment[0].id) \
+        .for_topic(topic=topic) \
+        .with_likes(user=request.user) \
+        .with_polls(user=request.user) \
+        .count()
+
     context = {
         'topic': topic,
         'topic_private': topic_private,
+        'count': counts,
+        'first_content': comment,
         'comments': comments,
     }
 

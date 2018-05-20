@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from djconfig import config
 
@@ -92,11 +94,21 @@ def detail(request, pk, slug):
 
     utils.topic_viewed(request=request, topic=topic)
 
+    comment = Comment.objects.for_topic(topic=topic).order_by('date')[:1]
+
     comments = Comment.objects\
+        .exclude(id=comment[0].id)\
         .for_topic(topic=topic)\
         .with_likes(user=request.user)\
         .with_polls(user=request.user)\
-        .order_by('date')
+        .order_by('-likes_count', 'date')
+
+    counts = Comment.objects\
+        .exclude(id=comment[0].id)\
+        .for_topic(topic=topic)\
+        .with_likes(user=request.user)\
+        .with_polls(user=request.user)\
+        .count()
 
     comments = paginate(
         comments,
@@ -106,9 +118,10 @@ def detail(request, pk, slug):
 
     context = {
         'topic': topic,
+        'count': counts,
+        'first_content': comment,
         'comments': comments
     }
-
     return render(request, 'spirit/topic/detail.html', context)
 
 
@@ -121,7 +134,7 @@ def index_active(request):
         .visible()\
         .global_()\
         .with_bookmarks(user=request.user)\
-        .order_by('-is_globally_pinned', '-last_active')\
+        .order_by('-is_top', '-is_globally_pinned', '-last_active')\
         .select_related('category')
 
     topics = yt_paginate(
@@ -136,3 +149,20 @@ def index_active(request):
     }
 
     return render(request, 'spirit/topic/active.html', context)
+
+
+@login_required
+def is_top(request, topic_id):
+    topic = get_object_or_404(Topic, pk=topic_id)
+    topic.is_top = True
+    topic.last_active = timezone.now()
+    topic.save()
+    return HttpResponseRedirect(reverse('spirit:topic:detail', kwargs={'pk': topic_id}))
+
+@login_required
+def no_top(request, pk):
+    topic = get_object_or_404(Topic, pk=pk)
+    topic.is_top = False
+    topic.last_active = timezone.now()
+    topic.save()
+    return HttpResponseRedirect(reverse('spirit:topic:detail', kwargs={'pk': pk}))

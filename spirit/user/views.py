@@ -10,6 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponse
 
 from djconfig import config
 
@@ -18,7 +19,7 @@ from .utils.email import send_email_change_email
 from .utils.tokens import UserEmailChangeTokenGenerator
 from ..topic.models import Topic
 from ..comment.models import Comment
-from .forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
+from .forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm, UploadImageForm
 
 User = get_user_model()
 
@@ -28,6 +29,9 @@ def update(request):
     if request.method == 'POST':
         uform = UserForm(data=request.POST, instance=request.user)
         form = UserProfileForm(data=request.POST, instance=request.user.st)
+        image_form = UploadImageForm(request.POST, request.FILES, instance=request.user.st)
+        if image_form.is_valid():
+            image_form.save()
 
         if all([uform.is_valid(), form.is_valid()]):  # TODO: test!
             uform.save()

@@ -1,3 +1,4 @@
+
 .tw {
   display: inline-block;
   height: 20px;
@@ -6197,7 +6198,8 @@ html {
  * Remove default margin.
  */
 body {
-  margin: 0; }
+  margin: 0;
+}
 
 /* HTML5 display definitions
    ========================================================================== */
@@ -6546,9 +6548,10 @@ th {
 i {
   color: inherit; }
 
-p {
+.comments > p {
   margin: 0;
-  margin-bottom: 24px; }
+  border-bottom: 1px solid #ccc;
+}
 
 hr {
   display: block;
@@ -6622,15 +6625,17 @@ body {
 
 html {
   position: relative;
-  min-height: 100%; }
+  min-height: 100%;
+ }
 
 body {
-  margin-bottom: 100px; }
+  margin-bottom: 100px;
+}
 
 .footer {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -100px;
   height: 100px;
   width: 100%; }
 
@@ -6669,7 +6674,8 @@ input[type="checkbox"] {
 
 label {
   display: block;
-  margin-bottom: 12px;
+  height: 24px;
+  line-height: 24px;
   font-size: 18px; }
   label input[type="checkbox"] {
     display: inline;
@@ -6684,7 +6690,8 @@ label {
 a {
   color: #979797;
   text-decoration: none;
-  outline: 0; }
+  outline: 0; 
+}
   a:hover, a:focus {
     color: #1c1c1c; }
 
@@ -6751,14 +6758,16 @@ input[type="submit"].button,
 .button, .dropdown-button {
   line-height: 2;
   height: 2em;
-  color: #444444; }
+  color: #fff; }
 
 input[type="submit"].button,
 .button {
   display: block;
   width: 100%;
   text-align: center;
-  background-color: #cecece; }
+  background-color: #4db3c7;
+  border-radius: 3px;
+}
   input[type="submit"].button.is-undo,
   .button.is-undo {
     background-color: #c65555; }
@@ -6773,9 +6782,22 @@ input[type="submit"].button,
 
 .comment-img {
   float: left; }
-
-.comment-body {
-  overflow: hidden; }
+.comment-like-count{
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+}
+.comment-like-count i{
+  margin-left: 5px;
+  height: 24px;
+  line-height: 24px;
+}
+.dropdown-button{
+  color: #333!important;
+}
+.dropdown-button i{
+  color: #333!important;
+}
 
 .tab-link {
   display: block;
@@ -6833,27 +6855,39 @@ input[type="submit"].button,
   color: #ccc; }
   .side-menu-close:focus, .side-menu-close:hover {
     color: #fefefe; }
-
-.container,
+.container{
+  height: 60px;
+  line-height: 60px;
+}
 .header {
-  margin-bottom: 24px; }
+  background-color: #4db3c7;
+  position: relative;
+}
 
 .header-logo {
   float: left;
   font-size: 28px;
+  margin-left: 10px;
   line-height: 48px;
-  color: #444444; }
+  color: #fff; }
 
 .header-link {
   float: right;
-  line-height: 48px; }
+  margin-right: 10px;
+  line-height: 48px;
+  color: #fff!important;
+}
 
 .header-tabs {
   float: right;
   line-height: 48px; }
   .header-tabs li {
-    margin-left: 24px; }
-
+    margin-left: 24px;
+}
+.header-tabs li a{
+  color: #fff;
+  margin-right: 10px; 
+}
 .header-tab-link.is-selected {
   color: #1c1c1c; }
 .header-tab-link.is-highlighted {
@@ -6865,14 +6899,32 @@ input[type="submit"].button,
 .header-tab-content {
   display: none;
   padding-bottom: 24px;
-  border-bottom: #cecece 1px solid; }
-
+  border-bottom: #cecece 1px solid;
+  position: absolute;
+  right: 0;
+  background-color: #f6f6f6;
+  box-shadow:2px 2px 10px #909090;
+  z-index: 1000;
+  padding: 10px 10px;
+}
+.js-search-content{
+  width: auto;
+}
+.js-search-content > form > input{
+  margin: 0 auto;
+}
+.field > input{
+  width: auto!important;
+}
 @media screen and (min-width: 768px) {
   .header-nav {
     text-align: right; } }
 .header-nav .menu {
   text-align: left; }
 
+.likeCount{
+  font-size: 10px;
+}
 .footer-container {
   max-width: 68em;
   margin-left: auto;
@@ -6888,10 +6940,21 @@ input[type="submit"].button,
   margin-top: 50px; }
 
 .headline {
-  font-weight: normal; }
-
+  font-weight: 600; 
+  color: #333;
+  position: relative;
+}
+.question-content{
+  margin-left: 20px;
+}
+.question-content p{
+  font-weight: normal !important;
+  color: #666 !important;
+  font-size: 16px;
+  display: inline-block;
+}
 .field {
-  margin-bottom: 24px; }
+  margin-bottom: 10px; }
 
 .checkboxes {
   overflow: auto;
@@ -6923,54 +6986,117 @@ input[type="submit"].button,
 .row,
 .comment {
   padding: 12px;
-  border-top: #cecece 1px solid; }
+  border-bottom: #cecece 1px solid; }
   .row:last-child,
   .comment:last-child {
     border-bottom: #cecece 1px solid; }
-
-.row-title {
-  float: left;
-  display: block;
-  margin-right: 7.42297%;
+.row{
+  position: relative;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
-  margin-bottom: 12px; }
+}
+.rowIsTop{
+  position: absolute;
+  background: #4db3c7;
+  z-index: 999;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 70%;
+  padding: 2px 4px 0;
+  top: 2px;
+  left: -20px;
+  line-height: 1.4;
+  -ms-transform: rotate(-7deg);
+  -webkit-transform: rotate(-7deg);
+  transform: rotate(-7deg);
+  -webkit-transition: 0 0.1s ease-in;
+  -moz-transition: 0 0.1s ease-in;
+  -o-transition: 0 0.1s ease-in;
+  transition: transform 0.1s ease-in;
+}
+.row:hover .rowIsTop {
+  transform: rotate(-14deg);
+  -ms-transform: rotate(-14deg);
+  -webkit-transform: rotate(-14deg);
+  /* This combined with the transition properties above rotates the badge on hover. */
+}
+.row-title {
+  display: inline-block;
+  margin-left: 4%;
+  width: 56%;
+  margin-bottom: 12px; 
+}
   .row-title:last-child {
     margin-right: 0; }
   @media screen and (min-width: 768px) {
     .row-title {
-      float: left;
-      display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      display: inline-block;
+      margin-left: 3%;
+      width: 56%;
       margin-bottom: 0; }
       .row-title:last-child {
         margin-right: 0; } }
-
-.row-link {
-  color: #444444; }
+.row-title > a{
+  font-size: 18px;
+}
+.row-title > p{
+  font-size: 14px!important;
+  margin-top: 0;
+  width: 100%;
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  color: #979797;
+}
   .row-link:visited, .row-link.is-visited {
-    color: #979797; }
-
+    color: #07c; }
+.row-answer{
+  display: inline-block;
+  width: auto;
+  text-align: center;
+  width: 6%;  
+}
+.row-answer > span{
+  font-weight: 600;
+  font-size: 18px;
+}
+.row-answer > p{
+  margin-top: 0!important;
+}
+.row-categary{
+  margin-left: 2%;
+  width: 12%;
+}
 .row-info {
   float: left;
-  display: block;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1%;
+  width: 20%;
   margin-right: 7.42297%;
-  width: 100%;
   color: #979797; }
   .row-info:last-child {
     margin-right: 0; }
-  .row-info div {
-    margin-left: 24px; }
     .row-info div:first-child {
       margin-left: 0; }
   .row-info .is-new {
     color: #c65555; }
   @media screen and (min-width: 768px) {
     .row-info {
-      float: left;
-      display: block;
+      display: flex;
+      display: -webkit-flex;
+      flex-direction: row;
+      align-items: center;
+      float: right;
+      margin-left: 1%;
+      width: 20%;
+      margin-left: 2%;
       margin-right: 3.57866%;
-      width: 48.21067%;
       text-align: right; }
       .row-info:last-child {
         margin-right: 0; } }
@@ -6981,29 +7107,73 @@ input[type="submit"].button,
 
 .row-edit {
   float: right; }
-
+.row-info img{
+  width: 30px;
+  height: 30px;
+}
+.user-info{
+  display: inline-block;
+  margin-left:5px; 
+}
 .categories {
   float: left;
   display: block;
-  margin-right: 7.42297%;
-  width: 100%;
-  margin-bottom: 12px; }
+  position: relative;
+  width: 100%;}
   .categories:last-child {
     margin-right: 0; }
   @media screen and (min-width: 768px) {
     .categories {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%; }
+      width: auto; }
       .categories:last-child {
         margin-right: 0; } }
 
-.tab-content {
-  display: none; }
-
+.tab-content .menu{
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+}
+.noread-ul > ul{
+  display: flex!important;
+  display: -webkit-flex!important;
+  flex-direction: column!important;
+}
+.noread-ul > ul > li{
+  height: 24px;
+  line-height: 24px;
+  width: 100px;
+}
+.private-menu > ul{
+  display: flex!important;
+  display: -webkit-flex!important;
+  flex-direction: column!important;
+}
+.private-menu > ul > li{
+  height: 24px;
+  line-height: 24px;
+  width: 100px;
+}
+.menu li{
+  
+}
+.isTopBut{
+  display: block;
+  background-color: #4db3c7;
+  padding: 0px 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 3px;
+  width:8%;
+  text-align: center;
+  box-shadow:2px 2px 10px #909090;
+}
 .new-topic {
-  float: left;
+  float: right;
   display: block;
   margin-right: 7.42297%;
   width: 100%; }
@@ -7011,10 +7181,10 @@ input[type="submit"].button,
     margin-right: 0; }
   @media screen and (min-width: 768px) {
     .new-topic {
-      float: left;
+      float: right;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      margin-right: 10px!important;
+      width: auto;
       text-align: right; }
       .new-topic:last-child {
         margin-right: 0; } }
@@ -7081,15 +7251,15 @@ input.move-comment-checkbox {
   background: #ffffe9; }
 
 .comment-img {
-  width: 50px;
-  margin-right: 24px; }
-
-.comment-avatar {
-  border-radius: 25px; }
+  width: 20px;
+  margin-right: 15px; 
+  margin-bottom: 10px;
+}
 
 .comment-info {
   font-size: 14px;
-  margin-bottom: 12px; }
+  display: inline-block;
+}
 
 .comment-username {
   float: left; }
@@ -7124,8 +7294,9 @@ input.move-comment-checkbox {
 
 .comment-actions {
   font-size: 14px;
-  text-align: right; }
-
+  text-align: right; 
+  float: right;
+}
 .comment-removed {
   font-size: 14px;
   word-wrap: break-word; }
@@ -7260,9 +7431,7 @@ ul.reply-markdown {
   .menu,
   .participants-menu {
     display: inline-block; } }
-.menu li,
 .participants-menu li {
-  background-color: #f6f6f6;
   margin-bottom: 6px; }
   .menu li:last-child,
   .participants-menu li:last-child {
@@ -7273,7 +7442,9 @@ ul.reply-markdown {
   padding: 0 12px; }
 
 .menu-item {
-  padding: 0 12px; }
+  height: 24px;
+  line-height: 24px;
+}
 
 .menu-username {
   float: left; }
@@ -7352,8 +7523,7 @@ ul.reply-markdown {
       .private-leave:last-child {
         margin-right: 0; } }
 
-.participants-menu {
-  margin-bottom: 12px; }
+.participants-menu {}
 
 .preference-label {
   font-size: 18px;

@@ -2,7 +2,7 @@
 
 
     <div class="profile-img">
-		<img class="profile-avatar" src="{% get_gravatar_url user=p_user size=200 %}" />
+		<img class="comment-avatar" src="{{ MEDIA_URL }}{{ request.user.st.image }}" style="width: 80px;width: 80px;margin-top: 10%"/>
 		<div class="profile-username">{{ p_user.username }}</div>
 	</div>
 
@@ -10,11 +10,13 @@
 		<ul class="profile-track">
 			<li>
 				<div class="profile-title">{% trans "Joined at" %}</div>
-				<div class="profile-date">{{ p_user.date_joined|shortnaturaltime }}</div>
+
+				<div class="profile-date">{{ p_user.date_joined }}</div>
 			</li><!--
 		 --><li>
+
 				<div class="profile-title">{% trans "Seen" %}</div>
-				<div class="profile-date">{{ p_user.st.last_seen|shortnaturaltime }}</div>
+				<div class="profile-date">{{ p_user.st.last_seen }}</div>
 			</li>
 
             {% if user.st.is_administrator %}
@@ -43,7 +45,9 @@
     {% endif %}
 
     <ul class="tabs">
-		<li><a class="tab-link{% ifequal active_tab 0 %} is-selected{% endifequal %}" href="{% url "spirit:user:detail" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Comments" %}</a></li><!--
-	 --><li><a class="tab-link{% ifequal active_tab 1 %} is-selected{% endifequal %}" href="{% url "spirit:user:topics" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Topics" %}</a></li><!--
-	 --><li><a class="tab-link{% ifequal active_tab 2 %} is-selected{% endifequal %}" href="{% url "spirit:user:likes" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Likes" %}</a></li>
+
+		<li><a class="tab-link{% ifequal active_tab 0 %} is-selected{% endifequal %}" href="{% url "spirit:user:detail" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Comments" %}</a></li>
+	    <li><a class="tab-link{% ifequal active_tab 1 %} is-selected{% endifequal %}" href="{% url "spirit:user:topics" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Topics" %}</a></li>
+	    <li><a class="tab-link{% ifequal active_tab 2 %} is-selected{% endifequal %}" href="{% url "spirit:user:likes" pk=p_user.pk slug=p_user.st.slug %}" >{% trans "Likes" %}</a></li>
 	</ul>
+

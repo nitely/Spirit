@@ -69,6 +69,7 @@
       removeLikeText = $.format(this.options.removeLikeText, {
         count: count
       });
+      window.location.reload();
       return this.el.text(removeLikeText);
     };
 
@@ -81,6 +82,7 @@
       likeText = $.format(this.options.likeText, {
         count: count
       });
+      window.location.reload();
       return this.el.text(likeText);
     };
 

@@ -1,0 +1,22 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Edit comment" %}{% endblock %}
+
+{% block content %}
+
+    <h1 class="headline">修改内容</h1>
+
+    <form action="." method="post" class="js-reply">
+        {% csrf_token %}
+        {% include "spirit/_content.html" %}
+
+        <div class="container">
+            {% include "spirit/comment/_editor.html" %}
+
+            <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
+        </div>
+    </form>
+
+{% endblock %}

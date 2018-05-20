@@ -1,14 +1,14 @@
 {% load i18n %}
 
     <div class="container">
-        <div class="categories js-tabs-container">
+        <div class="categories js-tabs-container" style="position: relative;">
             {% ifequal active "notifications" %}
                 <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "Notifications" %} <i class="fa fa-chevron-down"></i></a>
             {% else %}
                 <a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">{% trans "Unread notifications" %} <i class="fa fa-chevron-down"></i></a>
             {% endifequal %}
 
-            <div class="tab-content js-tab-content js-categories-content">
+            <div class="tab-content js-tab-content js-categories-content noread-ul" style="background-color: #fff;box-shadow:2px 2px 10px #909090;position: absolute;width:auto;display: none;z-index: 1000;">
                 <ul class="menu">
                     <li><a class="menu-link" href="{% url "spirit:topic:notification:index" %}" >{% trans "Notifications" %}</a></li>
                     <li><a class="menu-link" href="{% url "spirit:topic:notification:index-unread" %}" >{% trans "Unread notifications" %}</a></li>
