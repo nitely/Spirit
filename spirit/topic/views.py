@@ -122,7 +122,6 @@ def detail(request, pk, slug):
         'first_content': comment,
         'comments': comments
     }
-
     return render(request, 'spirit/topic/detail.html', context)
 
 

@@ -6625,7 +6625,8 @@ body {
 
 html {
   position: relative;
-  min-height: 100%; }
+  min-height: 100%;
+ }
 
 body {
   margin-bottom: 100px;
@@ -6673,7 +6674,8 @@ input[type="checkbox"] {
 
 label {
   display: block;
-  margin-bottom: 12px;
+  height: 24px;
+  line-height: 24px;
   font-size: 18px; }
   label input[type="checkbox"] {
     display: inline;
@@ -6688,7 +6690,8 @@ label {
 a {
   color: #979797;
   text-decoration: none;
-  outline: 0; }
+  outline: 0; 
+}
   a:hover, a:focus {
     color: #1c1c1c; }
 
@@ -6781,6 +6784,12 @@ input[type="submit"].button,
   float: left; }
 .comment-like-count{
   display: inline-block;
+  height: 24px;
+  line-height: 24px;
+}
+.comment-like-count i{
+  margin-left: 5px;
+  height: 24px;
   line-height: 24px;
 }
 .dropdown-button{
@@ -6789,8 +6798,6 @@ input[type="submit"].button,
 .dropdown-button i{
   color: #333!important;
 }
-.comment-body {
-  overflow: hidden; }
 
 .tab-link {
   display: block;
@@ -6848,9 +6855,11 @@ input[type="submit"].button,
   color: #ccc; }
   .side-menu-close:focus, .side-menu-close:hover {
     color: #fefefe; }
-
+.container{
+  height: 60px;
+  line-height: 60px;
+}
 .header {
-  margin-bottom: 24px;
   background-color: #4db3c7;
   position: relative;
 }
@@ -6914,7 +6923,7 @@ input[type="submit"].button,
   text-align: left; }
 
 .likeCount{
-  font-size: 25px;
+  font-size: 10px;
 }
 .footer-container {
   max-width: 68em;
@@ -6942,9 +6951,10 @@ input[type="submit"].button,
   font-weight: normal !important;
   color: #666 !important;
   font-size: 16px;
+  display: inline-block;
 }
 .field {
-  margin-bottom: 24px; }
+  margin-bottom: 10px; }
 
 .checkboxes {
   overflow: auto;
@@ -6982,6 +6992,11 @@ input[type="submit"].button,
     border-bottom: #cecece 1px solid; }
 .row{
   position: relative;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 }
 .rowIsTop{
   position: absolute;
@@ -7009,48 +7024,79 @@ input[type="submit"].button,
   /* This combined with the transition properties above rotates the badge on hover. */
 }
 .row-title {
-  float: left;
-  display: block;
-  margin-right: 7.42297%;
-  width: 100%;
-  margin-bottom: 12px; }
+  display: inline-block;
+  margin-left: 4%;
+  width: 56%;
+  margin-bottom: 12px; 
+}
   .row-title:last-child {
     margin-right: 0; }
   @media screen and (min-width: 768px) {
     .row-title {
-      float: left;
-      display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      display: inline-block;
+      margin-left: 3%;
+      width: 56%;
       margin-bottom: 0; }
       .row-title:last-child {
         margin-right: 0; } }
-
-.row-link {
-  color: #444444; }
+.row-title > a{
+  font-size: 18px;
+}
+.row-title > p{
+  font-size: 14px!important;
+  margin-top: 0;
+  width: 100%;
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  color: #979797;
+}
   .row-link:visited, .row-link.is-visited {
-    color: #979797; }
-
+    color: #07c; }
+.row-answer{
+  display: inline-block;
+  width: auto;
+  text-align: center;
+  width: 6%;  
+}
+.row-answer > span{
+  font-weight: 600;
+  font-size: 18px;
+}
+.row-answer > p{
+  margin-top: 0!important;
+}
+.row-categary{
+  margin-left: 2%;
+  width: 12%;
+}
 .row-info {
   float: left;
-  display: block;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1%;
+  width: 20%;
   margin-right: 7.42297%;
-  width: 100%;
   color: #979797; }
   .row-info:last-child {
     margin-right: 0; }
-  .row-info div {
-    margin-left: 24px; }
     .row-info div:first-child {
       margin-left: 0; }
   .row-info .is-new {
     color: #c65555; }
   @media screen and (min-width: 768px) {
     .row-info {
-      float: left;
-      display: block;
+      display: flex;
+      display: -webkit-flex;
+      flex-direction: row;
+      align-items: center;
+      float: right;
+      margin-left: 1%;
+      width: 20%;
+      margin-left: 2%;
       margin-right: 3.57866%;
-      width: 48.21067%;
       text-align: right; }
       .row-info:last-child {
         margin-right: 0; } }
@@ -7061,33 +7107,56 @@ input[type="submit"].button,
 
 .row-edit {
   float: right; }
-
+.row-info img{
+  width: 30px;
+  height: 30px;
+}
+.user-info{
+  display: inline-block;
+  margin-left:5px; 
+}
 .categories {
   float: left;
   display: block;
   position: relative;
-  margin-right: 7.42297%;
-  width: 100%;
-  margin-bottom: 12px; }
+  width: 100%;}
   .categories:last-child {
     margin-right: 0; }
   @media screen and (min-width: 768px) {
     .categories {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%; }
+      width: auto; }
       .categories:last-child {
         margin-right: 0; } }
 
-.tab-content {
-  display: none;
-  position: absolute;
-  background-color: #f6f6f6;
-  left: 0; 
-  border-radius: 5px;
-  box-shadow:2px 2px 10px #909090;
-  z-index: 1000;
+.tab-content .menu{
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+}
+.noread-ul > ul{
+  display: flex!important;
+  display: -webkit-flex!important;
+  flex-direction: column!important;
+}
+.noread-ul > ul > li{
+  height: 24px;
+  line-height: 24px;
+  width: 100px;
+}
+.private-menu > ul{
+  display: flex!important;
+  display: -webkit-flex!important;
+  flex-direction: column!important;
+}
+.private-menu > ul > li{
+  height: 24px;
+  line-height: 24px;
+  width: 100px;
+}
+.menu li{
+  
 }
 .isTopBut{
   display: block;
@@ -7104,7 +7173,7 @@ input[type="submit"].button,
   box-shadow:2px 2px 10px #909090;
 }
 .new-topic {
-  float: left;
+  float: right;
   display: block;
   margin-right: 7.42297%;
   width: 100%; }
@@ -7112,10 +7181,10 @@ input[type="submit"].button,
     margin-right: 0; }
   @media screen and (min-width: 768px) {
     .new-topic {
-      float: left;
+      float: right;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      margin-right: 10px!important;
+      width: auto;
       text-align: right; }
       .new-topic:last-child {
         margin-right: 0; } }
@@ -7183,10 +7252,9 @@ input.move-comment-checkbox {
 
 .comment-img {
   width: 20px;
-  margin-right: 15px; }
-
-.comment-avatar {
-  border-radius: 25px; }
+  margin-right: 15px; 
+  margin-bottom: 10px;
+}
 
 .comment-info {
   font-size: 14px;
@@ -7363,9 +7431,7 @@ ul.reply-markdown {
   .menu,
   .participants-menu {
     display: inline-block; } }
-.menu li,
 .participants-menu li {
-  background-color: #f6f6f6;
   margin-bottom: 6px; }
   .menu li:last-child,
   .participants-menu li:last-child {
@@ -7376,7 +7442,9 @@ ul.reply-markdown {
   padding: 0 12px; }
 
 .menu-item {
-  padding: 0 12px; }
+  height: 24px;
+  line-height: 24px;
+}
 
 .menu-username {
   float: left; }
@@ -7455,8 +7523,7 @@ ul.reply-markdown {
       .private-leave:last-child {
         margin-right: 0; } }
 
-.participants-menu {
-  margin-bottom: 12px; }
+.participants-menu {}
 
 .preference-label {
   font-size: 18px;

@@ -28,7 +28,7 @@ def detail(request, pk, slug):
         .unremoved()\
         .with_bookmarks(user=request.user)\
         .for_category(category=category)\
-        .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
+        .order_by('-is_top', '-is_globally_pinned', '-is_pinned', '-last_active')\
         .select_related('category')
 
     topics = yt_paginate(
@@ -37,7 +37,13 @@ def detail(request, pk, slug):
         page_number=request.GET.get('page', 1)
     )
 
+    categories = Category.objects\
+        .visible()\
+        .parents()
+
     context = {
+        'id': pk,
+        'categories': categories,
         'category': category,
         'subcategories': subcategories,
         'topics': topics

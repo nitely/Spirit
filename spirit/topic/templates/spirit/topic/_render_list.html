@@ -6,8 +6,12 @@
         {% for t in topics %}
 			<div class="row">
                 {% if t.is_top %}
-                <div class="rowIsTop">置顶</div>
+                    <div class="rowIsTop">置顶</div>
                 {% endif %}
+                <div class="row-answer">
+                    <span>{{ t.comment_count|add:-1 }}</span>
+                    <p>Answers</p>
+                </div>
                 <div class="row-title">
                     {% if t.is_pinned or t.is_globally_pinned %}
                         <i class="fa fa-thumb-tack"></i>
@@ -16,28 +20,33 @@
                         <i class="fa fa-lock"></i>
                     {% endif %}
 
-                    <a class="row-link{% if t.is_visited %} is-visited{% endif %}" href="{{ t.get_bookmark_url }}">{{ t.title }}</a>
+                    <a class="row-link{% if t.is_visited %} is-visited{% endif %}" href="{{ t.get_bookmark_url }}" style="display:block;width:100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ t.title }}</a>
+                    <p>{{ t.comment.comment }}</p>
                 </div>
-                <div class="row-info">
-                    <div>
-                        {% if show_subcategory %}
+                <div class="row-categary">
+                    {% if show_subcategory %}
+                        <a {% if t.category.color %}style="color: {{ t.category.color }};"{% endif %} href="{{ t.category.get_absolute_url }}">
+                            {{ t.category.title }}
+                        </a>
+                    {% else %}
+                        {% if t.category.parent %}
+                            <a {% if t.category.parent.color %}style="color:{{ t.category.parent.color }};"{% endif %} href="{{ t.category.parent.get_absolute_url }}">
+                                {{ t.category.parent.title }}
+                            </a>
+                        {% else %}
                             <a {% if t.category.color %}style="color: {{ t.category.color }};"{% endif %} href="{{ t.category.get_absolute_url }}">
                                 {{ t.category.title }}
                             </a>
-                        {% else %}
-                            {% if t.category.parent %}
-                                <a {% if t.category.parent.color %}style="color: {{ t.category.parent.color }};"{% endif %} href="{{ t.category.parent.get_absolute_url }}">
-                                    {{ t.category.parent.title }}
-                                </a>
-                            {% else %}
-                                <a {% if t.category.color %}style="color: {{ t.category.color }};"{% endif %} href="{{ t.category.get_absolute_url }}">
-                                    {{ t.category.title }}
-                                </a>
-                            {% endif %}
                         {% endif %}
+                    {% endif %}
+                </div>
+                <div class="row-info">
+                    <img class="comment-avatar" src="{{ MEDIA_URL }}{{ t.user.st.image }}"/>
+                    <div class="user-info">
+                        <a class="username{% if t.user.st.is_administrator %} is-admin{% elif t.user.st.is_moderator %} is-mod{% endif %}" href="{{ t.user.st.get_absolute_url }}" style="display: block;text-align: left;">{{ t.user.username }}</a >
+                        <div title="{{ t.last_active }}">{{ t.last_active }}</div>
                     </div>
-                    <div><i class="fa fa-comment{% if t.has_new_comments %} js-comment-is-new{% endif %}"></i> {{ t.comment_count|add:-1 }}</div>
-                    <div title="{{ t.last_active }}"><i class="fa fa-clock-o"></i> {{ t.last_active }}</div>
+                    
                 </div>
 			</div>
         {% empty %}

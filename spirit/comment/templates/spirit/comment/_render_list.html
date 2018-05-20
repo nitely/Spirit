@@ -6,21 +6,20 @@
 		<div class="comment{% if c.action %} is-highlighted{% endif %}" id="c{{forloop.counter0|add:comments.start_index }}" data-number="{{ forloop.counter0|add:comments.start_index }}" data-pk="{{ c.pk }}">
 
             {% if not c.is_removed %}
-                <div class="comment-media" style="display: flex;-webkit-display:flex;flex-direction: row;">
-                    <div class="comment-like-count" style="display: flex;-webkit-display:flex;flex-direction: column;margin-right: 20px">
+                <div class="comment-media" style="display: flex;display:-webkit-flex;flex-direction: row;">
+                    <div class="comment-like-count" style="display: flex;display:-webkit-flex;flex-direction: row;margin-right: 20px;margin-top: 16px;">
+                    {{c.likes_count}}
                     {% if user.is_authenticated %}
                         {% if c.like %}
-                            <a class="js-like" href="{% url "spirit:comment:like:delete" c.like.pk %}" data-count="{{ c.likes_count }}" title="This answer is not useful"><i class="fa fa-thumbs-o-down"></i></a>
+                            <a class="js-like" href="{% url "spirit:comment:like:delete" c.like.pk %}" data-count="{{ c.likes_count }}" title="This answer is not useful"><i class="fa fa-heart-o" style="font-size: 10px;"></i></a>
                         {% else %}
                             {% ifnotequal c.user user  %}
-                                <a class="js-like" class="like" href="{% url "spirit:comment:like:create" c.pk %}" data-count="{{ c.likes_count }}"  title="This answer is useful"><i class="fa fa-caret-up likeCount"></i></a>  
+                                <a class="js-like" class="like" href="{% url "spirit:comment:like:create" c.pk %}" data-count="{{ c.likes_count }}"  title="This answer is useful"><i class="fa fa-heart likeCount"></i></a>  
                             {% else %}
-                                <i class="fa fa-caret-up likeCount"></i>
+                                <i class="fa fa-heart likeCount"></i>
                             {% endifnotequal %}                      
                         {% endif %}
                     {% endif %}
-                    {{c.likes_count}}
-                    <i class="fa fa-caret-down likeCount" title="Realization..."></i>
                     </div>
                     <div class="comment-body">
                         <div class="comment-text">

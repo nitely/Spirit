@@ -5,8 +5,8 @@
 {% block title %}{{ topic.title }}{% endblock %}
 
 {% block content %}
-        <ul class="nav">
-            <li><a href="{% url "spirit:index" %}" >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
+        <ul class="nav" style="background-color: #f0f8ff;height: 60px;line-height: 60px;">
+            <li style="margin-left: 10px;"><a href="{% url "spirit:index" %}" >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
 
             {% if topic.category.parent_id %}
                <li><a href="{{ topic.category.parent.get_absolute_url }}" >{{ topic.category.parent.title }}</a><i class="fa fa-chevron-right"></i></li>
@@ -34,7 +34,11 @@
             <div class='question-content'>
                 {% for first_comment in first_content %}
                     {{ first_comment.comment_html|safe }}
+                    {% if user.st.is_moderator or user.pk == topic.user.pk %}
+                        <a href="{% url "spirit:comment:update-content" pk=first_comment.pk %}" style="font-size: 14px"><i class="fa fa-pencil"></i>编辑</a >
+                    {% endif %}
                 {% endfor %}
+                
             </div>
             {% if user.is_superuser %}
                    {% if topic.is_top %}
@@ -43,6 +47,10 @@
                        <a class="isTopBut" href="{% url "spirit:topic:top" topic.pk %}" >置顶</a >
                    {% endif %}
             {% endif %}
+            <div class="user-info-commentDetail">
+                <img src="{{ MEDIA_URL }}{{ topic.user.st.image }}" alt="" style="width: 20px;height: 20px">
+                <a class="username{% if topic.user.st.is_administrator %} is-admin{% elif topic.user.st.is_moderator %} is-mod{% endif %}" href="{{ topic.user.st.get_absolute_url }}" style="font-size: 14px">{{ topic.user.username }}</a >
+            </div>
         </h1>
         {% if user.st.is_moderator %}
             <div class="topic-moderation js-tabs-container">
