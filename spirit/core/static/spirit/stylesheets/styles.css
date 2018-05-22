@@ -6771,6 +6771,7 @@ input[type="submit"].button,
   input[type="submit"].button.is-undo,
   .button.is-undo {
     background-color: #c65555; }
+
   @media screen and (min-width: 768px) {
     input[type="submit"].button,
     .button {
@@ -6856,8 +6857,7 @@ input[type="submit"].button,
   .side-menu-close:focus, .side-menu-close:hover {
     color: #fefefe; }
 .container{
-  height: 60px;
-  line-height: 60px;
+  height: auto;
 }
 .header {
   background-color: #4db3c7;
@@ -7027,7 +7027,6 @@ input[type="submit"].button,
   display: inline-block;
   margin-left: 4%;
   width: 56%;
-  margin-bottom: 12px; 
 }
   .row-title:last-child {
     margin-right: 0; }
@@ -7051,7 +7050,7 @@ input[type="submit"].button,
   text-overflow: ellipsis;
   color: #979797;
 }
-  .row-link:visited, .row-link.is-visited {
+  .row-link:visited, .row-link {
     color: #07c; }
 .row-answer{
   display: inline-block;
@@ -7135,6 +7134,13 @@ input[type="submit"].button,
   display: -webkit-flex;
   flex-direction: row;
 }
+.menu-categories{
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  height: 60px;
+  line-height: 60px;
+}
 .noread-ul > ul{
   display: flex!important;
   display: -webkit-flex!important;
@@ -7154,9 +7160,6 @@ input[type="submit"].button,
   height: 24px;
   line-height: 24px;
   width: 100px;
-}
-.menu li{
-  
 }
 .isTopBut{
   display: block;
@@ -7184,6 +7187,7 @@ input[type="submit"].button,
       float: right;
       display: block;
       margin-right: 10px!important;
+      margin-top: 15px;
       width: auto;
       text-align: right; }
       .new-topic:last-child {
@@ -7607,31 +7611,263 @@ ul.reply-markdown {
   @media screen and (min-width: 768px) {
     .new-category {
       text-align: right; } }
+.row-tags{
+  display: none;
+}
+.headline{
+  padding: 0 5px;
+  width: 96%;
+  word-wrap:break-word;  
+  word-break:break-all;
+}
+.question-content p{
+  width: 94%;
+  word-wrap:break-word;  
+  word-break:break-all;
+}
+.comment-date > li > a{
+  word-wrap:break-word;  
+  word-break:break-all;
+}
+.comment-text > p{
+  word-wrap:break-word;  
+  word-break:break-all;
+}
 
-/*
-div.container {
-  @include outer-container;
-  
-  div.element {
-    @include span-columns(4);
-	//styles
-
-	@include media( $medium ) {
-      @include span-columns(4);
-	  //styles
-    }
-	
-	@include media( $medium-only ) {
-	  @include omega(2n);
-	  //only for omega.
-    }
-	
-	@include media( $large ) {
-      @include span-columns(3);
-	  //styles
-	}
+@media screen and (min-device-width: 375px) and (max-device-width: 736px){
+  .menu-link{
+    font-size: 16px;
+  }
+  .row-answer{
+    width: 14%;
+  }
+  .row-answer > span{
+    font-size: 16px;
+  }
+  .row-answer > p{
+    font-size: 14px;
+  }
+  .menu-categories{
+    display: -webkit-box!important;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling:touch;
+  }
+  .menu-categories > li > a{
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    width: auto;
   }
   
-  
+  .new-topic{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
+    box-shadow:2px 2px 10px #909090;
+  }
+  .new-topic a{
+    width: auto;
+    font-size: 16px;
+    padding: 0 12px;
+    height: 40px;
+    line-height: 40px;
+  }
+  .rowIsTop{
+    left: 5px;
+  }
+  .row-title{
+    width: 50%;
+    margin-left: 2%; 
+  }
+  .row-title > div > .row-link{
+    font-size: 16px;
+    width:45%!important;
+  }
+  .row-title > p{
+    font-size: 12px;
+  }
+  .row-categary {
+    display: none;
+  }
+  .row-tags{
+    display: inline-block;
+    font-size: 12px!important;
+    line-height: 34px;
+  }
+  .row-tags i{
+    font-size: 12px;
+  }
+  .row-info{
+    margin-left: 2%;
+    width: 26%;
+  }
+  .row-info img{
+    width: 35px;
+    height: 35px;
+  }
+  .user-info{
+    width: 80%;
+  }
+  .user-info a{
+    font-size: 14px;
+  }
+  .user-info div{
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+  .user-info-commentDetail img{
+    margin-left: 10px
+  }
+  .question-content p{
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .question-content > a{
+    display: block;
+  }
+  .comment-info{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    width: 86%;
+  }
+  .comment-date{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    width: 80%;
+  }
+  .comment-date > li{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .comment-actions > li > a{
+    font-size: 14px;
+  }
 }
-*/
+
+
+
+@media screen and (max-device-width: 374px) {
+  .menu-link{
+    font-size: 14px;
+  }
+  .row-answer{
+    width: 14%;
+  }
+  .row-answer > span{
+    font-size: 14px;
+  }
+  .row-answer > p{
+    font-size: 12px;
+  }
+  .menu-categories{
+    display: -webkit-box!important;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling:touch;
+    height: 50px;
+  }
+  .menu-categories > li > a{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: auto;
+  }
+  .new-topic{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
+    box-shadow:2px 2px 10px #909090;
+  }
+  .new-topic a{
+    width: auto;
+    font-size: 14px;
+    padding: 0 12px;
+    height: 40px;
+    line-height: 40px;
+  }
+  .rowIsTop{
+    left: 12px;
+  }
+  .row-title{
+    width: 50%;
+    margin-left: 2%; 
+  }
+  .row-title > div > .row-link{
+    font-size: 16px;
+    width: 40%!important;
+  }
+  .row-title > p{
+    font-size: 12px;
+  }
+  .row-categary {
+    display: none;
+  }
+  .row-tags{
+    display: inline-block;
+    font-size: 12px!important;
+    line-height: 32px;
+  }
+  .row-tags i{
+    font-size: 12px;
+  }
+  .row-info{
+    margin-left: 2%;
+    width: 26%;
+  }
+  .user-info{
+    width: 75%;
+  }
+  .row-info img{
+    width: 35px;
+    height: 35px;
+  }
+  .user-info a{
+    font-size: 12px;
+  }
+  .user-info div{
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+  .user-info-commentDetail img{
+    margin-left: 10px
+  }
+  .question-content p{
+    font-size: 16px;
+    width: 94%;
+    line-height: 20px
+  }
+  .question-content > a{
+    display: block;
+  }
+  .comment-info{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    width: 86%;
+  }
+  .comment-date{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    width: 80%;
+  }
+  .comment-date > li{
+    width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .comment-actions > li > a{
+    font-size: 14px;
+  }
+} 

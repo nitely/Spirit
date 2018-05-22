@@ -35,7 +35,7 @@
                 {% for first_comment in first_content %}
                     {{ first_comment.comment_html|safe }}
                     {% if user.st.is_moderator or user.pk == topic.user.pk %}
-                        <a href="{% url "spirit:comment:update-content" pk=first_comment.pk %}" style="font-size: 14px"><i class="fa fa-pencil"></i>编辑</a >
+                        <a href="{% url "spirit:comment:update_content" pk=first_comment.pk %}" style="font-size: 14px"><i class="fa fa-pencil"></i>编辑</a >
                     {% endif %}
                 {% endfor %}
                 

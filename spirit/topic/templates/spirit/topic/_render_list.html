@@ -19,8 +19,13 @@
                     {% if t.is_closed %}
                         <i class="fa fa-lock"></i>
                     {% endif %}
-
-                    <a class="row-link{% if t.is_visited %} is-visited{% endif %}" href="{{ t.get_bookmark_url }}" style="display:block;width:100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ t.title }}</a>
+                    <div style="width: 100%;display: flex;display: -webkit-flex;flex-direction: row;">
+                        <a class="row-link{% if t.is_visited %} is-visited{% endif %} row-title-link" href="{{ t.get_bookmark_url }}" style="display:block;width:100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ t.title }}</a>
+                        <a class="row-tags" {% if t.category.parent.color %}style="color:{{ t.category.parent.color }};"{% endif %} href="{{ t.category.parent.get_absolute_url }}">
+                            <i class="fa fa-tags"></i>
+                            {{ t.category.title }}
+                        </a>
+                    </div>
                     <p>{{ t.comment.comment }}</p>
                 </div>
                 <div class="row-categary">

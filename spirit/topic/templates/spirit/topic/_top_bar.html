@@ -9,7 +9,7 @@
             {% endif %} -->
 
 			<div class="tab-content js-tab-content js-categories-content">
-				<ul class="menu">
+				<ul class="menu-categories">
                     {% if category.parent %}
                         <li><a class="menu-link" href="{{ category.parent.get_absolute_url }}" >{% trans "All Subcategories" %}</a></li>
                     {% else %}

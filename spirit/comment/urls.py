@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^(?P<topic_id>[0-9]+)/publish/(?P<pk>[0-9]+)/quote/$', views.publish, name='publish'),
 
     url(r'^(?P<pk>[0-9]+)/update/$', views.update, name='update'),
-    url(r'^(?P<pk>[0-9]+)/update_content/$', views.update_content, name='update-content'),
+    url(r'^(?P<pk>[0-9]+)/update_content/$', views.update_content, name='update_content'),
     url(r'^(?P<pk>[0-9]+)/find/$', views.find, name='find'),
     url(r'^(?P<topic_id>[0-9]+)/move/$', views.move, name='move'),
 
