@@ -44,8 +44,7 @@
         var evt;
         evt = document.createEvent("HTMLEvents");
         evt.initEvent("storage", false, true);
-        window.dispatchEvent(evt);
-        return storage.updateField();
+        return window.dispatchEvent(evt);
       });
       evt = document.createEvent("HTMLEvents");
       evt.initEvent("input", false, true);
