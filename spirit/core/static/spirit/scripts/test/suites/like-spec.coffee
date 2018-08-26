@@ -1,97 +1,84 @@
 describe "like plugin tests", ->
+    likeElms = null
     likes = null
-    like = null
-    Like = null
     post = null
-    data = null
+    responseData = null
 
     beforeEach ->
-        fixtures = do jasmine.getFixtures
+        fixtures = jasmine.getFixtures()
         fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures 'like.html'
+        loadFixtures('like.html')
 
-        post = spyOn $, 'post'
-        post.and.callFake (req) ->
-            d = $.Deferred()
-            d.resolve(data)  # success
-            #d.reject()  # failure
-            return d.promise()
+        responseData = {url_create: '/create/foo'}
 
-        data =
-            url_delete: "/foo/delete/"
+        post = spyOn(window, 'fetch')
+        post.and.callFake( -> {
+            then: (func) ->
+                data = func({ok: true, json: -> responseData})
+                return {
+                    then: (func) ->
+                        func(data)
+                        return {catch: -> {then: (func) -> func()}}
+                }
+        })
 
-        likes = $('.js-like').like {
+        likeElms = document.querySelectorAll('.js-like')
+        likes = stModules.like(likeElms, {
             csrfToken: "foobar",
             likeText: "foo like ({count})",
             removeLikeText: "foo remove like ({count})"
-        }
-        like = likes.first().data 'plugin_like'
-        Like = $.fn.like.Like
-
-    it "doesnt break selector chaining", ->
-        expect(likes).toEqual $('.js-like')
-        expect(likes.length).toEqual 2
+        })
 
     it "can create the like", ->
-        expect($.post.calls.any()).toEqual false
-
-        likes.first().trigger 'click'
-        expect($.post.calls.any()).toEqual true
-        expect($.post.calls.argsFor(0)).toEqual ['/foo/create/', {csrfmiddlewaretoken: "foobar", }]
+        post.calls.reset()
+        likeElms[0].click()
+        expect(post.calls.any()).toEqual(true)
+        expect(post.calls.argsFor(0)[0]).toEqual('/foo/create/')
+        expect(post.calls.argsFor(0)[1].body.get('csrfmiddlewaretoken')).toEqual("foobar")
 
     it "can create and remove the like", ->
         # create
-        data =
-            url_delete: "/foo/delete/"
-        likes.first().trigger 'click'
-        expect($.post.calls.argsFor(0)).toEqual ['/foo/create/', {csrfmiddlewaretoken: "foobar", }]
-        expect(likes.first().text()).toEqual "foo remove like (1)"
+        post.calls.reset()
+        responseData = {url_delete: "/foo/delete/"}
+        likeElms[0].click()
+        expect(post.calls.argsFor(0)[0]).toEqual('/foo/create/')
+        expect(likeElms[0].textContent).toEqual("foo remove like (1)")
 
         # remove
-        data =
-            url_create: "/foo/create/"
-        likes.first().trigger 'click'
-        expect($.post.calls.argsFor(1)).toEqual ['/foo/delete/', {csrfmiddlewaretoken: "foobar", }]
-        expect(likes.first().text()).toEqual "foo like (0)"
+        post.calls.reset()
+        responseData = {url_create: "/foo/create/"}
+        likeElms[0].click()
+        expect(post.calls.argsFor(0)[0]).toEqual('/foo/delete/')
+        expect(likeElms[0].textContent).toEqual("foo like (0)")
 
         # create again... and so on...
-        data =
-            url_delete: "/foo/delete/"
-        likes.first().trigger 'click'
-        expect($.post.calls.argsFor(2)).toEqual ['/foo/create/', {csrfmiddlewaretoken: "foobar", }]
-        expect(likes.first().text()).toEqual "foo remove like (1)"
+        post.calls.reset()
+        responseData = {url_delete: "/foo/delete/"}
+        likeElms[0].click()
+        expect(post.calls.argsFor(0)[0]).toEqual('/foo/create/')
+        expect(likeElms[0].textContent).toEqual("foo remove like (1)")
 
     it "will tell about an api change", ->
-        data =
-            unknown: null
-
-        likes.first().trigger 'click'
-        expect(likes.first().text()).toEqual "api error"
+        responseData = {unknown: null}
+        likeElms[0].click()
+        expect(likeElms[0].textContent).toEqual("api error")
 
     it "prevents from multiple posts while sending", ->
-        expect($.post.calls.any()).toEqual false
-
-        d = $.Deferred()
-        post.and.callFake (req) =>
-            d.resolve(data)
-            return d.promise()
-
-        always = spyOn post(), 'always'
-        post.calls.reset()
-        likes.first().trigger 'click'
-        expect($.post.calls.any()).toEqual true
-        expect(always.calls.any()).toEqual true
+        post.and.callFake( -> {then: -> {then: -> {catch: -> {then: -> }}}})
+        likeElms[0].click()
 
         # next click should do nothing
         post.calls.reset()
-        likes.first().trigger 'click'
-        expect($.post.calls.any()).toEqual false
+        likeElms[0].click()
+        expect(post.calls.any()).toEqual(false)
 
     it "prevents the default click behaviour", ->
-        event = {type: 'click', stopPropagation: (->), preventDefault: (->)}
-        stopPropagation = spyOn event, 'stopPropagation'
-        preventDefault = spyOn event, 'preventDefault'
+        evt = document.createEvent("HTMLEvents")
+        evt.initEvent("click", false, true)
 
-        likes.first().trigger event
+        stopPropagation = spyOn(evt, 'stopPropagation')
+        preventDefault = spyOn(evt, 'preventDefault')
+
+        likeElms[0].dispatchEvent(evt)
         expect(stopPropagation).toHaveBeenCalled()
         expect(preventDefault).toHaveBeenCalled()

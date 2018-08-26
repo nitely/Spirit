@@ -1,23 +1,16 @@
 describe "notification plugin tests", ->
-    tab = null
-    notification = null
-    Notification = null
+    responseData = null
     get = null
-    data = null
+    tab = null
+
+    isHidden = stModules.utils.isHidden
 
     beforeEach ->
-        fixtures = do jasmine.getFixtures
+        fixtures = jasmine.getFixtures()
         fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures 'notification.html'
+        loadFixtures('notification.html')
 
-        get = spyOn $, 'getJSON'
-        get.and.callFake (req) ->
-            d = $.Deferred()
-            d.resolve(data)  # success
-            #d.reject()  # failure
-            return d.promise()
-
-        data =
+        responseData = {
             n: [{
                 user: "username",
                 action: 1,
@@ -25,8 +18,21 @@ describe "notification plugin tests", ->
                 url: "/foobar/",
                 is_read: true
             }]
+        }
 
-        tab = $.notification {
+        get = spyOn(window, 'fetch')
+        get.and.callFake( -> {
+            then: (func) ->
+                data = func({ok: true, json: -> responseData})
+                return {
+                    then: (func) ->
+                        func(data)
+                        return {catch: -> {then: (func) -> func()}}
+                }
+        })
+
+        tab = document.querySelector('.js-tab-notification')
+        stModules.notification([tab], {
             notificationUrl: "/foo/",
             notificationListUrl: "/foo/list/",
             mentionTxt: "{user} foo you on {topic}",
@@ -34,67 +40,105 @@ describe "notification plugin tests", ->
             showAll: "foo Show all",
             empty: "foo empty",
             unread: "foo unread"
-        }
-        notification = tab.first().data 'plugin_notification'
-        Notification = $.notification.Notification
-
-    it "doesnt break selector chaining", ->
-        expect(tab).toEqual $('.js-tab-notification')
+        })
 
     it "gets the notifications", ->
-        expect(get.calls.any()).toEqual false
+        get.calls.reset()
 
-        tab.first().trigger "click"
-        expect(get.calls.any()).toEqual true
-        expect(get.calls.count()).toEqual 1
-        expect(get.calls.argsFor(0)).toEqual ['/foo/']
+        tab.click()
+        expect(get.calls.count()).toEqual(1)
+        expect(get.calls.argsFor(0)[0]).toEqual('/foo/')
 
         # making multiple clicks do nothing
-        tab.first().trigger "click"
-        expect(get.calls.count()).toEqual 1
+        get.calls.reset()
+        tab.click()
+        expect(get.calls.count()).toEqual(0)
 
-    it "shows the notifications, mentions", ->
-        tab.first().trigger "click"
-        expect(get.calls.any()).toEqual true
-        expect($(".js-notifications-content").html()).toEqual '<div>username foo you on <a href="/foobar/">title</a></div><div><a href="/foo/list/">foo Show all</a></div>'
+    it "avoids XSS from topic title", ->
+        get.calls.reset()
 
-    it "shows the notifications, comments", ->
-        data.n[0].action = 2
+        responseData = {
+            n: [{
+                user: "username",  # Username is safe
+                action: 1,
+                title: '<bad>"bad"</bad>',
+                url: "/foobar/",  # URL is safe
+                is_read: true
+            }]
+        }
 
-        tab.first().trigger "click"
-        expect(get.calls.any()).toEqual true
-        expect($(".js-notifications-content").html()).toEqual '<div>username has bar on <a href="/foobar/">title</a></div><div><a href="/foo/list/">foo Show all</a></div>'
+        tab.click()
+        expect(get.calls.count()).toEqual(1)
+        expect(document.querySelector('.js-notifications-content').innerHTML).toEqual(
+            '<div>username foo you on <a href="/foobar/">&lt;bad&gt;"bad"&lt;/bad&gt;</a></div>' +
+            '<div><a href="/foo/list/">foo Show all</a></div>')
 
-    it "shows the notifications, unread", ->
-        data.n[0].is_read = false
+    it "shows mention notifications", ->
+        get.calls.reset()
 
-        tab.first().trigger "click"
-        expect(get.calls.any()).toEqual true
-        expect($(".js-notifications-content").html()).toEqual '<div>username foo you on <a href="/foobar/">title</a> <span class="row-unread">foo unread</span></div><div><a href="/foo/list/">foo Show all</a></div>'
+        tab.click()
+        expect(get.calls.count()).toEqual(1)
+        expect(document.querySelector('.js-notifications-content').innerHTML).toEqual(
+            '<div>username foo you on <a href="/foobar/">title</a></div>' +
+            '<div><a href="/foo/list/">foo Show all</a></div>')
 
-    it "shows the notifications, error", ->
-        get.and.callFake (req) ->
-            d = $.Deferred()
-            d.reject("foobar", "200", "foo error")  # failure
-            return d.promise()
+    it "shows comment notifications", ->
+        responseData.n[0].action = 2
+        tab.click()
+        expect(get.calls.count()).toEqual(1)
+        expect(document.querySelector('.js-notifications-content').innerHTML).toEqual(
+            '<div>username has bar on <a href="/foobar/">title</a></div>' +
+            '<div><a href="/foo/list/">foo Show all</a></div>')
 
-        tab.first().trigger "click"
-        expect(get.calls.any()).toEqual true
-        expect($(".js-notifications-content").html()).toEqual '<div>Error: 200, foo error</div>'
+    it "marks unread notifications", ->
+        responseData.n[0].is_read = false
+        tab.click()
+        expect(get.calls.count()).toEqual(1)
+        expect(document.querySelector('.js-notifications-content').innerHTML).toEqual(
+            '<div>username foo you on <a href="/foobar/">title</a> ' +
+            '<span class="row-unread">foo unread</span></div>' +
+            '<div><a href="/foo/list/">foo Show all</a></div>')
 
-    it "shows tab content and is selected on click", ->
-        expect(tab.first().hasClass "is-selected").toEqual false
-        expect($(".js-notifications-content").is ":visible").toEqual false
+    it "shows an error on server error", ->
+        log = spyOn(console, 'log')
+        log.and.callFake( -> )
 
-        tab.first().trigger "click"
-        expect(tab.first().hasClass "is-selected").toEqual true
-        expect($(".js-notifications-content").is ":visible").toEqual true
+        get.and.callFake( -> {
+            then: (func) ->
+                try
+                    func({ok: false, status: 500, statusText: 'server error'})
+                catch err
+                    return {
+                        then: -> {
+                            catch: (func) ->
+                                func(err)
+                                return {then: (func) -> func()}
+                        }
+                    }
+        })
+
+        tab.click()
+        expect(get.calls.count()).toEqual(1)
+        expect(document.querySelector('.js-notifications-content').innerHTML).toEqual(
+            '<div>error: 500 server error</div>')
+
+    # todo: uncomment once tab.coffee is refactored
+
+    #it "shows tab content and is selected on click", ->
+    #    expect(tab.classList.contains("is-selected")).toEqual(false)
+    #    expect(isHidden(document.querySelectorAll('.js-notifications-content'))).toEqual(true)
+    #
+    #    tab.click()
+    #    expect(tab.classList.contains("is-selected")).toEqual(true)
+    #    expect(isHidden(document.querySelectorAll('.js-notifications-content'))).toEqual(false)
 
     it "prevents the default click behaviour", ->
-        event = {type: 'click', stopPropagation: (->), preventDefault: (->)}
-        stopPropagation = spyOn event, 'stopPropagation'
-        preventDefault = spyOn event, 'preventDefault'
+        evt = document.createEvent("HTMLEvents")
+        evt.initEvent("click", false, true)
 
-        tab.first().trigger event
+        stopPropagation = spyOn(evt, 'stopPropagation')
+        preventDefault = spyOn(evt, 'preventDefault')
+
+        tab.dispatchEvent(evt)
         expect(stopPropagation).toHaveBeenCalled()
         expect(preventDefault).toHaveBeenCalled()

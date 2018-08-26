@@ -2,7 +2,7 @@
   describe("util format tests", function() {
     return it("formats a string", function() {
       var result;
-      result = $.format("{foo} foobar {bar} {bad}", {
+      result = stModules.utils.format("{foo} foobar {bar} {bad}", {
         foo: "foo text",
         bar: "bar text"
       });

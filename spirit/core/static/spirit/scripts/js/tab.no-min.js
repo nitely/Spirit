@@ -4,10 +4,8 @@
  */
 
 (function() {
-  var $, Tab,
+  var Tab,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-  $ = jQuery;
 
   Tab = (function() {
     function Tab(el) {
@@ -16,19 +14,21 @@
       this.unselectAllTabs = bind(this.unselectAllTabs, this);
       this.hideAllTabsContent = bind(this.hideAllTabsContent, this);
       this.tabSwitch = bind(this.tabSwitch, this);
-      this.el = $(el);
+      this.el = el;
+      this.containerElm = this.el.closest(".js-tabs-container");
       this.setUp();
     }
 
     Tab.prototype.setUp = function() {
-      this.el.on('click', this.tabSwitch);
-      return this.el.on('click', this.stopClick);
+      return this.el.addEventListener('click', this.tabSwitch);
     };
 
-    Tab.prototype.tabSwitch = function() {
+    Tab.prototype.tabSwitch = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
       this.hideAllTabsContent();
-      if (this.el.hasClass("is-selected")) {
-        this.el.removeClass("is-selected");
+      if (this.el.classList.contains('is-selected')) {
+        this.el.classList.remove('is-selected');
       } else {
         this.unselectAllTabs();
         this.selectTab();
@@ -37,48 +37,39 @@
     };
 
     Tab.prototype.hideAllTabsContent = function() {
-      var $tabs_container, $tabs_content;
-      $tabs_container = this.el.closest(".js-tabs-container");
-      $tabs_content = $tabs_container.find(".js-tab-content");
-      return $tabs_content.hide();
+      var tabContentElms;
+      tabContentElms = this.containerElm.querySelectorAll(".js-tab-content");
+      return Array.from(tabContentElms).forEach(function(elm) {
+        return elm.style.display = 'none';
+      });
     };
 
     Tab.prototype.unselectAllTabs = function() {
-      var $tabs, $tabs_container;
-      $tabs_container = this.el.closest(".js-tabs-container");
-      $tabs = $tabs_container.find(".js-tab");
-      return $tabs.removeClass("is-selected");
+      var tabElms;
+      tabElms = this.containerElm.querySelectorAll(".js-tab");
+      return Array.from(tabElms).forEach(function(elm) {
+        return elm.classList.remove('is-selected');
+      });
     };
 
     Tab.prototype.selectTab = function() {
-      return this.el.addClass("is-selected");
+      return this.el.classList.add('is-selected');
     };
 
     Tab.prototype.showTabContent = function() {
-      var tab_content;
-      tab_content = this.el.data("related");
-      return $(tab_content).show();
-    };
-
-    Tab.prototype.stopClick = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      return this.containerElm.querySelector(this.el.dataset.related).style.display = 'block';
     };
 
     return Tab;
 
   })();
 
-  $.extend({
-    tab: function() {
-      return $('.js-tab').each(function() {
-        if (!$(this).data('plugin_tab')) {
-          return $(this).data('plugin_tab', new Tab(this));
-        }
-      });
-    }
-  });
+  stModules.tab = function(elms) {
+    return Array.from(elms).map(function(elm) {
+      return new Tab(elm);
+    });
+  };
 
-  $.tab.Tab = Tab;
+  stModules.Tab = Tab;
 
 }).call(this);

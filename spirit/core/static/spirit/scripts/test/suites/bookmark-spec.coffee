@@ -1,61 +1,68 @@
 describe "bookmark plugin tests", ->
     comments = null
+    bookmarks = null
     mark = null
     Bookmark = null
     Mark = null
     post = null
 
     beforeEach ->
-        fixtures = do jasmine.getFixtures
+        fixtures = jasmine.getFixtures()
         fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures 'bookmark.html'
+        loadFixtures('bookmark.html')
 
-        post = spyOn $, 'post'
-        post.and.callFake (req) ->
-            d = $.Deferred()
-            d.resolve()  # success
-            #d.reject(data)  # failure
-            return d.promise()
+        # Promise is async, so must callFake a sync thing
+        post = spyOn(window, 'fetch')
+        post.and.callFake( -> {
+            then: (func) ->
+                func({ok: true})
+                return {
+                    catch: -> {then: (func) -> func()}
+                }
+        })
 
-        comments = $('.comment').bookmark {csrfToken: "foobar", target: "/foo/"}
-        mark = comments.first().data('plugin_bookmark').mark
-        Bookmark = $.fn.bookmark.Bookmark
-        Mark = $.fn.bookmark.Mark
+        comments = document.querySelectorAll('.comment')
+        bookmarks = stModules.bookmark(comments, {
+            csrfToken: "foobar",
+            target: "/foo/"
+        })
+        mark = bookmarks[0].mark
+        Bookmark = stModules.Bookmark
+        Mark = stModules.Mark
 
-    it "doesnt break selector chaining", ->
-        expect(comments).toEqual $('.comment')
-        expect(comments.length).toEqual 2
+        # Trigger all waypoints
+        bookmarks.forEach((bm) ->
+            bm.onWaypoint()
+        )
 
     it "sends the first comment number", ->
-        expect($.post.calls.any()).toEqual true
-        expect($.post.calls.argsFor(0)).toEqual([
-            '/foo/',
-            {csrfmiddlewaretoken: "foobar", comment_number: 1}
-        ])
+        expect(post.calls.any()).toEqual(true)
+        expect(post.calls.argsFor(0)[0]).toEqual('/foo/')
+        expect(post.calls.argsFor(0)[1].body.get('csrfmiddlewaretoken')).toEqual("foobar")
+        expect(post.calls.argsFor(0)[1].body.get('comment_number')).toEqual('1')
 
     it "stores the last comment number", ->
-        bookmark = comments.first().data 'plugin_bookmark'
-        expect(bookmark.mark.commentNumber).toEqual 2
+        expect(mark.commentNumber).toEqual(2)
 
     it "stores the same mark in every comment", ->
-        bookmark_1 = comments.first().data 'plugin_bookmark'
-        bookmark_2 = comments.last().data 'plugin_bookmark'
-        expect(bookmark_1.mark).toEqual bookmark_2.mark
+        bookmark_1 = bookmarks[0]
+        bookmark_2 = bookmarks[bookmarks.length - 1]
+        expect(bookmark_1.mark).toEqual(bookmark_2.mark)
 
     it "does not post on scroll up", ->
-        bookmark_1 = comments.first().data 'plugin_bookmark'
-        sendCommentNumber = spyOn bookmark_1, 'sendCommentNumber'
+        post.calls.reset()
+        bookmark_1 = bookmarks[0]
         bookmark_1.onWaypoint()
-        expect(mark.commentNumber).toEqual 2
-        expect(sendCommentNumber).not.toHaveBeenCalled()
+        expect(mark.commentNumber).toEqual(2)
+        expect(post.calls.any()).toEqual(false)
 
     it "does post on scroll down", ->
-        comments.last().data 'number', 999
-        bookmark_2 = comments.last().data 'plugin_bookmark'
-        sendCommentNumber = spyOn bookmark_2, 'sendCommentNumber'
+        post.calls.reset()
+        bookmark_2 = bookmarks[bookmarks.length - 1]
+        bookmark_2.number = 999
         bookmark_2.onWaypoint()
-        expect(mark.commentNumber).toEqual 999
-        expect(sendCommentNumber).toHaveBeenCalled()
+        expect(mark.commentNumber).toEqual(999)
+        expect(post.calls.any()).toEqual(true)
 
     it "gets the comment number from the address bar", ->
         org_location_hash = window.location.hash
@@ -78,55 +85,75 @@ describe "bookmark plugin tests", ->
 
     it "sends only one comment number in a given time", ->
         post.calls.reset()
-        expect($.post.calls.any()).toEqual false
+        expect(post.calls.any()).toEqual(false)
 
         # won't post if already sending
-        bookmark_2 = comments.last().data 'plugin_bookmark'
+        mark.commentNumber = 0
+        bookmark_2 = bookmarks[bookmarks.length - 1]
         mark.isSending = true
-        bookmark_2.sendCommentNumber()
-        expect($.post.calls.any()).toEqual false
+        bookmark_2.onWaypoint()
+        expect(post.calls.any()).toEqual(false)
 
-        # will prevent from others to post
-        d = $.Deferred()
-        post.and.callFake (req) =>
-            d.resolve()
-            return d.promise()
-
-        always = spyOn post(), 'always'
+        mark.commentNumber = 0
         post.calls.reset()
         mark.isSending = false
-        bookmark_2.sendCommentNumber()
-        expect($.post.calls.any()).toEqual true
-        expect(always.calls.any()).toEqual true
-        expect(mark.isSending).toEqual true
+        bookmark_2.onWaypoint()
+        expect(post.calls.any()).toEqual(true)
+        expect(mark.isSending).toEqual(false)
 
     it "sends current comment number after sending previous when current > previous", ->
         post.calls.reset()
-        expect($.post.calls.any()).toEqual false
+        expect(post.calls.any()).toEqual(false)
 
-        d = $.Deferred()
-        post.and.callFake (req) =>
-            # d.resolve()
-            return d.promise()
+        post.and.callFake( -> {
+            then: (func) ->
+                # isSending == true, so this should just put it in queue
+                bookmark_2 = bookmarks[bookmarks.length - 1]
+                bookmark_2.onWaypoint()
+                func({ok: true})
+                return {
+                    catch: -> {then: (func) -> func()}
+                }
+        })
 
-        mark.commentNumber = 1
-        bookmark_2 = comments.last().data 'plugin_bookmark'
-        bookmark_2.onWaypoint()
-        expect($.post.calls.count()).toEqual 1
-        expect($.post.calls.argsFor(0)).toEqual([
-            '/foo/',
-            {csrfmiddlewaretoken: "foobar", comment_number: 2}
-        ])
+        mark.commentNumber = -1
+        bookmark_1 = bookmarks[0]
+        bookmark_1.onWaypoint()
+        expect(post.calls.count()).toEqual(2)
+        expect(post.calls.argsFor(0)[1].body.get('comment_number')).toEqual('1')
+        expect(post.calls.argsFor(1)[1].body.get('comment_number')).toEqual('2')
 
-        # Increase comment (scroll down) and resolve the previous request
-        mark.commentNumber++
-        d.resolve()
-        expect($.post.calls.count()).toEqual 2
-        expect($.post.calls.argsFor(1)).toEqual([
-            '/foo/',
-            {csrfmiddlewaretoken: "foobar", comment_number: 3}
-        ])
+        # Should do nothing
+        post.calls.reset()
+        bookmark_1.onWaypoint()
+        expect(post.calls.any()).toEqual(false)
 
-        # It does not resend when current == previous
-        d.resolve()
-        expect($.post.calls.count()).toEqual 2
+    it "sends next after server error", ->
+        post.calls.reset()
+        expect(post.calls.any()).toEqual(false)
+
+        post.and.callFake( -> {
+            then: ->
+                # isSending == true, so this should just put it in queue
+                bookmark_2 = bookmarks[bookmarks.length - 1]
+                bookmark_2.onWaypoint()
+                return {
+                    catch: (func) ->
+                      func({message: 'connection error'})
+                      return {then: (func) -> func()}
+                }
+        })
+
+        log = spyOn(console, 'log')
+        log.and.callFake( -> )
+
+        mark.commentNumber = -1
+        bookmark_1 = bookmarks[0]
+        bookmark_1.onWaypoint()
+        expect(post.calls.count()).toEqual(2)
+        expect(post.calls.argsFor(0)[1].body.get('comment_number')).toEqual('1')
+        expect(post.calls.argsFor(1)[1].body.get('comment_number')).toEqual('2')
+
+        expect(log.calls.count()).toEqual(2)
+        expect(log.calls.argsFor(0)[0]).toEqual('connection error')
+        expect(log.calls.argsFor(1)[0]).toEqual('connection error')

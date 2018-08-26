@@ -1,30 +1,29 @@
 describe "messages plugin tests", ->
-    Messages = null
+
+    isHidden = stModules.utils.isHidden
 
     beforeEach ->
         fixtures = jasmine.getFixtures()
         fixtures.fixturesPath = 'base/test/fixtures/'
         loadFixtures('messages.html')
 
-        # messages = $('.js-messages').messages()
-        Messages = $.fn.messages.Messages
-
-    it "doesnt break selector chaining", ->
-        messages = $('.js-messages-dummy').messages()
-        expect(messages).toEqual($('.js-messages-dummy'))
+    it "attaches all messages", ->
+        messages = stModules.messages(document.querySelectorAll('.js-messages-dummy'))
         expect(messages.length).toEqual(2)
 
     it "does nothing when no hash", ->
-        messages = $('.js-messages').messages()
-        expect(messages.hasClass('is-fixed')).toEqual(false)
-        expect($('.js-messages-close').is(":hidden")).toEqual(true)
+        message = document.querySelector('.js-messages-dummy')
+        stModules.messages([message])
+        expect(message.classList.contains('is-fixed')).toEqual(false)
+        expect(isHidden(document.querySelectorAll('.js-messages-close'))).toEqual(true)
 
     it "places the messages when there is a hash", ->
         org_location_hash = window.location.hash
         try
             window.location.hash = "#p1"
-            messages = $('.js-messages').messages()
-            expect(messages.hasClass('is-fixed')).toEqual(true)
+            message = document.querySelector('.js-messages')
+            stModules.messages([message])
+            expect(message.classList.contains('is-fixed')).toEqual(true)
         finally
             window.location.hash = org_location_hash
 
@@ -32,8 +31,8 @@ describe "messages plugin tests", ->
         org_location_hash = window.location.hash
         try
             window.location.hash = "#p1"
-            messages = $('.js-messages').messages()
-            expect($('.js-messages-close').is(":hidden")).toEqual(false)
+            stModules.messages(document.querySelectorAll('.js-messages'))
+            expect(isHidden(document.querySelectorAll('.js-messages-close'))).toEqual(false)
         finally
             window.location.hash = org_location_hash
 
@@ -41,11 +40,12 @@ describe "messages plugin tests", ->
         org_location_hash = window.location.hash
         try
             window.location.hash = "#p1"
-            messages = $('.js-messages').messages()
-            first_set = messages.find('.js-messages-set').first()
-            first_set.find('.js-messages-close-button').trigger('click')
-            expect(first_set.is(":hidden")).toEqual(true)
-            expect(messages.is(":hidden")).toEqual(false)
+            messages = document.querySelectorAll('.js-messages')
+            stModules.messages(messages)
+            first_set = document.querySelector('.js-messages').querySelector('.js-messages-set')
+            first_set.querySelector('.js-messages-close-button').click()
+            expect(isHidden([first_set])).toEqual(true)
+            expect(isHidden(messages)).toEqual(false)
         finally
             window.location.hash = org_location_hash
 
@@ -53,19 +53,25 @@ describe "messages plugin tests", ->
         org_location_hash = window.location.hash
         try
             window.location.hash = "#p1"
-            messages = $('.js-messages').messages()
-            messages.find('.js-messages-close-button').trigger('click')
-            expect(messages.is(":hidden")).toEqual(true)
-            expect(messages.hasClass('is-fixed')).toEqual(false)
+            message = document.querySelector('.js-messages')
+            stModules.messages([message])
+            Array.from(message.querySelectorAll('.js-messages-close-button')).forEach((elm) ->
+                elm.click()
+            )
+            expect(isHidden([message])).toEqual(true)
+            expect(message.classList.contains('is-fixed')).toEqual(false)
         finally
             window.location.hash = org_location_hash
 
     it "prevents the default click behaviour on close message", ->
-        event = {type: 'click', stopPropagation: (->), preventDefault: (->)}
-        stopPropagation = spyOn event, 'stopPropagation'
-        preventDefault = spyOn event, 'preventDefault'
+        evt = document.createEvent("HTMLEvents")
+        evt.initEvent("click", false, true)
 
-        messages = $('.js-messages').messages()
-        messages.find('.js-messages-close-button').first().trigger(event)
+        stopPropagation = spyOn(evt, 'stopPropagation')
+        preventDefault = spyOn(evt, 'preventDefault')
+
+        message = document.querySelector('.js-messages')
+        stModules.messages([message])
+        message.querySelector('.js-messages-close-button').dispatchEvent(evt)
         expect(stopPropagation).toHaveBeenCalled()
         expect(preventDefault).toHaveBeenCalled()

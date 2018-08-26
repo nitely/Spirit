@@ -1,29 +1,21 @@
 
 /*
     HTML diff for the comment history
-    requires htmldiff
+    requires modules, htmldiff
  */
 
 (function() {
-  var $;
-
-  $ = jQuery;
-
-  $.fn.extend({
-    comment_diff: function() {
-      var curr, prev;
-      prev = null;
-      curr = null;
-      return this.each(function() {
-        var diff;
-        curr = $(this).html();
-        if (prev != null) {
-          diff = htmldiff(prev, curr);
-          $(this).html(diff);
-        }
-        return prev = curr;
-      });
-    }
-  });
+  stModules.commentDiff = function(elms) {
+    var curr, prev;
+    prev = null;
+    curr = null;
+    return Array.from(elms).forEach(function(elm) {
+      curr = elm.innerHTML;
+      if (prev != null) {
+        elm.innerHTML = htmldiff(prev, curr);
+      }
+      return prev = curr;
+    });
+  };
 
 }).call(this);

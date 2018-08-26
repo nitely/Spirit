@@ -5,10 +5,12 @@
  */
 
 (function() {
-  var $, Notification,
+  var Notification, Tab, utils,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  $ = jQuery;
+  utils = stModules.utils;
+
+  Tab = stModules.Tab;
 
   Notification = (function() {
     Notification.prototype.defaults = {
@@ -25,102 +27,127 @@
       this.ajaxDone = bind(this.ajaxDone, this);
       this.addErrorTxt = bind(this.addErrorTxt, this);
       this.addIsEmptyTxt = bind(this.addIsEmptyTxt, this);
+      this.addShowMoreLink = bind(this.addShowMoreLink, this);
       this.addNotifications = bind(this.addNotifications, this);
       this.tabSwitch = bind(this.tabSwitch, this);
-      this.el = $(el);
-      this.options = $.extend({}, this.defaults, options);
-      this.tabNotificationContent = $(this.el.data("related"));
+      this.el = el;
+      this.options = Object.assign({}, this.defaults, options);
+      this.contentElm = document.querySelector(el.dataset.related);
       this.setUp();
     }
 
     Notification.prototype.setUp = function() {
-      this.el.one('click', this.tabSwitch);
-      return this.el.one('click', this.stopClick);
+      return this.el.addEventListener('click', this.tabSwitch);
     };
 
-    Notification.prototype.tabSwitch = function() {
-      var get;
-      get = $.getJSON(this.options.notificationUrl);
-      get.done((function(_this) {
-        return function(data, status, jqXHR) {
+    Notification.prototype.tabSwitch = function(e) {
+      var headers;
+      e.preventDefault();
+      e.stopPropagation();
+      this.el.removeEventListener('click', this.tabSwitch);
+      headers = new Headers();
+      headers.append("X-Requested-With", "XMLHttpRequest");
+      fetch(this.options.notificationUrl, {
+        method: "GET",
+        headers: headers,
+        credentials: 'same-origin'
+      }).then((function(_this) {
+        return function(response) {
+          if (!response.ok) {
+            throw new Error("error: " + response.status + " " + response.statusText);
+          }
+          return response.json();
+        };
+      })(this)).then((function(_this) {
+        return function(data) {
           if (data.n.length > 0) {
-            return _this.addNotifications(data);
+            _this.addNotifications(data.n);
+            return _this.addShowMoreLink();
           } else {
             return _this.addIsEmptyTxt();
           }
         };
-      })(this));
-      get.fail((function(_this) {
-        return function(jqxhr, textStatus, error) {
-          return _this.addErrorTxt(textStatus, error);
+      })(this))["catch"]((function(_this) {
+        return function(error) {
+          console.log(error.message);
+          return _this.addErrorTxt(error.message);
         };
-      })(this));
-      get.always((function(_this) {
+      })(this)).then((function(_this) {
         return function() {
           return _this.ajaxDone();
         };
       })(this));
     };
 
-    Notification.prototype.addNotifications = function(data) {
-      var showAllLink, unread;
-      unread = "<span class=\"row-unread\">" + this.options.unread + "</span>";
-      $.each(data.n, (function(_this) {
-        return function(i, obj) {
-          var link, txt;
-          if (obj.action === 1) {
+    Notification.prototype.addNotifications = function(notifications) {
+      return notifications.forEach((function(_this) {
+        return function(n) {
+          var linkElm, txt, txtElm, unreadElm;
+          if (n.action === 1) {
             txt = _this.options.mentionTxt;
           } else {
             txt = _this.options.commentTxt;
           }
-          if (!obj.is_read) {
-            txt = txt + " " + unread;
-          }
-          link = "<a href=\"" + obj.url + "\">" + obj.title + "</a>";
-          txt = $.format(txt, {
-            user: obj.user,
-            topic: link
+          linkElm = document.createElement('a');
+          linkElm.setAttribute('href', n.url);
+          linkElm.textContent = n.title;
+          txtElm = document.createElement('div');
+          txtElm.innerHTML = utils.format(txt, {
+            user: n.user,
+            topic: linkElm.outerHTML
           });
-          return _this.tabNotificationContent.append("<div>" + txt + "</div>");
+          if (!n.is_read) {
+            unreadElm = document.createElement('span');
+            unreadElm.className = 'row-unread';
+            unreadElm.innerHTML = _this.options.unread;
+            txtElm.innerHTML += " ";
+            txtElm.appendChild(unreadElm);
+          }
+          _this.contentElm.appendChild(txtElm);
         };
       })(this));
-      showAllLink = "<a href=\"" + this.options.notificationListUrl + "\">" + this.options.showAll + "</a>";
-      return this.tabNotificationContent.append("<div>" + showAllLink + "</div>");
+    };
+
+    Notification.prototype.addShowMoreLink = function() {
+      var showAllContainerElm, showAllLinkElm;
+      showAllContainerElm = document.createElement('div');
+      showAllLinkElm = document.createElement('a');
+      showAllLinkElm.setAttribute('href', this.options.notificationListUrl);
+      showAllLinkElm.innerHTML = this.options.showAll;
+      showAllContainerElm.appendChild(showAllLinkElm);
+      return this.contentElm.appendChild(showAllContainerElm);
     };
 
     Notification.prototype.addIsEmptyTxt = function() {
-      return this.tabNotificationContent.append("<div>" + this.options.empty + "</div>");
+      var emptyElm;
+      emptyElm = document.createElement('div');
+      emptyElm.innerHTML = this.options.empty;
+      return this.contentElm.appendChild(emptyElm);
     };
 
-    Notification.prototype.addErrorTxt = function(textStatus, error) {
-      return this.tabNotificationContent.append("<div>Error: " + textStatus + ", " + error + "</div>");
+    Notification.prototype.addErrorTxt = function(message) {
+      var ErrorElm;
+      ErrorElm = document.createElement('div');
+      ErrorElm.textContent = message;
+      return this.contentElm.appendChild(ErrorElm);
     };
 
     Notification.prototype.ajaxDone = function() {
-      this.el.addClass("js-tab");
-      $.tab();
-      return this.el.trigger('click');
-    };
-
-    Notification.prototype.stopClick = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      this.el.classList.add('js-tab');
+      new Tab(this.el);
+      return this.el.click();
     };
 
     return Notification;
 
   })();
 
-  $.extend({
-    notification: function(options) {
-      return $('.js-tab-notification').each(function() {
-        if (!$(this).data('plugin_notification')) {
-          return $(this).data('plugin_notification', new Notification(this, options));
-        }
-      });
-    }
-  });
+  stModules.notification = function(elms, options) {
+    return Array.from(elms).map(function(elm) {
+      return new Notification(elm, options);
+    });
+  };
 
-  $.notification.Notification = Notification;
+  stModules.Notification = Notification;
 
 }).call(this);

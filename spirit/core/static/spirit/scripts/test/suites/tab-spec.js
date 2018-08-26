@@ -1,6 +1,7 @@
 (function() {
   describe("tab plugin tests", function() {
-    var Tab, tabs;
+    var Tab, tabElms, tabs;
+    tabElms = null;
     tabs = null;
     Tab = null;
     beforeEach(function() {
@@ -8,57 +9,51 @@
       fixtures = jasmine.getFixtures();
       fixtures.fixturesPath = 'base/test/fixtures/';
       loadFixtures('tab.html');
-      tabs = $.tab();
-      return Tab = $.tab.Tab;
-    });
-    it("doesnt break selector chaining", function() {
-      expect(tabs).toEqual($('.js-tab'));
-      return expect(tabs.length).toEqual(3);
+      tabElms = document.querySelectorAll('.js-tab');
+      tabs = stModules.tab(tabElms);
+      return Tab = stModules.Tab;
     });
     it("selects the clicked tab", function() {
-      tabs.first().trigger('click');
-      expect(tabs.first().hasClass("is-selected")).toEqual(true);
-      tabs.last().trigger('click');
-      expect(tabs.last().hasClass("is-selected")).toEqual(true);
-      return expect(tabs.first().hasClass("is-selected")).toEqual(false);
+      tabElms[0].click();
+      expect(tabElms[0].classList.contains('is-selected')).toEqual(true);
+      tabElms[tabElms.length - 1].click();
+      expect(tabElms[tabElms.length - 1].classList.contains('is-selected')).toEqual(true);
+      return expect(tabElms[0].classList.contains('is-selected')).toEqual(false);
     });
     it("unselects the clicked tab if is selected", function() {
-      tabs.first().trigger('click');
-      expect(tabs.first().hasClass("is-selected")).toEqual(true);
-      tabs.first().trigger('click');
-      return expect(tabs.first().hasClass("is-selected")).toEqual(false);
+      tabElms[0].click();
+      expect(tabElms[0].classList.contains('is-selected')).toEqual(true);
+      tabElms[0].click();
+      return expect(tabElms[0].classList.contains('is-selected')).toEqual(false);
     });
     it("shows the clicked tab content", function() {
       var tab_content_first, tab_content_last;
-      tab_content_first = tabs.first().data("related");
-      expect($(tab_content_first).is(":visible")).toEqual(false);
-      tabs.first().trigger('click');
-      expect($(tab_content_first).is(":visible")).toEqual(true);
-      tab_content_last = tabs.last().data("related");
-      expect($(tab_content_last).is(":visible")).toEqual(false);
-      tabs.last().trigger('click');
-      expect($(tab_content_last).is(":visible")).toEqual(true);
-      return expect($(tab_content_first).is(":visible")).toEqual(false);
+      tab_content_first = document.querySelector(tabElms[0].dataset.related);
+      expect(tab_content_first.style.display).toEqual('none');
+      tabElms[0].click();
+      expect(tab_content_first.style.display).toEqual('block');
+      tab_content_last = document.querySelector(tabElms[tabElms.length - 1].dataset.related);
+      expect(tab_content_last.style.display).toEqual('none');
+      tabElms[tabElms.length - 1].click();
+      expect(tab_content_last.style.display).toEqual('block');
+      return expect(tab_content_first.style.display).toEqual('none');
     });
     it("hides the clicked tab content if is selected", function() {
       var tab_content_first;
-      tab_content_first = tabs.first().data("related");
-      expect($(tab_content_first).is(":visible")).toEqual(false);
-      tabs.first().trigger('click');
-      expect($(tab_content_first).is(":visible")).toEqual(true);
-      tabs.first().trigger('click');
-      return expect($(tab_content_first).is(":visible")).toEqual(false);
+      tab_content_first = document.querySelector(tabElms[0].dataset.related);
+      expect(tab_content_first.style.display).toEqual('none');
+      tabElms[0].click();
+      expect(tab_content_first.style.display).toEqual('block');
+      tabElms[0].click();
+      return expect(tab_content_first.style.display).toEqual('none');
     });
     return it("prevents the default click behaviour", function() {
-      var event, preventDefault, stopPropagation;
-      event = {
-        type: 'click',
-        stopPropagation: (function() {}),
-        preventDefault: (function() {})
-      };
-      stopPropagation = spyOn(event, 'stopPropagation');
-      preventDefault = spyOn(event, 'preventDefault');
-      tabs.first().trigger(event);
+      var evt, preventDefault, stopPropagation;
+      evt = document.createEvent("HTMLEvents");
+      evt.initEvent("click", false, true);
+      stopPropagation = spyOn(evt, 'stopPropagation');
+      preventDefault = spyOn(evt, 'preventDefault');
+      tabElms[0].dispatchEvent(evt);
       expect(stopPropagation).toHaveBeenCalled();
       return expect(preventDefault).toHaveBeenCalled();
     });

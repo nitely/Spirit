@@ -1,9 +1,7 @@
 ###
     Markdown editor
-    requires: marked.js
+    requires: modules, marked.js
 ###
-
-$ = jQuery
 
 
 class Editor
@@ -21,66 +19,60 @@ class Editor
     }
 
     constructor: (el, options) ->
-        @el = $(el)
-        @options = $.extend({}, @defaults, options)
+        @el = el
+        @options = Object.assign({}, @defaults, options)
+        @textBox = el.querySelector('textarea')
+        @preview = el.querySelector('.js-box-preview-content')
         @pollCounter = 1
+        @isPreviewOn = false
         @setUp()
 
     setUp: ->
-        # TODO: fixme, having multiple editor
-        # in the same page will trigger button
-        # click on every editor
-        $('.js-box-bold').on('click', @addBold)
-        $('.js-box-italic').on('click', @addItalic)
-        $('.js-box-list').on('click', @addList)
-        $('.js-box-url').on('click', @addUrl)
-        $('.js-box-image').on('click', @addImage)
-        $('.js-box-poll').on('click', @addPoll)
-        $('.js-box-preview').on('click', @togglePreview)
-        $('.js-reply-button').on('click', @replyButton)
+        @el.querySelector('.js-box-bold').addEventListener('click', @addBold)
+        @el.querySelector('.js-box-italic').addEventListener('click', @addItalic)
+        @el.querySelector('.js-box-list').addEventListener('click', @addList)
+        @el.querySelector('.js-box-url').addEventListener('click', @addUrl)
+        @el.querySelector('.js-box-image').addEventListener('click', @addImage)
+        @el.querySelector('.js-box-poll').addEventListener('click', @addPoll)
+        @el.querySelector('.js-box-preview').addEventListener('click', @togglePreview)
 
     wrapSelection: (preTxt, postTxt, defaultTxt) =>
-        preSelection = @el
-            .val()
-            .substring(0, @el[0].selectionStart)
-        selection = @el
-            .val()
-            .substring(@el[0].selectionStart, @el[0].selectionEnd)
-        postSelection = @el
-            .val()
-            .substring(@el[0].selectionEnd)
+        preSelection = @textBox.value.substring(0, @textBox.selectionStart)
+        selection = @textBox.value.substring(@textBox.selectionStart, @textBox.selectionEnd)
+        postSelection = @textBox.value.substring(@textBox.selectionEnd)
 
         if not selection
             selection = defaultTxt
 
-        @el.val(preSelection + preTxt + selection + postTxt + postSelection)
+        @textBox.value = preSelection + preTxt + selection + postTxt + postSelection
 
-    addBold: =>
+        # Set pointer location and give focus back
+        # Works well on mobile Chrome and Firefox
+        pointerLocation = @textBox.value.length - postSelection.length
+        @textBox.setSelectionRange(pointerLocation, pointerLocation)
+        @textBox.focus()
+
+    addBold: (e) =>
         @wrapSelection("**", "**", @options.boldedText)
-        $('#id_comment').focus()
-        return false
+        @stopClick(e)
 
-    addItalic: =>
+    addItalic: (e) =>
         @wrapSelection("*", "*", @options.italicisedText)
-        $('#id_comment').focus()
-        return false
+        @stopClick(e)
 
-    addList: =>
+    addList: (e) =>
         @wrapSelection("\n* ", "", @options.listItemText)
-        $('#id_comment').focus()
-        return false
+        @stopClick(e)
 
-    addUrl: =>
+    addUrl: (e) =>
         @wrapSelection("[", "](#{ @options.linkUrlText })", @options.linkText)
-        $('#id_comment').focus()
-        return false
+        @stopClick(e)
 
-    addImage: =>
+    addImage: (e) =>
         @wrapSelection("![", "](#{ @options.imageUrlText })", @options.imageText)
-        $('#id_comment').focus()
-        return false
+        @stopClick(e)
 
-    addPoll: =>
+    addPoll: (e) =>
         poll = "\n\n[poll name=#{@pollCounter}]\n" +
             "# #{@options.pollTitleText}\n" +
             "1. #{@options.pollChoiceText}\n" +
@@ -88,29 +80,27 @@ class Editor
             "[/poll]\n"
         @wrapSelection("", poll, "")  # todo: append to current pointer position
         @pollCounter++
-        $('#id_comment').focus()
-        return false
+        @stopClick(e)
 
-    togglePreview: =>
-        $preview = $('.js-box-preview-content')
+    togglePreview: (e) =>
+        if @isPreviewOn
+            @isPreviewOn = false
+            @textBox.style.display = 'block'
+            @preview.style.display = 'none'
+        else
+            @isPreviewOn = true
+            @textBox.style.display = 'none'
+            @preview.style.display = 'block'
+            @preview.innerHTML = marked(@textBox.value)
 
-        @el.toggle()
-        $preview.toggle()
-        $preview.html(marked(@el.val()))
+        @stopClick(e)
 
-        return false
-
-    replyButton: (e) =>
-        @wrapSelection(" ", " ", $(e.currentTarget).attr("data"))
-        $('#id_comment').focus()
-        return false
+    stopClick: (e) ->
+        e.preventDefault()
+        e.stopPropagation()
 
 
-$.fn.extend
-    editor: (options) ->
-        @each( ->
-            if not $(@).data('plugin_editor')
-                $(@).data('plugin_editor', new Editor(@, options))
-        )
+stModules.editor = (elms, options) ->
+    return Array.from(elms).map((elm) -> new Editor(elm, options))
 
-$.fn.editor.Editor = Editor
+stModules.Editor = Editor

@@ -4,10 +4,8 @@
  */
 
 (function() {
-  var $, Postify,
+  var Postify,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-  $ = jQuery;
 
   Postify = (function() {
     Postify.prototype.defaults = {
@@ -16,53 +14,43 @@
 
     function Postify(el, options) {
       this.makePost = bind(this.makePost, this);
-      this.el = $(el);
-      this.options = $.extend({}, this.defaults, options);
+      this.el = el;
+      this.options = Object.assign({}, this.defaults, options);
       this.setUp();
     }
 
     Postify.prototype.setUp = function() {
-      this.el.on('click', this.makePost);
-      return this.el.on('click', this.stopClick);
+      return this.el.addEventListener('click', this.makePost);
     };
 
-    Postify.prototype.makePost = function() {
-      var $form;
-      $form = $("<form/>", {
-        action: this.el.attr('href'),
-        method: "post"
-      }).hide().appendTo($('body'));
-      $("<input/>", {
-        name: "csrfmiddlewaretoken",
-        type: "hidden",
-        value: this.options.csrfToken
-      }).appendTo($form);
-      this.formSubmit($form);
-    };
-
-    Postify.prototype.formSubmit = function($form) {
-      return $form.submit();
-    };
-
-    Postify.prototype.stopClick = function(e) {
+    Postify.prototype.makePost = function(e) {
+      var formElm, inputCSRFElm;
       e.preventDefault();
       e.stopPropagation();
+      formElm = document.createElement('form');
+      formElm.className = 'js-postify-form';
+      formElm.action = this.el.getAttribute('href');
+      formElm.method = 'POST';
+      formElm.style.display = 'none';
+      document.body.appendChild(formElm);
+      inputCSRFElm = document.createElement('input');
+      inputCSRFElm.name = 'csrfmiddlewaretoken';
+      inputCSRFElm.type = 'hidden';
+      inputCSRFElm.value = this.options.csrfToken;
+      formElm.appendChild(inputCSRFElm);
+      formElm.submit();
     };
 
     return Postify;
 
   })();
 
-  $.fn.extend({
-    postify: function(options) {
-      return this.each(function() {
-        if (!$(this).data('plugin_postify')) {
-          return $(this).data('plugin_postify', new Postify(this, options));
-        }
-      });
-    }
-  });
+  stModules.postify = function(elms, options) {
+    return Array.from(elms).map(function(elm) {
+      return new Postify(elm, options);
+    });
+  };
 
-  $.fn.postify.Postify = Postify;
+  stModules.Postify = Postify;
 
 }).call(this);

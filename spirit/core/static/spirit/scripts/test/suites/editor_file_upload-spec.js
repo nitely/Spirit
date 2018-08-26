@@ -1,138 +1,157 @@
 (function() {
   describe("editor file upload plugin tests", function() {
-    var data, editorFileUpload, file, inputFile, post, textarea;
+    var dialog, editor, post, responseData, textarea, triggerFakeUpload;
     textarea = null;
-    editorFileUpload = null;
-    data = null;
-    inputFile = null;
-    file = null;
     post = null;
+    editor = null;
+    dialog = null;
+    responseData = null;
+    triggerFakeUpload = function(name) {
+      var evt, inputFileOrg;
+      if (name == null) {
+        name = 'foo.doc';
+      }
+      inputFileOrg = editor.inputFile;
+      try {
+        editor.inputFile = {
+          files: [
+            {
+              name: name
+            }
+          ]
+        };
+        evt = document.createEvent("HTMLEvents");
+        evt.initEvent("change", false, true);
+        return inputFileOrg.dispatchEvent(evt);
+      } finally {
+        editor.inputFile = inputFileOrg;
+      }
+    };
     beforeEach(function() {
       var fixtures;
       fixtures = jasmine.getFixtures();
       fixtures.fixturesPath = 'base/test/fixtures/';
       loadFixtures('editor.html');
-      post = spyOn($, 'ajax');
-      post.and.callFake(function(req) {
-        var d;
-        d = $.Deferred();
-        d.resolve(data);
-        return d.promise();
+      responseData = {
+        url: '/path/foo'
+      };
+      post = spyOn(window, 'fetch');
+      post.and.callFake(function() {
+        return {
+          then: function(func) {
+            var data;
+            data = func({
+              ok: true,
+              json: function() {
+                return responseData;
+              }
+            });
+            return {
+              then: function(func) {
+                func(data);
+                return {
+                  "catch": function() {}
+                };
+              }
+            };
+          }
+        };
       });
-      data = {
-        url: "/path/file.pdf"
-      };
-      file = {
-        name: "foo.pdf"
-      };
-      textarea = $('#id_comment').editor_file_upload({
+      editor = stModules.editorFileUpload(document.querySelectorAll('.js-reply'), {
         csrfToken: "foo csrf_token",
         target: "/foo/",
         placeholderText: "foo uploading {name}",
         allowedFileMedia: ".doc,.docx,.pdf"
-      });
-      editorFileUpload = textarea.first().data('plugin_editor_file_upload');
-      return inputFile = editorFileUpload.inputFile;
-    });
-    it("doesnt break selector chaining", function() {
-      expect(textarea).toEqual($('#id_comment'));
-      return expect(textarea.length).toEqual(1);
-    });
-    it("does nothing if the browser is not supported", function() {
-      var inputFile2, org_formData, textarea2, trigger;
-      org_formData = window.FormData;
-      window.FormData = null;
-      try {
-        $(".js-box-file").off('click');
-        textarea2 = $('#id_comment2').editor_file_upload();
-        inputFile2 = textarea2.data('plugin_editor_file_upload').inputFile;
-        trigger = spyOn(inputFile2, 'trigger');
-        $(".js-box-file").trigger('click');
-        return expect(trigger).not.toHaveBeenCalled();
-      } finally {
-        window.FormData = org_formData;
-      }
+      })[0];
+      textarea = document.querySelector('textarea');
+      dialog = spyOn(editor.inputFile, 'click');
+      return dialog.and.callFake(function() {});
     });
     it("opens the file choose dialog", function() {
-      var trigger;
-      trigger = spyOn(inputFile, 'trigger');
-      $(".js-box-file").trigger('click');
-      return expect(trigger).toHaveBeenCalled();
+      dialog.calls.reset();
+      document.querySelector('.js-box-file').click();
+      return expect(dialog).toHaveBeenCalled();
     });
     it("uploads the file", function() {
       var formDataMock;
-      expect($.ajax.calls.any()).toEqual(false);
+      post.calls.reset();
       formDataMock = jasmine.createSpyObj('formDataMock', ['append']);
       spyOn(window, "FormData").and.returnValue(formDataMock);
-      spyOn(inputFile, 'get').and.returnValue({
-        files: [file]
-      });
-      inputFile.trigger('change');
-      expect($.ajax.calls.any()).toEqual(true);
-      expect($.ajax.calls.argsFor(0)).toEqual([
-        {
-          url: '/foo/',
-          data: formDataMock,
-          processData: false,
-          contentType: false,
-          type: 'POST'
-        }
-      ]);
+      triggerFakeUpload('foo.doc');
+      expect(post.calls.any()).toEqual(true);
+      expect(post.calls.argsFor(0)[0]).toEqual('/foo/');
+      expect(post.calls.argsFor(0)[1].body).toEqual(formDataMock);
       expect(formDataMock.append).toHaveBeenCalledWith('csrfmiddlewaretoken', 'foo csrf_token');
       return expect(formDataMock.append).toHaveBeenCalledWith('file', {
-        name: 'foo.pdf'
+        name: 'foo.doc'
       });
     });
     it("changes the placeholder on upload success", function() {
-      textarea.val("foobar");
-      spyOn(inputFile, 'get').and.returnValue({
-        files: [file]
-      });
-      inputFile.trigger('change');
-      return expect(textarea.val()).toEqual("foobar[foo.pdf](/path/file.pdf)");
+      textarea.value = "foobar";
+      triggerFakeUpload('foo.doc');
+      return expect(textarea.value).toEqual("foobar[foo.doc](/path/foo)");
     });
     it("changes the placeholder on upload error", function() {
-      textarea.val("foobar");
-      data = {
+      textarea.value = "foobar";
+      responseData = {
         error: {
-          foo: "foo error"
+          foo: 'foo error'
         }
       };
-      spyOn(inputFile, 'get').and.returnValue({
-        files: [file]
-      });
-      inputFile.trigger('change');
-      return expect(textarea.val()).toEqual("foobar[{\"error\":{\"foo\":\"foo error\"}}]()");
+      triggerFakeUpload('foo.doc');
+      return expect(textarea.value).toEqual('foobar[{"foo":"foo error"}]()');
     });
     it("changes the placeholder on upload failure", function() {
-      var d;
-      textarea.val("foobar");
-      d = $.Deferred();
-      post.and.callFake(function(req) {
-        d.reject(null, "foo statusError", "bar error");
-        return d.promise();
+      var log;
+      post.calls.reset();
+      textarea.value = "foobar";
+      post.and.callFake(function() {
+        return {
+          then: function(func) {
+            var err;
+            try {
+              return func({
+                ok: false,
+                status: 500,
+                statusText: 'foo error'
+              });
+            } catch (error) {
+              err = error;
+              return {
+                then: function() {
+                  return {
+                    "catch": function(func) {
+                      return func(err);
+                    }
+                  };
+                }
+              };
+            }
+          }
+        };
       });
-      spyOn(inputFile, 'get').and.returnValue({
-        files: [file]
-      });
-      inputFile.trigger('change');
-      return expect(textarea.val()).toEqual("foobar[error: foo statusError bar error]()");
+      log = spyOn(console, 'log');
+      log.and.callFake(function() {});
+      triggerFakeUpload('foo.doc');
+      expect(post.calls.any()).toEqual(true);
+      expect(textarea.value).toEqual("foobar[error: 500 foo error]()");
+      return expect(log.calls.argsFor(0)[0]).toEqual('error: 500 foo error');
     });
     it("checks for default media file extensions if none are provided", function() {
-      return expect(inputFile[0].outerHTML).toContain(".doc,.docx,.pdf");
+      return expect(editor.inputFile.accept).toEqual(".doc,.docx,.pdf");
     });
-    return it("checks for custom media file extensions if they are provided", function() {
-      var editorFileUpload3, inputFile3, textarea3;
-      textarea3 = $('#id_comment3').editor_file_upload({
-        csrfToken: "foo csrf_token",
-        target: "/foo/",
-        placeholderText: "foo uploading {file_name}",
-        allowedFileMedia: [".superdoc"]
+    it("checks for custom media file extensions if they are provided", function() {
+      editor = stModules.editorFileUpload(document.querySelectorAll('.js-reply'), {
+        allowedFileMedia: ".superdoc"
+      })[0];
+      return expect(editor.inputFile.accept).toEqual(".superdoc");
+    });
+    return it("has correct meta data", function() {
+      return expect(editor.meta).toEqual({
+        fieldName: "file",
+        tag: "[{text}]({url})",
+        elm: ".js-box-file"
       });
-      editorFileUpload3 = textarea3.first().data('plugin_editor_file_upload');
-      inputFile3 = editorFileUpload3.inputFile;
-      expect(inputFile3[0].outerHTML).not.toContain(".doc,.docx,.pdf");
-      return expect(inputFile3[0].outerHTML).toContain(".superdoc");
     });
   });
 

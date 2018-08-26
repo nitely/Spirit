@@ -2,105 +2,101 @@
     Move comments to other topic
 ###
 
-$ = jQuery
 
-
-class MoveComment
-    #TODO: prefix classes with js-
+class MoveCommentBox
 
     defaults: {
         csrfToken: "csrf_token",
         target: "#post_url"
     }
 
-    constructor: (el, options) ->
-        @el = $(el)
-        @options = $.extend({}, @defaults, options)
+    constructor: (options) ->
+        @el = document.querySelector('.move-comments')
+        @options = Object.assign({}, @defaults, options)
         @setUp()
 
     setUp: ->
-        @el.on('click', @showMoveComments)
-        @el.on('click', @stopClick)
+        @el.querySelector('.js-move-comments').addEventListener('click', @moveComments)
 
-        # TODO: this should probably be moved from
-        # here to its own class, since it gets
-        # called for every el. Since we have only
-        # one "move comments" link, it's ok for now.
-        $move_comments = $(".js-move-comments")
-        $move_comments.on('click', @moveComments)
-        $move_comments.on('click', @stopClick)
+    moveComments: (e) =>
+        e.preventDefault()
+        e.stopPropagation()
 
-    showMoveComments: =>
-        if $(".move-comments").is(":hidden")
-            $(".move-comments").show()
+        formElm = document.createElement('form')
+        formElm.className = 'js-move-comment-form'
+        formElm.action = @options.target
+        formElm.method = 'POST'
+        formElm.style.display = 'none'
+        document.body.appendChild(formElm)
+
+        inputCSRFElm = document.createElement('input')
+        inputCSRFElm.name = 'csrfmiddlewaretoken'
+        inputCSRFElm.type = 'hidden'
+        inputCSRFElm.value = @options.csrfToken
+        formElm.appendChild(inputCSRFElm)
+
+        inputTopicIdElm = document.createElement('input')
+        inputTopicIdElm.name = 'topic'
+        inputTopicIdElm.type = 'text'
+        inputTopicIdElm.value = @el.querySelector('#id_move_comments_topic').value
+        formElm.appendChild(inputTopicIdElm)
+
+        # Append all selection inputs
+        Array.from(document.querySelectorAll('.move-comment-checkbox')).forEach((elm) ->
+            formElm.appendChild(elm.cloneNode(false))
+        )
+
+        formElm.submit()
+        return
+
+    isHidden: =>
+        return @el.style.display == 'none'
+
+    show: =>
+        @el.style.display = 'block'
+        return
+
+
+class MoveComment
+    #TODO: prefix classes with js-
+
+    constructor: (el, box) ->
+        @el = el
+        @box = box
+        @setUp()
+
+    setUp: ->
+        @el.addEventListener('click', @showMoveComments)
+
+    showMoveComments: (e) =>
+        e.preventDefault()
+        e.stopPropagation()
+
+        if @box.isHidden()
+            @box.show()
             @addCommentSelection()
 
         return
 
     addCommentSelection: =>
-        $li = $("<li/>").appendTo(".comment-date")
+        Array.from(document.querySelectorAll('.comment-date')).forEach((elm) ->
+            liElm = document.createElement('li')
+            elm.appendChild(liElm)
 
-        $checkbox = $("<input/>", {
-            class: "move-comment-checkbox",
-            name: "comments",
-            type: "checkbox",
-            value: ""
-        }).appendTo($li)
+            inputCheckboxElm = document.createElement('input')
+            inputCheckboxElm.className = 'move-comment-checkbox'
+            inputCheckboxElm.name = 'comments'
+            inputCheckboxElm.type = 'checkbox'
+            inputCheckboxElm.value = elm.closest('.comment').dataset.pk
+            liElm.appendChild(inputCheckboxElm)
 
-        # add comment_id to every checkbox value
-        $checkbox.each( ->
-            $commentId = $(@)
-                .closest(".comment")
-                .data("pk")
-
-            $(@).val($commentId)
+            return
         )
 
-    moveComments: =>
-        $form = $("<form/>", {
-            action: @options.target,
-            method: "post"
-        }).hide()
-          .appendTo($('body'))
 
-        # inputCsrfToken
-        $("<input/>", {
-            name: "csrfmiddlewaretoken",
-            type: "hidden",
-            value: @options.csrfToken
-        }).appendTo($form)
+stModules.moveComments = (elms, options) ->
+    box = new MoveCommentBox(options)
+    return Array.from(elms).map((elm) -> new MoveComment(elm, box))
 
-        # inputTopicId
-        topicId = $("#id_move_comments_topic").val()
-        $("<input/>", {
-            name: "topic",
-            type: "text",
-            value: topicId
-        }).appendTo($form)
-
-        # append all selection inputs
-        $(".move-comment-checkbox")
-            .clone()
-            .appendTo($form)
-
-        @formSubmit($form)
-
-        return
-
-    formSubmit: ($form) ->
-        $form.submit()
-
-    stopClick: (e) ->
-        e.preventDefault()
-        e.stopPropagation()
-        return
-
-
-$.fn.extend
-    move_comments: (options) ->
-        @each( ->
-            if not $(@).data('plugin_move_comments')
-                $(@).data('plugin_move_comments', new MoveComment(@, options))
-        )
-
-$.fn.move_comments.MoveComment = MoveComment
+stModules.MoveCommentBox = MoveCommentBox
+stModules.MoveComment = MoveComment

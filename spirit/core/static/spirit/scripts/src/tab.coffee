@@ -2,24 +2,24 @@
     Generic tabs
 ###
 
-$ = jQuery
-
 
 class Tab
 
     constructor: (el) ->
-        @el = $(el)
+        @el = el
+        @containerElm = @el.closest(".js-tabs-container")
         @setUp()
 
     setUp: ->
-        @el.on('click', @tabSwitch)
-        @el.on('click', @stopClick)
+        @el.addEventListener('click', @tabSwitch)
 
-    tabSwitch: =>
+    tabSwitch: (e) =>
+        e.preventDefault()
+        e.stopPropagation()
         @hideAllTabsContent()
 
-        if @el.hasClass("is-selected")
-            @el.removeClass("is-selected")
+        if @el.classList.contains('is-selected')
+            @el.classList.remove('is-selected')
         else
             @unselectAllTabs()
             @selectTab()
@@ -28,33 +28,23 @@ class Tab
         return
 
     hideAllTabsContent: =>
-        $tabs_container = @el.closest(".js-tabs-container")
-        $tabs_content = $tabs_container.find(".js-tab-content")
-        $tabs_content.hide()
-
-    unselectAllTabs: =>
-        $tabs_container = @el.closest(".js-tabs-container")
-        $tabs = $tabs_container.find(".js-tab")
-        $tabs.removeClass("is-selected")
-
-    selectTab: =>
-        @el.addClass("is-selected")
-
-    showTabContent: =>
-        tab_content = @el.data("related")
-        $(tab_content).show()
-
-    stopClick: (e) ->
-        e.preventDefault()
-        e.stopPropagation()
-        return
-
-
-$.extend
-    tab: ->
-        $('.js-tab').each( ->
-            if not $(@).data('plugin_tab')
-                $(@).data('plugin_tab', new Tab(@))
+        tabContentElms = @containerElm.querySelectorAll(".js-tab-content")
+        Array.from(tabContentElms).forEach((elm) ->
+            elm.style.display = 'none'
         )
 
-$.tab.Tab = Tab
+    unselectAllTabs: =>
+        tabElms = @containerElm.querySelectorAll(".js-tab")
+        Array.from(tabElms).forEach((elm) ->
+            elm.classList.remove('is-selected')
+        )
+
+    selectTab: =>
+        @el.classList.add('is-selected')
+
+    showTabContent: =>
+        @containerElm.querySelector(@el.dataset.related).style.display = 'block'
+
+
+stModules.tab = (elms) -> Array.from(elms).map((elm) -> new Tab(elm))
+stModules.Tab = Tab

@@ -1,58 +1,59 @@
 describe "social-share plugin tests", ->
     social_share = null
-    SocialShare = null
+
+    isHidden = stModules.utils.isHidden
 
     beforeEach ->
-        fixtures = do jasmine.getFixtures
+        fixtures = jasmine.getFixtures()
         fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures 'social_share.html'
+        loadFixtures('social_share.html')
 
-        social_share = $('.js-share').social_share()
-        SocialShare = $.fn.social_share.SocialShare
-
-    it "doesnt break selector chaining", ->
-        expect(social_share).toEqual $('.js-share')
-        expect(social_share.length).toEqual 2
+        social_share = document.querySelectorAll('.js-share')
+        stModules.socialShare(social_share)
 
     it "shows the share dialog", ->
-        expect($('.test-1').is ":visible").toEqual false
-        social_share.first().trigger 'click'
-        expect($('.test-1').is ":visible").toEqual true
-        expect($('.test-2').is ":visible").toEqual false
+        expect(isHidden([document.querySelector('.test-1')])).toEqual(true)
+        social_share[0].click()
+        expect(isHidden([document.querySelector('.test-1')])).toEqual(false)
+        expect(isHidden([document.querySelector('.test-2')])).toEqual(true)
 
-        social_share.last().trigger 'click'
-        expect($('.test-2').is ":visible").toEqual true
-        expect($('.test-1').is ":visible").toEqual false
+        social_share[1].click()
+        expect(isHidden([document.querySelector('.test-1')])).toEqual(true)
+        expect(isHidden([document.querySelector('.test-2')])).toEqual(false)
 
     it "prevents the default click behaviour on share click", ->
-        event = {type: 'click', stopPropagation: (->), preventDefault: (->)}
-        stopPropagation = spyOn event, 'stopPropagation'
-        preventDefault = spyOn event, 'preventDefault'
+        evt = document.createEvent("HTMLEvents")
+        evt.initEvent("click", false, true)
 
-        social_share.first().trigger event
+        stopPropagation = spyOn(evt, 'stopPropagation')
+        preventDefault = spyOn(evt, 'preventDefault')
+
+        social_share[0].dispatchEvent(evt)
         expect(stopPropagation).toHaveBeenCalled()
         expect(preventDefault).toHaveBeenCalled()
 
     it "closes the dialog", ->
-        social_share.first().trigger 'click'
-        expect($('.test-1').is ":visible").toEqual true
+        social_share[0].click()
+        expect(isHidden([document.querySelector('.test-1')])).toEqual(false)
 
-        $('.test-1').find('.share-close').trigger 'click'
-        expect($('.test-1').is ":visible").toEqual false
+        document.querySelector('.test-1').querySelector('.share-close').click()
+        expect(isHidden([document.querySelector('.test-1')])).toEqual(true)
 
     it "prevents the default click behaviour on close dialog", ->
-        event = {type: 'click', stopPropagation: (->), preventDefault: (->)}
-        stopPropagation = spyOn event, 'stopPropagation'
-        preventDefault = spyOn event, 'preventDefault'
+        evt = document.createEvent("HTMLEvents")
+        evt.initEvent("click", false, true)
 
-        $('.test-1').find('.share-close').trigger event
+        stopPropagation = spyOn(evt, 'stopPropagation')
+        preventDefault = spyOn(evt, 'preventDefault')
+
+        document.querySelector('.test-1').querySelector('.share-close').dispatchEvent(evt)
         expect(stopPropagation).toHaveBeenCalled()
         expect(preventDefault).toHaveBeenCalled()
 
     it "auto selects the share link on focus", ->
-        social_share.first().trigger 'click'
-        $shareInput = $('.test-1').find('.share-url')
-        $shareInput.trigger 'focus'
+        social_share[0].click()
+        shareInput = document.querySelector('.test-1').querySelector('.share-url')
+        shareInput.focus()
 
         #selection = $shareInput.val().substring $shareInput[0].selectionStart, $shareInput[0].selectionEnd
 
@@ -60,10 +61,12 @@ describe "social-share plugin tests", ->
         #TODO: test, override SocialShare.select
 
     it "prevents the default behaviour on input mouseup", ->
-        event = {type: 'mouseup', stopPropagation: (->), preventDefault: (->)}
-        stopPropagation = spyOn event, 'stopPropagation'
-        preventDefault = spyOn event, 'preventDefault'
+        evt = document.createEvent("HTMLEvents")
+        evt.initEvent("mouseup", false, true)
 
-        $('.test-1').find('.share-url').trigger event
+        stopPropagation = spyOn(evt, 'stopPropagation')
+        preventDefault = spyOn(evt, 'preventDefault')
+
+        document.querySelector('.test-1').querySelector('.share-url').dispatchEvent(evt)
         expect(stopPropagation).toHaveBeenCalled()
         expect(preventDefault).toHaveBeenCalled()

@@ -4,46 +4,50 @@
  */
 
 (function() {
-  var $, SocialShare,
+  var SocialShare,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-  $ = jQuery;
 
   SocialShare = (function() {
     function SocialShare(el) {
       this.closeDialog = bind(this.closeDialog, this);
       this.showDialog = bind(this.showDialog, this);
-      this.el = $(el);
-      this.dialog = $(this.el.data("dialog"));
+      this.el = el;
+      this.dialog = document.querySelector(this.el.dataset.dialog);
+      this.allDialogs = document.querySelectorAll('.share');
       this.setUp();
     }
 
     SocialShare.prototype.setUp = function() {
-      var $shareClose, $shareInput;
-      this.el.on('click', this.showDialog);
-      this.el.on('click', this.stopClick);
-      $shareClose = this.dialog.find('.share-close');
-      $shareClose.on('click', this.closeDialog);
-      $shareClose.on('click', this.stopClick);
-      $shareInput = this.dialog.find('.share-url');
-      $shareInput.on('focus', this.select);
-      return $shareInput.on('mouseup', this.stopClick);
+      var shareInput;
+      this.el.addEventListener('click', this.showDialog);
+      this.dialog.querySelector('.share-close').addEventListener('click', this.closeDialog);
+      shareInput = this.dialog.querySelector('.share-url');
+      shareInput.addEventListener('focus', this.select);
+      return shareInput.addEventListener('mouseup', this.stopEvent);
     };
 
-    SocialShare.prototype.showDialog = function() {
-      $('.share').hide();
-      this.dialog.show();
+    SocialShare.prototype.showDialog = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      Array.from(this.allDialogs).forEach(function(elm) {
+        return elm.style.display = 'none';
+      });
+      this.dialog.style.display = 'block';
     };
 
-    SocialShare.prototype.closeDialog = function() {
-      this.dialog.hide();
+    SocialShare.prototype.closeDialog = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.dialog.style.display = 'none';
     };
 
-    SocialShare.prototype.select = function() {
-      $(this).select();
+    SocialShare.prototype.select = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.setSelectionRange(0, this.value.length - 1);
     };
 
-    SocialShare.prototype.stopClick = function(e) {
+    SocialShare.prototype.stopEvent = function(e) {
       e.preventDefault();
       e.stopPropagation();
     };
@@ -52,16 +56,12 @@
 
   })();
 
-  $.fn.extend({
-    social_share: function() {
-      return this.each(function() {
-        if (!$(this).data('plugin_social_share')) {
-          return $(this).data('plugin_social_share', new SocialShare(this));
-        }
-      });
-    }
-  });
+  stModules.socialShare = function(elms) {
+    return Array.from(elms).map(function(elm) {
+      return new SocialShare(elm);
+    });
+  };
 
-  $.fn.social_share.SocialShare = SocialShare;
+  stModules.SocialShare = SocialShare;
 
 }).call(this);

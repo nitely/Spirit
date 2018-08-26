@@ -4,102 +4,116 @@
  */
 
 (function() {
-  var $, MoveComment,
+  var MoveComment, MoveCommentBox,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  $ = jQuery;
-
-  MoveComment = (function() {
-    MoveComment.prototype.defaults = {
+  MoveCommentBox = (function() {
+    MoveCommentBox.prototype.defaults = {
       csrfToken: "csrf_token",
       target: "#post_url"
     };
 
-    function MoveComment(el, options) {
+    function MoveCommentBox(options) {
+      this.show = bind(this.show, this);
+      this.isHidden = bind(this.isHidden, this);
       this.moveComments = bind(this.moveComments, this);
+      this.el = document.querySelector('.move-comments');
+      this.options = Object.assign({}, this.defaults, options);
+      this.setUp();
+    }
+
+    MoveCommentBox.prototype.setUp = function() {
+      return this.el.querySelector('.js-move-comments').addEventListener('click', this.moveComments);
+    };
+
+    MoveCommentBox.prototype.moveComments = function(e) {
+      var formElm, inputCSRFElm, inputTopicIdElm;
+      e.preventDefault();
+      e.stopPropagation();
+      formElm = document.createElement('form');
+      formElm.className = 'js-move-comment-form';
+      formElm.action = this.options.target;
+      formElm.method = 'POST';
+      formElm.style.display = 'none';
+      document.body.appendChild(formElm);
+      inputCSRFElm = document.createElement('input');
+      inputCSRFElm.name = 'csrfmiddlewaretoken';
+      inputCSRFElm.type = 'hidden';
+      inputCSRFElm.value = this.options.csrfToken;
+      formElm.appendChild(inputCSRFElm);
+      inputTopicIdElm = document.createElement('input');
+      inputTopicIdElm.name = 'topic';
+      inputTopicIdElm.type = 'text';
+      inputTopicIdElm.value = this.el.querySelector('#id_move_comments_topic').value;
+      formElm.appendChild(inputTopicIdElm);
+      Array.from(document.querySelectorAll('.move-comment-checkbox')).forEach(function(elm) {
+        return formElm.appendChild(elm.cloneNode(false));
+      });
+      formElm.submit();
+    };
+
+    MoveCommentBox.prototype.isHidden = function() {
+      return this.el.style.display === 'none';
+    };
+
+    MoveCommentBox.prototype.show = function() {
+      this.el.style.display = 'block';
+    };
+
+    return MoveCommentBox;
+
+  })();
+
+  MoveComment = (function() {
+    function MoveComment(el, box) {
       this.addCommentSelection = bind(this.addCommentSelection, this);
       this.showMoveComments = bind(this.showMoveComments, this);
-      this.el = $(el);
-      this.options = $.extend({}, this.defaults, options);
+      this.el = el;
+      this.box = box;
       this.setUp();
     }
 
     MoveComment.prototype.setUp = function() {
-      var $move_comments;
-      this.el.on('click', this.showMoveComments);
-      this.el.on('click', this.stopClick);
-      $move_comments = $(".js-move-comments");
-      $move_comments.on('click', this.moveComments);
-      return $move_comments.on('click', this.stopClick);
+      return this.el.addEventListener('click', this.showMoveComments);
     };
 
-    MoveComment.prototype.showMoveComments = function() {
-      if ($(".move-comments").is(":hidden")) {
-        $(".move-comments").show();
+    MoveComment.prototype.showMoveComments = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (this.box.isHidden()) {
+        this.box.show();
         this.addCommentSelection();
       }
     };
 
     MoveComment.prototype.addCommentSelection = function() {
-      var $checkbox, $li;
-      $li = $("<li/>").appendTo(".comment-date");
-      $checkbox = $("<input/>", {
-        "class": "move-comment-checkbox",
-        name: "comments",
-        type: "checkbox",
-        value: ""
-      }).appendTo($li);
-      return $checkbox.each(function() {
-        var $commentId;
-        $commentId = $(this).closest(".comment").data("pk");
-        return $(this).val($commentId);
+      return Array.from(document.querySelectorAll('.comment-date')).forEach(function(elm) {
+        var inputCheckboxElm, liElm;
+        liElm = document.createElement('li');
+        elm.appendChild(liElm);
+        inputCheckboxElm = document.createElement('input');
+        inputCheckboxElm.className = 'move-comment-checkbox';
+        inputCheckboxElm.name = 'comments';
+        inputCheckboxElm.type = 'checkbox';
+        inputCheckboxElm.value = elm.closest('.comment').dataset.pk;
+        liElm.appendChild(inputCheckboxElm);
       });
-    };
-
-    MoveComment.prototype.moveComments = function() {
-      var $form, topicId;
-      $form = $("<form/>", {
-        action: this.options.target,
-        method: "post"
-      }).hide().appendTo($('body'));
-      $("<input/>", {
-        name: "csrfmiddlewaretoken",
-        type: "hidden",
-        value: this.options.csrfToken
-      }).appendTo($form);
-      topicId = $("#id_move_comments_topic").val();
-      $("<input/>", {
-        name: "topic",
-        type: "text",
-        value: topicId
-      }).appendTo($form);
-      $(".move-comment-checkbox").clone().appendTo($form);
-      this.formSubmit($form);
-    };
-
-    MoveComment.prototype.formSubmit = function($form) {
-      return $form.submit();
-    };
-
-    MoveComment.prototype.stopClick = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
     };
 
     return MoveComment;
 
   })();
 
-  $.fn.extend({
-    move_comments: function(options) {
-      return this.each(function() {
-        if (!$(this).data('plugin_move_comments')) {
-          return $(this).data('plugin_move_comments', new MoveComment(this, options));
-        }
-      });
-    }
-  });
+  stModules.moveComments = function(elms, options) {
+    var box;
+    box = new MoveCommentBox(options);
+    return Array.from(elms).map(function(elm) {
+      return new MoveComment(elm, box);
+    });
+  };
 
-  $.fn.move_comments.MoveComment = MoveComment;
+  stModules.MoveCommentBox = MoveCommentBox;
+
+  stModules.MoveComment = MoveComment;
 
 }).call(this);

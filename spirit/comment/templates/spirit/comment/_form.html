@@ -20,9 +20,12 @@
 
 
 <script>
-    $( document ).ready(function() {
+    document.addEventListener('DOMContentLoaded', function() {
 
-        $( ".reply" ).find( "textarea" ).store( "comment-thread-{{ topic_id }}" );
+        stModules.store(
+            document.querySelector('.reply').querySelector('textarea'),
+            'comment-thread-{{ topic_id }}'
+        );
 
 	});
 </script>

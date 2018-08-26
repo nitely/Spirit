@@ -25,8 +25,8 @@ gulp.task('_sass', function () {
 gulp.task('_css-minify', ['_sass'], function() {
     var path = cssPath + 'vendors/';
     return gulp.src([
-            path + '*.min.css',
-            cssPath + 'styles.css',
+            path + '*.css',
+            cssPath + 'styles.css'
         ])
         .pipe(minifyCss({compatibility: 'ie8', target: cssPath, relativeTo: cssPath}))
         .pipe(concat('styles.all.min.css'))
@@ -42,11 +42,9 @@ gulp.task('coffee', function() {
     var pathCoffee = jsPath + 'src/';
     var pathJs = jsPath + 'js/';
     return gulp.src([
-            pathVendors + 'jquery.min.js',
-            pathVendors + 'atwho/jquery.caret.min.js',
-            pathVendors + 'atwho/jquery.atwho.min.js',
             pathVendors + '**/*.js',
             pathVendors + '**/*.coffee',
+            pathCoffee + 'modules.coffee',
             pathCoffee + 'util.coffee',
             pathCoffee + 'tab.coffee',
             pathCoffee + 'editor_file_upload.coffee',

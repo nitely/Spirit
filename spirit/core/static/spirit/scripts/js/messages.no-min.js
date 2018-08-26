@@ -5,10 +5,16 @@
  */
 
 (function() {
-  var $, Messages,
+  var Messages, hasHash, utils,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  $ = jQuery;
+  utils = stModules.utils;
+
+  hasHash = function() {
+    var hash;
+    hash = window.location.hash.split("#")[1];
+    return (hash != null) && hash.length > 0;
+  };
 
   Messages = (function() {
     function Messages(el) {
@@ -16,69 +22,60 @@
       this.hideMessage = bind(this.hideMessage, this);
       this.showAllCloseButtons = bind(this.showAllCloseButtons, this);
       this.placeMessages = bind(this.placeMessages, this);
-      this.el = $(el);
-      this.allCloseButtons = this.el.find('.js-messages-close-button');
+      this.el = el;
       this.setUp();
     }
 
     Messages.prototype.setUp = function() {
       this.placeMessages();
       this.showAllCloseButtons();
-      this.allCloseButtons.on('click', this.hideMessage);
-      return this.allCloseButtons.on('click', this.stopClick);
+      return Array.from(this.el.querySelectorAll('.js-messages-close-button')).forEach((function(_this) {
+        return function(elm) {
+          return elm.addEventListener('click', _this.hideMessage);
+        };
+      })(this));
     };
 
     Messages.prototype.placeMessages = function() {
-      if (!this.hasHash()) {
+      if (!hasHash()) {
         return;
       }
-      return this.el.addClass('is-fixed');
+      return this.el.classList.add('is-fixed');
     };
 
     Messages.prototype.showAllCloseButtons = function() {
-      if (!this.hasHash()) {
+      if (!hasHash()) {
         return;
       }
-      return this.el.find('.js-messages-close').show();
+      return Array.from(this.el.querySelectorAll('.js-messages-close')).forEach(function(elm) {
+        return elm.style.display = 'block';
+      });
     };
 
     Messages.prototype.hideMessage = function(e) {
-      $(e.currentTarget).closest('.js-messages-set').hide();
+      e.preventDefault();
+      e.stopPropagation();
+      e.currentTarget.closest('.js-messages-set').style.display = 'none';
       if (!this.hasVisibleMessages()) {
-        this.el.hide();
-        this.el.removeClass('is-fixed');
+        this.el.style.display = 'none';
+        this.el.classList.remove('is-fixed');
       }
     };
 
     Messages.prototype.hasVisibleMessages = function() {
-      return this.el.find('.js-messages-set').is(":visible");
-    };
-
-    Messages.prototype.stopClick = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
-    Messages.prototype.hasHash = function() {
-      var hash;
-      hash = window.location.hash.split("#")[1];
-      return (hash != null) && hash.length > 0;
+      return !utils.isHidden(this.el.querySelectorAll('.js-messages-set'));
     };
 
     return Messages;
 
   })();
 
-  $.fn.extend({
-    messages: function() {
-      return this.each(function() {
-        if (!$(this).data('plugin_messages')) {
-          return $(this).data('plugin_messages', new Messages(this));
-        }
-      });
-    }
-  });
+  stModules.messages = function(elms) {
+    return Array.from(elms).map(function(elm) {
+      return new Messages(elm);
+    });
+  };
 
-  $.fn.messages.Messages = Messages;
+  stModules.Messages = Messages;
 
 }).call(this);

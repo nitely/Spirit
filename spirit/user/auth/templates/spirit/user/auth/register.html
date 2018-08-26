@@ -7,10 +7,16 @@
 {% block head-extra %}
     <script>
 
-	$( document ).ready(function() {
+	document.addEventListener('DOMContentLoaded', function() {
 
-        $( "input[name=honeypot]" ).hide();
-        $( "label[for=id_honeypot]" ).hide();
+	    document.querySelectorAll('input[name=honeypot]')
+                .forEach(function(elm) {
+                    elm.style.display = 'none';
+                });
+        document.querySelectorAll('label[for=id_honeypot]')
+                .forEach(function(elm) {
+                    elm.style.display = 'none';
+                });
 
 	});
 

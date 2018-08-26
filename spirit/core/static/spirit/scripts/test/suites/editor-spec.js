@@ -8,7 +8,7 @@
       fixtures = jasmine.getFixtures();
       fixtures.fixturesPath = 'base/test/fixtures/';
       loadFixtures('editor.html');
-      textarea = $('#id_comment').editor({
+      editor = stModules.editor(document.querySelectorAll('.js-reply'), {
         boldedText: "foo bolded text",
         italicisedText: "foo italicised text",
         listItemText: "foo list item",
@@ -16,93 +16,90 @@
         linkUrlText: "foo link url",
         imageText: "foo image text",
         imageUrlText: "foo image url"
-      });
-      return editor = textarea.data('plugin_editor');
-    });
-    it("doesnt break selector chaining", function() {
-      expect(textarea).toEqual($('#id_comment'));
-      return expect(textarea.length).toEqual(1);
+      })[0];
+      return textarea = document.querySelector('textarea');
     });
     it("adds bold", function() {
-      $('.js-box-bold').trigger('click');
-      return expect(textarea.val()).toEqual("**foo bolded text**");
+      document.querySelector('.js-box-bold').click();
+      return expect(textarea.value).toEqual("**foo bolded text**");
     });
     it("adds italic", function() {
-      $('.js-box-italic').trigger('click');
-      return expect(textarea.val()).toEqual("*foo italicised text*");
+      document.querySelector('.js-box-italic').click();
+      return expect(textarea.value).toEqual("*foo italicised text*");
     });
     it("adds list", function() {
-      $('.js-box-list').trigger('click');
-      return expect(textarea.val()).toEqual("\n* foo list item");
+      document.querySelector('.js-box-list').click();
+      return expect(textarea.value).toEqual("\n* foo list item");
     });
     it("adds url", function() {
-      $('.js-box-url').trigger('click');
-      return expect(textarea.val()).toEqual("[foo link text](foo link url)");
+      document.querySelector('.js-box-url').click();
+      return expect(textarea.value).toEqual("[foo link text](foo link url)");
     });
     it("adds poll", function() {
       var expected;
-      $('.js-box-poll').trigger('click');
+      document.querySelector('.js-box-poll').click();
       expected = "\n\n[poll name=1]\n# Title\n1. Description\n2. Description\n[/poll]\n";
-      expect(textarea.val()).toEqual(expected);
-      $('.js-box-poll').trigger('click');
-      return expect(textarea.val()).toEqual(expected + "\n\n[poll name=2]\n# Title\n1. Description\n2. Description\n[/poll]\n");
+      expect(textarea.value).toEqual(expected);
+      document.querySelector('.js-box-poll').click();
+      return expect(textarea.value).toEqual(expected + "\n\n[poll name=2]\n# Title\n1. Description\n2. Description\n[/poll]\n");
     });
     it("adds image", function() {
-      $('.js-box-image').trigger('click');
-      return expect(textarea.val()).toEqual("![foo image text](foo image url)");
+      document.querySelector('.js-box-image').click();
+      return expect(textarea.value).toEqual("![foo image text](foo image url)");
     });
     it("adds all", function() {
-      $('.js-box-bold').trigger('click');
-      $('.js-box-italic').trigger('click');
-      $('.js-box-list').trigger('click');
-      $('.js-box-url').trigger('click');
-      $('.js-box-image').trigger('click');
-      return $('.js-box-file').trigger('click');
+      document.querySelector('.js-box-bold').click();
+      document.querySelector('.js-box-italic').click();
+      document.querySelector('.js-box-list').click();
+      document.querySelector('.js-box-url').click();
+      document.querySelector('.js-box-image').click();
+      document.querySelector('.js-box-file').click();
+      return expect(textarea.value).toEqual("**foo bolded text***foo italicised text*" + "\n* foo list item[foo link text](foo link url)![foo image text](foo image url)");
     });
     it("wraps the selected text, bold", function() {
-      textarea.val("birfoobar");
-      textarea.first()[0].selectionStart = 3;
-      textarea.first()[0].selectionEnd = 6;
-      $('.js-box-bold').trigger('click');
-      return expect(textarea.val()).toEqual("bir**foo**bar");
+      textarea.value = "birfoobar";
+      textarea.selectionStart = 3;
+      textarea.selectionEnd = 6;
+      document.querySelector('.js-box-bold').click();
+      return expect(textarea.value).toEqual("bir**foo**bar");
     });
     it("wraps the selected text, italic", function() {
-      textarea.val("birfoobar");
-      textarea.first()[0].selectionStart = 3;
-      textarea.first()[0].selectionEnd = 6;
-      $('.js-box-italic').trigger('click');
-      return expect(textarea.val()).toEqual("bir*foo*bar");
+      textarea.value = "birfoobar";
+      textarea.selectionStart = 3;
+      textarea.selectionEnd = 6;
+      document.querySelector('.js-box-italic').click();
+      return expect(textarea.value).toEqual("bir*foo*bar");
     });
     it("wraps the selected text, list", function() {
-      textarea.val("birfoobar");
-      textarea.first()[0].selectionStart = 3;
-      textarea.first()[0].selectionEnd = 6;
-      $('.js-box-list').trigger('click');
-      return expect(textarea.val()).toEqual("bir\n* foobar");
+      textarea.value = "birfoobar";
+      textarea.selectionStart = 3;
+      textarea.selectionEnd = 6;
+      document.querySelector('.js-box-list').click();
+      return expect(textarea.value).toEqual("bir\n* foobar");
     });
     it("wraps the selected text, url", function() {
-      textarea.val("birfoobar");
-      textarea.first()[0].selectionStart = 3;
-      textarea.first()[0].selectionEnd = 6;
-      $('.js-box-url').trigger('click');
-      return expect(textarea.val()).toEqual("bir[foo](foo link url)bar");
+      textarea.value = "birfoobar";
+      textarea.selectionStart = 3;
+      textarea.selectionEnd = 6;
+      document.querySelector('.js-box-url').click();
+      return expect(textarea.value).toEqual("bir[foo](foo link url)bar");
     });
     it("wraps the selected text, image", function() {
-      textarea.val("birfoobar");
-      textarea.first()[0].selectionStart = 3;
-      textarea.first()[0].selectionEnd = 6;
-      $('.js-box-image').trigger('click');
-      return expect(textarea.val()).toEqual("bir![foo](foo image url)bar");
+      textarea.value = "birfoobar";
+      textarea.selectionStart = 3;
+      textarea.selectionEnd = 6;
+      document.querySelector('.js-box-image').click();
+      return expect(textarea.value).toEqual("bir![foo](foo image url)bar");
     });
     return it("shows html preview", function() {
-      textarea.val("*foo*");
-      $('.js-box-preview').trigger('click');
-      expect(textarea.is(":visible")).toEqual(false);
-      expect($(".js-box-preview-content").is(":visible")).toEqual(true);
-      expect($(".js-box-preview-content").html()).toEqual("<p><em>foo</em></p>\n");
-      $('.js-box-preview').trigger('click');
-      expect(textarea.is(":visible")).toEqual(true);
-      return expect($(".js-box-preview-content").is(":visible")).toEqual(false);
+      textarea.value = "*foo*";
+      document.querySelector('.js-box-preview').click();
+      expect(textarea.style.display).toEqual('none');
+      expect(document.querySelector('.js-box-preview-content').style.display).toEqual('block');
+      expect(document.querySelector('.js-box-preview-content').innerHTML).toEqual("<p><em>foo</em></p>\n");
+      document.querySelector('.js-box-preview').click();
+      expect(textarea.style.display).toEqual('block');
+      return expect(document.querySelector('.js-box-preview-content').style.display).toEqual('none');
     });
   });
 

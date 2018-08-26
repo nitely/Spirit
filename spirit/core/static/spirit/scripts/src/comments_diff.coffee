@@ -1,22 +1,16 @@
 ###
     HTML diff for the comment history
-    requires htmldiff
+    requires modules, htmldiff
 ###
 
-$ = jQuery
+stModules.commentDiff = (elms) ->
+    prev = null
+    curr = null
+    return Array.from(elms).forEach((elm) ->
+        curr = elm.innerHTML
 
+        if prev?
+            elm.innerHTML = htmldiff(prev, curr)
 
-$.fn.extend
-    comment_diff: ->
-        prev = null
-        curr = null
-
-        @each( ->
-            curr = $(@).html()
-
-            if prev?
-                diff = htmldiff(prev, curr)
-                $(@).html(diff)
-
-            prev = curr;
-        )
+        prev = curr;
+    )

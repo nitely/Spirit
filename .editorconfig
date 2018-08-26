@@ -25,6 +25,10 @@ indent_size = 2
 indent_style = space
 indent_size = 2
 
+[*.coffee]
+indent_style = space
+indent_size = 4
+
 # Override for Makefile
 [{Makefile, makefile, GNUmakefile}]
 indent_style = tab

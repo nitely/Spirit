@@ -1,24 +1,16 @@
 (function() {
   describe("notification plugin tests", function() {
-    var Notification, data, get, notification, tab;
-    tab = null;
-    notification = null;
-    Notification = null;
+    var get, isHidden, responseData, tab;
+    responseData = null;
     get = null;
-    data = null;
+    tab = null;
+    isHidden = stModules.utils.isHidden;
     beforeEach(function() {
       var fixtures;
       fixtures = jasmine.getFixtures();
       fixtures.fixturesPath = 'base/test/fixtures/';
       loadFixtures('notification.html');
-      get = spyOn($, 'getJSON');
-      get.and.callFake(function(req) {
-        var d;
-        d = $.Deferred();
-        d.resolve(data);
-        return d.promise();
-      });
-      data = {
+      responseData = {
         n: [
           {
             user: "username",
@@ -29,7 +21,36 @@
           }
         ]
       };
-      tab = $.notification({
+      get = spyOn(window, 'fetch');
+      get.and.callFake(function() {
+        return {
+          then: function(func) {
+            var data;
+            data = func({
+              ok: true,
+              json: function() {
+                return responseData;
+              }
+            });
+            return {
+              then: function(func) {
+                func(data);
+                return {
+                  "catch": function() {
+                    return {
+                      then: function(func) {
+                        return func();
+                      }
+                    };
+                  }
+                };
+              }
+            };
+          }
+        };
+      });
+      tab = document.querySelector('.js-tab-notification');
+      return stModules.notification([tab], {
         notificationUrl: "/foo/",
         notificationListUrl: "/foo/list/",
         mentionTxt: "{user} foo you on {topic}",
@@ -38,66 +59,96 @@
         empty: "foo empty",
         unread: "foo unread"
       });
-      notification = tab.first().data('plugin_notification');
-      return Notification = $.notification.Notification;
-    });
-    it("doesnt break selector chaining", function() {
-      return expect(tab).toEqual($('.js-tab-notification'));
     });
     it("gets the notifications", function() {
-      expect(get.calls.any()).toEqual(false);
-      tab.first().trigger("click");
-      expect(get.calls.any()).toEqual(true);
+      get.calls.reset();
+      tab.click();
       expect(get.calls.count()).toEqual(1);
-      expect(get.calls.argsFor(0)).toEqual(['/foo/']);
-      tab.first().trigger("click");
-      return expect(get.calls.count()).toEqual(1);
+      expect(get.calls.argsFor(0)[0]).toEqual('/foo/');
+      get.calls.reset();
+      tab.click();
+      return expect(get.calls.count()).toEqual(0);
     });
-    it("shows the notifications, mentions", function() {
-      tab.first().trigger("click");
-      expect(get.calls.any()).toEqual(true);
-      return expect($(".js-notifications-content").html()).toEqual('<div>username foo you on <a href="/foobar/">title</a></div><div><a href="/foo/list/">foo Show all</a></div>');
+    it("avoids XSS from topic title", function() {
+      get.calls.reset();
+      responseData = {
+        n: [
+          {
+            user: "username",
+            action: 1,
+            title: '<bad>"bad"</bad>',
+            url: "/foobar/",
+            is_read: true
+          }
+        ]
+      };
+      tab.click();
+      expect(get.calls.count()).toEqual(1);
+      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>username foo you on <a href="/foobar/">&lt;bad&gt;"bad"&lt;/bad&gt;</a></div>' + '<div><a href="/foo/list/">foo Show all</a></div>');
     });
-    it("shows the notifications, comments", function() {
-      data.n[0].action = 2;
-      tab.first().trigger("click");
-      expect(get.calls.any()).toEqual(true);
-      return expect($(".js-notifications-content").html()).toEqual('<div>username has bar on <a href="/foobar/">title</a></div><div><a href="/foo/list/">foo Show all</a></div>');
+    it("shows mention notifications", function() {
+      get.calls.reset();
+      tab.click();
+      expect(get.calls.count()).toEqual(1);
+      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>username foo you on <a href="/foobar/">title</a></div>' + '<div><a href="/foo/list/">foo Show all</a></div>');
     });
-    it("shows the notifications, unread", function() {
-      data.n[0].is_read = false;
-      tab.first().trigger("click");
-      expect(get.calls.any()).toEqual(true);
-      return expect($(".js-notifications-content").html()).toEqual('<div>username foo you on <a href="/foobar/">title</a> <span class="row-unread">foo unread</span></div><div><a href="/foo/list/">foo Show all</a></div>');
+    it("shows comment notifications", function() {
+      responseData.n[0].action = 2;
+      tab.click();
+      expect(get.calls.count()).toEqual(1);
+      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>username has bar on <a href="/foobar/">title</a></div>' + '<div><a href="/foo/list/">foo Show all</a></div>');
     });
-    it("shows the notifications, error", function() {
-      get.and.callFake(function(req) {
-        var d;
-        d = $.Deferred();
-        d.reject("foobar", "200", "foo error");
-        return d.promise();
+    it("marks unread notifications", function() {
+      responseData.n[0].is_read = false;
+      tab.click();
+      expect(get.calls.count()).toEqual(1);
+      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>username foo you on <a href="/foobar/">title</a> ' + '<span class="row-unread">foo unread</span></div>' + '<div><a href="/foo/list/">foo Show all</a></div>');
+    });
+    it("shows an error on server error", function() {
+      var log;
+      log = spyOn(console, 'log');
+      log.and.callFake(function() {});
+      get.and.callFake(function() {
+        return {
+          then: function(func) {
+            var err;
+            try {
+              return func({
+                ok: false,
+                status: 500,
+                statusText: 'server error'
+              });
+            } catch (error) {
+              err = error;
+              return {
+                then: function() {
+                  return {
+                    "catch": function(func) {
+                      func(err);
+                      return {
+                        then: function(func) {
+                          return func();
+                        }
+                      };
+                    }
+                  };
+                }
+              };
+            }
+          }
+        };
       });
-      tab.first().trigger("click");
-      expect(get.calls.any()).toEqual(true);
-      return expect($(".js-notifications-content").html()).toEqual('<div>Error: 200, foo error</div>');
-    });
-    it("shows tab content and is selected on click", function() {
-      expect(tab.first().hasClass("is-selected")).toEqual(false);
-      expect($(".js-notifications-content").is(":visible")).toEqual(false);
-      tab.first().trigger("click");
-      expect(tab.first().hasClass("is-selected")).toEqual(true);
-      return expect($(".js-notifications-content").is(":visible")).toEqual(true);
+      tab.click();
+      expect(get.calls.count()).toEqual(1);
+      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>error: 500 server error</div>');
     });
     return it("prevents the default click behaviour", function() {
-      var event, preventDefault, stopPropagation;
-      event = {
-        type: 'click',
-        stopPropagation: (function() {}),
-        preventDefault: (function() {})
-      };
-      stopPropagation = spyOn(event, 'stopPropagation');
-      preventDefault = spyOn(event, 'preventDefault');
-      tab.first().trigger(event);
+      var evt, preventDefault, stopPropagation;
+      evt = document.createEvent("HTMLEvents");
+      evt.initEvent("click", false, true);
+      stopPropagation = spyOn(evt, 'stopPropagation');
+      preventDefault = spyOn(evt, 'preventDefault');
+      tab.dispatchEvent(evt);
       expect(stopPropagation).toHaveBeenCalled();
       return expect(preventDefault).toHaveBeenCalled();
     });

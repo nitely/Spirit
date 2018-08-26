@@ -5,10 +5,10 @@
  */
 
 (function() {
-  var $, EditorUpload,
+  var EditorUpload, utils,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  $ = jQuery;
+  utils = stModules.utils;
 
   EditorUpload = (function() {
     EditorUpload.prototype.defaults = {
@@ -25,78 +25,81 @@
     };
 
     function EditorUpload(el, options, meta) {
+      if (options == null) {
+        options = null;
+      }
       if (meta == null) {
         meta = null;
       }
       this.openFileDialog = bind(this.openFileDialog, this);
       this.textReplace = bind(this.textReplace, this);
-      this.addStatusError = bind(this.addStatusError, this);
       this.addError = bind(this.addError, this);
       this.addFile = bind(this.addFile, this);
       this.buildFormData = bind(this.buildFormData, this);
       this.addPlaceholder = bind(this.addPlaceholder, this);
       this.sendFile = bind(this.sendFile, this);
-      this.el = $(el);
-      this.options = $.extend({}, this.defaults, options);
-      this.meta = $.extend({}, this._meta, meta || {});
-      this.formFile = $("<form/>");
-      this.inputFile = $("<input/>", {
-        type: "file",
-        accept: this.options.allowedFileMedia
-      }).appendTo(this.formFile);
+      this.el = el;
+      this.options = Object.assign({}, this.defaults, options || {});
+      this.meta = Object.assign({}, this._meta, meta || {});
+      this.textBox = el.querySelector('textarea');
+      this.formFile = document.createElement('form');
+      this.inputFile = document.createElement('input');
+      this.inputFile.type = "file";
+      this.inputFile.accept = this.options.allowedFileMedia;
       this.setUp();
     }
 
     EditorUpload.prototype.setUp = function() {
-      var $boxElm;
-      if (window.FormData == null) {
-        return;
-      }
-      this.inputFile.on('change', this.sendFile);
-      $boxElm = $(this.meta.elm);
-      $boxElm.on('click', this.openFileDialog);
-      return $boxElm.on('click', this.stopClick);
+      this.formFile.appendChild(this.inputFile);
+      this.inputFile.addEventListener('change', this.sendFile);
+      return this.el.querySelector(this.meta.elm).addEventListener('click', this.openFileDialog);
     };
 
     EditorUpload.prototype.sendFile = function() {
-      var file, formData, placeholder;
-      file = this.inputFile.get(0).files[0];
+      var file, formData, headers, placeholder;
+      file = this.inputFile.files[0];
       placeholder = this.addPlaceholder(file);
       formData = this.buildFormData(file);
-      $.ajax({
-        url: this.options.target,
-        data: formData,
-        processData: false,
-        contentType: false,
-        type: 'POST'
-      }).done((function(_this) {
+      this.formFile.reset();
+      headers = new Headers();
+      headers.append("X-Requested-With", "XMLHttpRequest");
+      fetch(this.options.target, {
+        method: "POST",
+        headers: headers,
+        credentials: 'same-origin',
+        body: formData
+      }).then((function(_this) {
+        return function(response) {
+          if (!response.ok) {
+            throw new Error("error: " + response.status + " " + response.statusText);
+          }
+          return response.json();
+        };
+      })(this)).then((function(_this) {
         return function(data) {
           if ("url" in data) {
-            return _this.addFile(data, file, placeholder);
+            return _this.addFile(file.name, data.url, placeholder);
           } else {
-            return _this.addError(data, placeholder);
+            return _this.addError(JSON.stringify(data.error), placeholder);
           }
         };
-      })(this)).fail((function(_this) {
-        return function(jqxhr, textStatus, error) {
-          return _this.addStatusError(textStatus, error, placeholder);
-        };
-      })(this)).always((function(_this) {
-        return function() {
-          return _this.formFile.get(0).reset();
+      })(this))["catch"]((function(_this) {
+        return function(error) {
+          console.log(error.message);
+          return _this.addError(error.message, placeholder);
         };
       })(this));
     };
 
     EditorUpload.prototype.addPlaceholder = function(file) {
       var placeholder;
-      placeholder = $.format(this.meta.tag, {
-        text: $.format(this.options.placeholderText, {
+      placeholder = utils.format(this.meta.tag, {
+        text: utils.format(this.options.placeholderText, {
           name: file.name
         }),
         url: ""
       });
-      this.el.val(this.el.val() + placeholder);
+      this.textBox.value += placeholder;
       return placeholder;
     };
 
@@ -108,73 +111,53 @@
       return formData;
     };
 
-    EditorUpload.prototype.addFile = function(data, file, placeholder) {
+    EditorUpload.prototype.addFile = function(name, url, placeholder) {
       var imageTag;
-      imageTag = $.format(this.meta.tag, {
-        text: file.name,
-        url: data.url
+      imageTag = utils.format(this.meta.tag, {
+        text: name,
+        url: url
       });
       return this.textReplace(placeholder, imageTag);
     };
 
-    EditorUpload.prototype.addError = function(data, placeholder) {
-      var error;
-      error = JSON.stringify(data);
-      return this.textReplace(placeholder, $.format(this.meta.tag, {
+    EditorUpload.prototype.addError = function(error, placeholder) {
+      return this.textReplace(placeholder, utils.format(this.meta.tag, {
         text: error,
         url: ""
       }));
     };
 
-    EditorUpload.prototype.addStatusError = function(textStatus, error, placeholder) {
-      var errorTag;
-      errorTag = $.format(this.meta.tag, {
-        text: $.format("error: {code} {error}", {
-          code: textStatus,
-          error: error
-        }),
-        url: ""
-      });
-      return this.textReplace(placeholder, errorTag);
-    };
-
     EditorUpload.prototype.textReplace = function(find, replace) {
-      this.el.val(this.el.val().replace(find, replace));
+      this.textBox.value = this.textBox.value.replace(find, replace);
     };
 
-    EditorUpload.prototype.openFileDialog = function() {
-      this.inputFile.trigger('click');
-    };
-
-    EditorUpload.prototype.stopClick = function(e) {
+    EditorUpload.prototype.openFileDialog = function(e) {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
+      return this.inputFile.click();
     };
 
     return EditorUpload;
 
   })();
 
-  $.fn.extend({
-    editor_file_upload: function(options) {
-      return this.each(function() {
-        if (!$(this).data('plugin_editor_file_upload')) {
-          return $(this).data('plugin_editor_file_upload', new EditorUpload(this, options));
-        }
+  stModules.editorFileUpload = function(elms, options) {
+    return Array.from(elms).map(function(elm) {
+      return new EditorUpload(elm, options);
+    });
+  };
+
+  stModules.editorImageUpload = function(elms, options) {
+    return Array.from(elms).map(function(elm) {
+      return new EditorUpload(elm, options, {
+        fieldName: "image",
+        tag: "![{text}]({url})",
+        elm: ".js-box-image"
       });
-    },
-    editor_image_upload: function(options) {
-      return this.each(function() {
-        if (!$(this).data('plugin_editor_image_upload')) {
-          return $(this).data('plugin_editor_image_upload', new EditorUpload(this, options, {
-            fieldName: "image",
-            tag: "![{text}]({url})",
-            elm: ".js-box-image"
-          }));
-        }
-      });
-    }
-  });
+    });
+  };
+
+  stModules.EditorUpload = EditorUpload;
 
 }).call(this);

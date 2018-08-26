@@ -1,0 +1,25 @@
+.textcomplete {
+    background: #fff;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    min-width: 120px;
+    list-style: none;
+    padding: 0;
+    margin: auto;
+}
+
+.textcomplete li a:hover,
+.textcomplete .active a {
+  background: #36F;
+  color: #fff;
+}
+
+.textcomplete li a {
+    display: block;
+    padding: 5px 10px;
+    border-bottom: 1px solid #DDD;
+    cursor: pointer;
+    text-decoration: none;
+    color: #444;
+}

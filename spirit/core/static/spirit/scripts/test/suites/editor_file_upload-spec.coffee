@@ -1,114 +1,116 @@
 describe "editor file upload plugin tests", ->
     textarea = null
-    editorFileUpload = null
-    data = null
-    inputFile = null
-    file = null
     post = null
+    editor = null
+    dialog = null
+    responseData = null
+
+    triggerFakeUpload = (name='foo.doc') ->
+        inputFileOrg = editor.inputFile
+        try
+            editor.inputFile = {files: [{name: name}]}
+            evt = document.createEvent("HTMLEvents")
+            evt.initEvent("change", false, true)
+            inputFileOrg.dispatchEvent(evt)
+        finally
+            editor.inputFile = inputFileOrg
 
     beforeEach ->
-        fixtures = do jasmine.getFixtures
+        fixtures = jasmine.getFixtures()
         fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures 'editor.html'
+        loadFixtures('editor.html')
 
-        post = spyOn $, 'ajax'
-        post.and.callFake (req) ->
-            d = $.Deferred()
-            d.resolve(data)  # success
-            #d.reject()  # failure
-            return d.promise()
+        responseData = {url: '/path/foo'}
 
-        data =
-            url: "/path/file.pdf"
-        file =
-            name: "foo.pdf"
+        post = spyOn(window, 'fetch')
+        post.and.callFake( -> {
+            then: (func) ->
+                data = func({ok: true, json: -> responseData})
+                return {
+                    then: (func) ->
+                        func(data)
+                        return {
+                            catch: -> return
+                        }
+                }
+        })
 
-        textarea = $('#id_comment').editor_file_upload {
+        editor = stModules.editorFileUpload(document.querySelectorAll('.js-reply'), {
             csrfToken: "foo csrf_token",
             target: "/foo/",
             placeholderText: "foo uploading {name}",
             allowedFileMedia: ".doc,.docx,.pdf"
-        }
-        editorFileUpload = textarea.first().data 'plugin_editor_file_upload'
-        inputFile = editorFileUpload.inputFile
+        })[0]
+        textarea = document.querySelector('textarea')
 
-    it "doesnt break selector chaining", ->
-        expect(textarea).toEqual $('#id_comment')
-        expect(textarea.length).toEqual 1
-
-    it "does nothing if the browser is not supported", ->
-        org_formData = window.FormData
-        window.FormData = null
-        try
-            # remove event from beforeEach editor to prevent popup
-            $(".js-box-file").off 'click'
-
-            textarea2 = $('#id_comment2').editor_file_upload()
-            inputFile2 = textarea2.data('plugin_editor_file_upload').inputFile
-
-            trigger = spyOn inputFile2, 'trigger'
-            $(".js-box-file").trigger 'click'
-            expect(trigger).not.toHaveBeenCalled()
-        finally
-            window.FormData = org_formData
+        # Prevent popup
+        dialog = spyOn(editor.inputFile, 'click')
+        dialog.and.callFake( -> return)
 
     it "opens the file choose dialog", ->
-        trigger = spyOn inputFile, 'trigger'
-        $(".js-box-file").trigger 'click'
-        expect(trigger).toHaveBeenCalled()
+        dialog.calls.reset()
+        document.querySelector('.js-box-file').click()
+        expect(dialog).toHaveBeenCalled()
 
     it "uploads the file", ->
-        expect($.ajax.calls.any()).toEqual false
+        post.calls.reset()
 
         formDataMock = jasmine.createSpyObj('formDataMock', ['append', ])
-        spyOn(window, "FormData").and.returnValue formDataMock
-        spyOn(inputFile, 'get').and.returnValue {files: [file, ]}
-        inputFile.trigger 'change'
-        expect($.ajax.calls.any()).toEqual true
-        expect($.ajax.calls.argsFor(0)).toEqual [ { url: '/foo/', data: formDataMock, processData: false, contentType: false, type: 'POST' } ]
+        spyOn(window, "FormData").and.returnValue(formDataMock)
+
+        triggerFakeUpload('foo.doc')
+        expect(post.calls.any()).toEqual(true)
+        expect(post.calls.argsFor(0)[0]).toEqual('/foo/')
+        expect(post.calls.argsFor(0)[1].body).toEqual(formDataMock)
         expect(formDataMock.append).toHaveBeenCalledWith('csrfmiddlewaretoken', 'foo csrf_token')
-        expect(formDataMock.append).toHaveBeenCalledWith('file', { name : 'foo.pdf' })
+        expect(formDataMock.append).toHaveBeenCalledWith('file', {name : 'foo.doc'})
 
     it "changes the placeholder on upload success", ->
-        textarea.val "foobar"
-
-        spyOn(inputFile, 'get').and.returnValue {files: [file, ]}
-        inputFile.trigger 'change'
-        expect(textarea.val()).toEqual "foobar[foo.pdf](/path/file.pdf)"
+        textarea.value = "foobar"
+        triggerFakeUpload('foo.doc')
+        expect(textarea.value).toEqual("foobar[foo.doc](/path/foo)")
 
     it "changes the placeholder on upload error", ->
-        textarea.val "foobar"
-
-        data =
-            error: {foo: "foo error", }
-
-        spyOn(inputFile, 'get').and.returnValue {files: [file, ]}
-        inputFile.trigger 'change'
-        expect(textarea.val()).toEqual "foobar[{\"error\":{\"foo\":\"foo error\"}}]()"
+        textarea.value = "foobar"
+        responseData = {error: {foo: 'foo error'}}
+        triggerFakeUpload('foo.doc')
+        expect(textarea.value).toEqual('foobar[{"foo":"foo error"}]()')
 
     it "changes the placeholder on upload failure", ->
-        textarea.val "foobar"
+        post.calls.reset()
+        textarea.value = "foobar"
 
-        d = $.Deferred()
-        post.and.callFake (req) ->
-            d.reject(null, "foo statusError", "bar error")  # failure
-            return d.promise()
+        post.and.callFake( -> {
+            then: (func) ->
+                try
+                    func({ok: false, status: 500, statusText: 'foo error'})
+                catch err
+                    return {
+                        then: -> {
+                            catch: (func) -> func(err)
+                        }
+                    }
+        })
+        log = spyOn(console, 'log')
+        log.and.callFake( -> )
 
-        spyOn(inputFile, 'get').and.returnValue {files: [file, ]}
-        inputFile.trigger 'change'
-        expect(textarea.val()).toEqual "foobar[error: foo statusError bar error]()"
+        triggerFakeUpload('foo.doc')
+        expect(post.calls.any()).toEqual(true)
+        expect(textarea.value).toEqual("foobar[error: 500 foo error]()")
+        expect(log.calls.argsFor(0)[0]).toEqual('error: 500 foo error')
 
     it "checks for default media file extensions if none are provided", ->
-        expect(inputFile[0].outerHTML).toContain(".doc,.docx,.pdf")
+        expect(editor.inputFile.accept).toEqual(".doc,.docx,.pdf")
 
     it "checks for custom media file extensions if they are provided", ->
-        textarea3 = $('#id_comment3').editor_file_upload {
-            csrfToken: "foo csrf_token",
-            target: "/foo/",
-            placeholderText: "foo uploading {file_name}"
-            allowedFileMedia: [".superdoc"]
-        }
-        editorFileUpload3 = textarea3.first().data 'plugin_editor_file_upload'
-        inputFile3 = editorFileUpload3.inputFile
-        expect(inputFile3[0].outerHTML).not.toContain(".doc,.docx,.pdf")
-        expect(inputFile3[0].outerHTML).toContain(".superdoc")
+        editor = stModules.editorFileUpload(document.querySelectorAll('.js-reply'), {
+            allowedFileMedia: ".superdoc"
+        })[0]
+        expect(editor.inputFile.accept).toEqual(".superdoc")
+
+    it "has correct meta data", ->
+        expect(editor.meta).toEqual({
+            fieldName: "file",
+            tag: "[{text}]({url})",
+            elm: ".js-box-file"
+        })
