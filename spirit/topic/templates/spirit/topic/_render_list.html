@@ -48,8 +48,11 @@
 		</div>
 
 <script>
-    $(document).ready(function() {
+    document.addEventListener('DOMContentLoaded', function() {
         // .is_new depends on js (bookmarks)
-        $('.js-comment-is-new').addClass('is-new');
+        document.querySelectorAll('.js-comment-is-new')
+                .forEach(function(elm) {
+                    elm.classList.add('is-new');
+                });
     });
 </script>

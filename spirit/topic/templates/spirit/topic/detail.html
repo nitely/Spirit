@@ -118,9 +118,9 @@
                 });
 
                 {% if user.st.is_moderator %}
-                    $('.js-show-move-comments').move_comments( {
+                    stModules.moveComments(document.querySelectorAll('.js-show-move-comments'), {
                         csrfToken: "{{ csrf_token }}",
-                        target: "{% url "spirit:comment:move" topic.pk %}",
+                        target: "{% url "spirit:comment:move" topic.pk %}"
                     } );
                 {% endif %}
 
