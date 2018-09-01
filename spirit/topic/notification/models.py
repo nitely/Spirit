@@ -145,4 +145,4 @@ class TopicNotification(models.Model):
             return
         (cls.objects
          .filter(comment=comment, topic=topic)
-         .update(is_read=True, comment=next_comment, action=COMMENT))
+         .update(comment=next_comment, action=COMMENT))
