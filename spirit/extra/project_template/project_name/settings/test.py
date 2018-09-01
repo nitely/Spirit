@@ -15,7 +15,7 @@ INSTALLED_APPS += [
     'spirit.core.tests',
 ]
 
-ROOT_URLCONF = 'spirit.urls'
+ROOT_URLCONF = 'project.project.urls'
 
 USE_TZ = True
 
