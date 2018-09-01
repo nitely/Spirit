@@ -29,3 +29,6 @@ class TopicNotificationQuerySet(models.QuerySet):
         # returns updated rows count (int)
         return self.filter(user=user)\
             .update(is_read=True)
+
+    def with_related_data(self):
+        return self.select_related('comment__user__st', 'topic')

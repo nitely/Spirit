@@ -16,7 +16,7 @@ from ..core.utils import markdown, paginator, render_form_errors, json_response
 from ..topic.models import Topic
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm, CommentFileForm
-from .utils import comment_posted, post_comment_update, pre_comment_update
+from .utils import comment_posted, post_comment_update, pre_comment_update, post_comment_move
 
 
 @login_required
@@ -109,6 +109,7 @@ def move(request, topic_id):
         for comment in comments:
             comment_posted(comment=comment, mentions=None)
             topic.decrease_comment_count()
+            post_comment_move(comment=comment, topic=topic)
     else:
         messages.error(request, render_form_errors(form))
 
@@ -116,7 +117,7 @@ def move(request, topic_id):
 
 
 def find(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+    comment = get_object_or_404(Comment.objects.select_related('topic'), pk=pk)
     comment_number = Comment.objects.filter(topic=comment.topic, date__lte=comment.date).count()
     url = paginator.get_url(comment.topic.get_absolute_url(),
                             comment_number,

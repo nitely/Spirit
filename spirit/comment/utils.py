@@ -26,3 +26,8 @@ def post_comment_update(comment):
 
     comment.comment_html = post_render_static_polls(comment)
     CommentHistory.create(comment)
+
+
+# XXX add tests
+def post_comment_move(comment, topic):
+    TopicNotification.sync(comment=comment, topic=topic)

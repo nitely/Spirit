@@ -55,10 +55,11 @@ def index_ajax(request):
     if not request.is_ajax():
         return Http404()
 
-    notifications = TopicNotification.objects\
-        .for_access(request.user)\
-        .order_by("is_read", "-date")\
-        .select_related('comment__user__st', 'comment__topic')
+    notifications = (
+        TopicNotification.objects
+            .for_access(request.user)
+            .order_by("is_read", "-date")
+            .with_related_data())
 
     notifications = notifications[:settings.ST_NOTIFICATIONS_PER_PAGE]
 
@@ -66,38 +67,38 @@ def index_ajax(request):
         {
             'user': escape(n.comment.user.username),
             'action': n.action,
-            'title': escape(n.comment.topic.title),
+            'title': escape(n.topic.title),
             'url': n.get_absolute_url(),
             'is_read': n.is_read
         }
         for n in notifications
     ]
 
-    return HttpResponse(json.dumps({'n': notifications, }), content_type="application/json")
+    return HttpResponse(json.dumps({'n': notifications}), content_type="application/json")
 
 
 @login_required
 def index_unread(request):
-    notifications = TopicNotification.objects\
-        .for_access(request.user)\
-        .filter(is_read=False)
+    notifications = (
+        TopicNotification.objects
+            .for_access(request.user)
+            .filter(is_read=False)
+            .with_related_data())
 
     page = paginate(
         request,
         query_set=notifications,
         lookup_field='date',
         page_var='notif',
-        per_page=settings.ST_NOTIFICATIONS_PER_PAGE
-    )
-    next_page_pk = None
+        per_page=settings.ST_NOTIFICATIONS_PER_PAGE)
 
+    next_page_pk = None
     if page:
         next_page_pk = page[-1].pk
 
     context = {
         'page': page,
-        'next_page_pk': next_page_pk
-    }
+        'next_page_pk': next_page_pk}
 
     return render(request, 'spirit/topic/notification/index_unread.html', context)
 
@@ -105,11 +106,12 @@ def index_unread(request):
 @login_required
 def index(request):
     notifications = yt_paginate(
-        TopicNotification.objects.for_access(request.user),
+        TopicNotification.objects
+            .for_access(request.user)
+            .with_related_data(),
         per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
-    )
+        page_number=request.GET.get('page', 1))
 
-    context = {'notifications': notifications, }
+    context = {'notifications': notifications}
 
     return render(request, 'spirit/topic/notification/index.html', context)

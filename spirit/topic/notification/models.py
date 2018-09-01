@@ -40,6 +40,9 @@ class TopicNotification(models.Model):
         verbose_name_plural = _("topics notification")
 
     def get_absolute_url(self):
+        if self.topic_id != self.comment.topic_id:
+            # Out of sync
+            return self.topic.get_absolute_url()
         return self.comment.get_absolute_url()
 
     @property
@@ -117,3 +120,29 @@ class TopicNotification(models.Model):
                 is_active=True)
             for user in users
         ])
+
+    # XXX add tests
+    # XXX fix with migration (see issue #237)
+    @classmethod
+    def sync(cls, comment, topic):
+        # Notifications can go out of sync
+        # when the comment is no longer
+        # within the topic (i.e moved).
+        # User is subscribed to the topic,
+        # not the comment, so we either update
+        # it to a newer comment or set it as undefined
+        if comment.topic_id == topic.pk:
+            return
+        next_comment = (
+            topic.comment_set
+                .filter(date__gt=comment.date)
+                .order_by('date')
+                .first())
+        if next_comment is None:
+            (cls.objects
+             .filter(comment=comment, topic=topic)
+             .update(is_read=True, action=UNDEFINED))
+            return
+        (cls.objects
+         .filter(comment=comment, topic=topic)
+         .update(is_read=True, comment=next_comment, action=COMMENT))
