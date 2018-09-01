@@ -2,24 +2,11 @@
 
 from __future__ import unicode_literals
 
-import datetime
-import json
-import os
-
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
 from django.shortcuts import resolve_url
-from django.template import Template, Context
-from django.utils import translation
-from django.utils import timezone
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
-from django.core.exceptions import PermissionDenied
-from django.contrib import messages
-from django.utils.timezone import utc
-from django.utils.http import urlunquote
-from django.contrib.auth import get_user_model
 from django.conf import settings
 
 from .. import middleware

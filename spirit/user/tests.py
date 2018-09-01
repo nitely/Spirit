@@ -858,7 +858,7 @@ class UtilsUserTests(TestCase):
         self.assertEquals(mail.outbox[0].from_email, "foo@bar.com")
 
 
-class UserMiddlewareTest(TestCase):
+class TimezoneMiddlewareTest(TestCase):
 
     def setUp(self):
         timezone.deactivate()
@@ -910,3 +910,62 @@ class UserMiddlewareTest(TestCase):
         self.assertEqual(timezone.get_current_timezone().zone, time_zone)
         middleware.TimezoneMiddleware().process_request(req)
         self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
+
+
+class LastIPMiddlewareTest(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+        self.user = utils.create_user()
+
+    def test_last_ip(self):
+        """
+        Should update user last_ip
+        """
+        req = RequestFactory().get('/')
+        req.user = self.user
+        self.assertIsNone(User.objects.get(pk=self.user.pk).st.last_ip)
+        req.META['REMOTE_ADDR'] = '123.123.123.123'
+        middleware.LastIPMiddleware().process_request(req)
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip,
+            '123.123.123.123')
+        req.META['REMOTE_ADDR'] = '321.321.321.321'
+        middleware.LastIPMiddleware().process_request(req)
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip,
+            '321.321.321.321')
+
+    def test_last_ip_no_update(self):
+        """
+        Should update user last_ip
+        """
+        req = RequestFactory().get('/')
+        req.user = self.user
+        self.user.st.last_ip = '123.123.123.123'
+        self.user.st.save()
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip,
+            '123.123.123.123')
+        req.META['REMOTE_ADDR'] = '123.123.123.123'
+        middleware.LastIPMiddleware().process_request(req)
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip,
+            '123.123.123.123')
+
+    def test_last_ip_update(self):
+        """
+        Should update user last_ip
+        """
+        req = RequestFactory().get('/')
+        req.user = self.user
+        self.user.st.last_ip = '123.123.123.123'
+        self.user.st.save()
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip,
+            '123.123.123.123')
+        req.META['REMOTE_ADDR'] = '321.321.321.321'
+        middleware.LastIPMiddleware().process_request(req)
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip,
+            '321.321.321.321')
