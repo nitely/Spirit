@@ -14,7 +14,7 @@ from ..core.utils.paginator import yt_paginate
 
 class SearchView(BaseSearchView):
     """
-    This view does not pre load data fom\
+    This view does not pre load data from\
     the database (``load_all=False``),\
     all required fields to display the\
     results must be stored (ie: ``indexed=False``).

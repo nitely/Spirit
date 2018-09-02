@@ -7,12 +7,15 @@ from django.conf.urls import url
 from . import views
 
 
+app_name = 'auth'
 urlpatterns = [
     url(r'^login/$', views.custom_login, name='login'),
     url(r'^logout/$', views.custom_logout, name='logout'),
 
     url(r'^register/$', views.register, name='register'),
-    url(r'^resend-activation/$', views.resend_activation_email, name='resend-activation'),
+    url(r'^resend-activation/$',
+        views.resend_activation_email,
+        name='resend-activation'),
 
     url(r'^activation/(?P<pk>[0-9]+)/(?P<token>[0-9A-Za-z_\-\.]+)/$',
         views.registration_activation,

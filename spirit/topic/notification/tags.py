@@ -7,7 +7,7 @@ from .models import TopicNotification
 from .forms import NotificationForm
 
 
-@register.assignment_tag()
+@register.simple_tag()
 def has_topic_notifications(user):
     return TopicNotification.objects.for_access(user=user).unread().exists()
 

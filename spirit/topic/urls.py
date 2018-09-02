@@ -12,6 +12,7 @@ import spirit.topic.private.urls
 from . import views
 
 
+app_name = 'topic'
 urlpatterns = [
     url(r'^publish/$', views.publish, name='publish'),
     url(r'^publish/(?P<category_id>[0-9]+)/$', views.publish, name='publish'),
@@ -23,9 +24,9 @@ urlpatterns = [
 
     url(r'^active/$', views.index_active, name='index-active'),
 
-    url(r'^moderate/', include(spirit.topic.moderate.urls, namespace='moderate')),
-    url(r'^unread/', include(spirit.topic.unread.urls, namespace='unread')),
-    url(r'^notification/', include(spirit.topic.notification.urls, namespace='notification')),
-    url(r'^favorite/', include(spirit.topic.favorite.urls, namespace='favorite')),
-    url(r'^private/', include(spirit.topic.private.urls, namespace='private')),
+    url(r'^moderate/', include(spirit.topic.moderate.urls)),
+    url(r'^unread/', include(spirit.topic.unread.urls)),
+    url(r'^notification/', include(spirit.topic.notification.urls)),
+    url(r'^favorite/', include(spirit.topic.favorite.urls)),
+    url(r'^private/', include(spirit.topic.private.urls))
 ]

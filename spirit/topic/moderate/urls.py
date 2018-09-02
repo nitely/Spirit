@@ -7,6 +7,7 @@ from django.conf.urls import url
 from . import views
 
 
+app_name = 'moderate'
 urlpatterns = [
     url(r'^delete/(?P<pk>[0-9]+)/$', views.delete, name='delete'),
     url(r'^undelete/(?P<pk>[0-9]+)/$', views.undelete, name='undelete'),

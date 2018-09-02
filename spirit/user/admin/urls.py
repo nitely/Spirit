@@ -7,6 +7,7 @@ from django.conf.urls import url
 from . import views
 
 
+app_name = 'user'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^admins/$', views.index_admins, name='index-admins'),

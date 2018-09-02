@@ -13,22 +13,28 @@ import spirit.comment.poll.urls
 from . import views
 
 
+app_name = 'comment'
 urlpatterns = [
     url(r'^(?P<topic_id>[0-9]+)/publish/$', views.publish, name='publish'),
-    url(r'^(?P<topic_id>[0-9]+)/publish/(?P<pk>[0-9]+)/quote/$', views.publish, name='publish'),
+    url(r'^(?P<topic_id>[0-9]+)/publish/(?P<pk>[0-9]+)/quote/$',
+        views.publish,
+        name='publish'),
 
     url(r'^(?P<pk>[0-9]+)/update/$', views.update, name='update'),
     url(r'^(?P<pk>[0-9]+)/find/$', views.find, name='find'),
     url(r'^(?P<topic_id>[0-9]+)/move/$', views.move, name='move'),
 
     url(r'^(?P<pk>[0-9]+)/delete/$', views.delete, name='delete'),
-    url(r'^(?P<pk>[0-9]+)/undelete/$', views.delete, kwargs={'remove': False, }, name='undelete'),
+    url(r'^(?P<pk>[0-9]+)/undelete/$',
+        views.delete,
+        kwargs={'remove': False},
+        name='undelete'),
 
-    url(r'^bookmark/', include(spirit.comment.bookmark.urls, namespace='bookmark')),
-    url(r'^flag/', include(spirit.comment.flag.urls, namespace='flag')),
-    url(r'^history/', include(spirit.comment.history.urls, namespace='history')),
-    url(r'^like/', include(spirit.comment.like.urls, namespace='like')),
-    url(r'^poll/', include(spirit.comment.poll.urls, namespace='poll')),
+    url(r'^bookmark/', include(spirit.comment.bookmark.urls)),
+    url(r'^flag/', include(spirit.comment.flag.urls)),
+    url(r'^history/', include(spirit.comment.history.urls)),
+    url(r'^like/', include(spirit.comment.like.urls)),
+    url(r'^poll/', include(spirit.comment.poll.urls)),
 ]
 
 if settings.ST_UPLOAD_IMAGE_ENABLED:
