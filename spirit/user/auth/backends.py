@@ -12,7 +12,7 @@ User = get_user_model()
 
 class EmailAuthBackend(ModelBackend):
 
-    def authenticate(self, username=None, password=None, **kwargs):
+    def authenticate(self, request, username=None, password=None, **kwargs):
         # TODO: authenticate when multiple users are returned
         if settings.ST_CASE_INSENSITIVE_EMAILS:
             username = username.lower()
@@ -29,9 +29,10 @@ class EmailAuthBackend(ModelBackend):
         # This is called if the user
         # get authenticated with email
         try:
-            return User._default_manager\
-                .select_related('st')\
-                .get(pk=user_id)
+            return (
+                User._default_manager
+                    .select_related('st')
+                    .get(pk=user_id))
         except User.DoesNotExist:
             pass
 
@@ -41,8 +42,9 @@ class UsernameAuthBackend(ModelBackend):
 
     def get_user(self, user_id):
         try:
-            return User._default_manager\
-                .select_related('st')\
-                .get(pk=user_id)
+            return (
+                User._default_manager
+                    .select_related('st')
+                    .get(pk=user_id))
         except User.DoesNotExist:
             pass

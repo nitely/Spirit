@@ -43,11 +43,11 @@ class XForwardedForMiddlewareTests(TestCase):
         self.assertEqual(req.META['HTTP_X_FORWARDED_FOR'], http_x_fwd_for)
         self.assertEqual(req.META['REMOTE_ADDR'], 'org.ip')
 
-    MIDDLEWARE_CLASSES_WITH_X_FWD = settings.MIDDLEWARE_CLASSES[:]
-    if 'spirit.core.middleware.XForwardedForMiddleware' not in settings.MIDDLEWARE_CLASSES:
-        MIDDLEWARE_CLASSES_WITH_X_FWD.append('spirit.core.middleware.XForwardedForMiddleware')
+    MIDDLEWARE_WITH_X_FWD = settings.MIDDLEWARE[:]
+    if 'spirit.core.middleware.XForwardedForMiddleware' not in settings.MIDDLEWARE:
+        MIDDLEWARE_WITH_X_FWD.append('spirit.core.middleware.XForwardedForMiddleware')
 
-    @override_settings(MIDDLEWARE_CLASSES=MIDDLEWARE_CLASSES_WITH_X_FWD)
+    @override_settings(MIDDLEWARE=MIDDLEWARE_WITH_X_FWD)
     def test_on_client(self):
         """
         Should be called on a request

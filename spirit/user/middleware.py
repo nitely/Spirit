@@ -7,11 +7,7 @@ import pytz
 
 from django.contrib.auth import logout
 from django.utils import timezone
-
-try:
-    from django.utils.deprecation import MiddlewareMixin
-except ImportError:  # Django < 1.10
-    MiddlewareMixin = object
+from django.utils.deprecation import MiddlewareMixin
 
 from ..core.conf import settings
 from .models import UserProfile

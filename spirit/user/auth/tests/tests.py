@@ -548,7 +548,8 @@ class UserBackendTest(TestCase):
         self.user = utils.create_user(email="foobar@bar.com", password="bar")
 
     def test_email_auth_backend(self):
-        user = EmailAuthBackend().authenticate(username="foobar@bar.com", password="bar")
+        user = EmailAuthBackend().authenticate(
+            request=None, username="foobar@bar.com", password="bar")
         self.assertEqual(user, self.user)
 
     def test_email_auth_backend_email_duplication(self):
@@ -557,15 +558,18 @@ class UserBackendTest(TestCase):
         """
         utils.create_user(email="duplicated@bar.com", password="foo")
         utils.create_user(email="duplicated@bar.com", password="foo2")
-        user = EmailAuthBackend().authenticate(username="duplicated@bar.com", password="foo")
+        user = EmailAuthBackend().authenticate(
+            request=None, username="duplicated@bar.com", password="foo")
         self.assertIsNone(user)
 
     @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
     def test_email_auth_backend_case_insensitive(self):
-        user = EmailAuthBackend().authenticate(username="FooBar@bAr.COM", password="bar")
+        user = EmailAuthBackend().authenticate(
+            request=None, username="FooBar@bAr.COM", password="bar")
         self.assertEqual(user, self.user)
 
     @override_settings(ST_CASE_INSENSITIVE_EMAILS=False)
     def test_email_auth_backend_case_sensitive(self):
-        user = EmailAuthBackend().authenticate(username="FooBar@bAr.COM", password="bar")
+        user = EmailAuthBackend().authenticate(
+            request=None, username="FooBar@bAr.COM", password="bar")
         self.assertIsNone(user)

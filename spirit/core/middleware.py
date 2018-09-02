@@ -4,11 +4,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.views import redirect_to_login
 from django.core.urlresolvers import resolve
-
-try:
-    from django.utils.deprecation import MiddlewareMixin
-except ImportError:  # Django < 1.10
-    MiddlewareMixin = object
+from django.utils.deprecation import MiddlewareMixin
 
 from .conf import settings
 
@@ -40,5 +36,4 @@ class PrivateForumMiddleware(MiddlewareMixin):
 
         return redirect_to_login(
             next=request.get_full_path(),
-            login_url=settings.LOGIN_URL
-        )
+            login_url=settings.LOGIN_URL)

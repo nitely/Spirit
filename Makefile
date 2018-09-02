@@ -5,7 +5,7 @@ docs:
 	cd docs && make clean && make html
 
 test:
-	python runtests.py
+	python -Wd runtests.py
 
 sdist: test clean
 	python setup.py sdist

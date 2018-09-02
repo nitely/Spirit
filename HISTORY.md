@@ -2,9 +2,14 @@
 ==================
 
 * Drops support for Django 1.8, 1.9 and 1.10
-* Adds `django.contrib.auth.middleware.SessionAuthenticationMiddleware``to
+* Adds `django.middleware.security.SecurityMiddleware``to
   `MIDDLEWARE_CLASSES` setting
 * Adds `LOGOUT_REDIRECT_URL = 'spirit:index'` to settings
+* Fixes user's `last_seen` feature. There was a bug in the middleware
+  that would update the field pretty much on every request
+* Renames `MIDDLEWARE_CLASSES` (deprecated by django) setting to
+  `MIDDLEWARE`
+* Removes `spirit.settings` deprecated in Spirit 0.5
 
 0.5.0
 ==================
