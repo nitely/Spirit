@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='commentflag',
             name='moderator',
-            field=models.ForeignKey(related_name='st_comment_flags', blank=True, null=True, to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='st_comment_flags', blank=True, null=True, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='flag',
             name='user',
-            field=models.ForeignKey(related_name='st_flags', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='st_flags', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

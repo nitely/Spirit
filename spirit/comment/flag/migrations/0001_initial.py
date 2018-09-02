@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('is_closed', models.BooleanField(default=False)),
-                ('comment', models.OneToOneField(to='spirit_comment.Comment')),
-                ('moderator', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, blank=True)),
+                ('comment', models.OneToOneField(to='spirit_comment.Comment', on_delete=models.CASCADE)),
+                ('moderator', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, blank=True, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'comments flags',
@@ -36,8 +36,8 @@ class Migration(migrations.Migration):
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('reason', models.IntegerField(choices=[(0, 'Spam'), (1, 'Other')], verbose_name='reason')),
                 ('body', models.TextField(verbose_name='body', blank=True)),
-                ('comment', models.ForeignKey(to='spirit_comment.Comment')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('comment', models.ForeignKey(to='spirit_comment.Comment', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'flags',

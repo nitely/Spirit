@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('comment', models.ForeignKey(related_name='comment_likes', to='spirit_comment.Comment')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('comment', models.ForeignKey(related_name='comment_likes', to='spirit_comment.Comment', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'like',

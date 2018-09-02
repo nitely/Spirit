@@ -13,8 +13,13 @@ from ...core.utils import paginator
 
 class CommentBookmark(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_comment_bookmarks')
-    topic = models.ForeignKey('spirit_topic.Topic')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='st_comment_bookmarks',
+        on_delete=models.CASCADE)
+    topic = models.ForeignKey(
+        'spirit_topic.Topic',
+        on_delete=models.CASCADE)
 
     comment_number = models.PositiveIntegerField(default=0)
 
@@ -29,8 +34,7 @@ class CommentBookmark(models.Model):
             url=self.topic.get_absolute_url(),
             obj_number=comment_number,
             per_page=config.comments_per_page,
-            page_var='page'
-        )
+            page_var='page')
 
     def get_absolute_url(self):
         return self._get_url()
@@ -59,7 +63,6 @@ class CommentBookmark(models.Model):
         bookmark, created = cls.objects.update_or_create(
             user=user,
             topic=topic,
-            defaults={'comment_number': comment_number, }
-        )
+            defaults={'comment_number': comment_number})
 
         return bookmark

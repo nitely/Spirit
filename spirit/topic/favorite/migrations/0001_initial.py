@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('topic', models.ForeignKey(to='spirit_topic.Topic')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('topic', models.ForeignKey(to='spirit_topic.Topic', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['-date', '-pk'],

@@ -29,8 +29,8 @@ class Migration(migrations.Migration):
                 ('is_removed', models.BooleanField(default=False)),
                 ('view_count', models.PositiveIntegerField(default=0, verbose_name='views count')),
                 ('comment_count', models.PositiveIntegerField(default=0, verbose_name='comment count')),
-                ('category', models.ForeignKey(to='spirit_category.Category', verbose_name='category')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='user')),
+                ('category', models.ForeignKey(to='spirit_category.Category', verbose_name='category', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='user', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'topics',

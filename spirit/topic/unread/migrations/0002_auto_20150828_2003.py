@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='topicunread',
             name='user',
-            field=models.ForeignKey(related_name='st_topics_unread', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='st_topics_unread', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

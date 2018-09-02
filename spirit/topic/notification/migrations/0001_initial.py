@@ -23,9 +23,9 @@ class Migration(migrations.Migration):
                 ('action', models.IntegerField(default=0, choices=[(0, 'Undefined'), (1, 'Mention'), (2, 'Comment')])),
                 ('is_read', models.BooleanField(default=False)),
                 ('is_active', models.BooleanField(default=False)),
-                ('comment', models.ForeignKey(to='spirit_comment.Comment')),
-                ('topic', models.ForeignKey(to='spirit_topic.Topic')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='user')),
+                ('comment', models.ForeignKey(to='spirit_comment.Comment', on_delete=models.CASCADE)),
+                ('topic', models.ForeignKey(to='spirit_topic.Topic', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='user', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'topics notification',

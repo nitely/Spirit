@@ -27,8 +27,8 @@ class Migration(migrations.Migration):
                 ('ip_address', models.GenericIPAddressField(null=True, blank=True)),
                 ('modified_count', models.PositiveIntegerField(default=0, verbose_name='modified count')),
                 ('likes_count', models.PositiveIntegerField(default=0, verbose_name='likes count')),
-                ('topic', models.ForeignKey(to='spirit_topic.Topic')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='user')),
+                ('topic', models.ForeignKey(to='spirit_topic.Topic', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='user', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'comments',

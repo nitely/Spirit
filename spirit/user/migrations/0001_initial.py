@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
                 ('is_verified', models.BooleanField(default=False, help_text='Designates whether the user has verified his account by email or by other means. Un-select this to let the user activate his account.', verbose_name='verified')),
                 ('topic_count', models.PositiveIntegerField(default=0, verbose_name='topic count')),
                 ('comment_count', models.PositiveIntegerField(default=0, verbose_name='comment count')),
-                ('user', models.OneToOneField(verbose_name='profile', to=settings.AUTH_USER_MODEL, related_name='st')),
+                ('user', models.OneToOneField(verbose_name='profile', to=settings.AUTH_USER_MODEL, related_name='st', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'forum profiles',

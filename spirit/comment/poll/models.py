@@ -21,15 +21,17 @@ class PollMode(object):
     DEFAULT, SECRET = range(2)
     LIST = (
         (DEFAULT, 'default'),
-        (SECRET, 'secret')
-    )
+        (SECRET, 'secret'))
     BY_ID = dict(LIST)
-    BY_NAME = dict((name, id_) for id_, name in LIST)
+    BY_NAME = {name: id_ for id_, name in LIST}
 
 
 class CommentPoll(models.Model):
 
-    comment = models.ForeignKey('spirit_comment.Comment', related_name='comment_polls')
+    comment = models.ForeignKey(
+        'spirit_comment.Comment',
+        related_name='comment_polls',
+        on_delete=models.CASCADE)
 
     name = models.CharField(_("name"), max_length=255)
     title = models.CharField(_("title"), max_length=255, blank=True)
@@ -98,17 +100,16 @@ class CommentPoll(models.Model):
 
     @classmethod
     def update_or_create_many(cls, comment, polls_raw):
-        cls.objects \
-            .for_comment(comment) \
-            .update(is_removed=True)
+        (cls.objects
+         .for_comment(comment)
+         .update(is_removed=True))
 
         default_fields = [
             'title',
             'choice_min',
             'choice_max',
             'close_at',
-            'mode'
-        ]
+            'mode']
 
         if not polls_raw:  # Avoid the later transaction.atomic()
             return
@@ -118,20 +119,21 @@ class CommentPoll(models.Model):
                 defaults = {
                     field: poll[field]
                     for field in default_fields
-                    if field in poll
-                }
+                    if field in poll}
                 defaults.update({'is_removed': False})
 
                 cls.objects.update_or_create(
                     comment=comment,
                     name=poll['name'],
-                    defaults=defaults
-                )
+                    defaults=defaults)
 
 
 class CommentPollChoice(models.Model):
 
-    poll = models.ForeignKey(CommentPoll, related_name='poll_choices')
+    poll = models.ForeignKey(
+        CommentPoll,
+        related_name='poll_choices',
+        on_delete=models.CASCADE)
 
     number = models.PositiveIntegerField(_("number"))
     description = models.CharField(_("choice description"), max_length=255)
@@ -164,21 +166,21 @@ class CommentPollChoice(models.Model):
 
     @classmethod
     def increase_vote_count(cls, poll, voter):
-        cls.objects\
-            .for_vote(poll=poll, voter=voter)\
-            .update(vote_count=F('vote_count') + 1)
+        (cls.objects
+         .for_vote(poll=poll, voter=voter)
+         .update(vote_count=F('vote_count') + 1))
 
     @classmethod
     def decrease_vote_count(cls, poll, voter):
-        cls.objects\
-            .for_vote(poll=poll, voter=voter)\
-            .update(vote_count=F('vote_count') - 1)
+        (cls.objects
+         .for_vote(poll=poll, voter=voter)
+         .update(vote_count=F('vote_count') - 1))
 
     @classmethod
     def update_or_create_many(cls, comment, choices_raw):
-        cls.objects \
-            .for_comment(comment) \
-            .update(is_removed=True)
+        (cls.objects
+         .for_comment(comment)
+         .update(is_removed=True))
 
         if not choices_raw:  # Avoid the later transaction.atomic()
             return
@@ -187,8 +189,7 @@ class CommentPollChoice(models.Model):
             CommentPoll.objects
                 .for_comment(comment)
                 .unremoved()
-                .values_list('name', 'id')
-        )
+                .values_list('name', 'id'))
 
         with transaction.atomic():  # Speedup
             for choice in choices_raw:
@@ -197,15 +198,19 @@ class CommentPollChoice(models.Model):
                     number=choice['number'],
                     defaults={
                         'description': choice['description'],
-                        'is_removed': False
-                    }
-                )
+                        'is_removed': False})
 
 
 class CommentPollVote(models.Model):
 
-    voter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_cp_votes')
-    choice = models.ForeignKey(CommentPollChoice, related_name='choice_votes')
+    voter = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='st_cp_votes',
+        on_delete=models.CASCADE)
+    choice = models.ForeignKey(
+        CommentPollChoice,
+        related_name='choice_votes',
+        on_delete=models.CASCADE)
 
     is_removed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)

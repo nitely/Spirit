@@ -21,18 +21,26 @@ class Category(models.Model):
     it must be set explicitly
     :vartype reindex_at: `:py:class:models.DateTimeField`
     """
-    parent = models.ForeignKey('self', verbose_name=_("category parent"), null=True, blank=True)
+    parent = models.ForeignKey(
+        'self',
+        verbose_name=_("category parent"),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE)
 
     title = models.CharField(_("title"), max_length=75)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     description = models.CharField(_("description"), max_length=255, blank=True)
-    color = models.CharField(_("color"), max_length=7, blank=True,
-                             help_text=_("Title color in hex format (i.e: #1aafd0)."))
+    color = models.CharField(
+        _("color"), max_length=7, blank=True,
+        help_text=_("Title color in hex format (i.e: #1aafd0)."))
     reindex_at = models.DateTimeField(_("modified at"), default=timezone.now)
 
-    is_global = models.BooleanField(_("global"), default=True,
-                                    help_text=_('Designates whether the topics will be'
-                                                'displayed in the all-categories list.'))
+    is_global = models.BooleanField(
+        _("global"), default=True,
+        help_text=_(
+            'Designates whether the topics will be'
+            'displayed in the all-categories list.'))
     is_closed = models.BooleanField(_("closed"), default=False)
     is_removed = models.BooleanField(_("removed"), default=False)
     is_private = models.BooleanField(_("private"), default=False)

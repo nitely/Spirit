@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='topicfavorite',
             name='user',
-            field=models.ForeignKey(related_name='st_topic_favorites', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='st_topic_favorites', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

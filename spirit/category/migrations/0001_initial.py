@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('is_closed', models.BooleanField(verbose_name='closed', default=False)),
                 ('is_removed', models.BooleanField(verbose_name='removed', default=False)),
                 ('is_private', models.BooleanField(verbose_name='private', default=False)),
-                ('parent', models.ForeignKey(null=True, verbose_name='category parent', to='spirit_category.Category', blank=True)),
+                ('parent', models.ForeignKey(null=True, verbose_name='category parent', to='spirit_category.Category', blank=True, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['title', 'pk'],

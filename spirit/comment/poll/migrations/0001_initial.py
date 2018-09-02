@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('close_at', models.DateTimeField(verbose_name='auto close at', blank=True, null=True)),
                 ('is_removed', models.BooleanField(default=False)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('comment', models.ForeignKey(to='spirit_comment.Comment', related_name='comment_polls')),
+                ('comment', models.ForeignKey(to='spirit_comment.Comment', related_name='comment_polls', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'comments polls',
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(verbose_name='choice description', max_length=255)),
                 ('vote_count', models.PositiveIntegerField(default=0, verbose_name='vote count')),
                 ('is_removed', models.BooleanField(default=False)),
-                ('poll', models.ForeignKey(to='spirit_comment_poll.CommentPoll', related_name='poll_choices')),
+                ('poll', models.ForeignKey(to='spirit_comment_poll.CommentPoll', related_name='poll_choices', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'poll choices',
@@ -56,8 +56,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('is_removed', models.BooleanField(default=False)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('choice', models.ForeignKey(to='spirit_comment_poll.CommentPollChoice', related_name='choice_votes')),
-                ('voter', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='st_cp_votes')),
+                ('choice', models.ForeignKey(to='spirit_comment_poll.CommentPollChoice', related_name='choice_votes', on_delete=models.CASCADE)),
+                ('voter', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='st_cp_votes', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'poll votes',

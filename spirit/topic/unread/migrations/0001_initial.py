@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('is_read', models.BooleanField(default=True)),
-                ('topic', models.ForeignKey(to='spirit_topic.Topic')),
-                ('user', models.ForeignKey(verbose_name='user', to=settings.AUTH_USER_MODEL)),
+                ('topic', models.ForeignKey(to='spirit_topic.Topic', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(verbose_name='user', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'topic unread',

@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('topic', models.ForeignKey(related_name='topics_private', to='spirit_topic.Topic')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('topic', models.ForeignKey(related_name='topics_private', to='spirit_topic.Topic', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'private topic',

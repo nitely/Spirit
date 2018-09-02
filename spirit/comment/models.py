@@ -11,7 +11,6 @@ from django.utils import timezone
 from ..core.conf import settings
 from .managers import CommentQuerySet
 
-
 COMMENT, MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED = range(6)
 
 ACTION = (
@@ -20,14 +19,18 @@ ACTION = (
     (CLOSED, _("topic closed")),
     (UNCLOSED, _("topic unclosed")),
     (PINNED, _("topic pinned")),
-    (UNPINNED, _("topic unpinned")),
-)
+    (UNPINNED, _("topic unpinned")))
 
 
 class Comment(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='st_comments')
-    topic = models.ForeignKey('spirit_topic.Topic')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='st_comments',
+        on_delete=models.CASCADE)
+    topic = models.ForeignKey(
+        'spirit_topic.Topic',
+        on_delete=models.CASCADE)
 
     comment = models.TextField(_("comment"))
     comment_html = models.TextField(_("comment html"))
@@ -60,19 +63,19 @@ class Comment(models.Model):
             return
 
     def increase_modified_count(self):
-        Comment.objects\
-            .filter(pk=self.pk)\
-            .update(modified_count=F('modified_count') + 1)
+        (Comment.objects
+         .filter(pk=self.pk)
+         .update(modified_count=F('modified_count') + 1))
 
     def increase_likes_count(self):
-        Comment.objects\
-            .filter(pk=self.pk)\
-            .update(likes_count=F('likes_count') + 1)
+        (Comment.objects
+         .filter(pk=self.pk)
+         .update(likes_count=F('likes_count') + 1))
 
     def decrease_likes_count(self):
-        Comment.objects\
-            .filter(pk=self.pk, likes_count__gt=0)\
-            .update(likes_count=F('likes_count') - 1)
+        (Comment.objects
+         .filter(pk=self.pk, likes_count__gt=0)
+         .update(likes_count=F('likes_count') - 1))
 
     @classmethod
     def create_moderation_action(cls, user, topic, action):
@@ -82,12 +85,12 @@ class Comment(models.Model):
             topic=topic,
             action=action,
             comment="action",
-            comment_html="action"
-        )
+            comment_html="action")
 
     @classmethod
     def get_last_for_topic(cls, topic_id):
-        return (cls.objects
+        return (
+            cls.objects
                 .filter(topic_id=topic_id)
                 .order_by('pk')
                 .last())

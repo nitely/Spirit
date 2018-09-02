@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='topicnotification',
             name='user',
-            field=models.ForeignKey(related_name='st_topic_notifications', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='st_topic_notifications', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

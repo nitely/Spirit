@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='commentlike',
             name='user',
-            field=models.ForeignKey(related_name='st_comment_likes', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='st_comment_likes', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

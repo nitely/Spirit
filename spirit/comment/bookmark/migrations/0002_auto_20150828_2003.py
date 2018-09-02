@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='commentbookmark',
             name='user',
-            field=models.ForeignKey(related_name='st_comment_bookmarks', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='st_comment_bookmarks', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
     ]

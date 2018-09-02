@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TopicPoll',
             fields=[
-                ('topic', models.OneToOneField(serialize=False, to='spirit_topic.Topic', verbose_name='topic', primary_key=True, related_name='poll')),
+                ('topic', models.OneToOneField(serialize=False, to='spirit_topic.Topic', verbose_name='topic', primary_key=True, related_name='poll', on_delete=models.CASCADE)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('choice_limit', models.PositiveIntegerField(default=1, verbose_name='choice limit')),
                 ('is_closed', models.BooleanField(default=False)),
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.CharField(max_length=255, verbose_name='choice description')),
                 ('vote_count', models.PositiveIntegerField(default=0, verbose_name='vote count')),
-                ('poll', models.ForeignKey(to='spirit_topic_poll.TopicPoll', verbose_name='poll', related_name='choices')),
+                ('poll', models.ForeignKey(to='spirit_topic_poll.TopicPoll', verbose_name='poll', related_name='choices', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'poll choices',
@@ -45,8 +45,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('choice', models.ForeignKey(to='spirit_topic_poll.TopicPollChoice', verbose_name='poll choice', related_name='votes')),
-                ('user', models.ForeignKey(verbose_name='voter', to=settings.AUTH_USER_MODEL)),
+                ('choice', models.ForeignKey(to='spirit_topic_poll.TopicPollChoice', verbose_name='poll choice', related_name='votes', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(verbose_name='voter', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'poll votes',
