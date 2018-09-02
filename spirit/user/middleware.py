@@ -29,16 +29,16 @@ logger = logging.getLogger('django')
 class TimezoneMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        if request.user.is_authenticated():
-            try:
-                timezone.activate(request.user.st.timezone)
-            except pytz.exceptions.UnknownTimeZoneError:
-                timezone.deactivate()
-                logger.error(
-                    '%s is not a valid timezone.' %
-                    request.user.st.timezone)
-        else:
+        if not request.user.is_authenticated():
             timezone.deactivate()
+            return
+
+        try:
+            timezone.activate(request.user.st.timezone)
+        except pytz.exceptions.UnknownTimeZoneError:
+            timezone.deactivate()
+            logger.error(
+                '%s is not a valid timezone.', request.user.st.timezone)
 
 
 class LastIPMiddleware(MiddlewareMixin):
@@ -66,11 +66,11 @@ class LastSeenMiddleware(MiddlewareMixin):
         threshold = settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60
         delta = timezone.now() - request.user.st.last_seen
 
-        if delta.seconds < threshold:
+        if delta.total_seconds() < threshold:
             return
 
         (UserProfile.objects
-            .filter(user__pk=request.user.pk)
+            .filter(pk=request.user.st.pk)
             .update(last_seen=timezone.now()))
 
 
