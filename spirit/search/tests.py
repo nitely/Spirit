@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import datetime
 
 from django.test import TestCase, override_settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.template import Template, Context
 from django.core.management import call_command
 from django.template.loader import render_to_string

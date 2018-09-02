@@ -8,7 +8,7 @@ import shutil
 import hashlib
 
 from django.test import TestCase, RequestFactory
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.template import Template, Context
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model

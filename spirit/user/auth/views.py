@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 
 from django.contrib import messages
 from django.contrib.auth import views as django_views
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 from ...core.utils.ratelimit.decorators import ratelimit
 from ..utils.email import send_activation_email

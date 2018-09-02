@@ -3,12 +3,12 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.utils.translation import ugettext as _
 from django.test.utils import override_settings
-from django.core.urlresolvers import NoReverseMatch
+from django.urls import NoReverseMatch
 
 from ....core.tests import utils
 from ..forms import RegistrationForm, ResendActivationForm, LoginForm

@@ -5,7 +5,7 @@ import datetime
 import hashlib
 
 from django.test import TestCase, override_settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.template import Template, Context
 from django.utils import timezone
 

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect
 from django.conf import settings
