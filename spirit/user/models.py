@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from datetime import timedelta
 
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
@@ -13,7 +13,11 @@ from ..core.utils.models import AutoSlugField
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_("profile"), related_name='st')
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("profile"),
+        related_name='st',
+        on_delete=models.CASCADE)
 
     slug = AutoSlugField(populate_from="user.username", db_index=False, blank=True)
     location = models.CharField(_("location"), max_length=75, blank=True)
@@ -22,10 +26,12 @@ class UserProfile(models.Model):
     timezone = models.CharField(_("time zone"), max_length=32, default='UTC')
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)
-    is_verified = models.BooleanField(_('verified'), default=False,
-                                      help_text=_('Designates whether the user has verified his '
-                                                  'account by email or by other means. Un-select this '
-                                                  'to let the user activate his account.'))
+    is_verified = models.BooleanField(
+        _('verified'), default=False,
+        help_text=_(
+            'Designates whether the user has verified his '
+            'account by email or by other means. Un-select this '
+            'to let the user activate his account.'))
 
     topic_count = models.PositiveIntegerField(_("topic count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
@@ -47,19 +53,20 @@ class UserProfile(models.Model):
         super(UserProfile, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('spirit:user:detail', kwargs={'pk': self.user.pk, 'slug': self.slug})
+        return reverse(
+            'spirit:user:detail',
+            kwargs={'pk': self.user.pk, 'slug': self.slug})
 
     def update_post_hash(self, post_hash):
-        assert self.pk
-
         # Let the DB do the hash
         # comparison for atomicity
-        return bool(UserProfile.objects
-                    .filter(pk=self.pk)
-                    .exclude(
-                        last_post_hash=post_hash,
-                        last_post_on__gte=timezone.now() - timedelta(
-                            minutes=settings.ST_DOUBLE_POST_THRESHOLD_MINUTES))
-                    .update(
-                        last_post_hash=post_hash,
-                        last_post_on=timezone.now()))
+        return bool(
+            UserProfile.objects
+            .filter(pk=self.pk)
+            .exclude(
+                last_post_hash=post_hash,
+                last_post_on__gte=timezone.now() - timedelta(
+                    minutes=settings.ST_DOUBLE_POST_THRESHOLD_MINUTES))
+            .update(
+                last_post_hash=post_hash,
+                last_post_on=timezone.now()))
