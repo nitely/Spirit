@@ -178,9 +178,8 @@ class PrivateForumMiddlewareTests(TestCase):
         response = self.client.get(reverse('spirit:index'))
         self.assertEqual(response.status_code, 302)
         self.assertIsInstance(response, HttpResponseRedirect)
-        self.assertEqual(
-            response['Location'],
-            reverse(settings.LOGIN_URL) + '?next=/')
+        self.assertTrue(
+            reverse(settings.LOGIN_URL) + '?next=/' in response['Location'])
         test_utils.login(self)
         self.assertEqual(
             self.client.get(reverse('spirit:index')).status_code, 200)
