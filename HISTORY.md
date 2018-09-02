@@ -2,6 +2,9 @@
 ==================
 
 * Drops support for Django 1.8, 1.9 and 1.10
+* Adds `django.contrib.auth.middleware.SessionAuthenticationMiddleware``to
+  `MIDDLEWARE_CLASSES` setting
+* Adds `LOGOUT_REDIRECT_URL = 'spirit:index'` to settings
 
 0.5.0
 ==================
