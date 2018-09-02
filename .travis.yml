@@ -20,6 +20,7 @@ script:
   - flake8 --exit-zero
   - python setup.py build
   - python ./spirit/extra/bin/spirit.py startproject project
+  - export PYTHONWARNINGS="default"
   - coverage run --source=. runtests.py
 after_success:
   - coveralls
