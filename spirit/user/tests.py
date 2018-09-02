@@ -15,6 +15,7 @@ from django.contrib.auth.models import AnonymousUser
 from djconfig.utils import override_djconfig
 
 from ..core.tests import utils
+from ..core.conf import settings
 from .forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
 from ..comment.like.models import CommentLike
 from ..topic.models import Topic
@@ -24,6 +25,7 @@ from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGene
 from .utils.email import send_activation_email, send_email_change_email, sender
 from .utils import email
 from . import middleware
+from .models import UserProfile
 
 User = get_user_model()
 
@@ -991,3 +993,65 @@ class LastIPMiddlewareTest(TestCase):
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
+
+
+class LastSeenMiddlewareTest(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+        self.user = utils.create_user()
+
+    @override_settings(ST_USER_LAST_SEEN_THRESHOLD_MINUTES=1)
+    def test_last_seen(self):
+        """
+        Should update user last_seen when threshold is reached
+        """
+        req = RequestFactory().get('/')
+        req.user = self.user
+        self.assertTrue(req.user.is_authenticated())
+        delta = datetime.timedelta(
+            seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 + 1)
+        self.assertEqual(
+            UserProfile.objects
+                .filter(pk=req.user.st.pk)
+                .update(last_seen=timezone.now() - delta), 1)
+        # Some DBs don't save microseconds, so get the real value
+        last_seen = UserProfile.objects.get(pk=req.user.st.pk).last_seen
+        req.user.st.last_seen = last_seen
+        self.assertIsNone(
+            middleware.LastSeenMiddleware().process_request(req))
+        self.assertGreater(
+            UserProfile.objects.get(pk=req.user.st.pk).last_seen,
+            last_seen)
+
+    @override_settings(ST_USER_LAST_SEEN_THRESHOLD_MINUTES=1)
+    def test_last_seen_no_update(self):
+        """
+        Should not update user last_seen when threshold is not reached
+        """
+        req = RequestFactory().get('/')
+        req.user = self.user
+        self.assertTrue(req.user.is_authenticated())
+        delta = datetime.timedelta(
+            seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 - 1)
+        self.assertEqual(
+            UserProfile.objects
+                .filter(pk=req.user.st.pk)
+                .update(last_seen=timezone.now() - delta), 1)
+        last_seen = UserProfile.objects.get(pk=req.user.st.pk).last_seen
+        req.user.st.last_seen = last_seen
+        self.assertIsNone(
+            middleware.LastSeenMiddleware().process_request(req))
+        self.assertEqual(
+            UserProfile.objects.get(pk=req.user.st.pk).last_seen,
+            last_seen)
+
+    def test_last_seen_anonym_user(self):
+        """
+        Should do nothing
+        """
+        req = RequestFactory().get('/')
+        req.user = AnonymousUser()
+        self.assertFalse(req.user.is_authenticated())
+        self.assertIsNone(
+            middleware.LastSeenMiddleware().process_request(req))
