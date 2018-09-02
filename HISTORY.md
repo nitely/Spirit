@@ -2,14 +2,18 @@
 ==================
 
 * Drops support for Django 1.8, 1.9 and 1.10
+* Adds support for Python 3.7 (no changes required)
+* Adds support for Django 2.0 and 2.1
 * Adds `django.middleware.security.SecurityMiddleware``to
   `MIDDLEWARE_CLASSES` setting
 * Adds `LOGOUT_REDIRECT_URL = 'spirit:index'` to settings
+* Removes jQuery dependency in favor of vanilla JS
 * Fixes user's `last_seen` feature. There was a bug in the middleware
   that would update the field pretty much on every request
 * Renames `MIDDLEWARE_CLASSES` (deprecated by django) setting to
   `MIDDLEWARE`
 * Removes `spirit.settings` deprecated in Spirit 0.5
+* Updates haystack dependency to 2.8.1
 
 0.5.0
 ==================

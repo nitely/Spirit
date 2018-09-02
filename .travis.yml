@@ -1,6 +1,4 @@
 language: python
-
-# Use container-based infrastructure
 sudo: false
 
 python:
@@ -8,8 +6,11 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
 env:
-  - DJANGO=1.11.9
+  - DJANGO=1.11.15
+  - DJANGO=2.0.8
+  - DJANGO=2.1.1
 install:
   - pip install --upgrade pip
   - pip install .[files]
@@ -24,3 +25,9 @@ script:
   - coverage run --source=. runtests.py
 after_success:
   - coveralls
+matrix:
+  exclude:
+   - python: "2.7"
+     env: DJANGO=2.0.8
+   - python: "2.7"
+     env: DJANGO=2.1.1
