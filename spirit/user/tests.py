@@ -450,7 +450,7 @@ class UserViewTest(TestCase):
                                     form_data)
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
-        self.assertEquals(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 1)
         self.assertIn(_("Email change"), mail.outbox[0].subject)
 
         # get
@@ -749,7 +749,7 @@ class UtilsUserTests(TestCase):
         """
         req = RequestFactory().get('/')
         send_activation_email(req, self.user)
-        self.assertEquals(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 1)
 
     def test_email_change_email(self):
         """
@@ -786,7 +786,7 @@ class UtilsUserTests(TestCase):
         """
         req = RequestFactory().get('/')
         send_email_change_email(req, self.user, "foo@bar.com")
-        self.assertEquals(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 1)
 
     def test_sender(self):
         """
@@ -800,7 +800,7 @@ class UtilsUserTests(TestCase):
             return SiteMock
 
         def monkey_render_to_string(template, data):
-            self.assertEquals(template, template_name)
+            self.assertEqual(template, template_name)
             self.assertDictEqual(data, {'user_id': self.user.pk,
                                         'token': token,
                                         'site_name': SiteMock.name,
@@ -822,11 +822,11 @@ class UtilsUserTests(TestCase):
             email.get_current_site = org_site
             email.render_to_string = org_render_to_string
 
-        self.assertEquals(len(mail.outbox), 1)
-        self.assertEquals(mail.outbox[0].subject, SiteMock.name)
-        self.assertEquals(mail.outbox[0].body, "email body")
-        self.assertEquals(mail.outbox[0].from_email, "foo <noreply@bar.com>")
-        self.assertEquals(mail.outbox[0].to, [self.user.email, ])
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, SiteMock.name)
+        self.assertEqual(mail.outbox[0].body, "email body")
+        self.assertEqual(mail.outbox[0].from_email, "foo <noreply@bar.com>")
+        self.assertEqual(mail.outbox[0].to, [self.user.email, ])
 
     @override_settings(DEFAULT_FROM_EMAIL='foo@bar.com')
     def test_sender_from_email(self):
@@ -857,8 +857,8 @@ class UtilsUserTests(TestCase):
             email.get_current_site = org_site
             email.render_to_string = org_render_to_string
 
-        self.assertEquals(len(mail.outbox), 1)
-        self.assertEquals(mail.outbox[0].from_email, "foo@bar.com")
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].from_email, "foo@bar.com")
 
 
 class TimezoneMiddlewareTest(TestCase):
@@ -901,6 +901,7 @@ class TimezoneMiddlewareTest(TestCase):
     @override_settings(TIME_ZONE='UTC')
     def test_timezone_anonymous_user(self):
         class AnonymUserMock(object):
+            @property
             def is_authenticated(self):
                 return False
 
@@ -1008,7 +1009,7 @@ class LastSeenMiddlewareTest(TestCase):
         """
         req = RequestFactory().get('/')
         req.user = self.user
-        self.assertTrue(req.user.is_authenticated())
+        self.assertTrue(req.user.is_authenticated)
         delta = datetime.timedelta(
             seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 + 1)
         self.assertEqual(
@@ -1031,7 +1032,7 @@ class LastSeenMiddlewareTest(TestCase):
         """
         req = RequestFactory().get('/')
         req.user = self.user
-        self.assertTrue(req.user.is_authenticated())
+        self.assertTrue(req.user.is_authenticated)
         delta = datetime.timedelta(
             seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 - 1)
         self.assertEqual(
@@ -1052,7 +1053,7 @@ class LastSeenMiddlewareTest(TestCase):
         """
         req = RequestFactory().get('/')
         req.user = AnonymousUser()
-        self.assertFalse(req.user.is_authenticated())
+        self.assertFalse(req.user.is_authenticated)
         self.assertIsNone(
             middleware.LastSeenMiddleware().process_request(req))
 
@@ -1133,7 +1134,7 @@ class ActiveUserMiddlewareTest(TestCase):
         """
         req = RequestFactory().get('/')
         req.user = self.user
-        self.assertTrue(req.user.is_authenticated())
+        self.assertTrue(req.user.is_authenticated)
         self.assertIsNone(
             middleware.ActiveUserMiddleware().process_request(req))
 
@@ -1143,6 +1144,6 @@ class ActiveUserMiddlewareTest(TestCase):
         """
         req = RequestFactory().get('/')
         req.user = AnonymousUser()
-        self.assertFalse(req.user.is_authenticated())
+        self.assertFalse(req.user.is_authenticated)
         self.assertIsNone(
             middleware.ActiveUserMiddleware().process_request(req))

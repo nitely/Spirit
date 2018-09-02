@@ -11,19 +11,19 @@ class MultipleInput(forms.TextInput):
     TextInput widget for input multiple *raw* choices
     """
 
-    def __init__(self, attrs=None, choices=()):
-        # choices is some iterable we do not need, since this is a TextInput
-        super(MultipleInput, self).__init__(attrs)
+    def __init__(self, *args, **kwargs):
+        super(MultipleInput, self).__init__(*args, **kwargs)
 
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, *args, **kwargs):
         if value:
             value = ','.join(force_text(v) for v in value)
         else:
             value = ''
 
-        return super(MultipleInput, self).render(name, value, attrs=attrs)
+        return super(MultipleInput, self).render(
+            name, value, *args, **kwargs)
 
-    def value_from_datadict(self, data, files, name):
+    def value_from_datadict(self, data, files, name, *args, **kwargs):
         value = data.get(name)
 
         if value:

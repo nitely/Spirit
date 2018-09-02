@@ -25,7 +25,7 @@ class PrivateForumMiddleware(MiddlewareMixin):
         if not settings.ST_PRIVATE_FORUM:
             return
 
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return
 
         resolver_match = resolve(request.path)

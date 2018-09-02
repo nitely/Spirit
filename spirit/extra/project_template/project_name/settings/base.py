@@ -65,6 +65,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -130,6 +131,7 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 LOGIN_URL = 'spirit:user:auth:login'
 LOGIN_REDIRECT_URL = 'spirit:user:update'
+LOGOUT_REDIRECT_URL = 'spirit:index'
 
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/

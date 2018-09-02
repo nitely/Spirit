@@ -29,7 +29,7 @@ logger = logging.getLogger('django')
 class TimezoneMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             timezone.deactivate()
             return
 
@@ -44,7 +44,7 @@ class TimezoneMiddleware(MiddlewareMixin):
 class LastIPMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return
 
         last_ip = request.META['REMOTE_ADDR'].strip()
@@ -60,7 +60,7 @@ class LastIPMiddleware(MiddlewareMixin):
 class LastSeenMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return
 
         threshold = settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60
@@ -77,7 +77,7 @@ class LastSeenMiddleware(MiddlewareMixin):
 class ActiveUserMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return
 
         if not request.user.is_active:

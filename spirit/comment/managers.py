@@ -41,7 +41,7 @@ class CommentQuerySet(models.QuerySet):
         return self.filter(Q(topic__category__is_private=False) | Q(topic__topics_private__user=user))
 
     def with_likes(self, user):
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return self
 
         user_likes = CommentLike.objects.filter(user=user)
@@ -56,7 +56,7 @@ class CommentQuerySet(models.QuerySet):
         visible_choices = CommentPollChoice.objects.unremoved()
         prefetch_choices = Prefetch("polls__poll_choices", queryset=visible_choices, to_attr='choices')
 
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return self.prefetch_related(prefetch_polls, prefetch_choices)
 
         # Votes are attached to choices

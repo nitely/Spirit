@@ -109,7 +109,7 @@ class PrivateForumMiddlewareTests(TestCase):
         """
         req = RequestFactory().get(reverse('spirit:index'))
         req.user = self.user
-        self.assertTrue(self.user.is_authenticated())
+        self.assertTrue(self.user.is_authenticated)
         self.assertIsNone(
             middleware.PrivateForumMiddleware().process_request(req))
 
@@ -120,7 +120,7 @@ class PrivateForumMiddlewareTests(TestCase):
         """
         req = RequestFactory().get(reverse('spirit:index'))
         req.user = self.user
-        self.assertTrue(self.user.is_authenticated())
+        self.assertTrue(self.user.is_authenticated)
         self.assertIsNone(
             middleware.PrivateForumMiddleware().process_request(req))
 

@@ -15,7 +15,7 @@ def moderator_required(view_func):
     def wrapper(request, *args, **kwargs):
         user = request.user
 
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return redirect_to_login(next=request.get_full_path(),
                                      login_url=settings.LOGIN_URL)
 
@@ -32,7 +32,7 @@ def administrator_required(view_func):
     def wrapper(request, *args, **kwargs):
         user = request.user
 
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return redirect_to_login(next=request.get_full_path(),
                                      login_url=settings.LOGIN_URL)
 
@@ -48,7 +48,7 @@ def guest_only(view_func):
     # TODO: test!
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return redirect(request.GET.get('next', request.user.st.get_absolute_url()))
 
         return view_func(request, *args, **kwargs)

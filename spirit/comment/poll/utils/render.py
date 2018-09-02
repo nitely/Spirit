@@ -17,7 +17,7 @@ PATTERN = re.compile(r'(?:<poll\s+name=(?P<name>[\w\-_]+)>)')
 def _render_form(poll, comment, request, csrf_token):
     form = PollVoteManyForm(poll=poll)
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         form.load_initial()
 
     context = {

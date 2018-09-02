@@ -48,7 +48,7 @@ def vote(request, pk):
         pk=pk
     )
 
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return redirect_to_login(next=poll.get_absolute_url())
 
     form = PollVoteManyForm(user=request.user, poll=poll, data=request.POST)

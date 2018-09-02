@@ -86,8 +86,8 @@ class UserViewTest(TestCase):
                      'email2': 'some@some.com', 'password': 'pass'}
         response = self.client.post(reverse('spirit:user:auth:register'), form_data)
         self.assertEqual(response.status_code, 302)
-        self.assertEquals(len(mail.outbox), 1)
-        self.assertEquals(mail.outbox[0].subject, _("User activation"))
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, _("User activation"))
 
     def test_register_next_logged_in(self):
         """
@@ -221,12 +221,12 @@ class UserViewTest(TestCase):
                                     form_data)
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
-        self.assertEquals(len(mail.outbox), 1)
-        self.assertEquals(mail.outbox[0].subject, _("User activation"))
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, _("User activation"))
 
         # get
         response = self.client.get(reverse('spirit:user:auth:resend-activation'))
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
     def test_resend_activation_email_invalid_previously_logged_in(self):
         """
@@ -240,8 +240,8 @@ class UserViewTest(TestCase):
                      'password': "foo"}
         response = self.client.post(reverse('spirit:user:auth:resend-activation'),
                                     form_data)
-        self.assertEquals(response.status_code, 302)
-        self.assertEquals(len(mail.outbox), 0)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(mail.outbox), 0)
 
     def test_resend_activation_email_invalid_email(self):
         """
@@ -252,8 +252,8 @@ class UserViewTest(TestCase):
         form_data = {'email': "bad@foo.com", }
         response = self.client.post(reverse('spirit:user:auth:resend-activation'),
                                     form_data)
-        self.assertEquals(response.status_code, 302)
-        self.assertEquals(len(mail.outbox), 0)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(mail.outbox), 0)
 
     def test_resend_activation_email_redirect_logged(self):
         """

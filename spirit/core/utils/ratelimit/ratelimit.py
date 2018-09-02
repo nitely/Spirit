@@ -97,7 +97,7 @@ class RateLimit:
     def _get_keys(self, field=None):
         keys = []
 
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             keys.append('user:%d' % self.request.user.pk)
         else:
             keys.append('ip:%s' % self.request.META['REMOTE_ADDR'])

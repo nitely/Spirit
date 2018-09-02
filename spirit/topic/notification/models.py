@@ -59,7 +59,7 @@ class TopicNotification(models.Model):
 
     @classmethod
     def mark_as_read(cls, user, topic):
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return
 
         cls.objects\

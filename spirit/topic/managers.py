@@ -45,7 +45,7 @@ class TopicQuerySet(models.QuerySet):
                            topicunread__is_read=False)
 
     def with_bookmarks(self, user):
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return self
 
         user_bookmarks = CommentBookmark.objects\
@@ -55,7 +55,7 @@ class TopicQuerySet(models.QuerySet):
         return self.prefetch_related(prefetch)
 
     def get_public_or_404(self, pk, user):
-        if user.is_authenticated() and user.st.is_moderator:
+        if user.is_authenticated and user.st.is_moderator:
             return get_object_or_404(self.public()
                                      .select_related('category__parent'),
                                      pk=pk)

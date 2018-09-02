@@ -50,7 +50,7 @@ class CommentBookmark(models.Model):
 
     @classmethod
     def update_or_create(cls, user, topic, comment_number):
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return
 
         if comment_number is None:

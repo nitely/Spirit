@@ -28,7 +28,7 @@ class TopicUnread(models.Model):
 
     @classmethod
     def create_or_mark_as_read(cls, user, topic):
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return
 
         return cls.objects.update_or_create(
