@@ -13,6 +13,7 @@
 * Renames `MIDDLEWARE_CLASSES` (deprecated by django) setting to
   `MIDDLEWARE`
 * Removes `spirit.settings` deprecated in Spirit 0.5
+* Avoids installing `spirit.topic.poll` app in the generated project
 * Updates haystack dependency to 2.8.1
 
 0.5.0
