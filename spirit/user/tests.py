@@ -1055,3 +1055,94 @@ class LastSeenMiddlewareTest(TestCase):
         self.assertFalse(req.user.is_authenticated())
         self.assertIsNone(
             middleware.LastSeenMiddleware().process_request(req))
+
+    @override_settings(ST_USER_LAST_SEEN_THRESHOLD_MINUTES=1)
+    def test_on_client(self):
+        """
+        Should be called on a request
+        """
+        utils.login(self)
+        delta = datetime.timedelta(
+            seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 + 1)
+        self.assertEqual(
+            UserProfile.objects
+                .filter(pk=self.user.st.pk)
+                .update(last_seen=timezone.now() - delta), 1)
+        last_seen = UserProfile.objects.get(pk=self.user.st.pk).last_seen
+        response = self.client.get(reverse('spirit:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertGreater(
+            UserProfile.objects.get(pk=self.user.st.pk).last_seen,
+            last_seen)
+
+
+class ActiveUserMiddlewareTest(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+        self.user = utils.create_user()
+
+    def test_active_user(self):
+        """
+        Should logout inactive user
+        """
+        utils.login(self)
+        response = self.client.get(reverse('spirit:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(self.client.session.items())
+        User.objects.filter(pk=self.user.pk).update(is_active=False)
+        self.user.is_active = False
+        response = self.client.get(reverse('spirit:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(self.client.session.items())
+
+    def test_active_user_mocked(self):
+        """
+        Should logout inactive user
+        """
+        client = self.client
+        assertTrue = self.assertTrue
+        assertFalse = self.assertFalse
+
+        class ActiveUserMiddlewareMock(middleware.ActiveUserMiddleware):
+            _calls = []
+            def process_request(self, request):
+                self._calls.append(request)
+                assertTrue(client.session.items())
+                ret = super(ActiveUserMiddlewareMock, self).process_request(request)
+                assertFalse(client.session.items())
+                return ret
+
+        utils.login(self)
+        User.objects.filter(pk=self.user.pk).update(is_active=False)
+        self.user.is_active = False
+        self.assertFalse(ActiveUserMiddlewareMock._calls)
+
+        org_mid, middleware.ActiveUserMiddleware = (
+            middleware.ActiveUserMiddleware, ActiveUserMiddlewareMock)
+        try:
+            self.client.get(reverse('spirit:index'))
+        finally:
+            middleware.ActiveUserMiddleware = org_mid
+
+        self.assertTrue(ActiveUserMiddlewareMock._calls)
+
+    def test_active_user_is_active(self):
+        """
+        Should do nothing
+        """
+        req = RequestFactory().get('/')
+        req.user = self.user
+        self.assertTrue(req.user.is_authenticated())
+        self.assertIsNone(
+            middleware.ActiveUserMiddleware().process_request(req))
+
+    def test_active_user_anonym_user(self):
+        """
+        Should do nothing
+        """
+        req = RequestFactory().get('/')
+        req.user = AnonymousUser()
+        self.assertFalse(req.user.is_authenticated())
+        self.assertIsNone(
+            middleware.ActiveUserMiddleware().process_request(req))
