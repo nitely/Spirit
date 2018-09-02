@@ -19,6 +19,11 @@ Upgrade
     patch version of the upgrading target and
     make changes accordingly
 
+.. Warning::
+    Trying to skip a minor version while upgrading will break things. For example, it's
+    not possible to upgrade from 0.4.x to 0.6.x without upgrading to 0.5.x first,
+    however it's possible to skip patch versions, i.e: upgrade from 0.4.x to 0.4.xx
+
 From v0.4.x to v0.5.x
 ---------------------
 
