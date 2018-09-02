@@ -10,6 +10,7 @@ from django.core import mail
 from django.utils.translation import ugettext as _
 from django.utils import timezone
 from django.test.utils import override_settings
+from django.contrib.auth.models import AnonymousUser
 
 from djconfig.utils import override_djconfig
 
@@ -926,12 +927,12 @@ class LastIPMiddlewareTest(TestCase):
         req.user = self.user
         self.assertIsNone(User.objects.get(pk=self.user.pk).st.last_ip)
         req.META['REMOTE_ADDR'] = '123.123.123.123'
-        middleware.LastIPMiddleware().process_request(req)
+        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
         req.META['REMOTE_ADDR'] = '321.321.321.321'
-        middleware.LastIPMiddleware().process_request(req)
+        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '321.321.321.321')
@@ -948,7 +949,7 @@ class LastIPMiddlewareTest(TestCase):
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
         req.META['REMOTE_ADDR'] = '123.123.123.123'
-        middleware.LastIPMiddleware().process_request(req)
+        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
@@ -965,7 +966,28 @@ class LastIPMiddlewareTest(TestCase):
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
         req.META['REMOTE_ADDR'] = '321.321.321.321'
-        middleware.LastIPMiddleware().process_request(req)
+        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '321.321.321.321')
+
+    def test_last_ip_anonym_user(self):
+        """
+        Should do nothing
+        """
+        req = RequestFactory().get('/')
+        req.user = AnonymousUser()
+        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
+
+    def test_on_client(self):
+        """
+        Should be called on a request
+        """
+        utils.login(self)
+        self.assertIsNone(User.objects.get(pk=self.user.pk).st.last_ip)
+        response = self.client.get(
+            reverse('spirit:index'), REMOTE_ADDR='123.123.123.123')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip,
+            '123.123.123.123')
