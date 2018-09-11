@@ -1,3 +1,8 @@
+0.6.1
+==================
+
+* Update dependencies: `pillow==5.2.0` and `django-djconfig==0.7.0`
+
 0.6.0
 ==================
 
