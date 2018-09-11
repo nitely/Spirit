@@ -5,7 +5,7 @@ mistune==0.7.4
 Pillow==5.2.0
 olefile==0.45.1
 django-infinite-scroll-pagination>=0.2.0,<0.3
-django-djconfig>=0.7.0,<0.8
+django-djconfig>=0.8.0,<0.9
 uni-slugify==0.1.4
 Unidecode==1.0.22
 pytz
