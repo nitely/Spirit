@@ -5,29 +5,34 @@ from __future__ import unicode_literals
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
 from ...core.conf import settings
 from ..forms import CleanEmailMixin
 
+try:
+    # >= v1.10
+    from django.contrib.auth.forms import UsernameField
+except ImportError:
+    import unicodedata
+
+    class UsernameField(forms.CharField):
+        def to_python(self, value):
+            return unicodedata.normalize('NFKC', super().to_python(value))
+
 User = get_user_model()
 
 
-class RegistrationForm(CleanEmailMixin, forms.ModelForm):
+class RegistrationForm(CleanEmailMixin, UserCreationForm):
 
-    email2 = forms.CharField(
-        label=_("Email confirmation"),
-        widget=forms.EmailInput,
-        max_length=254,
-        help_text=_("Enter the same email as above, for verification.")
-    )
     # todo: add password validator for Django 1.9
-    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
     honeypot = forms.CharField(label=_("Leave blank"), required=False)
 
     class Meta:
         model = User
         fields = ("username", "email")
+        field_classes = {'username': UsernameField}
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -42,36 +47,13 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
 
         return value
 
-    def clean_username(self):
-        username = self.cleaned_data["username"]
-
-        is_taken = User.objects\
-            .filter(username=username)\
-            .exists()
-
-        if is_taken:
-            raise forms.ValidationError(_("The username is taken."))
-
-        return username
-
-    def clean_email2(self):
-        email = self.cleaned_data.get("email")
-        email2 = self.cleaned_data["email2"]
-
-        if settings.ST_CASE_INSENSITIVE_EMAILS:
-            email2 = email2.lower()
-
-        if email and email != email2:
-            raise forms.ValidationError(
-                _("The two email fields didn't match.")
-            )
-
-        return email2
-
     def save(self, commit=True):
-        self.instance.is_active = False
-        self.instance.set_password(self.cleaned_data["password"])
-        return super(RegistrationForm, self).save(commit)
+        user = super(RegistrationForm, self).save(commit=False)
+        user.is_active = False
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
 
 
 class LoginForm(AuthenticationForm):
