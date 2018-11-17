@@ -28,7 +28,7 @@ class _CustomPasswordResetView(django_views.PasswordResetView):
 
 class _CustomPasswordResetConfirmView(django_views.PasswordResetConfirmView):
     template_name = 'spirit/user/auth/password_reset_confirm.html'
-    post_reset_redirect = reverse_lazy('spirit:user:auth:password-reset-complete')
+    success_url = reverse_lazy('spirit:user:auth:password-reset-complete')
 
 
 class _CustomPasswordResetCompleteView(django_views.PasswordResetCompleteView):
