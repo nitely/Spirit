@@ -1,3 +1,10 @@
+0.6.2
+==================
+
+* Fix password reset
+* Make admin user-list redirect to the right
+  user profile when clicking on a username
+
 0.6.1
 ==================
 
