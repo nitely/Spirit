@@ -2,13 +2,14 @@
 
 from __future__ import unicode_literals
 
-from django.db import models, transaction, IntegrityError
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from djconfig import config
 
 from ...core.conf import settings
 from ...core.utils import paginator
+from ...core.utils.db import create_or_none
 
 
 class CommentBookmark(models.Model):
@@ -85,11 +86,7 @@ class CommentBookmark(models.Model):
             user=user,
             topic=topic,
             comment_number=comment_number)
-        if cls.increase_to(**kwargs):
-            return True
-        try:
-            with transaction.atomic():
-                cls.objects.create(**kwargs)
-                return True
-        except IntegrityError:
-            return cls.increase_to(**kwargs)
+        return (
+            cls.increase_to(**kwargs) or
+            bool(create_or_none(cls, **kwargs)) or
+            cls.increase_to(**kwargs))
