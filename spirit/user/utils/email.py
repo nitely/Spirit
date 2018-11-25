@@ -66,7 +66,8 @@ def send_email_change_email(request, user, new_email):
 
 def send_notification_email(request, topic_notifications, comment):
     # TODO: test, implement
-    subject = _("New notification: %(topic_name)s" % {'topic_name': comment.topic.title, })
+    subject = _("New notification: %(topic_name)s") % {
+        'topic_name': comment.topic.title}
     template_name = 'spirit/user/notification_email.html'
     context = {'comment': comment, }
     to = [tn.user.email

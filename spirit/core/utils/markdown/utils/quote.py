@@ -34,7 +34,7 @@ def quotify(comment, username):
     \n\n
     """
     with translation.override(settings.LANGUAGE_CODE):
-        header = _("@%(username)s said:") % {'username': username, }
+        header = _("@%(username)s said:") % {'username': username}
 
     comment = _strip_polls(comment)
     lines = comment.splitlines()
