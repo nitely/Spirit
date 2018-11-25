@@ -101,7 +101,7 @@ class CommentBookmarkModelsTest(TestCase):
         def falsy_once_increase_to(*args, **kwargs):
             calls['count'] += 1
             if calls['count'] > 1:
-                return org_increase_to(*args, **kwargs)
+                return CommentBookmark._org_increase_to(*args, **kwargs)
             return False
 
         CommentBookmark.objects.create(
@@ -110,7 +110,7 @@ class CommentBookmarkModelsTest(TestCase):
             comment_number=0)
         page = 2
 
-        org_increase_to, CommentBookmark.increase_to = (
+        CommentBookmark._org_increase_to, CommentBookmark.increase_to = (
             CommentBookmark.increase_to, falsy_once_increase_to)
         try:
             increased = CommentBookmark.increase_or_create(
@@ -118,7 +118,8 @@ class CommentBookmarkModelsTest(TestCase):
                 topic=self.topic,
                 comment_number=CommentBookmark.page_to_comment_number(page))
         finally:
-            CommentBookmark.increase_to = org_increase_to
+            CommentBookmark.increase_to = CommentBookmark._org_increase_to
+            del CommentBookmark._org_increase_to
 
         self.assertEqual(calls['count'], 2)
         self.assertTrue(increased)
