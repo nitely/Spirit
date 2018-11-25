@@ -94,6 +94,9 @@ ST_UNIQUE_EMAILS = True
 #: Make emails case insensitive
 ST_CASE_INSENSITIVE_EMAILS = True
 
+#: Make user-names case insensitive
+ST_CASE_INSENSITIVE_USERNAMES = True
+
 # Tests helper
 ST_TESTS_RATELIMIT_NEVER_EXPIRE = False
 

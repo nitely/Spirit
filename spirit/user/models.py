@@ -20,6 +20,7 @@ class UserProfile(models.Model):
         on_delete=models.CASCADE)
 
     slug = AutoSlugField(populate_from="user.username", db_index=False, blank=True)
+    nickname = models.CharField(_("nickname"), max_length=255)
     location = models.CharField(_("location"), max_length=75, blank=True)
     last_seen = models.DateTimeField(_("last seen"), auto_now=True)
     last_ip = models.GenericIPAddressField(_("last ip"), blank=True, null=True)
