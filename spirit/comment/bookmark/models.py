@@ -81,23 +81,15 @@ class CommentBookmark(models.Model):
         if comment_number is None:
             return False
 
-        increased = cls.increase_to(
+        kwargs = dict(
             user=user,
             topic=topic,
             comment_number=comment_number)
-        if increased:
+        if cls.increase_to(**kwargs):
             return True
-
         try:
             with transaction.atomic():
-                cls.objects.create(
-                    user=user,
-                    topic=topic,
-                    comment_number=comment_number)
+                cls.objects.create(**kwargs)
+                return True
         except IntegrityError:
-            return cls.increase_to(
-                user=user,
-                topic=topic,
-                comment_number=comment_number)
-        else:
-            return True
+            return cls.increase_to(**kwargs)
