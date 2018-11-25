@@ -1,50 +1,50 @@
 {% load spirit_tags i18n %}
 
-    <div class="comments">
+<div class="comments">
 
-        {% for c in comments %}
+  {% for c in comments %}
 
-            <div class="comment">
+    <div class="comment">
 
-                <div class="comment-media">
-                    <div class="comment-img">
-                        <img class="comment-avatar" src="{% get_gravatar_url user=c.user size=50 %}" />
-                    </div>
+      <div class="comment-media">
+        <div class="comment-img">
+          <img class="comment-avatar" src="{% get_gravatar_url user=c.user size=50 %}" />
+        </div>
 
-                    <div class="comment-body">
-                        <div class="comment-info">
+        <div class="comment-body">
+          <div class="comment-info">
 
-                            <div class="comment-username">
-                                <a href="{{ c.user.st.get_absolute_url }}">{{ c.user.username }}</a>
-                            </div>
-
-                            <ul class="comment-date">
-                                <li><a href="{{ c.get_absolute_url }}"><i class="fa fa-comments"></i> {{ c.topic.title }}</a></li><!--
-			                 --><li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
-                            </ul>
-
-                        </div>
-
-                        <div class="comment-text">
-                            {% post_render_comment comment=c %}
-                        </div>
-                    </div>
-                </div>
+            <div class="comment-username">
+              <a href="{{ c.user.st.get_absolute_url }}">{{ c.user.username }}</a>
             </div>
 
-        {% empty %}
-            <p>{% trans "There are no comments here, yet" %}</p>
-        {% endfor %}
+            {% spaceless %}
+            <ul class="comment-date">
+              <li>
+                <a href="{{ c.get_absolute_url }}">
+                  <i class="fa fa-comments"></i> {{ c.topic.title }}</a>
+              </li>
+              <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+            </ul>
+            {% endspaceless %}
 
+          </div>
+
+          <div class="comment-text">
+            {% post_render_comment comment=c %}
+          </div>
+        </div>
+      </div>
     </div>
 
+    {% empty %}
+    <p>{% trans "There are no comments here, yet" %}</p>
+  {% endfor %}
 
-    <script>
+</div>
 
-	document.addEventListener('DOMContentLoaded', function() {
-
-        hljs.initHighlightingOnLoad();
-
-	});
-
-	</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    hljs.initHighlightingOnLoad();
+  });
+</script>

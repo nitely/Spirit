@@ -6,14 +6,20 @@
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Unread topics replies" %}</h1>
+  <h1 class="headline">{% trans "Unread topics replies" %}</h1>
 
-    {% include "spirit/topic/_render_list.html" with topics=page %}
+  {% include "spirit/topic/_render_list.html" with topics=page %}
 
-    {% if page.has_next %}
-        <ul class="paginator">
-            <li><a class="paginator-button" href="?topic={{ next_page_pk }}">{% trans "Next" %} <i class="fa fa-chevron-right"></i></a></li>
-        </ul>
-    {% endif %}
+  {% if page.has_next %}
+    {% spaceless %}
+      <ul class="paginator">
+        <li>
+          <a class="paginator-button"
+            href="?topic={{ next_page_pk }}"
+          >{% trans "Next" %} <i class="fa fa-chevron-right"></i></a>
+        </li>
+      </ul>
+    {% endspaceless %}
+  {% endif %}
 
 {% endblock %}

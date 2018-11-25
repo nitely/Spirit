@@ -179,10 +179,11 @@ class CommentFileForm(forms.Form):
 
         if mime is None:
             raise forms.ValidationError(
-                _("Unsupported file extension %s. Supported extensions are %s." % (
-                    ext,
-                    ", ".join(
-                        sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys())))))
+                _("Unsupported file extension %(extension)s. "
+                  "Supported extensions are %(supported)s.") % {
+                    'extension': ext,
+                    'supported': ", ".join(
+                        sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))})
 
         try:
             if isinstance(file, TemporaryUploadedFile):
@@ -195,10 +196,11 @@ class CommentFileForm(forms.Form):
 
         if mime != file_mime:
             raise forms.ValidationError(
-                _("Unsupported file mime type %s. Supported types are %s." % (
-                    file_mime,
-                    ", ".join(
-                        sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values())))))
+                _("Unsupported file mime type %(mime)s. "
+                  "Supported types are %(supported)s.") % {
+                    'mime': file_mime,
+                    'supported': ", ".join(
+                        sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values()))})
 
         return file
 

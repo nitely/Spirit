@@ -6,10 +6,10 @@
 
 {% block content %}
 
-    {% include "spirit/user/_profile.html" with active_tab=0 %}
+  {% include "spirit/user/_profile.html" with active_tab=0 %}
 
-    {% include "spirit/user/_render_comments_list.html" %}
+  {% include "spirit/user/_render_comments_list.html" %}
 
-    {% render_paginator comments %}
+  {% render_paginator comments %}
 
 {% endblock %}

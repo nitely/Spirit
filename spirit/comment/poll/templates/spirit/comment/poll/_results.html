@@ -1,48 +1,50 @@
 {% load spirit_tags i18n %}
 
 <div class="comment-poll" id="p{{ poll.pk }}">
-    {% if poll.title %}
-        <div class="poll_title">
-            {{ poll.title|safe }}
-        </div>
-    {% endif %}
-
-    <div class="poll-choices">
-        <ul>
-            {% for choice in poll.choices %}
-                <li class="poll-choice">
-                    <div class="choice-description">
-                        {% blocktrans trimmed with choice=choice.description|safe percentage=choice.votes_percentage|floatformat:"0"  %}{{ choice }}, {{ percentage }}%{% endblocktrans %}
-                        {% if choice.vote_count %}
-                            <a href="{% url "spirit:comment:poll:voters" pk=choice.pk %}">{% trans "View voters" %}</a>
-                        {% endif %}
-                    </div>
-                    <div class="choice-bar" style="width:{{ choice.votes_percentage|floatformat:"0" }}%;"></div>
-                </li>
-            {% endfor %}
-        </ul>
+  {% if poll.title %}
+    <div class="poll_title">
+      {{ poll.title|safe }}
     </div>
+  {% endif %}
 
-    <div class="poll-note">
-        {% trans "Votes" %}: {{ poll.total_votes }}.
-    </div>
+  <div class="poll-choices">
+    <ul>
+      {% for choice in poll.choices %}
+        <li class="poll-choice">
+          <div class="choice-description">
+            {% blocktrans trimmed with choice=choice.description|safe percentage=choice.votes_percentage|floatformat:"0"  %}
+              {{ choice }}, {{ percentage }}%
+            {% endblocktrans %}
+            {% if choice.vote_count %}
+              <a href="{% url "spirit:comment:poll:voters" pk=choice.pk %}">{% trans "View voters" %}</a>
+            {% endif %}
+          </div>
+          <div class="choice-bar" style="width:{{ choice.votes_percentage|floatformat:"0" }}%;"></div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 
-    {% if not poll.is_closed %}
-        <a class="poll-action" href="?{% to_query_params show_poll=show_poll %}#p{{ poll.pk }}">
-            <i class="fa fa-eye"></i> {% trans "Show vote choices" %}
-        </a>
+  <div class="poll-note">
+    {% trans "Votes" %}: {{ poll.total_votes }}.
+  </div>
+
+  {% if not poll.is_closed %}
+    <a class="poll-action" href="?{% to_query_params show_poll=show_poll %}#p{{ poll.pk }}">
+      <i class="fa fa-eye"></i> {% trans "Show vote choices" %}
+    </a>
+  {% endif %}
+
+  {% if user.is_authenticated and user.pk == comment.user.pk %}
+    {% if poll.is_closed %}
+      <a class="poll-action js-post" href="{% url "spirit:comment:poll:open" pk=poll.pk %}">
+        <i class="fa fa-unlock"></i> {% trans "open" %}
+      </a>
+    {% else %}
+      <a class="poll-action js-post" href="{% url "spirit:comment:poll:close" pk=poll.pk %}">
+        <i class="fa fa-lock"></i> {% trans "close" %}
+      </a>
     {% endif %}
-
-    {% if user.is_authenticated and user.pk == comment.user.pk %}
-        {% if poll.is_closed %}
-            <a class="poll-action js-post" href="{% url "spirit:comment:poll:open" pk=poll.pk %}">
-                <i class="fa fa-unlock"></i> {% trans "open" %}
-            </a>
-        {% else %}
-            <a class="poll-action js-post" href="{% url "spirit:comment:poll:close" pk=poll.pk %}">
-                <i class="fa fa-lock"></i> {% trans "close" %}
-            </a>
-        {% endif %}
-    {% endif %}
+  {% endif %}
 </div>
 

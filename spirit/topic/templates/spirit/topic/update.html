@@ -6,13 +6,13 @@
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Update topic" %}</h1>
-    
-    <form action="." method="post">
-        {% csrf_token %}
-        {% include "spirit/_form.html" %}
+  <h1 class="headline">{% trans "Update topic" %}</h1>
 
-        <input class="button" type="submit" name="post" value="{% trans "Update" %}" />
-    </form>
+  <form action="." method="post">
+    {% csrf_token %}
+    {% include "spirit/_form.html" %}
+
+    <input class="button" type="submit" name="post" value="{% trans "Update" %}" />
+  </form>
 
 {% endblock %}

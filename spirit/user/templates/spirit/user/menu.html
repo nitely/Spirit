@@ -8,19 +8,35 @@
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Menu" %}</h1>
+  <h1 class="headline">{% trans "Menu" %}</h1>
 
+  {% spaceless %}
     <ul class="menu">
-         <li><a class="menu-link" href="{% url "spirit:user:detail" pk=user.pk slug=user.st.slug %}">{% trans "Profile" %}</a></li>
-         <li><a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "Topics" %}</a></li>
-         <li><a class="menu-link" href="{% url "spirit:topic:unread:index" %}">{% trans "Unread topics" %}</a></li>
-         <li><a class="menu-link" href="{% url "spirit:topic:private:index" %}">{% trans "Private topics" %}</a></li>
+      <li>
+        <a class="menu-link"
+          href="{% url "spirit:user:detail" pk=user.pk slug=user.st.slug %}"
+        >{% trans "Profile" %}</a>
+      </li>
+      <li>
+        <a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "Topics" %}</a>
+      </li>
+      <li>
+        <a class="menu-link" href="{% url "spirit:topic:unread:index" %}">{% trans "Unread topics" %}</a>
+      </li>
+      <li>
+        <a class="menu-link" href="{% url "spirit:topic:private:index" %}">{% trans "Private topics" %}</a>
+      </li>
 
-        {% if user.st.is_administrator %}
-            <li><a class="menu-link" href="{% url "spirit:admin:index" %}">{% trans "Admin" %}</a></li>
-        {% endif %}
+      {% if user.st.is_administrator %}
+        <li>
+          <a class="menu-link" href="{% url "spirit:admin:index" %}">{% trans "Admin" %}</a>
+        </li>
+      {% endif %}
 
-         <li><a class="menu-link js-post" href="{% url "spirit:user:auth:logout" %}">{% trans "Log out" %}</a></li>
+      <li>
+        <a class="menu-link js-post" href="{% url "spirit:user:auth:logout" %}">{% trans "Log out" %}</a>
+      </li>
     </ul>
+  {% endspaceless %}
 
 {% endblock %}

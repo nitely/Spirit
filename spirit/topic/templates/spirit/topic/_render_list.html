@@ -1,58 +1,64 @@
 {% load spirit_tags i18n %}
 
 {# topic list #}
-        <div class="rows">
+<div class="rows">
 
-        {% for t in topics %}
-			<div class="row">
+  {% for t in topics %}
+    <div class="row">
 
-                <div class="row-title">
-                    {% if t.is_pinned or t.is_globally_pinned %}
-                        <i class="fa fa-thumb-tack"></i>
-                    {% endif %}
-                    {% if t.is_closed %}
-                        <i class="fa fa-lock"></i>
-                    {% endif %}
+      <div class="row-title">
+        {% if t.is_pinned or t.is_globally_pinned %}
+          <i class="fa fa-thumb-tack"></i>
+        {% endif %}
+        {% if t.is_closed %}
+          <i class="fa fa-lock"></i>
+        {% endif %}
 
-                    <a class="row-link{% if t.is_visited %} is-visited{% endif %}" href="{{ t.get_bookmark_url }}">{{ t.title }}</a>
-                </div>
-                <div class="row-info">
-                    <div>
+        <a class="row-link{% if t.is_visited %} is-visited{% endif %}"
+          href="{{ t.get_bookmark_url }}"
+        >{{ t.title }}</a>
+      </div>
+      {% spaceless %}
+        <div class="row-info">
+          <div>
+            {% if show_subcategory %}
+              <a {% if t.category.color %}style="color: {{ t.category.color }};"{% endif %}
+                href="{{ t.category.get_absolute_url }}"
+              >{{ t.category.title }}</a>
+            {% else %}
+              {% if t.category.parent %}
+                <a {% if t.category.parent.color %}style="color: {{ t.category.parent.color }};"{% endif %}
+                  href="{{ t.category.parent.get_absolute_url }}"
+                >{{ t.category.parent.title }}</a>
+              {% else %}
+                <a {% if t.category.color %}style="color: {{ t.category.color }};"{% endif %}
+                  href="{{ t.category.get_absolute_url }}"
+                >{{ t.category.title }}</a>
+              {% endif %}
+            {% endif %}
+          </div>
 
+          <div><i class="fa fa-comment{% if t.has_new_comments %} js-comment-is-new{% endif %}"
+          ></i> {{ t.comment_count }}</div>
 
-                        {% if show_subcategory %}
-                            <a {% if t.category.color %}style="color: {{ t.category.color }};"{% endif %} href="{{ t.category.get_absolute_url }}">
-                                {{ t.category.title }}
-                            </a>
-                        {% else %}
-                            {% if t.category.parent %}
-                                <a {% if t.category.parent.color %}style="color: {{ t.category.parent.color }};"{% endif %} href="{{ t.category.parent.get_absolute_url }}">
-                                    {{ t.category.parent.title }}
-                                </a>
-                            {% else %}
-                                <a {% if t.category.color %}style="color: {{ t.category.color }};"{% endif %} href="{{ t.category.get_absolute_url }}">
-                                    {{ t.category.title }}
-                                </a>
-                            {% endif %}
-                        {% endif %}
-                    </div><!--
-                    --><div><i class="fa fa-comment{% if t.has_new_comments %} js-comment-is-new{% endif %}"></i> {{ t.comment_count }}</div><!--
-                 --><div title="{{ t.last_active }}"><i class="fa fa-clock-o"></i> {{ t.last_active|shortnaturaltime }}</div>
-                </div>
+          <div title="{{ t.last_active }}"><i class="fa fa-clock-o"
+          ></i> {{ t.last_active|shortnaturaltime }}</div>
+        </div>
+      {% endspaceless %}
 
-			</div>
-        {% empty %}
-            <p>{% trans "There are no topics here, yet" %}</p>
-        {% endfor %}
+    </div>
+    {% empty %}
+    <p>{% trans "There are no topics here, yet" %}</p>
+  {% endfor %}
 
-		</div>
+</div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // .is_new depends on js (bookmarks)
-        document.querySelectorAll('.js-comment-is-new')
-                .forEach(function(elm) {
-                    elm.classList.add('is-new');
-                });
-    });
+  document.addEventListener('DOMContentLoaded', function() {
+    // .is_new depends on js (bookmarks)
+    document.querySelectorAll('.js-comment-is-new')
+      .forEach(function(elm) {
+        elm.classList.add('is-new');
+      });
+  });
 </script>

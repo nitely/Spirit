@@ -6,20 +6,23 @@
 
 {% block content %}
 
-    {% include "spirit/topic/private/_top_bar.html" with active="left" %}
+  {% include "spirit/topic/private/_top_bar.html" with active="left" %}
 
-    <div class="rows">
+  <div class="rows">
 
-        {% for t in topics %}
-            <div class="row">
-                <a href="{% url "spirit:topic:private:join" topic_id=t.pk %}">{{ t.title }}</a> <a class="row-edit js-post" href="{% url "spirit:topic:private:join" topic_id=t.pk %}"><i class="fa fa-users"></i> {% trans "join" %}</a>
-            </div>
-        {% empty %}
-            <p>{% trans "There are no topics here, yet" %}</p>
-        {% endfor %}
+    {% for t in topics %}
+      <div class="row">
+        <a href="{% url "spirit:topic:private:join" topic_id=t.pk %}">{{ t.title }}</a>
+        <a class="row-edit js-post"
+          href="{% url "spirit:topic:private:join" topic_id=t.pk %}"
+        ><i class="fa fa-users"></i> {% trans "join" %}</a>
+      </div>
+      {% empty %}
+      <p>{% trans "There are no topics here, yet" %}</p>
+    {% endfor %}
 
-    </div>
+  </div>
 
-    {% render_paginator topics %}
+  {% render_paginator topics %}
 
 {% endblock %}

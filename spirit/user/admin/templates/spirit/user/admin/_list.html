@@ -4,11 +4,14 @@
 
 <div class="rows">
 
-    {% for u in users %}
-        <div class="row">
-            <a href="{{ u.st.get_absolute_url }}">{{ u.username }}</a> <a class="row-edit" href="{% url "spirit:admin:user:edit" user_id=u.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
-        </div>
-    {% endfor %}
+  {% for u in users %}
+    <div class="row">
+      <a href="{{ u.st.get_absolute_url }}">{{ u.username }}</a>
+      <a class="row-edit"
+        href="{% url "spirit:admin:user:edit" user_id=u.pk %}"
+      ><i class="fa fa-cog"></i> {% trans "edit" %}</a>
+    </div>
+  {% endfor %}
 
 </div>
 

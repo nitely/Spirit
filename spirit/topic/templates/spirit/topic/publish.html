@@ -5,40 +5,36 @@
 {% block title %}{% trans "Publish topic" %}{% endblock %}
 
 {% block head-extra %}
-    <script>
-
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
-
-        stModules.store(
-            document.querySelector('textarea'),
-            'topic_publish_comment'
-        );
-
-	});
-
-	</script>
+      stModules.store(
+        document.querySelector('textarea'),
+        'topic_publish_comment'
+      );
+    });
+  </script>
 {% endblock %}
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Publish topic" %}</h1>
+  <h1 class="headline">{% trans "Publish topic" %}</h1>
 
-    <form action="." method="post" class="js-reply">
-        {% csrf_token %}
+  <form action="." method="post" class="js-reply">
+    {% csrf_token %}
 
-        {# topic #}
-        {% include "spirit/_form.html" %}
+    {# topic #}
+    {% include "spirit/_form.html" %}
 
-        {# comment #}
-        <div class="topic-publish-comment">
-            {% include "spirit/_form.html" with form=cform %}
-        </div>
+    {# comment #}
+    <div class="topic-publish-comment">
+      {% include "spirit/_form.html" with form=cform %}
+    </div>
 
-        <div class="container">
-            {% include "spirit/comment/_editor.html" %}
+    <div class="container">
+      {% include "spirit/comment/_editor.html" %}
 
-            <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
-        </div>
-    </form>
+      <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
+    </div>
+  </form>
 
 {% endblock %}

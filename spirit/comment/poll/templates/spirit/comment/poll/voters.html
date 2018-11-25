@@ -6,22 +6,24 @@
 
 {% block content %}
 
-    <h1 class="headline">
-        {% blocktrans trimmed with choice_description=choice.description %}Voters for {{ choice_description }}{% endblocktrans %}
-    </h1>
+  <h1 class="headline">
+    {% blocktrans trimmed with choice_description=choice.description %}
+      Voters for {{ choice_description }}
+    {% endblocktrans %}
+  </h1>
 
-    <div class="rows">
+  <div class="rows">
 
-        {% for v in votes %}
-            <div class="row">
-                <a href="{{ v.voter.st.get_absolute_url }}">{{ v.voter.username }}</a>
-                <span class="row-edit" title="{{ v.created_at }}"><i class="fa fa-clock-o"></i> {{ v.created_at|shortnaturaltime }}</span>
-            </div>
-        {% endfor %}
+    {% for v in votes %}
+      <div class="row">
+        <a href="{{ v.voter.st.get_absolute_url }}">{{ v.voter.username }}</a>
+        <span class="row-edit" title="{{ v.created_at }}"><i class="fa fa-clock-o"></i> {{ v.created_at|shortnaturaltime }}</span>
+      </div>
+    {% endfor %}
 
-    </div>
+  </div>
 
-    {% render_paginator votes %}
+  {% render_paginator votes %}
 
 {% endblock %}
 
