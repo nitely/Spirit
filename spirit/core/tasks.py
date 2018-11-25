@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from .conf import settings
+from __future__ import unicode_literals
+
+from django.conf import settings
+from django.db import transaction
 
 try:
     # TODO: remove this try block.
@@ -15,7 +18,13 @@ if not hasattr(settings, 'BROKER_URL'):
         return f
 
 
-@task
+def post_commit_task(t):
+    def post_commit_task_inner(*args, **kwargs):
+        transaction.on_commit(lambda: t.delay(*args, **kwargs))
+    return post_commit_task_inner
+
+
+@post_commit_task
 def send_notification():
     pass
 
