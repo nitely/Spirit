@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from django.db import models
+from django.db import models, transaction, IntegrityError
 from django.utils.translation import ugettext_lazy as _
 
 from djconfig import config
@@ -53,16 +53,51 @@ class CommentBookmark(models.Model):
         return config.comments_per_page * (page_number - 1) + 1
 
     @classmethod
-    def update_or_create(cls, user, topic, comment_number):
+    def increase_to(cls, user, topic, comment_number):
+        """
+        Increment to comment_number if it's greater \
+        than the current one. Return ``True`` if \
+        bookmark was updated, return ``False`` otherwise
+        """
+        assert user.is_authenticated
+        return bool(
+            cls.objects
+            .filter(
+                user=user,
+                topic=topic,
+                comment_number__lt=comment_number)
+            .update(comment_number=comment_number))
+
+    @classmethod
+    def increase_or_create(cls, user, topic, comment_number):
+        """
+        Increment to comment_number if it's greater \
+        than the current one. Return ``True`` if \
+        bookmark was updated/created, return ``False`` \
+        otherwise. This operation is atomic
+        """
         if not user.is_authenticated:
-            return
-
+            return False
         if comment_number is None:
-            return
+            return False
 
-        bookmark, created = cls.objects.update_or_create(
+        increased = cls.increase_to(
             user=user,
             topic=topic,
-            defaults={'comment_number': comment_number})
+            comment_number=comment_number)
+        if increased:
+            return True
 
-        return bookmark
+        try:
+            with transaction.atomic():
+                cls.objects.create(
+                    user=user,
+                    topic=topic,
+                    comment_number=comment_number)
+        except IntegrityError:
+            return cls.increase_to(
+                user=user,
+                topic=topic,
+                comment_number=comment_number)
+        else:
+            return True
