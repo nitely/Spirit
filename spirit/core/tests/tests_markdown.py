@@ -115,7 +115,9 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = "text\nnew line"
         quote = quotify(comment, self.user)
-        self.assertListEqual(quote.splitlines(), ("> @%s said:\n> text\n> new line\n\n" % self.user.username).splitlines())
+        self.assertListEqual(
+            quote.splitlines(),
+            ("> @%s said:\n> text\n> new line\n\n" % self.user.st.nickname).splitlines())
 
     @override_settings(LANGUAGE_CODE='en')
     def test_markdown_quote_header_language(self):
@@ -127,7 +129,9 @@ class UtilsMarkdownTests(TestCase):
         quote = quotify(comment, self.user)
 
         with translation.override('es'):
-            self.assertListEqual(quote.splitlines(), ("> @%s said:\n> \n\n" % self.user.username).splitlines())
+            self.assertListEqual(
+                quote.splitlines(),
+                ("> @%s said:\n> \n\n" % self.user.st.nickname).splitlines())
 
     @override_settings(LANGUAGE_CODE='en')
     def test_markdown_quote_no_polls(self):
@@ -145,7 +149,9 @@ class UtilsMarkdownTests(TestCase):
                   "2. opt 2\n" \
                   "[/poll]"
         quote = quotify(comment, self.user)
-        self.assertListEqual(quote.splitlines(), ("> @%s said:\n> foo\n> \n> bar\n\n" % self.user.username).splitlines())
+        self.assertListEqual(
+            quote.splitlines(),
+            ("> @%s said:\n> foo\n> \n> bar\n\n" % self.user.username).splitlines())
 
     def test_markdown_image(self):
         """

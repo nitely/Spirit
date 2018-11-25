@@ -244,10 +244,13 @@ class CommentViewTest(TestCase):
         """
         utils.login(self)
         comment = utils.create_comment(topic=self.topic)
-        response = self.client.get(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk,
-                                                                             'pk': comment.pk}))
-        self.assertEqual(response.context['form'].initial['comment'],
-                         markdown.quotify(comment.comment, comment.user.username))
+        response = self.client.get(
+            reverse('spirit:comment:publish', kwargs={
+                'topic_id': self.topic.pk,
+                'pk': comment.pk}))
+        self.assertEqual(
+            response.context['form'].initial['comment'],
+            markdown.quotify(comment.comment, comment.user.username))
 
     def test_comment_publish_next(self):
         """
@@ -255,8 +258,9 @@ class CommentViewTest(TestCase):
         """
         utils.login(self)
         form_data = {'comment': 'foobar', 'next': '/fakepath/'}
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
+            form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
 
     def test_comment_update(self):
@@ -275,8 +279,9 @@ class CommentViewTest(TestCase):
 
         # next
         form_data.update({'next': '/fakepath/', })
-        response = self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
+            form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
 
     def test_comment_update_not_moderator(self):
@@ -288,8 +293,9 @@ class CommentViewTest(TestCase):
 
         utils.login(self)
         form_data = {'comment': 'barfoo', }
-        response = self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
+            form_data)
         self.assertEqual(response.status_code, 404)
 
     def test_comment_update_moderator(self):
@@ -302,8 +308,9 @@ class CommentViewTest(TestCase):
 
         utils.login(self)
         form_data = {'comment': 'barfoo', }
-        response = self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
+            form_data)
         expected_url = reverse('spirit:comment:find', kwargs={'pk': comment.pk, })
         self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(Comment.objects.get(pk=comment.pk).comment, 'barfoo')
@@ -330,8 +337,9 @@ class CommentViewTest(TestCase):
         utils.login(self)
         comment_posted = utils.create_comment(user=self.user, topic=self.topic)
         form_data = {'comment': 'my comment, oh!', }
-        self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment_posted.pk, }),
-                         form_data)
+        self.client.post(
+            reverse('spirit:comment:update', kwargs={'pk': comment_posted.pk, }),
+            form_data)
         self.assertEqual(Comment.objects.get(pk=comment_posted.pk).modified_count, 1)
 
     def test_comment_update_history(self):

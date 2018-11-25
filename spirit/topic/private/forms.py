@@ -9,7 +9,10 @@ from django.utils.encoding import smart_bytes
 
 from ...core.conf import settings
 from ...core import utils
-from ...core.utils.widgets import MultipleInput
+from ...core.utils.widgets import (
+    MultipleInput,
+    CIMultipleInput,
+    CITextInput)
 from ...topic.models import Topic
 from ...category.models import Category
 from .models import TopicPrivate
@@ -61,6 +64,11 @@ class TopicForPrivateForm(forms.ModelForm):
         return super(TopicForPrivateForm, self).save(commit)
 
 
+CxMultipleInput = MultipleInput
+if settings.ST_CASE_INSENSITIVE_USERNAMES:
+    CxMultipleInput = CIMultipleInput
+
+
 class TopicPrivateManyForm(forms.Form):
 
     # Only good for create
@@ -68,7 +76,7 @@ class TopicPrivateManyForm(forms.Form):
         label=_("Invite users"),
         queryset=User.objects.all(),
         to_field_name=User.USERNAME_FIELD,
-        widget=MultipleInput(attrs={'placeholder': _("user1, user2, ...")}))
+        widget=CxMultipleInput(attrs={'placeholder': _("user1, user2, ...")}))
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super(TopicPrivateManyForm, self).__init__(*args, **kwargs)
@@ -91,17 +99,24 @@ class TopicPrivateManyForm(forms.Form):
     def save_m2m(self):
         users = self.cleaned_data['users']
         # Since the topic was just created this should not raise an exception
-        return TopicPrivate.objects.bulk_create([TopicPrivate(user=user, topic=self.topic)
-                                                 for user in users])
+        return TopicPrivate.objects.bulk_create(
+            [TopicPrivate(user=user, topic=self.topic)
+             for user in users])
+
+
+CxTextInput = forms.TextInput
+if settings.ST_CASE_INSENSITIVE_USERNAMES:
+    CxTextInput = CITextInput
 
 
 class TopicPrivateInviteForm(forms.ModelForm):
 
     # Only good for create
-    user = forms.ModelChoiceField(queryset=User.objects.all(),
-                                  to_field_name=User.USERNAME_FIELD,
-                                  widget=forms.TextInput(attrs={'placeholder': _("username"), }),
-                                  label=_("Invite user"))
+    user = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        to_field_name=User.USERNAME_FIELD,
+        widget=CxTextInput(attrs={'placeholder': _("username")}),
+        label=_("Invite user"))
 
     def __init__(self, topic=None, *args, **kwargs):
         super(TopicPrivateInviteForm, self).__init__(*args, **kwargs)
@@ -114,13 +129,14 @@ class TopicPrivateInviteForm(forms.ModelForm):
     def clean_user(self):
         user = self.cleaned_data['user']
 
-        private = TopicPrivate.objects.filter(user=user,
-                                              topic=self.topic)
+        private = TopicPrivate.objects.filter(
+            user=user, topic=self.topic)
 
         if private.exists():
             # Do this since some of the unique_together fields are excluded.
-            raise forms.ValidationError(_("%(username)s is already a participant") %
-                                        {'username': getattr(user, user.USERNAME_FIELD), })
+            raise forms.ValidationError(
+                _("%(username)s is already a participant") %
+                {'username': user.st.nickname})
 
         return user
 
@@ -148,13 +164,14 @@ class TopicPrivateJoinForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(TopicPrivateJoinForm, self).clean()
 
-        private = TopicPrivate.objects.filter(user=self.user,
-                                              topic=self.topic)
+        private = TopicPrivate.objects.filter(
+            user=self.user, topic=self.topic)
 
         if private.exists():
             # Do this since some of the unique_together fields are excluded.
-            raise forms.ValidationError(_("%(username)s is already a participant") %
-                                        {'username': getattr(self.user, self.user.USERNAME_FIELD), })
+            raise forms.ValidationError(
+                _("%(username)s is already a participant") %
+                {'username': self.user.st.nickname})
 
         return cleaned_data
 

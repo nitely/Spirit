@@ -22,6 +22,7 @@ def make_usernames_lower(apps, schema_editor):
     User = apps.get_model(settings.AUTH_USER_MODEL)
 
     if settings.ST_CASE_INSENSITIVE_USERNAMES:
+        # XXX catch integrity error and show a descriptive message
         User.objects.all().update(
             username=Lower('username'))
 

@@ -46,7 +46,7 @@ def publish(request, topic_id, pk=None):
 
         if pk:  # todo: move to form
             comment = get_object_or_404(Comment.objects.for_access(user=user), pk=pk)
-            quote = markdown.quotify(comment.comment, comment.user.username)
+            quote = markdown.quotify(comment.comment, comment.user.st.nickname)
             initial = {'comment': quote}
 
         form = CommentForm(initial=initial)
