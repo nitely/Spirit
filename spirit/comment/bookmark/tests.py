@@ -103,10 +103,10 @@ class CommentBookmarkModelsTest(TestCase):
             Wrap a function and make it
             return False on the first call
             """
-            def falsy_once_inner(**kwargs):
+            def falsy_once_inner(*args, **kwargs):
                 calls['count'] += 1
                 if calls['count'] > 1:
-                    return func(**kwargs)
+                    return func(*args, **kwargs)
                 return False
             return falsy_once_inner
 
