@@ -18,27 +18,27 @@ if not hasattr(settings, 'BROKER_URL'):
         return f
 
 
-def post_commit_task(t):
-    def post_commit_task_inner(*args, **kwargs):
+def delayed_task(t):
+    def delayed_task_inner(*args, **kwargs):
         transaction.on_commit(lambda: t.delay(*args, **kwargs))
-    return post_commit_task_inner
+    return delayed_task_inner
 
 
-@post_commit_task
+@delayed_task
 def send_notification():
     pass
 
 
-@task
+@delayed_task
 def backup_database():
     pass
 
 
-@task
+@delayed_task
 def search_index_update():
     pass
 
 
-@task
+@delayed_task
 def clean_sessions():
     pass
