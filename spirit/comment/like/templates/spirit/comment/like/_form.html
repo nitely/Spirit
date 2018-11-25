@@ -1,10 +1,10 @@
 {% if like %}
-    <form action="{% url "spirit:comment:like:delete" like.pk %}" method="post">
+  <form action="{% url "spirit:comment:like:delete" like.pk %}" method="post">
 {% else %}
-    <form action="{% url "spirit:comment:like:create" comment_id %}" method="post">
+  <form action="{% url "spirit:comment:like:create" comment_id %}" method="post">
 {% endif %}
-    {% csrf_token %}
-    {% include "spirit/_form.html" %}
 
-    {# javascript submission #}
+{% csrf_token %}
+{% include "spirit/_form.html" %}
+{# javascript submission #}
 </form>

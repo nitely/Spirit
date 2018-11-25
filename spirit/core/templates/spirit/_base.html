@@ -2,55 +2,55 @@
 {% load static from staticfiles %}
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{% block title %}{% endblock %} - {{ config.site_name }}</title>
-    <meta name="description" content="{{ config.site_description }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} - {{ config.site_name }}</title>
+  <meta name="description" content="{{ config.site_description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{% static "spirit/stylesheets/styles.all.min.css" %}">
+  <link rel="stylesheet" href="{% static "spirit/stylesheets/styles.all.min.css" %}">
 
-    <script src="{% static "spirit/scripts/all.min.js" %}"></script>
+  <script src="{% static "spirit/scripts/all.min.js" %}"></script>
 
-    <script>
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
-        stModules.tab(document.querySelectorAll('.js-tab'));
-        stModules.postify(document.querySelectorAll('.js-post'), {
-            csrfToken: "{{ csrf_token }}"
+      stModules.tab(document.querySelectorAll('.js-tab'));
+      stModules.postify(document.querySelectorAll('.js-post'), {
+        csrfToken: "{{ csrf_token }}"
+      });
+      stModules.messages(document.querySelectorAll('.js-messages'));
+      {% if user.is_authenticated %}
+        stModules.notification(document.querySelectorAll('.js-tab-notification'), {
+          notificationUrl: "{% url "spirit:topic:notification:index-ajax" %}",
+          notificationListUrl: "{% url "spirit:topic:notification:index-unread" %}",
+          mentionTxt: "{% trans "{user} has mention you on {topic}" %}",
+          commentTxt: "{% trans "{user} has commented on {topic}" %}",
+          showAll: "{% trans "Show all" %}",
+          empty: "{% trans "No new notifications, yet" %}",
+          unread: "{% trans "unread" %}"
         });
-        stModules.messages(document.querySelectorAll('.js-messages'));
-        {% if user.is_authenticated %}
-            stModules.notification(document.querySelectorAll('.js-tab-notification'), {
-                notificationUrl: "{% url "spirit:topic:notification:index-ajax" %}",
-                notificationListUrl: "{% url "spirit:topic:notification:index-unread" %}",
-                mentionTxt: "{% trans "{user} has mention you on {topic}" %}",
-                commentTxt: "{% trans "{user} has commented on {topic}" %}",
-                showAll: "{% trans "Show all" %}",
-                empty: "{% trans "No new notifications, yet" %}",
-                unread: "{% trans "unread" %}"
-            });
-        {% endif %}
+      {% endif %}
     });
-	</script>
+  </script>
 
-    {% block head-extra %}{% endblock %}
+  {% block head-extra %}{% endblock %}
 
-    <!--[if (lt IE 9) & (!IEMobile)]>
+  <!--[if (lt IE 9) & (!IEMobile)]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
     <![endif]-->
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    {% include 'spirit/_header.html' %}
-    {% render_messages messages %}
-    {% block content %}{% endblock %}
-    {% include 'spirit/_footer.html' %}
+{% include 'spirit/_header.html' %}
+{% render_messages messages %}
+{% block content %}{% endblock %}
+{% include 'spirit/_footer.html' %}
 
-  </body>
+</body>
 
 </html>

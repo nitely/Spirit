@@ -6,12 +6,12 @@
 
 {% block content %}
 
-    {% include "spirit/topic/notification/_top_bar.html" with active="notifications" %}
+  {% include "spirit/topic/notification/_top_bar.html" with active="notifications" %}
 
-    <div class="rows">
-        {% include "spirit/topic/notification/_render_list.html" %}
-    </div>
+  <div class="rows">
+    {% include "spirit/topic/notification/_render_list.html" %}
+  </div>
 
-    {% render_paginator notifications %}
+  {% render_paginator notifications %}
 
 {% endblock %}

@@ -6,10 +6,10 @@
 
 {% block content %}
 
-    {% include "spirit/topic/_top_bar.html" with category=category categories=subcategories %}
+  {% include "spirit/topic/_top_bar.html" with category=category categories=subcategories %}
 
-    {% include "spirit/topic/_render_list.html" with show_subcategory=True %}
+  {% include "spirit/topic/_render_list.html" with show_subcategory=True %}
 
-    {% render_paginator topics %}
+  {% render_paginator topics %}
 
 {% endblock %}

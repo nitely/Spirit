@@ -6,14 +6,14 @@
 
 {% block content %}
 
-    {% include "spirit/admin/_side_menu.html" with active="topics" %}
+  {% include "spirit/admin/_side_menu.html" with active="topics" %}
 
-    <h1 class="headline">{% trans "Pinned topics" %}</h1>
-    
-    {% include "spirit/topic/admin/_tabs.html" with active_tab="pinned" %}
-    
-    {% include "spirit/topic/_render_list.html" %}
+  <h1 class="headline">{% trans "Pinned topics" %}</h1>
 
-    {% render_paginator topics %}
+  {% include "spirit/topic/admin/_tabs.html" with active_tab="pinned" %}
+
+  {% include "spirit/topic/_render_list.html" %}
+
+  {% render_paginator topics %}
 
 {% endblock %}

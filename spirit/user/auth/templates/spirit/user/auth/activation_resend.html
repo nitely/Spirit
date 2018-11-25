@@ -6,15 +6,15 @@
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Resend activation email" %}</h1>
+  <h1 class="headline">{% trans "Resend activation email" %}</h1>
 
-    <div class="login">
-        <form action="." method="post">
-            {% csrf_token %}
-            {% include "spirit/_form.html" %}
+  <div class="login">
+    <form action="." method="post">
+      {% csrf_token %}
+      {% include "spirit/_form.html" %}
 
-            <input class="button" type="submit" name="post" value="{% trans "Resend email" %}" />
-        </form>
-    </div>
+      <input class="button" type="submit" name="post" value="{% trans "Resend email" %}" />
+    </form>
+  </div>
 
 {% endblock %}

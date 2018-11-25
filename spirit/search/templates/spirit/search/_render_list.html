@@ -2,23 +2,25 @@
 
 <div class="rows">
 
-    {% for t in topics %}
-        <div class="row">
+  {% for t in topics %}
+    <div class="row">
 
-            <div class="row-title">
-                <a class="row-link" href="{% url 'spirit:topic:detail' pk=t.pk slug=t.fields.slug %}">
-                    {{ t.fields.title }}
-                </a>
-            </div>
-            <div class="row-info">
-                <div>{{ t.fields.main_category_name }}</div><!--
-                 --><div><i class="fa fa-comment"></i> {{ t.fields.comment_count }}</div><!--
-                 --><div title="{{ t.fields.last_active }}">
-                        <i class="fa fa-clock-o"></i> {{ t.fields.last_active|shortnaturaltime }}
-                    </div>
-            </div>
+      <div class="row-title">
+        <a class="row-link" href="{% url 'spirit:topic:detail' pk=t.pk slug=t.fields.slug %}">
+          {{ t.fields.title }}
+        </a>
+      </div>
+      <div class="row-info">
+        {% spaceless %}
+          <div>{{ t.fields.main_category_name }}</div>
+          <div><i class="fa fa-comment"></i> {{ t.fields.comment_count }}</div>
+          <div title="{{ t.fields.last_active }}">
+            <i class="fa fa-clock-o"></i> {{ t.fields.last_active|shortnaturaltime }}
+          </div>
+        {% endspaceless %}
+      </div>
 
-        </div>
-    {% endfor %}
+    </div>
+  {% endfor %}
 
 </div>

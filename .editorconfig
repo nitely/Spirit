@@ -33,3 +33,7 @@ indent_size = 4
 [{Makefile, makefile, GNUmakefile}]
 indent_style = tab
 indent_size = 4
+
+[*.html]
+indent_style = space
+indent_size = 2

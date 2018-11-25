@@ -6,10 +6,10 @@
 
 {% block content %}
 
-    {% include "spirit/admin/_side_menu.html" with active="users" %}
+  {% include "spirit/admin/_side_menu.html" with active="users" %}
 
-    <h1 class="headline">{% trans "Mods" %}</h1>
+  <h1 class="headline">{% trans "Mods" %}</h1>
 
-    {% include "spirit/user/admin/_list.html" with active_tab="mods" %}
+  {% include "spirit/user/admin/_list.html" with active_tab="mods" %}
 
 {% endblock %}

@@ -6,17 +6,17 @@
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Publishing comment on" %} "{{ topic.title }}"</h1>
-    
-    <form action="." method="post" class="js-reply">
-        {% csrf_token %}
-        {% include "spirit/_form.html" %}
+  <h1 class="headline">{% trans "Publishing comment on" %} "{{ topic.title }}"</h1>
 
-        <div class="container">
-            {% include "spirit/comment/_editor.html" %}
+  <form action="." method="post" class="js-reply">
+    {% csrf_token %}
+    {% include "spirit/_form.html" %}
 
-            <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
-        </div>
-    </form>
+    <div class="container">
+      {% include "spirit/comment/_editor.html" %}
+
+      <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
+    </div>
+  </form>
 
 {% endblock %}

@@ -6,21 +6,24 @@
 
 {% block content %}
 
-    <h1 class="headline">{% trans "Login" %}</h1>
+  <h1 class="headline">{% trans "Login" %}</h1>
 
-    <div class="login">
-        <form action="." method="post">
-            {% csrf_token %}
-            {% include "spirit/_form.html" %}
+  <div class="login">
+    <form action="." method="post">
+      {% csrf_token %}
+      {% include "spirit/_form.html" %}
 
-            <input class="button" type="submit" name="post" value="{% trans "Login" %}" />
-        </form>
-    </div>
+      <input class="button" type="submit" name="post" value="{% trans "Login" %}" />
+    </form>
+  </div>
 
-    <div class="login-links">
-		<a class="login-link" href="{% url "spirit:user:auth:register" %}">{% trans "Create an account" %}</a>
-		<a class="login-link" href="{% url "spirit:user:auth:password-reset" %}">{% trans "I don't know my password" %}</a>
-        <a class="login-link" href="{% url "spirit:user:auth:resend-activation" %}">{% trans "Resend activation email" %}</a>
-	</div>
+  <div class="login-links">
+    <a class="login-link" href="{% url "spirit:user:auth:register" %}"
+    >{% trans "Create an account" %}</a>
+    <a class="login-link" href="{% url "spirit:user:auth:password-reset" %}"
+    >{% trans "I don't know my password" %}</a>
+    <a class="login-link" href="{% url "spirit:user:auth:resend-activation" %}"
+    >{% trans "Resend activation email" %}</a>
+  </div>
 
 {% endblock %}

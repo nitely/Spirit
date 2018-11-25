@@ -3,15 +3,15 @@
 {{ form.non_field_errors }}
 
 {% for field in form.hidden_fields %}
-    {{ field.errors }}
-    {{ field }}
+  {{ field.errors }}
+  {{ field }}
 {% endfor %}
 
 {% for field in form.visible_fields %}
-    <div class="field">
-        {{ field.label_tag }}
-        {{ field.errors }}
-        {{ field }}
-        {{ field.help_text }}
-    </div>
+  <div class="field">
+    {{ field.label_tag }}
+    {{ field.errors }}
+    {{ field }}
+    {{ field.help_text }}
+  </div>
 {% endfor %}

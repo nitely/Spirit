@@ -6,54 +6,53 @@
 
 {% block content %}
 
-    {# todo: add nav bar #}
+  {# todo: add nav bar #}
 
-    <h1 class="headline">{% trans "Comment history" %}</h1>
+  <h1 class="headline">{% trans "Comment history" %}</h1>
 
-    <div class="comments">
+  <div class="comments">
 
-        {% for c in comments %}
-            <div class="comment">
+    {% for c in comments %}
+      <div class="comment">
 
-                <div class="comment-media">
-                    <div class="comment-img">
-                        <img class="comment-avatar" src="{% get_gravatar_url user=c.comment_fk.user size=50 %}" />
-                    </div>
+        <div class="comment-media">
+          <div class="comment-img">
+            <img class="comment-avatar" src="{% get_gravatar_url user=c.comment_fk.user size=50 %}" />
+          </div>
 
-                    <div class="comment-body">
-                        <div class="comment-info">
+          <div class="comment-body">
+            <div class="comment-info">
 
-                            <div class="comment-username">
-                                <a href="{{ c.comment_fk.user.st.get_absolute_url }}">{{ c.comment_fk.user.username }}</a>
-                            </div>
+              <div class="comment-username">
+                <a href="{{ c.comment_fk.user.st.get_absolute_url }}">{{ c.comment_fk.user.username }}</a>
+              </div>
 
-                            <ul class="comment-date">
-                                <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
-                            </ul>
-
-                        </div>
-
-                        <div class="comment-text">
-                            {{ c.comment_html|safe }}
-                        </div>
-                    </div>
-                </div>
+              <ul class="comment-date">
+                <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+              </ul>
 
             </div>
-        {% endfor %}
 
-    </div>
+            <div class="comment-text">
+              {{ c.comment_html|safe }}
+            </div>
+          </div>
+        </div>
 
-    {% render_paginator comments %}
+      </div>
+    {% endfor %}
 
+  </div>
 
-    <script>
+  {% render_paginator comments %}
 
-        document.addEventListener('DOMContentLoaded', function() {
-            hljs.initHighlightingOnLoad();
-            stModules.commentDiff(document.querySelectorAll('.comment-text'));
-        });
+  <script>
 
-    </script>
+    document.addEventListener('DOMContentLoaded', function() {
+      hljs.initHighlightingOnLoad();
+      stModules.commentDiff(document.querySelectorAll('.comment-text'));
+    });
+
+  </script>
 
 {% endblock %}
