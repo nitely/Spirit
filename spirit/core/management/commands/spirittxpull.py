@@ -26,6 +26,6 @@ class Command(BaseCommand):
             raise CommandError('Can\'t find the .tx folder in %s' % (root, ))
 
         with utils.pushd(root):
-            call(["tx", "pull", "-f"])
+            call(["tx", "pull", "--force"])
 
         self.stdout.write('ok')
