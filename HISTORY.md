@@ -1,3 +1,11 @@
+dev
+==================
+
+* Make bookmark save latest place only,
+  going back to a previous page won't
+  update the bookmark anymore (PR #245)
+* Update locales/translations
+
 0.6.2
 ==================
 
