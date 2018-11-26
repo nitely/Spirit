@@ -1,19 +1,18 @@
-#
+# 
 # Translators:
-# Esteban M. Castro Borsani <ecastroborsani@gmail.com>, 2015,2018
+# Esteban Castro Borsani <ecastroborsani@gmail.com>, 2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 16:10+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/"
-"language/es/)\n"
-"Language: es\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:35
@@ -24,69 +23,69 @@ msgstr "Categoria"
 msgid "Choose a category"
 msgstr "Elige una categoria"
 
-#: models.py:29
+#: models.py:34
 msgid "category"
 msgstr "categoria"
 
-#: models.py:31
+#: models.py:37
 msgid "title"
 msgstr "titulo"
 
-#: models.py:33
+#: models.py:39
 msgid "date"
 msgstr "fecha"
 
-#: models.py:34
+#: models.py:40
 msgid "last active"
 msgstr "ultima vez activo"
 
-#: models.py:35
+#: models.py:41
 msgid "reindex at"
 msgstr "re-indexado en"
 
-#: models.py:37
+#: models.py:43
 msgid "pinned"
 msgstr "anclado"
 
-#: models.py:38
+#: models.py:44
 msgid "globally pinned"
 msgstr "anclado globalmente"
 
-#: models.py:39
+#: models.py:45
 msgid "closed"
 msgstr "cerrado"
 
-#: models.py:42
+#: models.py:48
 msgid "views count"
 msgstr "vistos contador"
 
-#: models.py:43
+#: models.py:49
 msgid "comment count"
 msgstr "comentario contador"
 
-#: models.py:49
+#: models.py:55
 msgid "topic"
 msgstr "tema"
 
-#: models.py:50
+#: models.py:56
 msgid "topics"
 msgstr "temas"
 
-#: templates/spirit/topic/_render_list.html:45
+#: templates/spirit/topic/_render_list.html:51
 msgid "There are no topics here, yet"
 msgstr "Aun no hay temas aqui"
 
-#: templates/spirit/topic/_top_bar.html:8
-#: templates/spirit/topic/_top_bar.html:19
+#: templates/spirit/topic/_top_bar.html:14
+#: templates/spirit/topic/_top_bar.html:31
 msgid "All Categories"
 msgstr "Todas las Categorias"
 
-#: templates/spirit/topic/_top_bar.html:17
+#: templates/spirit/topic/_top_bar.html:27
 msgid "All Subcategories"
 msgstr "Todas las Subcategorias"
 
-#: templates/spirit/topic/_top_bar.html:27
-#: templates/spirit/topic/_top_bar.html:29
+#: templates/spirit/topic/_top_bar.html:41
+#: templates/spirit/topic/_top_bar.html:43
 msgid "Create Topic"
 msgstr "Crear Tema"
 
@@ -94,59 +93,59 @@ msgstr "Crear Tema"
 msgid "Latest active topics"
 msgstr "Temas ultima vez activos"
 
-#: templates/spirit/topic/detail.html:10
+#: templates/spirit/topic/detail.html:12
 msgid "Main"
 msgstr "Principal"
 
-#: templates/spirit/topic/detail.html:30 templates/spirit/topic/detail.html:32
+#: templates/spirit/topic/detail.html:42 templates/spirit/topic/detail.html:46
 msgid "edit"
 msgstr "editar"
 
-#: templates/spirit/topic/detail.html:42
+#: templates/spirit/topic/detail.html:61
 msgid "Select comments to move"
 msgstr "Seleccionar comentarios para mover"
 
-#: templates/spirit/topic/detail.html:45
+#: templates/spirit/topic/detail.html:67
 msgid "Undelete topic"
 msgstr "Restaurar tema"
 
-#: templates/spirit/topic/detail.html:47
+#: templates/spirit/topic/detail.html:72
 msgid "Delete topic"
 msgstr "Eliminar tema"
 
-#: templates/spirit/topic/detail.html:51
+#: templates/spirit/topic/detail.html:79
 msgid "Open topic"
 msgstr "Abrir tema"
 
-#: templates/spirit/topic/detail.html:53
+#: templates/spirit/topic/detail.html:84
 msgid "Close topic"
 msgstr "Cerrar tema"
 
-#: templates/spirit/topic/detail.html:57
+#: templates/spirit/topic/detail.html:91
 msgid "Unpin topic"
 msgstr "Desanclar tema"
 
-#: templates/spirit/topic/detail.html:59
+#: templates/spirit/topic/detail.html:96
 msgid "Pin topic"
 msgstr "Anclar tema"
 
-#: templates/spirit/topic/detail.html:63
+#: templates/spirit/topic/detail.html:103
 msgid "Unpin topic globally"
 msgstr "Desanclar discusión globalmente"
 
-#: templates/spirit/topic/detail.html:65
+#: templates/spirit/topic/detail.html:108
 msgid "Pin topic globally"
 msgstr "Anclar discusión globalmente"
 
-#: templates/spirit/topic/detail.html:74
+#: templates/spirit/topic/detail.html:120
 msgid "Topic id"
 msgstr "ID de tema"
 
-#: templates/spirit/topic/detail.html:76
+#: templates/spirit/topic/detail.html:124
 msgid "Move"
 msgstr "Mover"
 
-#: templates/spirit/topic/detail.html:90
+#: templates/spirit/topic/detail.html:139
 msgid "Reply"
 msgstr "Responder"
 
@@ -159,11 +158,12 @@ msgstr "Moderar tema"
 msgid "Apply"
 msgstr "Aplicar"
 
-#: templates/spirit/topic/publish.html:5 templates/spirit/topic/publish.html:21
+#: templates/spirit/topic/publish.html:5
+#: templates/spirit/topic/publish.html:20
 msgid "Publish topic"
 msgstr "Publicar tema"
 
-#: templates/spirit/topic/publish.html:37
+#: templates/spirit/topic/publish.html:36
 msgid "Publish"
 msgstr "Publicar"
 

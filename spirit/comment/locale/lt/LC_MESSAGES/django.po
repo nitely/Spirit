@@ -1,90 +1,91 @@
-#
+# 
 # Translators:
 # sirex <sirexas@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
-"PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/"
-"language/lt/)\n"
-"Language: lt\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2018-11-26 00:01+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-#: forms.py:38
+#: forms.py:39
 msgid "Comment"
 msgstr "Komentaras"
 
-#: forms.py:56
+#: forms.py:57
 msgid "Write comment..."
 msgstr "Rašykite komentarą..."
 
-#: forms.py:146
+#: forms.py:147
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Nepalaikomas failo formatas. Palaikomi formatai: %s."
 
-#: forms.py:173 forms.py:193
+#: forms.py:174 forms.py:195
 msgid "The file could not be validated"
 msgstr ""
 
-#: forms.py:181
+#: forms.py:182
 #, python-format
-msgid "Unsupported file extension %s. Supported extensions are %s."
+msgid ""
+"Unsupported file extension %(extension)s. Supported extensions are "
+"%(supported)s."
 msgstr ""
 
-#: forms.py:197
+#: forms.py:199
 #, python-format
-msgid "Unsupported file mime type %s. Supported types are %s."
+msgid ""
+"Unsupported file mime type %(mime)s. Supported types are %(supported)s."
 msgstr ""
 
-#: models.py:18 models.py:32 models.py:47
+#: models.py:17 models.py:35 models.py:50
 msgid "comment"
 msgstr "komentaras"
 
-#: models.py:19
+#: models.py:18
 msgid "topic moved"
 msgstr "tema perkelta"
 
-#: models.py:20
+#: models.py:19
 msgid "topic closed"
 msgstr "tema uždaryta"
 
-#: models.py:21
+#: models.py:20
 msgid "topic unclosed"
 msgstr "tema atidaryta"
 
-#: models.py:22
+#: models.py:21
 msgid "topic pinned"
 msgstr "tema prisegta"
 
-#: models.py:23
+#: models.py:22
 msgid "topic unpinned"
 msgstr "tema nusegta"
 
-#: models.py:33
+#: models.py:36
 msgid "comment html"
 msgstr "komentaro html"
 
-#: models.py:34
+#: models.py:37
 msgid "action"
 msgstr "veiksmas"
 
-#: models.py:40
+#: models.py:43
 msgid "modified count"
 msgstr "keitimų skaičius"
 
-#: models.py:41
+#: models.py:44
 msgid "likes count"
 msgstr "patinka skaičius"
 
-#: models.py:48
+#: models.py:51
 msgid "comments"
 msgstr "komentarai"
 
@@ -112,85 +113,85 @@ msgstr "Ši tema buvo nusegta"
 msgid "Unknown topic moderation action"
 msgstr "Nežinomas temos moderavimo veiksmas"
 
-#: templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:10
 msgid "Bold"
 msgstr "Pastorintas"
 
-#: templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:15
 msgid "Italic"
 msgstr "Kursyvas"
 
-#: templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:20
 msgid "List"
 msgstr "Sąrašas"
 
-#: templates/spirit/comment/_editor.html:11
+#: templates/spirit/comment/_editor.html:25
 msgid "URL"
 msgstr "Nuoroda"
 
-#: templates/spirit/comment/_editor.html:12
+#: templates/spirit/comment/_editor.html:30
 msgid "Image"
 msgstr "Paveiksliukas"
 
-#: templates/spirit/comment/_editor.html:14
+#: templates/spirit/comment/_editor.html:37
 msgid "File"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:16
+#: templates/spirit/comment/_editor.html:44
 msgid "Poll"
 msgstr "Apklausa"
 
-#: templates/spirit/comment/_editor.html:17
+#: templates/spirit/comment/_editor.html:49
 msgid "Preview"
 msgstr "Peržiūra"
 
-#: templates/spirit/comment/_editor.html:39
-#: templates/spirit/comment/_editor.html:47
+#: templates/spirit/comment/_editor.html:77
+#: templates/spirit/comment/_editor.html:86
 #, python-brace-format
 msgid "uploading {name}"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:52
+#: templates/spirit/comment/_editor.html:92
 msgid "bolded text"
 msgstr "pastorintas tekstas"
 
-#: templates/spirit/comment/_editor.html:53
+#: templates/spirit/comment/_editor.html:93
 msgid "italicised text"
 msgstr "tekstas kursyvu"
 
-#: templates/spirit/comment/_editor.html:54
+#: templates/spirit/comment/_editor.html:94
 msgid "list item"
 msgstr "sąrašo elementas"
 
-#: templates/spirit/comment/_editor.html:55
+#: templates/spirit/comment/_editor.html:95
 msgid "link text"
 msgstr "nuorodos tekstas"
 
-#: templates/spirit/comment/_editor.html:56
+#: templates/spirit/comment/_editor.html:96
 msgid "link url"
 msgstr "nuorodos adresas"
 
-#: templates/spirit/comment/_editor.html:57
+#: templates/spirit/comment/_editor.html:97
 msgid "image text"
 msgstr "paveiksliuko tekstas"
 
-#: templates/spirit/comment/_editor.html:58
+#: templates/spirit/comment/_editor.html:98
 msgid "image url"
 msgstr "paveiksliuko adresas"
 
-#: templates/spirit/comment/_editor.html:59
+#: templates/spirit/comment/_editor.html:99
 msgid "file text"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:60
+#: templates/spirit/comment/_editor.html:100
 msgid "file url"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:61
+#: templates/spirit/comment/_editor.html:101
 msgid "Title"
 msgstr "Antraštė"
 
-#: templates/spirit/comment/_editor.html:62
+#: templates/spirit/comment/_editor.html:102
 msgid "Description"
 msgstr "Apibūdinimas"
 
@@ -200,49 +201,49 @@ msgstr "Apibūdinimas"
 msgid "Publish"
 msgstr "Skelbti"
 
-#: templates/spirit/comment/_render_list.html:47
+#: templates/spirit/comment/_render_list.html:58
 msgid "delete"
 msgstr "trinti"
 
-#: templates/spirit/comment/_render_list.html:50
+#: templates/spirit/comment/_render_list.html:64
 msgid "report"
 msgstr "pranešti"
 
-#: templates/spirit/comment/_render_list.html:53
+#: templates/spirit/comment/_render_list.html:70
 msgid "share"
 msgstr "dalintis"
 
-#: templates/spirit/comment/_render_list.html:57
-#: templates/spirit/comment/_render_list.html:139
+#: templates/spirit/comment/_render_list.html:79
+#: templates/spirit/comment/_render_list.html:195
 msgid "remove like"
 msgstr "nebepatinka"
 
-#: templates/spirit/comment/_render_list.html:60
-#: templates/spirit/comment/_render_list.html:138
+#: templates/spirit/comment/_render_list.html:87
+#: templates/spirit/comment/_render_list.html:194
 msgid "like"
 msgstr "patinka"
 
-#: templates/spirit/comment/_render_list.html:67
+#: templates/spirit/comment/_render_list.html:96
 msgid "edit"
 msgstr "keisti"
 
-#: templates/spirit/comment/_render_list.html:71
+#: templates/spirit/comment/_render_list.html:102
 msgid "quote"
 msgstr "cituoti"
 
-#: templates/spirit/comment/_render_list.html:72
+#: templates/spirit/comment/_render_list.html:105
 msgid "reply"
 msgstr "atsakyti"
 
-#: templates/spirit/comment/_render_list.html:79
+#: templates/spirit/comment/_render_list.html:114
 msgid "close"
 msgstr "uždaryti"
 
-#: templates/spirit/comment/_render_list.html:110
+#: templates/spirit/comment/_render_list.html:163
 msgid "This comment was deleted"
 msgstr "Šis komentaras buvo ištrintas"
 
-#: templates/spirit/comment/_render_list.html:118
+#: templates/spirit/comment/_render_list.html:173
 msgid "undelete"
 msgstr "atstatyti"
 

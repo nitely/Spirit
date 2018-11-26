@@ -1,19 +1,18 @@
-#
+# 
 # Translators:
 # datKater <imperator.katz@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: datKater <imperator.katz@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
-"language/de/)\n"
-"Language: de\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:37
@@ -24,23 +23,23 @@ msgstr "Diese Benachrichtigung existiert bereits"
 msgid "You can't subscribe to a topic with no comments"
 msgstr "Du kannst ein Thema ohne Kommentare nicht abonnieren"
 
-#: models.py:17
+#: models.py:16
 msgid "Undefined"
 msgstr "undefiniert"
 
-#: models.py:18
+#: models.py:17
 msgid "Mention"
 msgstr "erwähnen"
 
-#: models.py:19
+#: models.py:18
 msgid "Comment"
 msgstr "Kommentar"
 
-#: models.py:39
+#: models.py:44
 msgid "topic notification"
 msgstr "Themen-Benachrichtigung"
 
-#: models.py:40
+#: models.py:45
 msgid "topics notification"
 msgstr "Themen-Benachrichtigung"
 
@@ -55,43 +54,41 @@ msgstr "Benachrichtige Mich"
 #: templates/spirit/topic/notification/_render_list.html:9
 #, python-format
 msgid ""
-"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr ""
-"<a href=\"%(url_profile)s\">%(username)s</a> kommentierte zu <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
+"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> kommentierte zu <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:11
+#: templates/spirit/topic/notification/_render_list.html:13
 #, python-format
 msgid ""
-"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr ""
-"<a href=\"%(url_profile)s\">%(username)s</a> erwähnte Dich in <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
+"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> erwähnte Dich in <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:17
+#: templates/spirit/topic/notification/_render_list.html:21
 msgid "unread"
 msgstr "ungelesen"
 
-#: templates/spirit/topic/notification/_render_list.html:21
+#: templates/spirit/topic/notification/_render_list.html:25
 msgid "There are no notifications, yet"
 msgstr "Es sind keine Benachrichtigungen vorhanden, bis jetzt"
 
+#: templates/spirit/topic/notification/_top_bar.html:9
+#: templates/spirit/topic/notification/_top_bar.html:23
 #: templates/spirit/topic/notification/index.html:5
-#: templates/spirit/topic/notification/index.html:9
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
+#: templates/spirit/topic/notification/_top_bar.html:14
+#: templates/spirit/topic/notification/_top_bar.html:28
 #: templates/spirit/topic/notification/index_unread.html:5
-#: templates/spirit/topic/notification/index_unread.html:9
 msgid "Unread notifications"
 msgstr "Ungelesene Benachrichtigungen"
 
-#: templates/spirit/topic/notification/index_unread.html:15
+#: templates/spirit/topic/notification/index_unread.html:14
 msgid "There are no new notifications"
 msgstr "Es sind keine neuen Benachrichtigungen vorhanden"
 
-#: templates/spirit/topic/notification/index_unread.html:22
+#: templates/spirit/topic/notification/index_unread.html:25
 msgid "Next"
 msgstr "nächste"

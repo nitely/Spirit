@@ -1,18 +1,17 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/"
-"language/it/)\n"
-"Language: it\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:13
@@ -29,8 +28,7 @@ msgstr "snippet di piè di pagina"
 
 #: forms.py:17
 msgid "This gets rendered just before the footer in your template."
-msgstr ""
-"Questo viene visualizzato appena prima che il piè di pagina nel template."
+msgstr "Questo viene visualizzato appena prima che il piè di pagina nel template."
 
 #: forms.py:18
 msgid "comments per page"
@@ -40,36 +38,36 @@ msgstr "commenti per pagina"
 msgid "topics per page"
 msgstr "topics per pagina"
 
-#: templates/spirit/admin/_side_menu.html:3
+#: templates/spirit/admin/_side_menu.html:4
 msgid "Show menu"
 msgstr "Mostra menu"
 
-#: templates/spirit/admin/_side_menu.html:9
+#: templates/spirit/admin/_side_menu.html:12
 #: templates/spirit/admin/dashboard.html:5
 #: templates/spirit/admin/dashboard.html:11
 msgid "Dashboard"
 msgstr "Cruscotto"
 
-#: templates/spirit/admin/_side_menu.html:10
+#: templates/spirit/admin/_side_menu.html:16
 msgid "Basic settings"
 msgstr "Impostazioni di base"
 
-#: templates/spirit/admin/_side_menu.html:11
-#: templates/spirit/admin/dashboard.html:47
+#: templates/spirit/admin/_side_menu.html:20
+#: templates/spirit/admin/dashboard.html:49
 msgid "Categories"
 msgstr "Categorie"
 
-#: templates/spirit/admin/_side_menu.html:12
-#: templates/spirit/admin/dashboard.html:31
+#: templates/spirit/admin/_side_menu.html:24
+#: templates/spirit/admin/dashboard.html:33
 msgid "Topics"
 msgstr "Topics"
 
-#: templates/spirit/admin/_side_menu.html:13
+#: templates/spirit/admin/_side_menu.html:28
 msgid "Users"
 msgstr "Utenti"
 
-#: templates/spirit/admin/_side_menu.html:14
-#: templates/spirit/admin/dashboard.html:43
+#: templates/spirit/admin/_side_menu.html:32
+#: templates/spirit/admin/dashboard.html:45
 msgid "Flags"
 msgstr "Segnalazioni"
 
@@ -86,27 +84,27 @@ msgstr "Salva"
 msgid "Software"
 msgstr "Software"
 
-#: templates/spirit/admin/dashboard.html:17
+#: templates/spirit/admin/dashboard.html:18
 msgid "Installed"
 msgstr "Installato"
 
-#: templates/spirit/admin/dashboard.html:18
+#: templates/spirit/admin/dashboard.html:19
 msgid "Latest"
 msgstr "Ultima"
 
-#: templates/spirit/admin/dashboard.html:22
+#: templates/spirit/admin/dashboard.html:24
 msgid "Statistics"
 msgstr "Statistiche"
 
-#: templates/spirit/admin/dashboard.html:27
+#: templates/spirit/admin/dashboard.html:29
 msgid "Members"
 msgstr "Membri"
 
-#: templates/spirit/admin/dashboard.html:35
+#: templates/spirit/admin/dashboard.html:37
 msgid "Comments"
 msgstr "Commenti"
 
-#: templates/spirit/admin/dashboard.html:39
+#: templates/spirit/admin/dashboard.html:41
 msgid "Likes"
 msgstr "Mi Piace"
 

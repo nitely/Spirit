@@ -1,19 +1,18 @@
-#
+# 
 # Translators:
 # Sven Hessenmüller <sven.hessenmueller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Sven Hessenmüller <sven.hessenmueller@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
-"language/de/)\n"
-"Language: de\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:13
@@ -40,36 +39,36 @@ msgstr "Kommentare pro Seite"
 msgid "topics per page"
 msgstr "Themen pro Seite"
 
-#: templates/spirit/admin/_side_menu.html:3
+#: templates/spirit/admin/_side_menu.html:4
 msgid "Show menu"
 msgstr "zeige Menü"
 
-#: templates/spirit/admin/_side_menu.html:9
+#: templates/spirit/admin/_side_menu.html:12
 #: templates/spirit/admin/dashboard.html:5
 #: templates/spirit/admin/dashboard.html:11
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: templates/spirit/admin/_side_menu.html:10
+#: templates/spirit/admin/_side_menu.html:16
 msgid "Basic settings"
 msgstr "Grundeinstellungen"
 
-#: templates/spirit/admin/_side_menu.html:11
-#: templates/spirit/admin/dashboard.html:47
+#: templates/spirit/admin/_side_menu.html:20
+#: templates/spirit/admin/dashboard.html:49
 msgid "Categories"
 msgstr "Kategorien"
 
-#: templates/spirit/admin/_side_menu.html:12
-#: templates/spirit/admin/dashboard.html:31
+#: templates/spirit/admin/_side_menu.html:24
+#: templates/spirit/admin/dashboard.html:33
 msgid "Topics"
 msgstr "Themen"
 
-#: templates/spirit/admin/_side_menu.html:13
+#: templates/spirit/admin/_side_menu.html:28
 msgid "Users"
 msgstr "Benutzer_innen"
 
-#: templates/spirit/admin/_side_menu.html:14
-#: templates/spirit/admin/dashboard.html:43
+#: templates/spirit/admin/_side_menu.html:32
+#: templates/spirit/admin/dashboard.html:45
 msgid "Flags"
 msgstr "Flags"
 
@@ -86,27 +85,27 @@ msgstr "speichern"
 msgid "Software"
 msgstr "Software"
 
-#: templates/spirit/admin/dashboard.html:17
+#: templates/spirit/admin/dashboard.html:18
 msgid "Installed"
 msgstr "installiert"
 
-#: templates/spirit/admin/dashboard.html:18
+#: templates/spirit/admin/dashboard.html:19
 msgid "Latest"
 msgstr "letztes"
 
-#: templates/spirit/admin/dashboard.html:22
+#: templates/spirit/admin/dashboard.html:24
 msgid "Statistics"
 msgstr "Statistik"
 
-#: templates/spirit/admin/dashboard.html:27
+#: templates/spirit/admin/dashboard.html:29
 msgid "Members"
 msgstr "Mitglieder"
 
-#: templates/spirit/admin/dashboard.html:35
+#: templates/spirit/admin/dashboard.html:37
 msgid "Comments"
 msgstr "Kommentare"
 
-#: templates/spirit/admin/dashboard.html:39
+#: templates/spirit/admin/dashboard.html:41
 msgid "Likes"
 msgstr "Likes"
 

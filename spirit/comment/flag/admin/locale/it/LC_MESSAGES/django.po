@@ -1,18 +1,17 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
-"PO-Revision-Date: 2018-01-30 15:41+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/"
-"language/it/)\n"
-"Language: it\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2018-11-26 00:01+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/spirit/comment/flag/admin/_list.html:9
@@ -57,11 +56,15 @@ msgstr "Salva"
 msgid "Comment flagged"
 msgstr "Commento segnalato"
 
-#: templates/spirit/comment/flag/admin/detail.html:54
+#: templates/spirit/comment/flag/admin/detail.html:55
 msgid "delete"
 msgstr "elimina"
 
-#: templates/spirit/comment/flag/admin/detail.html:61
+#: templates/spirit/comment/flag/admin/detail.html:57
+msgid "undelete"
+msgstr "ripristina"
+
+#: templates/spirit/comment/flag/admin/detail.html:65
 msgid "Reporters"
 msgstr "Seganaltori"
 

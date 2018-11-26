@@ -1,19 +1,18 @@
-#
+# 
 # Translators:
-# istvanf <istvan.farkas@gmail.com>, 2015
+# Istvan Farkas <istvan.farkas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: istvanf <istvan.farkas@gmail.com>\n"
-"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
-"language/hu/)\n"
-"Language: hu\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:37
@@ -24,23 +23,23 @@ msgstr "Ez az értesítés már létezik"
 msgid "You can't subscribe to a topic with no comments"
 msgstr "Nem lehet üres témára felíratkozni"
 
-#: models.py:17
+#: models.py:16
 msgid "Undefined"
 msgstr "Érvénytelen"
 
-#: models.py:18
+#: models.py:17
 msgid "Mention"
 msgstr "Említés"
 
-#: models.py:19
+#: models.py:18
 msgid "Comment"
 msgstr "Hozzászólás"
 
-#: models.py:39
+#: models.py:44
 msgid "topic notification"
 msgstr "téma értesítés"
 
-#: models.py:40
+#: models.py:45
 msgid "topics notification"
 msgstr "téma értesítések"
 
@@ -55,43 +54,41 @@ msgstr "Értesítsen"
 #: templates/spirit/topic/notification/_render_list.html:9
 #, python-format
 msgid ""
-"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr ""
-"<a href=\"%(url_profile)s\">%(username)s</a> hozzászólt ehhez: <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
+"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> hozzászólt ehhez: <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:11
+#: templates/spirit/topic/notification/_render_list.html:13
 #, python-format
 msgid ""
-"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr ""
-"<a href=\"%(url_profile)s\">%(username)s</a> megemlített itt: <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
+"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> megemlített itt: <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:17
+#: templates/spirit/topic/notification/_render_list.html:21
 msgid "unread"
 msgstr "olvasatlan"
 
-#: templates/spirit/topic/notification/_render_list.html:21
+#: templates/spirit/topic/notification/_render_list.html:25
 msgid "There are no notifications, yet"
 msgstr "Még nincsenek értesítések"
 
+#: templates/spirit/topic/notification/_top_bar.html:9
+#: templates/spirit/topic/notification/_top_bar.html:23
 #: templates/spirit/topic/notification/index.html:5
-#: templates/spirit/topic/notification/index.html:9
 msgid "Notifications"
 msgstr "Értesítések"
 
+#: templates/spirit/topic/notification/_top_bar.html:14
+#: templates/spirit/topic/notification/_top_bar.html:28
 #: templates/spirit/topic/notification/index_unread.html:5
-#: templates/spirit/topic/notification/index_unread.html:9
 msgid "Unread notifications"
 msgstr "Olvasatlan értesítések"
 
-#: templates/spirit/topic/notification/index_unread.html:15
+#: templates/spirit/topic/notification/index_unread.html:14
 msgid "There are no new notifications"
 msgstr "Nincsenek új értesítések"
 
-#: templates/spirit/topic/notification/index_unread.html:22
+#: templates/spirit/topic/notification/index_unread.html:25
 msgid "Next"
 msgstr "Következő"

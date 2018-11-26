@@ -1,21 +1,18 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/"
-"language/pl/)\n"
-"Language: pl\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: forms.py:68
 msgid "Invite users"
@@ -38,11 +35,11 @@ msgstr "Zaproś użytkownika"
 msgid "%(username)s is already a participant"
 msgstr "%(username)s już jest zaproszony"
 
-#: models.py:25
+#: models.py:31
 msgid "private topic"
 msgstr "wątek prywatny"
 
-#: models.py:26
+#: models.py:32
 msgid "private topics"
 msgstr "wątki prywatne"
 
@@ -50,17 +47,17 @@ msgstr "wątki prywatne"
 msgid "Invite"
 msgstr "Zaproś"
 
-#: templates/spirit/topic/private/_top_bar.html:6
-#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:9
+#: templates/spirit/topic/private/_top_bar.html:26
 msgid "Participating in"
 msgstr "Uczestniczy w"
 
-#: templates/spirit/topic/private/_top_bar.html:8
-#: templates/spirit/topic/private/_top_bar.html:13
+#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:22
 msgid "Left"
 msgstr "Wyszedł"
 
-#: templates/spirit/topic/private/_top_bar.html:20
+#: templates/spirit/topic/private/_top_bar.html:35
 msgid "Create private topic"
 msgstr "Stwórz prywatny wątek"
 
@@ -68,12 +65,12 @@ msgstr "Stwórz prywatny wątek"
 msgid "Remove user from private topic"
 msgstr "Usuń użytkownika z prywatnego wątku"
 
-#: templates/spirit/topic/private/delete.html:9
+#: templates/spirit/topic/private/delete.html:10
 #, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr "Usuwanie %(username)s z %(topic_title)s"
 
-#: templates/spirit/topic/private/delete.html:13
+#: templates/spirit/topic/private/delete.html:17
 msgid "Remove"
 msgstr "Usuń"
 
@@ -82,11 +79,11 @@ msgstr "Usuń"
 msgid "Private topics"
 msgstr "Prywatne wątki"
 
-#: templates/spirit/topic/private/detail.html:17
+#: templates/spirit/topic/private/detail.html:20
 msgid "Participants"
 msgstr "Uczestnicy"
 
-#: templates/spirit/topic/private/detail.html:33
+#: templates/spirit/topic/private/detail.html:47
 msgid "Leave topic"
 msgstr "Opuść wątek"
 
@@ -94,11 +91,11 @@ msgstr "Opuść wątek"
 msgid "Created private topics"
 msgstr "Stworzone prywatne wątki"
 
-#: templates/spirit/topic/private/index_author.html:15
+#: templates/spirit/topic/private/index_author.html:18
 msgid "join"
 msgstr "dołącz"
 
-#: templates/spirit/topic/private/index_author.html:18
+#: templates/spirit/topic/private/index_author.html:21
 msgid "There are no topics here, yet"
 msgstr "Nie ma tu jeszcze wątków."
 
@@ -111,7 +108,7 @@ msgstr "Dołącz do wątku"
 msgid "Do you want to join %(topic_title)s?"
 msgstr "Czy chcesz dołączyć do wątku %(topic_title)s?"
 
-#: templates/spirit/topic/private/join.html:18
+#: templates/spirit/topic/private/join.html:20
 msgid "Join"
 msgstr "Dołącz"
 

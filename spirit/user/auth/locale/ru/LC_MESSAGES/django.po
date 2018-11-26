@@ -1,22 +1,19 @@
-#
+# 
 # Translators:
 # Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
-"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: forms.py:19
 msgid "Email confirmation"
@@ -73,7 +70,7 @@ msgstr "Аккаунт подтвержден, попробуйте войти."
 
 #: templates/spirit/user/auth/activation_resend.html:5
 #: templates/spirit/user/auth/activation_resend.html:9
-#: templates/spirit/user/auth/login.html:23
+#: templates/spirit/user/auth/login.html:26
 msgid "Resend activation email"
 msgstr "Отправить повторно сообщение электронной почты для активации."
 
@@ -87,11 +84,11 @@ msgstr "Отправить повторно сообщение электрон�
 msgid "Login"
 msgstr "Войти"
 
-#: templates/spirit/user/auth/login.html:21
+#: templates/spirit/user/auth/login.html:22
 msgid "Create an account"
 msgstr "Создать аккаунт"
 
-#: templates/spirit/user/auth/login.html:22
+#: templates/spirit/user/auth/login.html:24
 msgid "I don't know my password"
 msgstr "я не помню свой пароль"
 
@@ -133,9 +130,7 @@ msgstr "Ошибка при смене пароля"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
-msgstr ""
-"Ссылка для смены пароля недействительна, возможно из-за того, что ссылка уже "
-"была использована. Запросите повторно смену пароля."
+msgstr "Ссылка для смены пароля недействительна, возможно из-за того, что ссылка уже была использована. Запросите повторно смену пароля."
 
 #: templates/spirit/user/auth/password_reset_done.html:5
 #: templates/spirit/user/auth/password_reset_done.html:9
@@ -146,37 +141,30 @@ msgstr "Пароль успешно изменен"
 msgid ""
 "We've emailed you instructions for setting your password. You should be "
 "receiving them shortly."
-msgstr ""
-"Инструкции о смене пароля мы отправили электронной почтой. Вы получите "
-"сообщение в ближайшее времяю"
+msgstr "Инструкции о смене пароля мы отправили электронной почтой. Вы получите сообщение в ближайшее времяю"
 
-#: templates/spirit/user/auth/password_reset_done.html:12 views.py:113
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:147
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr ""
-"Если вы не получили сообщение, убедитесь, что был введен именно тот адрес "
-"электронной почты, на который вы регистрировались, а также проверьте папку "
-"для спама."
+msgstr "Если вы не получили сообщение, убедитесь, что был введен именно тот адрес электронной почты, на который вы регистрировались, а также проверьте папку для спама."
 
 #: templates/spirit/user/auth/password_reset_email.html:2
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
-msgstr ""
-"Вы получили настоящее сообщение в ответ на запрос о смене пароля для вашего "
-"аккаунта на сайте %(site_name)s."
+msgstr "Вы получили настоящее сообщение в ответ на запрос о смене пароля для вашего аккаунта на сайте %(site_name)s."
 
-#: templates/spirit/user/auth/password_reset_email.html:4
+#: templates/spirit/user/auth/password_reset_email.html:7
 msgid "Please go to the following page and choose a new password:"
 msgstr "Перейдите на следующую страницу и введите новый пароль:"
 
-#: templates/spirit/user/auth/password_reset_email.html:9
+#: templates/spirit/user/auth/password_reset_email.html:12
 msgid "Thanks for using our site!"
 msgstr "Благодарим за то, что пользуетесь нашим сайтом!"
 
-#: templates/spirit/user/auth/password_reset_email.html:11
+#: templates/spirit/user/auth/password_reset_email.html:14
 #, python-format
 msgid "The %(site_name)s team"
 msgstr "Команда сайта %(site_name)s "
@@ -196,8 +184,8 @@ msgid "Password reset on %(site_name)s"
 msgstr "Изменение пароля на %(site_name)s"
 
 #: templates/spirit/user/auth/register.html:5
-#: templates/spirit/user/auth/register.html:22
 #: templates/spirit/user/auth/register.html:28
+#: templates/spirit/user/auth/register.html:34
 msgid "Register"
 msgstr "Регистрация"
 
@@ -205,14 +193,12 @@ msgstr "Регистрация"
 msgid "User activation"
 msgstr "Активация пользовательского аккаунта"
 
-#: views.py:67
+#: views.py:101
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
-msgstr ""
-"Мы отправили вам электронное сообщение на адрес %(email)s для активации "
-"вашего аккаунта."
+msgstr "Мы отправили вам электронное сообщение на адрес %(email)s для активации вашего аккаунта."
 
-#: views.py:94
+#: views.py:126
 msgid "Your account has been activated!"
 msgstr "Ваша учетная запись была активирована!"

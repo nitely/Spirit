@@ -1,24 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # sirex <sirexas@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: sirex <sirexas@gmail.com>\n"
-"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/"
-"language/lt/)\n"
-"Language: lt\n"
+"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: forms.py:31 forms.py:37
 msgid "Poll choices"
@@ -38,63 +36,63 @@ msgstr "Pasirinkta per mažai variantų. Reikia pasirinkti bent %s"
 msgid "This poll is closed"
 msgstr "Ši apklausa uždaryta."
 
-#: models.py:34
+#: models.py:36
 msgid "name"
 msgstr "pavadinimas"
 
-#: models.py:35
+#: models.py:37
 msgid "title"
 msgstr "antraštė"
 
-#: models.py:36
+#: models.py:38
 msgid "choice min"
 msgstr "mažiausiai variantų"
 
-#: models.py:37
+#: models.py:39
 msgid "choice max"
 msgstr "daugiausiai variantų"
 
-#: models.py:38
+#: models.py:40
 msgid "mode"
 msgstr "veiksena"
 
-#: models.py:39
+#: models.py:41
 msgid "auto close at"
 msgstr "automatiškai uždaryti"
 
-#: models.py:48
+#: models.py:50
 msgid "comment poll"
 msgstr "komentaras apklausa"
 
-#: models.py:49
+#: models.py:51
 msgid "comments polls"
 msgstr "komentarai apklausos"
 
-#: models.py:136
+#: models.py:138
 msgid "number"
 msgstr "skaičius"
 
-#: models.py:137
+#: models.py:139
 msgid "choice description"
 msgstr "variantų aprašymas"
 
-#: models.py:138
+#: models.py:140
 msgid "vote count"
 msgstr "balsų skaičius"
 
-#: models.py:146
+#: models.py:148
 msgid "poll choice"
 msgstr "apklausos variantas"
 
-#: models.py:147
+#: models.py:149
 msgid "poll choices"
 msgstr "apklausos variantai"
 
-#: models.py:218
+#: models.py:223
 msgid "poll vote"
 msgstr "apklausos balsas"
 
-#: models.py:219
+#: models.py:224
 msgid "poll votes"
 msgstr "apklausos balsai"
 
@@ -103,42 +101,42 @@ msgstr "apklausos balsai"
 msgid "Closes on %(date)s."
 msgstr "Bus uždaryta %(date)s."
 
-#: templates/spirit/comment/poll/_form.html:27
+#: templates/spirit/comment/poll/_form.html:29
 #, python-format
 msgid "You must select %(choice_min)s choices."
 msgstr "Turite pasirinkti bent %(choice_min)s variantus."
 
-#: templates/spirit/comment/poll/_form.html:29
+#: templates/spirit/comment/poll/_form.html:33
 #, python-format
 msgid "You may select up to %(choice_max)s choices."
 msgstr "Galite pasirinkti ne daugiau kaip %(choice_max)s variantus."
 
-#: templates/spirit/comment/poll/_form.html:31
+#: templates/spirit/comment/poll/_form.html:37
 #, python-format
 msgid ""
 "You may select no less than %(choice_min)s and no more than %(choice_max)s "
 "choices."
 msgstr "Galite pasirinkti nuo %(choice_min)s iki %(choice_max)s variantų."
 
-#: templates/spirit/comment/poll/_form.html:35
+#: templates/spirit/comment/poll/_form.html:43
 msgid "Results will be available when the poll is closed."
 msgstr "Apklausos rezultatus pamatysite, kai apklausa bus uždaryta."
 
-#: templates/spirit/comment/poll/_form.html:41
+#: templates/spirit/comment/poll/_form.html:50
 msgid "Vote"
 msgstr "Balsas"
 
-#: templates/spirit/comment/poll/_form.html:45
+#: templates/spirit/comment/poll/_form.html:54
 msgid "Show results"
 msgstr "Rodyti rezultatus"
 
-#: templates/spirit/comment/poll/_form.html:52
-#: templates/spirit/comment/poll/_results.html:39
+#: templates/spirit/comment/poll/_form.html:60
+#: templates/spirit/comment/poll/_results.html:41
 msgid "open"
 msgstr "atidaryti"
 
-#: templates/spirit/comment/poll/_form.html:56
-#: templates/spirit/comment/poll/_results.html:43
+#: templates/spirit/comment/poll/_form.html:63
+#: templates/spirit/comment/poll/_results.html:45
 msgid "close"
 msgstr "uždaryti"
 
@@ -147,15 +145,15 @@ msgstr "uždaryti"
 msgid "%(choice)s, %(percentage)s%%"
 msgstr "%(choice)s, %(percentage)s%%"
 
-#: templates/spirit/comment/poll/_results.html:17
+#: templates/spirit/comment/poll/_results.html:19
 msgid "View voters"
 msgstr "Rodyti balsavusius"
 
-#: templates/spirit/comment/poll/_results.html:27
+#: templates/spirit/comment/poll/_results.html:29
 msgid "Votes"
 msgstr "Balsai"
 
-#: templates/spirit/comment/poll/_results.html:32
+#: templates/spirit/comment/poll/_results.html:34
 msgid "Show vote choices"
 msgstr "Rodyti balsavimo variantus"
 
@@ -164,18 +162,14 @@ msgstr "Rodyti balsavimo variantus"
 msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
-msgstr ""
-"Pavadinimas: %(poll_name)s, variantų pasirinkimas: nuo %(choice_min)s iki "
-"%(choice_max)s, veiksena: %(mode)s, uždaroma: %(close_at)s"
+msgstr "Pavadinimas: %(poll_name)s, variantų pasirinkimas: nuo %(choice_min)s iki %(choice_max)s, veiksena: %(mode)s, uždaroma: %(close_at)s"
 
 #: templates/spirit/comment/poll/_static.html:29
 #, python-format
 msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s"
-msgstr ""
-"Pavadinimas: %(poll_name)s, variantų pasirinkimas: nuo %(choice_min)s iki "
-"%(choice_max)s, veiksena: %(mode)s"
+msgstr "Pavadinimas: %(poll_name)s, variantų pasirinkimas: nuo %(choice_min)s iki %(choice_max)s, veiksena: %(mode)s"
 
 #: templates/spirit/comment/poll/voters.html:5
 #: templates/spirit/comment/poll/voters.html:10

@@ -1,18 +1,17 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
-"language/hu/)\n"
-"Language: hu\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:19
@@ -70,7 +69,7 @@ msgstr ""
 
 #: templates/spirit/user/auth/activation_resend.html:5
 #: templates/spirit/user/auth/activation_resend.html:9
-#: templates/spirit/user/auth/login.html:23
+#: templates/spirit/user/auth/login.html:26
 msgid "Resend activation email"
 msgstr ""
 
@@ -84,11 +83,11 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: templates/spirit/user/auth/login.html:21
+#: templates/spirit/user/auth/login.html:22
 msgid "Create an account"
 msgstr ""
 
-#: templates/spirit/user/auth/login.html:22
+#: templates/spirit/user/auth/login.html:24
 msgid "I don't know my password"
 msgstr ""
 
@@ -143,7 +142,7 @@ msgid ""
 "receiving them shortly."
 msgstr ""
 
-#: templates/spirit/user/auth/password_reset_done.html:12 views.py:113
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:147
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -156,15 +155,15 @@ msgid ""
 "user account at %(site_name)s."
 msgstr ""
 
-#: templates/spirit/user/auth/password_reset_email.html:4
+#: templates/spirit/user/auth/password_reset_email.html:7
 msgid "Please go to the following page and choose a new password:"
 msgstr ""
 
-#: templates/spirit/user/auth/password_reset_email.html:9
+#: templates/spirit/user/auth/password_reset_email.html:12
 msgid "Thanks for using our site!"
 msgstr "Köszönjük, hogy használod az oldalunkat!"
 
-#: templates/spirit/user/auth/password_reset_email.html:11
+#: templates/spirit/user/auth/password_reset_email.html:14
 #, python-format
 msgid "The %(site_name)s team"
 msgstr ""
@@ -184,8 +183,8 @@ msgid "Password reset on %(site_name)s"
 msgstr ""
 
 #: templates/spirit/user/auth/register.html:5
-#: templates/spirit/user/auth/register.html:22
 #: templates/spirit/user/auth/register.html:28
+#: templates/spirit/user/auth/register.html:34
 msgid "Register"
 msgstr ""
 
@@ -193,12 +192,12 @@ msgstr ""
 msgid "User activation"
 msgstr "Felhasználó aktiváció"
 
-#: views.py:67
+#: views.py:101
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
 msgstr ""
 
-#: views.py:94
+#: views.py:126
 msgid "Your account has been activated!"
 msgstr ""

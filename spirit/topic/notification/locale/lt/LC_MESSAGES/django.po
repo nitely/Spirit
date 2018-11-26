@@ -1,21 +1,19 @@
-#
+# 
 # Translators:
 # sirex <sirexas@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: sirex <sirexas@gmail.com>\n"
-"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/"
-"language/lt/)\n"
-"Language: lt\n"
+"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: forms.py:37
 msgid "This notification already exists"
@@ -25,23 +23,23 @@ msgstr "Šis pranešimas jau yra"
 msgid "You can't subscribe to a topic with no comments"
 msgstr "Negalite prenumeruoti temos, kurioje nėra komentarų"
 
-#: models.py:17
+#: models.py:16
 msgid "Undefined"
 msgstr "Nenurodyta"
 
-#: models.py:18
+#: models.py:17
 msgid "Mention"
 msgstr "Paminėjimas"
 
-#: models.py:19
+#: models.py:18
 msgid "Comment"
 msgstr "Komentaras"
 
-#: models.py:39
+#: models.py:44
 msgid "topic notification"
 msgstr "temos pranešimas"
 
-#: models.py:40
+#: models.py:45
 msgid "topics notification"
 msgstr "temų pranešimai"
 
@@ -56,43 +54,41 @@ msgstr "Sekti"
 #: templates/spirit/topic/notification/_render_list.html:9
 #, python-format
 msgid ""
-"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr ""
-"<a href=\"%(url_profile)s\">%(username)s</a> pasisakė temoje <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
+"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> pasisakė temoje <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:11
+#: templates/spirit/topic/notification/_render_list.html:13
 #, python-format
 msgid ""
-"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr ""
-"<a href=\"%(url_profile)s\">%(username)s</a> paminėjo tave temoje <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
+"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> paminėjo tave temoje <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:17
+#: templates/spirit/topic/notification/_render_list.html:21
 msgid "unread"
 msgstr "neskaityta"
 
-#: templates/spirit/topic/notification/_render_list.html:21
+#: templates/spirit/topic/notification/_render_list.html:25
 msgid "There are no notifications, yet"
 msgstr "Kol kas pranešimų nėra"
 
+#: templates/spirit/topic/notification/_top_bar.html:9
+#: templates/spirit/topic/notification/_top_bar.html:23
 #: templates/spirit/topic/notification/index.html:5
-#: templates/spirit/topic/notification/index.html:9
 msgid "Notifications"
 msgstr "Pranešimai"
 
+#: templates/spirit/topic/notification/_top_bar.html:14
+#: templates/spirit/topic/notification/_top_bar.html:28
 #: templates/spirit/topic/notification/index_unread.html:5
-#: templates/spirit/topic/notification/index_unread.html:9
 msgid "Unread notifications"
 msgstr "Neskaityti pranešimai"
 
-#: templates/spirit/topic/notification/index_unread.html:15
+#: templates/spirit/topic/notification/index_unread.html:14
 msgid "There are no new notifications"
 msgstr "Nėra naujų pranešimų"
 
-#: templates/spirit/topic/notification/index_unread.html:22
+#: templates/spirit/topic/notification/index_unread.html:25
 msgid "Next"
 msgstr "Sekanti"

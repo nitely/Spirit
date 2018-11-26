@@ -11,7 +11,7 @@ from ... import utils
 
 
 class Command(BaseCommand):
-    help = 'Pushes all locale sources listed in ./.tx/config to transifex'
+    help = 'Pushes english locale source'
 
     requires_system_checks = False
 
@@ -28,6 +28,6 @@ class Command(BaseCommand):
             # -t will update the translation,
             # only if it was updated locally,
             # so use when fixing something
-            call(["tx", "push", "-s", "--skip"])
+            call(["tx", "push", "--source", "--skip", "--language", "en"])
 
         self.stdout.write('ok')

@@ -1,19 +1,18 @@
-#
+# 
 # Translators:
 # cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: cryptogun <safetychinese@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
-"spirit/language/zh_CN/)\n"
-"Language: zh_CN\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:19
@@ -71,7 +70,7 @@ msgstr "帐号已经认证，请尝试登录。"
 
 #: templates/spirit/user/auth/activation_resend.html:5
 #: templates/spirit/user/auth/activation_resend.html:9
-#: templates/spirit/user/auth/login.html:23
+#: templates/spirit/user/auth/login.html:26
 msgid "Resend activation email"
 msgstr "重发激活邮件"
 
@@ -85,11 +84,11 @@ msgstr "重新发送邮件"
 msgid "Login"
 msgstr "登入"
 
-#: templates/spirit/user/auth/login.html:21
+#: templates/spirit/user/auth/login.html:22
 msgid "Create an account"
 msgstr "创建帐号"
 
-#: templates/spirit/user/auth/login.html:22
+#: templates/spirit/user/auth/login.html:24
 msgid "I don't know my password"
 msgstr "忘记密码"
 
@@ -144,13 +143,11 @@ msgid ""
 "receiving them shortly."
 msgstr "我们已经用email通知了你修改密码重置的事项。"
 
-#: templates/spirit/user/auth/password_reset_done.html:12 views.py:113
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:147
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr ""
-"如果你没有收到邮件，请检查输入的email是不是你帐号绑定的邮箱，或检查垃圾邮件目"
-"录"
+msgstr "如果你没有收到邮件，请检查输入的email是不是你帐号绑定的邮箱，或检查垃圾邮件目录"
 
 #: templates/spirit/user/auth/password_reset_email.html:2
 #, python-format
@@ -159,15 +156,15 @@ msgid ""
 "user account at %(site_name)s."
 msgstr "你收到这封邮件是因为你在 %(site_name)s 申请了密码重置"
 
-#: templates/spirit/user/auth/password_reset_email.html:4
+#: templates/spirit/user/auth/password_reset_email.html:7
 msgid "Please go to the following page and choose a new password:"
 msgstr "请到下面的链接重置密码："
 
-#: templates/spirit/user/auth/password_reset_email.html:9
+#: templates/spirit/user/auth/password_reset_email.html:12
 msgid "Thanks for using our site!"
 msgstr "感谢使用本站"
 
-#: templates/spirit/user/auth/password_reset_email.html:11
+#: templates/spirit/user/auth/password_reset_email.html:14
 #, python-format
 msgid "The %(site_name)s team"
 msgstr "%(site_name)s 团队"
@@ -187,8 +184,8 @@ msgid "Password reset on %(site_name)s"
 msgstr "%(site_name)s 的密码重置"
 
 #: templates/spirit/user/auth/register.html:5
-#: templates/spirit/user/auth/register.html:22
 #: templates/spirit/user/auth/register.html:28
+#: templates/spirit/user/auth/register.html:34
 msgid "Register"
 msgstr "注册"
 
@@ -196,12 +193,12 @@ msgstr "注册"
 msgid "User activation"
 msgstr "用户激活"
 
-#: views.py:67
+#: views.py:101
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
 msgstr "我们已经向%(email)s发送了激活邮件，请前往您的邮箱查收并激活帐号。"
 
-#: views.py:94
+#: views.py:126
 msgid "Your account has been activated!"
 msgstr "你的帐号已经成功激活"

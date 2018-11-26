@@ -1,48 +1,47 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
-"spirit/language/zh_CN/)\n"
-"Language: zh_CN\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:30
 msgid "This like already exists"
 msgstr "已经设置喜欢"
 
-#: models.py:23
+#: models.py:29
 msgid "like"
 msgstr "喜欢"
 
-#: models.py:24
+#: models.py:30
 msgid "likes"
 msgstr "喜欢"
 
 #: templates/spirit/comment/like/create.html:5
-#: templates/spirit/comment/like/create.html:14
+#: templates/spirit/comment/like/create.html:18
 msgid "Like"
 msgstr "喜欢"
 
-#: templates/spirit/comment/like/create.html:9
+#: templates/spirit/comment/like/create.html:10
 #, python-format
 msgid "Like %(username)s's comment"
 msgstr "喜欢%(username)s的评论"
 
 #: templates/spirit/comment/like/delete.html:5
-#: templates/spirit/comment/like/delete.html:13
+#: templates/spirit/comment/like/delete.html:17
 msgid "Remove like"
 msgstr "删除喜欢"
 
-#: templates/spirit/comment/like/delete.html:9
+#: templates/spirit/comment/like/delete.html:10
 #, python-format
 msgid "Remove %(username)s's comment like"
 msgstr "删除%(username)s的喜欢评论"

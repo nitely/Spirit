@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -16,10 +16,10 @@ msgstr ""
 msgid "This favorite already exists"
 msgstr ""
 
-#: models.py:22
+#: models.py:27
 msgid "favorite"
 msgstr ""
 
-#: models.py:23
+#: models.py:28
 msgid "favorites"
 msgstr ""

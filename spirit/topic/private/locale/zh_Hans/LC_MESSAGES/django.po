@@ -1,4 +1,4 @@
-#
+# 
 # Translators:
 # cryptogun <safetychinese@gmail.com>, 2017
 # cryptogun <safetychinese@gmail.com>, 2017
@@ -6,15 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
-"spirit/language/zh_CN/)\n"
-"Language: zh_CN\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:68
@@ -38,11 +37,11 @@ msgstr "邀请用户"
 msgid "%(username)s is already a participant"
 msgstr "用户名 %(username)s 已加入"
 
-#: models.py:25
+#: models.py:31
 msgid "private topic"
 msgstr "私密主题"
 
-#: models.py:26
+#: models.py:32
 msgid "private topics"
 msgstr "私密主题"
 
@@ -50,17 +49,17 @@ msgstr "私密主题"
 msgid "Invite"
 msgstr "邀请"
 
-#: templates/spirit/topic/private/_top_bar.html:6
-#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:9
+#: templates/spirit/topic/private/_top_bar.html:26
 msgid "Participating in"
 msgstr "参与了"
 
-#: templates/spirit/topic/private/_top_bar.html:8
-#: templates/spirit/topic/private/_top_bar.html:13
+#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:22
 msgid "Left"
 msgstr "遗弃了"
 
-#: templates/spirit/topic/private/_top_bar.html:20
+#: templates/spirit/topic/private/_top_bar.html:35
 msgid "Create private topic"
 msgstr "创建私密主题"
 
@@ -68,12 +67,12 @@ msgstr "创建私密主题"
 msgid "Remove user from private topic"
 msgstr "从私密主题中踢出用户"
 
-#: templates/spirit/topic/private/delete.html:9
+#: templates/spirit/topic/private/delete.html:10
 #, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr "从 %(topic_title)s 中剔除 %(username)s's"
 
-#: templates/spirit/topic/private/delete.html:13
+#: templates/spirit/topic/private/delete.html:17
 msgid "Remove"
 msgstr "剔除"
 
@@ -82,11 +81,11 @@ msgstr "剔除"
 msgid "Private topics"
 msgstr "私密主题"
 
-#: templates/spirit/topic/private/detail.html:17
+#: templates/spirit/topic/private/detail.html:20
 msgid "Participants"
 msgstr "参与者"
 
-#: templates/spirit/topic/private/detail.html:33
+#: templates/spirit/topic/private/detail.html:47
 msgid "Leave topic"
 msgstr "离开主题"
 
@@ -94,11 +93,11 @@ msgstr "离开主题"
 msgid "Created private topics"
 msgstr "私密主题已创建"
 
-#: templates/spirit/topic/private/index_author.html:15
+#: templates/spirit/topic/private/index_author.html:18
 msgid "join"
 msgstr "参与"
 
-#: templates/spirit/topic/private/index_author.html:18
+#: templates/spirit/topic/private/index_author.html:21
 msgid "There are no topics here, yet"
 msgstr "还没有主题"
 
@@ -111,7 +110,7 @@ msgstr "参与主题"
 msgid "Do you want to join %(topic_title)s?"
 msgstr "是否加入讨论 %(topic_title)s？"
 
-#: templates/spirit/topic/private/join.html:18
+#: templates/spirit/topic/private/join.html:20
 msgid "Join"
 msgstr "参与"
 

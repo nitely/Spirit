@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -39,53 +39,53 @@ msgstr ""
 msgid "what you are looking for is gone..."
 msgstr ""
 
-#: templates/spirit/_base.html:33
+#: templates/spirit/_base.html:28
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr ""
 
-#: templates/spirit/_base.html:34
+#: templates/spirit/_base.html:29
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr ""
 
-#: templates/spirit/_base.html:35
+#: templates/spirit/_base.html:30
 msgid "Show all"
 msgstr ""
 
-#: templates/spirit/_base.html:36
+#: templates/spirit/_base.html:31
 msgid "No new notifications, yet"
 msgstr ""
 
-#: templates/spirit/_base.html:37
+#: templates/spirit/_base.html:32
 msgid "unread"
 msgstr ""
 
-#: templates/spirit/_header.html:20
+#: templates/spirit/_header.html:42
 msgid "Profile"
 msgstr ""
 
-#: templates/spirit/_header.html:21
+#: templates/spirit/_header.html:45
 msgid "Topics"
 msgstr ""
 
-#: templates/spirit/_header.html:22
+#: templates/spirit/_header.html:48
 msgid "Unread topics"
 msgstr ""
 
-#: templates/spirit/_header.html:23
+#: templates/spirit/_header.html:51
 msgid "Private topics"
 msgstr ""
 
-#: templates/spirit/_header.html:26
+#: templates/spirit/_header.html:56
 msgid "Admin"
 msgstr ""
 
-#: templates/spirit/_header.html:29
+#: templates/spirit/_header.html:63
 msgid "Log out"
 msgstr ""
 
-#: templates/spirit/_header.html:42
+#: templates/spirit/_header.html:80
 msgid "Log in"
 msgstr ""
 
