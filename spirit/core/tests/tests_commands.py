@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.core.management import call_command
 from django.utils.six import StringIO
 
-from ..management.commands import spiritmakelocales
+from ..management.commands import spiritcompilemessages
 from ..management.commands import spirittxpush
 from ..management.commands import spiritinstall
 from ..management.commands import spiritupgrade
@@ -26,20 +26,19 @@ class CommandsTests(TestCase):
             commands.append(command)
             dirs.append(os.getcwd())
 
-        org_call, spiritmakelocales.call_command = spiritmakelocales.call_command, call_mock
+        org_call, spiritcompilemessages.call_command = spiritcompilemessages.call_command, call_mock
         try:
             out = StringIO()
             err = StringIO()
-            call_command('spiritmakelocales', stdout=out, stderr=err)
+            call_command('spiritcompilemessages', stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
-            self.assertEqual(commands[0], 'makemessages')
-            self.assertEqual(commands[1], 'compilemessages')
-            self.assertEqual(len(dirs), 44)
+            self.assertEqual(commands[0], 'compilemessages')
+            self.assertEqual(len(dirs), 22)
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
         finally:
-            spiritmakelocales.call_command = org_call
+            spiritcompilemessages.call_command = org_call
 
     def test_command_spirittxpush(self):
         """
@@ -55,7 +54,9 @@ class CommandsTests(TestCase):
             call_command('spirittxpush', stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
-            self.assertEqual(self._command, ["tx", "push", "-s", "--skip"])
+            self.assertEqual(
+                self._command,
+                ['tx', 'push', '--source', '--skip', '--language', 'en'])
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
         finally:
