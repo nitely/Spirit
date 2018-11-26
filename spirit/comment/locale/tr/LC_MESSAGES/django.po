@@ -1,89 +1,91 @@
-#
+# 
 # Translators:
 # Alper Buluc <ihtiyaroyuncu@yandex.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
-"PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/"
-"language/tr/)\n"
-"Language: tr\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2018-11-26 00:01+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:38
+#: forms.py:39
 msgid "Comment"
 msgstr "Yorum"
 
-#: forms.py:56
+#: forms.py:57
 msgid "Write comment..."
 msgstr "Yorum yapın..."
 
-#: forms.py:146
+#: forms.py:147
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Desteklenmeyen dosya format. Desteklenen formatlar %s."
 
-#: forms.py:173 forms.py:193
+#: forms.py:174 forms.py:195
 msgid "The file could not be validated"
 msgstr ""
 
-#: forms.py:181
+#: forms.py:182
 #, python-format
-msgid "Unsupported file extension %s. Supported extensions are %s."
+msgid ""
+"Unsupported file extension %(extension)s. Supported extensions are "
+"%(supported)s."
 msgstr ""
 
-#: forms.py:197
+#: forms.py:199
 #, python-format
-msgid "Unsupported file mime type %s. Supported types are %s."
+msgid ""
+"Unsupported file mime type %(mime)s. Supported types are %(supported)s."
 msgstr ""
 
-#: models.py:18 models.py:32 models.py:47
+#: models.py:17 models.py:35 models.py:50
 msgid "comment"
 msgstr "yorum"
 
-#: models.py:19
+#: models.py:18
 msgid "topic moved"
 msgstr "konu taşındı"
 
-#: models.py:20
+#: models.py:19
 msgid "topic closed"
 msgstr "konu kitlendi"
 
-#: models.py:21
+#: models.py:20
 msgid "topic unclosed"
 msgstr "konu açıldı"
 
-#: models.py:22
+#: models.py:21
 msgid "topic pinned"
 msgstr "konu sabitlendi"
 
-#: models.py:23
+#: models.py:22
 msgid "topic unpinned"
 msgstr "konu ayrıldı"
 
-#: models.py:33
+#: models.py:36
 msgid "comment html"
 msgstr "html yorum"
 
-#: models.py:34
+#: models.py:37
 msgid "action"
 msgstr "eylem"
 
-#: models.py:40
+#: models.py:43
 msgid "modified count"
 msgstr "düzenlenme sayısı"
 
-#: models.py:41
+#: models.py:44
 msgid "likes count"
 msgstr "beğeni sayısı"
 
-#: models.py:48
+#: models.py:51
 msgid "comments"
 msgstr "yorumlar"
 
@@ -111,85 +113,85 @@ msgstr "Bu konu ayrıldı"
 msgid "Unknown topic moderation action"
 msgstr "Bilinmeyen konu yönetimi eylemi"
 
-#: templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:10
 msgid "Bold"
 msgstr "Koyu"
 
-#: templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:15
 msgid "Italic"
 msgstr "Eğik"
 
-#: templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:20
 msgid "List"
 msgstr "Liste"
 
-#: templates/spirit/comment/_editor.html:11
+#: templates/spirit/comment/_editor.html:25
 msgid "URL"
 msgstr "URL"
 
-#: templates/spirit/comment/_editor.html:12
+#: templates/spirit/comment/_editor.html:30
 msgid "Image"
 msgstr "Resim"
 
-#: templates/spirit/comment/_editor.html:14
+#: templates/spirit/comment/_editor.html:37
 msgid "File"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:16
+#: templates/spirit/comment/_editor.html:44
 msgid "Poll"
 msgstr "Anket"
 
-#: templates/spirit/comment/_editor.html:17
+#: templates/spirit/comment/_editor.html:49
 msgid "Preview"
 msgstr "Önizleme"
 
-#: templates/spirit/comment/_editor.html:39
-#: templates/spirit/comment/_editor.html:47
+#: templates/spirit/comment/_editor.html:77
+#: templates/spirit/comment/_editor.html:86
 #, python-brace-format
 msgid "uploading {name}"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:52
+#: templates/spirit/comment/_editor.html:92
 msgid "bolded text"
 msgstr "koyu metin"
 
-#: templates/spirit/comment/_editor.html:53
+#: templates/spirit/comment/_editor.html:93
 msgid "italicised text"
 msgstr "eğik meti"
 
-#: templates/spirit/comment/_editor.html:54
+#: templates/spirit/comment/_editor.html:94
 msgid "list item"
 msgstr "liste öğesi"
 
-#: templates/spirit/comment/_editor.html:55
+#: templates/spirit/comment/_editor.html:95
 msgid "link text"
 msgstr "bağlantı metni"
 
-#: templates/spirit/comment/_editor.html:56
+#: templates/spirit/comment/_editor.html:96
 msgid "link url"
 msgstr "bağlantı url'i"
 
-#: templates/spirit/comment/_editor.html:57
+#: templates/spirit/comment/_editor.html:97
 msgid "image text"
 msgstr "resim metni"
 
-#: templates/spirit/comment/_editor.html:58
+#: templates/spirit/comment/_editor.html:98
 msgid "image url"
 msgstr "resim url'i"
 
-#: templates/spirit/comment/_editor.html:59
+#: templates/spirit/comment/_editor.html:99
 msgid "file text"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:60
+#: templates/spirit/comment/_editor.html:100
 msgid "file url"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:61
+#: templates/spirit/comment/_editor.html:101
 msgid "Title"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:62
+#: templates/spirit/comment/_editor.html:102
 msgid "Description"
 msgstr ""
 
@@ -199,49 +201,49 @@ msgstr ""
 msgid "Publish"
 msgstr "Yayınla"
 
-#: templates/spirit/comment/_render_list.html:47
+#: templates/spirit/comment/_render_list.html:58
 msgid "delete"
 msgstr "sil"
 
-#: templates/spirit/comment/_render_list.html:50
+#: templates/spirit/comment/_render_list.html:64
 msgid "report"
 msgstr "rapor et"
 
-#: templates/spirit/comment/_render_list.html:53
+#: templates/spirit/comment/_render_list.html:70
 msgid "share"
 msgstr "paylaş"
 
-#: templates/spirit/comment/_render_list.html:57
-#: templates/spirit/comment/_render_list.html:139
+#: templates/spirit/comment/_render_list.html:79
+#: templates/spirit/comment/_render_list.html:195
 msgid "remove like"
 msgstr "beğenmekten vazgeç"
 
-#: templates/spirit/comment/_render_list.html:60
-#: templates/spirit/comment/_render_list.html:138
+#: templates/spirit/comment/_render_list.html:87
+#: templates/spirit/comment/_render_list.html:194
 msgid "like"
 msgstr "beğen"
 
-#: templates/spirit/comment/_render_list.html:67
+#: templates/spirit/comment/_render_list.html:96
 msgid "edit"
 msgstr "düzenle"
 
-#: templates/spirit/comment/_render_list.html:71
+#: templates/spirit/comment/_render_list.html:102
 msgid "quote"
 msgstr "alıntıla"
 
-#: templates/spirit/comment/_render_list.html:72
+#: templates/spirit/comment/_render_list.html:105
 msgid "reply"
 msgstr "cevapla"
 
-#: templates/spirit/comment/_render_list.html:79
+#: templates/spirit/comment/_render_list.html:114
 msgid "close"
 msgstr "kapat"
 
-#: templates/spirit/comment/_render_list.html:110
+#: templates/spirit/comment/_render_list.html:163
 msgid "This comment was deleted"
 msgstr "Bu yorum silindi"
 
-#: templates/spirit/comment/_render_list.html:118
+#: templates/spirit/comment/_render_list.html:173
 msgid "undelete"
 msgstr "çöpten çıkar"
 

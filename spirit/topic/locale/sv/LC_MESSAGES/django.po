@@ -1,18 +1,17 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 16:04+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/"
-"language/sv/)\n"
-"Language: sv\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:35
@@ -23,69 +22,69 @@ msgstr "Kategori"
 msgid "Choose a category"
 msgstr "Välj en kategori"
 
-#: models.py:29
+#: models.py:34
 msgid "category"
 msgstr "kategori"
 
-#: models.py:31
+#: models.py:37
 msgid "title"
 msgstr "titel"
 
-#: models.py:33
+#: models.py:39
 msgid "date"
 msgstr "datum"
 
-#: models.py:34
+#: models.py:40
 msgid "last active"
 msgstr "senast aktiv"
 
-#: models.py:35
+#: models.py:41
 msgid "reindex at"
 msgstr ""
 
-#: models.py:37
+#: models.py:43
 msgid "pinned"
 msgstr "fastsatt"
 
-#: models.py:38
+#: models.py:44
 msgid "globally pinned"
 msgstr ""
 
-#: models.py:39
+#: models.py:45
 msgid "closed"
 msgstr "stängd"
 
-#: models.py:42
+#: models.py:48
 msgid "views count"
 msgstr "antal visningar"
 
-#: models.py:43
+#: models.py:49
 msgid "comment count"
 msgstr "antal kommentarer"
 
-#: models.py:49
+#: models.py:55
 msgid "topic"
 msgstr "ämne"
 
-#: models.py:50
+#: models.py:56
 msgid "topics"
 msgstr "ämnen"
 
-#: templates/spirit/topic/_render_list.html:45
+#: templates/spirit/topic/_render_list.html:51
 msgid "There are no topics here, yet"
 msgstr "Det finns ännu inga ämnen här"
 
-#: templates/spirit/topic/_top_bar.html:8
-#: templates/spirit/topic/_top_bar.html:19
+#: templates/spirit/topic/_top_bar.html:14
+#: templates/spirit/topic/_top_bar.html:31
 msgid "All Categories"
 msgstr "Alla kategorier"
 
-#: templates/spirit/topic/_top_bar.html:17
+#: templates/spirit/topic/_top_bar.html:27
 msgid "All Subcategories"
 msgstr "Alla underkategorier"
 
-#: templates/spirit/topic/_top_bar.html:27
-#: templates/spirit/topic/_top_bar.html:29
+#: templates/spirit/topic/_top_bar.html:41
+#: templates/spirit/topic/_top_bar.html:43
 msgid "Create Topic"
 msgstr "Skapa ämne"
 
@@ -93,59 +92,59 @@ msgstr "Skapa ämne"
 msgid "Latest active topics"
 msgstr "Senaste aktiva ämnen"
 
-#: templates/spirit/topic/detail.html:10
+#: templates/spirit/topic/detail.html:12
 msgid "Main"
 msgstr "Huvud"
 
-#: templates/spirit/topic/detail.html:30 templates/spirit/topic/detail.html:32
+#: templates/spirit/topic/detail.html:42 templates/spirit/topic/detail.html:46
 msgid "edit"
 msgstr "redigera"
 
-#: templates/spirit/topic/detail.html:42
+#: templates/spirit/topic/detail.html:61
 msgid "Select comments to move"
 msgstr "Välj kommentarer för flytt"
 
-#: templates/spirit/topic/detail.html:45
+#: templates/spirit/topic/detail.html:67
 msgid "Undelete topic"
 msgstr "Ångra borttagning av ämne"
 
-#: templates/spirit/topic/detail.html:47
+#: templates/spirit/topic/detail.html:72
 msgid "Delete topic"
 msgstr "Ta bort ämne"
 
-#: templates/spirit/topic/detail.html:51
+#: templates/spirit/topic/detail.html:79
 msgid "Open topic"
 msgstr "Öppna ämne"
 
-#: templates/spirit/topic/detail.html:53
+#: templates/spirit/topic/detail.html:84
 msgid "Close topic"
 msgstr "Stäng ämne"
 
-#: templates/spirit/topic/detail.html:57
+#: templates/spirit/topic/detail.html:91
 msgid "Unpin topic"
 msgstr "Ångra fastsättning av ämne"
 
-#: templates/spirit/topic/detail.html:59
+#: templates/spirit/topic/detail.html:96
 msgid "Pin topic"
 msgstr "Sätt fast ämne"
 
-#: templates/spirit/topic/detail.html:63
+#: templates/spirit/topic/detail.html:103
 msgid "Unpin topic globally"
 msgstr ""
 
-#: templates/spirit/topic/detail.html:65
+#: templates/spirit/topic/detail.html:108
 msgid "Pin topic globally"
 msgstr ""
 
-#: templates/spirit/topic/detail.html:74
+#: templates/spirit/topic/detail.html:120
 msgid "Topic id"
 msgstr "Ämnes-id"
 
-#: templates/spirit/topic/detail.html:76
+#: templates/spirit/topic/detail.html:124
 msgid "Move"
 msgstr "Flytta"
 
-#: templates/spirit/topic/detail.html:90
+#: templates/spirit/topic/detail.html:139
 msgid "Reply"
 msgstr ""
 
@@ -158,11 +157,12 @@ msgstr "Moderera ämne"
 msgid "Apply"
 msgstr "Verkställ"
 
-#: templates/spirit/topic/publish.html:5 templates/spirit/topic/publish.html:21
+#: templates/spirit/topic/publish.html:5
+#: templates/spirit/topic/publish.html:20
 msgid "Publish topic"
 msgstr "Publicera ämne"
 
-#: templates/spirit/topic/publish.html:37
+#: templates/spirit/topic/publish.html:36
 msgid "Publish"
 msgstr "Publicera"
 

@@ -1,50 +1,47 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/"
-"language/pl/)\n"
-"Language: pl\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: forms.py:30
 msgid "This like already exists"
 msgstr "Już to lubisz"
 
-#: models.py:23
+#: models.py:29
 msgid "like"
 msgstr "polub"
 
-#: models.py:24
+#: models.py:30
 msgid "likes"
 msgstr "polubienia"
 
 #: templates/spirit/comment/like/create.html:5
-#: templates/spirit/comment/like/create.html:14
+#: templates/spirit/comment/like/create.html:18
 msgid "Like"
 msgstr "Polub"
 
-#: templates/spirit/comment/like/create.html:9
+#: templates/spirit/comment/like/create.html:10
 #, python-format
 msgid "Like %(username)s's comment"
 msgstr "Polub komentarz %(username)s"
 
 #: templates/spirit/comment/like/delete.html:5
-#: templates/spirit/comment/like/delete.html:13
+#: templates/spirit/comment/like/delete.html:17
 msgid "Remove like"
 msgstr "Usuń polubienie"
 
-#: templates/spirit/comment/like/delete.html:9
+#: templates/spirit/comment/like/delete.html:10
 #, python-format
 msgid "Remove %(username)s's comment like"
 msgstr "Usuń polubienie komentarza %(username)s"

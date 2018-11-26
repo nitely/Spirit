@@ -1,90 +1,90 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
-"PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/spirit-project/"
-"spirit/language/pl_PL/)\n"
-"Language: pl_PL\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2018-11-26 00:01+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/spirit-project/spirit/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: forms.py:38
+#: forms.py:39
 msgid "Comment"
 msgstr "Komentarz"
 
-#: forms.py:56
+#: forms.py:57
 msgid "Write comment..."
 msgstr "Napisz komentarz..."
 
-#: forms.py:146
+#: forms.py:147
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Niewspierany format pliku. Wspierane formaty to %s."
 
-#: forms.py:173 forms.py:193
+#: forms.py:174 forms.py:195
 msgid "The file could not be validated"
 msgstr ""
 
-#: forms.py:181
+#: forms.py:182
 #, python-format
-msgid "Unsupported file extension %s. Supported extensions are %s."
+msgid ""
+"Unsupported file extension %(extension)s. Supported extensions are "
+"%(supported)s."
 msgstr ""
 
-#: forms.py:197
+#: forms.py:199
 #, python-format
-msgid "Unsupported file mime type %s. Supported types are %s."
+msgid ""
+"Unsupported file mime type %(mime)s. Supported types are %(supported)s."
 msgstr ""
 
-#: models.py:18 models.py:32 models.py:47
+#: models.py:17 models.py:35 models.py:50
 msgid "comment"
 msgstr "komentarz"
 
-#: models.py:19
+#: models.py:18
 msgid "topic moved"
 msgstr "wątek przeniesiony"
 
-#: models.py:20
+#: models.py:19
 msgid "topic closed"
 msgstr "wątek zamknięty"
 
-#: models.py:21
+#: models.py:20
 msgid "topic unclosed"
 msgstr "wątek ponownie otwarty"
 
-#: models.py:22
+#: models.py:21
 msgid "topic pinned"
 msgstr "wątek przypięty"
 
-#: models.py:23
+#: models.py:22
 msgid "topic unpinned"
 msgstr "wątek odpięty"
 
-#: models.py:33
+#: models.py:36
 msgid "comment html"
 msgstr "komentarz html"
 
-#: models.py:34
+#: models.py:37
 msgid "action"
 msgstr "akcja"
 
-#: models.py:40
+#: models.py:43
 msgid "modified count"
 msgstr "zmian"
 
-#: models.py:41
+#: models.py:44
 msgid "likes count"
 msgstr "polubień"
 
-#: models.py:48
+#: models.py:51
 msgid "comments"
 msgstr "komentarze"
 
@@ -112,85 +112,85 @@ msgstr "Wątek został odpięty"
 msgid "Unknown topic moderation action"
 msgstr "Nieznana akcja moderacji wątku"
 
-#: templates/spirit/comment/_editor.html:8
+#: templates/spirit/comment/_editor.html:10
 msgid "Bold"
 msgstr "Pogrubienie"
 
-#: templates/spirit/comment/_editor.html:9
+#: templates/spirit/comment/_editor.html:15
 msgid "Italic"
 msgstr "Kursywa"
 
-#: templates/spirit/comment/_editor.html:10
+#: templates/spirit/comment/_editor.html:20
 msgid "List"
 msgstr "Lista"
 
-#: templates/spirit/comment/_editor.html:11
+#: templates/spirit/comment/_editor.html:25
 msgid "URL"
 msgstr "URL"
 
-#: templates/spirit/comment/_editor.html:12
+#: templates/spirit/comment/_editor.html:30
 msgid "Image"
 msgstr "Obraz"
 
-#: templates/spirit/comment/_editor.html:14
+#: templates/spirit/comment/_editor.html:37
 msgid "File"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:16
+#: templates/spirit/comment/_editor.html:44
 msgid "Poll"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:17
+#: templates/spirit/comment/_editor.html:49
 msgid "Preview"
 msgstr "Podgląd"
 
-#: templates/spirit/comment/_editor.html:39
-#: templates/spirit/comment/_editor.html:47
+#: templates/spirit/comment/_editor.html:77
+#: templates/spirit/comment/_editor.html:86
 #, python-brace-format
 msgid "uploading {name}"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:52
+#: templates/spirit/comment/_editor.html:92
 msgid "bolded text"
 msgstr "pogrubiony tekst"
 
-#: templates/spirit/comment/_editor.html:53
+#: templates/spirit/comment/_editor.html:93
 msgid "italicised text"
 msgstr "pochyły tekst"
 
-#: templates/spirit/comment/_editor.html:54
+#: templates/spirit/comment/_editor.html:94
 msgid "list item"
 msgstr "punkt listy"
 
-#: templates/spirit/comment/_editor.html:55
+#: templates/spirit/comment/_editor.html:95
 msgid "link text"
 msgstr "llink"
 
-#: templates/spirit/comment/_editor.html:56
+#: templates/spirit/comment/_editor.html:96
 msgid "link url"
 msgstr "url"
 
-#: templates/spirit/comment/_editor.html:57
+#: templates/spirit/comment/_editor.html:97
 msgid "image text"
 msgstr "tekst obrazka"
 
-#: templates/spirit/comment/_editor.html:58
+#: templates/spirit/comment/_editor.html:98
 msgid "image url"
 msgstr "url obrazka"
 
-#: templates/spirit/comment/_editor.html:59
+#: templates/spirit/comment/_editor.html:99
 msgid "file text"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:60
+#: templates/spirit/comment/_editor.html:100
 msgid "file url"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:61
+#: templates/spirit/comment/_editor.html:101
 msgid "Title"
 msgstr ""
 
-#: templates/spirit/comment/_editor.html:62
+#: templates/spirit/comment/_editor.html:102
 msgid "Description"
 msgstr ""
 
@@ -200,49 +200,49 @@ msgstr ""
 msgid "Publish"
 msgstr "Publikuj"
 
-#: templates/spirit/comment/_render_list.html:47
+#: templates/spirit/comment/_render_list.html:58
 msgid "delete"
 msgstr "usuń"
 
-#: templates/spirit/comment/_render_list.html:50
+#: templates/spirit/comment/_render_list.html:64
 msgid "report"
 msgstr "zgłoś"
 
-#: templates/spirit/comment/_render_list.html:53
+#: templates/spirit/comment/_render_list.html:70
 msgid "share"
 msgstr "udostępnij"
 
-#: templates/spirit/comment/_render_list.html:57
-#: templates/spirit/comment/_render_list.html:139
+#: templates/spirit/comment/_render_list.html:79
+#: templates/spirit/comment/_render_list.html:195
 msgid "remove like"
 msgstr "usuń polubienie"
 
-#: templates/spirit/comment/_render_list.html:60
-#: templates/spirit/comment/_render_list.html:138
+#: templates/spirit/comment/_render_list.html:87
+#: templates/spirit/comment/_render_list.html:194
 msgid "like"
 msgstr "polub"
 
-#: templates/spirit/comment/_render_list.html:67
+#: templates/spirit/comment/_render_list.html:96
 msgid "edit"
 msgstr "edytuj"
 
-#: templates/spirit/comment/_render_list.html:71
+#: templates/spirit/comment/_render_list.html:102
 msgid "quote"
 msgstr "cytat"
 
-#: templates/spirit/comment/_render_list.html:72
+#: templates/spirit/comment/_render_list.html:105
 msgid "reply"
 msgstr "odpowiedź"
 
-#: templates/spirit/comment/_render_list.html:79
+#: templates/spirit/comment/_render_list.html:114
 msgid "close"
 msgstr "zamknij"
 
-#: templates/spirit/comment/_render_list.html:110
+#: templates/spirit/comment/_render_list.html:163
 msgid "This comment was deleted"
 msgstr "Komentarz skasowano"
 
-#: templates/spirit/comment/_render_list.html:118
+#: templates/spirit/comment/_render_list.html:173
 msgid "undelete"
 msgstr "przywróć"
 

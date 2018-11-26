@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -33,11 +33,11 @@ msgstr ""
 msgid "%(username)s is already a participant"
 msgstr ""
 
-#: models.py:25
+#: models.py:31
 msgid "private topic"
 msgstr ""
 
-#: models.py:26
+#: models.py:32
 msgid "private topics"
 msgstr ""
 
@@ -45,17 +45,17 @@ msgstr ""
 msgid "Invite"
 msgstr ""
 
-#: templates/spirit/topic/private/_top_bar.html:6
-#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:9
+#: templates/spirit/topic/private/_top_bar.html:26
 msgid "Participating in"
 msgstr ""
 
-#: templates/spirit/topic/private/_top_bar.html:8
-#: templates/spirit/topic/private/_top_bar.html:13
+#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:22
 msgid "Left"
 msgstr ""
 
-#: templates/spirit/topic/private/_top_bar.html:20
+#: templates/spirit/topic/private/_top_bar.html:35
 msgid "Create private topic"
 msgstr ""
 
@@ -63,12 +63,12 @@ msgstr ""
 msgid "Remove user from private topic"
 msgstr ""
 
-#: templates/spirit/topic/private/delete.html:9
+#: templates/spirit/topic/private/delete.html:10
 #, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr ""
 
-#: templates/spirit/topic/private/delete.html:13
+#: templates/spirit/topic/private/delete.html:17
 msgid "Remove"
 msgstr ""
 
@@ -77,11 +77,11 @@ msgstr ""
 msgid "Private topics"
 msgstr ""
 
-#: templates/spirit/topic/private/detail.html:17
+#: templates/spirit/topic/private/detail.html:20
 msgid "Participants"
 msgstr ""
 
-#: templates/spirit/topic/private/detail.html:33
+#: templates/spirit/topic/private/detail.html:47
 msgid "Leave topic"
 msgstr ""
 
@@ -89,11 +89,11 @@ msgstr ""
 msgid "Created private topics"
 msgstr ""
 
-#: templates/spirit/topic/private/index_author.html:15
+#: templates/spirit/topic/private/index_author.html:18
 msgid "join"
 msgstr ""
 
-#: templates/spirit/topic/private/index_author.html:18
+#: templates/spirit/topic/private/index_author.html:21
 msgid "There are no topics here, yet"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Do you want to join %(topic_title)s?"
 msgstr ""
 
-#: templates/spirit/topic/private/join.html:18
+#: templates/spirit/topic/private/join.html:20
 msgid "Join"
 msgstr ""
 

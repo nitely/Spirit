@@ -1,22 +1,19 @@
-#
+# 
 # Translators:
 # alff0x1f <alff3one@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
-"language/ru/)\n"
-"Language: ru\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: tags/time.py:33
 msgid "now"
@@ -45,53 +42,53 @@ msgstr "У вас недостаточно прав для доступа к э�
 msgid "what you are looking for is gone..."
 msgstr "того что вы ищите уже нет..."
 
-#: templates/spirit/_base.html:33
+#: templates/spirit/_base.html:28
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} упомянул вас в теме {topic}"
 
-#: templates/spirit/_base.html:34
+#: templates/spirit/_base.html:29
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user} ответил в теме {topic}"
 
-#: templates/spirit/_base.html:35
+#: templates/spirit/_base.html:30
 msgid "Show all"
 msgstr "Показать все"
 
-#: templates/spirit/_base.html:36
+#: templates/spirit/_base.html:31
 msgid "No new notifications, yet"
 msgstr "Новых уведомлений пока нет"
 
-#: templates/spirit/_base.html:37
+#: templates/spirit/_base.html:32
 msgid "unread"
 msgstr "непрочитано"
 
-#: templates/spirit/_header.html:20
+#: templates/spirit/_header.html:42
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/spirit/_header.html:21
+#: templates/spirit/_header.html:45
 msgid "Topics"
 msgstr "Темы"
 
-#: templates/spirit/_header.html:22
+#: templates/spirit/_header.html:48
 msgid "Unread topics"
 msgstr "Непрочитанные темы"
 
-#: templates/spirit/_header.html:23
+#: templates/spirit/_header.html:51
 msgid "Private topics"
 msgstr "Приватные темы"
 
-#: templates/spirit/_header.html:26
+#: templates/spirit/_header.html:56
 msgid "Admin"
 msgstr "Админ"
 
-#: templates/spirit/_header.html:29
+#: templates/spirit/_header.html:63
 msgid "Log out"
 msgstr "Выйти"
 
-#: templates/spirit/_header.html:42
+#: templates/spirit/_header.html:80
 msgid "Log in"
 msgstr "Войти"
 

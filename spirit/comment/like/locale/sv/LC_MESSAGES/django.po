@@ -1,48 +1,47 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/"
-"language/sv/)\n"
-"Language: sv\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:30
 msgid "This like already exists"
 msgstr "Denna gilla finns redan"
 
-#: models.py:23
+#: models.py:29
 msgid "like"
 msgstr "gilla"
 
-#: models.py:24
+#: models.py:30
 msgid "likes"
 msgstr "gilla"
 
 #: templates/spirit/comment/like/create.html:5
-#: templates/spirit/comment/like/create.html:14
+#: templates/spirit/comment/like/create.html:18
 msgid "Like"
 msgstr "Gilla"
 
-#: templates/spirit/comment/like/create.html:9
+#: templates/spirit/comment/like/create.html:10
 #, python-format
 msgid "Like %(username)s's comment"
 msgstr "Gilla %(username)ss kommentar"
 
 #: templates/spirit/comment/like/delete.html:5
-#: templates/spirit/comment/like/delete.html:13
+#: templates/spirit/comment/like/delete.html:17
 msgid "Remove like"
 msgstr "Sluta gilla"
 
-#: templates/spirit/comment/like/delete.html:9
+#: templates/spirit/comment/like/delete.html:10
 #, python-format
 msgid "Remove %(username)s's comment like"
 msgstr "Sluta gilla %(username)ss kommentar"

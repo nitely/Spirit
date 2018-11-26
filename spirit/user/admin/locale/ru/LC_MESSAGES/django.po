@@ -1,44 +1,41 @@
-#
+# 
 # Translators:
 # Timour Ghinatoulline <t.ginatullin@plusone.su>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Timour Ghinatoulline <t.ginatullin@plusone.su>\n"
-"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: templates/spirit/user/admin/_list.html:9
+#: templates/spirit/user/admin/_list.html:12
 msgid "edit"
 msgstr "редактировать"
 
-#: templates/spirit/user/admin/_tabs.html:4
+#: templates/spirit/user/admin/_tabs.html:8
 msgid "List"
 msgstr "Список"
 
-#: templates/spirit/user/admin/_tabs.html:5
+#: templates/spirit/user/admin/_tabs.html:13
 #: templates/spirit/user/admin/admins.html:5
 #: templates/spirit/user/admin/admins.html:11
 msgid "Admins"
 msgstr "Администраторы"
 
-#: templates/spirit/user/admin/_tabs.html:6
+#: templates/spirit/user/admin/_tabs.html:18
 #: templates/spirit/user/admin/mods.html:5
 #: templates/spirit/user/admin/mods.html:11
 msgid "Mods"
 msgstr "Модераторы"
 
-#: templates/spirit/user/admin/_tabs.html:7
+#: templates/spirit/user/admin/_tabs.html:23
 msgid "Unactive"
 msgstr "Неактивные"
 

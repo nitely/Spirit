@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,19 +12,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:13
+#: models.py:15
 msgid "original comment"
 msgstr ""
 
-#: models.py:15
+#: models.py:18
 msgid "comment html"
 msgstr ""
 
-#: models.py:20
+#: models.py:23
 msgid "comment history"
 msgstr ""
 
-#: models.py:21
+#: models.py:24
 msgid "comments history"
 msgstr ""
 

@@ -1,18 +1,17 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
-"language/de/)\n"
-"Language: de\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:68
@@ -36,11 +35,11 @@ msgstr "User einladen"
 msgid "%(username)s is already a participant"
 msgstr "%(username)s ist bereits Teilnehmer_in"
 
-#: models.py:25
+#: models.py:31
 msgid "private topic"
 msgstr "privates Thema"
 
-#: models.py:26
+#: models.py:32
 msgid "private topics"
 msgstr "private Themen"
 
@@ -48,17 +47,17 @@ msgstr "private Themen"
 msgid "Invite"
 msgstr "einladen"
 
-#: templates/spirit/topic/private/_top_bar.html:6
-#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:9
+#: templates/spirit/topic/private/_top_bar.html:26
 msgid "Participating in"
 msgstr "Teilnehmend"
 
-#: templates/spirit/topic/private/_top_bar.html:8
-#: templates/spirit/topic/private/_top_bar.html:13
+#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:22
 msgid "Left"
 msgstr "verlassen"
 
-#: templates/spirit/topic/private/_top_bar.html:20
+#: templates/spirit/topic/private/_top_bar.html:35
 msgid "Create private topic"
 msgstr "Neues privates Thema erstellen"
 
@@ -66,12 +65,12 @@ msgstr "Neues privates Thema erstellen"
 msgid "Remove user from private topic"
 msgstr "Entferne Benutzer_in vom privaten Thema"
 
-#: templates/spirit/topic/private/delete.html:9
+#: templates/spirit/topic/private/delete.html:10
 #, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr "Entferne %(username)ss von %(topic_title)s"
 
-#: templates/spirit/topic/private/delete.html:13
+#: templates/spirit/topic/private/delete.html:17
 msgid "Remove"
 msgstr "entferne"
 
@@ -80,11 +79,11 @@ msgstr "entferne"
 msgid "Private topics"
 msgstr "private Themen"
 
-#: templates/spirit/topic/private/detail.html:17
+#: templates/spirit/topic/private/detail.html:20
 msgid "Participants"
 msgstr "Teilnehmer_innen"
 
-#: templates/spirit/topic/private/detail.html:33
+#: templates/spirit/topic/private/detail.html:47
 msgid "Leave topic"
 msgstr "Thema verlassen"
 
@@ -92,11 +91,11 @@ msgstr "Thema verlassen"
 msgid "Created private topics"
 msgstr "Neue private Themen erstellen"
 
-#: templates/spirit/topic/private/index_author.html:15
+#: templates/spirit/topic/private/index_author.html:18
 msgid "join"
 msgstr "teilnehmen"
 
-#: templates/spirit/topic/private/index_author.html:18
+#: templates/spirit/topic/private/index_author.html:21
 msgid "There are no topics here, yet"
 msgstr "Es gibt keine Themen, bis jetzt..."
 
@@ -109,7 +108,7 @@ msgstr "Diskussion beitreten"
 msgid "Do you want to join %(topic_title)s?"
 msgstr "Willst du dieser Diskussion beitreten %(topic_title)s?"
 
-#: templates/spirit/topic/private/join.html:18
+#: templates/spirit/topic/private/join.html:20
 msgid "Join"
 msgstr "teilnehmen"
 

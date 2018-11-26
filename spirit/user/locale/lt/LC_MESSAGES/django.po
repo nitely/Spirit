@@ -1,31 +1,29 @@
-#
+# 
 # Translators:
 # sirex <sirexas@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/"
-"language/lt/)\n"
-"Language: lt\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: forms.py:35
 msgid "The email is taken."
 msgstr "El. pašto adresas užimtas."
 
-#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:12
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr "El. paštas"
 
-#: forms.py:51 templates/spirit/user/profile_update.html:15
+#: forms.py:51 templates/spirit/user/profile_update.html:19
 msgid "Password"
 msgstr "Slaptažodis"
 
@@ -42,109 +40,107 @@ msgstr ""
 msgid "Current time is: %(date)s %(time)s"
 msgstr "Dabar yra %(date)s %(time)s"
 
-#: models.py:16
+#: models.py:18
 msgid "profile"
 msgstr "profilis"
 
-#: models.py:19
+#: models.py:23
 msgid "location"
 msgstr "vieta"
 
-#: models.py:20
+#: models.py:24
 msgid "last seen"
 msgstr "paskutinį kartą matytas"
 
-#: models.py:21
+#: models.py:25
 msgid "last ip"
 msgstr "paskutinis IP"
 
-#: models.py:22
+#: models.py:26
 msgid "time zone"
 msgstr "laiko juosta"
 
-#: models.py:23
+#: models.py:27
 msgid "administrator status"
 msgstr "administratoriaus būsena"
 
-#: models.py:24
+#: models.py:28
 msgid "moderator status"
 msgstr "moderatoriaus būsena"
 
-#: models.py:25
+#: models.py:30
 msgid "verified"
 msgstr "patvirtintas"
 
-#: models.py:26
+#: models.py:32
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
-msgstr ""
-"Žymi ar naudotojas patvirtino savo paskyrą el. paštu ar kitais būdais. "
-"Nuimkite pažymėjimą, kad leistumėte naudotojui aktyvuoti šią paskyrą."
+msgstr "Žymi ar naudotojas patvirtino savo paskyrą el. paštu ar kitais būdais. Nuimkite pažymėjimą, kad leistumėte naudotojui aktyvuoti šią paskyrą."
 
-#: models.py:30
+#: models.py:36
 msgid "topic count"
 msgstr "temų skaičius"
 
-#: models.py:31
+#: models.py:37
 msgid "comment count"
 msgstr "komentarų skaičius"
 
-#: models.py:33
+#: models.py:39
 msgid "last post hash"
 msgstr ""
 
-#: models.py:34
+#: models.py:40
 msgid "last post on"
 msgstr ""
 
-#: models.py:37
+#: models.py:43
 msgid "forum profile"
 msgstr "forumo profilis"
 
-#: models.py:38
+#: models.py:44
 msgid "forum profiles"
 msgstr "forumo profiliai"
 
-#: templates/spirit/user/_profile.html:12
+#: templates/spirit/user/_profile.html:13
 msgid "Joined at"
 msgstr "Prisijungė"
 
-#: templates/spirit/user/_profile.html:16
+#: templates/spirit/user/_profile.html:17
 msgid "Seen"
 msgstr "Matytas"
 
-#: templates/spirit/user/_profile.html:22
+#: templates/spirit/user/_profile.html:23
 msgid "Last IP"
 msgstr "Paskutinis IP"
 
-#: templates/spirit/user/_profile.html:31
+#: templates/spirit/user/_profile.html:35
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
 msgstr "Nustatymai"
 
-#: templates/spirit/user/_profile.html:35
+#: templates/spirit/user/_profile.html:41
 msgid "Private Message"
 msgstr "Privati Žinutė"
 
-#: templates/spirit/user/_profile.html:41
+#: templates/spirit/user/_profile.html:49
 msgid "Edit user"
 msgstr "Keisti naudotoją"
 
-#: templates/spirit/user/_profile.html:46
+#: templates/spirit/user/_profile.html:58
 msgid "Comments"
 msgstr "Komentarai"
 
-#: templates/spirit/user/_profile.html:47 templates/spirit/user/menu.html:15
+#: templates/spirit/user/_profile.html:63 templates/spirit/user/menu.html:21
 msgid "Topics"
 msgstr "Temos"
 
-#: templates/spirit/user/_profile.html:48
+#: templates/spirit/user/_profile.html:68
 msgid "Likes"
 msgstr "Patinka"
 
-#: templates/spirit/user/_render_comments_list.html:36
+#: templates/spirit/user/_render_comments_list.html:41
 msgid "There are no comments here, yet"
 msgstr "Kol kas komentarų nėra"
 
@@ -153,12 +149,12 @@ msgstr "Kol kas komentarų nėra"
 msgid "You're receiving this email because you registered at %(site_name)s."
 msgstr "Gavote šį laišką, kadangi užsiregistravote %(site_name)s svetainėje."
 
-#: templates/spirit/user/activation_email.html:4
+#: templates/spirit/user/activation_email.html:6
 msgid "Please go to the following link to activate your account:"
 msgstr "Prašome sekti šia nuoroda, kad aktyvuotumėte savo paskyrą:"
 
-#: templates/spirit/user/activation_email.html:8
-#: templates/spirit/user/email_change_email.html:8
+#: templates/spirit/user/activation_email.html:10
+#: templates/spirit/user/email_change_email.html:10
 msgid "Thanks for using our site!"
 msgstr "Ačiū, kad naudojatės mūsų svetaine!"
 
@@ -166,11 +162,9 @@ msgstr "Ačiū, kad naudojatės mūsų svetaine!"
 #, python-format
 msgid ""
 "You're receiving this because you changed your user email at %(site_name)s."
-msgstr ""
-"Gavote šį laišką, kadangi pakeitėte savo el. pašto adresą %(site_name)s "
-"svetainėje."
+msgstr "Gavote šį laišką, kadangi pakeitėte savo el. pašto adresą %(site_name)s svetainėje."
 
-#: templates/spirit/user/email_change_email.html:4
+#: templates/spirit/user/email_change_email.html:6
 msgid "Please go to the following link to confirm your email change:"
 msgstr "Sekite šia nuoroda, kad patvirtintumėte pakeistą el. pašto adresą:"
 
@@ -182,23 +176,23 @@ msgstr "Naudotojo meniu"
 msgid "Menu"
 msgstr "Meniu"
 
-#: templates/spirit/user/menu.html:14
+#: templates/spirit/user/menu.html:18
 msgid "Profile"
 msgstr "Profilis"
 
-#: templates/spirit/user/menu.html:16
+#: templates/spirit/user/menu.html:24
 msgid "Unread topics"
 msgstr "Neskaitytos temos"
 
-#: templates/spirit/user/menu.html:17
+#: templates/spirit/user/menu.html:27
 msgid "Private topics"
 msgstr "Privačios temos"
 
-#: templates/spirit/user/menu.html:20
+#: templates/spirit/user/menu.html:32
 msgid "Admin"
 msgstr "Administravimas"
 
-#: templates/spirit/user/menu.html:23
+#: templates/spirit/user/menu.html:37
 msgid "Log out"
 msgstr "Atsijungti"
 
@@ -207,24 +201,22 @@ msgstr "Atsijungti"
 msgid "You have a new notification at %(site_name)s."
 msgstr "Turite naują pranešimą %(site_name)s svetainėje."
 
-#: templates/spirit/user/notification_email.html:4
+#: templates/spirit/user/notification_email.html:6
 msgid "Please go to the following link to read the comment:"
 msgstr "Sekite šią nuorodą, kad perskaitytumėte komentarą:"
 
-#: templates/spirit/user/notification_email.html:8
+#: templates/spirit/user/notification_email.html:10
 msgid ""
 "If you don't want to keep receiving notifications, you can deactivate them "
 "on your profile preferences."
-msgstr ""
-"Jei nenorite gauti pranešimų, galite išjungti juos savo profilio "
-"nustatymuose."
+msgstr "Jei nenorite gauti pranešimų, galite išjungti juos savo profilio nustatymuose."
 
 #: templates/spirit/user/profile_comments.html:5
 msgid "comments"
 msgstr "komentarai"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:451 tests.py:765
+#: templates/spirit/user/profile_email_change.html:9 tests.py:454 tests.py:768
 #: utils/email.py:60
 msgid "Email change"
 msgstr "El. pašto keitimas"
@@ -250,28 +242,27 @@ msgstr "Keisti mano slaptažodį"
 msgid "topics"
 msgstr "temos"
 
-#: templates/spirit/user/profile_update.html:16
+#: templates/spirit/user/profile_update.html:22
 msgid "Change password"
 msgstr "Keisti slaptažodį"
 
-#: templates/spirit/user/profile_update.html:18
+#: templates/spirit/user/profile_update.html:25
 msgid "Avatar"
 msgstr "Atvaizdas"
 
-#: templates/spirit/user/profile_update.html:19
+#: templates/spirit/user/profile_update.html:27
 msgid "Change avatar"
 msgstr "Keisti atvaizdą"
 
-#: templates/spirit/user/profile_update.html:20
-msgid "Go to gravatar.com and use your current email to change it"
-msgstr ""
-"Apsilankykite gravatar.com ir naudodami esamą el. paštą pasikeiskite jį"
-
 #: templates/spirit/user/profile_update.html:28
+msgid "Go to gravatar.com and use your current email to change it"
+msgstr "Apsilankykite gravatar.com ir naudodami esamą el. paštą pasikeiskite jį"
+
+#: templates/spirit/user/profile_update.html:37
 msgid "Save"
 msgstr "Saugoti"
 
-#: tests.py:729 utils/email.py:52
+#: tests.py:732 utils/email.py:52
 msgid "User activation"
 msgstr "Naudotojo aktyvavimas"
 

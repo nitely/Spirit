@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,55 +12,55 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:24
+#: models.py:26
 msgid "category parent"
 msgstr ""
 
-#: models.py:26
+#: models.py:31
 msgid "title"
 msgstr ""
 
-#: models.py:28
+#: models.py:33
 msgid "description"
 msgstr ""
 
-#: models.py:29
+#: models.py:35
 msgid "color"
 msgstr ""
 
-#: models.py:30
+#: models.py:36
 msgid "Title color in hex format (i.e: #1aafd0)."
 msgstr ""
 
-#: models.py:31
+#: models.py:37
 msgid "modified at"
 msgstr ""
 
-#: models.py:33
+#: models.py:40
 msgid "global"
 msgstr ""
 
-#: models.py:34
+#: models.py:42
 msgid ""
 "Designates whether the topics will bedisplayed in the all-categories list."
 msgstr ""
 
-#: models.py:36
+#: models.py:44
 msgid "closed"
 msgstr ""
 
-#: models.py:37
+#: models.py:45
 msgid "removed"
 msgstr ""
 
-#: models.py:38
+#: models.py:46
 msgid "private"
 msgstr ""
 
-#: models.py:44
+#: models.py:52
 msgid "category"
 msgstr ""
 
-#: models.py:45
+#: models.py:53
 msgid "categories"
 msgstr ""

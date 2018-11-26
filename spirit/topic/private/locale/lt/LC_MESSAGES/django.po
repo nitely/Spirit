@@ -1,21 +1,19 @@
-#
+# 
 # Translators:
 # sirex <sirexas@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/"
-"language/lt/)\n"
-"Language: lt\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: forms.py:68
 msgid "Invite users"
@@ -38,11 +36,11 @@ msgstr "Pakviesti dalyvį"
 msgid "%(username)s is already a participant"
 msgstr "%(username)s jau pakviestas"
 
-#: models.py:25
+#: models.py:31
 msgid "private topic"
 msgstr "uždara tema"
 
-#: models.py:26
+#: models.py:32
 msgid "private topics"
 msgstr "uždaros temos"
 
@@ -50,17 +48,17 @@ msgstr "uždaros temos"
 msgid "Invite"
 msgstr "Pakviesti"
 
-#: templates/spirit/topic/private/_top_bar.html:6
-#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:9
+#: templates/spirit/topic/private/_top_bar.html:26
 msgid "Participating in"
 msgstr "Dalyvauja"
 
-#: templates/spirit/topic/private/_top_bar.html:8
-#: templates/spirit/topic/private/_top_bar.html:13
+#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:22
 msgid "Left"
 msgstr "Paliko"
 
-#: templates/spirit/topic/private/_top_bar.html:20
+#: templates/spirit/topic/private/_top_bar.html:35
 msgid "Create private topic"
 msgstr "Kurti uždarą temą"
 
@@ -68,12 +66,12 @@ msgstr "Kurti uždarą temą"
 msgid "Remove user from private topic"
 msgstr "Pašalinti dalyvį iš uždaros temos"
 
-#: templates/spirit/topic/private/delete.html:9
+#: templates/spirit/topic/private/delete.html:10
 #, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr "Šalinamas %(username)s's iš %(topic_title)s"
 
-#: templates/spirit/topic/private/delete.html:13
+#: templates/spirit/topic/private/delete.html:17
 msgid "Remove"
 msgstr "Šalinti"
 
@@ -82,11 +80,11 @@ msgstr "Šalinti"
 msgid "Private topics"
 msgstr "Privačios temos"
 
-#: templates/spirit/topic/private/detail.html:17
+#: templates/spirit/topic/private/detail.html:20
 msgid "Participants"
 msgstr "Dalyviai"
 
-#: templates/spirit/topic/private/detail.html:33
+#: templates/spirit/topic/private/detail.html:47
 msgid "Leave topic"
 msgstr "Palikti temą"
 
@@ -94,11 +92,11 @@ msgstr "Palikti temą"
 msgid "Created private topics"
 msgstr "Sukurtos uždaros temos"
 
-#: templates/spirit/topic/private/index_author.html:15
+#: templates/spirit/topic/private/index_author.html:18
 msgid "join"
 msgstr "prisijungti"
 
-#: templates/spirit/topic/private/index_author.html:18
+#: templates/spirit/topic/private/index_author.html:21
 msgid "There are no topics here, yet"
 msgstr "Kol kas temų nėra"
 
@@ -111,7 +109,7 @@ msgstr "Prisijungti prie temos"
 msgid "Do you want to join %(topic_title)s?"
 msgstr "Ar norite prisijungti prie %(topic_title)s?"
 
-#: templates/spirit/topic/private/join.html:18
+#: templates/spirit/topic/private/join.html:20
 msgid "Join"
 msgstr "Prisijungti"
 

@@ -1,31 +1,30 @@
-#
+# 
 # Translators:
-# istvanf <istvan.farkas@gmail.com>, 2015-2016
+# Istvan Farkas <istvan.farkas@gmail.com>, 2015-2016
 # Zsolt Nagy <imaginaeruum@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/"
-"language/hu/)\n"
-"Language: hu\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:35
 msgid "The email is taken."
 msgstr "Ez az e-mail cím már foglalt."
 
-#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:12
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr "E-mail "
 
-#: forms.py:51 templates/spirit/user/profile_update.html:15
+#: forms.py:51 templates/spirit/user/profile_update.html:19
 msgid "Password"
 msgstr "Jelszó"
 
@@ -42,109 +41,107 @@ msgstr ""
 msgid "Current time is: %(date)s %(time)s"
 msgstr "A jelenlegi idő: %(date)s %(time)s"
 
-#: models.py:16
+#: models.py:18
 msgid "profile"
 msgstr "profil"
 
-#: models.py:19
+#: models.py:23
 msgid "location"
 msgstr "hely"
 
-#: models.py:20
+#: models.py:24
 msgid "last seen"
 msgstr "utoljára itt"
 
-#: models.py:21
+#: models.py:25
 msgid "last ip"
 msgstr "utolsó IP"
 
-#: models.py:22
+#: models.py:26
 msgid "time zone"
 msgstr "időzóna"
 
-#: models.py:23
+#: models.py:27
 msgid "administrator status"
 msgstr "adminisztrátor"
 
-#: models.py:24
+#: models.py:28
 msgid "moderator status"
 msgstr "moderátor"
 
-#: models.py:25
+#: models.py:30
 msgid "verified"
 msgstr "ellenőrizve"
 
-#: models.py:26
+#: models.py:32
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
-msgstr ""
-"Jelzi, hogy a felhasználó megerősítette-e e a fiókját. Ha ezt kikapcsolod, "
-"akkor aktiválnia kell."
+msgstr "Jelzi, hogy a felhasználó megerősítette-e e a fiókját. Ha ezt kikapcsolod, akkor aktiválnia kell."
 
-#: models.py:30
+#: models.py:36
 msgid "topic count"
 msgstr "témák száma"
 
-#: models.py:31
+#: models.py:37
 msgid "comment count"
 msgstr "hozzászólások száma"
 
-#: models.py:33
+#: models.py:39
 msgid "last post hash"
 msgstr ""
 
-#: models.py:34
+#: models.py:40
 msgid "last post on"
 msgstr ""
 
-#: models.py:37
+#: models.py:43
 msgid "forum profile"
 msgstr "fórum profil"
 
-#: models.py:38
+#: models.py:44
 msgid "forum profiles"
 msgstr "fórum profilok"
 
-#: templates/spirit/user/_profile.html:12
+#: templates/spirit/user/_profile.html:13
 msgid "Joined at"
 msgstr "Csatlakozott"
 
-#: templates/spirit/user/_profile.html:16
+#: templates/spirit/user/_profile.html:17
 msgid "Seen"
 msgstr "Utoljára itt"
 
-#: templates/spirit/user/_profile.html:22
+#: templates/spirit/user/_profile.html:23
 msgid "Last IP"
 msgstr "Utolsó IP"
 
-#: templates/spirit/user/_profile.html:31
+#: templates/spirit/user/_profile.html:35
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: templates/spirit/user/_profile.html:35
+#: templates/spirit/user/_profile.html:41
 msgid "Private Message"
 msgstr "Privát üzenet"
 
-#: templates/spirit/user/_profile.html:41
+#: templates/spirit/user/_profile.html:49
 msgid "Edit user"
 msgstr "Felhasználó szerkesztése"
 
-#: templates/spirit/user/_profile.html:46
+#: templates/spirit/user/_profile.html:58
 msgid "Comments"
 msgstr "Hozzászólások"
 
-#: templates/spirit/user/_profile.html:47 templates/spirit/user/menu.html:15
+#: templates/spirit/user/_profile.html:63 templates/spirit/user/menu.html:21
 msgid "Topics"
 msgstr "Témák"
 
-#: templates/spirit/user/_profile.html:48
+#: templates/spirit/user/_profile.html:68
 msgid "Likes"
 msgstr "Kedvelések"
 
-#: templates/spirit/user/_render_comments_list.html:36
+#: templates/spirit/user/_render_comments_list.html:41
 msgid "There are no comments here, yet"
 msgstr "Még nincsenek hozzászólások"
 
@@ -153,12 +150,12 @@ msgstr "Még nincsenek hozzászólások"
 msgid "You're receiving this email because you registered at %(site_name)s."
 msgstr "Azért kapod ezt a levelet, mert regisztráltál itt: %(site_name)s."
 
-#: templates/spirit/user/activation_email.html:4
+#: templates/spirit/user/activation_email.html:6
 msgid "Please go to the following link to activate your account:"
 msgstr "Látogasd meg a következő linket a fiókod aktiválásához:"
 
-#: templates/spirit/user/activation_email.html:8
-#: templates/spirit/user/email_change_email.html:8
+#: templates/spirit/user/activation_email.html:10
+#: templates/spirit/user/email_change_email.html:10
 msgid "Thanks for using our site!"
 msgstr "Köszönjük, hogy használod az oldalunkat!"
 
@@ -168,7 +165,7 @@ msgid ""
 "You're receiving this because you changed your user email at %(site_name)s."
 msgstr ""
 
-#: templates/spirit/user/email_change_email.html:4
+#: templates/spirit/user/email_change_email.html:6
 msgid "Please go to the following link to confirm your email change:"
 msgstr ""
 
@@ -180,23 +177,23 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: templates/spirit/user/menu.html:14
+#: templates/spirit/user/menu.html:18
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/spirit/user/menu.html:16
+#: templates/spirit/user/menu.html:24
 msgid "Unread topics"
 msgstr "Olvasatlan témák"
 
-#: templates/spirit/user/menu.html:17
+#: templates/spirit/user/menu.html:27
 msgid "Private topics"
 msgstr "Privát témák"
 
-#: templates/spirit/user/menu.html:20
+#: templates/spirit/user/menu.html:32
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/spirit/user/menu.html:23
+#: templates/spirit/user/menu.html:37
 msgid "Log out"
 msgstr "Kilépés"
 
@@ -205,11 +202,11 @@ msgstr "Kilépés"
 msgid "You have a new notification at %(site_name)s."
 msgstr ""
 
-#: templates/spirit/user/notification_email.html:4
+#: templates/spirit/user/notification_email.html:6
 msgid "Please go to the following link to read the comment:"
 msgstr ""
 
-#: templates/spirit/user/notification_email.html:8
+#: templates/spirit/user/notification_email.html:10
 msgid ""
 "If you don't want to keep receiving notifications, you can deactivate them "
 "on your profile preferences."
@@ -220,7 +217,7 @@ msgid "comments"
 msgstr "hozzászólások"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:451 tests.py:765
+#: templates/spirit/user/profile_email_change.html:9 tests.py:454 tests.py:768
 #: utils/email.py:60
 msgid "Email change"
 msgstr "E-mail cím cseréje"
@@ -246,27 +243,27 @@ msgstr ""
 msgid "topics"
 msgstr "témák"
 
-#: templates/spirit/user/profile_update.html:16
+#: templates/spirit/user/profile_update.html:22
 msgid "Change password"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:18
+#: templates/spirit/user/profile_update.html:25
 msgid "Avatar"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:19
+#: templates/spirit/user/profile_update.html:27
 msgid "Change avatar"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:20
+#: templates/spirit/user/profile_update.html:28
 msgid "Go to gravatar.com and use your current email to change it"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:28
+#: templates/spirit/user/profile_update.html:37
 msgid "Save"
 msgstr "Mentés"
 
-#: tests.py:729 utils/email.py:52
+#: tests.py:732 utils/email.py:52
 msgid "User activation"
 msgstr "Felhasználó aktiváció"
 

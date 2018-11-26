@@ -1,19 +1,18 @@
-#
+# 
 # Translators:
 # Alper Buluc <ihtiyaroyuncu@yandex.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/"
-"language/tr/)\n"
-"Language: tr\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: forms.py:68
@@ -37,11 +36,11 @@ msgstr "Kullanıcı davet et"
 msgid "%(username)s is already a participant"
 msgstr "%(username)s zaten katıldı"
 
-#: models.py:25
+#: models.py:31
 msgid "private topic"
 msgstr "gizli konu"
 
-#: models.py:26
+#: models.py:32
 msgid "private topics"
 msgstr "gizli konular"
 
@@ -49,17 +48,17 @@ msgstr "gizli konular"
 msgid "Invite"
 msgstr "Davet Et"
 
-#: templates/spirit/topic/private/_top_bar.html:6
-#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:9
+#: templates/spirit/topic/private/_top_bar.html:26
 msgid "Participating in"
 msgstr "Şuraya katılınıyor"
 
-#: templates/spirit/topic/private/_top_bar.html:8
-#: templates/spirit/topic/private/_top_bar.html:13
+#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:22
 msgid "Left"
 msgstr "Sol"
 
-#: templates/spirit/topic/private/_top_bar.html:20
+#: templates/spirit/topic/private/_top_bar.html:35
 msgid "Create private topic"
 msgstr "Gizli konu oluştur"
 
@@ -67,12 +66,12 @@ msgstr "Gizli konu oluştur"
 msgid "Remove user from private topic"
 msgstr "Kullanıcıyı gizli konudan çıkar"
 
-#: templates/spirit/topic/private/delete.html:9
+#: templates/spirit/topic/private/delete.html:10
 #, python-format
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr ""
 
-#: templates/spirit/topic/private/delete.html:13
+#: templates/spirit/topic/private/delete.html:17
 msgid "Remove"
 msgstr "Kaldır"
 
@@ -81,11 +80,11 @@ msgstr "Kaldır"
 msgid "Private topics"
 msgstr "Gizli konular"
 
-#: templates/spirit/topic/private/detail.html:17
+#: templates/spirit/topic/private/detail.html:20
 msgid "Participants"
 msgstr "Katılımcılar"
 
-#: templates/spirit/topic/private/detail.html:33
+#: templates/spirit/topic/private/detail.html:47
 msgid "Leave topic"
 msgstr "Konudan ayrıl"
 
@@ -93,11 +92,11 @@ msgstr "Konudan ayrıl"
 msgid "Created private topics"
 msgstr "Gizli konular oluştur"
 
-#: templates/spirit/topic/private/index_author.html:15
+#: templates/spirit/topic/private/index_author.html:18
 msgid "join"
 msgstr "katıl"
 
-#: templates/spirit/topic/private/index_author.html:18
+#: templates/spirit/topic/private/index_author.html:21
 msgid "There are no topics here, yet"
 msgstr "Henüz konu yok"
 
@@ -110,7 +109,7 @@ msgstr "Konuya katıl"
 msgid "Do you want to join %(topic_title)s?"
 msgstr ""
 
-#: templates/spirit/topic/private/join.html:18
+#: templates/spirit/topic/private/join.html:20
 msgid "Join"
 msgstr "Katıl"
 

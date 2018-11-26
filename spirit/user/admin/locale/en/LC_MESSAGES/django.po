@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,27 +12,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/spirit/user/admin/_list.html:9
+#: templates/spirit/user/admin/_list.html:12
 msgid "edit"
 msgstr ""
 
-#: templates/spirit/user/admin/_tabs.html:4
+#: templates/spirit/user/admin/_tabs.html:8
 msgid "List"
 msgstr ""
 
-#: templates/spirit/user/admin/_tabs.html:5
+#: templates/spirit/user/admin/_tabs.html:13
 #: templates/spirit/user/admin/admins.html:5
 #: templates/spirit/user/admin/admins.html:11
 msgid "Admins"
 msgstr ""
 
-#: templates/spirit/user/admin/_tabs.html:6
+#: templates/spirit/user/admin/_tabs.html:18
 #: templates/spirit/user/admin/mods.html:5
 #: templates/spirit/user/admin/mods.html:11
 msgid "Mods"
 msgstr ""
 
-#: templates/spirit/user/admin/_tabs.html:7
+#: templates/spirit/user/admin/_tabs.html:23
 msgid "Unactive"
 msgstr ""
 

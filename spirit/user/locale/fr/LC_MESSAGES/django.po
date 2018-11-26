@@ -1,29 +1,28 @@
-#
+# 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/spirit-project/spirit/"
-"language/fr/)\n"
-"Language: fr\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/spirit-project/spirit/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: forms.py:35
 msgid "The email is taken."
 msgstr ""
 
-#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:12
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:51 templates/spirit/user/profile_update.html:15
+#: forms.py:51 templates/spirit/user/profile_update.html:19
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -40,107 +39,107 @@ msgstr ""
 msgid "Current time is: %(date)s %(time)s"
 msgstr "Temps courant: %(date)s %(time)s"
 
-#: models.py:16
+#: models.py:18
 msgid "profile"
 msgstr ""
 
-#: models.py:19
+#: models.py:23
 msgid "location"
 msgstr "localisation"
 
-#: models.py:20
+#: models.py:24
 msgid "last seen"
 msgstr "vu pour la dernière fois"
 
-#: models.py:21
+#: models.py:25
 msgid "last ip"
 msgstr "dernière ip"
 
-#: models.py:22
+#: models.py:26
 msgid "time zone"
 msgstr "fuseau horaire"
 
-#: models.py:23
+#: models.py:27
 msgid "administrator status"
 msgstr ""
 
-#: models.py:24
+#: models.py:28
 msgid "moderator status"
 msgstr ""
 
-#: models.py:25
+#: models.py:30
 msgid "verified"
 msgstr ""
 
-#: models.py:26
+#: models.py:32
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr ""
 
-#: models.py:30
+#: models.py:36
 msgid "topic count"
 msgstr ""
 
-#: models.py:31
+#: models.py:37
 msgid "comment count"
 msgstr "nombre de commentaires"
 
-#: models.py:33
+#: models.py:39
 msgid "last post hash"
 msgstr ""
 
-#: models.py:34
+#: models.py:40
 msgid "last post on"
 msgstr ""
 
-#: models.py:37
+#: models.py:43
 msgid "forum profile"
 msgstr ""
 
-#: models.py:38
+#: models.py:44
 msgid "forum profiles"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:12
+#: templates/spirit/user/_profile.html:13
 msgid "Joined at"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:16
+#: templates/spirit/user/_profile.html:17
 msgid "Seen"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:22
+#: templates/spirit/user/_profile.html:23
 msgid "Last IP"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:31
+#: templates/spirit/user/_profile.html:35
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:35
+#: templates/spirit/user/_profile.html:41
 msgid "Private Message"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:41
+#: templates/spirit/user/_profile.html:49
 msgid "Edit user"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:46
+#: templates/spirit/user/_profile.html:58
 msgid "Comments"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:47 templates/spirit/user/menu.html:15
+#: templates/spirit/user/_profile.html:63 templates/spirit/user/menu.html:21
 msgid "Topics"
 msgstr "Sujets"
 
-#: templates/spirit/user/_profile.html:48
+#: templates/spirit/user/_profile.html:68
 msgid "Likes"
 msgstr ""
 
-#: templates/spirit/user/_render_comments_list.html:36
+#: templates/spirit/user/_render_comments_list.html:41
 msgid "There are no comments here, yet"
 msgstr ""
 
@@ -149,12 +148,12 @@ msgstr ""
 msgid "You're receiving this email because you registered at %(site_name)s."
 msgstr ""
 
-#: templates/spirit/user/activation_email.html:4
+#: templates/spirit/user/activation_email.html:6
 msgid "Please go to the following link to activate your account:"
 msgstr ""
 
-#: templates/spirit/user/activation_email.html:8
-#: templates/spirit/user/email_change_email.html:8
+#: templates/spirit/user/activation_email.html:10
+#: templates/spirit/user/email_change_email.html:10
 msgid "Thanks for using our site!"
 msgstr ""
 
@@ -164,7 +163,7 @@ msgid ""
 "You're receiving this because you changed your user email at %(site_name)s."
 msgstr ""
 
-#: templates/spirit/user/email_change_email.html:4
+#: templates/spirit/user/email_change_email.html:6
 msgid "Please go to the following link to confirm your email change:"
 msgstr ""
 
@@ -176,23 +175,23 @@ msgstr "Menu utilisateur"
 msgid "Menu"
 msgstr "Menu"
 
-#: templates/spirit/user/menu.html:14
+#: templates/spirit/user/menu.html:18
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/spirit/user/menu.html:16
+#: templates/spirit/user/menu.html:24
 msgid "Unread topics"
 msgstr "Sujets non lus"
 
-#: templates/spirit/user/menu.html:17
+#: templates/spirit/user/menu.html:27
 msgid "Private topics"
 msgstr "Sujets privés"
 
-#: templates/spirit/user/menu.html:20
+#: templates/spirit/user/menu.html:32
 msgid "Admin"
 msgstr ""
 
-#: templates/spirit/user/menu.html:23
+#: templates/spirit/user/menu.html:37
 msgid "Log out"
 msgstr "Déconnexion"
 
@@ -201,11 +200,11 @@ msgstr "Déconnexion"
 msgid "You have a new notification at %(site_name)s."
 msgstr ""
 
-#: templates/spirit/user/notification_email.html:4
+#: templates/spirit/user/notification_email.html:6
 msgid "Please go to the following link to read the comment:"
 msgstr ""
 
-#: templates/spirit/user/notification_email.html:8
+#: templates/spirit/user/notification_email.html:10
 msgid ""
 "If you don't want to keep receiving notifications, you can deactivate them "
 "on your profile preferences."
@@ -216,7 +215,7 @@ msgid "comments"
 msgstr "commentaires"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:451 tests.py:765
+#: templates/spirit/user/profile_email_change.html:9 tests.py:454 tests.py:768
 #: utils/email.py:60
 msgid "Email change"
 msgstr ""
@@ -242,28 +241,27 @@ msgstr "Changer mon mot de passe"
 msgid "topics"
 msgstr "sujets"
 
-#: templates/spirit/user/profile_update.html:16
+#: templates/spirit/user/profile_update.html:22
 msgid "Change password"
 msgstr "Changer de mot de passe"
 
-#: templates/spirit/user/profile_update.html:18
+#: templates/spirit/user/profile_update.html:25
 msgid "Avatar"
 msgstr "Avatar"
 
-#: templates/spirit/user/profile_update.html:19
+#: templates/spirit/user/profile_update.html:27
 msgid "Change avatar"
 msgstr "Changer d'avatar"
 
-#: templates/spirit/user/profile_update.html:20
-msgid "Go to gravatar.com and use your current email to change it"
-msgstr ""
-"Allez sur gravatar.com et utilisez votre adresse email pour changer d'avatar"
-
 #: templates/spirit/user/profile_update.html:28
+msgid "Go to gravatar.com and use your current email to change it"
+msgstr "Allez sur gravatar.com et utilisez votre adresse email pour changer d'avatar"
+
+#: templates/spirit/user/profile_update.html:37
 msgid "Save"
 msgstr "Enregistrer"
 
-#: tests.py:729 utils/email.py:52
+#: tests.py:732 utils/email.py:52
 msgid "User activation"
 msgstr ""
 

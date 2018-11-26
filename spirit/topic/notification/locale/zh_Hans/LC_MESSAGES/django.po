@@ -1,19 +1,18 @@
-#
+# 
 # Translators:
 # cryptogun <safetychinese@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-30 16:30+0000\n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: cryptogun <safetychinese@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/"
-"spirit/language/zh_CN/)\n"
-"Language: zh_CN\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:37
@@ -24,23 +23,23 @@ msgstr "提醒已经存在"
 msgid "You can't subscribe to a topic with no comments"
 msgstr "无法订阅没有回帖的主题"
 
-#: models.py:17
+#: models.py:16
 msgid "Undefined"
 msgstr "未定义"
 
-#: models.py:18
+#: models.py:17
 msgid "Mention"
 msgstr "提到"
 
-#: models.py:19
+#: models.py:18
 msgid "Comment"
 msgstr "评论"
 
-#: models.py:39
+#: models.py:44
 msgid "topic notification"
 msgstr "主题通知"
 
-#: models.py:40
+#: models.py:45
 msgid "topics notification"
 msgstr "主题通知"
 
@@ -55,43 +54,41 @@ msgstr "提醒我"
 #: templates/spirit/topic/notification/_render_list.html:9
 #, python-format
 msgid ""
-"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr ""
-"<a href=\"%(url_profile)s\">%(username)s</a> 评论了 <a href=\"%(url_topic)s"
-"\">%(topic_title)s</a>"
+"<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> 评论了 <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:11
+#: templates/spirit/topic/notification/_render_list.html:13
 #, python-format
 msgid ""
-"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a href="
-"\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr ""
-"<a href=\"%(url_profile)s\">%(username)s</a> 在 <a href=\"%(url_topic)s\">"
-"%(topic_title)s</a>提到了你"
+"<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr "<a href=\"%(url_profile)s\">%(username)s</a> 在 <a href=\"%(url_topic)s\">%(topic_title)s</a>提到了你"
 
-#: templates/spirit/topic/notification/_render_list.html:17
+#: templates/spirit/topic/notification/_render_list.html:21
 msgid "unread"
 msgstr "未读"
 
-#: templates/spirit/topic/notification/_render_list.html:21
+#: templates/spirit/topic/notification/_render_list.html:25
 msgid "There are no notifications, yet"
 msgstr "暂无提醒"
 
+#: templates/spirit/topic/notification/_top_bar.html:9
+#: templates/spirit/topic/notification/_top_bar.html:23
 #: templates/spirit/topic/notification/index.html:5
-#: templates/spirit/topic/notification/index.html:9
 msgid "Notifications"
 msgstr "所有提醒"
 
+#: templates/spirit/topic/notification/_top_bar.html:14
+#: templates/spirit/topic/notification/_top_bar.html:28
 #: templates/spirit/topic/notification/index_unread.html:5
-#: templates/spirit/topic/notification/index_unread.html:9
 msgid "Unread notifications"
 msgstr "未读提醒"
 
-#: templates/spirit/topic/notification/index_unread.html:15
+#: templates/spirit/topic/notification/index_unread.html:14
 msgid "There are no new notifications"
 msgstr "没有新提醒"
 
-#: templates/spirit/topic/notification/index_unread.html:22
+#: templates/spirit/topic/notification/index_unread.html:25
 msgid "Next"
 msgstr "下一个"
