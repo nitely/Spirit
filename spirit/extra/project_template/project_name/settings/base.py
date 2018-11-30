@@ -191,5 +191,10 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'celery': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False
+        },
     }
 }
