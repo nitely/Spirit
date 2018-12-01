@@ -16,8 +16,8 @@ class _SpiritBackend(ModelBackend):
         try:
             return (
                 User._default_manager
-                    .select_related('st')
-                    .get(pk=user_id))
+                .select_related('st')
+                .get(pk=user_id))
         except User.DoesNotExist:
             pass
 
