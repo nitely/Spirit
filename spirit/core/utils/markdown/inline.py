@@ -76,11 +76,10 @@ class InlineLexer(mistune.InlineLexer):
                 user.st.get_absolute_url())
 
         # Mentions limiter
-        if self._mention_count >= settings.ST_MENTIONS_PER_COMMENT:
-            return m.group(0)
-
         # We increase this before doing the query to avoid abuses
         # i.e adding 1K invalid usernames won't make 1K queries
+        if self._mention_count >= settings.ST_MENTIONS_PER_COMMENT:
+            return m.group(0)
         self._mention_count += 1
 
         # New mention
