@@ -10,41 +10,44 @@ from ...core.conf import settings
 User = get_user_model()
 
 
-class EmailAuthBackend(ModelBackend):
+class _SpiritBackend(ModelBackend):
+
+    def get_user(self, user_id):
+        try:
+            return (
+                User._default_manager
+                    .select_related('st')
+                    .get(pk=user_id))
+        except User.DoesNotExist:
+            pass
+
+
+class EmailAuthBackend(_SpiritBackend):
 
     def authenticate(self, request, username=None, password=None, **kwargs):
         # TODO: authenticate when multiple users are returned
+        if username is None:
+            username = kwargs.get(User.USERNAME_FIELD)
         if settings.ST_CASE_INSENSITIVE_EMAILS:
             username = username.lower()
 
         try:
             user = User._default_manager.get(email=username)
-
-            if user.check_password(password):
-                return user
         except (User.DoesNotExist, User.MultipleObjectsReturned):
-            pass
-
-    def get_user(self, user_id):
-        # This is called if the user
-        # get authenticated with email
-        try:
-            return (
-                User._default_manager
-                    .select_related('st')
-                    .get(pk=user_id))
-        except User.DoesNotExist:
-            pass
+            User().set_password(password)
+        else:
+            if (user.check_password(password) and
+                    self.user_can_authenticate(user)):
+                return user
 
 
-class UsernameAuthBackend(ModelBackend):
+class UsernameAuthBackend(_SpiritBackend):
     # TODO: test!
 
-    def get_user(self, user_id):
-        try:
-            return (
-                User._default_manager
-                    .select_related('st')
-                    .get(pk=user_id))
-        except User.DoesNotExist:
-            pass
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        if username is None:
+            username = kwargs.get(User.USERNAME_FIELD)
+        if settings.ST_CASE_INSENSITIVE_USERNAMES:
+            username = username.lower()
+        return super(UsernameAuthBackend, self).authenticate(
+            request, username=username, password=password, **kwargs)
