@@ -48,8 +48,9 @@ def make_usernames_lower(apps, schema_editor):
                 'There are two or more users with '
                 'similar name but different casing, for example: '
                 'someUser and SomeUser, either remove one of them '
-                'or switch the `ST_CASE_INSENSITIVE_USERNAMES` setting '
-                'to False. Duplicate users are {}'.format(users))
+                'or set the `ST_CASE_INSENSITIVE_USERNAMES` setting '
+                'to False. Then run the upgrade/migration again. '
+                'Any change was reverted. Duplicate users are {}'.format(users))
 
 
 class Migration(migrations.Migration):

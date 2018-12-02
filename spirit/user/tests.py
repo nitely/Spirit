@@ -1233,8 +1233,9 @@ class UserMigrationsTest(TestCase):
                 str(cm.exception),
                 "There are two or more users with similar name but "
                 "different casing, for example: someUser and SomeUser, "
-                "either remove one of them or switch the "
+                "either remove one of them or set the "
                 "`ST_CASE_INSENSITIVE_USERNAMES` setting to False. "
+                "Then run the upgrade/migration again. Any change was reverted. "
                 "Duplicate users are ['FOO', 'fOo', 'Foo', 'bar', 'bAr']")
 
     def test_migration_11_idempotency(self):
