@@ -69,13 +69,14 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = "@nitely, @esteban,@áéíóú, @fakeone"
         comment_md = Markdown().render(comment)
-        self.assertEqual(comment_md, '<p><a class="comment-mention" rel="nofollow" href="%s">@nitely</a>, '
-                                     '<a class="comment-mention" rel="nofollow" href="%s">@esteban</a>,'
-                                     '<a class="comment-mention" rel="nofollow" href="%s">@áéíóú</a>, '
-                                     '@fakeone</p>' %
-                                     (self.user.st.get_absolute_url(),
-                                      self.user2.st.get_absolute_url(),
-                                      self.user3.st.get_absolute_url()))
+        self.assertEqual(comment_md,
+            '<p><a class="comment-mention" rel="nofollow" href="%s">@nitely</a>, '
+            '<a class="comment-mention" rel="nofollow" href="%s">@esteban</a>,'
+            '<a class="comment-mention" rel="nofollow" href="%s">@áéíóú</a>, '
+            '@fakeone</p>' %
+            (self.user.st.get_absolute_url(),
+             self.user2.st.get_absolute_url(),
+             self.user3.st.get_absolute_url()))
 
     @override_settings(ST_MENTIONS_PER_COMMENT=2)
     def test_markdown_mentions_limit(self):
@@ -94,8 +95,29 @@ class UtilsMarkdownTests(TestCase):
         md = Markdown()
         md.render(comment)
         # mentions get dynamically added on MentionifyExtension
-        self.assertDictEqual(md.get_mentions(), {'nitely': self.user,
-                                                 'esteban': self.user2})
+        self.assertDictEqual(md.get_mentions(), {
+            'nitely': self.user,
+            'esteban': self.user2})
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
+    def test_markdown_mentions_dict_ci(self):
+        """
+        markdown mentions dict case-insensitive
+        """
+        comment = "@NiTely, @EsTebaN, @nitEly, @NiteLy"
+        md = Markdown()
+        md.render(comment)
+        self.assertDictEqual(md.get_mentions(), {
+            'nitely': self.user,
+            'esteban': self.user2})
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_markdown_mentions_dict_ci_off(self):
+        comment = "@NiTely, @esteban, @nitEly, @NiteLy"
+        md = Markdown()
+        md.render(comment)
+        self.assertDictEqual(md.get_mentions(), {
+            'esteban': self.user2})
 
     def test_markdown_emoji(self):
         """
