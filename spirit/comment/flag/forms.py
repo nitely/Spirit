@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.utils import timezone
 
 from .models import Flag, CommentFlag
@@ -39,8 +39,10 @@ class FlagForm(forms.ModelForm):
             self.instance.comment = self.comment
 
             try:
-                CommentFlag.objects.update_or_create(comment=self.comment,
-                                                     defaults={'date': timezone.now(), })
+                with transaction.atomic():
+                    CommentFlag.objects.update_or_create(
+                        comment=self.comment,
+                        defaults={'date': timezone.now(), })
             except IntegrityError:
                 pass
 
