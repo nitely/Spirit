@@ -12,7 +12,7 @@ from django.urls import NoReverseMatch
 
 from ....core.tests import utils
 from ..forms import RegistrationForm, ResendActivationForm, LoginForm
-from ..backends import EmailAuthBackend
+from ..backends import EmailAuthBackend, UsernameAuthBackend
 from ...utils.tokens import UserActivationTokenGenerator
 from ...models import UserProfile
 from .urls import CustomRegisterForm
@@ -545,7 +545,9 @@ class UserBackendTest(TestCase):
 
     def setUp(self):
         utils.cache_clear()
-        self.user = utils.create_user(email="foobar@bar.com", password="bar")
+        self.user = utils.create_user(
+            email="foobar@bar.com",
+            password="bar")
 
     def test_email_auth_backend(self):
         user = EmailAuthBackend().authenticate(
@@ -572,4 +574,28 @@ class UserBackendTest(TestCase):
     def test_email_auth_backend_case_sensitive(self):
         user = EmailAuthBackend().authenticate(
             request=None, username="FooBar@bAr.COM", password="bar")
+        self.assertIsNone(user)
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
+    def test_username_auth_backend_case_sensitive(self):
+        usr = utils.create_user(
+            username="FooBar",
+            password="bar")
+        user = UsernameAuthBackend().authenticate(
+            request=None, username="FooBar", password="bar")
+        self.assertEqual(user.pk, usr.pk)
+        user = UsernameAuthBackend().authenticate(
+            request=None, username="foobar", password="bar")
+        self.assertEqual(user.pk, usr.pk)
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_username_auth_backend_case_sensitive_off(self):
+        usr = utils.create_user(
+            username="FooBar",
+            password="bar")
+        user = UsernameAuthBackend().authenticate(
+            request=None, username="FooBar", password="bar")
+        self.assertEqual(user.pk, usr.pk)
+        user = UsernameAuthBackend().authenticate(
+            request=None, username="foobar", password="bar")
         self.assertIsNone(user)
