@@ -4,6 +4,8 @@
 [![Coverage Status](https://img.shields.io/coveralls/nitely/Spirit.svg?style=flat-square)](https://coveralls.io/r/nitely/Spirit)
 [![pypi](https://img.shields.io/pypi/v/django-spirit.svg?style=flat-square)](https://pypi.python.org/pypi/django-spirit)
 [![licence](https://img.shields.io/pypi/l/django-spirit.svg?style=flat-square)](https://raw.githubusercontent.com/nitely/Spirit/master/LICENSE)
+[![Code Quality: Python](https://img.shields.io/lgtm/grade/python/g/nitely/Spirit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/nitely/Spirit/context:python)
+[![Total Alerts](https://img.shields.io/lgtm/alerts/g/nitely/Spirit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/nitely/Spirit/alerts)
 
 Spirit is a Python based forum built using the Django framework.
 
