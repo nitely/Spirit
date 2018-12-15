@@ -1,6 +1,9 @@
-dev
+0.6.3
 ==================
 
+* Fix private forum restriction regression where
+  an anonymous user was able to view sections
+  other than the index
 * Make bookmark save latest place only,
   going back to a previous page won't
   update the bookmark anymore (PR #245)
