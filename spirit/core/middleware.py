@@ -26,7 +26,10 @@ class PrivateForumMiddleware(MiddlewareMixin):
 
         resolver_match = resolve(request.path)
 
-        if resolver_match.app_name != 'spirit':
+        if not resolver_match.namespaces:
+            return
+
+        if resolver_match.namespaces[0] != 'spirit':
             return
 
         full_namespace = ':'.join(resolver_match.namespaces)

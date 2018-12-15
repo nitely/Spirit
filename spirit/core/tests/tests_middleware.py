@@ -191,3 +191,22 @@ class PrivateForumMiddlewareTests(TestCase):
         """
         self.assertEqual(
             self.client.get(reverse('spirit:index')).status_code, 200)
+
+    @override_settings(ST_PRIVATE_FORUM=True)
+    def test_restrict_apps(self):
+        """
+        Should restrict the URLs
+        """
+        url_names = [
+            'spirit:topic:index-active',
+            'spirit:topic:private:index',
+            'spirit:category:index']
+        for url_name in url_names:
+            url = reverse(url_name)
+            req = RequestFactory().get(url)
+            req.user = AnonymousUser()
+            resp = middleware.PrivateForumMiddleware().process_request(req)
+            self.assertIsInstance(resp, HttpResponseRedirect)
+            self.assertEqual(
+                resp['Location'],
+                reverse(settings.LOGIN_URL) + '?next=' + url)
