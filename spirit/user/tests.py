@@ -69,6 +69,42 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': "foo"}))
         self.assertEqual(response.status_code, 302)
 
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
+    def test_profile_creation_on_register_case_insensitive_user(self):
+        form_data = {
+            'username': 'UnIqUeFoO',
+            'email': 'some@some.com',
+            'email2': 'some@some.com',
+            'password': 'pass'}
+        response = self.client.post(
+            reverse('spirit:user:auth:register'), form_data)
+        expected_url = reverse('spirit:user:auth:login')
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user__username='uniquefoo'
+            ).exists())
+        self.assertFalse(
+            UserProfile.objects.filter(nickname='uniquefoo').exists())
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_profile_creation_on_register_case_insensitive_user_off(self):
+        form_data = {
+            'username': 'UnIqUeFoO',
+            'email': 'some@some.com',
+            'email2': 'some@some.com',
+            'password': 'pass'}
+        response = self.client.post(
+            reverse('spirit:user:auth:register'), form_data)
+        expected_url = reverse('spirit:user:auth:login')
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user__username='UnIqUeFoO'
+            ).exists())
+
     def test_profile_topics(self):
         """
         profile user's topics

@@ -60,7 +60,7 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
             raise forms.ValidationError(
                 _("The username is taken."))
 
-        return username
+        return self.cleaned_data["username"]
 
     def clean_email2(self):
         email = self.cleaned_data.get("email")
