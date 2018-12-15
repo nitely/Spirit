@@ -21,8 +21,12 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
         max_length=254,
         help_text=_("Enter the same email as above, for verification."))
     # todo: add password validator for Django 1.9
-    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
-    honeypot = forms.CharField(label=_("Leave blank"), required=False)
+    password = forms.CharField(
+        label=_("Password"),
+        widget=forms.PasswordInput)
+    honeypot = forms.CharField(
+        label=_("Leave blank"),
+        required=False)
 
     class Meta:
         model = User
@@ -37,7 +41,8 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
         value = self.cleaned_data["honeypot"]
 
         if value:
-            raise forms.ValidationError(_("Do not fill this field."))
+            raise forms.ValidationError(
+                _("Do not fill this field."))
 
         return value
 
@@ -52,7 +57,8 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
             .filter(username=username)
             .exists())
         if is_taken:
-            raise forms.ValidationError(_("The username is taken."))
+            raise forms.ValidationError(
+                _("The username is taken."))
 
         return username
 
@@ -77,7 +83,9 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
 
 class LoginForm(AuthenticationForm):
 
-    username = forms.CharField(label=_("Username or Email"), max_length=254)
+    username = forms.CharField(
+        label=_("Username or Email"),
+        max_length=254)
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
@@ -116,7 +124,8 @@ class LoginForm(AuthenticationForm):
             return
 
         raise forms.ValidationError(
-            _("No account matches %(username)s.") % {'username': username})
+            _("No account matches %(username)s.") % {
+                'username': username})
 
     def clean(self):
         self._validate_username()
@@ -125,7 +134,10 @@ class LoginForm(AuthenticationForm):
 
 class ResendActivationForm(forms.Form):
 
-    email = forms.CharField(label=_("Email"), widget=forms.EmailInput, max_length=254)
+    email = forms.CharField(
+        label=_("Email"),
+        widget=forms.EmailInput,
+        max_length=254)
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -138,15 +150,19 @@ class ResendActivationForm(forms.Form):
             .filter(email=email)
             .exists())
         if not is_existent:
-            raise forms.ValidationError(_("The provided email does not exists."))
+            raise forms.ValidationError(
+                _("The provided email does not exists."))
 
         self.user = (
             User.objects
-            .filter(email=email, st__is_verified=False)
+            .filter(
+                email=email,
+                st__is_verified=False)
             .order_by('-pk')
             .first())
         if not self.user:
-            raise forms.ValidationError(_("This account is verified, try logging-in."))
+            raise forms.ValidationError(
+                _("This account is verified, try logging-in."))
 
         return email
 
