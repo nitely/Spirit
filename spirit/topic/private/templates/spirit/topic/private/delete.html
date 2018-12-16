@@ -7,7 +7,7 @@
 {% block content %}
 
   <h1 class="headline">
-    {% blocktrans trimmed with username=topic_private.user.username topic_title=topic_private.topic.title %}
+    {% blocktrans trimmed with username=topic_private.user.st.nickname topic_title=topic_private.topic.title %}
       Removing {{ username }}'s from {{ topic_title }}
     {% endblocktrans %}
   </h1>

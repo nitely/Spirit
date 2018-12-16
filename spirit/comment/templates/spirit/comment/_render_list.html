@@ -21,7 +21,7 @@
           {% spaceless %}
             <div class="comment-username">
               <a class="username{% if c.user.st.is_administrator %} is-admin{% elif c.user.st.is_moderator %} is-mod{% endif %}"
-                href="{{ c.user.st.get_absolute_url }}">{{ c.user.username }}</a>
+                href="{{ c.user.st.get_absolute_url }}">{{ c.user.st.nickname }}</a>
               <span class="comment-realname">{{ c.user.get_full_name }}</span>
             </div>
 
@@ -150,7 +150,7 @@
     <div class="comment-media">
       <div class="comment-img">
         <div class="comment-removed">
-          <a href="{{ c.user.st.get_absolute_url }}">{{ c.user.username }}</a>
+          <a href="{{ c.user.st.get_absolute_url }}">{{ c.user.st.nickname }}</a>
         </div>
       </div>
 
