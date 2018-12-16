@@ -70,6 +70,30 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
+    def test_profile_creation_on_user_create_case_insensitive(self):
+        user = utils.create_user(username='UnIqUeFoO')
+        self.assertTrue(user.username, 'uniquefoo')
+        self.assertTrue(
+            User.objects.filter(username='uniquefoo').exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user_id=user.pk
+            ).exists())
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_profile_creation_on_user_create_case_insensitive_off(self):
+        user = utils.create_user(username='UnIqUeFoO')
+        self.assertTrue(user.username, 'UnIqUeFoO')
+        self.assertTrue(
+            User.objects.filter(username='UnIqUeFoO').exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user_id=user.pk
+            ).exists())
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_profile_creation_on_register_case_insensitive_user(self):
         form_data = {
             'username': 'UnIqUeFoO',

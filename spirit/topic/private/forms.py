@@ -64,9 +64,10 @@ class TopicForPrivateForm(forms.ModelForm):
         return super(TopicForPrivateForm, self).save(commit)
 
 
-CxMultipleInput = MultipleInput
-if settings.ST_CASE_INSENSITIVE_USERNAMES:
-    CxMultipleInput = CIMultipleInput
+def cx_multiple_input(*args, **kwargs):
+    if settings.ST_CASE_INSENSITIVE_USERNAMES:
+        return CIMultipleInput(*args, **kwargs)
+    return MultipleInput(*args, **kwargs)
 
 
 class TopicPrivateManyForm(forms.Form):
@@ -75,13 +76,15 @@ class TopicPrivateManyForm(forms.Form):
     users = forms.ModelMultipleChoiceField(
         label=_("Invite users"),
         queryset=User.objects.all(),
-        to_field_name=User.USERNAME_FIELD,
-        widget=CxMultipleInput(attrs={'placeholder': _("user1, user2, ...")}))
+        to_field_name=User.USERNAME_FIELD)
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super(TopicPrivateManyForm, self).__init__(*args, **kwargs)
         self.user = user
         self.topic = topic
+        # Make it dynamic for testing
+        self.fields['users'].widget = cx_multiple_input(
+            attrs={'placeholder': _("user1, user2, ...")})
 
     def clean_users(self):
         users = set(self.cleaned_data['users'])
@@ -104,9 +107,10 @@ class TopicPrivateManyForm(forms.Form):
              for user in users])
 
 
-CxTextInput = forms.TextInput
-if settings.ST_CASE_INSENSITIVE_USERNAMES:
-    CxTextInput = CITextInput
+def cx_text_input(*args, **kwargs):
+    if settings.ST_CASE_INSENSITIVE_USERNAMES:
+        return CITextInput(*args, **kwargs)
+    return forms.TextInput(*args, **kwargs)
 
 
 class TopicPrivateInviteForm(forms.ModelForm):
@@ -115,12 +119,14 @@ class TopicPrivateInviteForm(forms.ModelForm):
     user = forms.ModelChoiceField(
         queryset=User.objects.all(),
         to_field_name=User.USERNAME_FIELD,
-        widget=CxTextInput(attrs={'placeholder': _("username")}),
         label=_("Invite user"))
 
     def __init__(self, topic=None, *args, **kwargs):
         super(TopicPrivateInviteForm, self).__init__(*args, **kwargs)
         self.topic = topic
+        # Make it dynamic for testing
+        self.fields['user'].widget = cx_text_input(
+            attrs={'placeholder': _("username")})
 
     class Meta:
         model = TopicPrivate
