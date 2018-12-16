@@ -95,6 +95,15 @@ ST_UNIQUE_EMAILS = True
 ST_CASE_INSENSITIVE_EMAILS = True
 
 #: Make user-names case insensitive
+#:
+#: .. Note::
+#:     This can be set to ``False`` at any time,
+#:     however setting it back to ``True`` requires
+#:     taking care of clashing users,
+#:     i.e: ``someuser``, ``SomeUser`` and ``SoMeUsEr``,
+#:     only one of those users will be able log-in
+#:     (the one in lowercase). Removing clashing users
+#:     is usually not possible.
 ST_CASE_INSENSITIVE_USERNAMES = True
 
 # Tests helper
