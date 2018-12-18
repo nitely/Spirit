@@ -1,3 +1,13 @@
+0.7.0
+==================
+
+* Breakig change: usernames are now case-insensitive,
+  set `ST_CASE_INSENSITIVE_USERNAMES = False` to
+  disable this feature. Disabling it is likely
+  required for existing instances of Spirit due
+  to clashing usernames
+* New: case insensitive usernames
+
 0.6.3
 ==================
 
