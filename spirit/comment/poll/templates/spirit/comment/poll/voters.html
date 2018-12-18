@@ -16,7 +16,7 @@
 
     {% for v in votes %}
       <div class="row">
-        <a href="{{ v.voter.st.get_absolute_url }}">{{ v.voter.username }}</a>
+        <a href="{{ v.voter.st.get_absolute_url }}">{{ v.voter.st.nickname }}</a>
         <span class="row-edit" title="{{ v.created_at }}"><i class="fa fa-clock-o"></i> {{ v.created_at|shortnaturaltime }}</span>
       </div>
     {% endfor %}

@@ -7,7 +7,7 @@
 {% block content %}
 
   <h1 class="headline">
-    {% blocktrans trimmed with username=like.comment.user.username %}
+    {% blocktrans trimmed with username=like.comment.user.st.nickname %}
       Remove {{ username }}'s comment like
     {% endblocktrans %}
   </h1>

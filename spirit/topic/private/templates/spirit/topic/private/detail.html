@@ -24,7 +24,7 @@
           {% spaceless %}
             {% for tp in topic.topics_private.all %}
               <li class="menu-item">
-                <span class="menu-username">{{ tp.user.username }}</span>
+                <span class="menu-username">{{ tp.user.st.nickname }}</span>
                 {% ifequal user.pk topic.user.pk %}
                   <a class="menu-icon" href="{% url "spirit:topic:private:access-remove" tp.pk %}">
                     <i class="fa fa-times"></i>

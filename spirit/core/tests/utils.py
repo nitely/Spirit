@@ -75,7 +75,9 @@ def create_comment(**kwargs):
 def login(test_case_instance, user=None, password=None):
     user = user or test_case_instance.user
     password = password or "bar"
-    login_successful = test_case_instance.client.login(username=user.username, password=password)
+    login_successful = test_case_instance.client.login(
+        username=user.username,
+        password=password)
     test_case_instance.assertTrue(login_successful)
 
 

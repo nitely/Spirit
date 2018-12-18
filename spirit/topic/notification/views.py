@@ -65,7 +65,7 @@ def index_ajax(request):
 
     notifications = [
         {
-            'user': escape(n.comment.user.username),
+            'user': escape(n.comment.user.st.nickname),
             'action': n.action,
             'title': escape(n.topic.title),
             'url': n.get_absolute_url(),

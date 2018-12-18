@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 import datetime
+import importlib
 
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
@@ -11,6 +12,8 @@ from django.utils.translation import ugettext as _
 from django.utils import timezone
 from django.test.utils import override_settings
 from django.contrib.auth.models import AnonymousUser
+from django.apps import apps
+from django.db import IntegrityError
 
 from djconfig.utils import override_djconfig
 
@@ -26,6 +29,9 @@ from .utils.email import send_activation_email, send_email_change_email, sender
 from .utils import email
 from . import middleware
 from .models import UserProfile
+
+data_migration_11 = importlib.import_module(
+    'spirit.user.migrations.0011_auto_20181124_2320')
 
 User = get_user_model()
 
@@ -62,6 +68,66 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': "foo"}))
         self.assertEqual(response.status_code, 302)
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
+    def test_profile_creation_on_user_create_case_insensitive(self):
+        user = utils.create_user(username='UnIqUeFoO')
+        self.assertTrue(user.username, 'uniquefoo')
+        self.assertTrue(
+            User.objects.filter(username='uniquefoo').exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user_id=user.pk
+            ).exists())
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_profile_creation_on_user_create_case_insensitive_off(self):
+        user = utils.create_user(username='UnIqUeFoO')
+        self.assertTrue(user.username, 'UnIqUeFoO')
+        self.assertTrue(
+            User.objects.filter(username='UnIqUeFoO').exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user_id=user.pk
+            ).exists())
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
+    def test_profile_creation_on_register_case_insensitive_user(self):
+        form_data = {
+            'username': 'UnIqUeFoO',
+            'email': 'some@some.com',
+            'email2': 'some@some.com',
+            'password': 'pass'}
+        response = self.client.post(
+            reverse('spirit:user:auth:register'), form_data)
+        expected_url = reverse('spirit:user:auth:login')
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user__username='uniquefoo'
+            ).exists())
+        self.assertFalse(
+            UserProfile.objects.filter(nickname='uniquefoo').exists())
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_profile_creation_on_register_case_insensitive_user_off(self):
+        form_data = {
+            'username': 'UnIqUeFoO',
+            'email': 'some@some.com',
+            'email2': 'some@some.com',
+            'password': 'pass'}
+        response = self.client.post(
+            reverse('spirit:user:auth:register'), form_data)
+        expected_url = reverse('spirit:user:auth:login')
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user__username='UnIqUeFoO'
+            ).exists())
 
     def test_profile_topics(self):
         """
@@ -1147,3 +1213,110 @@ class ActiveUserMiddlewareTest(TestCase):
         self.assertFalse(req.user.is_authenticated)
         self.assertIsNone(
             middleware.ActiveUserMiddleware().process_request(req))
+
+
+class UserMigrationsTest(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+
+    def test_migration_11(self):
+        # create users with the CI feature off
+        # to replicate pre feature database state
+        with override_settings(ST_CASE_INSENSITIVE_USERNAMES=False):
+            utils.create_user(username='FOO')
+            utils.create_user(username='BaR')
+            utils.create_user(username='baz')
+        # default all nicknames to empty
+        self.assertEqual(
+            UserProfile.objects.all().update(nickname=''), 3)
+        data_migration_11.populate_nickname(apps, None)
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()],
+            ['FOO', 'BaR', 'baz'])
+
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ['FOO', 'BaR', 'baz'])
+        data_migration_11.make_usernames_lower(apps, None)
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ['foo', 'bar', 'baz'])
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()],
+            ['FOO', 'BaR', 'baz'])
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_migration_11_no_ci_usernames(self):
+        utils.create_user(username='FOO')
+        utils.create_user(username='foo')
+        utils.create_user(username='BaR')
+        utils.create_user(username='bar')
+        utils.create_user(username='baz')
+
+        self.assertEqual(
+            UserProfile.objects.all().update(nickname=''), 5)
+        data_migration_11.populate_nickname(apps, None)
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()],
+            ['FOO', 'foo', 'BaR', 'bar', 'baz'])
+
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ['FOO', 'foo', 'BaR', 'bar', 'baz'])
+        data_migration_11.make_usernames_lower(apps, None)
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ['FOO', 'foo', 'BaR', 'bar', 'baz'])
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()],
+            ['FOO', 'foo', 'BaR', 'bar', 'baz'])
+
+    def test_migration_11_make_usernames_lower_integrity_err(self):
+        with override_settings(ST_CASE_INSENSITIVE_USERNAMES=False):
+            utils.create_user(username='FOO')
+            utils.create_user(username='fOo')
+            utils.create_user(username='Foo')
+            utils.create_user(username='bar')
+            utils.create_user(username='bAr')
+            utils.create_user(username='baz')
+
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ['FOO', 'fOo', 'Foo', 'bar', 'bAr', 'baz'])
+
+        # transaction is already handled
+        with self.assertRaises(IntegrityError) as cm:
+            data_migration_11.make_usernames_lower(apps, None)
+            self.maxDiff = None
+            self.assertEqual(
+                str(cm.exception),
+                "There are two or more users with similar name but "
+                "different casing, for example: someUser and SomeUser, "
+                "either remove one of them or set the "
+                "`ST_CASE_INSENSITIVE_USERNAMES` setting to False. "
+                "Then run the upgrade/migration again. Any change was reverted. "
+                "Duplicate users are ['FOO', 'fOo', 'Foo', 'bar', 'bAr']")
+
+    def test_migration_11_idempotency(self):
+        """Should be idempotent"""
+        with override_settings(ST_CASE_INSENSITIVE_USERNAMES=False):
+            utils.create_user(username='FOO')
+        self.assertEqual(
+            UserProfile.objects.all().update(nickname=''), 1)
+        data_migration_11.populate_nickname(apps, None)
+        data_migration_11.make_usernames_lower(apps, None)
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ['foo'])
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()],
+            ['FOO'])
+        data_migration_11.populate_nickname(apps, None)
+        data_migration_11.make_usernames_lower(apps, None)
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ['foo'])
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()],
+            ['FOO'])

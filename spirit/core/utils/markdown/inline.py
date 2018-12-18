@@ -65,25 +65,33 @@ class InlineLexer(mistune.InlineLexer):
     def output_mention(self, m):
         username = m.group('username')
 
+        if settings.ST_CASE_INSENSITIVE_USERNAMES:
+            username = username.lower()
+
         # Already mentioned?
         if username in self.mentions:
             user = self.mentions[username]
-            return self.renderer.mention(username, user.st.get_absolute_url())
+            return self.renderer.mention(
+                user.st.nickname,
+                user.st.get_absolute_url())
 
         # Mentions limiter
+        # We increase this before doing the query to avoid abuses
+        # i.e adding 1K invalid usernames won't make 1K queries
         if self._mention_count >= settings.ST_MENTIONS_PER_COMMENT:
             return m.group(0)
-
-        # We increase this before doing the query to avoid abuses
         self._mention_count += 1
 
         # New mention
         try:
-            user = User.objects\
-                .select_related('st')\
-                .get(username=username)
+            user = (
+                User.objects
+                .select_related('st')
+                .get(username=username))
         except User.DoesNotExist:
             return m.group(0)
 
         self.mentions[username] = user
-        return self.renderer.mention(username, user.st.get_absolute_url())
+        return self.renderer.mention(
+            user.st.nickname,
+            user.st.get_absolute_url())

@@ -64,7 +64,7 @@ def publish(request, user_id=None):
 
         if user_id:  # todo: move to form
             user_to = get_object_or_404(User, pk=user_id)
-            initial = {'users': [user_to.username]}
+            initial = {'users': [user_to.st.nickname]}
 
         tpform = TopicPrivateManyForm(initial=initial)
 
@@ -149,8 +149,7 @@ def join_in(request, topic_id):
         Topic,
         pk=topic_id,
         user=request.user,
-        category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK
-    )
+        category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
 
     if request.method == 'POST':
         form = TopicPrivateJoinForm(topic=topic, user=request.user, data=request.POST)
