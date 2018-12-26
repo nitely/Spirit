@@ -24,6 +24,7 @@ class AutoSlugField(SlugField):
 
     def __init__(self, *args, **kwargs):
         self.populate_from = kwargs.pop('populate_from', None)
+        kwargs['allow_unicode'] = settings.ST_UNICODE_SLUGS
         super(AutoSlugField, self).__init__(*args, **kwargs)
 
     def pre_save(self, instance, add):
