@@ -651,11 +651,14 @@ class CommentTemplateTagTests(TestCase):
         """
         should display simple comment form
         """
+        req = RequestFactory().get('/')
+        req.user = self.user
+        req_context = Context({'topic': self.topic, 'request': req})
         Template(
             "{% load spirit_tags %}"
             "{% render_comments_form topic %}"
-        ).render(Context({'topic': self.topic, }))
-        context = render_comments_form(self.topic)
+        ).render(req_context)
+        context = render_comments_form(req_context, self.topic)
         self.assertEqual(context['next'], None)
         self.assertIsInstance(context['form'], CommentForm)
         self.assertEqual(context['topic_id'], self.topic.pk)
