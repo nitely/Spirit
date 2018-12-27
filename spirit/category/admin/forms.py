@@ -4,10 +4,12 @@ from __future__ import unicode_literals
 import re
 
 from django import forms
+from django.db.models import Max
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_text
 from django.utils import timezone
 
+from ...core.conf import settings
 from ..models import Category
 
 
@@ -58,6 +60,11 @@ class CategoryForm(forms.ModelForm):
 
         return color
 
+    def get_max_sort(self):
+        return Category.objects.aggregate(max_sort=Max('sort'))['max_sort'] or 0
+
     def save(self, commit=True):
+        if settings.ST_ORDERED_CATEGORIES and not self.instance.pk:
+            self.instance.sort = self.get_max_sort() + 1
         self.instance.reindex_at = timezone.now()
         return super(CategoryForm, self).save(commit)

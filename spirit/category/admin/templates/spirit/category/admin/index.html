@@ -1,10 +1,11 @@
 {% extends "spirit/_base.html" %}
 
-{% load i18n %}
+{% load spirit_tags i18n %}
 
 {% block title %}{% trans "Category list" %}{% endblock %}
 
 {% block content %}
+    {% load_settings 'ST_ORDERED_CATEGORIES' %}
 
     {% include "spirit/admin/_side_menu.html" with active="categories" %}
 
@@ -16,6 +17,11 @@
 
         {% for c in categories %}
             <div class="row">
+                {% if st_settings.ST_ORDERED_CATEGORIES %}
+                    <a href="{% url "spirit:admin:category:move_up" category_id=c.pk %}"><i class="fa fa-arrow-up"></i></a>
+                    <a href="{% url "spirit:admin:category:move_dn" category_id=c.pk %}"><i class="fa fa-arrow-down"></i></a>
+                {% endif %}
+
                 <a {% if c.color %}style="color: {{ c.color }}"{% endif %} href="{{ c.get_absolute_url }}">{{ c.title }}</a>
 
                 {% if c.is_removed %}
@@ -31,7 +37,13 @@
 
             {% for subc in c.category_set.all %}
                 <div class="row">
-                    --- <a {% if subc.color %}style="color: {{ subc.color }}"{% endif %} href="{{ subc.get_absolute_url }}">{{ subc.title }}</a>
+                    ---
+                    {% if st_settings.ST_ORDERED_CATEGORIES %}
+                        <a href="{% url "spirit:admin:category:move_up" category_id=subc.pk %}"><i class="fa fa-arrow-up"></i></a>
+                        <a href="{% url "spirit:admin:category:move_dn" category_id=subc.pk %}"><i class="fa fa-arrow-down"></i></a>
+                    {% endif %}
+
+                    <a {% if subc.color %}style="color: {{ subc.color }}"{% endif %} href="{{ subc.get_absolute_url }}">{{ subc.title }}</a>
 
                     {% if subc.is_removed %}
                         <i class="fa fa-times"></i>

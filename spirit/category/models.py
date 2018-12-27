@@ -45,10 +45,15 @@ class Category(models.Model):
     is_removed = models.BooleanField(_("removed"), default=False)
     is_private = models.BooleanField(_("private"), default=False)
 
+    sort = models.PositiveSmallIntegerField(_("sorting order"), default=0, blank=False, null=False, db_index=True)
+
     objects = CategoryQuerySet.as_manager()
 
     class Meta:
-        ordering = ['title', 'pk']
+        if settings.ST_ORDERED_CATEGORIES:
+            ordering = ['sort', 'pk']
+        else:
+            ordering = ['title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
 
