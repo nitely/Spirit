@@ -12,7 +12,7 @@ import os
 #: The category is auto-created and so this value should not change
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
 #: Enable/disable category ordering.
-ST_ORDERED_CATEGORIES = False
+ST_ORDERED_CATEGORIES = True
 
 #: Enable/disable the rate-limit for all forms
 ST_RATELIMIT_ENABLE = True
