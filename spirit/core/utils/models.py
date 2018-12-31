@@ -2,8 +2,6 @@
 
 from __future__ import unicode_literals
 
-from slugify import slugify as unicode_slugify
-
 from django.db.models.fields import SlugField
 from django.utils.encoding import smart_text
 from django.utils.text import slugify
@@ -34,7 +32,6 @@ class AutoSlugField(SlugField):
             return default
 
         inst = instance
-
         for attr in self.populate_from.split('.'):
             value = getattr(inst, attr)
             inst = value
@@ -42,20 +39,11 @@ class AutoSlugField(SlugField):
         if value is None:
             return default
 
-        try:
-            slug = slugify(smart_text(value), allow_unicode=settings.ST_UNICODE_SLUGS)
-        except TypeError:  # Django 1.8
-            if settings.ST_UNICODE_SLUGS:
-                # TODO: mark as safe?
-                slug = unicode_slugify(smart_text(value), ok='-_')
-            else:
-                slug = slugify(smart_text(value))
-
+        slug = slugify(smart_text(value), allow_unicode=settings.ST_UNICODE_SLUGS)
         slug = slug[:self.max_length].strip('-')
 
         # Update the model’s attribute
         setattr(instance, self.attname, slug)
-
         return slug
 
     def deconstruct(self):
