@@ -1,3 +1,9 @@
+0.7.1 (unreleased)
+==================
+
+* Update `mistune` and `Pillow` dependencies
+* Remove `uni-slugify` and `Unidecode` dependencies
+
 0.7.0
 ==================
 
