@@ -62,13 +62,13 @@ def update(request, category_id):
 def move_up(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     sibling = Category.objects.filter(parent=category.parent, sort__lt=category.sort)\
-        .exclude(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK).order_by('-sort')[::1]
+        .exclude(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK).order_by('-sort').first()
     if sibling:
         sort = category.sort
-        category.sort = sibling[0].sort
-        sibling[0].sort = sort
+        category.sort = sibling.sort
+        sibling.sort = sort
         category.save()
-        sibling[0].save()
+        sibling.save()
     return redirect(reverse("spirit:admin:category:index"))
 
 
@@ -76,11 +76,11 @@ def move_up(request, category_id):
 def move_dn(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     sibling = Category.objects.filter(parent=category.parent, sort__gt=category.sort)\
-        .exclude(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK).order_by('sort')[::1]
+        .exclude(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK).order_by('sort').first()
     if sibling:
         sort = category.sort
-        category.sort = sibling[0].sort
-        sibling[0].sort = sort
+        category.sort = sibling.sort
+        sibling.sort = sort
         category.save()
-        sibling[0].save()
+        sibling.save()
     return redirect(reverse("spirit:admin:category:index"))

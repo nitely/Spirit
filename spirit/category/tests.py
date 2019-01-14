@@ -3,10 +3,12 @@
 from __future__ import unicode_literals
 
 import datetime
+import importlib
 
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
+from django.apps import apps
 
 from djconfig.utils import override_djconfig
 
@@ -15,6 +17,8 @@ from ..core.tests import utils
 from ..topic.models import Topic
 from ..comment.bookmark.models import CommentBookmark
 from .models import Category
+
+data_migration_0006 = importlib.import_module('spirit.category.migrations.0006_category_sort')
 
 
 class CategoryViewTest(TestCase):
@@ -198,3 +202,8 @@ class CategoryMigrationTest(TestCase):
         There should be two categories: private and Uncategorized
         """
         self.assertEqual(len(Category.objects.all()), 2)
+
+    def test_migration_0006(self):
+        data_migration_0006.reorder(apps, None)
+        for category in Category.objects.all():
+            self.assertTrue(category.sort > 0)
