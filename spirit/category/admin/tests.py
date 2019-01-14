@@ -26,7 +26,6 @@ class AdminViewTest(TestCase):
         self.user.st.save()
         self.category = utils.create_category()
         self.topic = utils.create_topic(self.category, user=self.user)
-        self.another_category = utils.create_category()
 
     def test_permission_denied_to_non_admin(self):
         req = RequestFactory().get('/')
@@ -92,14 +91,21 @@ class AdminViewTest(TestCase):
 
     def test_category_move(self):
         utils.login(self)
+        self.another_category = utils.create_category()
         response = self.client.get(
             reverse('spirit:admin:category:move_dn', kwargs={"category_id": self.category.pk, }))
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
+        self.category.refresh_from_db()
+        self.another_category.refresh_from_db()        
+        self.assertTrue(self.category.sort > self.another_category.sort)
         response = self.client.get(
             reverse('spirit:admin:category:move_up', kwargs={"category_id": self.category.pk, }))
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
+        self.category.refresh_from_db()
+        self.another_category.refresh_from_db()        
+        self.assertTrue(self.category.sort < self.another_category.sort)
 
 class AdminFormTest(TestCase):
 
@@ -124,6 +130,8 @@ class AdminFormTest(TestCase):
         }
         form = CategoryForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
+        category = form.save()
+        self.assertTrue(category.sort > 0)
 
     def test_category_invalid_parent(self):
         """
