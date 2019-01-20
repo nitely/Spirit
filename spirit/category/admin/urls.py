@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls import url
 
+from ...core.conf import settings
 from . import views
 
 
@@ -13,3 +14,9 @@ urlpatterns = [
     url(r'^create/$', views.create, name='create'),
     url(r'^update/(?P<category_id>[0-9]+)/$', views.update, name='update'),
 ]
+
+if settings.ST_ORDERED_CATEGORIES:
+    urlpatterns.extend([
+        url(r'^move_up/(?P<category_id>[0-9]+)/$', views.move_up, name='move_up'),
+        url(r'^move_dn/(?P<category_id>[0-9]+)/$', views.move_dn, name='move_dn')
+    ])

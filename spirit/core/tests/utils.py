@@ -48,6 +48,8 @@ def create_private_topic(**kwargs):
 def create_category(**kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = "category_foo%d" % Category.objects.all().count()
+    if 'sort' not in kwargs:
+        kwargs['sort'] = Category.objects.all().count() + 1
 
     return Category.objects.create(**kwargs)
 
