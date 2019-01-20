@@ -18,7 +18,7 @@ from ..topic.models import Topic
 from ..comment.bookmark.models import CommentBookmark
 from .models import Category
 
-data_migration_0006 = importlib.import_module('spirit.category.migrations.0006_category_sort')
+data_migration_0006 = importlib.import_module('spirit.category.migrations.0006_auto_20190120_0406')
 
 
 class CategoryViewTest(TestCase):
@@ -205,5 +205,7 @@ class CategoryMigrationTest(TestCase):
 
     def test_migration_0006(self):
         data_migration_0006.reorder(apps, None)
+        last = 0
         for category in Category.objects.all():
-            self.assertTrue(category.sort > 0)
+            self.assertTrue(category.sort > last)
+            last = category.sort

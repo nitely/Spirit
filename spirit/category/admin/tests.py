@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import datetime
 
-from django.test import TestCase, RequestFactory, override_settings
+from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
