@@ -18,8 +18,8 @@
         {% for c in categories %}
             <div class="row">
                 {% if st_settings.ST_ORDERED_CATEGORIES %}
-                    <a href="{% url "spirit:admin:category:move_up" category_id=c.pk %}"><i class="fa fa-arrow-up"></i></a>
-                    <a href="{% url "spirit:admin:category:move_dn" category_id=c.pk %}"><i class="fa fa-arrow-down"></i></a>
+                    <a class="js-post" href="{% url "spirit:admin:category:move_up" category_id=c.pk %}"><i class="fa fa-arrow-up"></i></a>
+                    <a class="js-post" href="{% url "spirit:admin:category:move_dn" category_id=c.pk %}"><i class="fa fa-arrow-down"></i></a>
                 {% endif %}
 
                 <a {% if c.color %}style="color: {{ c.color }}"{% endif %} href="{{ c.get_absolute_url }}">{{ c.title }}</a>
@@ -39,8 +39,8 @@
                 <div class="row">
                     ---
                     {% if st_settings.ST_ORDERED_CATEGORIES %}
-                        <a href="{% url "spirit:admin:category:move_up" category_id=subc.pk %}"><i class="fa fa-arrow-up"></i></a>
-                        <a href="{% url "spirit:admin:category:move_dn" category_id=subc.pk %}"><i class="fa fa-arrow-down"></i></a>
+                        <a class="js-post" href="{% url "spirit:admin:category:move_up" category_id=subc.pk %}"><i class="fa fa-arrow-up"></i></a>
+                        <a class="js-post" href="{% url "spirit:admin:category:move_dn" category_id=subc.pk %}"><i class="fa fa-arrow-down"></i></a>
                     {% endif %}
 
                     <a {% if subc.color %}style="color: {{ subc.color }}"{% endif %} href="{{ subc.get_absolute_url }}">{{ subc.title }}</a>

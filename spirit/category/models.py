@@ -34,6 +34,7 @@ class Category(models.Model):
     color = models.CharField(
         _("color"), max_length=7, blank=True,
         help_text=_("Title color in hex format (i.e: #1aafd0)."))
+    sort = models.PositiveIntegerField(_("sorting order"), default=0)
     reindex_at = models.DateTimeField(_("modified at"), default=timezone.now)
 
     is_global = models.BooleanField(
@@ -44,8 +45,6 @@ class Category(models.Model):
     is_closed = models.BooleanField(_("closed"), default=False)
     is_removed = models.BooleanField(_("removed"), default=False)
     is_private = models.BooleanField(_("private"), default=False)
-
-    sort = models.PositiveSmallIntegerField(_("sorting order"), default=0, blank=False, null=False, db_index=True)
 
     objects = CategoryQuerySet.as_manager()
 
