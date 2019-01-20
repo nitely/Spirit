@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import datetime
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, override_settings
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
@@ -89,23 +89,30 @@ class AdminViewTest(TestCase):
 
         self.assertFalse(form.is_valid())
 
-    def test_category_move(self):
+    def test_category_move_up_down(self):
+        """Should order the category when moving up/down"""
         utils.login(self)
         self.another_category = utils.create_category()
-        response = self.client.get(
-            reverse('spirit:admin:category:move_dn', kwargs={"category_id": self.category.pk, }))
+        response = self.client.post(
+            reverse(
+                'spirit:admin:category:move_dn',
+                kwargs={"category_id": self.category.pk, }))
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
         self.category.refresh_from_db()
         self.another_category.refresh_from_db()        
         self.assertTrue(self.category.sort > self.another_category.sort)
-        response = self.client.get(
-            reverse('spirit:admin:category:move_up', kwargs={"category_id": self.category.pk, }))
+
+        response = self.client.post(
+            reverse(
+                'spirit:admin:category:move_up',
+                kwargs={"category_id": self.category.pk, }))
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
         self.category.refresh_from_db()
         self.another_category.refresh_from_db()        
         self.assertTrue(self.category.sort < self.another_category.sort)
+
 
 class AdminFormTest(TestCase):
 

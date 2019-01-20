@@ -17,6 +17,6 @@ urlpatterns = [
 
 if settings.ST_ORDERED_CATEGORIES:
     urlpatterns.extend([
-        url(r'^move_up/(?P<category_id>[0-9]+)/$', views.move_up, name='move_up'),
-        url(r'^move_dn/(?P<category_id>[0-9]+)/$', views.move_dn, name='move_dn')
+        url(r'^move-up/(?P<category_id>[0-9]+)/$', views.move_up, name='move_up'),
+        url(r'^move-dn/(?P<category_id>[0-9]+)/$', views.move_dn, name='move_dn')
     ])
