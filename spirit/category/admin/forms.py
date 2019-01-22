@@ -64,7 +64,7 @@ class CategoryForm(forms.ModelForm):
         return Category.objects.aggregate(max_sort=Max('sort'))['max_sort'] or 0
 
     def save(self, commit=True):
-        if settings.ST_ORDERED_CATEGORIES and not self.instance.pk:
+        if not self.instance.pk:
             self.instance.sort = self.get_max_sort() + 1
         self.instance.reindex_at = timezone.now()
         return super(CategoryForm, self).save(commit)
