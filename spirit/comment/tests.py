@@ -766,6 +766,17 @@ class CommentFormTest(TestCase):
 
         os.remove(image_path)
 
+    def test_comment_image_upload_ext_ci(self):
+        """Should allow images with mixed case extension"""
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        files = {
+            'image': SimpleUploadedFile(
+                'image.GiF', content, content_type='image/gif')}
+        form = CommentImageForm(user=self.user, data={}, files=files)
+        self.assertTrue(form.is_valid())
+
     def test_comment_image_upload_no_extension(self):
         """
         Image upload without extension should raise an error
