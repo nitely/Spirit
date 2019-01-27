@@ -144,8 +144,8 @@ class CommentImageForm(forms.Form):
         if (ext.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT or
                 file.image.format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT):
             raise forms.ValidationError(
-                _("Unsupported file format. Supported formats are %s." %
-                  ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT)))
+                _("Unsupported file format. Supported formats are %s.") %
+                  ", ".join(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT))
 
         return file
 
