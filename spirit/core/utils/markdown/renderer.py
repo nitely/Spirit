@@ -27,7 +27,7 @@ def sanitize_url(url):
 class Renderer(mistune.Renderer):
 
     def block_math(self, text):
-        return '$$%s$$\n' % escape(text)
+        return '<p>$$%s$$</p>\n' % escape(text)
 
     def math(self, text):
         return '$$%s$$' % escape(text)

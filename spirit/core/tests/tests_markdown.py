@@ -898,7 +898,17 @@ class UtilsMarkdownTests(TestCase):
             "4 * 4\n"
             "$$\n")
         comment_md = Markdown().render(comment)
-        self.assertEqual(comment_md, '<p>hey <em>foo</em></p>\n$$\n2 * 2\n4 * 4\n$$')
+        self.assertEqual(comment_md, '<p>hey <em>foo</em></p>\n<p>$$\n2 * 2\n4 * 4\n$$</p>')
+
+    def test_markdown_math_multi_line_latex(self):
+        comment = (
+            "$$\\begin{...}\n"
+            "2 * 2\n"
+            "4 * 4\n"
+            "\\end{...}$$\n")
+        comment_md = Markdown().render(comment)
+        self.assertEqual(
+            comment_md, '<p>$$\\begin{...}\n2 * 2\n4 * 4\n\\end{...}$$</p>')
 
     def test_markdown_mathjax(self):
         comment = (
@@ -921,6 +931,6 @@ class UtilsMarkdownTests(TestCase):
         self.assertEqual(
             comment_md,
             '<p>$$ x &lt; y $$</p>\n'
-            '$$\n x &lt; y\n $$\n'
+            '<p>$$\n x &lt; y\n $$</p>\n'
             '<p>\\( x &lt; y \\)</p>\n'
             '<p>\\[ x &lt; y \\]</p>')
