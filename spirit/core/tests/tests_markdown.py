@@ -879,3 +879,48 @@ class UtilsMarkdownTests(TestCase):
             self.assertEqual(
                 Markdown().render('[atk](%s)' % vector),
                 '<p><a rel="nofollow" href="%s">atk</a></p>' % expected)
+
+    def test_markdown_math(self):
+        comment = "hey *foo* $$2 * 2$$ *bar* bye"
+        comment_md = Markdown().render(comment)
+        self.assertEqual(comment_md, '<p>hey <em>foo</em> $$2 * 2$$ <em>bar</em> bye</p>')
+
+    def test_markdown_math_parens(self):
+        comment = r"hey *foo* \(2 * 2\) *bar* bye"
+        comment_md = Markdown().render(comment)
+        self.assertEqual(comment_md, r'<p>hey <em>foo</em> \(2 * 2\) <em>bar</em> bye</p>')
+
+    def test_markdown_math_multi_line(self):
+        comment = (
+            "hey *foo*\n\n"
+            "$$\n"
+            "2 * 2\n"
+            "4 * 4\n"
+            "$$\n")
+        comment_md = Markdown().render(comment)
+        self.assertEqual(comment_md, '<p>hey <em>foo</em></p>\n$$\n2 * 2\n4 * 4\n$$')
+
+    def test_markdown_mathjax(self):
+        comment = (
+            r"When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are\n"
+            r"$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$")
+        comment_md = Markdown().render(comment)
+        self.assertEqual(
+            comment_md,
+            r'<p>When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are\n'
+            r'$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p>')
+
+    def test_markdown_math_xss(self):
+        comment = (
+            "$$ x < y $$\n\n"
+            "$$\n x < y\n $$\n\n"
+            "\\( x < y \\)\n\n"
+            "\\[ x < y \\]\n\n")
+        comment_md = Markdown().render(comment)
+        self.maxDiff = None
+        self.assertEqual(
+            comment_md,
+            '<p>$$ x &lt; y $$</p>\n'
+            '$$\n x &lt; y\n $$\n'
+            '<p>\\( x &lt; y \\)</p>\n'
+            '<p>\\[ x &lt; y \\]</p>')

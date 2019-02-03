@@ -26,6 +26,15 @@ def sanitize_url(url):
 
 class Renderer(mistune.Renderer):
 
+    def block_math(self, text):
+        return '$$%s$$\n' % escape(text)
+
+    def math(self, text):
+        return '$$%s$$' % escape(text)
+
+    def math_escaped(self, text):
+        return escape(text)
+
     # Override
     def autolink(self, link, is_email=False):
         link = sanitize_url(link)

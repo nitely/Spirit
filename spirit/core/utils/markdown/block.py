@@ -11,6 +11,11 @@ from .parsers.poll import PollParser
 
 
 class BlockGrammar(mistune.BlockGrammar):
+    block_math = re.compile(
+        r'^ *\$\$'
+        r'( *(?:\S+)? *\n[\s\S]+?\s*)'  # $$\begin{...}\n...$$
+        r'\$\$ *(?:\n+|$)'
+    )
 
     block_link = re.compile(
         r'^https?://[^\s]+'
@@ -121,6 +126,7 @@ class BlockGrammar(mistune.BlockGrammar):
 class BlockLexer(mistune.BlockLexer):
 
     default_rules = copy.copy(mistune.BlockLexer.default_rules)
+    default_rules.insert(0, 'block_math')
     default_rules.insert(0, 'block_link')
     default_rules.insert(0, 'poll')
 
@@ -143,6 +149,12 @@ class BlockLexer(mistune.BlockLexer):
             'polls': [],
             'choices': []
         }
+
+    def parse_block_math(self, m):
+        self.tokens.append({
+            'type': 'block_math',
+            'text': m.group(1)
+        })
 
     def parse_block_link(self, m):
         link = m.group(0).strip()

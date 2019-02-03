@@ -14,11 +14,16 @@ from .utils.emoji import emojis
 User = get_user_model()
 _linebreak = re.compile(r'^ *\n(?!\s*$)')
 _text = re.compile(
-    r'^[\s\S]+?(?=[\\<!\[_*`:@~]|https?://| *\n|$)'
+    r'^[\s\S]+?(?=[\\<!\[_*`:@~\$]|https?://| *\n|$)'
 )
 
 
 class InlineGrammar(mistune.InlineGrammar):
+
+    math = re.compile(
+        r'^\$\$(.+?)\$\$')
+    math_escaped = re.compile(
+        r'^(\\\(.+?\\\)|\\\[.+?\\\])')
 
     # todo: match unicode emojis
     emoji = re.compile(
@@ -40,6 +45,8 @@ class InlineGrammar(mistune.InlineGrammar):
 class InlineLexer(mistune.InlineLexer):
 
     default_rules = copy.copy(mistune.InlineLexer.default_rules)
+    default_rules.insert(2, 'math')
+    default_rules.insert(0, 'math_escaped')
     default_rules.insert(2, 'emoji')
     default_rules.insert(2, 'mention')
 
@@ -51,6 +58,12 @@ class InlineLexer(mistune.InlineLexer):
 
         self.mentions = {}
         self._mention_count = 0
+
+    def output_math(self, m):
+        return self.renderer.math(m.group(1))
+
+    def output_math_escaped(self, m):
+        return self.renderer.math_escaped(m.group(1))
 
     def output_emoji(self, m):
         emoji = m.group('emoji')
