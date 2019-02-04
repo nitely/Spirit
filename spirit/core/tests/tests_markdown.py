@@ -958,3 +958,8 @@ class UtilsMarkdownTests(TestCase):
             comment_md,
             '<p><a rel="nofollow" href="http://example.com" '
             'title="this is a title \\(2 * 2\\) ">this is a link [2 * 2]</a></p>')
+
+    def test_markdown_math_not_a_link(self):
+        comment = "\\[this is not]\\(a link)"
+        comment_md = Markdown().render(comment)
+        self.assertEqual(comment_md, '<p>[this is not](a link)</p>')
