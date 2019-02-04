@@ -948,3 +948,13 @@ class UtilsMarkdownTests(TestCase):
             '<p class="math">$$\n x &lt; y\n $$</p>\n'
             '<p><span class="math">\\( x &lt; y \\)</span></p>\n'
             '<p class="math">\\[ x &lt; y \\]</p>')
+
+    def test_markdown_math_not_within_link(self):
+        comment = (
+            "[this is a link \\[2 * 2\\]]"
+            "(http://example.com \"this is a title \\(2 * 2\\) \")")
+        comment_md = Markdown().render(comment)
+        self.assertEqual(
+            comment_md,
+            '<p><a rel="nofollow" href="http://example.com" '
+            'title="this is a title \\(2 * 2\\) ">this is a link [2 * 2]</a></p>')
