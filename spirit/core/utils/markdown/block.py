@@ -12,9 +12,16 @@ from .parsers.poll import PollParser
 
 class BlockGrammar(mistune.BlockGrammar):
     block_math = re.compile(
-        r'^ *\$\$'
-        r'( *(?:\S+)? *\n[\s\S]+?\s*)'  # $$\begin{...}\n...$$
-        r'\$\$ *(?:\n+|$)'
+        r'^ *\$\$([\s\S]+?)\$\$ *(?:\n+|$)'
+    )
+
+    block_math_brackets = re.compile(
+        r'^ *\\\[([\s\S]+?)\\\] *(?:\n+|$)'
+    )
+
+    block_latex = re.compile(
+        r'^\\begin\{([^\}\*]*\*?)\}([\s\S]+?)\\end\{\1\}'
+        r'(?:\n+|$)'
     )
 
     block_link = re.compile(
@@ -127,6 +134,8 @@ class BlockLexer(mistune.BlockLexer):
 
     default_rules = copy.copy(mistune.BlockLexer.default_rules)
     default_rules.insert(0, 'block_math')
+    default_rules.insert(0, 'block_math_brackets')
+    default_rules.insert(0, 'block_latex')
     default_rules.insert(0, 'block_link')
     default_rules.insert(0, 'poll')
 
@@ -154,6 +163,19 @@ class BlockLexer(mistune.BlockLexer):
         self.tokens.append({
             'type': 'block_math',
             'text': m.group(1)
+        })
+
+    def parse_block_math_brackets(self, m):
+        self.tokens.append({
+            'type': 'block_math_brackets',
+            'text': m.group(1)
+        })
+
+    def parse_block_latex(self, m):
+        self.tokens.append({
+            'type': 'block_latex',
+            'name': m.group(1),
+            'text': m.group(2)
         })
 
     def parse_block_link(self, m):
