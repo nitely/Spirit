@@ -14,6 +14,7 @@ from django.test.utils import override_settings
 from django.contrib.auth.models import AnonymousUser
 from django.apps import apps
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 
 from djconfig.utils import override_djconfig
 
@@ -30,6 +31,8 @@ from .utils import email
 from . import middleware
 from .models import UserProfile
 
+data_migration_profiles = importlib.import_module(
+    'spirit.user.migrations.0004_auto_20150731_2351')
 data_migration_11 = importlib.import_module(
     'spirit.user.migrations.0011_auto_20181124_2320')
 
@@ -68,6 +71,12 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': "foo"}))
         self.assertEqual(response.status_code, 302)
+
+    def test_profile_creation_on_save(self):
+        """Should create a profile on user save"""
+        user = utils.create_user()
+        self.assertTrue(UserProfile.objects.filter(user=user).exists())
+        self.assertEqual(user.st, UserProfile.objects.get(user=user))
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_profile_creation_on_user_create_case_insensitive(self):
@@ -1320,3 +1329,17 @@ class UserMigrationsTest(TestCase):
         self.assertEqual(
             [u.nickname for u in UserProfile.objects.all()],
             ['FOO'])
+
+    def test_migration_profiles(self):
+        """Should create profile for existing users"""
+        foo = utils.create_user(username='foo')
+        bar = utils.create_user(username='bar')
+        UserProfile.objects.filter(user=foo).delete()
+        UserProfile.objects.filter(user=bar).delete()
+        with self.assertRaises(ObjectDoesNotExist):
+            self.assertIsNone(User.objects.get(pk=foo.pk).st)
+        with self.assertRaises(ObjectDoesNotExist):
+            self.assertIsNone(User.objects.get(pk=bar.pk).st)
+        data_migration_profiles.migrate_profiles(apps, None)
+        self.assertTrue(User.objects.get(pk=foo.pk).st.is_verified)
+        self.assertTrue(User.objects.get(pk=bar.pk).st.is_verified)
