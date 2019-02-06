@@ -1343,5 +1343,7 @@ class UserMigrationsTest(TestCase):
         with self.assertRaises(ObjectDoesNotExist):
             self.assertIsNone(bar.st)
         data_migration_profiles.migrate_profiles(apps, None)
-        self.assertTrue(User.objects.get(pk=foo.pk).st.is_verified)
-        self.assertTrue(User.objects.get(pk=bar.pk).st.is_verified)
+        foo.refresh_from_db()
+        bar.refresh_from_db()
+        self.assertTrue(foo.st.is_verified)
+        self.assertTrue(bar.st.is_verified)
