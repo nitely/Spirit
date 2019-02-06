@@ -1336,10 +1336,12 @@ class UserMigrationsTest(TestCase):
         bar = utils.create_user(username='bar')
         UserProfile.objects.filter(user=foo).delete()
         UserProfile.objects.filter(user=bar).delete()
+        foo.refresh_from_db()
+        bar.refresh_from_db()
         with self.assertRaises(ObjectDoesNotExist):
-            self.assertIsNone(User.objects.get(pk=foo.pk).st)
+            self.assertIsNone(foo.st)
         with self.assertRaises(ObjectDoesNotExist):
-            self.assertIsNone(User.objects.get(pk=bar.pk).st)
+            self.assertIsNone(bar.st)
         data_migration_profiles.migrate_profiles(apps, None)
         self.assertTrue(User.objects.get(pk=foo.pk).st.is_verified)
         self.assertTrue(User.objects.get(pk=bar.pk).st.is_verified)
