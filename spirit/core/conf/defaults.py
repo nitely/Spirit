@@ -38,6 +38,11 @@ ST_MENTIONS_PER_COMMENT = 30
 #: Minutes to wait before a given user
 #: will be able to post a duplicated comment/topic
 ST_DOUBLE_POST_THRESHOLD_MINUTES = 30
+#: Enable MathJax. Spirit's markdown supports
+#: math notation with ``$$...$$``, ``\(...\)``, ``\[...\]``
+#: and ``\begin{abc}...\end{abc}``, this merely insert the
+#: MathJax script into the HTML.
+ST_MATH_JAX = False
 
 #: Number of next/previous pages the paginator will show
 ST_YT_PAGINATOR_PAGE_RANGE = 3
