@@ -20,6 +20,9 @@ _text = re.compile(
 
 class InlineGrammar(mistune.InlineGrammar):
 
+    math = re.compile(
+        r'^\\\((.+?)\\\)')
+
     # todo: match unicode emojis
     emoji = re.compile(
         r'^:(?P<emoji>[A-Za-z0-9_\-\+]+?):'
@@ -40,6 +43,7 @@ class InlineGrammar(mistune.InlineGrammar):
 class InlineLexer(mistune.InlineLexer):
 
     default_rules = copy.copy(mistune.InlineLexer.default_rules)
+    default_rules.insert(0, 'math')
     default_rules.insert(2, 'emoji')
     default_rules.insert(2, 'mention')
 
@@ -51,6 +55,9 @@ class InlineLexer(mistune.InlineLexer):
 
         self.mentions = {}
         self._mention_count = 0
+
+    def output_math(self, m):
+        return self.renderer.math(m.group(1))
 
     def output_emoji(self, m):
         emoji = m.group('emoji')

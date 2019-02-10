@@ -26,6 +26,20 @@ def sanitize_url(url):
 
 class Renderer(mistune.Renderer):
 
+    def block_math(self, text):
+        return '<p class="math">$$%s$$</p>\n' % escape(text)
+
+    def block_math_brackets(self, text):
+        return '<p class="math">\\[%s\\]</p>\n' % escape(text)
+
+    def block_latex(self, text, name):
+        name = escape(name)
+        text = escape(text)
+        return '<p class="math">\\begin{%s}%s\\end{%s}</p>\n' % (name, text, name)
+
+    def math(self, text):
+        return '<span class="math">\\(%s\\)</span>' % escape(text)
+
     # Override
     def autolink(self, link, is_email=False):
         link = sanitize_url(link)

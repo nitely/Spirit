@@ -38,6 +38,19 @@ class Markdown(mistune.Markdown):
     def get_polls(self):
         return self.block.polls
 
+    def output_block_math(self):
+        return self.renderer.block_math(
+            text=self.token['text'])
+
+    def output_block_math_brackets(self):
+        return self.renderer.block_math_brackets(
+            text=self.token['text'])
+
+    def output_block_latex(self):
+        return self.renderer.block_latex(
+            text=self.token['text'],
+            name=self.token['name'])
+
     def output_block_link(self):
         return self.renderer.block_link(
             link=self.token['link'])

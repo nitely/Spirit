@@ -879,3 +879,87 @@ class UtilsMarkdownTests(TestCase):
             self.assertEqual(
                 Markdown().render('[atk](%s)' % vector),
                 '<p><a rel="nofollow" href="%s">atk</a></p>' % expected)
+
+    def test_markdown_math_inline(self):
+        comment = "hey *foo* \\(2 * 2\\) *bar* bye"
+        comment_md = Markdown().render(comment)
+        self.assertEqual(
+            comment_md,
+            '<p>hey <em>foo</em> '
+            '<span class="math">\\(2 * 2\\)</span> '
+            '<em>bar</em> bye</p>')
+
+    def test_markdown_math_multi_line(self):
+        comment = (
+            "hey *foo*\n\n"
+            "$$\n"
+            "2 * 2\n"
+            "4 * 4\n"
+            "$$\n")
+        comment_md = Markdown().render(comment)
+        self.assertEqual(
+            comment_md,
+            '<p>hey <em>foo</em></p>\n'
+            '<p class="math">$$\n'
+            '2 * 2\n'
+            '4 * 4\n'
+            '$$</p>')
+
+    def test_markdown_math_latex(self):
+        comment = (
+            "\\begin{...}\n"
+            "2 * 2\n"
+            "4 * 4\n"
+            "\\end{...}\n")
+        comment_md = Markdown().render(comment)
+        self.assertEqual(
+            comment_md,
+            '<p class="math">\\begin{...}\n'
+            '2 * 2\n'
+            '4 * 4\n'
+            '\\end{...}</p>')
+
+    def test_markdown_mathjax(self):
+        comment = (
+            "When \\(a \\ne 0\\), there are two solutions to "
+            "\\(ax^2 + bx + c = 0\\) and they are\n\n"
+            "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$")
+        comment_md = Markdown().render(comment)
+        self.assertEqual(
+            comment_md,
+            '<p>When '
+            '<span class="math">\\(a \\ne 0\\)</span>'
+            ', there are two solutions to '
+            '<span class="math">\\(ax^2 + bx + c = 0\\)</span>'
+            ' and they are</p>\n'
+            '<p class="math">$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$</p>')
+
+    def test_markdown_math_xss(self):
+        comment = (
+            "$$ x < y $$\n\n"
+            "$$\n x < y\n $$\n\n"
+            "\\( x < y \\)\n\n"
+            "\\[ x < y \\]\n\n")
+        comment_md = Markdown().render(comment)
+        self.maxDiff = None
+        self.assertEqual(
+            comment_md,
+            '<p class="math">$$ x &lt; y $$</p>\n'
+            '<p class="math">$$\n x &lt; y\n $$</p>\n'
+            '<p><span class="math">\\( x &lt; y \\)</span></p>\n'
+            '<p class="math">\\[ x &lt; y \\]</p>')
+
+    def test_markdown_math_not_within_link(self):
+        comment = (
+            "[this is a link \\[2 * 2\\]]"
+            "(http://example.com \"this is a title \\(2 * 2\\) \")")
+        comment_md = Markdown().render(comment)
+        self.assertEqual(
+            comment_md,
+            '<p><a rel="nofollow" href="http://example.com" '
+            'title="this is a title \\(2 * 2\\) ">this is a link [2 * 2]</a></p>')
+
+    def test_markdown_math_not_a_link(self):
+        comment = "\\[this is not]\\(a link)"
+        comment_md = Markdown().render(comment)
+        self.assertEqual(comment_md, '<p>[this is not](a link)</p>')
