@@ -19,6 +19,7 @@ def render_comments_form(context, topic, next=None):
         'form': form,
         'topic_id': topic.pk,
         'next': next,
+        # fixes #249
         'user': context['request'].user,
     }
 
