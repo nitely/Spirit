@@ -269,16 +269,16 @@ input.move-comment-checkbox {
   img {
     vertical-align: text-bottom;
   }
+}
 
-  ins {
-    background-color: #EAFFEA;
-    text-decoration: none;
-  }
+ins.diff {
+  text-decoration: none;
+  background-color: #EAFFEA;
+}
 
-  del {
-    background-color: #FFECEC;
-    text-decoration: none;
-  }
+del.diff {
+  text-decoration: none;
+  background-color: #FFECEC;
 }
 
 .comment-actions {
