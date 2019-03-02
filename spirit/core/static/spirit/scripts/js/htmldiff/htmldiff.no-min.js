@@ -291,7 +291,7 @@
       non_tags = consecutive_where(position, content, isnt_tag);
       position += non_tags.length;
       if (non_tags.length !== 0) {
-        rendering += "<" + tag + ">" + (non_tags.join('')) + "</" + tag + ">";
+        rendering += "<" + tag + " class=\"diff\">" + (non_tags.join('')) + "</" + tag + ">";
       }
       if (position >= length) {
         break;

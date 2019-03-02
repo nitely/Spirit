@@ -240,7 +240,7 @@ wrap = (tag, content)->
     non_tags = consecutive_where position, content, isnt_tag
     position += non_tags.length
     if non_tags.length isnt 0
-      rendering += "<#{tag}>#{non_tags.join ''}</#{tag}>"
+      rendering += "<#{tag} class=\"diff\">#{non_tags.join ''}</#{tag}>"
 
     break if position >= length
     tags = consecutive_where position, content, is_tag

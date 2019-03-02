@@ -6693,12 +6693,12 @@ ul, ol {
   padding: 0;
   list-style-type: none; }
 h1 {
-  font-size: 25.88854px;
-  line-height: 38.83282px; }
+  font-size: 25.888544px;
+  line-height: 38.832816px; }
 
 h2 {
-  font-size: 21.33333px;
-  line-height: 32.0px; }
+  font-size: 21.333333328px;
+  line-height: 31.999999992px; }
 
 .comment-media::after, .container::after,
 .header::after, .row::after,
@@ -6931,7 +6931,7 @@ input[type="submit"].button,
 .row-title {
   float: left;
   display: block;
-  margin-right: 7.42297%;
+  margin-right: 7.4229703521%;
   width: 100%;
   margin-bottom: 12px; }
   .row-title:last-child {
@@ -6940,8 +6940,8 @@ input[type="submit"].button,
     .row-title {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      margin-right: 3.5786636068%;
+      width: 48.2106681966%;
       margin-bottom: 0; }
       .row-title:last-child {
         margin-right: 0; } }
@@ -6954,7 +6954,7 @@ input[type="submit"].button,
 .row-info {
   float: left;
   display: block;
-  margin-right: 7.42297%;
+  margin-right: 7.4229703521%;
   width: 100%;
   color: #979797; }
   .row-info:last-child {
@@ -6969,14 +6969,14 @@ input[type="submit"].button,
     .row-info {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      margin-right: 3.5786636068%;
+      width: 48.2106681966%;
       text-align: right; }
       .row-info:last-child {
         margin-right: 0; } }
 
 .row-unread {
-  font-size: 9.88854px;
+  font-size: 9.8885437512px;
   background-color: #e2f5fc; }
 
 .row-edit {
@@ -6985,7 +6985,7 @@ input[type="submit"].button,
 .categories {
   float: left;
   display: block;
-  margin-right: 7.42297%;
+  margin-right: 7.4229703521%;
   width: 100%;
   margin-bottom: 12px; }
   .categories:last-child {
@@ -6994,8 +6994,8 @@ input[type="submit"].button,
     .categories {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%; }
+      margin-right: 3.5786636068%;
+      width: 48.2106681966%; }
       .categories:last-child {
         margin-right: 0; } }
 
@@ -7005,7 +7005,7 @@ input[type="submit"].button,
 .new-topic {
   float: left;
   display: block;
-  margin-right: 7.42297%;
+  margin-right: 7.4229703521%;
   width: 100%; }
   .new-topic:last-child {
     margin-right: 0; }
@@ -7013,8 +7013,8 @@ input[type="submit"].button,
     .new-topic {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      margin-right: 3.5786636068%;
+      width: 48.2106681966%;
       text-align: right; }
       .new-topic:last-child {
         margin-right: 0; } }
@@ -7115,12 +7115,14 @@ input.move-comment-checkbox {
   margin-bottom: 24px; }
 .comment-text img {
   vertical-align: text-bottom; }
-.comment-text ins {
-  background-color: #EAFFEA;
-  text-decoration: none; }
-.comment-text del {
-  background-color: #FFECEC;
-  text-decoration: none; }
+
+ins.diff {
+  text-decoration: none;
+  background-color: #EAFFEA; }
+
+del.diff {
+  text-decoration: none;
+  background-color: #FFECEC; }
 
 .comment-actions {
   font-size: 14px;
@@ -7141,8 +7143,8 @@ input.move-comment-checkbox {
     .paginator {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%; }
+      margin-right: 3.5786636068%;
+      width: 48.2106681966%; }
       .paginator:last-child {
         margin-right: 0; } }
 
@@ -7157,8 +7159,8 @@ input.move-comment-checkbox {
     .notify {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      margin-right: 3.5786636068%;
+      width: 48.2106681966%;
       text-align: right; }
       .notify:last-child {
         margin-right: 0; } }
@@ -7284,7 +7286,7 @@ ul.reply-markdown {
 .profile-img {
   float: left;
   display: block;
-  margin-right: 7.42297%;
+  margin-right: 7.4229703521%;
   width: 100%;
   margin-bottom: 24px;
   text-align: center; }
@@ -7320,7 +7322,7 @@ ul.reply-markdown {
 .private-participants {
   float: left;
   display: block;
-  margin-right: 7.42297%;
+  margin-right: 7.4229703521%;
   width: 100%;
   margin-bottom: 12px; }
   .private-participants:last-child {
@@ -7329,15 +7331,15 @@ ul.reply-markdown {
     .private-participants {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%; }
+      margin-right: 3.5786636068%;
+      width: 48.2106681966%; }
       .private-participants:last-child {
         margin-right: 0; } }
 
 .private-leave {
   float: left;
   display: block;
-  margin-right: 7.42297%;
+  margin-right: 7.4229703521%;
   width: 100%;
   margin-bottom: 24px; }
   .private-leave:last-child {
@@ -7346,8 +7348,8 @@ ul.reply-markdown {
     .private-leave {
       float: left;
       display: block;
-      margin-right: 3.57866%;
-      width: 48.21067%;
+      margin-right: 3.5786636068%;
+      width: 48.2106681966%;
       text-align: right; }
       .private-leave:last-child {
         margin-right: 0; } }
@@ -7413,8 +7415,8 @@ ul.reply-markdown {
 .statistics-box {
   float: left;
   display: block;
-  margin-right: 7.42297%;
-  width: 19.43277%;
+  margin-right: 7.4229703521%;
+  width: 19.432772236%;
   word-wrap: break-word;
   padding: 12px 0;
   margin-bottom: 24px;
