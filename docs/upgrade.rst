@@ -15,9 +15,10 @@ Upgrade
     You may want to backup the media folder as well.
 
 .. Note::
-    Make sure to check the changelog for every
-    patch version of the upgrading target and
-    make changes accordingly
+    Make sure to check the changelog for every patch version
+    of the upgrading target and make changes accordingly.
+    Spirit (and Django) use Python warnings to warn about deprecations,
+    ``PYTHONWARNINGS=default`` env-var can be set to show them
 
 .. Warning::
     Trying to skip a minor version while upgrading will break things. For example, it's
