@@ -57,5 +57,3 @@ Here are some hints:
   and managed ones (ie: `Postmark <https://postmarkapp.com/>`_).
 * A search engine is required. `Woosh <https://bitbucket.org/mchaput/whoosh/wiki/Home>`_
   comes configured by default, however is quite slow. A better choice may be elastic-search.
-* Enable Python warnings to show Spirit (and Django) deprecation warnings.
-  This can be done by setting ``PYTHONWARNINGS=default`` env-var
