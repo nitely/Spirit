@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from spirit.core.middleware import XForwardedForMiddleware, PrivateForumMiddleware
-from spirit.user.middleware import TimezoneMiddleware, LastIPMiddleware,\
-    LastSeenMiddleware, ActiveUserMiddleware
+from spirit.user.middleware import (
+    TimezoneMiddleware, LastIPMiddleware,
+    LastSeenMiddleware, ActiveUserMiddleware)
 from .core.utils.deprecations import warn
 
 warn('This will get removed in Spirit 0.7. '

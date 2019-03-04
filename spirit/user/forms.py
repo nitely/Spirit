@@ -27,9 +27,10 @@ class CleanEmailMixin(object):
         if not settings.ST_UNIQUE_EMAILS:
             return email
 
-        is_taken = User.objects\
-            .filter(email=email)\
-            .exists()
+        is_taken = (
+            User.objects
+            .filter(email=email)
+            .exists())
 
         if is_taken:
             raise forms.ValidationError(_("The email is taken."))

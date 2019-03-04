@@ -41,10 +41,11 @@ class CommentPollChoiceQuerySet(models.QuerySet):
         )
 
     def for_vote(self, poll, voter):
-        return self \
-            .for_poll(poll) \
-            .for_voter(voter) \
-            .unremoved()
+        return (
+            self
+            .for_poll(poll)
+            .for_voter(voter)
+            .unremoved())
 
 
 class CommentPollVoteQuerySet(models.QuerySet):

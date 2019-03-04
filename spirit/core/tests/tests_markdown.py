@@ -160,16 +160,17 @@ class UtilsMarkdownTests(TestCase):
         """
         should remove poll markdown
         """
-        comment = "foo\n" \
-                  "[poll param=value]\n" \
-                  "1. [/fake_closing_tag]\n" \
-                  "2. opt 2\n" \
-                  "[/poll]\n" \
-                  "bar\n" \
-                  "[poll param=value]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "foo\n"
+            "[poll param=value]\n"
+            "1. [/fake_closing_tag]\n"
+            "2. opt 2\n"
+            "[/poll]\n"
+            "bar\n"
+            "[poll param=value]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         quote = quotify(comment, self.user)
         self.assertListEqual(
             quote.splitlines(),
@@ -376,11 +377,12 @@ class UtilsMarkdownTests(TestCase):
         """
         markdown poll
         """
-        comment = "[poll name=foo_1]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "3. opt 3\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo_1]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "3. opt 3\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=foo_1>')
@@ -404,11 +406,12 @@ class UtilsMarkdownTests(TestCase):
 
         org_now, timezone.now = timezone.now, mock_now
         try:
-            comment = "[poll name=foo_1 min=1 max=2 close=1d mode=default]\n" \
-                      "# Foo or bar?\n" \
-                      "1. opt 1\n" \
-                      "2. opt 2\n" \
-                      "[/poll]"
+            comment = (
+                "[poll name=foo_1 min=1 max=2 close=1d mode=default]\n"
+                "# Foo or bar?\n"
+                "1. opt 1\n"
+                "2. opt 2\n"
+                "[/poll]")
             md = Markdown()
             comment_md = md.render(comment)
             self.assertEqual(comment_md, '<poll name=foo_1>')
@@ -435,9 +438,10 @@ class UtilsMarkdownTests(TestCase):
         """
         Should have at least two options
         """
-        comment = "[poll name=foo_1]\n" \
-                  "1. opt 1\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo_1]\n"
+            "1. opt 1\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<p>[poll name=foo_1]<br>1. opt 1<br>[/poll]</p>')
@@ -447,8 +451,9 @@ class UtilsMarkdownTests(TestCase):
         """
         Should have at least two options
         """
-        comment = "[poll name=foo_1]\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo_1]\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<p>[poll name=foo_1]<br>[/poll]</p>')
@@ -458,10 +463,11 @@ class UtilsMarkdownTests(TestCase):
         """
         Should have a name param
         """
-        comment = "[poll]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<p>[poll]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
@@ -471,13 +477,14 @@ class UtilsMarkdownTests(TestCase):
         """
         Should work with surrounding text
         """
-        comment = "foo\n" \
-                  "\n" \
-                  "[poll name=foo_1]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]\n" \
-                  "bar"
+        comment = (
+            "foo\n"
+            "\n"
+            "[poll name=foo_1]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]\n"
+            "bar")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<p>foo</p>\n<poll name=foo_1>\n<p>bar</p>')
@@ -486,15 +493,16 @@ class UtilsMarkdownTests(TestCase):
         """
         Should work with many polls in the same comment
         """
-        comment = "[poll name=foo_1]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]\n" \
-                  "\n" \
-                  "[poll name=foo_2]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo_1]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]\n"
+            "\n"
+            "[poll name=foo_2]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=foo_1>\n<poll name=foo_2>')
@@ -508,11 +516,12 @@ class UtilsMarkdownTests(TestCase):
         name = 'a' * 255 * 2
         title = 'b' * 255 * 2
         description = 'c' * 255 * 2
-        comment = "[poll name=%(name)s]\n" \
-                  "# %(title)s\n" \
-                  "1. %(description)s\n" \
-                  "2. %(description)s\n" \
-                  "[/poll]" % {'name': name, 'title': title, 'description': description}
+        comment = (
+            "[poll name=%(name)s]\n"
+            "# %(title)s\n"
+            "1. %(description)s\n"
+            "2. %(description)s\n"
+            "[/poll]" % {'name': name, 'title': title, 'description': description})
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=%s>' % name[:255])
@@ -528,10 +537,11 @@ class UtilsMarkdownTests(TestCase):
         """
         Should escape the choice description
         """
-        comment = "[poll name=foo]\n" \
-                  "1. <i'm bad>\n" \
-                  "2. option\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo]\n"
+            "1. <i'm bad>\n"
+            "2. option\n"
+            "[/poll]")
         md = Markdown()
         md.render(comment)
         polls = md.get_polls()
@@ -541,11 +551,12 @@ class UtilsMarkdownTests(TestCase):
         """
         Should escape the title
         """
-        comment = "[poll name=foo]\n" \
-                  "# <i'm bad>\n" \
-                  "1. option1\n" \
-                  "2. option2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo]\n"
+            "# <i'm bad>\n"
+            "1. option1\n"
+            "2. option2\n"
+            "[/poll]")
         md = Markdown()
         md.render(comment)
         polls = md.get_polls()
@@ -569,10 +580,11 @@ class UtilsMarkdownTests(TestCase):
         Should not exceed the limit
         """
         limit = 20  # todo: change to setting
-        comment = "[poll name=foo]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         polls = md.get_polls()
         polls['choices'].extend({} for _ in range(limit))
@@ -598,10 +610,11 @@ class UtilsMarkdownTests(TestCase):
         """
         Should not allow repeated names
         """
-        comment = "[poll name=foo]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         polls = md.get_polls()
         polls['polls'].append({'name': 'foo'})
@@ -615,11 +628,12 @@ class UtilsMarkdownTests(TestCase):
         """
         Should not allow repeated numbers
         """
-        comment = "[poll name=foo]\n" \
-                  "1. opt 1\n" \
-                  "1. opt 2\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo]\n"
+            "1. opt 1\n"
+            "1. opt 2\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<p>[poll name=foo]<br>1. opt 1<br>1. opt 2<br>2. opt 2<br>[/poll]</p>')
@@ -631,24 +645,27 @@ class UtilsMarkdownTests(TestCase):
         """
         Should not allow repeated numbers (1 = 01 = 001)
         """
-        comment = "[poll name=foo]\n" \
-                  "1. opt 1\n" \
-                  "01. opt 2\n" \
-                  "001. opt 2\n" \
-                  "2. opt 2\n" \
-                  "02. opt 2\n" \
-                  "002. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo]\n"
+            "1. opt 1\n"
+            "01. opt 2\n"
+            "001. opt 2\n"
+            "2. opt 2\n"
+            "02. opt 2\n"
+            "002. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo]<br>'
-                                     '1. opt 1<br>'
-                                     '01. opt 2<br>'
-                                     '001. opt 2<br>'
-                                     '2. opt 2<br>'
-                                     '02. opt 2<br>'
-                                     '002. opt 2<br>'
-                                     '[/poll]</p>')
+        self.assertEqual(
+            comment_md,
+            '<p>[poll name=foo]<br>'
+            '1. opt 1<br>'
+            '01. opt 2<br>'
+            '001. opt 2<br>'
+            '2. opt 2<br>'
+            '02. opt 2<br>'
+            '002. opt 2<br>'
+            '[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -657,13 +674,17 @@ class UtilsMarkdownTests(TestCase):
         """
         Should validate min is less or equal than max
         """
-        comment = "[poll name=foo min=2 max=1]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo min=2 max=1]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo min=2 max=1]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(
+            comment_md,
+            '<p>[poll name=foo min=2 max=1]<br>'
+            '1. opt 1<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -672,13 +693,17 @@ class UtilsMarkdownTests(TestCase):
         """
         Should validate min is greater than 0
         """
-        comment = "[poll name=foo min=0]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo min=0]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo min=0]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(
+            comment_md,
+            '<p>[poll name=foo min=0]<br>'
+            '1. opt 1<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -687,13 +712,15 @@ class UtilsMarkdownTests(TestCase):
         """
         Should validate max is greater than 0
         """
-        comment = "[poll name=foo max=0]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo max=0]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo max=0]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(
+            comment_md, '<p>[poll name=foo max=0]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
         polls = md.get_polls()
         self.assertEqual(len(polls['choices']), 0)
         self.assertEqual(len(polls['polls']), 0)
@@ -702,11 +729,12 @@ class UtilsMarkdownTests(TestCase):
         """
         Should work with max only
         """
-        comment = "[poll name=foo max=2]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "3. opt 3\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo max=2]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "3. opt 3\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=foo>')
@@ -717,11 +745,12 @@ class UtilsMarkdownTests(TestCase):
         """
         Should work with min only, max should default to choices length
         """
-        comment = "[poll name=foo min=2]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "3. opt 3\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo min=2]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "3. opt 3\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=foo>')
@@ -738,11 +767,12 @@ class UtilsMarkdownTests(TestCase):
 
         org_now, timezone.now = timezone.now, mock_now
         try:
-            comment = "[poll name=foo_1 close=100000000000d]\n" \
-                      "# Foo or bar?\n" \
-                      "1. opt 1\n" \
-                      "2. opt 2\n" \
-                      "[/poll]"
+            comment = (
+                "[poll name=foo_1 close=100000000000d]\n"
+                "# Foo or bar?\n"
+                "1. opt 1\n"
+                "2. opt 2\n"
+                "[/poll]")
             md = Markdown()
             comment_md = md.render(comment)
             self.assertEqual(comment_md, '<poll name=foo_1>')
@@ -757,10 +787,11 @@ class UtilsMarkdownTests(TestCase):
         """
         Should accept mode=default
         """
-        comment = "[poll name=foo mode=default]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo mode=default]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=foo>')
@@ -771,10 +802,11 @@ class UtilsMarkdownTests(TestCase):
         """
         Should accept mode=secret
         """
-        comment = "[poll name=foo mode=secret]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo mode=secret]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(comment_md, '<poll name=foo>')
@@ -785,29 +817,36 @@ class UtilsMarkdownTests(TestCase):
         """
         Should not accept unknown mode
         """
-        comment = "[poll name=foo mode=foo]\n" \
-                  "1. opt 1\n" \
-                  "2. opt 2\n" \
-                  "[/poll]"
+        comment = (
+            "[poll name=foo mode=foo]\n"
+            "1. opt 1\n"
+            "2. opt 2\n"
+            "[/poll]")
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo mode=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(
+            comment_md,
+            '<p>[poll name=foo mode=foo]<br>'
+            '1. opt 1<br>'
+            '2. opt 2<br>[/poll]</p>')
 
     def test_autolink(self):
         """
         Should parse the link as <a> tag
         """
-        comment = "http://foo.com\n" \
-                  "http://foo.com?foo=1&bar=2\n" \
-                  "http://foo.com/<bad>"
+        comment = (
+            "http://foo.com\n"
+            "http://foo.com?foo=1&bar=2\n"
+            "http://foo.com/<bad>")
         comment_md = Markdown().render(comment)
         self.assertEqual(
             comment_md.splitlines(),
-            [
-                '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>',
-                '<p><a rel="nofollow" href="http://foo.com?foo=1&amp;bar=2">http://foo.com?foo=1&amp;bar=2</a></p>',
-                '<p><a rel="nofollow" href="http://foo.com/&lt;bad&gt;">http://foo.com/&lt;bad&gt;</a></p>'
-            ])
+            ['<p><a rel="nofollow" href="http://foo.com">'
+             'http://foo.com</a></p>',
+             '<p><a rel="nofollow" href="http://foo.com?foo=1&amp;bar=2">'
+             'http://foo.com?foo=1&amp;bar=2</a></p>',
+             '<p><a rel="nofollow" href="http://foo.com/&lt;bad&gt;">'
+             'http://foo.com/&lt;bad&gt;</a></p>'])
 
     def test_autolink_without_no_follow(self):
         """

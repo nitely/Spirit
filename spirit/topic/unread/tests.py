@@ -31,8 +31,9 @@ class TopicUnreadViewTest(TestCase):
         """
         topic unread list
         """
-        TopicUnread.objects.filter(pk__in=[self.topic_unread.pk, self.topic_unread2.pk])\
-            .update(is_read=False)
+        (TopicUnread.objects
+         .filter(pk__in=[self.topic_unread.pk, self.topic_unread2.pk])
+         .update(is_read=False))
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:unread:index'))
@@ -110,9 +111,9 @@ class TopicUnreadViewTest(TestCase):
         """
         topic unread list with bookmarks
         """
-        TopicUnread.objects\
-            .filter(pk__in=[self.topic_unread.pk, self.topic_unread2.pk])\
-            .update(is_read=False)
+        (TopicUnread.objects
+         .filter(pk__in=[self.topic_unread.pk, self.topic_unread2.pk])
+         .update(is_read=False))
         bookmark = CommentBookmark.objects.create(topic=self.topic2, user=self.user)
 
         utils.login(self)

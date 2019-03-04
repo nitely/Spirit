@@ -35,8 +35,9 @@ def publish(request, topic_id, pk=None):
                 # Hashed comment may have not been saved yet
                 return redirect(
                     request.POST.get('next', None) or
-                    Comment.get_last_for_topic(topic_id)
-                           .get_absolute_url())
+                    Comment
+                    .get_last_for_topic(topic_id)
+                    .get_absolute_url())
 
             comment = form.save()
             comment_posted(comment=comment, mentions=form.mentions)
@@ -74,9 +75,7 @@ def update(request, pk):
     else:
         form = CommentForm(instance=comment)
 
-    context = {
-        'form': form,
-    }
+    context = {'form': form}
 
     return render(request, 'spirit/comment/update.html', context)
 
@@ -86,13 +85,13 @@ def delete(request, pk, remove=True):
     comment = get_object_or_404(Comment, pk=pk)
 
     if request.method == 'POST':
-        Comment.objects\
-            .filter(pk=pk)\
-            .update(is_removed=remove)
+        (Comment.objects
+         .filter(pk=pk)
+         .update(is_removed=remove))
 
         return redirect(request.GET.get('next', comment.get_absolute_url()))
 
-    context = {'comment': comment, }
+    context = {'comment': comment}
 
     return render(request, 'spirit/comment/moderate.html', context)
 
@@ -119,10 +118,11 @@ def move(request, topic_id):
 def find(request, pk):
     comment = get_object_or_404(Comment.objects.select_related('topic'), pk=pk)
     comment_number = Comment.objects.filter(topic=comment.topic, date__lte=comment.date).count()
-    url = paginator.get_url(comment.topic.get_absolute_url(),
-                            comment_number,
-                            config.comments_per_page,
-                            'page')
+    url = paginator.get_url(
+        comment.topic.get_absolute_url(),
+        comment_number,
+        config.comments_per_page,
+        'page')
     return redirect(url)
 
 
@@ -136,7 +136,7 @@ def image_upload_ajax(request):
 
     if form.is_valid():
         image = form.save()
-        return json_response({'url': image.url, })
+        return json_response({'url': image.url})
 
     return json_response({'error': dict(form.errors.items()), })
 
@@ -151,6 +151,6 @@ def file_upload_ajax(request):
 
     if form.is_valid():
         file = form.save()
-        return json_response({'url': file.url, })
+        return json_response({'url': file.url})
 
-    return json_response({'error': dict(form.errors.items()), })
+    return json_response({'error': dict(form.errors.items())})

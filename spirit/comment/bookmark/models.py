@@ -86,7 +86,8 @@ class CommentBookmark(models.Model):
             user=user,
             topic=topic,
             comment_number=comment_number)
+        # Due to `comment_number__lt` we can't do better than this,
+        # both queries run almost always
         return (
-            cls.increase_to(**kwargs) or
             bool(create_or_none(cls, **kwargs)) or
             cls.increase_to(**kwargs))

@@ -97,31 +97,16 @@ class CommentBookmarkModelsTest(TestCase):
         """
         Should update on race condition
         """
-        calls = {'count': 0}  # py2 lacks nonlocal
-        def falsy_once_increase_to(cls, **kwargs):
-            calls['count'] += 1
-            if calls['count'] > 1:
-                return org_increase_to(**kwargs)
-            return False
-        falsy_once_increase_to = classmethod(falsy_once_increase_to)
-
         CommentBookmark.objects.create(
             user=self.user,
             topic=self.topic,
             comment_number=0)
         page = 2
 
-        org_increase_to, CommentBookmark.increase_to = (
-            CommentBookmark.increase_to, falsy_once_increase_to)
-        try:
-            increased = CommentBookmark.increase_or_create(
-                user=self.user,
-                topic=self.topic,
-                comment_number=CommentBookmark.page_to_comment_number(page))
-        finally:
-            CommentBookmark.increase_to = org_increase_to
-
-        self.assertEqual(calls['count'], 2)
+        increased = CommentBookmark.increase_or_create(
+            user=self.user,
+            topic=self.topic,
+            comment_number=CommentBookmark.page_to_comment_number(page))
         self.assertTrue(increased)
         comment_bookmark = CommentBookmark.objects.get(
             user=self.user,
