@@ -53,8 +53,7 @@ def publish(request, category_id=None):
 
     context = {
         'form': form,
-        'cform': cform,
-    }
+        'cform': cform}
 
     return render(request, 'spirit/topic/publish.html', context)
 
@@ -71,15 +70,14 @@ def update(request, pk):
             topic = form.save()
 
             if topic.category_id != category_id:
-                Comment.create_moderation_action(user=request.user, topic=topic, action=MOVED)
+                Comment.create_moderation_action(
+                    user=request.user, topic=topic, action=MOVED)
 
             return redirect(request.POST.get('next', topic.get_absolute_url()))
     else:
         form = TopicForm(user=request.user, instance=topic)
 
-    context = {
-        'form': form,
-    }
+    context = {'form': form}
 
     return render(request, 'spirit/topic/update.html', context)
 
@@ -92,47 +90,46 @@ def detail(request, pk, slug):
 
     utils.topic_viewed(request=request, topic=topic)
 
-    comments = Comment.objects\
-        .for_topic(topic=topic)\
-        .with_likes(user=request.user)\
-        .with_polls(user=request.user)\
-        .order_by('date')
+    comments = (
+        Comment.objects
+        .for_topic(topic=topic)
+        .with_likes(user=request.user)
+        .with_polls(user=request.user)
+        .order_by('date'))
 
     comments = paginate(
         comments,
         per_page=config.comments_per_page,
-        page_number=request.GET.get('page', 1)
-    )
+        page_number=request.GET.get('page', 1))
 
     context = {
         'topic': topic,
-        'comments': comments
-    }
+        'comments': comments}
 
     return render(request, 'spirit/topic/detail.html', context)
 
 
 def index_active(request):
-    categories = Category.objects\
-        .visible()\
-        .parents()
+    categories = (
+        Category.objects
+        .visible()
+        .parents())
 
-    topics = Topic.objects\
-        .visible()\
-        .global_()\
-        .with_bookmarks(user=request.user)\
-        .order_by('-is_globally_pinned', '-last_active')\
-        .select_related('category')
+    topics = (
+        Topic.objects
+        .visible()
+        .global_()
+        .with_bookmarks(user=request.user)
+        .order_by('-is_globally_pinned', '-last_active')
+        .select_related('category'))
 
     topics = yt_paginate(
         topics,
         per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
-    )
+        page_number=request.GET.get('page', 1))
 
     context = {
         'categories': categories,
-        'topics': topics
-    }
+        'topics': topics}
 
     return render(request, 'spirit/topic/active.html', context)

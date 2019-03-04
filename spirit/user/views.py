@@ -40,8 +40,7 @@ def update(request):
 
     context = {
         'form': form,
-        'uform': uform
-    }
+        'uform': uform}
 
     return render(request, 'spirit/user/profile_update.html', context)
 
@@ -71,7 +70,10 @@ def email_change(request):
 
         if form.is_valid():
             send_email_change_email(request, request.user, form.get_email())
-            messages.info(request, _("We have sent you an email so you can confirm the change!"))
+            messages.info(
+                request,
+                _("We have sent you an email "
+                  "so you can confirm the change!"))
             return redirect(reverse('spirit:user:update'))
     else:
         form = EmailChangeForm()
@@ -105,30 +107,31 @@ def _activity(request, pk, slug, queryset, template, reverse_to, context_name, p
     p_user = get_object_or_404(User, pk=pk)
 
     if p_user.st.slug != slug:
-        url = reverse(reverse_to, kwargs={'pk': p_user.pk, 'slug': p_user.st.slug})
+        url = reverse(reverse_to, kwargs={
+            'pk': p_user.pk,
+            'slug': p_user.st.slug})
         return HttpResponsePermanentRedirect(url)
 
     items = yt_paginate(
         queryset,
         per_page=per_page,
-        page_number=request.GET.get('page', 1)
-    )
+        page_number=request.GET.get('page', 1))
 
     context = {
         'p_user': p_user,
-        context_name: items
-    }
+        context_name: items}
 
     return render(request, template, context)
 
 
 def topics(request, pk, slug):
-    user_topics = Topic.objects\
-        .visible()\
-        .with_bookmarks(user=request.user)\
-        .filter(user_id=pk)\
-        .order_by('-date', '-pk')\
-        .select_related('user__st')
+    user_topics = (
+        Topic.objects
+        .visible()
+        .with_bookmarks(user=request.user)
+        .filter(user_id=pk)
+        .select_related('category', 'user__st')
+        .order_by('-date', '-pk'))
 
     return _activity(
         request, pk, slug,
@@ -136,16 +139,17 @@ def topics(request, pk, slug):
         template='spirit/user/profile_topics.html',
         reverse_to='spirit:user:topics',
         context_name='topics',
-        per_page=config.topics_per_page
-    )
+        per_page=config.topics_per_page)
 
 
 def comments(request, pk, slug):
     # todo: test with_polls!
-    user_comments = Comment.objects\
-        .filter(user_id=pk)\
-        .visible()\
+    user_comments = (
+        Comment.objects
+        .filter(user_id=pk)
+        .visible()
         .with_polls(user=request.user)
+        .select_related('topic'))
 
     return _activity(
         request, pk, slug,
@@ -153,17 +157,18 @@ def comments(request, pk, slug):
         template='spirit/user/profile_comments.html',
         reverse_to='spirit:user:detail',
         context_name='comments',
-        per_page=config.comments_per_page,
-    )
+        per_page=config.comments_per_page)
 
 
 def likes(request, pk, slug):
     # todo: test with_polls!
-    user_comments = Comment.objects\
-        .filter(comment_likes__user_id=pk)\
-        .visible()\
-        .with_polls(user=request.user)\
-        .order_by('-comment_likes__date', '-pk')
+    user_comments = (
+        Comment.objects
+        .filter(comment_likes__user_id=pk)
+        .visible()
+        .with_polls(user=request.user)
+        .select_related('topic')
+        .order_by('-comment_likes__date', '-pk'))
 
     return _activity(
         request, pk, slug,
@@ -171,8 +176,7 @@ def likes(request, pk, slug):
         template='spirit/user/profile_likes.html',
         reverse_to='spirit:user:likes',
         context_name='comments',
-        per_page=config.comments_per_page,
-    )
+        per_page=config.comments_per_page)
 
 
 @login_required
