@@ -86,8 +86,8 @@ class CommentBookmark(models.Model):
             user=user,
             topic=topic,
             comment_number=comment_number)
-        # XXX can we do better than 2 queries?
-        #     Only when switching pages makes 1
+        # Due to `comment_number__lt` we can't do better than this,
+        # both queries run almost always
         return (
-            cls.increase_to(**kwargs) or
-            bool(create_or_none(cls, **kwargs)))
+            bool(create_or_none(cls, **kwargs)) or
+            cls.increase_to(**kwargs))
