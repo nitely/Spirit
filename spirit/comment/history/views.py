@@ -14,13 +14,15 @@ from ..models import Comment
 
 @login_required
 def detail(request, comment_id):
-    comment = get_object_or_404(Comment.objects.for_access(request.user),
-                                pk=comment_id)
+    comment = get_object_or_404(
+        Comment.objects.for_access(request.user),
+        pk=comment_id)
 
-    comments = CommentHistory.objects\
-        .filter(comment_fk=comment)\
-        .select_related('comment_fk__user__st')\
-        .order_by('date', 'pk')
+    comments = (
+        CommentHistory.objects
+        .filter(comment_fk=comment)
+        .select_related('comment_fk__user__st')
+        .order_by('date', 'pk'))
 
     comments = yt_paginate(
         comments,
@@ -28,6 +30,6 @@ def detail(request, comment_id):
         page_number=request.GET.get('page', 1)
     )
 
-    context = {'comments': comments, }
+    context = {'comments': comments}
 
     return render(request, 'spirit/comment/history/detail.html', context)

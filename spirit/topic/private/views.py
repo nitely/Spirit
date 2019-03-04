@@ -23,8 +23,9 @@ from ..models import Topic
 from ..utils import topic_viewed
 from .utils import notify_access
 from .models import TopicPrivate
-from .forms import TopicPrivateManyForm, TopicForPrivateForm,\
-    TopicPrivateJoinForm, TopicPrivateInviteForm
+from .forms import (
+    TopicPrivateManyForm, TopicForPrivateForm,
+    TopicPrivateJoinForm, TopicPrivateInviteForm)
 from ..notification.models import TopicNotification
 
 User = get_user_model()
@@ -88,11 +89,12 @@ def detail(request, topic_id, slug):
 
     topic_viewed(request=request, topic=topic)
 
-    comments = Comment.objects\
-        .for_topic(topic=topic)\
-        .with_likes(user=request.user)\
-        .with_polls(user=request.user)\
-        .order_by('date')
+    comments = (
+        Comment.objects
+        .for_topic(topic=topic)
+        .with_likes(user=request.user)
+        .with_polls(user=request.user)
+        .order_by('date'))
 
     comments = paginate(
         comments,
@@ -136,7 +138,7 @@ def delete_access(request, pk):
 
         return redirect(request.POST.get('next', topic_private.get_absolute_url()))
 
-    context = {'topic_private': topic_private, }
+    context = {'topic_private': topic_private}
 
     return render(request, 'spirit/topic/private/delete.html', context)
 
@@ -171,9 +173,10 @@ def join_in(request, topic_id):
 
 @login_required
 def index(request):
-    topics = Topic.objects\
-        .with_bookmarks(user=request.user)\
-        .filter(topics_private__user=request.user)
+    topics = (
+        Topic.objects
+        .with_bookmarks(user=request.user)
+        .filter(topics_private__user=request.user))
 
     topics = yt_paginate(
         topics,
@@ -181,7 +184,7 @@ def index(request):
         page_number=request.GET.get('page', 1)
     )
 
-    context = {'topics': topics, }
+    context = {'topics': topics}
 
     return render(request, 'spirit/topic/private/index.html', context)
 
@@ -191,9 +194,10 @@ def index_author(request):
     # Show created topics but exclude those the user is participating on
     # TODO: show all, show join link in those the user is not participating
     # TODO: move to manager
-    topics = Topic.objects\
-        .filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)\
-        .exclude(topics_private__user=request.user)
+    topics = (
+        Topic.objects
+        .filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+        .exclude(topics_private__user=request.user))
 
     topics = yt_paginate(
         topics,
@@ -201,6 +205,6 @@ def index_author(request):
         page_number=request.GET.get('page', 1)
     )
 
-    context = {'topics': topics, }
+    context = {'topics': topics}
 
     return render(request, 'spirit/topic/private/index_author.html', context)

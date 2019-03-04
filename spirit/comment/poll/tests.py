@@ -389,10 +389,11 @@ class CommentPollTemplateTagsTest(TestCase):
         self.topic = utils.create_topic(category=self.category)
         self.user_comment = utils.create_comment(topic=self.topic, user=self.user, comment_html="<poll name=foo>")
         self.user_poll = CommentPoll.objects.create(comment=self.user_comment, name='foo')
-        self.user_comment_with_polls = self.user_comment.__class__.objects\
-            .filter(pk=self.user_comment.pk)\
-            .with_polls(self.user)\
-            .first()
+        self.user_comment_with_polls = (
+            self.user_comment.__class__.objects
+            .filter(pk=self.user_comment.pk)
+            .with_polls(self.user)
+            .first())
 
         self.request = RequestFactory().get('/')
         self.request.user = self.user
@@ -497,10 +498,11 @@ class CommentPollTemplateTagsTest(TestCase):
         """
         comment = utils.create_comment(topic=self.topic, comment_html="<poll name=bar>")
         CommentPoll.objects.create(comment=comment, name='bar', mode=PollMode.SECRET)
-        user_comment_with_polls = comment.__class__.objects\
-            .filter(pk=comment.pk)\
-            .with_polls(self.user)\
-            .first()
+        user_comment_with_polls = (
+            comment.__class__.objects
+            .filter(pk=comment.pk)
+            .with_polls(self.user)
+            .first())
 
         out = Template(
             "{% load spirit_tags %}"
@@ -517,10 +519,11 @@ class CommentPollTemplateTagsTest(TestCase):
         comment = utils.create_comment(topic=self.topic, comment_html="<poll name=bar>")
         yesterday = timezone.now() - timezone.timedelta(days=1)
         CommentPoll.objects.create(comment=comment, name='bar', mode=PollMode.SECRET, close_at=yesterday)
-        user_comment_with_polls = comment.__class__.objects\
-            .filter(pk=comment.pk)\
-            .with_polls(self.user)\
-            .first()
+        user_comment_with_polls = (
+            comment.__class__.objects
+            .filter(pk=comment.pk)
+            .with_polls(self.user)
+            .first())
 
         out = Template(
             "{% load spirit_tags %}"

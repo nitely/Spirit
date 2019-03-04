@@ -4,8 +4,11 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 
-from .models import AutoSlugPopulateFromModel, AutoSlugModel, AutoSlugDefaultModel, \
-    AutoSlugBadPopulateFromModel
+from .models import (
+    AutoSlugPopulateFromModel,
+    AutoSlugModel,
+    AutoSlugDefaultModel,
+    AutoSlugBadPopulateFromModel)
 
 
 class UtilsModelsTests(TestCase):

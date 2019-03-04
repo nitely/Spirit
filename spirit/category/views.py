@@ -14,22 +14,25 @@ from .models import Category
 
 
 def detail(request, pk, slug):
-    category = get_object_or_404(Category.objects.visible(),
-                                 pk=pk)
+    category = get_object_or_404(
+        Category.objects.visible(),
+        pk=pk)
 
     if category.slug != slug:
         return HttpResponsePermanentRedirect(category.get_absolute_url())
 
-    subcategories = Category.objects\
-        .visible()\
-        .children(parent=category)
+    subcategories = (
+        Category.objects
+        .visible()
+        .children(parent=category))
 
-    topics = Topic.objects\
-        .unremoved()\
-        .with_bookmarks(user=request.user)\
-        .for_category(category=category)\
-        .order_by('-is_globally_pinned', '-is_pinned', '-last_active')\
-        .select_related('category')
+    topics = (
+        Topic.objects
+        .unremoved()
+        .with_bookmarks(user=request.user)
+        .for_category(category=category)
+        .order_by('-is_globally_pinned', '-is_pinned', '-last_active')
+        .select_related('category'))
 
     topics = yt_paginate(
         topics,
