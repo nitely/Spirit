@@ -46,6 +46,9 @@ class Comment(models.Model):
     objects = CommentQuerySet.as_manager()
 
     class Meta:
+        # indexes = [
+        #     models.Index(fields=['topic', 'date', 'id']),
+        #     models.Index(fields=['user', '-date', '-id'])]
         ordering = ['-date', '-pk']
         verbose_name = _("comment")
         verbose_name_plural = _("comments")

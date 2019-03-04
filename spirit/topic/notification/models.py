@@ -39,6 +39,8 @@ class TopicNotification(models.Model):
     objects = TopicNotificationQuerySet.as_manager()
 
     class Meta:
+        # indexes = [
+        #     models.Index(fields=['user', 'topic'])]
         unique_together = ('user', 'topic')
         ordering = ['-date', '-pk']
         verbose_name = _("topic notification")

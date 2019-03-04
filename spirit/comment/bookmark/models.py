@@ -25,6 +25,8 @@ class CommentBookmark(models.Model):
     comment_number = models.PositiveIntegerField(default=0)
 
     class Meta:
+        # indexes = [
+        #     models.Index(fields=['user', 'topic'])]
         unique_together = ('user', 'topic')
         verbose_name = _("comment bookmark")
         verbose_name_plural = _("comments bookmarks")

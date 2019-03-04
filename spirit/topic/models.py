@@ -51,7 +51,9 @@ class Topic(models.Model):
     objects = TopicQuerySet.as_manager()
 
     class Meta:
-        ordering = ['-last_active', '-pk']
+        # indexes = [
+        #     models.Index(fields=['category', '-last_active', '-id'])]
+        ordering = ['-last_active', '-id']
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
 

@@ -46,7 +46,6 @@ class CommentPoll(models.Model):
 
     class Meta:
         unique_together = ('comment', 'name')
-        ordering = ['-pk', ]
         verbose_name = _("comment poll")
         verbose_name_plural = _("comments polls")
 
@@ -144,7 +143,7 @@ class CommentPollChoice(models.Model):
 
     class Meta:
         unique_together = ('poll', 'number')
-        ordering = ['number', '-pk']
+        ordering = ['number']
         verbose_name = _("poll choice")
         verbose_name_plural = _("poll choices")
 
@@ -219,6 +218,6 @@ class CommentPollVote(models.Model):
 
     class Meta:
         unique_together = ('voter', 'choice')
-        ordering = ['-pk', ]
+        ordering = ['-pk']
         verbose_name = _("poll vote")
         verbose_name_plural = _("poll votes")

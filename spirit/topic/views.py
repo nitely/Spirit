@@ -96,7 +96,7 @@ def detail(request, pk, slug):
         .for_topic(topic=topic)\
         .with_likes(user=request.user)\
         .with_polls(user=request.user)\
-        .order_by('date')
+        .order_by('date', 'pk')
 
     comments = paginate(
         comments,

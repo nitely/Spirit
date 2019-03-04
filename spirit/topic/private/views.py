@@ -78,9 +78,10 @@ def publish(request, user_id=None):
 
 @login_required
 def detail(request, topic_id, slug):
-    topic_private = get_object_or_404(TopicPrivate.objects.select_related('topic'),
-                                      topic_id=topic_id,
-                                      user=request.user)
+    topic_private = get_object_or_404(
+        TopicPrivate.objects.select_related('topic'),
+        topic_id=topic_id,
+        user=request.user)
     topic = topic_private.topic
 
     if topic.slug != slug:
@@ -88,23 +89,22 @@ def detail(request, topic_id, slug):
 
     topic_viewed(request=request, topic=topic)
 
-    comments = Comment.objects\
-        .for_topic(topic=topic)\
-        .with_likes(user=request.user)\
-        .with_polls(user=request.user)\
-        .order_by('date')
+    comments = (
+        Comment.objects
+        .for_topic(topic=topic)
+        .with_likes(user=request.user)
+        .with_polls(user=request.user)
+        .order_by('date'))
 
     comments = paginate(
         comments,
         per_page=config.comments_per_page,
-        page_number=request.GET.get('page', 1)
-    )
+        page_number=request.GET.get('page', 1))
 
     context = {
         'topic': topic,
         'topic_private': topic_private,
-        'comments': comments,
-    }
+        'comments': comments}
 
     return render(request, 'spirit/topic/private/detail.html', context)
 
@@ -113,7 +113,9 @@ def detail(request, topic_id, slug):
 @require_POST
 def create_access(request, topic_id):
     topic_private = TopicPrivate.objects.for_create_or_404(topic_id, request.user)
-    form = TopicPrivateInviteForm(topic=topic_private.topic, data=request.POST)
+    form = TopicPrivateInviteForm(
+        topic=topic_private.topic,
+        data=request.POST)
 
     if form.is_valid():
         form.save()
@@ -136,7 +138,7 @@ def delete_access(request, pk):
 
         return redirect(request.POST.get('next', topic_private.get_absolute_url()))
 
-    context = {'topic_private': topic_private, }
+    context = {'topic_private': topic_private}
 
     return render(request, 'spirit/topic/private/delete.html', context)
 
@@ -152,7 +154,10 @@ def join_in(request, topic_id):
         category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
 
     if request.method == 'POST':
-        form = TopicPrivateJoinForm(topic=topic, user=request.user, data=request.POST)
+        form = TopicPrivateJoinForm(
+            topic=topic,
+            user=request.user,
+            data=request.POST)
 
         if form.is_valid():
             topic_private = form.save()
@@ -163,25 +168,24 @@ def join_in(request, topic_id):
 
     context = {
         'topic': topic,
-        'form': form
-    }
+        'form': form}
 
     return render(request, 'spirit/topic/private/join.html', context)
 
 
 @login_required
 def index(request):
-    topics = Topic.objects\
-        .with_bookmarks(user=request.user)\
-        .filter(topics_private__user=request.user)
+    topics = (
+        Topic.objects
+        .with_bookmarks(user=request.user)
+        .filter(topics_private__user=request.user))
 
     topics = yt_paginate(
         topics,
         per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
-    )
+        page_number=request.GET.get('page', 1))
 
-    context = {'topics': topics, }
+    context = {'topics': topics}
 
     return render(request, 'spirit/topic/private/index.html', context)
 
@@ -191,16 +195,16 @@ def index_author(request):
     # Show created topics but exclude those the user is participating on
     # TODO: show all, show join link in those the user is not participating
     # TODO: move to manager
-    topics = Topic.objects\
-        .filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)\
-        .exclude(topics_private__user=request.user)
+    topics = (
+        Topic.objects
+        .filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+        .exclude(topics_private__user=request.user))
 
     topics = yt_paginate(
         topics,
         per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
-    )
+        page_number=request.GET.get('page', 1))
 
-    context = {'topics': topics, }
+    context = {'topics': topics}
 
     return render(request, 'spirit/topic/private/index_author.html', context)

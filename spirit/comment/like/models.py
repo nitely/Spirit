@@ -24,6 +24,8 @@ class CommentLike(models.Model):
     date = models.DateTimeField(default=timezone.now)
 
     class Meta:
+        # indexes = [
+        #     models.Index(fields=['user', 'comment'])]
         unique_together = ('user', 'comment')
         ordering = ['-date', '-pk']
         verbose_name = _("like")

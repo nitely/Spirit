@@ -23,6 +23,9 @@ class TopicUnread(models.Model):
     is_read = models.BooleanField(default=True)
 
     class Meta:
+        # indexes = [
+        #     models.Index(fields=['user', '-date', '-id']),
+        #     models.Index(fields=['user', 'topic'])]
         unique_together = ('user', 'topic')
         ordering = ['-date', '-pk']
         verbose_name = _("topic unread")
