@@ -3,7 +3,8 @@
 from __future__ import unicode_literals
 
 from django.template.loader import render_to_string
-from django.core.paginator import Page
+
+from infinite_scroll_pagination.paginator import SeekPage
 
 from .registry import register
 
@@ -32,9 +33,9 @@ def render_paginator(context, page, page_var='page', hashtag=''):
         "extra_query": extra_query
     }
 
-    if isinstance(page, Page):
-        template = "spirit/utils/paginator/_paginator.html"
+    if isinstance(page, SeekPage):
+        template = "spirit/utils/paginator/_inf_paginator.html"
     else:
-        template = "spirit/utils/paginator/_yt_paginator.html"
+        template = "spirit/utils/paginator/_paginator.html"
 
     return render_to_string(template, new_context)

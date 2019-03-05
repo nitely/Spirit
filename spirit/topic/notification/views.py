@@ -15,7 +15,7 @@ from djconfig import config
 from ...core.conf import settings
 from ...core import utils
 from ...core.utils.paginator import yt_paginate
-from ...core.utils.paginator.infinite_paginator import paginate
+from ...core.utils.paginator import inf_paginate
 from ...topic.models import Topic
 from .models import TopicNotification
 from .forms import NotificationForm, NotificationCreationForm
@@ -24,8 +24,9 @@ from .forms import NotificationForm, NotificationCreationForm
 @require_POST
 @login_required
 def create(request, topic_id):
-    topic = get_object_or_404(Topic.objects.for_access(request.user),
-                              pk=topic_id)
+    topic = get_object_or_404(
+        Topic.objects.for_access(request.user),
+        pk=topic_id)
     form = NotificationCreationForm(user=request.user, topic=topic, data=request.POST)
 
     if form.is_valid():
@@ -85,20 +86,14 @@ def index_unread(request):
             .filter(is_read=False)
             .with_related_data())
 
-    page = paginate(
+    page = inf_paginate(
         request,
         query_set=notifications,
         lookup_field='date',
         page_var='notif',
         per_page=settings.ST_NOTIFICATIONS_PER_PAGE)
 
-    next_page_pk = None
-    if page:
-        next_page_pk = page[-1].pk
-
-    context = {
-        'page': page,
-        'next_page_pk': next_page_pk}
+    context = {'page': page}
 
     return render(request, 'spirit/topic/notification/index_unread.html', context)
 

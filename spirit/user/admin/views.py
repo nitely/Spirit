@@ -9,7 +9,7 @@ from django.utils.translation import ugettext as _
 
 from djconfig import config
 
-from ...core.utils.paginator import yt_paginate
+from ...core.utils.paginator import paginate
 from ...core.utils.decorators import administrator_required
 from .forms import UserForm, UserProfileForm
 
@@ -43,12 +43,12 @@ def edit(request, user_id):
 
 @administrator_required
 def _index(request, queryset, template):
-    users = yt_paginate(
+    users = paginate(
         queryset.order_by('-date_joined', '-pk'),
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )
-    context = {'users': users, }
+    context = {'users': users}
     return render(request, template, context)
 
 

@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 
 from djconfig import config
 
-from ...core.utils.paginator import yt_paginate
+from ...core.utils.paginator import inf_paginate
 from .models import CommentHistory
 from ..models import Comment
 
@@ -24,11 +24,12 @@ def detail(request, comment_id):
         .select_related('comment_fk__user__st')
         .order_by('date', 'pk'))
 
-    comments = yt_paginate(
-        comments,
-        per_page=config.comments_per_page,
-        page_number=request.GET.get('page', 1)
-    )
+    # XXX paginator always use -date order
+    comments = inf_paginate(
+        request,
+        query_set=comments,
+        lookup_field='date',
+        per_page=config.topics_per_page)
 
     context = {'comments': comments}
 

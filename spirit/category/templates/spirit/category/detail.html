@@ -10,6 +10,6 @@
 
   {% include "spirit/topic/_render_list.html" with show_subcategory=True %}
 
-  {% render_paginator topics %}
+  {% render_paginator topics page_var='p' %}
 
 {% endblock %}

@@ -6,6 +6,7 @@ from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
 from django.utils.http import urlencode
 
+from . import infinite_paginator
 from .yt_paginator import YTPaginator, YTPage
 
 
@@ -44,3 +45,7 @@ def paginate(*args, **kwargs):
 
 def yt_paginate(*args, **kwargs):
     return _paginate(YTPaginator, *args, **kwargs)
+
+
+def inf_paginate(*args, **kwargs):
+    return infinite_paginator.paginate(*args, **kwargs)

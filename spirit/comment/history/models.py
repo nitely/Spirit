@@ -19,7 +19,9 @@ class CommentHistory(models.Model):
     date = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        ordering = ['-date', '-pk']
+        indexes = [
+            models.Index(fields=['comment_fk', 'date', 'pk'])]
+        ordering = ['date', 'pk']
         verbose_name = _("comment history")
         verbose_name_plural = _("comments history")
 

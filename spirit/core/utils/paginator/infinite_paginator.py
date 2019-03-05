@@ -8,8 +8,7 @@ from django.shortcuts import get_object_or_404
 from infinite_scroll_pagination.paginator import SeekPaginator, EmptyPage
 
 
-def paginate(request, query_set, lookup_field, per_page=15, page_var='value'):
-    # TODO: remove
+def paginate(request, query_set, lookup_field, per_page=15, page_var='p'):
     value = None
     page_pk = request.GET.get(page_var, None)
 
@@ -18,10 +17,13 @@ def paginate(request, query_set, lookup_field, per_page=15, page_var='value'):
         obj = get_object_or_404(query_set.model, pk=page_pk)
         value = getattr(obj, lookup_field)
 
-    paginator = SeekPaginator(query_set, per_page=per_page, lookup_field=lookup_field)
+    paginator = SeekPaginator(
+        query_set, per_page=per_page, lookup_field=lookup_field)
 
     try:
-        page = paginator.page(value=value, pk=page_pk)
+        page = paginator.page(
+            value=value,
+            pk=page_pk)
     except EmptyPage:
         raise Http404()
 

@@ -9,7 +9,7 @@ from django.utils.translation import ugettext as _
 
 from djconfig import config
 
-from spirit.core.utils.paginator import yt_paginate
+from spirit.core.utils.paginator import paginate
 from spirit.core.utils.decorators import administrator_required
 from .forms import CommentFlagForm
 from ..models import CommentFlag, Flag
@@ -29,7 +29,7 @@ def detail(request, pk):
     else:
         form = CommentFlagForm(instance=flag)
 
-    flags = yt_paginate(
+    flags = paginate(
         Flag.objects.filter(comment=flag.comment),
         per_page=config.comments_per_page,
         page_number=request.GET.get('page', 1)
@@ -46,12 +46,12 @@ def detail(request, pk):
 
 @administrator_required
 def _index(request, queryset, template):
-    flags = yt_paginate(
+    flags = paginate(
         queryset,
         per_page=config.comments_per_page,
         page_number=request.GET.get('page', 1)
     )
-    context = {'flags': flags, }
+    context = {'flags': flags}
     return render(request, template, context)
 
 

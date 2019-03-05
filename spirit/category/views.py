@@ -8,7 +8,7 @@ from django.http import HttpResponsePermanentRedirect
 
 from djconfig import config
 
-from ..core.utils.paginator import yt_paginate
+from ..core.utils.paginator import inf_paginate
 from ..topic.models import Topic
 from .models import Category
 
@@ -34,17 +34,16 @@ def detail(request, pk, slug):
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')
         .select_related('category'))
 
-    topics = yt_paginate(
-        topics,
-        per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
-    )
+    topics = inf_paginate(
+        request,
+        query_set=topics,
+        lookup_field='date',
+        per_page=config.topics_per_page)
 
     context = {
         'category': category,
         'subcategories': subcategories,
-        'topics': topics
-    }
+        'topics': topics}
 
     return render(request, 'spirit/category/detail.html', context)
 

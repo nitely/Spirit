@@ -6,19 +6,19 @@ from django.shortcuts import render
 
 from djconfig import config
 
-from ...core.utils.paginator import yt_paginate
+from ...core.utils.paginator import paginate
 from ...core.utils.decorators import administrator_required
 from ..models import Topic
 
 
 @administrator_required
 def _index(request, queryset, template):
-    topics = yt_paginate(
+    topics = paginate(
         queryset,
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )
-    context = {'topics': topics, }
+    context = {'topics': topics}
     return render(request, template, context)
 
 

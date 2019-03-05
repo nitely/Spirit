@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 from django.contrib.auth.decorators import login_required
 
-from ...core.utils.paginator.infinite_paginator import paginate
+from ...core.utils.paginator import inf_paginate
 from ..models import Topic
 
 
@@ -21,19 +21,12 @@ def index(request):
         .for_unread(user=request.user)
         .with_bookmarks(user=request.user))
 
-    page = paginate(
+    page = inf_paginate(
         request,
         query_set=topics,
         lookup_field="last_active",
         page_var='topic_id')
-    next_page_pk = None
 
-    if page:
-        next_page_pk = page[-1].pk
-
-    context = {
-        'page': page,
-        'next_page_pk': next_page_pk
-    }
+    context = {'page': page}
 
     return render(request, 'spirit/topic/unread/index.html', context)
