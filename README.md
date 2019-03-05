@@ -1,7 +1,7 @@
 # Spirit
 
-[![Build Status](https://img.shields.io/travis/nitely/Spirit.svg?style=flat-square)](https://travis-ci.org/nitely/Spirit)
-[![Coverage Status](https://img.shields.io/coveralls/nitely/Spirit.svg?style=flat-square)](https://coveralls.io/r/nitely/Spirit)
+[![Build Status](https://img.shields.io/travis/nitely/Spirit/master.svg?style=flat-square)](https://travis-ci.org/nitely/Spirit)
+[![Coverage Status](https://img.shields.io/coveralls/nitely/Spirit/master.svg?style=flat-square)](https://coveralls.io/r/nitely/Spirit)
 [![pypi](https://img.shields.io/pypi/v/django-spirit.svg?style=flat-square)](https://pypi.python.org/pypi/django-spirit)
 [![licence](https://img.shields.io/pypi/l/django-spirit.svg?style=flat-square)](https://raw.githubusercontent.com/nitely/Spirit/master/LICENSE)
 
