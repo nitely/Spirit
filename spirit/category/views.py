@@ -31,13 +31,14 @@ def detail(request, pk, slug):
         .unremoved()
         .with_bookmarks(user=request.user)
         .for_category(category=category)
-        .order_by('-is_globally_pinned', '-is_pinned', '-last_active')
+        .order_by('-last_active', '-pk')
+        #.order_by('-is_globally_pinned', '-is_pinned', '-last_active')
         .select_related('category'))
 
     topics = inf_paginate(
         request,
         query_set=topics,
-        lookup_field='date',
+        lookup_field='last_active',
         per_page=config.topics_per_page)
 
     context = {
