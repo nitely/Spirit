@@ -1,8 +1,19 @@
-0.7.1 (unreleased)
+0.7.2 (dev)
 ==================
 
+* ...
+
+0.7.1
+==================
+
+* Add math support (disabled by default, see doc's settings section)
+* Add sortable categories (disabed by default, see doc's settings section).
+  Thanks to @andreynovikov
 * Update `mistune` and `Pillow` dependencies
 * Remove `uni-slugify` and `Unidecode` dependencies
+* Python and Django warnings are enabled for new projects.
+  The change is in manage.py
+* Fix strike-through style
 
 0.7.0
 ==================
