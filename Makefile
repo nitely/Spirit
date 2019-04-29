@@ -23,4 +23,7 @@ txpull:
 
 tx: txpush txpull
 
-.PHONY: clean test sdist release docs txpush txpull tx
+start:
+	python manage.py runserver
+
+.PHONY: clean test sdist release docs txpush txpull tx start
