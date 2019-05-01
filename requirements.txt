@@ -1,4 +1,4 @@
-Django>=1.11,<2.2
+Django>=1.11,<2.3
 django-haystack==2.8.1
 whoosh==2.7.4
 mistune==0.8.4
