@@ -1,15 +1,16 @@
 language: python
 sudo: false
+dist: xenial
 
 python:
   - "2.7"
-  - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
 env:
-  - DJANGO=1.11.15
-  - DJANGO=2.0.8
-  - DJANGO=2.1.1
+  - DJANGO=1.11.20
+  - DJANGO=2.1.8
+  - DJANGO=2.2.1
 install:
   - pip install --upgrade pip
   - pip install .[files]
@@ -27,19 +28,6 @@ after_success:
 matrix:
   exclude:
     - python: "2.7"
-      env: DJANGO=2.0.8
+      env: DJANGO=2.1.8
     - python: "2.7"
-      env: DJANGO=2.1.1
-    - python: "3.4"
-      env: DJANGO=2.1.1
-  include:
-    - python: 3.7
-      dist: xenial
-      sudo: true
-      env:
-        - DJANGO=2.0.8
-    - python: 3.7
-      dist: xenial
-      sudo: true
-      env:
-        - DJANGO=2.1.1
+      env: DJANGO=2.2.1

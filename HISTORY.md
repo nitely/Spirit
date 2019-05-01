@@ -1,7 +1,9 @@
-0.7.2 (dev)
+0.8.0 (dev)
 ==================
 
-* ...
+* Removed Python 3.4 support
+* Removed Django 2.0 support
+* Added Django 2.2 support
 
 0.7.1
 ==================
