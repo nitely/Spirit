@@ -44,6 +44,7 @@ class Topic(models.Model):
     is_globally_pinned = models.BooleanField(_("globally pinned"), default=False)
     is_closed = models.BooleanField(_("closed"), default=False)
     is_removed = models.BooleanField(default=False)
+    is_for_logged = models.BooleanField(_("is for logged"), default=False)
 
     view_count = models.PositiveIntegerField(_("views count"), default=0)
     comment_count = models.PositiveIntegerField(_("comment count"), default=0)
