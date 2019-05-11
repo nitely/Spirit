@@ -13,8 +13,6 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import six
 
-from ..conf import settings
-
 
 def render_form_errors(form):
     return render_to_string('spirit/utils/_form_errors.html', {'form': form, })
@@ -85,26 +83,32 @@ def get_query_string(request, **params):
 
 
 def hashed_filename(file):
-    # Assume valid extension
+    # Assume a valid extension
     _, ext = os.path.splitext(file.name)
-    assert ext
     return '{name}{ext}'.format(
         name=get_file_hash(file),  # This is slow
         ext=ext.lower())
 
 
+def safe_uuid():
+    """Return url-safe uuid of 32 characters"""
+    return uuid.uuid4().hex
+
+
 def unique_filename(file):
     """
-    Return the file's name as last component and\
-    a unique ID as first component.\
-    The filename is validated.
+    Return the file's name as last component and \
+    a unique ID as first component. \
+    A unique ID is returned as filename if \
+    the file's name is not valid. The extension \
+    is assumed to be valid
     """
     name = default_storage.get_valid_name(file.name)
     name, ext = os.path.splitext(name)
     return os.path.join(
-        uuid.uuid4().hex,
+        safe_uuid(),
         '{name}{ext}'.format(
-            name=name.lstrip('.') or uuid.uuid4().hex,
+            name=name.lstrip('.') or safe_uuid(),
             ext=ext.lower()))
 
 

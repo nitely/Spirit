@@ -123,6 +123,9 @@ ST_CASE_INSENSITIVE_USERNAMES = True
 #: quite slow and it will degrade the server's
 #: performance.
 #:
+#: All files will have the hash as name and
+#: the original file's name will be lost.
+#:
 #: .. Note::
 #:     Defaults to ``False`` since Spirit 0.8
 ST_PREVENT_SOME_FILE_DUPLICATION = False

@@ -430,7 +430,9 @@ class CommentViewTest(TestCase):
         expected_url = comment.topic.get_absolute_url() + "#c1"
         self.assertRedirects(response, expected_url, status_code=302)
 
-    @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
+    @override_settings(
+        MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
+        ST_PREVENT_SOME_FILE_DUPLICATION=True)
     def test_comment_image_upload(self):
         """
         comment image upload
@@ -471,7 +473,8 @@ class CommentViewTest(TestCase):
 
     @override_settings(
         MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
-        FILE_UPLOAD_MAX_MEMORY_SIZE=2621440)
+        FILE_UPLOAD_MAX_MEMORY_SIZE=2621440,
+        ST_PREVENT_SOME_FILE_DUPLICATION=True)
     def test_comment_file_upload(self):
         """
         Check (in-memory) upload files are checked
@@ -492,11 +495,11 @@ class CommentViewTest(TestCase):
 
         res = json.loads(response.content.decode('utf-8'))
         file_url = os.path.join(
-            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk),  "file_fadcb2389bb2b69b46bc54185de0ae91.pdf"
+            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk),  "fadcb2389bb2b69b46bc54185de0ae91.pdf"
         ).replace("\\", "/")
         self.assertEqual(res['url'], file_url)
         file_path = os.path.join(
-            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "file_fadcb2389bb2b69b46bc54185de0ae91.pdf"
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.pdf"
         )
 
         with open(file_path, 'rb') as fh:
@@ -507,7 +510,8 @@ class CommentViewTest(TestCase):
 
     @override_settings(
         MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
-        FILE_UPLOAD_MAX_MEMORY_SIZE=1)
+        FILE_UPLOAD_MAX_MEMORY_SIZE=1,
+        ST_PREVENT_SOME_FILE_DUPLICATION=True)
     def test_comment_file_upload_tmp_file(self):
         """
         Check (tmp) upload files are checked
@@ -528,11 +532,11 @@ class CommentViewTest(TestCase):
 
         res = json.loads(response.content.decode('utf-8'))
         file_url = os.path.join(
-            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk), "file_large_fadcb2389bb2b69b46bc54185de0ae91.pdf"
+            settings.MEDIA_URL, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.pdf"
         ).replace("\\", "/")
         self.assertEqual(res['url'], file_url)
         file_path = os.path.join(
-            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "file_large_fadcb2389bb2b69b46bc54185de0ae91.pdf"
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.pdf"
         )
 
         with open(file_path, 'rb') as fh:
@@ -745,6 +749,7 @@ class CommentFormTest(TestCase):
         self.assertEqual(form.is_valid(), True)
         self.assertEqual(form.save(), list(Comment.objects.filter(topic=to_topic)))
 
+    @override_settings(ST_PREVENT_SOME_FILE_DUPLICATION=True)
     def test_comment_image_upload(self):
         """
         Image upload
