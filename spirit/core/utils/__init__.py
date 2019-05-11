@@ -5,11 +5,15 @@ from __future__ import unicode_literals
 import os
 import json
 import hashlib
+import uuid
 from contextlib import contextmanager
 
+from django.core.files.storage import default_storage
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import six
+
+from ..conf import settings
 
 
 def render_form_errors(form):
@@ -78,3 +82,33 @@ def get_query_string(request, **params):
         query_dict[k] = v
 
     return query_dict.urlencode()
+
+
+def hashed_filename(file):
+    # Assume valid extension
+    _, ext = os.path.splitext(file.name)
+    assert ext
+    return '{name}{ext}'.format(
+        name=get_file_hash(file),  # This is slow
+        ext=ext.lower())
+
+
+def unique_filename(file):
+    """
+    Return the file's name as last component and\
+    a unique ID as first component.\
+    The filename is validated.
+    """
+    name = default_storage.get_valid_name(file.name)
+    name, ext = os.path.splitext(name)
+    return os.path.join(
+        uuid.uuid4().hex,
+        '{name}{ext}'.format(
+            name=name.lstrip('.') or uuid.uuid4().hex,
+            ext=ext.lower()))
+
+
+def generate_filename(file, hashed=False):
+    if hashed:
+        return hashed_filename(file)
+    return unique_filename(file)

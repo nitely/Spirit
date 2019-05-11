@@ -131,7 +131,7 @@ class CommentMoveForm(forms.Form):
 
 class CommentImageForm(forms.Form):
 
-    image = forms.ImageField()
+    image = forms.ImageField(max_length=255)
 
     def __init__(self, user=None, *args, **kwargs):
         super(CommentImageForm, self).__init__(*args, **kwargs)
@@ -151,8 +151,8 @@ class CommentImageForm(forms.Form):
 
     def save(self):
         file = self.cleaned_data['image']
-        file_hash = utils.get_file_hash(file)
-        file.name = ''.join((file_hash, '.', file.image.format.lower()))
+        file.name = utils.generate_filename(
+            file, hashed=settings.ST_PREVENT_SOME_FILE_DUPLICATION)
         name = os.path.join('spirit', 'images', str(self.user.pk), file.name)
         name = default_storage.save(name, file)
         file.url = default_storage.url(name)
@@ -161,7 +161,7 @@ class CommentImageForm(forms.Form):
 
 class CommentFileForm(forms.Form):
 
-    file = forms.FileField()
+    file = forms.FileField(max_length=255)
 
     def __init__(self, user=None, *args, **kwargs):
         super(CommentFileForm, self).__init__(*args, **kwargs)
@@ -206,9 +206,8 @@ class CommentFileForm(forms.Form):
 
     def save(self):
         file = self.cleaned_data['file']
-        file_hash = utils.get_file_hash(file)
-        file_name, file_ext = os.path.splitext(file.name.lower())
-        file.name = ''.join((file_name, '_', file_hash, file_ext))
+        file.name = utils.generate_filename(
+            file, hashed=settings.ST_PREVENT_SOME_FILE_DUPLICATION)
         name = os.path.join('spirit', 'files', str(self.user.pk), file.name)
         name = default_storage.save(name, file)
         file.url = default_storage.url(name)
