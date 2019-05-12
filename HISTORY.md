@@ -1,9 +1,14 @@
 0.8.0 (dev)
 ==================
 
-* Removed Python 3.4 support
-* Removed Django 2.0 support
-* Added Django 2.2 support
+* Breaking changes:
+  * Removed Python 3.4 support
+  * Removed Django 2.0 support
+  * Added Django 2.2 support
+  * No longer avoid duplicated user files,
+    because of performance reasons.
+    Set `ST_PREVENT_SOME_FILE_DUPLICATION` to `True`
+    to get the previous behaviour back.
 
 0.7.1
 ==================

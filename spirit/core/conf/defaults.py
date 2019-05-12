@@ -113,6 +113,23 @@ ST_CASE_INSENSITIVE_EMAILS = True
 #:     is usually not possible.
 ST_CASE_INSENSITIVE_USERNAMES = True
 
+#: Prevent duplication of files
+#: uploaded by a user. Including images.
+#: This is not across
+#: all users, but a single user.
+#:
+#: Be aware the de-duplication is based on
+#: a file hash calculation, which is
+#: quite slow and it will degrade the server's
+#: performance.
+#:
+#: All files will have the hash as name and
+#: the original file's name will be lost.
+#:
+#: .. Note::
+#:     Defaults to ``False`` since Spirit 0.8
+ST_PREVENT_SOME_FILE_DUPLICATION = False
+
 # Tests helper
 ST_TESTS_RATELIMIT_NEVER_EXPIRE = False
 
