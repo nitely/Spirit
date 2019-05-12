@@ -103,8 +103,8 @@ def unique_filename(file):
     the file's name is not valid. The extension \
     is assumed to be valid
     """
-    name = default_storage.get_valid_name(file.name)
-    name, ext = os.path.splitext(name)
+    name, ext = os.path.splitext(file.name)
+    name = default_storage.get_valid_name(name)
     return os.path.join(
         safe_uuid(),
         '{name}{ext}'.format(

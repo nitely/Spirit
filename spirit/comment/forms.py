@@ -34,6 +34,19 @@ except ImportError as err:
     magic = None
 
 
+def save_user_file(user, file, subdir, hashed=False):
+    """
+    Save user media file into sub-dir. \
+    The `hashed`` param prevents file duplication
+    """
+    file_path = utils.generate_filename(file, hashed=hashed)
+    name = os.path.join('spirit', subdir, str(user.pk), file_path)
+    name = default_storage.save(name, file)
+    file.name = os.path.basename(file_path)
+    file.url = default_storage.url(name)
+    return file
+
+
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
         label=_('Comment'),
@@ -150,13 +163,11 @@ class CommentImageForm(forms.Form):
         return file
 
     def save(self):
-        file = self.cleaned_data['image']
-        file.name = utils.generate_filename(
-            file, hashed=settings.ST_PREVENT_SOME_FILE_DUPLICATION)
-        name = os.path.join('spirit', 'images', str(self.user.pk), file.name)
-        name = default_storage.save(name, file)
-        file.url = default_storage.url(name)
-        return file
+        return save_user_file(
+            user=self.user,
+            file=self.cleaned_data['image'],
+            subdir='images',
+            hashed=settings.ST_PREVENT_SOME_FILE_DUPLICATION)
 
 
 class CommentFileForm(forms.Form):
@@ -205,10 +216,8 @@ class CommentFileForm(forms.Form):
         return file
 
     def save(self):
-        file = self.cleaned_data['file']
-        file.name = utils.generate_filename(
-            file, hashed=settings.ST_PREVENT_SOME_FILE_DUPLICATION)
-        name = os.path.join('spirit', 'files', str(self.user.pk), file.name)
-        name = default_storage.save(name, file)
-        file.url = default_storage.url(name)
-        return file
+        return save_user_file(
+            user=self.user,
+            file=self.cleaned_data['file'],
+            subdir='files',
+            hashed=settings.ST_PREVENT_SOME_FILE_DUPLICATION)
