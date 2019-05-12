@@ -152,9 +152,9 @@ class CommentImageForm(forms.Form):
 
     def clean_image(self):
         file = self.cleaned_data['image']
-        ext = os.path.splitext(file.name)[1].lstrip('.')
+        ext = os.path.splitext(file.name)[1].lstrip('.').lower()
 
-        if (ext.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT or
+        if (ext not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT or
                 file.image.format.lower() not in settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT):
             raise forms.ValidationError(
                 _("Unsupported file format. Supported formats are %s.") %
@@ -185,10 +185,8 @@ class CommentFileForm(forms.Form):
            raise forms.ValidationError(_("The file could not be validated"))
 
         # Won't ever raise. Has at most one '.' so lstrip is fine here
-        ext = os.path.splitext(file.name)[1].lstrip('.')
-        mime = settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.get(ext, None)
-
-        if mime is None:
+        ext = os.path.splitext(file.name)[1].lstrip('.').lower()
+        if ext not in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE:
             raise forms.ValidationError(
                 _("Unsupported file extension %(extension)s. "
                   "Supported extensions are %(supported)s.") % {
@@ -205,6 +203,7 @@ class CommentFileForm(forms.Form):
             logger.exception(e)
             raise forms.ValidationError(_("The file could not be validated"))
 
+        mime = settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.get(ext, None)
         if mime != file_mime:
             raise forms.ValidationError(
                 _("Unsupported file mime type %(mime)s. "

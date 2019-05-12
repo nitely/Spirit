@@ -527,6 +527,22 @@ class CommentViewTest(TestCase):
         self.assertNotEqual(first_url, second_url)
 
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
+    def test_comment_image_upload_mixed_case_ext(self):
+        utils.login(self)
+        img = BytesIO(
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        image_name = 'foo_image.GiF'
+        file = SimpleUploadedFile(
+            image_name, img.read(), content_type='image/gif')
+        response = self.client.post(
+            reverse('spirit:comment:image-upload-ajax'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+            data={'image': file})
+        res = json.loads(response.content.decode('utf-8'))
+        self.assertTrue(res['url'].endswith('/foo_image.gif'))
+
+    @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_image_upload_unique_no_name(self):
         utils.login(self)
         img = BytesIO(
