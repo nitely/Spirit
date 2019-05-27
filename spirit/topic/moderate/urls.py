@@ -20,4 +20,6 @@ urlpatterns = [
 
     url(r'^global-pin/(?P<pk>[0-9]+)/$', views.global_pin, name='global-pin'),
     url(r'^global-unpin/(?P<pk>[0-9]+)/$', views.global_unpin, name='global-unpin'),
+    url(r'^for-logged/(?P<pk>[0-9]+)/$', views.for_logged, name='for-logged'),
+    url(r'^for-non-logged/(?P<pk>[0-9]+)/$', views.for_non_logged, name='for-non-logged'),
 ]

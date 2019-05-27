@@ -123,8 +123,8 @@ def index_active(request):
         .order_by('-is_globally_pinned', '-last_active')
         .select_related('category'))
 
-    if request.user.is_authenticated:
-        topics = topics.for_logged_users()
+    if not request.user.is_authenticated:
+        topics = topics.for_non_logged_users()
 
     topics = yt_paginate(
         topics,
