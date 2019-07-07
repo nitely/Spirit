@@ -25,9 +25,13 @@ from .forms import NotificationForm, NotificationCreationForm
 @require_POST
 @login_required
 def create(request, topic_id):
-    topic = get_object_or_404(Topic.objects.for_access(request.user),
-                              pk=topic_id)
-    form = NotificationCreationForm(user=request.user, topic=topic, data=request.POST)
+    topic = get_object_or_404(
+        Topic.objects.for_access(request.user),
+        pk=topic_id)
+    form = NotificationCreationForm(
+        user=request.user,
+        topic=topic,
+        data=request.POST)
 
     if form.is_valid():
         form.save()
@@ -61,19 +65,14 @@ def index_ajax(request):
             .for_access(request.user)
             .order_by("is_read", "-date")
             .with_related_data())
-
     notifications = notifications[:settings.ST_NOTIFICATIONS_PER_PAGE]
-
     notifications = [
-        {
-            'user': escape(n.comment.user.st.nickname),
-            'action': n.action,
-            'title': escape(n.topic.title),
-            'url': n.get_absolute_url(),
-            'is_read': n.is_read
-        }
-        for n in notifications
-    ]
+        {'user': escape(n.comment.user.st.nickname),
+         'action': n.action,
+         'title': escape(n.topic.title),
+         'url': n.get_absolute_url(),
+         'is_read': n.is_read}
+        for n in notifications]
 
     return HttpResponse(json.dumps({'n': notifications}), content_type="application/json")
 
@@ -109,6 +108,7 @@ def index(request):
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1))
 
-    context = {'notifications': notifications}
-
-    return render(request, 'spirit/topic/notification/index.html', context)
+    return render(
+        request=request,
+        template_name='spirit/topic/notification/index.html',
+        context={'notifications': notifications})

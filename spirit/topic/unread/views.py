@@ -21,7 +21,6 @@ def index(request):
         .for_access(user=request.user)
         .for_unread(user=request.user)
         .with_bookmarks(user=request.user))
-
     page = paginate(
         request,
         query_set=topics,

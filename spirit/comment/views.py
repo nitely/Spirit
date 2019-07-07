@@ -10,6 +10,7 @@ from django.http import Http404
 
 from djconfig import config
 
+from ..core.utils.views import is_post, post_data
 from ..core.utils.ratelimit.decorators import ratelimit
 from ..core.utils.decorators import moderator_required
 from ..core.utils import markdown, paginator, render_form_errors, json_response
@@ -22,78 +23,71 @@ from .utils import comment_posted, post_comment_update, pre_comment_update, post
 @login_required
 @ratelimit(rate='1/10s')
 def publish(request, topic_id, pk=None):
+    initial = None
+    if pk:  # todo: move to form
+        comment = get_object_or_404(
+            Comment.objects.for_access(user=request.user), pk=pk)
+        quote = markdown.quotify(comment.comment, comment.user.st.nickname)
+        initial = {'comment': quote}
+
     user = request.user
     topic = get_object_or_404(
         Topic.objects.opened().for_access(user),
         pk=topic_id)
+    form = CommentForm(
+        user=user,
+        topic=topic,
+        data=post_data(request),
+        initial=initial)
 
-    if request.method == 'POST':
-        form = CommentForm(user=user, topic=topic, data=request.POST)
+    if is_post(request) and not request.is_limited() and form.is_valid():
+        if not user.st.update_post_hash(form.get_comment_hash()):
+            # Hashed comment may have not been saved yet
+            return redirect(
+                request.POST.get('next', None) or
+                Comment
+                .get_last_for_topic(topic_id)
+                .get_absolute_url())
 
-        if not request.is_limited() and form.is_valid():
-            if not user.st.update_post_hash(form.get_comment_hash()):
-                # Hashed comment may have not been saved yet
-                return redirect(
-                    request.POST.get('next', None) or
-                    Comment
-                    .get_last_for_topic(topic_id)
-                    .get_absolute_url())
+        comment = form.save()
+        comment_posted(comment=comment, mentions=form.mentions)
+        return redirect(request.POST.get('next', comment.get_absolute_url()))
 
-            comment = form.save()
-            comment_posted(comment=comment, mentions=form.mentions)
-            return redirect(request.POST.get('next', comment.get_absolute_url()))
-    else:
-        initial = None
-
-        if pk:  # todo: move to form
-            comment = get_object_or_404(Comment.objects.for_access(user=user), pk=pk)
-            quote = markdown.quotify(comment.comment, comment.user.st.nickname)
-            initial = {'comment': quote}
-
-        form = CommentForm(initial=initial)
-
-    context = {
-        'form': form,
-        'topic': topic,
-    }
-
-    return render(request, 'spirit/comment/publish.html', context)
+    return render(
+        request=request,
+        template_name='spirit/comment/publish.html',
+        context={
+            'form': form,
+            'topic': topic})
 
 
 @login_required
 def update(request, pk):
     comment = Comment.objects.for_update_or_404(pk, request.user)
-
-    if request.method == 'POST':
-        form = CommentForm(data=request.POST, instance=comment)
-
-        if form.is_valid():
-            pre_comment_update(comment=Comment.objects.get(pk=comment.pk))
-            comment = form.save()
-            post_comment_update(comment=comment)
-            return redirect(request.POST.get('next', comment.get_absolute_url()))
-    else:
-        form = CommentForm(instance=comment)
-
-    context = {'form': form}
-
-    return render(request, 'spirit/comment/update.html', context)
+    form = CommentForm(data=post_data(request), instance=comment)
+    if is_post(request) and form.is_valid():
+        pre_comment_update(comment=Comment.objects.get(pk=comment.pk))
+        comment = form.save()
+        post_comment_update(comment=comment)
+        return redirect(request.POST.get('next', comment.get_absolute_url()))
+    return render(
+        request=request,
+        template_name='spirit/comment/update.html',
+        context={'form': form})
 
 
 @moderator_required
 def delete(request, pk, remove=True):
     comment = get_object_or_404(Comment, pk=pk)
-
-    if request.method == 'POST':
+    if is_post(request):
         (Comment.objects
          .filter(pk=pk)
          .update(is_removed=remove))
-
         return redirect(request.GET.get('next', comment.get_absolute_url()))
-
-    context = {'comment': comment}
-
-    return render(request, 'spirit/comment/moderate.html', context)
+    return render(
+        request=request,
+        template_name='spirit/comment/moderate.html',
+        context={'comment': comment})
 
 
 @require_POST

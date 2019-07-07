@@ -9,6 +9,7 @@ from django.utils.translation import ugettext as _
 
 from djconfig import config
 
+from ...core.utils.views import is_post, post_data
 from ...core.utils.paginator import yt_paginate
 from ...core.utils.decorators import administrator_required
 from .forms import UserForm, UserProfileForm
@@ -19,26 +20,17 @@ User = get_user_model()
 @administrator_required
 def edit(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-
-    if request.method == 'POST':
-        uform = UserForm(data=request.POST, instance=user)
-        form = UserProfileForm(data=request.POST, instance=user.st)
-
-        if all([uform.is_valid(), form.is_valid()]):
-            uform.save()
-            form.save()
-            messages.info(request, _("This profile has been updated!"))
-            return redirect(request.GET.get("next", request.get_full_path()))
-    else:
-        uform = UserForm(instance=user)
-        form = UserProfileForm(instance=user.st)
-
-    context = {
-        'form': form,
-        'uform': uform
-    }
-
-    return render(request, 'spirit/user/admin/edit.html', context)
+    uform = UserForm(data=post_data(request), instance=user)
+    form = UserProfileForm(data=post_data(request), instance=user.st)
+    if is_post(request) and all([uform.is_valid(), form.is_valid()]):
+        uform.save()
+        form.save()
+        messages.info(request, _("This profile has been updated!"))
+        return redirect(request.GET.get("next", request.get_full_path()))
+    return render(
+        request=request,
+        template_name='spirit/user/admin/edit.html',
+        context={'form': form, 'uform': uform})
 
 
 @administrator_required
@@ -48,8 +40,7 @@ def _index(request, queryset, template):
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )
-    context = {'users': users, }
-    return render(request, template, context)
+    return render(request, template, context={'users': users})
 
 
 def index(request):

@@ -18,8 +18,7 @@ def _index(request, queryset, template):
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1)
     )
-    context = {'topics': topics, }
-    return render(request, template, context)
+    return render(request, template, context={'topics': topics})
 
 
 def deleted(request):
