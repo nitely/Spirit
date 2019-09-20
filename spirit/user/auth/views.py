@@ -10,6 +10,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 
+from ...core.utils.views import is_post, post_data
 from ...core.utils.ratelimit.decorators import ratelimit
 from ..utils.email import send_activation_email
 from ..utils.tokens import UserActivationTokenGenerator
@@ -90,29 +91,27 @@ def register(request, registration_form=RegistrationForm):
     if request.user.is_authenticated:
         return redirect(request.GET.get('next', reverse('spirit:user:update')))
 
-    if request.method == 'POST':
-        form = registration_form(data=request.POST)
+    form = registration_form(data=post_data(request))
+    if (is_post(request) and
+            not request.is_limited() and
+            form.is_valid()):
+        user = form.save()
+        send_activation_email(request, user)
+        messages.info(
+            request, _(
+                "We have sent you an email to %(email)s "
+                "so you can activate your account!") % {'email': form.get_email()})
 
-        if not request.is_limited() and form.is_valid():
-            user = form.save()
-            send_activation_email(request, user)
-            messages.info(
-                request, _(
-                    "We have sent you an email to %(email)s "
-                    "so you can activate your account!") % {'email': form.get_email()})
+        # TODO: email-less activation
+        # if not settings.REGISTER_EMAIL_ACTIVATION_REQUIRED:
+        # login(request, user)
+        # return redirect(request.GET.get('next', reverse('spirit:user:update')))
 
-            # TODO: email-less activation
-            # if not settings.REGISTER_EMAIL_ACTIVATION_REQUIRED:
-            # login(request, user)
-            # return redirect(request.GET.get('next', reverse('spirit:user:update')))
-
-            return redirect(reverse('spirit:user:auth:login'))
-    else:
-        form = registration_form()
-
-    context = {'form': form}
-
-    return render(request, 'spirit/user/auth/register.html', context)
+        return redirect(reverse('spirit:user:auth:login'))
+    return render(
+        request=request,
+        template_name='spirit/user/auth/register.html',
+        context={'form': form})
 
 
 def registration_activation(request, pk, token):
@@ -134,9 +133,8 @@ def resend_activation_email(request):
     if request.user.is_authenticated:
         return redirect(request.GET.get('next', reverse('spirit:user:update')))
 
-    if request.method == 'POST':
-        form = ResendActivationForm(data=request.POST)
-
+    form = ResendActivationForm(data=post_data(request))
+    if is_post(request):
         if not request.is_limited() and form.is_valid():
             user = form.get_user()
             send_activation_email(request, user)
@@ -147,9 +145,7 @@ def resend_activation_email(request):
                 "If you don't receive an email, please make sure you've entered "
                 "the address you registered with, and check your spam folder."))
         return redirect(reverse('spirit:user:auth:login'))
-    else:
-        form = ResendActivationForm()
-
-    context = {'form': form}
-
-    return render(request, 'spirit/user/auth/activation_resend.html', context)
+    return render(
+        request=request,
+        template_name='spirit/user/auth/activation_resend.html',
+        context={'form': form})

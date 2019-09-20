@@ -13,6 +13,7 @@ from django.http import HttpResponsePermanentRedirect
 
 from djconfig import config
 
+from ..core.utils.views import is_post, post_data
 from ..core.utils.paginator import yt_paginate
 from .utils.email import send_email_change_email
 from .utils.tokens import UserEmailChangeTokenGenerator
@@ -25,62 +26,55 @@ User = get_user_model()
 
 @login_required
 def update(request):
-    if request.method == 'POST':
-        uform = UserForm(data=request.POST, instance=request.user)
-        form = UserProfileForm(data=request.POST, instance=request.user.st)
-
-        if all([uform.is_valid(), form.is_valid()]):  # TODO: test!
-            uform.save()
-            form.save()
-            messages.info(request, _("Your profile has been updated!"))
-            return redirect(reverse('spirit:user:update'))
-    else:
-        uform = UserForm(instance=request.user)
-        form = UserProfileForm(instance=request.user.st)
-
-    context = {
-        'form': form,
-        'uform': uform}
-
-    return render(request, 'spirit/user/profile_update.html', context)
+    uform = UserForm(
+        data=post_data(request),
+        instance=request.user)
+    form = UserProfileForm(
+        data=post_data(request),
+        instance=request.user.st)
+    if is_post(request) and all([uform.is_valid(), form.is_valid()]):  # TODO: test!
+        uform.save()
+        form.save()
+        messages.info(request, _("Your profile has been updated!"))
+        return redirect(reverse('spirit:user:update'))
+    return render(
+        request=request,
+        template_name='spirit/user/profile_update.html',
+        context={'form': form, 'uform': uform})
 
 
 @login_required
 def password_change(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(user=request.user, data=request.POST)
-
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            messages.info(request, _("Your password has been changed!"))
-            return redirect(reverse('spirit:user:update'))
-    else:
-        form = PasswordChangeForm(user=request.user)
-
-    context = {'form': form, }
-
-    return render(request, 'spirit/user/profile_password_change.html', context)
+    form = PasswordChangeForm(
+        user=request.user,
+        data=post_data(request))
+    if is_post(request) and form.is_valid():
+        form.save()
+        update_session_auth_hash(request, form.user)
+        messages.info(request, _("Your password has been changed!"))
+        return redirect(reverse('spirit:user:update'))
+    return render(
+        request=request,
+        template_name='spirit/user/profile_password_change.html',
+        context={'form': form})
 
 
 @login_required
 def email_change(request):
-    if request.method == 'POST':
-        form = EmailChangeForm(user=request.user, data=request.POST)
-
-        if form.is_valid():
-            send_email_change_email(request, request.user, form.get_email())
-            messages.info(
-                request,
-                _("We have sent you an email "
-                  "so you can confirm the change!"))
-            return redirect(reverse('spirit:user:update'))
-    else:
-        form = EmailChangeForm()
-
-    context = {'form': form, }
-
-    return render(request, 'spirit/user/profile_email_change.html', context)
+    form = EmailChangeForm(
+        user=request.user,
+        data=post_data(request))
+    if is_post(request) and form.is_valid():
+        send_email_change_email(request, request.user, form.get_email())
+        messages.info(
+            request,
+            _("We have sent you an email "
+              "so you can confirm the change!"))
+        return redirect(reverse('spirit:user:update'))
+    return render(
+        request=request,
+        template_name='spirit/user/profile_email_change.html',
+        context={'form': form})
 
 
 @login_required
@@ -105,23 +99,18 @@ def email_change_confirm(request, token):
 @login_required
 def _activity(request, pk, slug, queryset, template, reverse_to, context_name, per_page):
     p_user = get_object_or_404(User, pk=pk)
-
     if p_user.st.slug != slug:
-        url = reverse(reverse_to, kwargs={
-            'pk': p_user.pk,
-            'slug': p_user.st.slug})
-        return HttpResponsePermanentRedirect(url)
-
+        return HttpResponsePermanentRedirect(
+            reverse(reverse_to, kwargs={'pk': p_user.pk, 'slug': p_user.st.slug}))
     items = yt_paginate(
         queryset,
         per_page=per_page,
         page_number=request.GET.get('page', 1))
+    return render(
+        request=request,
+        template_name=template,
+        context={'p_user': p_user, context_name: items})
 
-    context = {
-        'p_user': p_user,
-        context_name: items}
-
-    return render(request, template, context)
 
 
 def topics(request, pk, slug):
@@ -181,4 +170,6 @@ def likes(request, pk, slug):
 
 @login_required
 def menu(request):
-    return render(request, 'spirit/user/menu.html')
+    return render(
+        request=request,
+        template_name='spirit/user/menu.html')

@@ -13,6 +13,7 @@ from ..comment.flag.models import CommentFlag
 from ..comment.like.models import CommentLike
 from ..comment.models import Comment
 from ..topic.models import Topic
+from ..core.utils.views import is_post, post_data
 from ..core.utils.decorators import administrator_required
 from .forms import BasicConfigForm
 
@@ -21,20 +22,15 @@ User = get_user_model()
 
 @administrator_required
 def config_basic(request):
-
-    if request.method == 'POST':
-        form = BasicConfigForm(data=request.POST)
-
-        if form.is_valid():
-            form.save()
-            messages.info(request, _("Settings updated!"))
-            return redirect(request.GET.get("next", request.get_full_path()))
-    else:
-        form = BasicConfigForm()
-
-    context = {'form': form, }
-
-    return render(request, 'spirit/admin/config_basic.html', context)
+    form = BasicConfigForm(data=post_data(request))
+    if is_post(request) and form.is_valid():
+        form.save()
+        messages.info(request, _("Settings updated!"))
+        return redirect(request.GET.get("next", request.get_full_path()))
+    return render(
+        request=request,
+        template_name='spirit/admin/config_basic.html',
+        context={'form': form})
 
 
 @administrator_required

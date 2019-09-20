@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 
+from ...core.utils.views import is_post
 from ...core.utils.decorators import moderator_required
 from ...comment.models import Comment, CLOSED, UNCLOSED, PINNED, UNPINNED
 from ..models import Topic
@@ -14,13 +15,14 @@ from ..models import Topic
 def _moderate(request, pk, field_name, to_value, action=None):
     topic = get_object_or_404(Topic, pk=pk)
 
-    if request.method == 'POST':
-        count = (Topic.objects
-                 .filter(pk=pk)
-                 .exclude(**{field_name: to_value})
-                 .update(**{
-                    field_name: to_value,
-                    'reindex_at': timezone.now()}))
+    if is_post(request):
+        count = (
+            Topic.objects
+            .filter(pk=pk)
+            .exclude(**{field_name: to_value})
+            .update(**{
+                field_name: to_value,
+                'reindex_at': timezone.now()}))
 
         if count and action is not None:
             Comment.create_moderation_action(
@@ -30,9 +32,11 @@ def _moderate(request, pk, field_name, to_value, action=None):
 
         return redirect(request.POST.get(
             'next', topic.get_absolute_url()))
-    else:
-        return render(
-            request, 'spirit/topic/moderate.html', {'topic': topic})
+
+    return render(
+        request=request,
+        template_name='spirit/topic/moderate.html',
+        context={'topic': topic})
 
 
 def delete(request, pk):

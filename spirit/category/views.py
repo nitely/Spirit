@@ -40,13 +40,13 @@ def detail(request, pk, slug):
         page_number=request.GET.get('page', 1)
     )
 
-    context = {
-        'category': category,
-        'subcategories': subcategories,
-        'topics': topics
-    }
-
-    return render(request, 'spirit/category/detail.html', context)
+    return render(
+        request=request,
+        template_name='spirit/category/detail.html',
+        context={
+            'category': category,
+            'subcategories': subcategories,
+            'topics': topics})
 
 
 class IndexView(ListView):

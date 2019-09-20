@@ -9,6 +9,7 @@ from django.utils.translation import ugettext as _
 
 from djconfig import config
 
+from spirit.core.utils.views import is_post, post_data
 from spirit.core.utils.paginator import yt_paginate
 from spirit.core.utils.decorators import administrator_required
 from .forms import CommentFlagForm
@@ -18,16 +19,15 @@ from ..models import CommentFlag, Flag
 @administrator_required
 def detail(request, pk):
     flag = get_object_or_404(CommentFlag, pk=pk)
+    form = CommentFlagForm(
+        user=request.user,
+        data=post_data(request),
+        instance=flag)
 
-    if request.method == 'POST':
-        form = CommentFlagForm(user=request.user, data=request.POST, instance=flag)
-
-        if form.is_valid():
-            form.save()
-            messages.info(request, _("The flag has been moderated!"))
-            return redirect(reverse("spirit:admin:flag:index"))
-    else:
-        form = CommentFlagForm(instance=flag)
+    if is_post(request) and form.is_valid():
+        form.save()
+        messages.info(request, _("The flag has been moderated!"))
+        return redirect(reverse("spirit:admin:flag:index"))
 
     flags = yt_paginate(
         Flag.objects.filter(comment=flag.comment),
@@ -35,13 +35,13 @@ def detail(request, pk):
         page_number=request.GET.get('page', 1)
     )
 
-    context = {
-        'flag': flag,
-        'flags': flags,
-        'form': form
-    }
-
-    return render(request, 'spirit/comment/flag/admin/detail.html', context)
+    return render(
+        request=request,
+        template_name='spirit/comment/flag/admin/detail.html',
+        context={
+            'flag': flag,
+            'flags': flags,
+            'form': form})
 
 
 @administrator_required
