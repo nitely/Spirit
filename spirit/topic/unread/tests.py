@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from datetime import timedelta
 
 from django.test import TestCase
 from django.urls import reverse
+
+from infinite_scroll_pagination.serializers import to_page_key
 
 from ...core.tests import utils
 from .models import TopicUnread
@@ -22,10 +25,14 @@ class TopicUnreadViewTest(TestCase):
         self.topic3 = utils.create_topic(self.category, user=self.user)
         self.topic4 = utils.create_topic(self.category, user=self.user)
 
-        self.topic_unread = TopicUnread.objects.create(user=self.user, topic=self.topic)
-        self.topic_unread2 = TopicUnread.objects.create(user=self.user, topic=self.topic2)
-        self.topic_unread4 = TopicUnread.objects.create(user=self.user, topic=self.topic4)
-        self.topic_unread5 = TopicUnread.objects.create(user=self.user2, topic=self.topic)
+        self.topic_unread = TopicUnread.objects.create(
+            user=self.user, topic=self.topic)
+        self.topic_unread2 = TopicUnread.objects.create(
+            user=self.user, topic=self.topic2)
+        self.topic_unread4 = TopicUnread.objects.create(
+            user=self.user, topic=self.topic4)
+        self.topic_unread5 = TopicUnread.objects.create(
+            user=self.user2, topic=self.topic)
 
     def test_topic_unread_list(self):
         """
@@ -37,11 +44,16 @@ class TopicUnreadViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse('spirit:topic:unread:index'))
-        self.assertEqual(list(response.context['page']), [self.topic2, self.topic])
+        self.assertEqual(
+            list(response.context['page']), [self.topic2, self.topic])
 
         # fake next page
-        response = self.client.get(reverse('spirit:topic:unread:index') + "?topic_id=" + str(self.topic2.pk))
-        self.assertEqual(list(response.context['page']), [self.topic, ])
+        response = self.client.get(
+            reverse('spirit:topic:unread:index'),
+            {'p': to_page_key(
+                value=self.topic2.last_active,
+                pk=self.topic2.pk)})
+        self.assertEqual(list(response.context['page']), [self.topic])
 
     def test_topic_unread_list_show_private_topic(self):
         """
@@ -81,13 +93,14 @@ class TopicUnreadViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:unread:index'))
         self.assertEqual(list(response.context['page']), [])
 
-    def test_topic_unread_list_invalid_topic_id(self):
-        """
-        invalid topic id
-        """
+    def test_topic_unread_list_invalid_page(self):
         utils.login(self)
-        last_pk = TopicUnread.objects.order_by("pk").last().pk
-        response = self.client.get(reverse('spirit:topic:unread:index') + "?topic_id=" + str(last_pk + 1))
+        last = TopicUnread.objects.order_by("pk").last()
+        response = self.client.get(
+            reverse('spirit:topic:unread:index'),
+            {'p': to_page_key(
+                value=last.topic.last_active + timedelta(days=123),
+                pk=last.topic.pk)})
         self.assertEqual(response.status_code, 404)
 
     def test_topic_unread_list_empty_first_page(self):
@@ -98,14 +111,6 @@ class TopicUnreadViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:unread:index'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context['page']), [])
-
-    def test_topic_unread_list_empty_page(self):
-        """
-        empty page, other than the first one
-        """
-        utils.login(self)
-        response = self.client.get(reverse('spirit:topic:unread:index') + "?topic_id=" + str(self.topic.pk))
-        self.assertEqual(response.status_code, 404)
 
     def test_topic_unread_list_bookmarks(self):
         """
@@ -132,9 +137,12 @@ class TopicUnreadModelsTest(TestCase):
         self.topic = utils.create_topic(self.category)
         self.topic2 = utils.create_topic(self.category, user=self.user)
 
-        self.topic_unread = TopicUnread.objects.create(user=self.user, topic=self.topic)
-        self.topic_unread2 = TopicUnread.objects.create(user=self.user, topic=self.topic2)
-        self.topic_unread3 = TopicUnread.objects.create(user=self.user2, topic=self.topic)
+        self.topic_unread = TopicUnread.objects.create(
+            user=self.user, topic=self.topic)
+        self.topic_unread2 = TopicUnread.objects.create(
+            user=self.user, topic=self.topic2)
+        self.topic_unread3 = TopicUnread.objects.create(
+            user=self.user2, topic=self.topic)
 
     def test_topic_unread_create_or_mark_as_read(self):
         """
@@ -142,11 +150,13 @@ class TopicUnreadModelsTest(TestCase):
         """
         user = utils.create_user()
         TopicUnread.create_or_mark_as_read(user=user, topic=self.topic)
-        self.assertEqual(len(TopicUnread.objects.filter(user=user, topic=self.topic)), 1)
+        self.assertEqual(
+            len(TopicUnread.objects.filter(user=user, topic=self.topic)), 1)
 
         TopicUnread.objects.all().update(is_read=True)
         TopicUnread.create_or_mark_as_read(user=user, topic=self.topic)
-        self.assertTrue(TopicUnread.objects.get(user=user, topic=self.topic).is_read)
+        self.assertTrue(
+            TopicUnread.objects.get(user=user, topic=self.topic).is_read)
 
     def test_topic_unread_new_comment(self):
         """
@@ -155,5 +165,7 @@ class TopicUnreadModelsTest(TestCase):
         TopicUnread.objects.all().update(is_read=True)
         comment = utils.create_comment(user=self.user, topic=self.topic)
         TopicUnread.unread_new_comment(comment=comment)
-        self.assertTrue(TopicUnread.objects.get(user=self.user, topic=self.topic).is_read)
-        self.assertFalse(TopicUnread.objects.get(user=self.user2, topic=self.topic).is_read)
+        self.assertTrue(
+            TopicUnread.objects.get(user=self.user, topic=self.topic).is_read)
+        self.assertFalse(
+            TopicUnread.objects.get(user=self.user2, topic=self.topic).is_read)

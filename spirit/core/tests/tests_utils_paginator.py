@@ -2,11 +2,15 @@
 
 from __future__ import unicode_literals
 
+from datetime import timedelta
+
 from django.test import TestCase, RequestFactory
 from django.template import Template, Context
 from django.test.utils import override_settings
 from django.http import Http404
 from django.core.paginator import Page, Paginator
+
+from infinite_scroll_pagination.serializers import to_page_key
 
 from ..tests import utils
 from ...comment.models import Comment
@@ -63,32 +67,66 @@ class UtilsInfinitePaginatorTest(TestCase):
     def test_paginate(self):
         # first page
         req = RequestFactory().get('/')
-        page = infinite_paginator.paginate(req, self.queryset, per_page=15, lookup_field="pk")
-        page_last_pk = list(self.queryset[:15])[-1].pk
-        self.assertEqual(page.next_page_pk(), page_last_pk)
+        page = infinite_paginator.paginate(
+            req,
+            self.queryset,
+            per_page=15,
+            lookup_field="date")
+        page_last = list(self.queryset[:15])[-1]
+        self.assertEqual(
+            page.next_page(),
+            {'pk': page_last.pk,
+             'value': page_last.date})
 
         # second page
-        page_last_pk = list(self.queryset[:15])[-1].pk
-        req = RequestFactory().get('/?id=%s' % page_last_pk)
-        page = infinite_paginator.paginate(req, self.queryset, per_page=15, lookup_field="pk", page_var='id')
-        second_page_last_pk = list(self.queryset[15:30])[-1].pk
-        self.assertEqual(page.next_page_pk(), second_page_last_pk)
+        page_last = list(self.queryset[:15])[-1]
+        param = to_page_key(value=page_last.date, pk=page_last.pk)
+        req = RequestFactory().get('/?p=%s' % param)
+        page = infinite_paginator.paginate(
+            req,
+            self.queryset,
+            per_page=15,
+            lookup_field="date",
+            page_var='p')
+        second_page_last = list(self.queryset[15:30])[-1]
+        self.assertEqual(
+            page.next_page(),
+            {'pk': second_page_last.pk,
+             'value': second_page_last.date})
 
         # invalid (id) page
-        last_pk = self.queryset.order_by("pk").last().pk
-        req = RequestFactory().get('/?id=%s' % (last_pk + 1))
-        self.assertRaises(Http404, infinite_paginator.paginate,
-                          req, self.queryset, per_page=15, lookup_field="pk", page_var='id')
+        last = self.queryset.order_by("-date").last()
+        param = to_page_key(
+            value=last.date - timedelta(days=123),
+            pk=last.pk)
+        req = RequestFactory().get('/?p=%s' % param)
+        self.assertRaises(
+            Http404, infinite_paginator.paginate,
+            req,
+            self.queryset,
+            per_page=15,
+            lookup_field="date",
+            page_var='p')
 
         # empty page
-        valid_pk = self.queryset.last().pk
-        req = RequestFactory().get('/?id=%s' % valid_pk)
-        self.assertRaises(Http404, infinite_paginator.paginate,
-                          req, self.queryset.none(), per_page=15, lookup_field="pk", page_var='id')
+        valid = self.queryset.last()
+        param = to_page_key(value=valid.date, pk=valid.pk)
+        req = RequestFactory().get('/?p=%s' % param)
+        self.assertRaises(
+            Http404, infinite_paginator.paginate,
+            req,
+            self.queryset.none(),
+            per_page=15,
+            lookup_field="date",
+            page_var='p')
 
         # empty first page
         req = RequestFactory().get('/')
-        page = infinite_paginator.paginate(req, self.queryset.none(), per_page=15, lookup_field="pk")
+        page = infinite_paginator.paginate(
+            req,
+            self.queryset.none(),
+            per_page=15,
+            lookup_field="date")
         self.assertEqual(len(page), 0)
 
 
