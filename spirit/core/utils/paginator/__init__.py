@@ -6,6 +6,9 @@ from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
 from django.utils.http import urlencode
 
+from infinite_scroll_pagination import paginator
+from infinite_scroll_pagination import serializers
+
 from .yt_paginator import YTPaginator, YTPage
 
 
@@ -42,5 +45,25 @@ def paginate(*args, **kwargs):
     return _paginate(Paginator, *args, **kwargs)
 
 
+# XXX remove
 def yt_paginate(*args, **kwargs):
     return _paginate(YTPaginator, *args, **kwargs)
+
+
+def _seek_serializer(page):
+    value, pk = serializers.page_key(page)
+    return value, pk, paginator.NEXT_PAGE
+
+
+def seek_paginate(query_set, page, seek_by, per_page):
+    try:
+        value, pk, direction = _seek_serializer(page)
+    except serializers.InvalidPage:
+        raise Http404()
+    return paginator.paginate(
+        query_set=query_set,
+        lookup_field=seek_by,
+        value=value,
+        pk=pk,
+        per_page=per_page,
+        move_to=direction)
