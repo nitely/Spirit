@@ -3,8 +3,9 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-
 from django.contrib.auth.decorators import login_required
+
+from infinite_scroll_pagination.serializers import to_page_key
 
 from ...core.utils.paginator.infinite_paginator import paginate
 from ..models import Topic
@@ -25,15 +26,11 @@ def index(request):
         request,
         query_set=topics,
         lookup_field="last_active",
-        page_var='topic_id')
-    next_page_pk = None
-
-    if page:
-        next_page_pk = page[-1].pk
+        page_var='p')
 
     context = {
         'page': page,
-        'next_page_pk': next_page_pk
+        'next_page': to_page_key(**page.next_page())
     }
 
     return render(request, 'spirit/topic/unread/index.html', context)

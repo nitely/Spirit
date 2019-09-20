@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.utils.html import escape
 
 from djconfig import config
+from infinite_scroll_pagination.serializers import to_page_key
 
 from ...core.conf import settings
 from ...core import utils
@@ -89,16 +90,12 @@ def index_unread(request):
         request,
         query_set=notifications,
         lookup_field='date',
-        page_var='notif',
+        page_var='p',
         per_page=settings.ST_NOTIFICATIONS_PER_PAGE)
-
-    next_page_pk = None
-    if page:
-        next_page_pk = page[-1].pk
 
     context = {
         'page': page,
-        'next_page_pk': next_page_pk}
+        'next_page': to_page_key(**page.next_page())}
 
     return render(request, 'spirit/topic/notification/index_unread.html', context)
 
