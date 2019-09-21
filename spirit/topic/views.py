@@ -9,7 +9,7 @@ from django.http import HttpResponsePermanentRedirect
 from djconfig import config
 
 from ..core.utils.views import is_post, post_data
-from ..core.utils.paginator import paginate, yt_paginate
+from ..core.utils.paginator import paginate, yt_paginate, seek_paginate
 from ..core.utils.ratelimit.decorators import ratelimit
 from ..category.models import Category
 from ..comment.models import MOVED
@@ -115,13 +115,14 @@ def index_active(request):
         .visible()
         .global_()
         .with_bookmarks(user=request.user)
-        .order_by('-is_globally_pinned', '-last_active')
+        .order_by('-is_globally_pinned')
         .select_related('category'))
 
-    topics = yt_paginate(
+    topics = seek_paginate(
         topics,
+        seek_by='-last_active',
         per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1))
+        page_param=request.GET.get('p', ''))
 
     return render(
         request=request,

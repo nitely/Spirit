@@ -1,0 +1,24 @@
+{% load i18n %}
+
+{% if page.has_next or page.has_previous %}
+  {% spaceless %}
+    <ul class="paginator">
+      {% if page.has_previous %}
+        <li>
+          <a
+            class="paginator-button"
+            href="?p={{ page.prev_page_key }}{{ extra_query }}{{ hashtag }}"
+          ><i class="fa fa-chevron-left"></i> {% trans "Prev" %}</a>
+        </li>
+      {% endif %}
+      {% if page.has_next %}
+        <li>
+          <a
+            class="paginator-button"
+            href="?p={{ page.next_page_key }}{{ extra_query }}{{ hashtag }}"
+          >{% trans "Next" %} <i class="fa fa-chevron-right"></i></a>
+        </li>
+      {% endif %}
+    </ul>
+  {% endspaceless %}
+{% endif %}
