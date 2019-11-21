@@ -3,7 +3,6 @@ sudo: false
 dist: xenial
 
 python:
-  - "2.7"
   - "3.5"
   - "3.6"
   - "3.7"
@@ -25,12 +24,6 @@ script:
   - coverage run --source=. runtests.py
 after_success:
   - coveralls
-matrix:
-  exclude:
-    - python: "2.7"
-      env: DJANGO=2.1.8
-    - python: "2.7"
-      env: DJANGO=2.2.1
 notifications:
   email:
     on_failure: never
