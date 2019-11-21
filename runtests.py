@@ -20,19 +20,18 @@ def log_warnings():
     logger.addHandler(handler)
 
 
-def run_tests():
+def run_tests(reverse=False):
     sys.stdout.write(
         "\nRunning spirit test suite, using settings %(settings)r\n\n" %
         {"settings": os.environ['DJANGO_SETTINGS_MODULE']})
-    test_runner = DiscoverRunner()
-    failures = test_runner.run_tests([])
-    sys.exit(failures)
+    return DiscoverRunner(reverse=reverse).run_tests([])
 
 
 def start():
     django.setup()
     log_warnings()
-    run_tests()
+    if run_tests() or run_tests(reverse=True):
+        sys.exit(1)
 
 
 if __name__ == "__main__":
