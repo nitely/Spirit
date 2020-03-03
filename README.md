@@ -15,7 +15,7 @@ To see it in action, please visit [The Spirit Project](http://spirit-project.com
 * Django 2.2 LTS (recommended), and 3.0
 * PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
-Constrained by "[What Python version can I use with Django?](https://docs.djangoproject.com/en/2.1/faq/install/#what-python-version-can-i-use-with-django)"
+Constrained by "[What Python version can I use with Django?](https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django)"
 
 ## Usage
 
