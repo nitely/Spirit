@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import os
+import io
 
 from django.test import TestCase
 from django.core.management import call_command
-from django.utils.six import StringIO
 
 from ..management.commands import spiritcompilemessages
 from ..management.commands import spirittxpush
@@ -27,8 +27,8 @@ class CommandsTests(TestCase):
 
         org_call, spiritcompilemessages.call_command = spiritcompilemessages.call_command, call_mock
         try:
-            out = StringIO()
-            err = StringIO()
+            out = io.StringIO()
+            err = io.StringIO()
             call_command('spiritcompilemessages', stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
@@ -48,8 +48,8 @@ class CommandsTests(TestCase):
 
         org_call, spirittxpush.call = spirittxpush.call, call_mock
         try:
-            out = StringIO()
-            err = StringIO()
+            out = io.StringIO()
+            err = io.StringIO()
             call_command('spirittxpush', stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
@@ -72,8 +72,8 @@ class CommandsTests(TestCase):
 
         org_call, spiritinstall.call_command = spiritinstall.call_command, call_mock
         try:
-            out = StringIO()
-            err = StringIO()
+            out = io.StringIO()
+            err = io.StringIO()
             call_command('spiritinstall', stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
@@ -94,8 +94,8 @@ class CommandsTests(TestCase):
 
         org_call, spiritupgrade.call_command = spiritupgrade.call_command, call_mock
         try:
-            out = StringIO()
-            err = StringIO()
+            out = io.StringIO()
+            err = io.StringIO()
             call_command('spiritupgrade', stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()

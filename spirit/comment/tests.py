@@ -4,6 +4,7 @@ import os
 import json
 import shutil
 import hashlib
+import io
 
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
@@ -12,7 +13,6 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
-from django.utils.six import BytesIO
 
 from . import forms as comment_forms
 from ..core.conf import settings
@@ -440,7 +440,7 @@ class CommentViewTest(TestCase):
         comment image upload
         """
         utils.login(self)
-        img = BytesIO(
+        img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile(
@@ -470,7 +470,7 @@ class CommentViewTest(TestCase):
         self.assertFalse(os.path.isdir(user_media))
 
         utils.login(self)
-        img = BytesIO(
+        img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         image_name = 'foo_image.gif'
@@ -499,7 +499,7 @@ class CommentViewTest(TestCase):
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_image_upload_unique_no_duplication(self):
         utils.login(self)
-        img = BytesIO(
+        img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         image_name = 'foo_image.gif'
@@ -527,7 +527,7 @@ class CommentViewTest(TestCase):
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_image_upload_mixed_case_ext(self):
         utils.login(self)
-        img = BytesIO(
+        img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         image_name = 'foo_image.GiF'
@@ -543,7 +543,7 @@ class CommentViewTest(TestCase):
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_image_upload_unique_no_name(self):
         utils.login(self)
-        img = BytesIO(
+        img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         image_name = '.gif'
@@ -555,13 +555,13 @@ class CommentViewTest(TestCase):
             data={'image': file})
         res = json.loads(response.content.decode('utf-8'))
         self.assertIn(
-            'File extension \'\' is not allowed',
+            'File extension “” is not allowed',
             res['error']['image'][0])
 
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_image_upload_unique_bad_name(self):
         utils.login(self)
-        img = BytesIO(
+        img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         ext = '.gif'
@@ -579,7 +579,7 @@ class CommentViewTest(TestCase):
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_image_upload_unique_dots_name(self):
         utils.login(self)
-        img = BytesIO(
+        img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         ext = '.gif'
@@ -597,7 +597,7 @@ class CommentViewTest(TestCase):
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_image_upload_unique_hidden_name(self):
         utils.login(self)
-        img = BytesIO(
+        img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         ext = '.gif'
@@ -616,7 +616,7 @@ class CommentViewTest(TestCase):
         comment image upload, invalid image
         """
         utils.login(self)
-        image = BytesIO(b'BAD\x02D\x01\x00;')
+        image = io.BytesIO(b'BAD\x02D\x01\x00;')
         image.name = 'image.gif'
         image.content_type = 'image/gif'
         files = {'image': SimpleUploadedFile(image.name, image.read()), }
@@ -638,7 +638,7 @@ class CommentViewTest(TestCase):
         utils.login(self)
 
         # sample valid pdf - https://stackoverflow.com/a/17280876
-        file = BytesIO(
+        file = io.BytesIO(
             b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
@@ -673,7 +673,7 @@ class CommentViewTest(TestCase):
         Check (tmp) upload files are checked
         """
         utils.login(self)
-        file = BytesIO(
+        file = io.BytesIO(
             b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
@@ -709,7 +709,7 @@ class CommentViewTest(TestCase):
         self.assertFalse(os.path.isdir(user_media))
 
         utils.login(self)
-        pdf = BytesIO(
+        pdf = io.BytesIO(
             b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
@@ -740,7 +740,7 @@ class CommentViewTest(TestCase):
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_file_upload_unique_no_duplication(self):
         utils.login(self)
-        pdf = BytesIO(
+        pdf = io.BytesIO(
             b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
@@ -773,7 +773,7 @@ class CommentViewTest(TestCase):
         """
         utils.login(self)
         # sample valid pdf - https://stackoverflow.com/a/17280876
-        file = BytesIO(
+        file = io.BytesIO(
             b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
@@ -795,7 +795,7 @@ class CommentViewTest(TestCase):
         comment file upload, invalid mime type
         """
         utils.login(self)
-        file = BytesIO(b'BAD\x02D\x01\x00;')
+        file = io.BytesIO(b'BAD\x02D\x01\x00;')
         files = {
             'file': SimpleUploadedFile(
                 'file.pdf', file.read(), content_type='application/pdf')}
@@ -979,7 +979,7 @@ class CommentFormTest(TestCase):
         content = (
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        img = BytesIO(content)
+        img = io.BytesIO(content)
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
 
         form = CommentImageForm(user=self.user, data={}, files=files)
@@ -1012,8 +1012,9 @@ class CommentFormTest(TestCase):
         """
         Image upload without extension should raise an error
         """
-        img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                      b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        img = io.BytesIO(
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile('image', img.read(), content_type='image/gif'), }
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertFalse(form.is_valid())
@@ -1022,8 +1023,9 @@ class CommentFormTest(TestCase):
         """
         Image upload with good mime but not allowed extension should raise an error
         """
-        img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                      b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        img = io.BytesIO(
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile('image.png', img.read(), content_type='image/png'), }
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertFalse(form.is_valid())
@@ -1033,8 +1035,9 @@ class CommentFormTest(TestCase):
         """
         Image upload without allowed mime but good extension should raise an error
         """
-        img = BytesIO(b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
-                      b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        img = io.BytesIO(
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         # fake png extension
         files = {'image': SimpleUploadedFile('image.png', img.read(), content_type='image/png'), }
         form = CommentImageForm(data={}, files=files)
@@ -1044,7 +1047,7 @@ class CommentFormTest(TestCase):
         """
         Image upload with bad content but good extension should raise an error
         """
-        img = BytesIO(b'bad\x00;')
+        img = io.BytesIO(b'bad\x00;')
         files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())
@@ -1054,7 +1057,7 @@ class CommentFormTest(TestCase):
         Magic lib should be optional
         """
         utils.login(self)
-        file = BytesIO(
+        file = io.BytesIO(
             b'%PDF-1.0\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1'
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
