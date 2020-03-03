@@ -10,8 +10,8 @@ test:
 sdist: test clean
 	python setup.py sdist
 
-release: test clean
-	python setup.py sdist upload
+release: sdist
+	twine upload dist/*
 
 txpush:
 	python manage.py spiritmakemessages --locale en && \
