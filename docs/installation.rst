@@ -6,8 +6,8 @@ Installation
 Compatibility
 -------------
 
-* Python 3.5, 3.6 and 3.7 (recommended)
-* Django 1.11 LTS, 2.1, 2.2 LTS (recommended)
+* Python 3.5, 3.6, 3.7, and 3.8 (recommended)
+* Django 2.2 LTS (recommended), and 3.0
 * PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
 Constrained by `What Python version can I use with Django? <https://docs.djangoproject.com/en/2.1/faq/install/#what-python-version-can-i-use-with-django>`_

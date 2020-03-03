@@ -4,7 +4,10 @@
 * Breaking changes:
   * Removed Python 3.4 support
   * Removed Django 2.0 support
+  * Removed Django 2.1 support
+  * Removed Django 1.1 support
   * Added Django 2.2 support
+  * Added Django 3.0 support
   * No longer avoid duplicated user files,
     because of performance reasons.
     Set `ST_PREVENT_SOME_FILE_DUPLICATION` to `True`
