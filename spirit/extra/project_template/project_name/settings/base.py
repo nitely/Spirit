@@ -11,8 +11,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 """
 
-from __future__ import unicode_literals
-
 import os
 
 # Quick-start development settings - unsuitable for production

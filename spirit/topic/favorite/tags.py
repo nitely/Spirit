@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from ...core.tags.registry import register
 from .models import TopicFavorite
 from .forms import FavoriteForm

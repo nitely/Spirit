@@ -4,8 +4,6 @@
 Django settings for running the tests of spirit app
 """
 
-from __future__ import unicode_literals
-
 from .base import *
 
 

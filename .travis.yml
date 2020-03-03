@@ -3,13 +3,12 @@ sudo: false
 dist: xenial
 
 python:
-  - "3.5"
   - "3.6"
   - "3.7"
+  - "3.8"
 env:
-  - DJANGO=1.11.20
-  - DJANGO=2.1.8
-  - DJANGO=2.2.1
+  - DJANGO=2.2.8
+  - DJANGO=3.0.3
 install:
   - pip install --upgrade pip
   - pip install .[files]

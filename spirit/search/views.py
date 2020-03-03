@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from haystack.views import SearchView as BaseSearchView
 from djconfig import config
 

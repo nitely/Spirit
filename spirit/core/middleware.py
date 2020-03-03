@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from django.contrib.auth.views import redirect_to_login
 from django.urls import resolve
 from django.utils.deprecation import MiddlewareMixin

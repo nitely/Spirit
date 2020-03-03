@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
 from django.utils.http import urlencode

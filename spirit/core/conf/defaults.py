@@ -5,7 +5,6 @@ These are the default settings. \
 They can be overridden by the project settings
 """
 
-from __future__ import unicode_literals
 import os
 
 #: The category's PK containing all of the private topics.

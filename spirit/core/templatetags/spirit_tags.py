@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from ...comment import tags as comment
 from ...comment.like import tags as comment_like
 from ...search import tags as search

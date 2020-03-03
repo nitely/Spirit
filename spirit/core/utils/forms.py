@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from django import forms
 from django.utils.encoding import smart_text
 from django.db.models import Prefetch

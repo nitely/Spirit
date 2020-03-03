@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from ..topic.notification.models import TopicNotification, UNDEFINED
 from ..topic.unread.models import TopicUnread
 from .history.models import CommentHistory

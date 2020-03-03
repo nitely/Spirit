@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from ..comment.bookmark.models import CommentBookmark
 from .notification.models import TopicNotification
 from .unread.models import TopicUnread

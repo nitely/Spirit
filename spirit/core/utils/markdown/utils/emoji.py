@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
-
 emojis = {
     '+1',
     '+1_tone1',

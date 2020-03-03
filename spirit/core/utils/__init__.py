@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 import os
 import json
 import hashlib
@@ -11,7 +9,6 @@ from contextlib import contextmanager
 from django.core.files.storage import default_storage
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from django.utils import six
 
 
 def render_form_errors(form):
@@ -34,8 +31,7 @@ def mkdir_p(path):
 
 def get_hash(bytes_iter):
     assert not isinstance(
-        bytes_iter,
-        (six.text_type, six.binary_type))  # Avoid gotcha
+        bytes_iter, (str, bytes))  # Avoid gotchas
 
     # todo: test!
     md5 = hashlib.md5()

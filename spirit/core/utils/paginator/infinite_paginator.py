@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from django.http import Http404
 
 from infinite_scroll_pagination import paginator
