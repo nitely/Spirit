@@ -160,7 +160,10 @@ class UtilsTemplateTagTests(TestCase):
                     self.assertEqual(render(now - datetime.timedelta(minutes=1)), "1m")
                     self.assertEqual(render(now - datetime.timedelta(hours=1)), "1h")
                     self.assertEqual(render(now - datetime.timedelta(days=1)), "8 Mar")
-                    self.assertEqual(render(now - datetime.timedelta(days=69)), "31 Dec &#x27;11")
+                    # django 2.2 and 3.0 compat
+                    self.assertTrue(
+                        render(now - datetime.timedelta(days=69)) == "31 Dec &#x27;11"
+                        or render(now - datetime.timedelta(days=69)) == "31 Dec &#39;11")
 
                     # Tests it uses localtime
                     # This is 2012-03-08HT19:30:00-06:00 in America/Chicago
@@ -171,7 +174,10 @@ class UtilsTemplateTagTests(TestCase):
                     timezone.deactivate()
 
                     with override_settings(TIME_ZONE="America/Chicago"):
-                        self.assertEqual(render(dt), "8 Mar &#x27;11")
+                        # django 2.2 and 3.0 compat
+                        self.assertTrue(
+                            render(dt) == "8 Mar &#x27;11"
+                            or render(dt) == "8 Mar &#39;11")
         finally:
             ttags_utils.datetime = orig_humanize_datetime
 

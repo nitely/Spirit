@@ -554,9 +554,10 @@ class CommentViewTest(TestCase):
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
             data={'image': file})
         res = json.loads(response.content.decode('utf-8'))
-        self.assertIn(
-            'File extension “” is not allowed',
-            res['error']['image'][0])
+        # django 2.2 and 3.0 compat
+        self.assertTrue(
+            'File extension “” is not allowed' in res['error']['image'][0]
+            or 'File extension \'\' is not allowed' in res['error']['image'][0])
 
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_image_upload_unique_bad_name(self):
