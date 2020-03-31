@@ -47,3 +47,7 @@ python runtests.py
 ## License
 
 MIT
+
+## Sponsors
+
+[![Digital Ocean](https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_black.svg | width=201)](https://m.do.co/c/b8b19b89a73b)
