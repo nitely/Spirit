@@ -1,0 +1,204 @@
+# 
+# Translators:
+# jumasheff <jumasheff@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2020-06-17 01:03+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ky\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: forms.py:19
+msgid "Email confirmation"
+msgstr "Эмейл ырастоо"
+
+#: forms.py:22
+msgid "Enter the same email as above, for verification."
+msgstr "Тууралыгын ырасташ үчүн, жогорудагы эмейлди кайра жазыңыз."
+
+#: forms.py:25
+msgid "Password"
+msgstr "Сырсөз"
+
+#: forms.py:26
+msgid "Leave blank"
+msgstr "Бош калтырыңыз"
+
+#: forms.py:41
+msgid "Do not fill this field."
+msgstr "Бул сапты толтурбаңыз."
+
+#: forms.py:53
+msgid "The username is taken."
+msgstr "Бул аты колдонууда."
+
+#: forms.py:66
+msgid "The two email fields didn't match."
+msgstr "Эки эмейл сап дал келишпеди."
+
+#: forms.py:79
+msgid "Username or Email"
+msgstr "Колдонуучу аты же эмейл."
+
+#: forms.py:83
+msgid "The password is not valid."
+msgstr "Сырсөз жарактсыз."
+
+#: forms.py:115
+#, python-format
+msgid "No account matches %(username)s."
+msgstr "%(username)s байланыштуу бир дагы аккаунт жок."
+
+#: forms.py:125
+msgid "Email"
+msgstr "Эмейл"
+
+#: forms.py:138
+msgid "The provided email does not exists."
+msgstr "Берилген эмейл жок."
+
+#: forms.py:146
+msgid "This account is verified, try logging-in."
+msgstr "Бул аккаунт ырасталган, кирип көрүңүз."
+
+#: templates/spirit/user/auth/activation_resend.html:5
+#: templates/spirit/user/auth/activation_resend.html:9
+#: templates/spirit/user/auth/login.html:26
+msgid "Resend activation email"
+msgstr "Активдештирүү эмейлин кайра жөнөт"
+
+#: templates/spirit/user/auth/activation_resend.html:16
+msgid "Resend email"
+msgstr "Эмейл кайра жөнөт"
+
+#: templates/spirit/user/auth/login.html:5
+#: templates/spirit/user/auth/login.html:9
+#: templates/spirit/user/auth/login.html:16
+msgid "Login"
+msgstr "Кирүү"
+
+#: templates/spirit/user/auth/login.html:22
+msgid "Create an account"
+msgstr "Аккаунт түзүү"
+
+#: templates/spirit/user/auth/login.html:24
+msgid "I don't know my password"
+msgstr "Сырсөзүмдү билбейм"
+
+#: templates/spirit/user/auth/logout.html:5
+#: templates/spirit/user/auth/logout.html:15
+msgid "Log out"
+msgstr "Чыгуу"
+
+#: templates/spirit/user/auth/logout.html:9
+msgid "Are you sure you want to log out?"
+msgstr "Чыгасызбы?"
+
+#: templates/spirit/user/auth/password_reset_complete.html:7
+#: templates/spirit/user/auth/password_reset_complete.html:11
+msgid "Password change successful"
+msgstr "Сырсөз ийгиликтүү которулду"
+
+#: templates/spirit/user/auth/password_reset_complete.html:13
+msgid "Continue to login"
+msgstr "Кириш үчүн улантыңыз"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:5
+msgid "Password reset confirmation"
+msgstr "Сырсөз тазалоону ырастоо"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:11
+msgid "Enter new password"
+msgstr "Жаңы сырсөз жазыңыз"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:16
+msgid "Save"
+msgstr "Сакта"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:21
+msgid "Password reset unsuccessful"
+msgstr "Сырсөз тазалоо ийгиликсиз болуп калды"
+
+#: templates/spirit/user/auth/password_reset_confirm.html:23
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr "Сырсөз тазалоо шилтемеси жараксыз -- ал мурун колдонулса керек. Сырсөз тазалоо сурамын кайрадан жөнөтүңүз."
+
+#: templates/spirit/user/auth/password_reset_done.html:5
+#: templates/spirit/user/auth/password_reset_done.html:9
+msgid "Password reset successful"
+msgstr "Сырсөз тазалоо ийгиликтүү өттү"
+
+#: templates/spirit/user/auth/password_reset_done.html:11
+msgid ""
+"We've emailed you instructions for setting your password. You should be "
+"receiving them shortly."
+msgstr "Биз сизге сырсөз орнотуу боюнча нускама жөнөтүп койдук. Кыска убакыттын ичинде келет."
+
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:147
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr "Эмейл келбесе туура дарек менен кирип жатканыңызды текшериңиз, ошондой эле спам папкасын карап көрүңүз."
+
+#: templates/spirit/user/auth/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr "Сиз %(site_name)s сайтында аккаунтуңуздун сырсөзүн тазалоону сураганыңыз үчүн бул катты алып жатасыз."
+
+#: templates/spirit/user/auth/password_reset_email.html:7
+msgid "Please go to the following page and choose a new password:"
+msgstr "Төмөнкү бетке өтүп, жаңы сырсөз орнотуңуз:"
+
+#: templates/spirit/user/auth/password_reset_email.html:12
+msgid "Thanks for using our site!"
+msgstr "Биздин сайтыбызды колдонгонуңуз үчүн алкыш!"
+
+#: templates/spirit/user/auth/password_reset_email.html:14
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "%(site_name)s тайпасы"
+
+#: templates/spirit/user/auth/password_reset_form.html:5
+#: templates/spirit/user/auth/password_reset_form.html:9
+msgid "Password reset"
+msgstr "Сырсөз тазалоо"
+
+#: templates/spirit/user/auth/password_reset_form.html:15
+msgid "Reset my password"
+msgstr "Сырсөзүмдү тазала"
+
+#: templates/spirit/user/auth/password_reset_subject.txt:2
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr "%(site_name)s сырсөзүн тазалоо"
+
+#: templates/spirit/user/auth/register.html:5
+#: templates/spirit/user/auth/register.html:28
+#: templates/spirit/user/auth/register.html:34
+msgid "Register"
+msgstr "Катталуу"
+
+#: tests/tests.py:90 tests/tests.py:225
+msgid "User activation"
+msgstr "Колдонуучуну активдештирүү"
+
+#: views.py:101
+#, python-format
+msgid ""
+"We have sent you an email to %(email)s so you can activate your account!"
+msgstr "Аккаунтуңуду активдештирүү үчүн %(email)s дарегине эмейл жөнөттүк!"
+
+#: views.py:126
+msgid "Your account has been activated!"
+msgstr "Аккаунтуңуз активдештирилди!"

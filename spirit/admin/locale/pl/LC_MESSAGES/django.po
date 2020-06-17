@@ -1,13 +1,13 @@
 # 
 # Translators:
-# sittingbrain <sittingbrain@o2.pl>, 2015
+# 66cda7c6397d17027db0c4727dcd431a, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-26 00:12+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
-"Last-Translator: sittingbrain <sittingbrain@o2.pl>\n"
+"Last-Translator: 66cda7c6397d17027db0c4727dcd431a\n"
 "Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

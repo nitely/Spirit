@@ -1,0 +1,63 @@
+# 
+# Translators:
+# jumasheff <jumasheff@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2020-06-17 01:03+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ky\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: templates/spirit/user/admin/_list.html:12
+msgid "edit"
+msgstr "өзгөртүү"
+
+#: templates/spirit/user/admin/_tabs.html:8
+msgid "List"
+msgstr "Тизмек"
+
+#: templates/spirit/user/admin/_tabs.html:13
+#: templates/spirit/user/admin/admins.html:5
+#: templates/spirit/user/admin/admins.html:11
+msgid "Admins"
+msgstr "Админдер"
+
+#: templates/spirit/user/admin/_tabs.html:18
+#: templates/spirit/user/admin/mods.html:5
+#: templates/spirit/user/admin/mods.html:11
+msgid "Mods"
+msgstr "Модераторлор"
+
+#: templates/spirit/user/admin/_tabs.html:23
+msgid "Unactive"
+msgstr "Жигерсиз"
+
+#: templates/spirit/user/admin/edit.html:5
+#: templates/spirit/user/admin/edit.html:9
+msgid "Edit user"
+msgstr "Колдонуучуну тууралоо"
+
+#: templates/spirit/user/admin/edit.html:16
+msgid "Save"
+msgstr "Сакта"
+
+#: templates/spirit/user/admin/index.html:5
+#: templates/spirit/user/admin/index.html:11
+msgid "User list"
+msgstr "Колдонуучулар тизмеги"
+
+#: templates/spirit/user/admin/unactive.html:5
+#: templates/spirit/user/admin/unactive.html:11
+msgid "Unactive Users"
+msgstr "Жигерсиз колдонуучулар"
+
+#: views.py:30
+msgid "This profile has been updated!"
+msgstr "Бул профиль жаңыртылды!"

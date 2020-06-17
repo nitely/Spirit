@@ -1,0 +1,292 @@
+# 
+# Translators:
+# jumasheff <jumasheff@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2020-06-17 01:03+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ky\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: forms.py:35
+msgid "The email is taken."
+msgstr "Бул email колдонууда."
+
+#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:13
+msgid "Email"
+msgstr "Email"
+
+#: forms.py:51 templates/spirit/user/profile_update.html:19
+msgid "Password"
+msgstr "Сырсөз"
+
+#: forms.py:61
+msgid "The provided password is incorrect."
+msgstr "Жазылган сырсөз туура эмес."
+
+#: forms.py:75
+msgid "Time zone"
+msgstr "Убакыт алкагы"
+
+#: forms.py:84
+#, python-format
+msgid "Current time is: %(date)s %(time)s"
+msgstr "Учурдагы убакыт: %(date)s %(time)s"
+
+#: models.py:18
+msgid "profile"
+msgstr "профиль"
+
+#: models.py:23
+msgid "location"
+msgstr "жайгашкан жери"
+
+#: models.py:24
+msgid "last seen"
+msgstr "акыркы жолу кирген"
+
+#: models.py:25
+msgid "last ip"
+msgstr "акыркы ip'си"
+
+#: models.py:26
+msgid "time zone"
+msgstr "убакыт алкагы"
+
+#: models.py:27
+msgid "administrator status"
+msgstr "администратордук статусу"
+
+#: models.py:28
+msgid "moderator status"
+msgstr "модератор статусу"
+
+#: models.py:30
+msgid "verified"
+msgstr "тастыкталган"
+
+#: models.py:32
+msgid ""
+"Designates whether the user has verified his account by email or by other "
+"means. Un-select this to let the user activate his account."
+msgstr "Колдонуучу аккаунтун email аркылуу же башка жол менен тастыктаган. Колдонуучу өзү аккаунтун активдештирсин десеңиз, бул белгини алып салыңыз."
+
+#: models.py:36
+msgid "topic count"
+msgstr "темалар саны"
+
+#: models.py:37
+msgid "comment count"
+msgstr "жорумдар саны"
+
+#: models.py:39
+msgid "last post hash"
+msgstr "соңку жарыянын хэши"
+
+#: models.py:40
+msgid "last post on"
+msgstr "соңку жарыя датасы"
+
+#: models.py:43
+msgid "forum profile"
+msgstr "форум профили"
+
+#: models.py:44
+msgid "forum profiles"
+msgstr "форум профили"
+
+#: templates/spirit/user/_profile.html:13
+msgid "Joined at"
+msgstr "Катталган датасы"
+
+#: templates/spirit/user/_profile.html:17
+msgid "Seen"
+msgstr "Соңку кириши"
+
+#: templates/spirit/user/_profile.html:23
+msgid "Last IP"
+msgstr "Соңку IP'си"
+
+#: templates/spirit/user/_profile.html:35
+#: templates/spirit/user/profile_update.html:5
+#: templates/spirit/user/profile_update.html:9
+msgid "Preferences"
+msgstr "Тууралоолор"
+
+#: templates/spirit/user/_profile.html:41
+msgid "Private Message"
+msgstr "Жеке билдирүүлөр"
+
+#: templates/spirit/user/_profile.html:49
+msgid "Edit user"
+msgstr "Колдонуучуну тууралоо"
+
+#: templates/spirit/user/_profile.html:58
+msgid "Comments"
+msgstr "Жорумдар"
+
+#: templates/spirit/user/_profile.html:63 templates/spirit/user/menu.html:21
+msgid "Topics"
+msgstr "Темалар"
+
+#: templates/spirit/user/_profile.html:68
+msgid "Likes"
+msgstr "Жактыруулар"
+
+#: templates/spirit/user/_render_comments_list.html:41
+msgid "There are no comments here, yet"
+msgstr "Азырынча жорумдар жок"
+
+#: templates/spirit/user/activation_email.html:2
+#, python-format
+msgid "You're receiving this email because you registered at %(site_name)s."
+msgstr "Сиз %(site_name)s катталганыңыз үчүн бул эмейлди алып жатасыз."
+
+#: templates/spirit/user/activation_email.html:6
+msgid "Please go to the following link to activate your account:"
+msgstr "Төмөнкү шилтеме аркылуу өтүп, аккаунтуңузду активдештириңиз:"
+
+#: templates/spirit/user/activation_email.html:10
+#: templates/spirit/user/email_change_email.html:10
+msgid "Thanks for using our site!"
+msgstr "Биздин сайтыбызды колдонгонуңуз үчүн алкыш!"
+
+#: templates/spirit/user/email_change_email.html:2
+#, python-format
+msgid ""
+"You're receiving this because you changed your user email at %(site_name)s."
+msgstr "Сиз %(site_name)s сайтында эмейлиңизди өзгөрткөнүңүз үчүн бул катты алып жатасыз."
+
+#: templates/spirit/user/email_change_email.html:6
+msgid "Please go to the following link to confirm your email change:"
+msgstr "Төмөнкү шилтеме аркылуу өтүп, эмейлиңиздин которулушун ырастаңыз:"
+
+#: templates/spirit/user/menu.html:7
+msgid "User menu"
+msgstr "Колдонуучу менюсу"
+
+#: templates/spirit/user/menu.html:11
+msgid "Menu"
+msgstr "Меню"
+
+#: templates/spirit/user/menu.html:18
+msgid "Profile"
+msgstr "Профиль"
+
+#: templates/spirit/user/menu.html:24
+msgid "Unread topics"
+msgstr "Окулбаган темалар"
+
+#: templates/spirit/user/menu.html:27
+msgid "Private topics"
+msgstr "Жашыруун темалар"
+
+#: templates/spirit/user/menu.html:32
+msgid "Admin"
+msgstr "Админ"
+
+#: templates/spirit/user/menu.html:37
+msgid "Log out"
+msgstr "Чыгуу"
+
+#: templates/spirit/user/notification_email.html:2
+#, python-format
+msgid "You have a new notification at %(site_name)s."
+msgstr "%(site_name)sсайтында сиз үчүн бир жаңы маалымдоо бар."
+
+#: templates/spirit/user/notification_email.html:6
+msgid "Please go to the following link to read the comment:"
+msgstr "Жорумду окуш үчүн төмөнкү шилтеме аркылуу өтүңүз:"
+
+#: templates/spirit/user/notification_email.html:10
+msgid ""
+"If you don't want to keep receiving notifications, you can deactivate them "
+"on your profile preferences."
+msgstr "Маалымдоолордон баш тартыш үчүн профилиңиздин тууралоосунан токтотуп койсоңуз болот."
+
+#: templates/spirit/user/profile_comments.html:5
+msgid "comments"
+msgstr "жорумдар"
+
+#: templates/spirit/user/profile_email_change.html:5
+#: templates/spirit/user/profile_email_change.html:9 tests.py:454 tests.py:768
+#: utils/email.py:60
+msgid "Email change"
+msgstr "Эмейлди которуу"
+
+#: templates/spirit/user/profile_email_change.html:15
+msgid "Change my email"
+msgstr "Эмейлимди котором"
+
+#: templates/spirit/user/profile_likes.html:5
+msgid "likes"
+msgstr "жактыруу"
+
+#: templates/spirit/user/profile_password_change.html:5
+#: templates/spirit/user/profile_password_change.html:9
+msgid "Password change"
+msgstr "Сырсөз которуу"
+
+#: templates/spirit/user/profile_password_change.html:15
+msgid "Change my password"
+msgstr "Сырсөзүмдү котором"
+
+#: templates/spirit/user/profile_topics.html:5
+msgid "topics"
+msgstr "тема"
+
+#: templates/spirit/user/profile_update.html:22
+msgid "Change password"
+msgstr "Сырсөз которуу"
+
+#: templates/spirit/user/profile_update.html:25
+msgid "Avatar"
+msgstr "Аватар"
+
+#: templates/spirit/user/profile_update.html:27
+msgid "Change avatar"
+msgstr "Аватар которуу"
+
+#: templates/spirit/user/profile_update.html:28
+msgid "Go to gravatar.com and use your current email to change it"
+msgstr "gravatar.com'го барып, учурдагы эмейлиңизди колдонуп, которсоңуз болот"
+
+#: templates/spirit/user/profile_update.html:37
+msgid "Save"
+msgstr "Сакта"
+
+#: tests.py:732 utils/email.py:52
+msgid "User activation"
+msgstr "Колдонуучуну активдештирүү"
+
+#: utils/email.py:69
+#, python-format
+msgid "New notification: %(topic_name)s"
+msgstr "Жаңы маалымдоо: %(topic_name)s"
+
+#: views.py:35
+msgid "Your profile has been updated!"
+msgstr "Профилиңиз жаңыртылды!"
+
+#: views.py:57
+msgid "Your password has been changed!"
+msgstr "Сырсөзүңүз которулду!"
+
+#: views.py:74
+msgid "We have sent you an email so you can confirm the change!"
+msgstr "Биз сизге эмейл жөнөттүк, өзгөрүүнү ырасташыңыз үчүн!"
+
+#: views.py:96
+msgid "Your email has been changed!"
+msgstr "Эмейлиңиз которулду!"
+
+#: views.py:99
+msgid "Sorry, we were not able to change your email."
+msgstr "Кечиресиз, эмейлиңизди которо албай койдук."

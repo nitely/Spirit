@@ -1,0 +1,270 @@
+# 
+# Translators:
+# jumasheff <jumasheff@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2020-06-17 00:56+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ky\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: forms.py:39
+msgid "Comment"
+msgstr "Жорум"
+
+#: forms.py:57
+msgid "Write comment..."
+msgstr "Жорум жазуу..."
+
+#: forms.py:147
+#, python-format
+msgid "Unsupported file format. Supported formats are %s."
+msgstr "Файлдын форматы колдонулбайт. Колдоого алынган форматтар: %s."
+
+#: forms.py:174 forms.py:195
+msgid "The file could not be validated"
+msgstr "Файлды валидациялоо мүмкүн болгон жок"
+
+#: forms.py:182
+#, python-format
+msgid ""
+"Unsupported file extension %(extension)s. Supported extensions are "
+"%(supported)s."
+msgstr "Колдонулбаган файл кеңейтими: %(extension)s. Колдоого алынган кеңейтимдер: %(supported)s."
+
+#: forms.py:199
+#, python-format
+msgid ""
+"Unsupported file mime type %(mime)s. Supported types are %(supported)s."
+msgstr "MIME-тип колдонулбайт: %(mime)s. Колдоого алынган mime-типтер: %(supported)s."
+
+#: models.py:17 models.py:35 models.py:50
+msgid "comment"
+msgstr "жорум"
+
+#: models.py:18
+msgid "topic moved"
+msgstr "тема көчүп кетти"
+
+#: models.py:19
+msgid "topic closed"
+msgstr "тема жабылды"
+
+#: models.py:20
+msgid "topic unclosed"
+msgstr "тема ачылды"
+
+#: models.py:21
+msgid "topic pinned"
+msgstr "тема кадалды"
+
+#: models.py:22
+msgid "topic unpinned"
+msgstr "тема кадоодон алынды"
+
+#: models.py:36
+msgid "comment html"
+msgstr "жорумдун HTML'и"
+
+#: models.py:37
+msgid "action"
+msgstr "иш-аракет"
+
+#: models.py:43
+msgid "modified count"
+msgstr "өзгөрүүлөр чени"
+
+#: models.py:44
+msgid "likes count"
+msgstr "жакытруулар чени"
+
+#: models.py:51
+msgid "comments"
+msgstr "жорумдар"
+
+#: tags.py:40
+msgid "This topic has been moved"
+msgstr "Бул тема орун алмашты"
+
+#: tags.py:41
+msgid "This topic has been closed"
+msgstr "Бул тема жабылды"
+
+#: tags.py:42
+msgid "This topic has been unclosed"
+msgstr "Бул тема кайра ачылды"
+
+#: tags.py:43
+msgid "This topic has been pinned"
+msgstr "Бул тема кадалды"
+
+#: tags.py:44
+msgid "This topic has been unpinned"
+msgstr "Бул тема кадоодон алынды"
+
+#: tags.py:49
+msgid "Unknown topic moderation action"
+msgstr "Белгисиз модерация иш-аракети"
+
+#: templates/spirit/comment/_editor.html:10
+msgid "Bold"
+msgstr "Талпагай"
+
+#: templates/spirit/comment/_editor.html:15
+msgid "Italic"
+msgstr "Курсив"
+
+#: templates/spirit/comment/_editor.html:20
+msgid "List"
+msgstr "Тизмек"
+
+#: templates/spirit/comment/_editor.html:25
+msgid "URL"
+msgstr "URL"
+
+#: templates/spirit/comment/_editor.html:30
+msgid "Image"
+msgstr "Сүрөт"
+
+#: templates/spirit/comment/_editor.html:37
+msgid "File"
+msgstr "Файл"
+
+#: templates/spirit/comment/_editor.html:44
+msgid "Poll"
+msgstr "Сурамжылоо"
+
+#: templates/spirit/comment/_editor.html:49
+msgid "Preview"
+msgstr "Алдын ала көрүү"
+
+#: templates/spirit/comment/_editor.html:77
+#: templates/spirit/comment/_editor.html:86
+#, python-brace-format
+msgid "uploading {name}"
+msgstr "{name} жүктөлүүдө"
+
+#: templates/spirit/comment/_editor.html:92
+msgid "bolded text"
+msgstr "талпагай текст"
+
+#: templates/spirit/comment/_editor.html:93
+msgid "italicised text"
+msgstr "курсив текст"
+
+#: templates/spirit/comment/_editor.html:94
+msgid "list item"
+msgstr "тизмек элементи"
+
+#: templates/spirit/comment/_editor.html:95
+msgid "link text"
+msgstr "шилтеме тексти"
+
+#: templates/spirit/comment/_editor.html:96
+msgid "link url"
+msgstr "шилтеменин URL'и"
+
+#: templates/spirit/comment/_editor.html:97
+msgid "image text"
+msgstr "сүрөттүн тексти"
+
+#: templates/spirit/comment/_editor.html:98
+msgid "image url"
+msgstr "сүрөттүн URL'и"
+
+#: templates/spirit/comment/_editor.html:99
+msgid "file text"
+msgstr "файлдын тексти"
+
+#: templates/spirit/comment/_editor.html:100
+msgid "file url"
+msgstr "файлдын URL'и"
+
+#: templates/spirit/comment/_editor.html:101
+msgid "Title"
+msgstr "Тема"
+
+#: templates/spirit/comment/_editor.html:102
+msgid "Description"
+msgstr "Сүрөттөмө"
+
+#: templates/spirit/comment/_form.html:17
+#: templates/spirit/comment/publish.html:18
+#: templates/spirit/comment/update.html:18
+msgid "Publish"
+msgstr "Жарыялоо"
+
+#: templates/spirit/comment/_render_list.html:58
+msgid "delete"
+msgstr "жок кылуу"
+
+#: templates/spirit/comment/_render_list.html:64
+msgid "report"
+msgstr "арыздануу"
+
+#: templates/spirit/comment/_render_list.html:70
+msgid "share"
+msgstr "бөлүшүү"
+
+#: templates/spirit/comment/_render_list.html:79
+#: templates/spirit/comment/_render_list.html:195
+msgid "remove like"
+msgstr "жакытрууну алып сал"
+
+#: templates/spirit/comment/_render_list.html:87
+#: templates/spirit/comment/_render_list.html:194
+msgid "like"
+msgstr "жактыруу"
+
+#: templates/spirit/comment/_render_list.html:96
+msgid "edit"
+msgstr "өзгөртүү"
+
+#: templates/spirit/comment/_render_list.html:102
+msgid "quote"
+msgstr "цитата"
+
+#: templates/spirit/comment/_render_list.html:105
+msgid "reply"
+msgstr "жооп"
+
+#: templates/spirit/comment/_render_list.html:114
+msgid "close"
+msgstr "жап"
+
+#: templates/spirit/comment/_render_list.html:163
+msgid "This comment was deleted"
+msgstr "Бул жорум жок кылынган"
+
+#: templates/spirit/comment/_render_list.html:173
+msgid "undelete"
+msgstr "кайтаруу"
+
+#: templates/spirit/comment/moderate.html:5
+#: templates/spirit/comment/moderate.html:9
+msgid "Moderate comment"
+msgstr "Жорумду модерациялоо"
+
+#: templates/spirit/comment/moderate.html:14
+msgid "Apply"
+msgstr "Колдон"
+
+#: templates/spirit/comment/publish.html:5
+msgid "Publish comment"
+msgstr "Жорумду жарыяла"
+
+#: templates/spirit/comment/publish.html:9
+msgid "Publishing comment on"
+msgstr "Буга байланыштуу жорум жарыяланууда:"
+
+#: templates/spirit/comment/update.html:5
+#: templates/spirit/comment/update.html:9
+msgid "Edit comment"
+msgstr "Жорумду түзөтүү"

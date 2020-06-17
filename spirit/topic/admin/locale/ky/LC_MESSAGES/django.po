@@ -1,0 +1,46 @@
+# 
+# Translators:
+# jumasheff <jumasheff@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2020-06-17 01:01+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ky\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: templates/spirit/topic/admin/_tabs.html:7
+msgid "Deleted"
+msgstr "Жок кылынган"
+
+#: templates/spirit/topic/admin/_tabs.html:11
+msgid "Closed"
+msgstr "Жабык"
+
+#: templates/spirit/topic/admin/_tabs.html:15
+msgid "Pinned"
+msgstr "Кадалган"
+
+#: templates/spirit/topic/admin/closed.html:5
+#: templates/spirit/topic/admin/closed.html:11
+msgid "Closed topics"
+msgstr "Жабык темалар"
+
+#: templates/spirit/topic/admin/deleted.html:5
+msgid "Deleted Topics"
+msgstr "Жок кылынган темалар"
+
+#: templates/spirit/topic/admin/deleted.html:11
+msgid "Deleted topics"
+msgstr "Жок кылынган темалар"
+
+#: templates/spirit/topic/admin/pinned.html:5
+#: templates/spirit/topic/admin/pinned.html:11
+msgid "Pinned topics"
+msgstr "Кадалган темалар"

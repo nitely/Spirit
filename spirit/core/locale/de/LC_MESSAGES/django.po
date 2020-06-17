@@ -1,6 +1,6 @@
 # 
 # Translators:
-# datKater <imperator.katz@gmail.com>, 2017
+# 5a85a00218ad0559ac6870a4179f4dbc, 2017
 # Sven Hessenmüller <sven.hessenmueller@gmail.com>, 2016
 msgid ""
 msgstr ""

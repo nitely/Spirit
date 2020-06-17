@@ -1,0 +1,126 @@
+# 
+# Translators:
+# jumasheff <jumasheff@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2020-06-17 01:02+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ky\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: forms.py:68
+msgid "Invite users"
+msgstr "Колдонуучуларды чакыруу"
+
+#: forms.py:71
+msgid "user1, user2, ..."
+msgstr "колдонуучу1, колдонуучу2, ..."
+
+#: forms.py:103
+msgid "username"
+msgstr "колдонуучу аты"
+
+#: forms.py:104
+msgid "Invite user"
+msgstr "Колдонуучу чакыруу"
+
+#: forms.py:122 forms.py:156
+#, python-format
+msgid "%(username)s is already a participant"
+msgstr "%(username)sмурунтан эле катышуучу "
+
+#: models.py:31
+msgid "private topic"
+msgstr "жашыруун тема"
+
+#: models.py:32
+msgid "private topics"
+msgstr "жашыруун тема"
+
+#: templates/spirit/topic/private/_invite_form.html:7
+msgid "Invite"
+msgstr "Чакыруу"
+
+#: templates/spirit/topic/private/_top_bar.html:9
+#: templates/spirit/topic/private/_top_bar.html:26
+msgid "Participating in"
+msgstr "Катышып жаткан жерлер:"
+
+#: templates/spirit/topic/private/_top_bar.html:14
+#: templates/spirit/topic/private/_top_bar.html:22
+msgid "Left"
+msgstr "Калды"
+
+#: templates/spirit/topic/private/_top_bar.html:35
+msgid "Create private topic"
+msgstr "Жашыруун тема түзүү"
+
+#: templates/spirit/topic/private/delete.html:5
+msgid "Remove user from private topic"
+msgstr "Колдонуучуну жашыруун темадан чыгарып жиберүү"
+
+#: templates/spirit/topic/private/delete.html:10
+#, python-format
+msgid "Removing %(username)s's from %(topic_title)s"
+msgstr "%(username)s колдонуучусу %(topic_title)sтемасынан чыгарылууда"
+
+#: templates/spirit/topic/private/delete.html:17
+msgid "Remove"
+msgstr "Чыгар"
+
+#: templates/spirit/topic/private/detail.html:10
+#: templates/spirit/topic/private/index.html:5
+msgid "Private topics"
+msgstr "Жашыруун темалар"
+
+#: templates/spirit/topic/private/detail.html:20
+msgid "Participants"
+msgstr "Колдонуучулар"
+
+#: templates/spirit/topic/private/detail.html:47
+msgid "Leave topic"
+msgstr "Темадан чыгуу"
+
+#: templates/spirit/topic/private/index_author.html:5
+msgid "Created private topics"
+msgstr "Жашыруун тема түзүлдү"
+
+#: templates/spirit/topic/private/index_author.html:18
+msgid "join"
+msgstr "Кошулуу"
+
+#: templates/spirit/topic/private/index_author.html:21
+msgid "There are no topics here, yet"
+msgstr "Темалар азырынча жок"
+
+#: templates/spirit/topic/private/join.html:5
+msgid "Join topic"
+msgstr "Темага кошулуу"
+
+#: templates/spirit/topic/private/join.html:10
+#, python-format
+msgid "Do you want to join %(topic_title)s?"
+msgstr "%(topic_title)sтемасына кошулгуңуз келеби?"
+
+#: templates/spirit/topic/private/join.html:20
+msgid "Join"
+msgstr "Кошулуу"
+
+#: templates/spirit/topic/private/publish.html:5
+msgid "Publish a private topic"
+msgstr "Жашыруун тема жарыялоо"
+
+#: templates/spirit/topic/private/publish.html:9
+msgid "Publish private topic"
+msgstr "Жашыруун теманы жарыялоо"
+
+#: templates/spirit/topic/private/publish.html:23
+msgid "Publish"
+msgstr "Жарыялоо"

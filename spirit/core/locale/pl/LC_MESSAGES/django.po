@@ -1,6 +1,6 @@
 # 
 # Translators:
-# sittingbrain <sittingbrain@o2.pl>, 2015
+# 66cda7c6397d17027db0c4727dcd431a, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"

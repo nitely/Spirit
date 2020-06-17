@@ -1,0 +1,37 @@
+# 
+# Translators:
+# jumasheff <jumasheff@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"PO-Revision-Date: 2020-06-17 00:57+0000\n"
+"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ky\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: models.py:15
+msgid "original comment"
+msgstr "жорумдун түп нускасы"
+
+#: models.py:18
+msgid "comment html"
+msgstr "жорумдун HTML'и"
+
+#: models.py:23
+msgid "comment history"
+msgstr "жорум таржымалы"
+
+#: models.py:24
+msgid "comments history"
+msgstr "жорум таржымалы"
+
+#: templates/spirit/comment/history/detail.html:5
+#: templates/spirit/comment/history/detail.html:11
+msgid "Comment history"
+msgstr "Жорум таржымалы"
