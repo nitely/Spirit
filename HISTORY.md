@@ -1,7 +1,7 @@
 0.8.1 (dev)
 ==================
 
-*
+* Added Kyrgyz translation (thanks to @jumasheff)
 
 0.8.0
 ==================
