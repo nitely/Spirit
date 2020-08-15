@@ -5,7 +5,7 @@
     "fancy-log": "^1.3.3",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
-    "gulp-coffee": "https://github.com/nitely/gulp-coffee#fix_91",
+    "gulp-coffee": "2.3.5",
     "gulp-concat": "^2.6.0",
     "gulp-if": "^3.0.0",
     "gulp-minify-css": "^1.2.1",
@@ -26,7 +26,5 @@
   "repository": "https://github.com/nitely/Spirit.git",
   "author": "nitely <ecastroborsani@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "coffeescript": "^2.5.1"
-  }
+  "dependencies": {}
 }

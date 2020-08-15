@@ -57,11 +57,11 @@ gulp.task('coffee', function() {
             bare: false,
             //sourceMap: true
         }).on('error', log.error)))
-        .pipe(babel({presets: [
+        /*.pipe(babel({presets: [
             ['@babel/preset-env',
              {targets: {browsers: ['last 2 versions', 'ie >= 11']},
               modules: false}]
-        ]}))
+        ]}))*/
         .pipe(gulpif(/\.no-min\.js$/, gulp.dest(pathJs)))  // JS Preview
         .pipe(uglify({mangle: false}))
         .pipe(concat('all.min.js'))

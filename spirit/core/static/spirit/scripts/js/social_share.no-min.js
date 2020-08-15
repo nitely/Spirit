@@ -1,78 +1,67 @@
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+/*
+    Social share popup
+ */
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+(function() {
+  var SocialShare,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-(function () {
-  /*
-      Social share popup
-  */
-  var SocialShare;
-
-  SocialShare = /*#__PURE__*/function () {
+  SocialShare = (function() {
     function SocialShare(el) {
-      _classCallCheck(this, SocialShare);
-
-      this.showDialog = this.showDialog.bind(this);
-      this.closeDialog = this.closeDialog.bind(this);
+      this.closeDialog = bind(this.closeDialog, this);
+      this.showDialog = bind(this.showDialog, this);
       this.el = el;
       this.dialog = document.querySelector(this.el.dataset.dialog);
       this.allDialogs = document.querySelectorAll('.share');
       this.setUp();
     }
 
-    _createClass(SocialShare, [{
-      key: "setUp",
-      value: function setUp() {
-        var shareInput;
-        this.el.addEventListener('click', this.showDialog);
-        this.dialog.querySelector('.share-close').addEventListener('click', this.closeDialog);
-        shareInput = this.dialog.querySelector('.share-url');
-        shareInput.addEventListener('focus', this.select); // Hijack click, so it gets always selected
+    SocialShare.prototype.setUp = function() {
+      var shareInput;
+      this.el.addEventListener('click', this.showDialog);
+      this.dialog.querySelector('.share-close').addEventListener('click', this.closeDialog);
+      shareInput = this.dialog.querySelector('.share-url');
+      shareInput.addEventListener('focus', this.select);
+      return shareInput.addEventListener('mouseup', this.stopEvent);
+    };
 
-        return shareInput.addEventListener('mouseup', this.stopEvent);
-      }
-    }, {
-      key: "showDialog",
-      value: function showDialog(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        Array.from(this.allDialogs).forEach(function (elm) {
-          return elm.style.display = 'none';
-        });
-        this.dialog.style.display = 'block';
-      }
-    }, {
-      key: "closeDialog",
-      value: function closeDialog(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.dialog.style.display = 'none';
-      }
-    }, {
-      key: "select",
-      value: function select(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.setSelectionRange(0, this.value.length - 1);
-      }
-    }, {
-      key: "stopEvent",
-      value: function stopEvent(e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }]);
+    SocialShare.prototype.showDialog = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      Array.from(this.allDialogs).forEach(function(elm) {
+        return elm.style.display = 'none';
+      });
+      this.dialog.style.display = 'block';
+    };
+
+    SocialShare.prototype.closeDialog = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.dialog.style.display = 'none';
+    };
+
+    SocialShare.prototype.select = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.setSelectionRange(0, this.value.length - 1);
+    };
+
+    SocialShare.prototype.stopEvent = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    };
 
     return SocialShare;
-  }();
 
-  stModules.socialShare = function (elms) {
-    return Array.from(elms).map(function (elm) {
+  })();
+
+  stModules.socialShare = function(elms) {
+    return Array.from(elms).map(function(elm) {
       return new SocialShare(elm);
     });
   };
 
   stModules.SocialShare = SocialShare;
+
 }).call(this);
