@@ -1,9 +1,8 @@
+"use strict";
 
-/*
-    Simple module system
- */
-
-(function() {
+(function () {
+  /*
+      Simple module system
+  */
   window.stModules = {};
-
-}).call(this);
+}).call(void 0);

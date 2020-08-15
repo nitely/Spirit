@@ -1,81 +1,95 @@
+"use strict";
 
-/*
-    Place the flash message box fixed at the
-    top of the window when the url contains a hash
- */
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function() {
-  var Messages, hasHash, utils,
-    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+(function () {
+  /*
+      Place the flash message box fixed at the
+      top of the window when the url contains a hash
+  */
+  var Messages, hasHash, utils;
   utils = stModules.utils;
 
-  hasHash = function() {
+  hasHash = function hasHash() {
     var hash;
     hash = window.location.hash.split("#")[1];
-    return (hash != null) && hash.length > 0;
+    return hash != null && hash.length > 0;
   };
 
-  Messages = (function() {
+  Messages = /*#__PURE__*/function () {
     function Messages(el) {
-      this.hasVisibleMessages = bind(this.hasVisibleMessages, this);
-      this.hideMessage = bind(this.hideMessage, this);
-      this.showAllCloseButtons = bind(this.showAllCloseButtons, this);
-      this.placeMessages = bind(this.placeMessages, this);
+      _classCallCheck(this, Messages);
+
+      this.placeMessages = this.placeMessages.bind(this);
+      this.showAllCloseButtons = this.showAllCloseButtons.bind(this);
+      this.hideMessage = this.hideMessage.bind(this);
+      this.hasVisibleMessages = this.hasVisibleMessages.bind(this);
       this.el = el;
       this.setUp();
     }
 
-    Messages.prototype.setUp = function() {
-      this.placeMessages();
-      this.showAllCloseButtons();
-      return Array.from(this.el.querySelectorAll('.js-messages-close-button')).forEach((function(_this) {
-        return function(elm) {
+    _createClass(Messages, [{
+      key: "setUp",
+      value: function setUp() {
+        var _this = this;
+
+        this.placeMessages();
+        this.showAllCloseButtons();
+        return Array.from(this.el.querySelectorAll('.js-messages-close-button')).forEach(function (elm) {
           return elm.addEventListener('click', _this.hideMessage);
-        };
-      })(this));
-    };
-
-    Messages.prototype.placeMessages = function() {
-      if (!hasHash()) {
-        return;
+        });
       }
-      return this.el.classList.add('is-fixed');
-    };
+    }, {
+      key: "placeMessages",
+      value: function placeMessages() {
+        if (!hasHash()) {
+          return;
+        }
 
-    Messages.prototype.showAllCloseButtons = function() {
-      if (!hasHash()) {
-        return;
+        return this.el.classList.add('is-fixed');
       }
-      return Array.from(this.el.querySelectorAll('.js-messages-close')).forEach(function(elm) {
-        return elm.style.display = 'block';
-      });
-    };
+    }, {
+      key: "showAllCloseButtons",
+      value: function showAllCloseButtons() {
+        if (!hasHash()) {
+          return;
+        }
 
-    Messages.prototype.hideMessage = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.currentTarget.closest('.js-messages-set').style.display = 'none';
-      if (!this.hasVisibleMessages()) {
-        this.el.style.display = 'none';
-        this.el.classList.remove('is-fixed');
+        return Array.from(this.el.querySelectorAll('.js-messages-close')).forEach(function (elm) {
+          return elm.style.display = 'block';
+        });
       }
-    };
+    }, {
+      key: "hideMessage",
+      value: function hideMessage(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.currentTarget.closest('.js-messages-set').style.display = 'none'; // Hide container when it's empty
 
-    Messages.prototype.hasVisibleMessages = function() {
-      return !utils.isHidden(this.el.querySelectorAll('.js-messages-set'));
-    };
+        if (!this.hasVisibleMessages()) {
+          this.el.style.display = 'none';
+          this.el.classList.remove('is-fixed');
+        }
+      }
+    }, {
+      key: "hasVisibleMessages",
+      value: function hasVisibleMessages() {
+        return !utils.isHidden(this.el.querySelectorAll('.js-messages-set'));
+      }
+    }]);
 
     return Messages;
+  }();
 
-  })();
-
-  stModules.messages = function(elms) {
-    return Array.from(elms).map(function(elm) {
+  stModules.messages = function (elms) {
+    return Array.from(elms).map(function (elm) {
       return new Messages(elm);
     });
   };
 
   stModules.Messages = Messages;
-
-}).call(this);
+}).call(void 0);

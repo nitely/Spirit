@@ -1,20 +1,23 @@
 {
   "devDependencies": {
-    "coffee-script": "^1.10.0",
-    "gulp": "^3.9.0",
-    "gulp-coffee": "^2.3.1",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "coffeescript": "^2.5.1",
+    "fancy-log": "^1.3.3",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-coffee": "https://github.com/nitely/gulp-coffee#fix_91",
     "gulp-concat": "^2.6.0",
-    "gulp-if": "^2.0.0",
+    "gulp-if": "^3.0.0",
     "gulp-minify-css": "^1.2.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-ruby-sass": "^1.4.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.4.2",
-    "gulp-util": "^3.0.6",
-    "jasmine-core": "^2.8.0",
-    "karma": "^1.7.1",
-    "karma-cli": "^1.0.1",
-    "karma-jasmine": "^1.1.0"
+    "gulp-rename": "^2.0.0",
+    "gulp-ruby-sass": "^4.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "jasmine-core": "^3.6.0",
+    "karma": "^5.1.1",
+    "karma-cli": "^2.0.0",
+    "karma-jasmine": "^4.0.1"
   },
   "scripts": {
     "gulp": "gulp"
