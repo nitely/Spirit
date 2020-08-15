@@ -2,7 +2,6 @@
   describe("editor image upload plugin tests", function() {
     return it("has correct meta data", function() {
       var editor, fixtures;
-      //# Everything else is tested on editor_file_upload-spec
       fixtures = jasmine.getFixtures();
       fixtures.fixturesPath = 'base/test/fixtures/';
       loadFixtures('editor.html');

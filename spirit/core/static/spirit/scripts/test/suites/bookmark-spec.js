@@ -12,7 +12,6 @@
       fixtures = jasmine.getFixtures();
       fixtures.fixturesPath = 'base/test/fixtures/';
       loadFixtures('bookmark.html');
-      // Promise is async, so must callFake a sync thing
       post = spyOn(window, 'fetch');
       post.and.callFake(function() {
         return {
@@ -21,7 +20,7 @@
               ok: true
             });
             return {
-              catch: function() {
+              "catch": function() {
                 return {
                   then: function(func) {
                     return func();
@@ -40,7 +39,6 @@
       mark = bookmarks[0].mark;
       Bookmark = stModules.Bookmark;
       Mark = stModules.Mark;
-      // Trigger all waypoints
       return bookmarks.forEach(function(bm) {
         return bm.onWaypoint();
       });
@@ -84,7 +82,6 @@
       try {
         window.location.hash = "http://example.com/foo/#c5";
         newMark = new Mark();
-        // it substract 1 from the real comment number
         expect(newMark.commentNumber).toEqual(4);
         window.location.hash = "http://example.com/foo/";
         newMark = new Mark();
@@ -100,7 +97,6 @@
       var bookmark_2;
       post.calls.reset();
       expect(post.calls.any()).toEqual(false);
-      // won't post if already sending
       mark.commentNumber = 0;
       bookmark_2 = bookmarks[bookmarks.length - 1];
       mark.isSending = true;
@@ -121,14 +117,13 @@
         return {
           then: function(func) {
             var bookmark_2;
-            // isSending == true, so this should just put it in queue
             bookmark_2 = bookmarks[bookmarks.length - 1];
             bookmark_2.onWaypoint();
             func({
               ok: true
             });
             return {
-              catch: function() {
+              "catch": function() {
                 return {
                   then: function(func) {
                     return func();
@@ -145,7 +140,6 @@
       expect(post.calls.count()).toEqual(2);
       expect(post.calls.argsFor(0)[1].body.get('comment_number')).toEqual('1');
       expect(post.calls.argsFor(1)[1].body.get('comment_number')).toEqual('2');
-      // Should do nothing
       post.calls.reset();
       bookmark_1.onWaypoint();
       return expect(post.calls.any()).toEqual(false);
@@ -158,11 +152,10 @@
         return {
           then: function() {
             var bookmark_2;
-            // isSending == true, so this should just put it in queue
             bookmark_2 = bookmarks[bookmarks.length - 1];
             bookmark_2.onWaypoint();
             return {
-              catch: function(func) {
+              "catch": function(func) {
                 func({
                   message: 'connection error'
                 });

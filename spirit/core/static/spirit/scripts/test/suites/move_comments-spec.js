@@ -16,8 +16,6 @@
       });
     });
     afterEach(function() {
-      // Fixture will only remove itself not nodes appended to body
-      // so we have to manually remove forms
       return Array.from(document.querySelectorAll('.js-move-comment-form')).forEach(function(elm) {
         return elm.parentNode.removeChild(elm);
       });

@@ -6,8 +6,11 @@
     editor = null;
     dialog = null;
     responseData = null;
-    triggerFakeUpload = function(name = 'foo.doc') {
+    triggerFakeUpload = function(name) {
       var evt, inputFileOrg;
+      if (name == null) {
+        name = 'foo.doc';
+      }
       inputFileOrg = editor.inputFile;
       try {
         editor.inputFile = {
@@ -47,7 +50,7 @@
               then: function(func) {
                 func(data);
                 return {
-                  catch: function() {}
+                  "catch": function() {}
                 };
               }
             };
@@ -61,7 +64,6 @@
         allowedFileMedia: ".doc,.docx,.pdf"
       })[0];
       textarea = document.querySelector('textarea');
-      // Prevent popup
       dialog = spyOn(editor.inputFile, 'click');
       return dialog.and.callFake(function() {});
     });
@@ -118,7 +120,7 @@
               return {
                 then: function() {
                   return {
-                    catch: function(func) {
+                    "catch": function(func) {
                       return func(err);
                     }
                   };

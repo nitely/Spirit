@@ -40,7 +40,6 @@
       document.querySelector('.js-box-poll').click();
       expected = "\n\n[poll name=1]\n# Title\n1. Description\n2. Description\n[/poll]\n";
       expect(textarea.value).toEqual(expected);
-      // Increase name
       document.querySelector('.js-box-poll').click();
       return expect(textarea.value).toEqual(expected + "\n\n[poll name=2]\n# Title\n1. Description\n2. Description\n[/poll]\n");
     });
@@ -98,14 +97,11 @@
       expect(textarea.style.display).toEqual('none');
       expect(document.querySelector('.js-box-preview-content').style.display).toEqual('block');
       expect(document.querySelector('.js-box-preview-content').innerHTML).toEqual("<p><em>foo</em></p>\n");
-      // clicking again should hide the preview and show the textarea
       document.querySelector('.js-box-preview').click();
       expect(textarea.style.display).toEqual('block');
       return expect(document.querySelector('.js-box-preview-content').style.display).toEqual('none');
     });
   });
-
-  // todo: test pointer location
 
 }).call(this);
 

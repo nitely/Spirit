@@ -52,10 +52,6 @@
       shareInput = document.querySelector('.test-1').querySelector('.share-url');
       return shareInput.focus();
     });
-    //selection = $shareInput.val().substring $shareInput[0].selectionStart, $shareInput[0].selectionEnd
-
-    //expect(selection).toEqual "link"
-    //TODO: test, override SocialShare.select
     return it("prevents the default behaviour on input mouseup", function() {
       var evt, preventDefault, stopPropagation;
       evt = document.createEvent("HTMLEvents");

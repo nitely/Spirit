@@ -28,7 +28,7 @@
               then: function(func) {
                 func(data);
                 return {
-                  catch: function() {
+                  "catch": function() {
                     return {
                       then: function(func) {
                         return func();
@@ -56,7 +56,6 @@
       return expect(post.calls.argsFor(0)[1].body.get('csrfmiddlewaretoken')).toEqual("foobar");
     });
     it("can create and remove the like", function() {
-      // create
       post.calls.reset();
       responseData = {
         url_delete: "/foo/delete/"
@@ -64,7 +63,6 @@
       likeElms[0].click();
       expect(post.calls.argsFor(0)[0]).toEqual('/foo/create/');
       expect(likeElms[0].textContent).toEqual("foo remove like (1)");
-      // remove
       post.calls.reset();
       responseData = {
         url_create: "/foo/create/"
@@ -72,7 +70,6 @@
       likeElms[0].click();
       expect(post.calls.argsFor(0)[0]).toEqual('/foo/delete/');
       expect(likeElms[0].textContent).toEqual("foo like (0)");
-      // create again... and so on...
       post.calls.reset();
       responseData = {
         url_delete: "/foo/delete/"
@@ -95,7 +92,7 @@
             return {
               then: function() {
                 return {
-                  catch: function() {
+                  "catch": function() {
                     return {
                       then: function() {}
                     };
@@ -107,7 +104,6 @@
         };
       });
       likeElms[0].click();
-      // next click should do nothing
       post.calls.reset();
       likeElms[0].click();
       return expect(post.calls.any()).toEqual(false);

@@ -36,7 +36,7 @@
               then: function(func) {
                 func(data);
                 return {
-                  catch: function() {
+                  "catch": function() {
                     return {
                       then: function(func) {
                         return func();
@@ -65,7 +65,6 @@
       tab.click();
       expect(get.calls.count()).toEqual(1);
       expect(get.calls.argsFor(0)[0]).toEqual('/foo/');
-      // making multiple clicks do nothing
       get.calls.reset();
       tab.click();
       return expect(get.calls.count()).toEqual(0);
@@ -75,10 +74,10 @@
       responseData = {
         n: [
           {
-            user: "username", // Username is safe
+            user: "username",
             action: 1,
             title: '<bad>"bad"</bad>',
-            url: "/foobar/", // URL is safe
+            url: "/foobar/",
             is_read: true
           }
         ]
@@ -124,7 +123,7 @@
               return {
                 then: function() {
                   return {
-                    catch: function(func) {
+                    "catch": function(func) {
                       func(err);
                       return {
                         then: function(func) {
@@ -143,15 +142,6 @@
       expect(get.calls.count()).toEqual(1);
       return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>error: 500 server error</div>');
     });
-    // todo: uncomment once tab.coffee is refactored
-
-    //it "shows tab content and is selected on click", ->
-    //    expect(tab.classList.contains("is-selected")).toEqual(false)
-    //    expect(isHidden(document.querySelectorAll('.js-notifications-content'))).toEqual(true)
-
-    //    tab.click()
-    //    expect(tab.classList.contains("is-selected")).toEqual(true)
-    //    expect(isHidden(document.querySelectorAll('.js-notifications-content'))).toEqual(false)
     return it("prevents the default click behaviour", function() {
       var evt, preventDefault, stopPropagation;
       evt = document.createEvent("HTMLEvents");
