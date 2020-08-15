@@ -50,18 +50,10 @@ gulp.task('coffee', function() {
             pathCoffee + 'tab.coffee',
             pathCoffee + 'editor_file_upload.coffee',
             pathCoffee + '*.coffee'
-        ]) //, {sourcemaps: true})
+        ])
         .pipe(sourcemaps.init())
         .pipe(gulpif(/\.coffee$/, rename({suffix: ".no-min"})))
-        .pipe(gulpif(/\.coffee$/, coffee({
-            bare: false,
-            //sourceMap: true
-        }).on('error', log.error)))
-        /*.pipe(babel({presets: [
-            ['@babel/preset-env',
-             {targets: {browsers: ['last 2 versions', 'ie >= 11']},
-              modules: false}]
-        ]}))*/
+        .pipe(gulpif(/\.coffee$/, coffee({bare: false}).on('error', log.error)))
         .pipe(gulpif(/\.no-min\.js$/, gulp.dest(pathJs)))  // JS Preview
         .pipe(uglify({mangle: false}))
         .pipe(concat('all.min.js'))
