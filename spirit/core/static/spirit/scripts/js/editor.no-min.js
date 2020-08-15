@@ -10,6 +10,7 @@
 
   Editor = (function() {
     Editor.prototype.defaults = {
+      replyButtons: [],
       boldedText: "bolded text",
       italicisedText: "italicised text",
       listItemText: "list item",
@@ -22,6 +23,7 @@
     };
 
     function Editor(el, options) {
+      this.replyButton = bind(this.replyButton, this);
       this.togglePreview = bind(this.togglePreview, this);
       this.addPoll = bind(this.addPoll, this);
       this.addImage = bind(this.addImage, this);
@@ -40,13 +42,21 @@
     }
 
     Editor.prototype.setUp = function() {
+      var elm, i, len, ref, results;
       this.el.querySelector('.js-box-bold').addEventListener('click', this.addBold);
       this.el.querySelector('.js-box-italic').addEventListener('click', this.addItalic);
       this.el.querySelector('.js-box-list').addEventListener('click', this.addList);
       this.el.querySelector('.js-box-url').addEventListener('click', this.addUrl);
       this.el.querySelector('.js-box-image').addEventListener('click', this.addImage);
       this.el.querySelector('.js-box-poll').addEventListener('click', this.addPoll);
-      return this.el.querySelector('.js-box-preview').addEventListener('click', this.togglePreview);
+      this.el.querySelector('.js-box-preview').addEventListener('click', this.togglePreview);
+      ref = this.options.replyButtons;
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        elm = ref[i];
+        results.push(elm.addEventListener('click', this.replyButton));
+      }
+      return results;
     };
 
     Editor.prototype.wrapSelection = function(preTxt, postTxt, defaultTxt) {
@@ -108,6 +118,15 @@
         this.preview.innerHTML = marked(this.textBox.value);
       }
       return this.stopClick(e);
+    };
+
+    Editor.prototype.replyButton = function(e) {
+      this.wrapSelection("", ", ", e.currentTarget.getAttribute('data'));
+      return setTimeout(((function(_this) {
+        return function() {
+          return _this.textBox.focus();
+        };
+      })(this)), 1);
     };
 
     Editor.prototype.stopClick = function(e) {

@@ -1,12 +1,13 @@
 # Installation
 
-## Ubuntu 16.04
+## Ubuntu 20.04
 
 ### Install Node.js
 
 ```
-$ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-$ sudo apt-get install -y nodejs
+$ sudo apt install gcc g++ make
+$ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+$ sudo apt install -y nodejs
 ```
 
 > If you are a node.js user then install nvm to manage the versions
@@ -16,10 +17,8 @@ $ sudo apt-get install -y nodejs
 ```
 $ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 $ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-$ sudo apt-get update && sudo apt-get install yarn
+$ sudo apt update && sudo apt install yarn
 ```
-
-> On Ubuntu 17 you may want to remove `cmdtest` if you get any error `sudo apt remove cmdtest`
 
 ## Fedora 26
 
@@ -27,7 +26,7 @@ $ sudo apt-get update && sudo apt-get install yarn
 
 ```
 $ sudo dnf install -y gcc-c++ make
-$ curl -sL https://rpm.nodesource.com/setup_6.x | sudo -E bash -
+$ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 $ sudo dnf install -y nodejs
 ```
 

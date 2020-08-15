@@ -69,6 +69,7 @@
 
     (function () {
       var editorElms = document.querySelectorAll('.js-reply');
+      var replyButtonElms = document.querySelectorAll('.js-reply-button');
 
       {% if st_settings.ST_UPLOAD_IMAGE_ENABLED %}
         stModules.editorImageUpload(editorElms, {
@@ -88,7 +89,8 @@
         });
       {% endif %}
 
-      stModules.editor(editorElms, {
+      var editors = stModules.editor(editorElms, {
+        replyButtons: replyButtonElms,
         boldedText: "{% trans "bolded text" %}",
         italicisedText: "{% trans "italicised text" %}",
         listItemText: "{% trans "list item" %}",

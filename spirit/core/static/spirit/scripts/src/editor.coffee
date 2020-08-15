@@ -7,6 +7,7 @@
 class Editor
 
     defaults: {
+        replyButtons: [],
         boldedText: "bolded text",
         italicisedText: "italicised text",
         listItemText: "list item",
@@ -35,6 +36,8 @@ class Editor
         @el.querySelector('.js-box-image').addEventListener('click', @addImage)
         @el.querySelector('.js-box-poll').addEventListener('click', @addPoll)
         @el.querySelector('.js-box-preview').addEventListener('click', @togglePreview)
+        for elm in @options.replyButtons
+            elm.addEventListener('click', @replyButton)
 
     wrapSelection: (preTxt, postTxt, defaultTxt) =>
         preSelection = @textBox.value.substring(0, @textBox.selectionStart)
@@ -94,6 +97,10 @@ class Editor
             @preview.innerHTML = marked(@textBox.value)
 
         @stopClick(e)
+
+    replyButton: (e) =>
+        @wrapSelection("", ", ", e.currentTarget.getAttribute('data'))
+        setTimeout((() => @textBox.focus()), 1)  # 1 ms
 
     stopClick: (e) ->
         e.preventDefault()
