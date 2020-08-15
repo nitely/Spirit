@@ -102,7 +102,7 @@
           <a href="{% url "spirit:comment:publish" topic_id=topic.pk pk=c.pk %}">{% trans "quote" %}</a>
         </li>
         <li>
-          <a href="#reply" >{% trans "reply" %}</a>
+          <a href="#reply" class="js-reply-button" data="@{{ c.user.username }}">{% trans "reply" %}</a>
         </li>
       {% endifnotequal %}
       {% endif %}
