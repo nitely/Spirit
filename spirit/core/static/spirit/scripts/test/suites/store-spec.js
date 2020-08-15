@@ -20,6 +20,7 @@
     });
     it("updates the field on storage change", function() {
       var evt;
+      // Some browsers won't trigger "storage" on assignments
       localStorage.setItem('unique-id', "text");
       evt = document.createEvent("HTMLEvents");
       evt.initEvent("storage", false, true);
@@ -37,11 +38,14 @@
     });
     it("wont (re)update the field on input", function() {
       var evt, setItem;
+      // "storage" gets triggered (maybe) while updating the Storage,
+      // however this should not (re)update the text-area
       localStorage.setItem('unique-id', "no-foobar");
       textarea.value = "foobar";
       setItem = spyOn(Storage.prototype, 'setItem');
       setItem.and.callFake(function() {
         var evt;
+        // Force storage event
         evt = document.createEvent("HTMLEvents");
         evt.initEvent("storage", false, true);
         return window.dispatchEvent(evt);

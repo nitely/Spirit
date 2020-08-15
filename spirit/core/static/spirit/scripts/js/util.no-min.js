@@ -1,5 +1,3 @@
-"use strict";
-
 (function () {
   /*
     A bunch of generic functions, this are used by other plugins.
@@ -21,4 +19,4 @@
       }).length === 0;
     }
   };
-}).call(void 0);
+}).call(this);

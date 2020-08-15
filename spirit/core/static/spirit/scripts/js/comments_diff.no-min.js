@@ -1,5 +1,3 @@
-"use strict";
-
 (function () {
   /*
       HTML diff for the comment history
@@ -19,4 +17,4 @@
       return prev = curr;
     });
   };
-}).call(void 0);
+}).call(this);
