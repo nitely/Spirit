@@ -116,6 +116,9 @@ def index_active(request):
         .order_by('-is_globally_pinned', '-last_active')
         .select_related('category'))
 
+    if not request.user.is_authenticated:
+        topics = topics.for_non_logged_users()
+
     topics = yt_paginate(
         topics,
         per_page=config.topics_per_page,

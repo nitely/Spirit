@@ -20,7 +20,7 @@ class TopicForm(forms.ModelForm):
 
     class Meta:
         model = Topic
-        fields = ('title', 'category')
+        fields = ('title', 'category', 'is_for_logged')
 
     def __init__(self, user, *args, **kwargs):
         super(TopicForm, self).__init__(*args, **kwargs)

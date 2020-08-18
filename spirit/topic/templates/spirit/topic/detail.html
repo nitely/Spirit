@@ -97,6 +97,18 @@
               </li>
             {% endif %}
 
+            {% if topic.is_for_logged %}
+              <li>
+                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:for-non-logged" topic.pk %}">
+                  <i class="fa fa-thumb-tack"></i> {% trans "Set for non logged users" %}</a>
+              </li>
+            {% else %}
+              <li>
+                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:for-logged" topic.pk %}">
+                  <i class="fa fa-thumb-tack"></i> {% trans "Set for logged users" %}</a>
+              </li>
+            {% endif %}
+
             {% if topic.is_globally_pinned %}
               <li>
                 <a class="menu-link js-post" href="{% url "spirit:topic:moderate:global-unpin" topic.pk %}">

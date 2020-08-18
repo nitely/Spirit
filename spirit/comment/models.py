@@ -9,7 +9,8 @@ from django.utils import timezone
 from ..core.conf import settings
 from .managers import CommentQuerySet
 
-COMMENT, MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED = range(6)
+(COMMENT, MOVED, CLOSED, UNCLOSED, PINNED,
+UNPINNED, FOR_LOGGED, FOR_NON_LOGGED) = range(8)
 
 ACTION = (
     (COMMENT, _("comment")),
@@ -17,7 +18,10 @@ ACTION = (
     (CLOSED, _("topic closed")),
     (UNCLOSED, _("topic unclosed")),
     (PINNED, _("topic pinned")),
-    (UNPINNED, _("topic unpinned")))
+    (UNPINNED, _("topic unpinned")),
+    (FOR_LOGGED, _("topic for logged users")),
+    (FOR_NON_LOGGED, _("topic for non logged users")),
+    )
 
 
 class Comment(models.Model):

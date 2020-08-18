@@ -23,6 +23,9 @@ class TopicQuerySet(models.QuerySet):
 
     def opened(self):
         return self.filter(is_closed=False)
+    
+    def for_non_logged_users(self):
+        return self.filter(is_for_logged=False)
 
     def global_(self):
         return self.filter(category__is_global=True)
@@ -64,6 +67,7 @@ class TopicQuerySet(models.QuerySet):
         else:
             return get_object_or_404(
                 self.visible()
+                .for_non_logged_users()
                 .select_related('category__parent'),
                 pk=pk)
 

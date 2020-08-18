@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from ...core.utils.views import is_post
 from ...core.utils.decorators import moderator_required
-from ...comment.models import Comment, CLOSED, UNCLOSED, PINNED, UNPINNED
+from ...comment.models import (Comment, CLOSED, UNCLOSED, PINNED, UNPINNED,
+        FOR_LOGGED, FOR_NON_LOGGED)
 from ..models import Topic
 
 
@@ -105,3 +106,19 @@ def global_unpin(request, pk):
         field_name='is_globally_pinned',
         to_value=False,
         action=UNPINNED)
+
+def for_logged(request, pk):
+    return _moderate(
+        request=request,
+        pk=pk,
+        field_name='is_for_logged',
+        to_value=True,
+        action=FOR_LOGGED)
+
+def for_non_logged(request, pk):
+    return _moderate(
+        request=request,
+        pk=pk,
+        field_name='is_for_logged',
+        to_value=False,
+        action=FOR_NON_LOGGED)
