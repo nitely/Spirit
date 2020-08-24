@@ -50,13 +50,11 @@
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto 1fr 100px;
-  grid-template-areas:
-    "hr"
-    "mu"
-    "ts"
-    "fr";
+  grid-template:
+    "hr" auto
+    "mu" auto
+    "ts" 1fr
+    "fr" 100px;
 }
 %layout-elm {
   padding: 0 $space;
@@ -72,24 +70,23 @@
   grid-area: mu;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, auto);
-  grid-template-areas:
-    "sc sc"
-    "nt nt";
+  grid-template:
+    "sc"
+    "nt";
   @include media( $medium ) {
-    grid-template-rows: auto;
-    grid-template-areas:
+    grid-template:
       "sc nt";
   }
 }
   .menu__show_categories {
     grid-area: sc;
     margin-bottom: $space-half;
+    @include media( $medium ) {
+      margin-bottom: 0;
+    }
   }
   .menu__new_topic {
     grid-area: nt;
-    margin-bottom: $space-full;
     @include media( $medium ) {
       justify-self: end;
     }
@@ -111,6 +108,31 @@
 .dropdown_button {
   @extend %button-base;
 }
+.tab_content {
+  display: none;
+}
+.menu_list {
+  @include media( $medium ) {
+    display: inline-block;
+  }
+
+  li {
+    background-color: $lightest-grey;
+    margin-bottom: $quarter-spacing-size;
+
+	  &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+  .menu_list__link {
+    display: block;
+    padding: 0 $half-spacing-size;
+  }
+
+
+
+
 
 .rows {
   margin-bottom: $base-spacing-size;
@@ -209,7 +231,7 @@
 	
   @include media( $medium ) {
 	text-align: right;
-	
+
 	.menu {
 	  text-align: left;
 	}
