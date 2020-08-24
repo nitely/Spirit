@@ -15,3 +15,11 @@ $base-line-height: $base-font-size * 1.5 !default;
 $base-spacing-size: $base-line-height !default;
 $half-spacing-size: $base-spacing-size / 2 !default;
 $quarter-spacing-size: $base-spacing-size / 4 !default;
+
+$space-full: $base-spacing-size !default;
+$space-half: $half-spacing-size !default;
+$space-quarter: $quarter-spacing-size !default;
+
+$space: $quarter-spacing-size !default;
+$space-l: $half-spacing-size !default;
+$space-xl: $base-spacing-size !default;

@@ -38,6 +38,80 @@
 @import "partials/video";
 
 
+.layout {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: $dark-grey;
+  background-color: $white;
+  cursor: default;
+  height: 100vh;
+  max-width: $large-size;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr 100px;
+  grid-template-areas:
+    "hr"
+    "mu"
+    "ts"
+    "fr";
+}
+%layout-elm {
+  padding: 0 $space;
+  margin-bottom: $space-full;
+  border: 1px solid #000;
+}
+.layout__header {
+  @extend %layout-elm;
+  grid-area: hr;
+}
+.layout__menu {
+  @extend %layout-elm;
+  grid-area: mu;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  grid-template-areas:
+    "sc sc"
+    "nt nt";
+  @include media( $medium ) {
+    grid-template-rows: auto;
+    grid-template-areas:
+      "sc nt";
+  }
+}
+  .menu__show_categories {
+    grid-area: sc;
+    margin-bottom: $space-half;
+  }
+  .menu__new_topic {
+    grid-area: nt;
+    margin-bottom: $space-full;
+    @include media( $medium ) {
+      justify-self: end;
+    }
+  }
+.layout__topics {
+  @extend %layout-elm;
+  grid-area: ts;
+}
+.layout__footer {
+  @extend %layout-elm;
+  grid-area: fr;
+}
+.header__logo {
+  float: left;
+  font-size: 28px;
+  line-height: $base-line-height * 2;
+  color: $dark-grey;
+}
+.dropdown_button {
+  @extend %button-base;
+}
+
 .rows {
   margin-bottom: $base-spacing-size;
 }

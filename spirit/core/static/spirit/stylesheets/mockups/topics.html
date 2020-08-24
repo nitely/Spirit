@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 
     <script src="../scripts/jquery.min.js"></script>
 	
@@ -36,67 +36,27 @@
   </head>
 
   <body>
-	
-	<header class="header">
-		<a class="header-logo" href="#">Spirit</a>
-		
-	</header>
-	
-	<div class="container">
-		<div class="categories js-tabs-container">
-			<a class="dropdown-button js-tab" href="#" data-related=".js-categories-content">Show all <i class="fa fa-chevron-down"></i></a>
-				
-			<div class="tab-content js-tab-content js-categories-content">
-				<ul class="menu">
-					<li><a class="menu-link" href="#" >Foro 1</a></li>
-					<li><a class="menu-link" href="#" >Foro 2</a></li>
-					<li><a class="menu-link" href="#" >Show all</a></li>
-				</ul>
+
+	<div class="layout">
+		<div class="layout__header">
+			<a class="header__logo" href="#">Spirit</a>
+		</div>
+		<div class="layout__menu">
+			<div class="menu__show_categories">
+				<a class="dropdown_button" href="#"
+				>Show all <i class="fa fa-chevron-down"></i></a>
+			</div>
+			<div class="menu__new_topic">
+				<a class="button" href="#">New topic</a>
 			</div>
 		</div>
-		
-		<div class="new-topic">
-			<a class="button" href="#">New topic</a>
+		<div class="layout__topics">
+			<div class="layout__topics__topic">Topic 1</div>
+			<div class="layout__topics__topic">Topic 2</div>
+			<div class="layout__topics__topic">Topic 2</div>
 		</div>
+		<div class="layout__footer">footer</div>
 	</div>
-	
-	<div class="rows">
-		<div class="row">
-			<div class="row-title"><i class="fa fa-thumb-tack"></i> <a class="row-link" href="#t1">title</a></div>
-			<div class="row-info">
-				<div><a href="#general">General</a></div><!--
-			 --><div><i class="fa fa-comment"></i> 1111</div><!--
-			 --><div><i class="fa fa-clock-o"></i> 1111</div><!--
-			 --><div><img class="row-avatar" width="22" height="22" src="avatar.png" /></div>
-			</div>
-		</div>
-			
-		<div class="row">
-			<div class="row-title"><i class="fa fa-lock"></i> <a class="row-link" href="#t2">long title long title long title long title long title long title long title</a></div>
-			<div class="row-info">
-				<div>General</div><!--
-			 --><div><i class="fa fa-comment"></i> 11</div><!--
-			 --><div><i class="fa fa-clock-o"></i> 1111</div><!--
-			 --><div><img class="row-avatar" width="22" height="22" src="avatar.png" /></div>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="row-title"><a class="row-link" href="#">visited</a></div>
-			<div class="row-info">
-				<div>General</div><!--
-			 --><div><i class="fa fa-comment"></i> 11</div><!--
-			 --><div><i class="fa fa-clock-o"></i> 1111</div><!--
-			 --><div><img class="row-avatar" width="22" height="22" src="avatar.png" /></div>
-			</div>
-		</div>
-	</div>
-	
-	<footer class="footer">
-		<div class="footer-container">
-			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
-		</div>
-	</footer>
 
   </body>
 
