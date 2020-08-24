@@ -6,7 +6,6 @@
   color: $dark-grey;
 }
 
-
 input[type="submit"].button,
 .button,
 %button {
@@ -15,18 +14,17 @@ input[type="submit"].button,
   width: 100%;
   text-align: center;
   background-color: $light-grey;
-  
+
   &.is-undo {
     background-color: $red;
   }
-  
+
   @include media( $medium ) {
     @include inline-block;
-	width: auto;
-	padding: 0 $half-spacing-size;
+    width: auto;
+    padding: 0 $half-spacing-size;
   }
 }
-
 
 .dropdown-button,
 %dropdown-button {
