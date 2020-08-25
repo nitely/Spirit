@@ -54,12 +54,12 @@
     "hr" auto
     "mu" auto
     "ts" 1fr
-    "fr" 100px;
+    "fr" auto;
 }
 %layout-elm {
   padding: 0 $space;
   margin-bottom: $space-full;
-  border: 1px solid #000;
+  //border: 1px solid #000;
 }
 .layout__header {
   @extend %layout-elm;
@@ -124,10 +124,23 @@
       @extend %topic__low_cell;
       padding-left: $space-half;
     }
+    .topic__link {
+      color: $dark-grey;
+
+      &:visited,
+      &.is-visited {
+        color: $grey;
+      }
+    }
 .layout__footer {
   @extend %layout-elm;
   grid-area: fr;
+  justify-self: end;
+  margin-top: 50px;
 }
+  .footer__logo {
+    font-size: 14px;
+  }
 .header__logo {
   font-size: 28px;
   line-height: $base-line-height * 2;
@@ -159,14 +172,6 @@
     display: block;
     padding: 0 $half-spacing-size;
   }
-.topic_link {
-  color: $dark-grey;
-
-  &:visited,
-  &.is-visited {
-    color: $grey;
-  }
-}
 
 
 
