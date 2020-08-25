@@ -100,7 +100,6 @@
   grid-area: fr;
 }
 .header__logo {
-  float: left;
   font-size: 28px;
   line-height: $base-line-height * 2;
   color: $dark-grey;
@@ -112,8 +111,10 @@
   display: none;
 }
 .menu_list {
+  display: flex;
+  flex-direction: column;
   @include media( $medium ) {
-    display: inline-block;
+    display: inline-flex;
   }
 
   li {
