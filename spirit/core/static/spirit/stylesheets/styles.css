@@ -6931,6 +6931,28 @@ input[type="submit"].button,
 .layout__topics {
   grid-area: ts; }
 
+.layout__topics__topic {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12px;
+  border-top: #ececec 1px solid; }
+  .layout__topics__topic:last-child {
+    border-bottom: #ececec 1px solid; }
+
+.topic__title {
+  flex: 0 0 100%; }
+
+.topic__category, .topic__comments, .topic__date {
+  flex: none;
+  font-size: 12px;
+  color: #979797; }
+
+.topic__comments {
+  padding-left: 12px; }
+
+.topic__date {
+  padding-left: 12px; }
+
 .layout__footer {
   grid-area: fr; }
 
@@ -6957,6 +6979,11 @@ input[type="submit"].button,
 .menu_list__link {
   display: block;
   padding: 0 12px; }
+
+.topic_link {
+  color: #444444; }
+  .topic_link:visited, .topic_link.is-visited {
+    color: #979797; }
 
 .rows {
   margin-bottom: 24px; }
