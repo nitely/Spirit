@@ -95,6 +95,35 @@
   @extend %layout-elm;
   grid-area: ts;
 }
+  .layout__topics__topic {
+    display: flex;
+    flex-wrap: wrap;
+    padding: $space-half;
+    border-top: $lighter-grey 1px solid;
+
+    &:last-child {
+      border-bottom: $lighter-grey 1px solid;
+    }
+  }
+    .topic__title {
+      flex: 0 0 100%;
+    }
+    %topic__low_cell {
+      flex: none;
+      font-size: 12px;
+      color: $grey;
+    }
+    .topic__category {
+      @extend %topic__low_cell;
+    }
+    .topic__comments {
+      @extend %topic__low_cell;
+      padding-left: $space-half;
+    }
+    .topic__date {
+      @extend %topic__low_cell;
+      padding-left: $space-half;
+    }
 .layout__footer {
   @extend %layout-elm;
   grid-area: fr;
@@ -130,7 +159,14 @@
     display: block;
     padding: 0 $half-spacing-size;
   }
+.topic_link {
+  color: $dark-grey;
 
+  &:visited,
+  &.is-visited {
+    color: $grey;
+  }
+}
 
 
 

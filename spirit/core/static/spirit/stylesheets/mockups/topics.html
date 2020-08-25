@@ -8,30 +8,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<link rel="stylesheet" href="vendors/font-awesome.min.css">
+		<link rel="stylesheet" href="../vendors/font-awesome.min.css">
     <link rel="stylesheet" href="../styles.css">
-
-    <script src="../scripts/jquery.min.js"></script>
-	
-    <!--[if (lt IE 9) & (!IEMobile)]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <![endif]-->
-	
-	<script src="../scripts/utils.js"></script>
-    <script src="../scripts/tab.js"></script>
-    <script src="../scripts/notification.js"></script>
-	
-	<script>
-	
-	$( document ).ready(function() {
-
-		$.tab();
-        $.notification( {} );
-
-	});
-	
-	</script>
 
   </head>
 
@@ -60,9 +38,30 @@
 			</div>
 		</div>
 		<div class="layout__topics">
-			<div class="layout__topics__topic">Topic 1</div>
-			<div class="layout__topics__topic">Topic 2</div>
-			<div class="layout__topics__topic">Topic 2</div>
+			<div class="layout__topics__topic">
+				<div class="topic__title">
+					<a class="topic_link" href="#general">Topic 1</a>
+				</div>
+				<div class="topic__category"><a href="#general">Category</a></div>
+				<div class="topic__comments"><i class="fa fa-comment"></i> 1111</div>
+				<div class="topic__date"><i class="fa fa-clock-o"></i> 2 May</div>
+			</div>
+			<div class="layout__topics__topic">
+				<div class="topic__title">
+					<a class="topic_link" href="#general">Topic 2</a>
+				</div>
+				<div class="topic__category"><a href="#general">Category</a></div>
+				<div class="topic__comments"><i class="fa fa-comment"></i> 1111</div>
+				<div class="topic__date"><i class="fa fa-clock-o"></i> 2 May</div>
+			</div>
+			<div class="layout__topics__topic">
+				<div class="topic__title">
+					<a class="topic_link" href="#general">Topic 3</a>
+				</div>
+				<div class="topic__category"><a href="#general">Category</a></div>
+				<div class="topic__comments"><i class="fa fa-comment"></i> 1111</div>
+				<div class="topic__date"><i class="fa fa-clock-o"></i> 2 May</div>
+			</div>
 		</div>
 		<div class="layout__footer">footer</div>
 	</div>
