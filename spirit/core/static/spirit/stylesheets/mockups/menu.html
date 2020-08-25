@@ -1,93 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Menu</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
-	
-	<script src="../scripts/jquery.min.js"></script>
-	
-    <!--[if (lt IE 9) & (!IEMobile)]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <![endif]-->
-	
-	<script src="../scripts/utils.js"></script>
-    <script src="../scripts/tab.js"></script>
-    <script src="../scripts/notification.js"></script>
-	
-	<script>
-	
-	$( document ).ready(function() {
+	<title>Topics</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		$.tab();
-        $.notification( {} );
+	<link rel="stylesheet" href="../vendors/font-awesome.min.css">
+	<link rel="stylesheet" href="../styles.css">
 
-	});
-	
-	</script>
+</head>
 
-  </head>
+<body>
 
-  <body>
-	
-	<header class="header js-tabs-container">
-		<a class="header-logo" href="#">Spirit</a>
-		
-		<ul class="header-tabs">
-			<li><a class="header-tab-link js-tab" href="#" data-related=".js-search-content"><i class="fa fa-search"></i></a></li><!--
-		 --><li><a class="header-tab-link is-highlighted js-tab-notification" href="#" data-related=".js-notifications-content"><i class="fa fa-bell"></i></a></li><!--
-		 --><li><a class="header-tab-link js-tab" href="#" data-related=".js-user-content">nitely <i class="fa fa-chevron-down"></i></a></li>
+<div class="layout">
+	<div class="layout__header">
+		<div class="header__logo_wrapper">
+			<a class="header__logo" href="#">Spirit</a>
+		</div>
+
+		<ul class="header__tabs">
+			<li><a class="header__tabs__item" href="#"><i class="fa fa-search"></i></a></li>
+			<li><a class="header__tabs__item is-highlighted" href="#"><i class="fa fa-bell"></i></a></li>
+			<li><a class="header__tabs__item" href="#">nitely <i class="fa fa-chevron-down"></i></a></li>
 		</ul>
-		
-		<div class="header-tabs-content">
-		
-			
-			<div class="header-tab-content js-tab-content js-user-content">
-				<nav class="header-nav">
-					<ul class="menu">
-						<li><a class="menu-link" href="#">Mi cuenta</a></li>
-						<li><a class="menu-link" href="#">Ultimos topics</a></li>
-						<li><a class="menu-link" href="#">Topics privados</a></li>
+
+		<div class="header__tabs_content">
+			<div class="header__tabs_content__tab">
+				<nav class="header__tab__nav">
+					<ul class="menu_list">
+						<li><a class="menu_list__link" href="#">Mi cuenta</a></li>
+						<li><a class="menu_list__link" href="#">Ultimos topics</a></li>
+						<li><a class="menu_list__link" href="#">Topics privados</a></li>
 					</ul>
 				</nav>
 			</div>
-			
-			<div class="header-tab-content js-tab-content js-notifications-content">
-				<div><a href="#">nitely</a> respondio en <a href="#">How are you doing today?</a> <span class="row-unread">unread</span></div>
-				<div><a href="#">user</a> respondio en <a href="#">Other topic</a></div>
-				<div class="more"><a href="#">Mas</a></div>
+			<div class="header__tabs_content__tab">
+				<div class="header__tab__bell">
+					<ul class="bell__list">
+						<li><a href="#">nitely</a> respondio en <a href="#">How are you doing today?</a> <span class="row-unread">unread</span></li>
+						<li><a href="#">user</a> respondio en <a href="#">Other topic</a></li>
+						<li><a href="#">Mas</a></li>
+					</ul>
+				</div>
 			</div>
-			
-			<div class="header-tab-content js-tab-content js-search-content">
-				<form action=".">
-					<input id="id_field1" type="text" value="" />
-					
-					<input class="button" type="submit" value="Search" />
-				</form>
+			<div class="header__tabs_content__tab">
+				<div class="header__tab__search">
+					<form action=".">
+						<div class="field">
+							<input id="id_field1" type="text" value="" />
+						</div>
+						<input class="button" type="submit" value="Search" />
+					</form>
+				</div>
 			</div>
-		
-		</div>
-	</header>
-	
-	
-	<header>
-		<h1 class="headline">Title...</h1>
-	</header>
-	
-	
-	<footer class="footer">
-		<div class="footer-container">
-			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
-		</div>
-	</footer>
 
-  </body>
+		</div>
+
+	</div>
+
+
+
+	<div class="layout__menu"></div>
+	<div class="layout__topics"></div>
+	<div class="layout__footer">
+		<a class="footer__logo" href="http://www.spirit-project.com" >Spirit</a>
+	</div>
+</div>
+
+</body>
 
 </html>

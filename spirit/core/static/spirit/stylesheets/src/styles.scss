@@ -46,7 +46,7 @@
   background-color: $white;
   cursor: default;
   height: 100vh;
-  max-width: $large-size;
+  max-width: rem(1080px);
   margin: 0 auto;
 
   display: grid;
@@ -64,7 +64,66 @@
 .layout__header {
   @extend %layout-elm;
   grid-area: hr;
+  display: flex;
+  flex-wrap: wrap;
 }
+  .header__logo_wrapper {
+    flex: none;
+    //border: 1px solid #000;
+  }
+  .header__tabs {
+    margin-left: auto;
+    flex: initial;
+    display: flex;
+    align-items: center;
+    //border: 1px solid #000;
+    li {
+      margin-left: $space-full;
+    	&:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+    .header__tabs__item {
+      &.is-selected {
+        color: $black;
+      }
+      &.is-highlighted {
+        color: $red;
+      }
+    }
+  .header__tabs_content {
+    flex: 0 0 100%;
+  }
+    .header__tabs_content__tab {
+      display: flex;
+    }
+      .header__tab__nav {
+        flex: 1;
+        @include media( $medium ) {
+          flex: initial;
+          margin-left: auto;
+        }
+      }
+      .header__tab__bell {
+        flex: 1;
+      }
+        .bell__list {
+          display: flex;
+          flex-direction: column;
+          li {
+            background-color: $lightest-grey;
+            padding: 0 $half-spacing-size;
+            margin-bottom: $quarter-spacing-size;
+          	&:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      .header__tab__search {
+        flex: 1;
+      }
+ // XXX use flexbox for the menu
 .layout__menu {
   @extend %layout-elm;
   grid-area: mu;
