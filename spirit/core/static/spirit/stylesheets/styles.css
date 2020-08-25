@@ -6935,7 +6935,6 @@ input[type="submit"].button,
   grid-area: fr; }
 
 .header__logo {
-  float: left;
   font-size: 28px;
   line-height: 48px;
   color: #444444; }
@@ -6943,14 +6942,17 @@ input[type="submit"].button,
 .tab_content {
   display: none; }
 
-@media screen and (min-width: 768px) {
-  .menu_list {
-    display: inline-block; } }
-.menu_list li {
-  background-color: #f6f6f6;
-  margin-bottom: 6px; }
-  .menu_list li:last-child {
-    margin-bottom: 0; }
+.menu_list {
+  display: flex;
+  flex-direction: column; }
+  @media screen and (min-width: 768px) {
+    .menu_list {
+      display: inline-flex; } }
+  .menu_list li {
+    background-color: #f6f6f6;
+    margin-bottom: 6px; }
+    .menu_list li:last-child {
+      margin-bottom: 0; }
 
 .menu_list__link {
   display: block;
