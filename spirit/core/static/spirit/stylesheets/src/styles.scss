@@ -37,6 +37,7 @@
 @import "partials/forms";
 @import "partials/video";
 
+// Base_start
 .layout {
   font-family: $base-font-family;
   font-size: $base-font-size;
@@ -121,6 +122,48 @@
 .layout__article {
   grid-area: ae;
 }
+.layout__footer {
+  grid-area: fr;
+  justify-self: end;
+  margin-top: 50px;
+  margin-bottom: $space-full;
+}
+  .footer__logo {
+    font-size: 14px;
+  }
+.header__logo {
+  font-size: 28px;
+  line-height: $base-line-height * 2;
+  color: $dark-grey;
+}
+.dropdown_button {
+  @extend %button-base;
+}
+.tab_content {
+  display: none;
+}
+.menu_list {
+  display: flex;
+  flex-direction: column;
+  @include media( $medium ) {
+    display: inline-flex;
+  }
+
+  li {
+    background-color: $lightest-grey;
+    margin-bottom: $quarter-spacing-size;
+
+	  &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+  .menu_list__link {
+    display: block;
+    padding: 0 $half-spacing-size;
+  }
+// Base_end
+// Topics_start
  // XXX use flexbox for the menu
 .layout__menu {
   margin-bottom: $space-full;
@@ -186,48 +229,33 @@
         color: $grey;
       }
     }
-.layout__footer {
-  grid-area: fr;
-  justify-self: end;
-  margin-top: 50px;
-  margin-bottom: $space-full;
+// Topics_end
+// Comments_start
+.layout__comments {
+  grid-area: ae;
+  display: grid;
+  grid-template:
+    "nv" auto
+    "te" auto
+    "cs" 1fr;
+  //grid-gap: $space-full;
 }
-  .footer__logo {
-    font-size: 14px;
-  }
-.header__logo {
-  font-size: 28px;
-  line-height: $base-line-height * 2;
-  color: $dark-grey;
-}
-.dropdown_button {
-  @extend %button-base;
-}
-.tab_content {
-  display: none;
-}
-.menu_list {
+.breadcrumb_nav {
   display: flex;
-  flex-direction: column;
-  @include media( $medium ) {
-    display: inline-flex;
-  }
-
+  font-size: 14px;
+  //border: 1px solid #000;
   li {
-    background-color: $lightest-grey;
-    margin-bottom: $quarter-spacing-size;
-
-	  &:last-child {
-      margin-bottom: 0;
+    margin-left: $space-half;
+    &:first-child {
+      margin-left: 0;
     }
   }
-}
-  .menu_list__link {
-    display: block;
-    padding: 0 $half-spacing-size;
+  .fa {
+    margin-left: $space-half;
   }
+}
 
-
+// Comments_end
 
 
 .rows {
@@ -381,14 +409,6 @@ input.move-comment-checkbox {
 
 //comments
 
-.nav {
-  @extend %inline-list;
-  font-size: 14px;
-  
-  .fa {
-    margin-left: $half-spacing-size;
-  }
-}
 
 .comments {
   margin-bottom: $base-spacing-size;
