@@ -1,5 +1,6 @@
 // Headings styles
 
 .headline {
+  @extend %break-words;
   font-weight: normal;
 }
