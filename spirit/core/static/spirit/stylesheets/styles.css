@@ -6713,6 +6713,10 @@ h2 {
   .profile-track li:first-child {
     margin-left: 0; }
 
+.headline, .bell__list li, .topic__title, .comment__info__username__realname, .comment__text {
+  overflow: hidden;
+  overflow-wrap: break-word; }
+
 input[type="submit"].button,
 .button, .dropdown-button, .dropdown_button {
   line-height: 2;

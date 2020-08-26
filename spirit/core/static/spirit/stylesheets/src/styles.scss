@@ -108,6 +108,7 @@
           display: flex;
           flex-direction: column;
           li {
+            @extend %break-words;
             background-color: $lightest-grey;
             padding: 0 $half-spacing-size;
             margin-bottom: $quarter-spacing-size;
@@ -203,6 +204,7 @@
     }
   }
     .topic__title {
+      @extend %break-words;
       flex: 0 0 100%;
     }
     %topic__low_cell {
@@ -323,6 +325,7 @@
           }
         }
         .comment__info__username__realname {
+          @extend %break-words;
           @include media( $medium ) {
             margin-left: $space-half;
           }
@@ -339,6 +342,7 @@
         }
       }
     .comment__text {
+      @extend %break-words;
       grid-area: tx;
       blockquote {
         margin: 0;
