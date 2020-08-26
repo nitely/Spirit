@@ -314,6 +314,13 @@
         }
       }
         .comment__info__username__link {
+          &.is-admin {
+            background: $yellow;
+          }
+
+          &.is-mod {
+            background: $light-blue;
+          }
         }
         .comment__info__username__realname {
           @include media( $medium ) {
@@ -333,9 +340,32 @@
       }
     .comment__text {
       grid-area: tx;
+      blockquote {
+        margin: 0;
+        border-left: $light-grey 4px solid;
+      	padding-left: $base-spacing-size;
+      }
+      ul {
+        list-style-type: disc;
+        list-style-position: inside;
+      	margin-left: 40px;
+      	margin-bottom: $base-line-height;
+      }
+      img {
+        vertical-align: text-bottom;
+      }
     }
     .comment__actions {
       grid-area: ac;
+      display: flex;
+      margin-left: auto;
+      font-size: 14px;
+      li {
+        margin-left: $space-half;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
     }
 // Comments_end
 
