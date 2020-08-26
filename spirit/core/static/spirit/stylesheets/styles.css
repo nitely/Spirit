@@ -6680,7 +6680,6 @@ h2 {
 .tabs li,
 .admin-tabs li,
 .header-tabs li,
-.nav li,
 .comment-date li,
 .comment-actions li,
 .paginator li,
@@ -6695,7 +6694,6 @@ h2 {
 .tabs li,
 .admin-tabs li,
 .header-tabs li,
-.nav li,
 .comment-date li,
 .comment-actions li,
 .paginator li,
@@ -6707,7 +6705,6 @@ h2 {
   .tabs li:first-child,
   .admin-tabs li:first-child,
   .header-tabs li:first-child,
-  .nav li:first-child,
   .comment-date li:first-child,
   .comment-actions li:first-child,
   .paginator li:first-child,
@@ -7039,6 +7036,77 @@ input[type="submit"].button,
   .breadcrumb_nav .fa {
     margin-left: 12px; }
 
+.comments_list {
+  margin-bottom: 24px; }
+
+.comments_list__comment {
+  padding: 12px;
+  border-top: #ececec 1px solid;
+  display: grid;
+  grid-template: "im io" auto "tx tx" 1fr "ac ac" auto / auto 1fr; }
+  .comments_list__comment:last-child {
+    border-bottom: #ececec 1px solid; }
+  @media screen and (min-width: 768px) {
+    .comments_list__comment {
+      grid-template: "im io" auto "im tx" 1fr "ac ac" auto / auto 1fr; } }
+
+.comment__img {
+  grid-area: im;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center; }
+  @media screen and (min-width: 768px) {
+    .comment__img {
+      align-items: initial; } }
+
+.comment__img__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 22px; }
+  @media screen and (min-width: 768px) {
+    .comment__img__avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px; } }
+
+.comment__info {
+  grid-area: io;
+  font-size: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center; }
+  @media screen and (min-width: 768px) {
+    .comment__info {
+      align-items: initial; } }
+
+.comment__info__username {
+  flex: 1;
+  display: flex;
+  flex-direction: column; }
+  @media screen and (min-width: 768px) {
+    .comment__info__username {
+      flex-direction: row; } }
+
+@media screen and (min-width: 768px) {
+  .comment__info__username__realname {
+    margin-left: 12px; } }
+
+.comment__info__date {
+  flex: none;
+  margin-left: auto;
+  display: flex; }
+  .comment__info__date li {
+    margin-left: 12px; }
+    .comment__info__date li:first-child {
+      margin-left: 0; }
+
+.comment__text {
+  grid-area: tx; }
+
+.comment__actions {
+  grid-area: ac; }
+
 .rows {
   margin-bottom: 24px; }
 
@@ -7190,11 +7258,6 @@ input[type="submit"].button,
 input.move-comment-checkbox {
   display: inline-block;
   margin: 0; }
-
-.nav {
-  font-size: 14px; }
-  .nav .fa {
-    margin-left: 12px; }
 
 .comments {
   margin-bottom: 24px; }
