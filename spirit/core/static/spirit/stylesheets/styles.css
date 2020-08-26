@@ -7088,6 +7088,11 @@ input[type="submit"].button,
     .comment__info__username {
       flex-direction: row; } }
 
+.comment__info__username__link.is-admin {
+  background: #ffffe9; }
+.comment__info__username__link.is-mod {
+  background: #e2f5fc; }
+
 @media screen and (min-width: 768px) {
   .comment__info__username__realname {
     margin-left: 12px; } }
@@ -7103,9 +7108,27 @@ input[type="submit"].button,
 
 .comment__text {
   grid-area: tx; }
+  .comment__text blockquote {
+    margin: 0;
+    border-left: #cecece 4px solid;
+    padding-left: 24px; }
+  .comment__text ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-left: 40px;
+    margin-bottom: 24px; }
+  .comment__text img {
+    vertical-align: text-bottom; }
 
 .comment__actions {
-  grid-area: ac; }
+  grid-area: ac;
+  display: flex;
+  margin-left: auto;
+  font-size: 14px; }
+  .comment__actions li {
+    margin-left: 12px; }
+    .comment__actions li:first-child {
+      margin-left: 0; }
 
 .rows {
   margin-bottom: 24px; }
