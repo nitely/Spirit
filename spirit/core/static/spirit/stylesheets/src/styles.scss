@@ -37,7 +37,6 @@
 @import "partials/forms";
 @import "partials/video";
 
-
 .layout {
   font-family: $base-font-family;
   font-size: $base-font-size;
@@ -45,24 +44,20 @@
   color: $dark-grey;
   background-color: $white;
   cursor: default;
-  height: 100vh;
+  width: 100%;
   max-width: rem(1080px);
+  height: 100vh;
   margin: 0 auto;
+  padding: 0 $space;
 
   display: grid;
   grid-template:
-    "hr" auto
-    "mu" auto
-    "ts" 1fr
-    "fr" auto;
-}
-%layout-elm {
-  padding: 0 $space;
-  margin-bottom: $space-full;
-  //border: 1px solid #000;
+    "hr hr hr hr hr hr hr hr" auto
+    "ae ae ae ae ae ae ae ae" 1fr
+    "fr fr fr fr fr fr fr fr" auto;
+  grid-gap: $space-full;
 }
 .layout__header {
-  @extend %layout-elm;
   grid-area: hr;
   display: flex;
   flex-wrap: wrap;
@@ -123,11 +118,12 @@
       .header__tab__search {
         flex: 1;
       }
+.layout__article {
+  grid-area: ae;
+}
  // XXX use flexbox for the menu
 .layout__menu {
-  @extend %layout-elm;
-  grid-area: mu;
-
+  margin-bottom: $space-full;
   display: grid;
   grid-template:
     "sc"
@@ -151,8 +147,7 @@
     }
   }
 .layout__topics {
-  @extend %layout-elm;
-  grid-area: ts;
+
 }
   .layout__topics__topic {
     display: flex;
@@ -192,10 +187,10 @@
       }
     }
 .layout__footer {
-  @extend %layout-elm;
   grid-area: fr;
   justify-self: end;
   margin-top: 50px;
+  margin-bottom: $space-full;
 }
   .footer__logo {
     font-size: 14px;
