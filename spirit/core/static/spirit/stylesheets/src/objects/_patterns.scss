@@ -24,5 +24,6 @@
 
 %break-words {
   overflow: hidden;
-  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
