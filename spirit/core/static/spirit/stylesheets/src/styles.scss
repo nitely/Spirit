@@ -267,14 +267,14 @@
       "im io" auto
       "tx tx" 1fr
       "ac ac" auto / auto 1fr;
-    &:last-child {
-      border-bottom: $lighter-grey 1px solid;
-    }
     @include media( $medium ) {
       grid-template:
         "im io" auto
         "im tx" 1fr
         "ac ac" auto / auto 1fr;
+    }
+    &:last-child {
+      border-bottom: $lighter-grey 1px solid;
     }
   }
     .comment__img {
@@ -311,6 +311,7 @@
         flex: 1;
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         @include media( $medium ) {
           flex-direction: row;
         }
@@ -406,6 +407,7 @@
         }
       }
 .comments__footer_menu {
+  margin-bottom: $space-full;
   display: flex;
   flex-direction: column;
   @include media( $medium ) {
@@ -451,6 +453,80 @@
       margin-left: auto;
     }
   }
+  .comments__reply {
+    padding: $space-half;
+    margin-top: $space-full * 2;
+    display: grid;
+    grid-template:
+      "im io" auto
+      "tx tx" auto / auto 1fr;
+    @include media( $medium ) {
+      grid-template:
+        "im io" auto
+        "im tx" auto / auto 1fr;
+    }
+  }
+    .comments__reply__img {
+      grid-area: im;
+      margin-right: $space-half;
+      margin-bottom: $space-half;
+    }
+    .comment__reply__info {
+      grid-area: io;
+      font-size: 14px;
+      margin-bottom: $space-half;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      @include media( $medium ) {
+        flex-direction: row;
+        justify-content: initial;
+      }
+    }
+      .comment__reply__info__link {
+      }
+      .comment__reply__info__realname {
+        @extend %break-words;
+        @include media( $medium ) {
+          margin-left: $space-half;
+        }
+      }
+    .comment__reply__text {
+      grid-area: tx;
+      textarea {
+        height: $base-line-height * 4;
+      }
+    }
+    .comment__reply__preview {
+      min-height: $base-line-height * 4;
+    }
+    .comment__reply__actions {
+      display: flex;
+      flex-direction: column;
+      @include media( $medium ) {
+        flex-direction: row;
+        align-items: center;
+      }
+      & > * {
+        margin-top: $space-half;
+      }
+    }
+      .comment__reply__actions__list {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+        li {
+          margin-left: $space-full;
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+      }
+      .comment__reply__actions__publish {
+        flex: none;
+        margin-left: auto;
+      }
 // Comments_end
 
 
