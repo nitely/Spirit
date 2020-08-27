@@ -6548,7 +6548,7 @@ i {
 
 p {
   margin: 0;
-  margin-bottom: 24px; }
+  margin-bottom: 12px; }
 
 hr {
   display: block;
@@ -7112,6 +7112,8 @@ input[type="submit"].button,
 
 .comment__text {
   grid-area: tx; }
+  .comment__text > *:last-child {
+    margin-bottom: 12px; }
   .comment__text blockquote {
     margin: 0;
     border-left: #cecece 4px solid;
@@ -7124,8 +7126,12 @@ input[type="submit"].button,
   .comment__text img {
     vertical-align: text-bottom; }
 
-.comment__actions {
+.comment__footer {
   grid-area: ac;
+  display: flex;
+  flex-direction: column; }
+
+.comment__actions {
   display: flex;
   margin-left: auto;
   font-size: 14px; }
@@ -7133,6 +7139,30 @@ input[type="submit"].button,
     margin-left: 12px; }
     .comment__actions li:first-child {
       margin-left: 0; }
+
+.comment__footer__share {
+  display: flex;
+  flex-direction: column; }
+  @media screen and (min-width: 768px) {
+    .comment__footer__share {
+      display: inline-flex;
+      margin-left: auto; } }
+
+.comment__footer__share__url {
+  min-width: 250px;
+  margin-bottom: 6px; }
+
+.comment__footer__share__menu {
+  display: flex;
+  flex-direction: column; }
+  .comment__footer__share__menu li {
+    background-color: #f6f6f6;
+    margin-bottom: 6px; }
+    .comment__footer__share__menu li:last-child {
+      margin-bottom: 0; }
+  .comment__footer__share__menu a {
+    display: block;
+    padding: 0 12px; }
 
 .rows {
   margin-bottom: 24px; }
