@@ -137,23 +137,28 @@
   line-height: $base-line-height * 2;
   color: $dark-grey;
 }
-.dropdown_button {
-  @extend %button-base;
-}
 .tab_content {
   display: none;
 }
+.dropdown_button {
+  @extend %button-base;
+}
+.menu__dropdown {
+  display: flex;
+  flex-direction: column;
+}
+  .menu__dropdown_button {
+  }
+// menu_list may be used outside of menu__dropdown, ex: as tab
 .menu_list {
   display: flex;
   flex-direction: column;
   @include media( $medium ) {
-    display: inline-flex;
+    align-items: start;
   }
-
   li {
     background-color: $lightest-grey;
     margin-bottom: $quarter-spacing-size;
-
 	  &:last-child {
       margin-bottom: 0;
     }
@@ -165,33 +170,30 @@
   }
 // Base_end
 // Topics_start
- // XXX use flexbox for the menu
 .layout__menu {
   margin-bottom: $space-full;
-  display: grid;
-  grid-template:
-    "sc"
-    "nt";
+  display: flex;
+  flex-direction: column;
   @include media( $medium ) {
-    grid-template:
-      "sc nt";
+    flex-direction: row;
   }
-}
-  .menu__show_categories {
-    grid-area: sc;
+  & > * {
     margin-bottom: $space-half;
     @include media( $medium ) {
       margin-bottom: 0;
     }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
+}
   .menu__new_topic {
-    grid-area: nt;
     @include media( $medium ) {
-      justify-self: end;
+      flex: none;
+      margin-left: auto;
     }
   }
 .layout__topics {
-
 }
   .layout__topics__topic {
     display: flex;
@@ -528,7 +530,11 @@
         margin-left: auto;
       }
 // Comments_end
-
+// Admin_start
+.layout__admin_menu {
+  display: flex;
+}
+// Admin_end
 
 .rows {
   margin-bottom: $base-spacing-size;

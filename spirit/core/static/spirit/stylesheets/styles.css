@@ -6962,12 +6962,16 @@ input[type="submit"].button,
 .tab_content {
   display: none; }
 
+.menu__dropdown {
+  display: flex;
+  flex-direction: column; }
+
 .menu_list {
   display: flex;
   flex-direction: column; }
   @media screen and (min-width: 768px) {
     .menu_list {
-      display: inline-flex; } }
+      align-items: start; } }
   .menu_list li {
     background-color: #f6f6f6;
     margin-bottom: 6px; }
@@ -6980,24 +6984,23 @@ input[type="submit"].button,
 
 .layout__menu {
   margin-bottom: 24px;
-  display: grid;
-  grid-template: "sc" "nt"; }
+  display: flex;
+  flex-direction: column; }
   @media screen and (min-width: 768px) {
     .layout__menu {
-      grid-template: "sc nt"; } }
+      flex-direction: row; } }
+  .layout__menu > * {
+    margin-bottom: 12px; }
+    @media screen and (min-width: 768px) {
+      .layout__menu > * {
+        margin-bottom: 0; } }
+    .layout__menu > *:last-child {
+      margin-bottom: 0; }
 
-.menu__show_categories {
-  grid-area: sc;
-  margin-bottom: 12px; }
-  @media screen and (min-width: 768px) {
-    .menu__show_categories {
-      margin-bottom: 0; } }
-
-.menu__new_topic {
-  grid-area: nt; }
-  @media screen and (min-width: 768px) {
-    .menu__new_topic {
-      justify-self: end; } }
+@media screen and (min-width: 768px) {
+  .menu__new_topic {
+    flex: none;
+    margin-left: auto; } }
 
 .layout__topics__topic {
   display: flex;
@@ -7265,6 +7268,9 @@ input[type="submit"].button,
 .comment__reply__actions__publish {
   flex: none;
   margin-left: auto; }
+
+.layout__admin_menu {
+  display: flex; }
 
 .rows {
   margin-bottom: 24px; }
