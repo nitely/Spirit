@@ -6713,7 +6713,7 @@ h2 {
   .profile-track li:first-child {
     margin-left: 0; }
 
-.headline, .bell__list li, .topic__title, .comment__info__username__realname, .comment__text, .paginator__pages, .comment__reply__info__realname {
+.headline, .bell__list li, .topic__title, .comment__info__username__realname, .comment__text, .paginator__pages, .comment__reply__info__realname, .admin__items_list__item__title {
   overflow: hidden;
   word-break: break-word;
   overflow-wrap: anywhere; }
@@ -7269,8 +7269,33 @@ input[type="submit"].button,
   flex: none;
   margin-left: auto; }
 
-.layout__admin_menu {
-  display: flex; }
+.layout__admin {
+  grid-area: ae; }
+
+.admin__category_menu {
+  display: flex;
+  margin-bottom: 24px; }
+
+.admin__category_menu__new_category {
+  flex: 1; }
+  @media screen and (min-width: 768px) {
+    .admin__category_menu__new_category {
+      flex: none;
+      margin-left: auto; } }
+
+.admin__items_list__item {
+  display: flex;
+  padding: 12px;
+  border-top: #ececec 1px solid; }
+  .admin__items_list__item:last-child {
+    border-bottom: #ececec 1px solid; }
+
+.admin__items_list__item__title {
+  flex: 1;
+  margin-right: 12px; }
+
+.admin__items_list__item__action {
+  flex: none; }
 
 .rows {
   margin-bottom: 24px; }
