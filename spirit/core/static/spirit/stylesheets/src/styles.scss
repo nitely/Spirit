@@ -531,9 +531,38 @@
       }
 // Comments_end
 // Admin_start
-.layout__admin_menu {
-  display: flex;
+.layout__admin {
+  grid-area: ae;
 }
+  .admin__category_menu {
+    display: flex;
+    margin-bottom: $space-full;
+  }
+    .admin__category_menu__new_category {
+      flex: 1;
+      @include media( $medium ) {
+        flex: none;
+        margin-left: auto;
+      }
+    }
+  .admin__items_list {
+  }
+    .admin__items_list__item {
+      display: flex;
+      padding: $space-half;
+      border-top: $lighter-grey 1px solid;
+      &:last-child {
+        border-bottom: $lighter-grey 1px solid;
+      }
+    }
+      .admin__items_list__item__title {
+        @extend %break-words;
+        flex: 1;
+        margin-right: $space-half;
+      }
+      .admin__items_list__item__action {
+        flex: none;
+      }
 // Admin_end
 
 .rows {
