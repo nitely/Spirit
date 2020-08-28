@@ -6713,7 +6713,7 @@ h2 {
   .profile-track li:first-child {
     margin-left: 0; }
 
-.headline, .bell__list li, .topic__title, .comment__info__username__realname, .comment__text, .paginator__pages, .comment__reply__info__realname, .admin__items_list__item__title {
+.headline, .bell__list li, .topic__title, .comment__info__username__realname, .comment__text, .paginator__pages, .comment__reply__info__realname, .admin__items_list__item__title, .admin__statistics__box {
   overflow: hidden;
   word-break: break-word;
   overflow-wrap: anywhere; }
@@ -6981,6 +6981,22 @@ input[type="submit"].button,
 .menu_list__link {
   display: block;
   padding: 0 12px; }
+
+.messages_info, .messages-info, .messages-error {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  padding: 12px; }
+
+.messages_info {
+  background: #e2f5fc; }
+
+.message_title {
+  margin-bottom: 12px; }
+  .message_title.is-info {
+    color: #95a2a7; }
+  .message_title.is-error {
+    color: #c65555; }
 
 .layout__menu {
   margin-bottom: 24px;
@@ -7296,6 +7312,19 @@ input[type="submit"].button,
 
 .admin__items_list__item__action {
   flex: none; }
+
+.admin__statistics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-gap: 24px;
+  grid-auto-flow: row dense; }
+
+.admin__statistics__box {
+  padding: 12px 12px;
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
 
 .rows {
   margin-bottom: 24px; }
@@ -7757,7 +7786,7 @@ ul.reply-markdown {
   max-height: 100%;
   overflow-y: auto; }
 
-.messages-info, .messages-error {
+.messages_info, .messages-info, .messages-error {
   display: flex;
   margin-bottom: 24px;
   padding: 12px; }
