@@ -1,5 +1,5 @@
 // Convert pixels to rems
 
 @function rem($pxval) {
-  @return ($pxval / $base-font-size) * 1rem;
+  @return $pxval / 16px * 1rem;
 }
