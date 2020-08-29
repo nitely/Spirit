@@ -1,69 +1,58 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Admin users</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
+	<title>Topics</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--[if (lt IE 9) & (!IEMobile)]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <![endif]-->
+	<link rel="stylesheet" href="../vendors/font-awesome.min.css">
+	<link rel="stylesheet" href="../styles.css">
 
-  </head>
+</head>
 
-  <body>
-  
-	<div id="side-menu" class="side-menu">
-		<a class="side-menu-close" href="#"><i class="fa fa-times-circle-o"></i></a>
-		
-		<ul>
-			<li><a class="side-menu-link is-selected" href="#">General</li><!--
-		 --><li><a class="side-menu-link" href="#">Categories</a></li><!--
-		 --><li><a class="side-menu-link" href="#">Flags</a></li>
+<body>
+
+<div class="layout">
+	<div class="layout__header">
+		<a class="header__logo" href="#">Spirit</a>
+	</div>
+	<div class="layout__admin">
+		<h1 class="headline">User list</h1>
+		<ul class="admin__tabs">
+			<li><a class="admin__tabs__link is-selected" href="#" >Deleted</a></li>
+			<li><a class="admin__tabs__link" href="#" >Locked</a></li>
+			<li><a class="admin__tabs__link" href="#" >Pinned</a></li>
+			<li><a class="admin__tabs__link" href="#" >Pinned</a></li>
+			<li><a class="admin__tabs__link" href="#" >Pinned</a></li>
+			<li><a class="admin__tabs__link" href="#" >Pinned</a></li>
 		</ul>
-	</div>
-	
-	<a href="#side-menu">Show menu</a>
-	
-	<header class="header">
-		<a class="header-logo" href="#">Spirit</a>
-
-	</header>
-	
-	
-	<h1 class="headline">Users</h1>
-	
-	<ul class="admin-tabs">
-		<li><a class="tab-link is-selected" href="#" >List</a></li><!--
-	 --><li><a class="tab-link" href="#" >Admins</a></li><!--
-	 --><li><a class="tab-link" href="#" >Mods</a></li><!--
-	 --><li><a class="tab-link" href="#" >Unactive</a></li>
-	</ul>
-
-	<div class="rows">
-		<div class="row">
-			<a href="#t2">User 1</a> <a class="row-edit" href="#t2"><i class="fa fa-cog"></i> edit</a>
-		</div>
-		<div class="row">
-			<a href="#t2">User 2</a> <a class="row-edit" href="#t2"><i class="fa fa-cog"></i> edit</a>
+		<div class="admin__items_list">
+			<div class="admin__items_list__item">
+				<div class="admin__items_list__item__title">
+					<a href="#general">User 2</a>
+				</div>
+				<div class="admin__items_list__item__action">
+					<a href="#t2"><i class="fa fa-pencil"></i> edit</a>
+				</div>
+			</div>
+			<div class="admin__items_list__item">
+				<div class="admin__items_list__item__title">
+					<a href="#general">User 2</a>
+				</div>
+				<div class="admin__items_list__item__action">
+					<a href="#t2"><i class="fa fa-pencil"></i> edit</a>
+				</div>
+			</div>
 		</div>
 	</div>
-	
-	
-	<footer class="footer">
-		<div class="footer-container">
-			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
-		</div>
-	</footer>
+	<div class="layout__footer">
+		<a class="footer__logo" href="http://www.spirit-project.com" >Spirit</a>
+	</div>
+</div>
 
-  </body>
+</body>
 
 </html>
