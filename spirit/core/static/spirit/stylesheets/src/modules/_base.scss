@@ -8,7 +8,7 @@ $bold: 600;
 // Base Font
 $base-font-family: "Ubuntu" !default;
 $base-font-weight: $regular !default;
-$base-font-size: 16px !default;
+$base-font-size: 1rem !default;
 $base-line-height: $base-font-size * 1.5 !default;
 
 // Space between elements
@@ -23,3 +23,6 @@ $space-quarter: $quarter-spacing-size !default;
 $space: $quarter-spacing-size !default;
 $space-l: $half-spacing-size !default;
 $space-xl: $base-spacing-size !default;
+
+// Usage: @include media( $medium ){}
+$medium: screen and (min-width: 768px);

@@ -68,7 +68,7 @@
   background-color: $white;
   cursor: default;
   width: 100%;
-  max-width: rem(1080px);
+  max-width: 1080px;
   height: 100vh;
   margin: 0 auto;
   padding: 0 $space;
@@ -152,10 +152,10 @@
   margin-bottom: $space-full;
 }
   .footer__logo {
-    font-size: 14px;
+    font-size: rem(14px);
   }
 .header__logo {
-  font-size: 28px;
+  font-size: rem(28px);
   line-height: $base-line-height * 2;
   color: $dark-grey;
 }
@@ -239,7 +239,7 @@
     }
     %topic__low_cell {
       flex: none;
-      font-size: 12px;
+      font-size: rem(12px);
       color: $grey;
     }
     .topic__category {
@@ -273,7 +273,7 @@
 }
 .breadcrumb_nav {
   display: flex;
-  font-size: 14px;
+  font-size: rem(14px);
   //border: 1px solid #000;
   li {
     margin-left: $space-half;
@@ -328,7 +328,7 @@
       }
     .comment__info {
       grid-area: io;
-      font-size: 14px;
+      font-size: rem(14px);
       margin-bottom: $space-half;
       display: flex;
       align-items: center;
@@ -399,7 +399,7 @@
       .comment__actions {
         display: flex;
         margin-left: auto;
-        font-size: 14px;
+        font-size: rem(14px);
         li {
           margin-left: $space-half;
           &:first-child {
@@ -496,7 +496,7 @@
     }
     .comment__reply__info {
       grid-area: io;
-      font-size: 14px;
+      font-size: rem(14px);
       margin-bottom: $space-half;
       display: flex;
       flex-direction: column;
@@ -609,6 +609,20 @@
   .admin__flag_menu__mark_solved {
     @include media( $medium ) {
       margin-left: auto;
+    }
+  }
+  .admin__tabs {
+    font-size: rem(18px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: $half-spacing-size;
+  }
+  .admin__tabs__link {
+    display: block;
+    padding: 0 $space-half $space-quarter $space-half;
+    &.is-selected {
+      color: $black;
+      border-bottom: $light-grey 4px solid;
     }
   }
 
