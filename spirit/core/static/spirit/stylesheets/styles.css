@@ -6638,8 +6638,9 @@ input[type="checkbox"] {
 
 label {
   display: block;
-  margin-bottom: 0.75rem;
-  font-size: 18px; }
+  font-size: 1rem !important;
+  line-height: 1rem !important;
+  margin-bottom: 0.75rem; }
   label input[type="checkbox"] {
     display: inline;
     margin: 0.375rem 0.75rem;
@@ -6848,7 +6849,12 @@ input[type="submit"].button,
   font-weight: normal; }
 
 .field {
+  font-size: 14px;
+  line-height: 21px;
   margin-bottom: 1.5rem; }
+  .field > * {
+    font-size: 1rem;
+    line-height: 1.5rem; }
 
 .checkboxes {
   overflow: auto;
@@ -6998,14 +7004,17 @@ input[type="submit"].button,
   display: block;
   padding: 0 0.75rem; }
 
-.messages_info, .messages-info, .messages-error {
+.messages_info, .messages_error, .messages-info, .messages-error {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
-  padding: 0.75rem; }
+  padding: 0.75rem;
+  margin-bottom: 1.5rem; }
 
 .messages_info {
   background: #e2f5fc; }
+
+.messages_error {
+  background: #fce2e2; }
 
 .message_title {
   margin-bottom: 0.75rem; }
@@ -7834,7 +7843,7 @@ ul.reply-markdown {
   max-height: 100%;
   overflow-y: auto; }
 
-.messages_info, .messages-info, .messages-error {
+.messages_info, .messages_error, .messages-info, .messages-error {
   display: flex;
   margin-bottom: 1.5rem;
   padding: 0.75rem; }

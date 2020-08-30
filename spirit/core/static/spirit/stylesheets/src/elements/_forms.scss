@@ -1,13 +1,13 @@
 // Forms styles
 
 fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 
 textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 input[type="text"],
@@ -40,9 +40,9 @@ input[type="checkbox"] {
 
 label {
   display: block;
+  font-size: 1rem !important;
+  line-height: 1rem !important;
   margin-bottom: $half-spacing-size;
-  font-size: 18px;
-  
   input[type="checkbox"] {
     display: inline;
     margin: $half-spacing-size / 2 $half-spacing-size;

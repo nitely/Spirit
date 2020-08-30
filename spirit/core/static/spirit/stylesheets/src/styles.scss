@@ -194,12 +194,16 @@
 %messages {
   display: flex;
   flex-direction: column;
-  margin-bottom: $space-full;
   padding: $space-half;
+  margin-bottom: $space-full;
 }
 .messages_info {
   @extend %messages;
   background: $light-blue;
+}
+.messages_error {
+  @extend %messages;
+  background: $light-red;
 }
 .message_title {
   margin-bottom: $half-spacing-size;
