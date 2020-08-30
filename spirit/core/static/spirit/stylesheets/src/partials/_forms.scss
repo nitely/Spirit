@@ -1,7 +1,16 @@
 // Forms styles
 
+
+// help text has no element, so this
+// font-size hack is needed
 .field {
-  margin-bottom: $base-spacing-size;
+  font-size: 14px;
+  line-height: 14px * 1.5;
+  margin-bottom: $space-full;
+  & > * {
+    font-size: 1rem;
+    line-height: 1rem * 1.5;
+  }
 }
 
 .checkboxes {
