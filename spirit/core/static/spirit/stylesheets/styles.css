@@ -7383,6 +7383,17 @@ input.comments__move_checkbox {
     color: #1c1c1c;
     border-bottom: #cecece 4px solid; }
 
+.login {
+  margin-bottom: 1.5rem; }
+
+.login__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; }
+
+.login__links__link {
+  margin-bottom: 0.375rem; }
+
 .rows {
   margin-bottom: 1.5rem; }
 
@@ -7826,13 +7837,6 @@ ul.reply-markdown {
   margin: 0;
   margin-bottom: 1.5rem;
   padding: 0 0.75rem; }
-
-.login {
-  margin-bottom: 1.5rem; }
-
-.login-link {
-  display: block;
-  margin-bottom: 0.375rem; }
 
 .messages.is-fixed {
   position: fixed;
