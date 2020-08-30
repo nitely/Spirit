@@ -7155,6 +7155,34 @@ input.comments__move_checkbox {
   .comment__text > *:last-child {
     margin-bottom: 0.75rem; }
 
+.comment__text__poll {
+  margin-bottom: 0.75rem; }
+  .comment__text__poll form > * {
+    margin-bottom: 0.75rem; }
+
+.comment__text__poll__choices ul {
+  list-style-type: none;
+  margin-left: 0;
+  margin-bottom: 0.75rem; }
+.comment__text__poll__choices label {
+  font-size: 1rem; }
+
+.comment__text__poll__choices__choice {
+  margin-bottom: 0.75rem; }
+
+.comment__text__poll__choices__choice__bar {
+  height: 14px;
+  background-color: #cecece; }
+
+.comment__text__poll__note {
+  font-size: 14px; }
+
+.comment__text__poll__actions__action {
+  font-size: 14px;
+  margin-left: 0.375rem; }
+  .comment__text__poll__actions__action:first-child {
+    margin-left: 0; }
+
 .comment__footer {
   grid-area: ac;
   display: flex;

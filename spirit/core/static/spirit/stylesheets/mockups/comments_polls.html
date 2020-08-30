@@ -4,347 +4,394 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Comments</title>
+    <title>Topics</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--<link rel="stylesheet" href="http://basehold.it/24">-->
-    <link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
 
-    <!--[if (lt IE 9) & (!IEMobile)]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="../vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles.css">
 
 </head>
 
 <body>
 
-<header class="header">
-    <a class="header-logo" href="#">Spirit</a>
-
-</header>
-
-<ul class="nav">
-    <li><a href="#" >Latest</a><i class="fa fa-chevron-right"></i></li><!--
-	 --><li><a href="#" >General</a></li>
-</ul>
-
-<header>
-    <h1 class="headline">Topic title here</h1>
-</header>
-
-<div class="comments">
-
-    <div class="comment">
-        <div class="comment-media">
-            <div class="comment-img">
-                <img class="comment-avatar" src="avatar.png" />
-            </div>
-
-            <div class="comment-body">
-                <div class="comment-info">
-
-                    <div class="comment-username">
-                        <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
-                    </div>
-
-                    <ul class="comment-date">
-                        <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
-                         --><li>4h</li>
-                    </ul>
-
-                </div>
-
-                <div class="comment-text">
-                    <div class="comment-poll" id="p1">
-                        <form action="/comment/poll/vote/1/" method="post">
-                            <div class="poll_title">
-                                Which one will you take?
-                            </div>
-                            <div class="poll-choices">
-                                <ul id="id_choices">
-                                    <li><label for="id_choices_0"><input id="id_choices_0" name="choices" type="radio" value="1" /> Red pill</label></li>
-                                    <li><label for="id_choices_1"><input id="id_choices_1" name="choices" type="radio" value="2" /> Blue pill</label></li>
-                                </ul>
-                            </div>
-                            <div class="poll-note">
-                                Closes on Mar 2, 12hs. You may select 1 choice.
-                            </div>
-                            <div class="poll_actions">
-                                <input class="poll-action button" type="submit" name="post" value="Vote" />
-                                <a class="poll-action" href="?show_poll=1#p1">
-                                    <i class="fa fa-eye"></i> Show results
-                                </a>
-                                <a class="poll-action js-post" href="/comment/poll/close/1/">
-                                    <i class="fa fa-lock"></i> close
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-
-                    <p>message</p>
-                </div>
-            </div>
-        </div>
-
-        <ul class="comment-actions">
-            <li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
-			 --><li class="comment-like"><i class="fa fa-heart"></i> like</li><!--
-			 --><li><a href="#">reply</a></li>
-        </ul>
+<div class="layout">
+    <div class="layout__header">
+        <a class="header__logo" href="#">Spirit</a>
     </div>
 
-
-
-
-    <div class="comment">
-        <div class="comment-media">
-            <div class="comment-img">
-                <img class="comment-avatar" src="avatar.png" />
-            </div>
-
-            <div class="comment-body">
-                <div class="comment-info">
-
-                    <div class="comment-username">
-                        <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
-                    </div>
-
-                    <ul class="comment-date">
-                        <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
-                         --><li>4h</li>
-                    </ul>
-
-                </div>
-
-                <div class="comment-text">
-                    <div class="comment-poll">
-                        <div class="poll_title">
-                            Which one will you take?
-                        </div>
-                        <div class="poll-choices">
-                            <ul>
-                                <li class="poll-choice">
-                                    <div class="choice-description">Red pill, 75%</div>
-                                    <div class="choice-bar" style="width:75%;"></div>
-                                </li>
-                                <li class="poll-choice">
-                                    <div class="choice-description">Blue pill, 25%</div>
-                                    <div class="choice-bar" style="width:25%;"></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="poll-note">
-                            Votes: 120.
-                        </div>
-                        <div class="poll_actions">
-                            <a class="poll-action" href="?show_poll=0#p1">
-                                <i class="fa fa-eye"></i> Show vote choices
-                            </a>
-                            <a class="poll-action js-post" href="/comment/poll/close/1/">
-                                <i class="fa fa-lock"></i> close
-                            </a>
-                        </div>
-                    </div>
-
-                    <p>message</p>
-                </div>
-            </div>
-        </div>
-
-        <ul class="comment-actions">
-            <li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
-			 --><li class="comment-like"><i class="fa fa-heart"></i> like</li><!--
-			 --><li><a href="#">reply</a></li>
+    <div class="layout__comments">
+        <ul class="breadcrumb_nav">
+            <li><a href="#" >Latest</a><i class="fa fa-chevron-right"></i></li>
+            <li><a href="#" >General</a></li>
         </ul>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="comment">
-        <div class="comment-media">
-            <div class="comment-img">
-                <img class="comment-avatar" src="avatar.png" />
-            </div>
-
-            <div class="comment-body">
-                <div class="comment-info">
-
-                    <div class="comment-username">
-                        <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
-                    </div>
-
-                    <ul class="comment-date">
-                        <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
-                         --><li>4h</li>
-                    </ul>
-
+        <h1 class="headline">Topic title here</h1>
+        <div class="comments_list">
+            <div class="comments_list__comment">
+                <div class="comment__img">
+                    <img class="comment__img__avatar" src="avatar.png" />
                 </div>
-
-                <div class="comment-text">
-                    <div class="comment-poll">
-                        <form action="/comment/poll/vote/1/" method="post" id="p1">
-                            <div class="poll_title">
-                                Which one will you take?
-                            </div>
-                            <div class="poll-choices">
-                                <ul id="id_choices">
-                                    <li><label for="id_choices_0"><input id="id_choices_0" name="choices" type="radio" value="1" /> Red pill</label></li>
-                                    <li><label for="id_choices_1"><input id="id_choices_1" name="choices" type="radio" value="2" /> Blue pill</label></li>
-                                </ul>
-                            </div>
-                            <div class="poll-note">
-                                You must select 2 choices.
-                            </div>
-                            <div class="poll_actions">
-                                <input class="poll-action button" type="submit" name="post" value="Vote" />
-                                <a class="poll-action" href="?show_poll=1#p1">
-                                    <i class="fa fa-eye"></i> Show results
-                                </a>
-                                <a class="poll-action js-post" href="/comment/poll/close/1/">
-                                    <i class="fa fa-lock"></i> close
-                                </a>
-                            </div>
-                        </form>
+                <div class="comment__info">
+                    <div class="comment__info__username">
+                        <a class="comment__info__username__link" href="#">nitely</a>
+                        <div class="comment__info__username__realname">Esteban Castro Borsani</div>
                     </div>
-
-                    <p>message</p>
-
-                    <div class="comment-poll">
-                        <form action="/comment/poll/vote/1/" method="post" id="p1">
-                            <div class="poll_title">
-                                Which one will you take?
-                            </div>
-                            <div class="poll-choices">
-                                <ul id="id_choices">
-                                    <li><label for="id_choices_0"><input id="id_choices_0" name="choices" type="radio" value="1" /> Red pill</label></li>
-                                    <li><label for="id_choices_1"><input id="id_choices_1" name="choices" type="radio" value="2" /> Blue pill</label></li>
-                                </ul>
-                            </div>
-                            <div class="poll-note">
-                                You may select 4 choices and no less than 2.
-                            </div>
-                            <div class="poll_actions">
-                                <input class="poll-action button" type="submit" name="post" value="Vote" />
-                                <a class="poll-action" href="?show_poll=1#p1">
-                                    <i class="fa fa-eye"></i> Show results
-                                </a>
-                                <a class="poll-action js-post" href="/comment/poll/close/1/">
-                                    <i class="fa fa-lock"></i> close
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="comment-poll">
-                        <form action="/comment/poll/vote/1/" method="post" id="p1">
-                            <div class="poll_title">
-                                Which one will you take?
-                            </div>
-                            <div class="poll-choices">
-                                <ul id="id_choices">
-                                    <li><label for="id_choices_0"><input id="id_choices_0" name="choices" type="radio" value="1" /> Red pill</label></li>
-                                    <li><label for="id_choices_1"><input id="id_choices_1" name="choices" type="radio" value="2" /> Blue pill</label></li>
-                                </ul>
-                            </div>
-                            <div class="poll_actions">
-                                <input class="poll-action button" type="submit" name="post" value="Vote" />
-                                <a class="poll-action" href="?show_poll=1#p1">
-                                    <i class="fa fa-eye"></i> Show results
-                                </a>
-                                <a class="poll-action js-post" href="/comment/poll/close/1/">
-                                    <i class="fa fa-lock"></i> close
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <ul class="comment-actions">
-            <li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
-			 --><li class="comment-like"><i class="fa fa-heart"></i> like</li><!--
-			 --><li><a href="#">reply</a></li>
-        </ul>
-    </div>
-
-
-
-
-
-
-
-
-    <div class="comment">
-        <div class="comment-media">
-            <div class="comment-img">
-                <img class="comment-avatar" src="avatar.png" />
-            </div>
-
-            <div class="comment-body">
-                <div class="comment-info">
-
-                    <div class="comment-username">
-                        <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
-                    </div>
-
-                    <ul class="comment-date">
+                    <ul class="comment__info__date">
+                        <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li>
                         <li>4h</li>
+                        <li><input class="comments__move_checkbox" id="id_move_comment" type="checkbox" /></li>
                     </ul>
-
                 </div>
+                <div class="comment__text">
+                    <p>I just implemented this new-ish feature. There used to be topic polls (one poll per topic), that feature was removed in favor of comment polls (many polls per comment).</p>
+                    <p>About this feature: the number of polls is limited by the number of choices, there can be 20 (by default) choices per comment, that means 1 poll with 20 choices, 2 polls with 10 choices each and so on. There is no limit of times a poll can be edited and the comment history will show what was changed. It is possible to schedule when the poll will automatically close <i class="tw tw-smile" title=":smile:"></i> , the number of choices a user can vote (one or more), if the results can be displayed at any time (by default) or at the end of the poll (when it's closed), see who has voted a given choice (at the moment there is no way to hide the voters) and close/open the poll at any point.</p>
+                    <p>A poll can take several parameters as shown below:</p>
+                    <p><strong>Minimal poll:</strong></p>
+                    <div class="comment__text__poll" id="p211">
+                        <form action="/comment/poll/vote/211/" method="post">
+                            <input type='hidden' name='csrfmiddlewaretoken' value='IFJDGSW9j4SZWWfg8gxCbVbNzTNwBIxI16r54gUB0rz9tV7QbXkz5WEGzFKipMLr' />
+                            <input type="hidden" name="next" value="/topic/264/polls/?show_poll=0#p211" />
 
-                <div class="comment-text">
+                            <div class="comment__text__poll__choices">
+                                <ul id="id_poll_211_choices">
+                                    <li><label for="id_poll_211_choices_0"><input type="radio" name="choices" value="421" required id="id_poll_211_choices_0" />
+                                        Description A</label>
 
-                    <div class="comment-poll">
-                        <div class="poll_title">
-                            Which one will you take?
-                        </div>
-                        <div class="poll-choices">
-                            <ul>
-                                <li class="poll-choice">
-                                    <div class="choice-description">#1 Red pill</div>
-                                </li>
-                                <li class="poll-choice">
-                                    <div class="choice-description">#2 Blue pill</div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="poll-note">
-                            Name: 1, minimum selection: 1, maximum selection: 1, mode: default
-                        </div>
+                                    </li>
+                                    <li><label for="id_poll_211_choices_1"><input type="radio" name="choices" value="422" required id="id_poll_211_choices_1" />
+                                        Description B</label>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="comment__text__poll__actions"><input class="comment__text__poll__actions__action button" type="submit" name="post" value="Vote" /><a class="comment__text__poll__actions__action" href="?show_poll=211#p211"><i class="fa fa-eye"></i> Show results</a><a class="comment__text__poll__actions__action js-post" href="/comment/poll/close/211/"><i class="fa fa-lock"></i> close</a></div>
+                        </form>
                     </div>
 
-                    <p>This is a static poll (comment history)</p>
+                    <pre><code class="lang-markdown">[poll name=mypoll]
+1. Description A
+2. Description B
+[/poll]</code></pre>
+                    <blockquote><p>Note: the name of the poll must be unique. Two polls within a comment should not have the same name. If there is an error in the poll (ie: non unique name, non unique choice numbers, so on) it won't be rendered, no error will be displayed (that's how markdown works so...)</p>
+
+                    </blockquote><p><strong>Poll with title:</strong></p>
+
+                    <div class="comment__text__poll" id="p212">
+
+                        <div class="comment__text__poll__title">
+                            You take the red pill and you stay in Wonderland and I show you how deep the rabbit hole goes.
+                        </div>
+
+
+                        <div class="comment__text__poll__choices">
+                            <ul>
+
+                                <li class="comment__text__poll__choices__choice">
+                                    <div class="comment__text__poll__choices__choice__description">
+                                        Blue pill, 0%
+
+                                    </div>
+                                    <div class="comment__text__poll__choices__choice__bar" style="width:0%;"></div>
+                                </li>
+
+                                <li class="comment__text__poll__choices__choice">
+                                    <div class="comment__text__poll__choices__choice__description">
+                                        Red pill, 100%
+
+                                        <a href="/comment/poll/voters/424/">View voters</a>
+
+                                    </div>
+                                    <div class="comment__text__poll__choices__choice__bar" style="width:100%;"></div>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div class="comment__text__poll__note">
+                            Votes: 3.
+                        </div>
+
+                        <a class="comment__text__poll__actions__action" href="?show_poll=212#p212">
+                            <i class="fa fa-eye"></i> Show vote choices
+                        </a>
+
+                        <a class="comment__text__poll__actions__action js-post" href="/comment/poll/close/212/">
+                            <i class="fa fa-lock"></i> close
+                        </a>
+
+                    </div>
+
+                    <pre><code class="lang-markdown">[poll name=mypoll2]
+# You take the red pill and you stay in Wonderland and I show you how deep the rabbit hole goes.
+1. Blue pill
+2. Red pill
+[/poll]</code></pre>
+                    <p><strong>Multi choice with a maximum:</strong></p>
+
+                    <div class="comment__text__poll" id="p213">
+                        <form action="/comment/poll/vote/213/" method="post">
+                            <input type='hidden' name='csrfmiddlewaretoken' value='IFJDGSW9j4SZWWfg8gxCbVbNzTNwBIxI16r54gUB0rz9tV7QbXkz5WEGzFKipMLr' />
+                            <input type="hidden" name="next" value="/topic/264/polls/?show_poll=0#p213" />
+
+                            <div class="comment__text__poll__title">
+                                Select up to 2 choices...
+                            </div>
+
+                            <div class="comment__text__poll__choices">
+
+                                <ul id="id_poll_213_choices">
+                                    <li><label for="id_poll_213_choices_0"><input type="checkbox" name="choices" value="425" id="id_poll_213_choices_0" />
+                                        A</label>
+
+                                    </li>
+                                    <li><label for="id_poll_213_choices_1"><input type="checkbox" name="choices" value="426" id="id_poll_213_choices_1" />
+                                        B</label>
+
+                                    </li>
+                                    <li><label for="id_poll_213_choices_2"><input type="checkbox" name="choices" value="427" id="id_poll_213_choices_2" />
+                                        C</label>
+
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="comment__text__poll__note">
+
+                                <span>You may select up to 2 choices.</span>
+
+                            </div>
+
+                            <div class="comment__text__poll__actions"><input class="comment__text__poll__actions__action button" type="submit" name="post" value="Vote" /><a class="comment__text__poll__actions__action" href="?show_poll=213#p213"><i class="fa fa-eye"></i> Show results</a><a class="comment__text__poll__actions__action js-post" href="/comment/poll/close/213/"><i class="fa fa-lock"></i> close</a></div>
+                        </form>
+                    </div>
+
+                    <pre><code class="lang-markdown">[poll name=mypoll3 max=2]
+# Select up to 2 choices...
+1. A
+2. B
+3. C
+[/poll]</code></pre>
+                    <p><strong>Multi choice with a minimum:</strong></p>
+
+                    <div class="comment__text__poll" id="p214">
+
+                        <div class="comment__text__poll__title">
+                            Select at least 2 choices...
+                        </div>
+
+                        <div class="comment__text__poll__choices">
+                            <ul>
+
+                                <li class="comment__text__poll__choices__choice">
+                                    <div class="comment__text__poll__choices__choice__description">
+                                        A, 50%
+
+                                        <a href="/comment/poll/voters/428/">View voters</a>
+
+                                    </div>
+                                    <div class="comment__text__poll__choices__choice__bar" style="width:50%;"></div>
+                                </li>
+
+                                <li class="comment__text__poll__choices__choice">
+                                    <div class="comment__text__poll__choices__choice__description">
+                                        B, 50%
+
+                                        <a href="/comment/poll/voters/429/">View voters</a>
+
+                                    </div>
+                                    <div class="choice-bar" style="width:50%;"></div>
+                                </li>
+
+                                <li class="comment__text__poll__choices__choice">
+                                    <div class="comment__text__poll__choices__choice__description">
+                                        C, 0%
+
+                                    </div>
+                                    <div class="comment__text__poll__choices__choice__bar" style="width:0%;"></div>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div class="comment__text__poll__note">
+                            Votes: 2.
+                        </div>
+
+                        <a class="comment__text__poll__actions__action" href="?show_poll=214#p214">
+                            <i class="fa fa-eye"></i> Show vote choices
+                        </a>
+
+                        <a class="comment__text__poll__actions__action js-post" href="/comment/poll/close/214/">
+                            <i class="fa fa-lock"></i> close
+                        </a>
+
+                    </div>
+
+                    <pre><code class="lang-markdown">[poll name=mypoll4 min=2]
+# Select at least 2 choices...
+1. A
+2. B
+3. C
+[/poll]</code></pre>
+                    <p><strong>Multi choice with a min&amp;max:</strong></p>
+
+                    <div class="comment__text__poll" id="p215">
+                        <form action="/comment/poll/vote/215/" method="post">
+                            <input type='hidden' name='csrfmiddlewaretoken' value='IFJDGSW9j4SZWWfg8gxCbVbNzTNwBIxI16r54gUB0rz9tV7QbXkz5WEGzFKipMLr' />
+                            <input type="hidden" name="next" value="/topic/264/polls/?show_poll=0#p215" />
+
+                            <div class="comment__text__poll__title">
+                                Select at least 2 and up to 3 choices...
+                            </div>
+
+                            <div class="comment__text__poll__choices">
+
+                                <ul id="id_poll_215_choices">
+                                    <li><label for="id_poll_215_choices_0"><input type="checkbox" name="choices" value="431" id="id_poll_215_choices_0" />
+                                        A</label>
+
+                                    </li>
+                                    <li><label for="id_poll_215_choices_1"><input type="checkbox" name="choices" value="432" id="id_poll_215_choices_1" />
+                                        B</label>
+
+                                    </li>
+                                    <li><label for="id_poll_215_choices_2"><input type="checkbox" name="choices" value="433" id="id_poll_215_choices_2" />
+                                        C</label>
+
+                                    </li>
+                                    <li><label for="id_poll_215_choices_3"><input type="checkbox" name="choices" value="434" id="id_poll_215_choices_3" />
+                                        D</label>
+
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="comment__text__poll__note">
+
+                                <span>You may select no less than 2 and no more than 3 choices.</span>
+
+                            </div>
+
+                            <div class="comment__text__poll__actions"><input class="comment__text__poll__actions__action button" type="submit" name="post" value="Vote" /><a class="comment__text__poll__actions__action" href="?show_poll=215#p215"><i class="fa fa-eye"></i> Show results</a><a class="comment__text__poll__actions__action js-post" href="/comment/poll/close/215/"><i class="fa fa-lock"></i> close</a></div>
+                        </form>
+                    </div>
+
+                    <pre><code class="lang-markdown">[poll name=mypoll5 min=2 max=3]
+# Select at least 2 and up to 3 choices...
+1. A
+2. B
+3. C
+4. D
+[/poll]</code></pre>
+                    <p><strong>Poll with <em>auto close</em>:</strong></p>
+
+                    <div class="comment__text__poll" id="p216">
+
+                        <div class="comment__text__poll__title">
+                            This one closes next year
+                        </div>
+
+                        <div class="comment__text__poll__choices">
+                            <ul>
+
+                                <li class="comment__text__poll__choices__choice">
+                                    <div class="comment__text__poll__choices__choice__description">
+                                        A, 0%
+
+                                    </div>
+                                    <div class="comment__text__poll__choices__choice__bar" style="width:0%;"></div>
+                                </li>
+
+                                <li class="comment__text__poll__choices__choice">
+                                    <div class="comment__text__poll__choices__choice__description">
+                                        B, 0%
+
+                                    </div>
+                                    <div class="comment__text__poll__choices__choice__bar" style="width:0%;"></div>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div class="comment__text__poll__note">
+                            Votes: 0.
+                        </div>
+
+                        <a class="comment__text__poll__actions__action js-post" href="/comment/poll/open/216/">
+                            <i class="fa fa-unlock"></i> open
+                        </a>
+
+                    </div>
+
+                    <pre><code class="lang-markdown">[poll name=mypoll6 close=365d]
+# This one closes next year
+1. A
+2. B
+[/poll]</code></pre>
+                    <p><strong>Secret (ish) poll:</strong></p>
+
+                    <div class="comment__text__poll" id="p217">
+                        <form action="/comment/poll/vote/217/" method="post">
+                            <input type='hidden' name='csrfmiddlewaretoken' value='IFJDGSW9j4SZWWfg8gxCbVbNzTNwBIxI16r54gUB0rz9tV7QbXkz5WEGzFKipMLr' />
+                            <input type="hidden" name="next" value="/topic/264/polls/?show_poll=0#p217" />
+
+                            <div class="comment__text__poll__title">
+                                Results won&#39;t get displayed until it&#39;s closed
+                            </div>
+
+                            <div class="comment__text__poll__choices">
+
+                                <ul id="id_poll_217_choices">
+                                    <li><label for="id_poll_217_choices_0"><input type="radio" name="choices" value="437" required id="id_poll_217_choices_0" checked />
+                                        A</label>
+
+                                    </li>
+                                    <li><label for="id_poll_217_choices_1"><input type="radio" name="choices" value="438" required id="id_poll_217_choices_1" />
+                                        B</label>
+
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="comment__text__poll__note">
+
+                                <span>Results will be available when the poll is closed.</span>
+
+                            </div>
+
+                            <div class="comment__text__poll__actions"><input class="comment__text__poll__actions__action button" type="submit" name="post" value="Vote" /><a class="comment__text__poll__actions__action js-post" href="/comment/poll/close/217/"><i class="fa fa-lock"></i> close</a></div>
+                        </form>
+                    </div>
+
+                    <pre><code class="lang-markdown">[poll name=mypoll7 mode=secret]
+# Results won&#39;t get displayed until it&#39;s closed
+1. A
+2. B
+[/poll]</code></pre>
 
                 </div>
+
+                <div class="comment__footer">
+                    <ul class="comment__actions">
+                        <li><a href="#"><i class="fa fa-flag"></i> report</a></li>
+                        <li class="comment__actions__share"><a href="#"><i class="fa fa-share"></i> share</a></li>
+                        <li class="comment__actions__like"><i class="fa fa-heart"></i> like</li>
+                        <li><a href="#">reply</a></li>
+                    </ul>
+                </div>
             </div>
+
         </div>
 
     </div>
 
-</div>
-
-
-<footer class="footer">
-    <div class="footer-container">
-        <a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
+    <div class="layout__footer">
+        <a class="footer__logo" href="http://www.spirit-project.com" >Spirit</a>
     </div>
-</footer>
+</div>
 
 </body>
 
