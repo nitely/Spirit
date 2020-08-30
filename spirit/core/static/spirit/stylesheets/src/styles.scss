@@ -681,9 +681,20 @@
       border-bottom: $light-grey 4px solid;
     }
   }
-
 // Admin_end
-
+// Login_start
+.login {
+  margin-bottom: $base-spacing-size;
+}
+  .login__links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .login__links__link {
+    margin-bottom: $space-quarter;
+  }
+// Login_end
 
 
 
@@ -1247,17 +1258,6 @@ ul.reply-markdown {
   margin: 0;
   margin-bottom: $base-spacing-size;
   padding: 0 $half-spacing-size;
-}
-
-//login
-
-.login {
-  margin-bottom: $base-spacing-size;
-}
-
-.login-link {
-  display: block;
-  margin-bottom: $quarter-spacing-size;
 }
 
 //flash messages
