@@ -4,80 +4,56 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Messages</title>
+    <title>Topics</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
-
-    <script src="../scripts/vendors/jquery.min.js"></script>
-    <script src="../scripts/messages.js"></script>
-
-    <script>
-
-        $( document ).ready(function() {
-
-            $('.js-messages').messages();
-
-        });
-
-    </script>
+    <link rel="stylesheet" href="../vendors/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles.css">
 
 </head>
 
 <body>
 
-<header class="header">
-    <a class="header-logo" href="#">Spirit</a>
-
-</header>
-
-<h1 class="headline">Flash messages</h1>
-
-<div class="js-messages messages">
-    <div class="js-messages-set messages-info">
-        <ul class="messages-message">
-            <li>success 1</li>
-            <li>success 2</li>
-        </ul>
-        <div class="js-messages-close messages-close" style="display: none">
-            <i class="js-messages-close-button messages-close-button">X</i>
+<div class="layout">
+    <div class="layout__header">
+        <div class="header__logo_wrapper">
+            <a class="header__logo" href="#">Spirit</a>
         </div>
     </div>
 
-    <div class="js-messages-set messages-error">
-        <ul class="messages-message">
-            <li>error 1</li>
-            <li>error 2</li>
-        </ul>
-        <div class="js-messages-close messages-close" style="display: none">
-            <i class="js-messages-close-button messages-close-button">X</i>
+    <div class="layout__article">
+
+        <h1 class="headline">Form</h1>
+
+        <div class="messages">
+            <div class="messages_info">
+                <ul class="message_text">
+                    <li>success 1</li>
+                    <li>success 2</li>
+                </ul>
+                <div class="messages_close">
+                    <i class="messages_close__button">X</i>
+                </div>
+            </div>
+
+            <div class="messages_error">
+                <ul class="message_text">
+                    <li>error 1</li>
+                    <li>error 2</li>
+                </ul>
+                <div class="messages_close">
+                    <i class="messages_close__button">X</i>
+                </div>
+            </div>
         </div>
+
+    </div>
+
+    <div class="layout__footer">
+        <a class="footer__logo" href="http://www.spirit-project.com" >Spirit</a>
     </div>
 </div>
-
-
-<div style="height: 1000px">
-
-    <ul style="margin-bottom: 20px">
-        <li>Condition: .../messages.html#p1.</li>
-        <li>Expected: messages fixed to top, close button is displayed.</li>
-    </ul>
-
-    <ul style="margin-bottom: 20px">
-        <li>Condition 1: .../messages.html#p1.</li>
-        <li>Condition 2: shrink the window so it's shorter than the messages.</li>
-        <li>Expected: vertical scrollbar for messages should be displayed.</li>
-    </ul>
-
-</div>
-
-<footer class="footer">
-    <div class="footer-container">
-        <a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
-    </div>
-</footer>
 
 </body>
 

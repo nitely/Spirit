@@ -191,11 +191,22 @@
     display: block;
     padding: 0 $half-spacing-size;
   }
+.messages {
+  &.is-fixed {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    max-width: $max-width;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+}
 %messages {
-  display: flex;
-  flex-direction: column;
   padding: $space-half;
   margin-bottom: $space-full;
+  display: flex;
+  flex-wrap: wrap;
 }
 .messages_info {
   @extend %messages;
@@ -206,6 +217,7 @@
   background: $light-red;
 }
 .message_title {
+  flex: 1 1 100%;
   margin-bottom: $half-spacing-size;
   &.is-info {
     color: $dark-blue;
@@ -215,7 +227,15 @@
   }
 }
 .message_text {
+  flex: 1;
 }
+.messages_close {
+  flex: none;
+  margin-left: auto;
+}
+  .messages_close__button {
+    cursor: pointer;
+  }
 // Base_end
 // Topics_start
 .layout__menu {
@@ -1261,18 +1281,6 @@ ul.reply-markdown {
 }
 
 //flash messages
-
-.messages {
-  &.is-fixed {
-    position: fixed;
-    top: 0;
-    z-index: 9999;
-    width: 100%;
-    max-width: $max-width;
-    max-height: 100%;
-    overflow-y: auto;
-  }
-}
 
 %messages {
   display: flex;
