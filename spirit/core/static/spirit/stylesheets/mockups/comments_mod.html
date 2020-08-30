@@ -1,167 +1,94 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>mod</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
+	<title>Topics</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="../scripts/jquery.min.js"></script>
-	
-    <!--[if (lt IE 9) & (!IEMobile)]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <![endif]-->
-	
-	<script src="../scripts/utils.js"></script>
-    <script src="../scripts/tab.js"></script>
-    <script src="../scripts/notification.js"></script>
-	
-	<script src="../scripts/move_comments.js"></script>
-	
-	<script>
-	
-	$( document ).ready(function() {
+	<link rel="stylesheet" href="../vendors/font-awesome.min.css">
+	<link rel="stylesheet" href="../styles.css">
 
-		$.tab();
-        $.notification( {} );
-		
-		$('.js-show-move-comments').move_comments();
+</head>
 
-	});
-	
-	</script>
+<body>
 
-  </head>
-
-  <body>
-	
-	<header class="header">
-		<a class="header-logo" href="#">Spirit</a>
-
-	</header>
-
-		
-	<ul class="nav">
-		<li><a href="#" >Latest</a><i class="fa fa-chevron-right"></i></li><!--
-	 --><li><a href="#" >General</a></li>
-	</ul>
-		
-	<header>
-		<h1 class="headline">Topic title here <a class="head-edit-link" href="#"><i class="fa fa-pencil"></i> edit</a></h1> 
-	</header>
-		
-	<div class="topic-moderation js-tabs-container">
-		<a class="dropdown-button js-tab" href="#" data-related=".js-mod-content"><i class="fa fa-cogs"></i></a>
-		
-		<div class="tab-content js-tab-content js-mod-content">
-			<ul class="menu">
-				<li><a class="menu-link js-show-move-comments" href="#" ><i class="fa fa-comments"></i> Select comments to move</a></li>
-				<li><a class="menu-link" href="#" ><i class="fa fa-trash-o"></i> Delete topic</a></li>
-				<li><a class="menu-link" href="#" ><i class="fa fa-lock"></i> Close topic</a></li>
-				<li><a class="menu-link" href="#" ><i class="fa fa-thumb-tack"></i> Pin topic</a></li>
-			</ul>
-		</div>
+<div class="layout">
+	<div class="layout__header">
+		<a class="header__logo" href="#">Spirit</a>
 	</div>
-	
-	<div class="move-comments" style="display:none;">
-		<div class="move-container">
-			<label class="move-label">Topic id:</label><!--
-		 --><div class="move-input"><input id="id_move_comments_topic" type="text" value="" /></div><!--
-		 --><a class="move-link js-move-comments" href="#move_url">Move</a>
-		</div>
-	</div>
-	
-	
-	<div class="comments">
-			
-		<div class="comment">
-			<div class="comment-media">
-				<div class="comment-img">
-					<img class="comment-avatar" src="avatar.png" />
+
+	<div class="layout__comments">
+		<ul class="breadcrumb_nav">
+			<li><a href="#" >Latest</a><i class="fa fa-chevron-right"></i></li>
+			<li><a href="#" >General</a></li>
+		</ul>
+		<h1 class="headline">Topic title here</h1>
+		<div class="layout__menu">
+			<div class="menu__dropdown">
+				<div class="menu__dropdown_button">
+					<a class="dropdown_button" href="#"
+					>Moderate <i class="fa fa-chevron-down"></i></a>
 				</div>
-
-				<div class="comment-body">
-                    <div class="comment-info">
-
-                        <div class="comment-username">
-                            <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
-                        </div>
-
-                        <ul class="comment-date">
-                            <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
-                         --><li>4h</li>
-                            <li><input class="move-comment-checkbox" id="id_move_comment" type="checkbox" /></li>
-                        </ul>
-
-                    </div>
-
-                    <div class="comment-text">
-
-                        <p>Comment text</p>
-
-                    </div>
-
+				<div class="menu_list_wrapper">
+					<ul class="menu_list">
+						<li><a class="menu_list__link" href="#" >Asd</a></li>
+						<li><a class="menu_list__link" href="#" >Qwerty</a></li>
+						<li><a class="menu_list__link" href="#" >Foobarbazqux</a></li>
+					</ul>
 				</div>
 			</div>
-				
-			<ul class="comment-actions">
-				<li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
-			 --><li class="comment-like"><i class="fa fa-heart"></i> like</li><!--
-			 --><li><a href="#">reply</a></li>
-			</ul>
 		</div>
-			
-		<div class="comment">
-			<div class="comment-media">
-				<div class="comment-img">
-					<img class="comment-avatar" src="avatar.png" />
+		<div class="comments_list">
+			<div class="comments_list__comment">
+				<div class="comment__img">
+					<img class="comment__img__avatar" src="avatar.png" />
 				</div>
-
-				<div class="comment-body">
-                    <div class="comment-info">
-
-                        <div class="comment-username">
-                            <a class="username" href="#">nitely</a><span class="comment-realname">Esteban Castro Borsani</span>
-                        </div>
-
-                        <ul class="comment-date">
-                            <li><a href="#"><i class="fa fa-pencil"></i> 3</a></li><!--
-                         --><li>4h</li>
-                        </ul>
-
-                    </div>
-
-                    <div class="comment-text">
-
-                        <p>Comment text</p>
-
-                    </div>
-
+				<div class="comment__info">
+					<div class="comment__info__username">
+						<a class="comment__info__username__link" href="#">nitely</a>
+						<div class="comment__info__username__realname">Esteban Castro Borsani</div>
+					</div>
+					<ul class="comment__info__date">
+						<li><a href="#"><i class="fa fa-pencil"></i> 3</a></li>
+						<li>4h</li>
+						<li><input class="comments__move_checkbox" id="id_move_comment" type="checkbox" /></li>
+					</ul>
+				</div>
+				<div class="comment__text">
+					<p>texto normal</p>
+					<p>texto normal long long long long long long long long longs</p>
+				</div>
+				<div class="comment__footer">
+					<ul class="comment__actions">
+						<li><a href="#"><i class="fa fa-flag"></i> report</a></li>
+						<li class="comment__actions__share"><a href="#"><i class="fa fa-share"></i> share</a></li>
+						<li class="comment__actions__like"><i class="fa fa-heart"></i> like</li>
+						<li><a href="#">reply</a></li>
+					</ul>
 				</div>
 			</div>
-				
-			<ul class="comment-actions">
-				<li><a href="#"><i class="fa fa-flag"></i> report</a></li><!--
-			 --><li class="comment-like"><a class="js-like" href="#" data-count="1"><i class="fa fa-heart"></i> like</a></li><!--
-			 --><li><a href="#">reply</a></li>
-			</ul>
-		</div>
-		
-	</div>
-		
-	
-	<footer class="footer">
-		<div class="footer-container">
-			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
-		</div>
-	</footer>
 
-  </body>
+		</div>
+		<div class="comments__move">
+			<form action="#" method="post">
+				<div class="field">
+					<label for="id_user">Move selected comments to:</label>
+					<input type="text" name="user" placeholder="topic ID" required="" id="id_user">
+				</div>
+				<input class="button" type="submit" value="Move">
+			</form>
+		</div>
+
+	</div>
+
+	<div class="layout__footer">
+		<a class="footer__logo" href="http://www.spirit-project.com" >Spirit</a>
+	</div>
+</div>
+
+</body>
 
 </html>

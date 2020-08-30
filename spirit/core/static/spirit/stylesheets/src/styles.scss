@@ -42,13 +42,14 @@
   margin-bottom: $space-full;
   display: flex;
   flex-direction: column;
-  @include media( $medium ) {
+  @media #{$medium} {
     flex-direction: row;
+    align-items: flex-start;
     //flex-wrap: wrap;
   }
   & > * {
     margin-bottom: $space-half;
-    @include media( $medium ) {
+    @media #{$medium} {
       margin-bottom: 0;
       //margin-right: $space-half;
     }
@@ -118,7 +119,7 @@
     }
       .header__tab__nav {
         flex: 1;
-        @include media( $medium ) {
+        @media #{$medium} {
           flex: initial;
           margin-left: auto;
         }
@@ -168,6 +169,9 @@
 .menu__dropdown {
   display: flex;
   flex-direction: column;
+  @media #{$medium} {
+    align-items: flex-start;
+  }
 }
   .menu__dropdown_button {
   }
@@ -175,9 +179,6 @@
 .menu_list {
   display: flex;
   flex-direction: column;
-  @include media( $medium ) {
-    //align-items: start;
-  }
   li {
     background-color: $lightest-grey;
     margin-bottom: $quarter-spacing-size;
@@ -217,7 +218,7 @@
   @extend %flex-nav;
 }
   .menu__new_topic {
-    @include media( $medium ) {
+    @media #{$medium} {
       flex: none;
       margin-left: auto;
     }
@@ -264,13 +265,16 @@
 // Comments_start
 .layout__comments {
   grid-area: ae;
-  display: grid;
-  grid-template:
-    "nv" auto
-    "te" auto
-    "cs" 1fr;
-  //grid-gap: $space-full;
+  display: flex;
+  flex-direction: column;
 }
+  .comments__move {
+    margin-bottom: $space-full;
+  }
+  input.comments__move_checkbox {
+    display: inline-block;
+    margin: 0;
+  }
 .breadcrumb_nav {
   display: flex;
   font-size: rem(14px);
@@ -296,7 +300,7 @@
       "im io" auto
       "tx tx" 1fr
       "ac ac" auto / auto 1fr;
-    @include media( $medium ) {
+    @media #{$medium} {
       grid-template:
         "im io" auto
         "im tx" 1fr
@@ -312,7 +316,7 @@
       margin-bottom: $space-half;
       display: flex;
       align-items: center;
-      @include media( $medium ) {
+      @media #{$medium} {
         align-items: initial;
       }
     }
@@ -320,7 +324,7 @@
         width: 44px;
         height: 44px;
         border-radius: 22px;
-        @include media( $medium ) {
+        @media #{$medium} {
           width: 50px;
           height: 50px;
           border-radius: 25px;
@@ -332,7 +336,7 @@
       margin-bottom: $space-half;
       display: flex;
       align-items: center;
-      @include media( $medium ) {
+      @media #{$medium} {
         align-items: initial;
       }
     }
@@ -341,7 +345,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        @include media( $medium ) {
+        @media #{$medium} {
           flex-direction: row;
         }
       }
@@ -355,7 +359,7 @@
         }
         .comment__info__username__realname {
           @extend %break-words;
-          @include media( $medium ) {
+          @media #{$medium} {
             margin-left: $space-half;
           }
         }
@@ -410,7 +414,7 @@
       .comment__footer__share {
         display: flex;
         flex-direction: column;
-        @include media( $medium ) {
+        @media #{$medium} {
           margin-left: auto;
         }
       }
@@ -435,7 +439,7 @@
         }
 .comments__footer_menu {
   @extend %flex-nav;
-  @include media( $medium ) {
+  @media #{$medium} {
     align-items: center;
   }
 }
@@ -445,7 +449,7 @@
     align-items: center;
     margin-bottom: $space-full;
     //border: 1px solid #000;
-    @include media( $medium ) {
+    @media #{$medium} {
       margin-bottom: 0;
     }
     li {
@@ -471,7 +475,7 @@
     }
   .comments__footer_menu__notify {
     //border: 1px solid #000;
-    @include media( $medium ) {
+    @media #{$medium} {
       flex: none;
       margin-left: auto;
     }
@@ -483,7 +487,7 @@
     grid-template:
       "im io" auto
       "tx tx" auto / auto 1fr;
-    @include media( $medium ) {
+    @media #{$medium} {
       grid-template:
         "im io" auto
         "im tx" auto / auto 1fr;
@@ -502,7 +506,7 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      @include media( $medium ) {
+      @media #{$medium} {
         flex-direction: row;
         justify-content: initial;
       }
@@ -511,7 +515,7 @@
       }
       .comment__reply__info__realname {
         @extend %break-words;
-        @include media( $medium ) {
+        @media #{$medium} {
           margin-left: $space-half;
         }
       }
@@ -527,7 +531,7 @@
     .comment__reply__actions {
       display: flex;
       flex-direction: column;
-      @include media( $medium ) {
+      @media #{$medium} {
         flex-direction: row;
         align-items: center;
       }
@@ -560,7 +564,7 @@
   }
     .admin__category_menu__new_category {
       flex: 1;
-      @include media( $medium ) {
+      @media #{$medium} {
         flex: none;
         margin-left: auto;
       }
@@ -607,7 +611,7 @@
         margin-left: $space-half;
       }
   .admin__flag_menu__mark_solved {
-    @include media( $medium ) {
+    @media #{$medium} {
       margin-left: auto;
     }
   }
@@ -670,7 +674,7 @@
   @include span-columns(4);
   margin-bottom: $half-spacing-size;
   
-  @include media( $medium ) {
+  @media #{$medium} {
     @include span-columns(4);
 	margin-bottom: 0;
   }
@@ -702,7 +706,7 @@
     color: $red;
   }
   
-  @include media( $medium ) {
+  @media #{$medium} {
     @include span-columns(4);
 	text-align: right;
   }
@@ -723,7 +727,7 @@
   @include span-columns(4);
   margin-bottom: $half-spacing-size;
   
-  @include media( $medium ) {
+  @media #{$medium} {
     @include span-columns(4);
   }
 }
@@ -735,7 +739,7 @@
 .new-topic {
   @include span-columns(4);
   
-  @include media( $medium ) {
+  @media #{$medium} {
     @include span-columns(4);
 	text-align: right;
   }
@@ -746,7 +750,7 @@
 .topic-moderation {
   margin-bottom: $base-spacing-size;
 	
-  @include media( $medium ) {
+  @media #{$medium} {
 	text-align: right;
 
 	.menu {
@@ -851,7 +855,7 @@ input.move-comment-checkbox {
 .comment-realname {
   display: none;
 
-  @include media( $medium ) {
+  @media #{$medium} {
     display: inline;
     margin-left: $half-spacing-size;
   }
@@ -911,7 +915,7 @@ del.diff {
   @extend %inline-list;
   margin-bottom: $base-spacing-size;
   
-  @include media( $medium ) {
+  @media #{$medium} {
     @include span-columns(4);
   }
 }
@@ -925,7 +929,7 @@ del.diff {
 .notify {
   margin-bottom: $base-spacing-size * 2;
   
-  @include media( $medium ) {
+  @media #{$medium} {
     @include span-columns(4);
 	text-align: right;
   }
@@ -944,7 +948,7 @@ del.diff {
   @extend %inline-list;
   margin-bottom: $base-spacing-size;
   
-  @include media( $medium ) {
+  @media #{$medium} {
     float: left;
   }
   
@@ -960,7 +964,7 @@ ul.reply-markdown {
 }
 
 .reply-button {
-  @include media( $medium ) {
+  @media #{$medium} {
     float: right;
   }
 }
@@ -983,7 +987,7 @@ ul.reply-markdown {
   background: $white;
   background: rgba($white, 0.75);
   
-  @include media( $medium ) {
+  @media #{$medium} {
     width: 300px;
     height: 150px;
 	top: 50%;
@@ -1077,7 +1081,7 @@ ul.reply-markdown {
 
 .menu,
 %menu {
-  @include media( $medium ) {
+  @media #{$medium} {
     display: inline-block;
   }
 	
@@ -1160,7 +1164,7 @@ ul.reply-markdown {
   @include span-columns(4);
   margin-bottom: $half-spacing-size;
   
-  @include media( $medium ) {
+  @media #{$medium} {
     @include span-columns(4);
   }
 }
@@ -1169,7 +1173,7 @@ ul.reply-markdown {
   @include span-columns(4);
   margin-bottom: $base-spacing-size;
   
-  @include media( $medium ) {
+  @media #{$medium} {
     @include span-columns(4);
 	text-align: right;
   }
@@ -1285,7 +1289,7 @@ ul.reply-markdown {
 .new-category {
   margin-bottom: $base-spacing-size;
   
-  @include media( $medium ) {
+  @media #{$medium} {
 	text-align: right;
   }
 }
@@ -1301,7 +1305,7 @@ div.container {
     @include span-columns(4);
 	//styles
 
-	@include media( $medium ) {
+	@media #{$medium} {
       @include span-columns(4);
 	  //styles
     }
