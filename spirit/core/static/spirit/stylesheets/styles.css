@@ -6733,7 +6733,7 @@ input[type="submit"].button,
   input[type="submit"].button.is-undo,
   .button.is-undo {
     background-color: #c65555; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     input[type="submit"].button,
     .button {
       display: inline-block;
@@ -6838,7 +6838,7 @@ input[type="submit"].button,
   padding-bottom: 1.5rem;
   border-bottom: #cecece 1px solid; }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .header-nav {
     text-align: right; } }
 .header-nav .menu {
@@ -6878,12 +6878,13 @@ input[type="submit"].button,
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .layout__menu, .comments__footer_menu, .admin__category_menu, .admin__flag_menu {
-      flex-direction: row; } }
+      flex-direction: row;
+      align-items: flex-start; } }
   .layout__menu > *, .comments__footer_menu > *, .admin__category_menu > *, .admin__flag_menu > * {
     margin-bottom: 0.75rem; }
-    @media screen and (min-width: min-width 768px) {
+    @media screen and (min-width: 768px) {
       .layout__menu > *, .comments__footer_menu > *, .admin__category_menu > *, .admin__flag_menu > * {
         margin-bottom: 0; } }
     .layout__menu > *:last-child, .comments__footer_menu > *:last-child, .admin__category_menu > *:last-child, .admin__flag_menu > *:last-child {
@@ -6936,7 +6937,7 @@ input[type="submit"].button,
 
 .header__tab__nav {
   flex: 1; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .header__tab__nav {
       flex: initial;
       margin-left: auto; } }
@@ -6980,6 +6981,9 @@ input[type="submit"].button,
 .menu__dropdown {
   display: flex;
   flex-direction: column; }
+  @media screen and (min-width: 768px) {
+    .menu__dropdown {
+      align-items: flex-start; } }
 
 .menu_list {
   display: flex;
@@ -7010,7 +7014,7 @@ input[type="submit"].button,
   .message_title.is-error {
     color: #c65555; }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .menu__new_topic {
     flex: none;
     margin-left: auto; } }
@@ -7044,8 +7048,15 @@ input[type="submit"].button,
 
 .layout__comments {
   grid-area: ae;
-  display: grid;
-  grid-template: "nv" auto "te" auto "cs" 1fr; }
+  display: flex;
+  flex-direction: column; }
+
+.comments__move {
+  margin-bottom: 1.5rem; }
+
+input.comments__move_checkbox {
+  display: inline-block;
+  margin: 0; }
 
 .breadcrumb_nav {
   display: flex;
@@ -7065,7 +7076,7 @@ input[type="submit"].button,
   border-top: #ececec 1px solid;
   display: grid;
   grid-template: "im io" auto "tx tx" 1fr "ac ac" auto / auto 1fr; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comments_list__comment {
       grid-template: "im io" auto "im tx" 1fr "ac ac" auto / auto 1fr; } }
   .comments_list__comment:last-child {
@@ -7077,7 +7088,7 @@ input[type="submit"].button,
   margin-bottom: 0.75rem;
   display: flex;
   align-items: center; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comment__img {
       align-items: initial; } }
 
@@ -7085,7 +7096,7 @@ input[type="submit"].button,
   width: 44px;
   height: 44px;
   border-radius: 22px; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comment__img__avatar {
       width: 50px;
       height: 50px;
@@ -7097,7 +7108,7 @@ input[type="submit"].button,
   margin-bottom: 0.75rem;
   display: flex;
   align-items: center; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comment__info {
       align-items: initial; } }
 
@@ -7106,7 +7117,7 @@ input[type="submit"].button,
   display: flex;
   flex-direction: column;
   align-items: flex-start; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comment__info__username {
       flex-direction: row; } }
 
@@ -7115,7 +7126,7 @@ input[type="submit"].button,
 .comment__info__username__link.is-mod {
   background: #e2f5fc; }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .comment__info__username__realname {
     margin-left: 0.75rem; } }
 
@@ -7161,7 +7172,7 @@ input[type="submit"].button,
 .comment__footer__share {
   display: flex;
   flex-direction: column; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comment__footer__share {
       margin-left: auto; } }
 
@@ -7181,7 +7192,7 @@ input[type="submit"].button,
     display: block;
     padding: 0 0.75rem; }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .comments__footer_menu {
     align-items: center; } }
 
@@ -7190,7 +7201,7 @@ input[type="submit"].button,
   flex-wrap: wrap;
   align-items: center;
   margin-bottom: 1.5rem; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comments__footer_menu__paginator {
       margin-bottom: 0; } }
   .comments__footer_menu__paginator li {
@@ -7208,7 +7219,7 @@ input[type="submit"].button,
     padding: 0.25rem 0.75rem;
     border: #cecece 1px solid; }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .comments__footer_menu__notify {
     flex: none;
     margin-left: auto; } }
@@ -7218,7 +7229,7 @@ input[type="submit"].button,
   margin-top: 3rem;
   display: grid;
   grid-template: "im io" auto "tx tx" auto / auto 1fr; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comments__reply {
       grid-template: "im io" auto "im tx" auto / auto 1fr; } }
 
@@ -7235,12 +7246,12 @@ input[type="submit"].button,
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comment__reply__info {
       flex-direction: row;
       justify-content: initial; } }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .comment__reply__info__realname {
     margin-left: 0.75rem; } }
 
@@ -7255,7 +7266,7 @@ input[type="submit"].button,
 .comment__reply__actions {
   display: flex;
   flex-direction: column; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comment__reply__actions {
       flex-direction: row;
       align-items: center; } }
@@ -7280,7 +7291,7 @@ input[type="submit"].button,
 
 .admin__category_menu__new_category {
   flex: 1; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .admin__category_menu__new_category {
       flex: none;
       margin-left: auto; } }
@@ -7318,7 +7329,7 @@ input[type="submit"].button,
 .admin__flag_menu__mod_by__user {
   margin-left: 0.75rem; }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .admin__flag_menu__mark_solved {
     margin-left: auto; } }
 
@@ -7354,7 +7365,7 @@ input[type="submit"].button,
   margin-bottom: 0.75rem; }
   .row-title:last-child {
     margin-right: 0; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .row-title {
       float: left;
       display: block;
@@ -7383,7 +7394,7 @@ input[type="submit"].button,
       margin-left: 0; }
   .row-info .is-new {
     color: #c65555; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .row-info {
       float: left;
       display: block;
@@ -7408,7 +7419,7 @@ input[type="submit"].button,
   margin-bottom: 0.75rem; }
   .categories:last-child {
     margin-right: 0; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .categories {
       float: left;
       display: block;
@@ -7427,7 +7438,7 @@ input[type="submit"].button,
   width: 100%; }
   .new-topic:last-child {
     margin-right: 0; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .new-topic {
       float: left;
       display: block;
@@ -7439,7 +7450,7 @@ input[type="submit"].button,
 
 .topic-moderation {
   margin-bottom: 1.5rem; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .topic-moderation {
       text-align: right; }
       .topic-moderation .menu {
@@ -7512,7 +7523,7 @@ input.move-comment-checkbox {
 
 .comment-realname {
   display: none; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .comment-realname {
       display: inline;
       margin-left: 0.75rem; } }
@@ -7552,7 +7563,7 @@ del.diff {
 
 .paginator {
   margin-bottom: 1.5rem; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .paginator {
       float: left;
       display: block;
@@ -7568,7 +7579,7 @@ del.diff {
 
 .notify {
   margin-bottom: 3rem; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .notify {
       float: left;
       display: block;
@@ -7586,7 +7597,7 @@ del.diff {
 
 .reply-markdown {
   margin-bottom: 1.5rem; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .reply-markdown {
       float: left; } }
   .reply-markdown li {
@@ -7597,7 +7608,7 @@ ul.reply-markdown {
   list-style: none;
   margin-left: 0; }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .reply-button {
     float: right; } }
 
@@ -7614,7 +7625,7 @@ ul.reply-markdown {
   height: 100%;
   background: #fefefe;
   background: rgba(254, 254, 254, 0.75); }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .share {
       width: 300px;
       height: 150px;
@@ -7671,7 +7682,7 @@ ul.reply-markdown {
   .poll-action:first-child {
     margin-left: 0; }
 
-@media screen and (min-width: min-width 768px) {
+@media screen and (min-width: 768px) {
   .menu,
   .participants-menu {
     display: inline-block; } }
@@ -7740,7 +7751,7 @@ ul.reply-markdown {
   margin-bottom: 0.75rem; }
   .private-participants:last-child {
     margin-right: 0; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .private-participants {
       float: left;
       display: block;
@@ -7757,7 +7768,7 @@ ul.reply-markdown {
   margin-bottom: 1.5rem; }
   .private-leave:last-child {
     margin-right: 0; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .private-leave {
       float: left;
       display: block;
@@ -7849,7 +7860,7 @@ ul.reply-markdown {
 
 .new-category {
   margin-bottom: 1.5rem; }
-  @media screen and (min-width: min-width 768px) {
+  @media screen and (min-width: 768px) {
     .new-category {
       text-align: right; } }
 
@@ -7861,7 +7872,7 @@ div.container {
     @include span-columns(4);
 	//styles
 
-	@include media( $medium ) {
+	@media screen and (min-width: 768px) {
       @include span-columns(4);
 	  //styles
     }

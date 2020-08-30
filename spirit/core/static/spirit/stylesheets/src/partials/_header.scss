@@ -47,7 +47,7 @@
 }
 
 .header-nav {
-  @include media( $medium ) {
+  @media #{$medium} {
     text-align: right;
   }
   

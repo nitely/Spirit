@@ -19,7 +19,7 @@ input[type="submit"].button,
     background-color: $red;
   }
 
-  @include media( $medium ) {
+  @media #{$medium} {
     @include inline-block;
     width: auto;
     padding: 0 $half-spacing-size;

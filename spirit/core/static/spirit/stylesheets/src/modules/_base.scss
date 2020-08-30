@@ -24,5 +24,5 @@ $space: $quarter-spacing-size !default;
 $space-l: $half-spacing-size !default;
 $space-xl: $base-spacing-size !default;
 
-// Usage: @include media( $medium ){}
-$medium: screen and (min-width: 768px);
+// Usage: @media #{$medium} {}
+$medium: "screen and (min-width: 768px)";
