@@ -420,6 +420,15 @@
           }
         }
       }
+        .comment__info__date__topic {
+          max-width: 100px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          @media #{$medium} {
+            max-width: 300px;
+          }
+        }
     .comment__text {
       @extend %break-words;
       grid-area: tx;
