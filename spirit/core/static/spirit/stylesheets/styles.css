@@ -7184,6 +7184,15 @@ input.comments__move_checkbox {
     .comment__info__date li:first-child {
       margin-left: 0; }
 
+.comment__info__date__topic {
+  max-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+  @media screen and (min-width: 768px) {
+    .comment__info__date__topic {
+      max-width: 300px; } }
+
 .comment__text {
   grid-area: tx; }
   .comment__text blockquote {
