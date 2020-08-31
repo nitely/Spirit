@@ -715,7 +715,24 @@
     margin-bottom: $space-quarter;
   }
 // Login_end
-
+// Private_start
+.menu_list__participant {
+  display: flex;
+  gap: $space-half;
+}
+  .menu_list__participant__user {
+    flex: 1;
+    padding-left: $space-half;
+  }
+  .menu_list__participant__remove {
+    flex: none;
+    margin-left: auto;
+    padding-right: $space-half;
+  }
+.invite_user {
+  margin-bottom: $space-full;
+}
+// Private_end
 
 
 

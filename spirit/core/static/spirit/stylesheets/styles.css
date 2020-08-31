@@ -7414,6 +7414,22 @@ input.comments__move_checkbox {
 .login__links__link {
   margin-bottom: 0.375rem; }
 
+.menu_list__participant {
+  display: flex;
+  gap: 0.75rem; }
+
+.menu_list__participant__user {
+  flex: 1;
+  padding-left: 0.75rem; }
+
+.menu_list__participant__remove {
+  flex: none;
+  margin-left: auto;
+  padding-right: 0.75rem; }
+
+.invite_user {
+  margin-bottom: 1.5rem; }
+
 .rows {
   margin-bottom: 1.5rem; }
 
