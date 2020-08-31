@@ -7043,6 +7043,19 @@ input[type="submit"].button,
 .messages_close__button {
   cursor: pointer; }
 
+.nav__tabs {
+  font-size: 1.125rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem; }
+
+.nav__tabs__link {
+  display: block;
+  padding: 0 0.75rem 0.375rem 0.75rem; }
+  .nav__tabs__link.is-selected {
+    color: #1c1c1c;
+    border-bottom: #cecece 4px solid; }
+
 @media screen and (min-width: 768px) {
   .menu__new_topic {
     flex: none;
@@ -7104,17 +7117,21 @@ input.comments__move_checkbox {
   padding: 0.75rem;
   border-top: #ececec 1px solid;
   display: grid;
-  grid-template: "im io" auto "tx tx" 1fr "ac ac" auto / auto 1fr; }
+  grid-template: "im io" auto "tx tx" auto "ac ac" auto / auto 1fr;
+  grid-gap: 0.75rem; }
   @media screen and (min-width: 768px) {
     .comments_list__comment {
-      grid-template: "im io" auto "im tx" 1fr "ac ac" auto / auto 1fr; } }
+      grid-template: "im io" auto "im tx" auto "ac ac" auto / auto 1fr; } }
   .comments_list__comment:last-child {
     border-bottom: #ececec 1px solid; }
+  .comments_list__comment.no-footer {
+    grid-template: "im io" auto "tx tx" auto / auto 1fr; }
+    @media screen and (min-width: 768px) {
+      .comments_list__comment.no-footer {
+        grid-template: "im io" auto "im tx" auto / auto 1fr; } }
 
 .comment__img {
   grid-area: im;
-  margin-right: 0.75rem;
-  margin-bottom: 0.75rem;
   display: flex;
   align-items: center; }
   @media screen and (min-width: 768px) {
@@ -7134,7 +7151,6 @@ input.comments__move_checkbox {
 .comment__info {
   grid-area: io;
   font-size: 0.875rem;
-  margin-bottom: 0.75rem;
   display: flex;
   align-items: center; }
   @media screen and (min-width: 768px) {
@@ -7182,7 +7198,7 @@ input.comments__move_checkbox {
   .comment__text img {
     vertical-align: text-bottom; }
   .comment__text > *:last-child {
-    margin-bottom: 0.75rem; }
+    margin-bottom: 0; }
 
 .comment__text__poll {
   margin-bottom: 0.75rem; }
@@ -7429,6 +7445,51 @@ input.comments__move_checkbox {
 
 .invite_user {
   margin-bottom: 1.5rem; }
+
+.layout__profile {
+  grid-area: ae; }
+
+.profile__img {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.profile__img__avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px; }
+  @media screen and (min-width: 768px) {
+    .profile__img__avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 100px; } }
+
+.profile__img__username {
+  font-size: 18px; }
+
+.profile__info {
+  margin-bottom: 1.5rem;
+  display: flex; }
+  .profile__info ul {
+    margin: 0 auto;
+    display: flex; }
+    .profile__info ul li {
+      margin-right: 0.75rem; }
+      .profile__info ul li:last-child {
+        margin-right: 0; }
+
+.profile__private_message {
+  margin-bottom: 1.5rem;
+  display: flex; }
+  .profile__private_message .button {
+    margin: 0 auto; }
+
+.profile__profile_preferences {
+  margin-bottom: 1.5rem;
+  display: flex; }
+  .profile__profile_preferences .button {
+    margin: 0 auto; }
 
 .rows {
   margin-bottom: 1.5rem; }
