@@ -1,0 +1,38 @@
+{% load i18n %}
+
+{% spaceless %}
+<div class="menu__dropdown">
+  <div class="menu__dropdown_button">
+    <a class="dropdown_button" href="#"
+    >{% trans "Show menu" %} <i class="fa fa-chevron-down"></i></a>
+  </div>
+  <div class="menu_list_wrapper">
+    <ul class="menu_list">
+      <li><a
+        class="menu_list__link"
+        href="{% url "spirit:admin:index" %}"
+        >{% trans "Dashboard" %}</a></li>
+      <li><a
+        class="menu_list__link"
+        href="{% url "spirit:admin:config-basic" %}"
+        >{% trans "Basic settings" %}</a></li>
+      <li><a
+        class="menu_list__link"
+        href="{% url "spirit:admin:category:index" %}"
+        >{% trans "Categories" %}></a></li>
+      <li><a
+        class="menu_list__link"
+        href="{% url "spirit:admin:topic:index" %}"
+        >{% trans "Topics" %}</a></li>
+      <li><a
+        class="menu_list__link"
+        href="{% url "spirit:admin:user:index" %}"
+        >{% trans "Users" %}</a></li>
+      <li><a
+        class="menu_list__link"
+        href="{% url "spirit:admin:flag:index" %}"
+        >{% trans "Flags" %}</a></li>
+    </ul>
+  </div>
+</div>
+{% endspaceless %}

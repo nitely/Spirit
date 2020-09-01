@@ -5,8 +5,8 @@
 {% block title %}{% trans "Pinned topics" %}{% endblock %}
 
 {% block content %}
-
-  {% include "spirit/admin/_side_menu.html" with active="topics" %}
+<div class="layout__admin">
+  {% include "spirit/admin/_nav_menu.html" with active="topics" %}
 
   <h1 class="headline">{% trans "Pinned topics" %}</h1>
 
@@ -15,5 +15,5 @@
   {% include "spirit/topic/_render_list.html" %}
 
   {% render_paginator topics %}
-
+</div>
 {% endblock %}

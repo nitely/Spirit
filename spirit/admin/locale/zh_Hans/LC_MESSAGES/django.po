@@ -40,35 +40,35 @@ msgstr "每页帖数"
 msgid "topics per page"
 msgstr "每页主题数"
 
-#: templates/spirit/admin/_side_menu.html:4
+#: templates/spirit/admin/_nav_menu.html:4
 msgid "Show menu"
 msgstr "显示菜单"
 
-#: templates/spirit/admin/_side_menu.html:12
+#: templates/spirit/admin/_nav_menu.html:12
 #: templates/spirit/admin/dashboard.html:5
 #: templates/spirit/admin/dashboard.html:11
 msgid "Dashboard"
 msgstr "仪表盘"
 
-#: templates/spirit/admin/_side_menu.html:16
+#: templates/spirit/admin/_nav_menu.html:16
 msgid "Basic settings"
 msgstr "基本设置"
 
-#: templates/spirit/admin/_side_menu.html:20
+#: templates/spirit/admin/_nav_menu.html:20
 #: templates/spirit/admin/dashboard.html:49
 msgid "Categories"
 msgstr "分类"
 
-#: templates/spirit/admin/_side_menu.html:24
+#: templates/spirit/admin/_nav_menu.html:24
 #: templates/spirit/admin/dashboard.html:33
 msgid "Topics"
 msgstr "主题"
 
-#: templates/spirit/admin/_side_menu.html:28
+#: templates/spirit/admin/_nav_menu.html:28
 msgid "Users"
 msgstr "用户"
 
-#: templates/spirit/admin/_side_menu.html:32
+#: templates/spirit/admin/_nav_menu.html:32
 #: templates/spirit/admin/dashboard.html:45
 msgid "Flags"
 msgstr "举报"
