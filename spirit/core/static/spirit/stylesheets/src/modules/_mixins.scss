@@ -1,37 +1,9 @@
 // Mixins
 
-@mixin inline-block() {
-  display: inline-block;
-  *display: inline;
-  zoom: 1;
-}
-
-
-@mixin sticky-footer($footer-height) {
-  html {
-    position: relative;
-    min-height: 100%;
-  }
-
-  body {
-    margin-bottom: $footer-height;
-  }
-
-  .footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: $footer-height;
-    width: 100%;
-  }
-}
-
-
 @mixin rem($property, $pxval) {
   $property: $pxval * 1px;
   $property: rem($pxval);
 }
-
 
 @mixin rgba($property, $color, $alpha: 1) {
   $property: $color;

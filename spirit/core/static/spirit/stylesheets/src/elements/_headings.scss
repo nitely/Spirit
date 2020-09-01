@@ -1,13 +1,11 @@
 // Heading styles
-// using golden and fourth
-
 
 h1 {
-  font-size: ms(1, $ms-base, $golden);
-  line-height: ms(1, $base-line-height, $golden);
+  font-size: rem(25px);
+  line-height: rem(25px) * 1.5;
 }
 
 h2 {
-  font-size: ms(1, $ms-base, $fourth);
-  line-height: ms(1, $base-line-height, $fourth);
+  font-size: rem(21px);
+  line-height: rem(21px) * 1.5;
 }
