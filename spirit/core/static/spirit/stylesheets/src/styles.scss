@@ -81,10 +81,14 @@
   grid-area: hr;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
   .header__logo_wrapper {
     flex: none;
     //border: 1px solid #000;
+  }
+  .header__login {
+    margin-left: auto;
   }
   .header__tabs {
     margin-left: auto;
@@ -122,8 +126,7 @@
       }
       .header__tab__bell {
         flex: 1;
-      }
-        .bell__list {
+        ul {
           display: flex;
           flex-direction: column;
           li {
@@ -131,14 +134,66 @@
             background-color: $lightest-grey;
             padding: 0 $half-spacing-size;
             margin-bottom: $quarter-spacing-size;
-          	&:last-child {
+            &:last-child {
               margin-bottom: 0;
             }
           }
         }
+      }
       .header__tab__search {
         flex: 1;
       }
+.messages {
+  flex: 1 1 100%;
+  & > * {
+    margin-bottom: $space-half;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &.is-fixed {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    max-width: $max-width;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+}
+%messages {
+  padding: $space-half;
+  display: flex;
+  flex-wrap: wrap;
+}
+.messages_info {
+  @extend %messages;
+  background: $light-blue;
+}
+.messages_error {
+  @extend %messages;
+  background: $light-red;
+}
+.message_title {
+  flex: 1 1 100%;
+  margin-bottom: $half-spacing-size;
+  &.is-info {
+    color: $dark-blue;
+  }
+  &.is-error {
+    color: $red;
+  }
+}
+.message_text {
+  flex: 1;
+}
+.messages_close {
+  flex: none;
+  margin-left: auto;
+}
+  .messages_close__button {
+    cursor: pointer;
+  }
 .layout__article {
   grid-area: ae;
 }
@@ -187,51 +242,6 @@
     display: block;
     padding: 0 $half-spacing-size;
   }
-.messages {
-  &.is-fixed {
-    position: fixed;
-    top: 0;
-    z-index: 9999;
-    width: 100%;
-    max-width: $max-width;
-    max-height: 100%;
-    overflow-y: auto;
-  }
-}
-%messages {
-  padding: $space-half;
-  margin-bottom: $space-full;
-  display: flex;
-  flex-wrap: wrap;
-}
-.messages_info {
-  @extend %messages;
-  background: $light-blue;
-}
-.messages_error {
-  @extend %messages;
-  background: $light-red;
-}
-.message_title {
-  flex: 1 1 100%;
-  margin-bottom: $half-spacing-size;
-  &.is-info {
-    color: $dark-blue;
-  }
-  &.is-error {
-    color: $red;
-  }
-}
-.message_text {
-  flex: 1;
-}
-.messages_close {
-  flex: none;
-  margin-left: auto;
-}
-  .messages_close__button {
-    cursor: pointer;
-  }
 .nav__tabs {
   font-size: rem(18px);
   display: flex;
@@ -244,6 +254,36 @@
     &.is-selected {
       color: $black;
       border-bottom: $light-grey 4px solid;
+    }
+  }
+.paginator {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: $space-full;
+  //border: 1px solid #000;
+  @media #{$medium} {
+    margin-bottom: 0;
+  }
+  li {
+    margin-left: $space-half;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+  .paginator__pages {
+    @extend %break-words;
+    flex: initial;
+    //border: 1px solid #000;
+  }
+  .paginator__button {
+    flex: none;
+    //border: 1px solid #000;
+    a {
+      display: block;
+      padding: ($base-spacing-size / 6) $half-spacing-size;
+      border: $light-grey 1px solid;
     }
   }
 // Base_end
@@ -553,36 +593,6 @@
     align-items: center;
   }
 }
-  .comments__footer_menu__paginator {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: $space-full;
-    //border: 1px solid #000;
-    @media #{$medium} {
-      margin-bottom: 0;
-    }
-    li {
-      margin-left: $space-half;
-      &:first-child {
-        margin-left: 0;
-      }
-    }
-  }
-    .paginator__pages {
-      @extend %break-words;
-      flex: initial;
-      //border: 1px solid #000;
-    }
-    .paginator__button {
-      flex: none;
-      //border: 1px solid #000;
-      a {
-        display: block;
-        padding: ($base-spacing-size / 6) $half-spacing-size;
-        border: $light-grey 1px solid;
-      }
-    }
   .comments__footer_menu__notify {
     //border: 1px solid #000;
     @media #{$medium} {

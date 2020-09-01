@@ -2,10 +2,14 @@
 
 h1 {
   font-size: rem(25px);
-  line-height: rem(25px) * 1.5;
+  line-height: rem(25px) * 1.2;
+  margin: 0;
+  margin-bottom: $space-half;
 }
 
 h2 {
   font-size: rem(21px);
-  line-height: rem(21px) * 1.5;
+  line-height: rem(21px) * 1.2;
+  margin: 0;
+  margin-bottom: $space-half;
 }

@@ -5,59 +5,101 @@
 {% block title %}{% trans "Category list" %}{% endblock %}
 
 {% block content %}
-    {% load_settings 'ST_ORDERED_CATEGORIES' %}
+{% load_settings 'ST_ORDERED_CATEGORIES' %}
 
-    {% include "spirit/admin/_side_menu.html" with active="categories" %}
+<div class="layout__admin">
+    {% include "spirit/admin/_nav_menu.html" with active="categories" %}
 
     <h1 class="headline">{% trans "Category list" %}</h1>
 
-    <a class="button" href="{% url "spirit:admin:category:create" %}">{% trans "Create Category" %}</a>
+    <div class="admin__category_menu">
+        <div class="admin__category_menu__new_category">
+            <a
+              class="button"
+              href="{% url "spirit:admin:category:create" %}"
+            >{% trans "Create Category" %}</a>
+        </div>
+    </div>
 
-    <div class="rows">
+    <div class="admin__items_list">
+        <div class="admin__items_list__item">
+            <div class="admin__items_list__item__title">
+                <a href="#general">Cat 1</a>
+            </div>
+            <div class="admin__items_list__item__action">
+                <a href="#t2"><i class="fa fa-pencil"></i> edit</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin__items_list">
 
         {% for c in categories %}
-            <div class="row">
+        <div class="admin__items_list__item">
+            <div class="admin__items_list__item__title">
                 {% if st_settings.ST_ORDERED_CATEGORIES %}
-                    <a class="js-post" href="{% url "spirit:admin:category:move_up" category_id=c.pk %}"><i class="fa fa-arrow-up"></i></a>
-                    <a class="js-post" href="{% url "spirit:admin:category:move_dn" category_id=c.pk %}"><i class="fa fa-arrow-down"></i></a>
+                <a
+                  class="js-post"
+                  href="{% url "spirit:admin:category:move_up" category_id=c.pk %}"
+                ><i class="fa fa-arrow-up"></i></a>
+                <a
+                  class="js-post"
+                  href="{% url "spirit:admin:category:move_dn" category_id=c.pk %}"
+                ><i class="fa fa-arrow-down"></i></a>
                 {% endif %}
-
-                <a {% if c.color %}style="color: {{ c.color }}"{% endif %} href="{{ c.get_absolute_url }}">{{ c.title }}</a>
-
+                <a
+                  {% if c.color %}style="color: {{ c.color }}"{% endif %}
+                  href="{{ c.get_absolute_url }}"
+                >{{ c.title }}</a>
                 {% if c.is_removed %}
-                    <i class="fa fa-times"></i>
+                <i class="fa fa-times"></i>
                 {% endif %}
-
                 {% if c.is_closed %}
-                    <i class="fa fa-lock"></i>
+                <i class="fa fa-lock"></i>
+                {% endif %}
+            </div>
+            <div class="admin__items_list__item__action">
+                <a href="{% url "spirit:admin:category:update" category_id=c.pk %}"
+                ><i class="fa fa-cog"></i> {% trans "edit" %}</a>
+            </div>
+        </div>
+
+        {% for subc in c.category_set.all %}
+        <div class="admin__items_list__item">
+            <div class="admin__items_list__item__title">
+                ---
+                {% if st_settings.ST_ORDERED_CATEGORIES %}
+                <a
+                  class="js-post"
+                  href="{% url "spirit:admin:category:move_up" category_id=subc.pk %}"
+                ><i class="fa fa-arrow-up"></i></a>
+                <a
+                  class="js-post"
+                  href="{% url "spirit:admin:category:move_dn" category_id=subc.pk %}"
+                ><i class="fa fa-arrow-down"></i></a>
                 {% endif %}
 
-                <a class="row-edit" href="{% url "spirit:admin:category:update" category_id=c.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
+                <a
+                  {% if subc.color %}style="color: {{ subc.color }}"{% endif %}
+                  href="{{ subc.get_absolute_url }}"
+                >{{ subc.title }}</a>
+
+                {% if subc.is_removed %}
+                <i class="fa fa-times"></i>
+                {% endif %}
+
+                {% if subc.is_closed %}
+                <i class="fa fa-lock"></i>
+                {% endif %}
             </div>
-
-            {% for subc in c.category_set.all %}
-                <div class="row">
-                    ---
-                    {% if st_settings.ST_ORDERED_CATEGORIES %}
-                        <a class="js-post" href="{% url "spirit:admin:category:move_up" category_id=subc.pk %}"><i class="fa fa-arrow-up"></i></a>
-                        <a class="js-post" href="{% url "spirit:admin:category:move_dn" category_id=subc.pk %}"><i class="fa fa-arrow-down"></i></a>
-                    {% endif %}
-
-                    <a {% if subc.color %}style="color: {{ subc.color }}"{% endif %} href="{{ subc.get_absolute_url }}">{{ subc.title }}</a>
-
-                    {% if subc.is_removed %}
-                        <i class="fa fa-times"></i>
-                    {% endif %}
-
-                    {% if subc.is_closed %}
-                        <i class="fa fa-lock"></i>
-                    {% endif %}
-
-                    <a class="row-edit" href="{% url "spirit:admin:category:update" category_id=subc.pk %}"><i class="fa fa-cog"></i> {% trans "edit" %}</a>
-                </div>
-            {% endfor %}
+            <div class="admin__items_list__item__action">
+                <a href="{% url "spirit:admin:category:update" category_id=subc.pk %}"
+                ><i class="fa fa-cog"></i> {% trans "edit" %}</a>
+            </div>
+        </div>
+        {% endfor %}
         {% endfor %}
 
-	</div>
-
+    </div>
+</div>
 {% endblock %}

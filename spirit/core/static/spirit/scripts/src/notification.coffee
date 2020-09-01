@@ -25,10 +25,12 @@ class Notification
         @el = el
         @options = Object.assign({}, @defaults, options)
         @contentElm = document.querySelector(el.dataset.related)
+        @NotificationsElm = document.createElement('ul')
         @setUp()
 
     setUp: ->
         @el.addEventListener('click', @tabSwitch)
+        @contentElm.appendChild(@NotificationsElm)
 
     tabSwitch: (e) =>
         e.preventDefault()
@@ -81,7 +83,7 @@ class Notification
             linkElm.setAttribute('href', n.url)
             linkElm.textContent = n.title  # Untrusted
 
-            txtElm = document.createElement('div')
+            txtElm = document.createElement('li')
             txtElm.innerHTML = utils.format(txt, {user: n.user, topic: linkElm.outerHTML})
 
             if not n.is_read
@@ -92,19 +94,19 @@ class Notification
                 txtElm.innerHTML += " "
                 txtElm.appendChild(unreadElm)
 
-            @contentElm.appendChild(txtElm)
+            @NotificationsElm.appendChild(txtElm)
             return
         )
 
     addShowMoreLink: =>
-        showAllContainerElm = document.createElement('div')
+        showAllContainerElm = document.createElement('li')
 
         showAllLinkElm = document.createElement('a')
         showAllLinkElm.setAttribute('href', @options.notificationListUrl)
         showAllLinkElm.innerHTML = @options.showAll
         showAllContainerElm.appendChild(showAllLinkElm)
 
-        @contentElm.appendChild(showAllContainerElm)
+        @NotificationsElm.appendChild(showAllContainerElm)
 
     addIsEmptyTxt: =>
         emptyElm = document.createElement('div')

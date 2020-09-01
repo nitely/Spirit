@@ -5,8 +5,8 @@
 {% block title %}{% trans "Basic Settings" %}{% endblock %}
 
 {% block content %}
-
-  {% include "spirit/admin/_side_menu.html" with active="basic_settings" %}
+<div class="layout__admin">
+  {% include "spirit/admin/_nav_menu.html" with active="basic_settings" %}
 
   <h1 class="headline">{% trans "Basic Settings" %}</h1>
 
@@ -16,5 +16,5 @@
 
     <input class="button" type="submit" name="post" value="{% trans "Save" %}" />
   </form>
-
+</div>
 {% endblock %}

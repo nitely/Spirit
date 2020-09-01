@@ -39,35 +39,35 @@ msgstr "Kommentare pro Seite"
 msgid "topics per page"
 msgstr "Themen pro Seite"
 
-#: templates/spirit/admin/_side_menu.html:4
+#: templates/spirit/admin/_nav_menu.html:4
 msgid "Show menu"
 msgstr "zeige Menü"
 
-#: templates/spirit/admin/_side_menu.html:12
+#: templates/spirit/admin/_nav_menu.html:12
 #: templates/spirit/admin/dashboard.html:5
 #: templates/spirit/admin/dashboard.html:11
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: templates/spirit/admin/_side_menu.html:16
+#: templates/spirit/admin/_nav_menu.html:16
 msgid "Basic settings"
 msgstr "Grundeinstellungen"
 
-#: templates/spirit/admin/_side_menu.html:20
+#: templates/spirit/admin/_nav_menu.html:20
 #: templates/spirit/admin/dashboard.html:49
 msgid "Categories"
 msgstr "Kategorien"
 
-#: templates/spirit/admin/_side_menu.html:24
+#: templates/spirit/admin/_nav_menu.html:24
 #: templates/spirit/admin/dashboard.html:33
 msgid "Topics"
 msgstr "Themen"
 
-#: templates/spirit/admin/_side_menu.html:28
+#: templates/spirit/admin/_nav_menu.html:28
 msgid "Users"
 msgstr "Benutzer_innen"
 
-#: templates/spirit/admin/_side_menu.html:32
+#: templates/spirit/admin/_nav_menu.html:32
 #: templates/spirit/admin/dashboard.html:45
 msgid "Flags"
 msgstr "Flags"
