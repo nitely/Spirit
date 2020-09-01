@@ -1,76 +1,71 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Topic Publish</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Topics</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="../vendors/font-awesome.min.css">
+	<link rel="stylesheet" href="../styles.css">
 
-    <script src="../scripts/vendors/jquery.min.js"></script>
+</head>
 
-    <script>
+<body>
 
-	$( document ).ready(function(e) {
-		$( ".js-poll-add" ).on( 'click', function( e ) {
-            $( this ).closest( 'dd' ).hide();
-            $( ".js-poll-form" ).show();
-            e.preventDefault();
-            e.stopPropagation();
-        });
-	});
+<div class="layout">
+	<div class="layout__header">
+		<a class="header__logo" href="#">Spirit</a>
+	</div>
 
-	</script>
-
-  </head>
-
-  <body>
-
-	<header class="header">
-		<a class="header-logo" href="#">Spirit</a>
-
-	</header>
-
-	<h1 class="headline">Publish topic</h1>
-
-		<form action=".">
+	<div class="layout__article">
+		<h1 class="headline">Publish topic</h1>
+		<form action="." method="post" class="js-reply">
 			<div class="field">
-				<label for="id_field1">Field</label>
-				<input id="id_field1" type="text" value="1" />
+				<label for="id_title">Title:</label>
+				<input type="text" name="title" maxlength="255" required="" id="id_title">
 			</div>
-
-            <dl class="preference">
-               <dt class="preference-label">Poll:</dt>
-               <dd class="preference-desc"><a class="js-poll-add" href="#"><i class="fa fa-bar-chart-o"></i> Add poll</a></dd>
-            </dl>
-
-            <!--
-            if form.data, show!
-            !-->
-            <div class="field js-poll-form" style="display:none;margin-left:20px;">
-				<label for="id_field2">Field 2</label>
-				<input id="id_field2" type="text" value="1" />
-			</div>
-
 			<div class="field">
-				<label for="id_field3">Comment</label>
-				<textarea id="id_field3" placeholder="textarea..."></textarea>
+				<label for="id_category">Category:</label>
+				<select name="category" required="" id="id_category">
+					<option value="" selected="">Choose a category</option>
+					<option value="5">Bugs</option>
+					<option value="3"> Development</option>
+					<option value="7">Feature Requests</option>
+					<option value="8">Test Posting</option>
+					<option value="2">Uncategorized</option>
+				</select>
 			</div>
-
-			<input class="button" type="submit" value="Publish" />
+			<div class="topic_publish_comment">
+				<input type="hidden" name="comment_hash" id="id_comment_hash">
+				<div class="field">
+					<label for="id_comment">Comment:</label>
+					<textarea name="comment" cols="40" rows="10" maxlength="3000" placeholder="Write comment..." required="" id="id_comment"></textarea>
+				</div>
+				<div class="comment-text js-box-preview-content" style="display: none;"><p>asd</p>
+				</div>
+			</div>
+			<div class="comment__reply__actions">
+				<ul class="comment__reply__actions__list">
+					<li><a class="js-box-bold" href="#" title="Bold"><i class="fa fa-bold"></i></a></li>
+					<li><a class="js-box-italic" href="#" title="Italic"><i class="fa fa-italic"></i></a></li>
+					<li><a class="js-box-list" href="#" title="List"><i class="fa fa-list"></i></a></li>
+					<li><a class="js-box-url" href="#" title="URL"><i class="fa fa-link"></i></a></li>
+					<li><a class="js-box-image" href="#" title="Image"><i class="fa fa-picture-o"></i></a></li>
+					<li><a class="js-box-preview" href="#" title="Preview"><i class="fa fa-eye"></i></a></li>
+				</ul>
+				<input class="button comment__reply__actions__publish" type="submit" value="Publish" />
+			</div>
 		</form>
+	</div>
 
+	<div class="layout__footer">
+		<a class="footer__logo" href="http://www.spirit-project.com" >Spirit</a>
+	</div>
+</div>
 
-	<footer class="footer">
-		<div class="footer-container">
-			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
-		</div>
-	</footer>
-
-  </body>
+</body>
 
 </html>
