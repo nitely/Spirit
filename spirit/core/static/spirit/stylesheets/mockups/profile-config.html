@@ -1,104 +1,66 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>preferences</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
+	<title>Topics</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--[if (lt IE 9) & (!IEMobile)]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <![endif]-->
+	<link rel="stylesheet" href="../vendors/font-awesome.min.css">
+	<link rel="stylesheet" href="../styles.css">
 
-  </head>
+</head>
 
-  <body>
-	
-	<header class="header">
-		<a class="header-logo" href="#">Spirit</a>
+<body>
 
-	</header>
-		
-	<header>
+<div class="layout">
+	<div class="layout__header">
+		<a class="header__logo" href="#">Spirit</a>
+	</div>
+
+	<div class="layout__article">
 		<h1 class="headline">Preferences</h1>
-	</header>
-	
-	<dl class="preference">
-	   <dt class="preference-label">Email:</dt>
-	   <dd class="preference-desc"><a href="#"><i class="fa fa-pencil"></i> foo@bar.com</a></dd>
+		<dl class="profile__settings">
+			<dt class="profile__settings__label">Email:</dt>
+			<dd class="profile__settings__desc"><a href="#"><i class="fa fa-pencil"></i> foo@bar.com</a></dd>
+			<dt class="profile__settings__label">Password:</dt>
+			<dd class="profile__settings__desc"><a href="#"><i class="fa fa-pencil"></i> Change password</a></dd>
+			<dt class="profile__settings__label">Avatar:</dt>
+			<dd class="profile__settings__desc"><a href="#"><i class="fa fa-pencil"></i> Change avatar</a> (Go to gravatar.com and use your current email to change it)</dd>
+		</dl>
+		<form action="." method="post">
+			<div class="field">
+				<label for="id_first_name">First name:</label>
+				<input type="text" name="first_name" value="Foo" maxlength="30" id="id_first_name">
+			</div>
+			<div class="field">
+				<label for="id_last_name">Last name:</label>
+				<input type="text" name="last_name" value="Bar" maxlength="30" id="id_last_name">
+			</div>
+			<div class="field">
+				<label for="id_location">Location:</label>
+				<input type="text" name="location" maxlength="75" id="id_location">
+			</div>
+			<div class="field">
+				<label for="id_timezone">Time zone:</label>
+				<select name="timezone" id="id_timezone">
+					<optgroup label="UTC">
+						<option value="UTC">(UTC+0000) UTC</option>
+					</optgroup>
+				</select>
+				Current time is: Aug. 31, 2020 8:52 a.m.
+			</div>
+			<input class="button" type="submit" name="post" value="Save">
+		</form>
+	</div>
 
-	   <dt class="preference-label">Password:</dt>
-	   <dd class="preference-desc"><a href="#"><i class="fa fa-pencil"></i> Change password</a></dd>
-	   
-	   <dt class="preference-label">Avatar:</dt>
-	   <dd class="preference-desc"><a href="#"><i class="fa fa-pencil"></i> Change avatar</a></dd>
-	</dl>
-		
-	<form action="." method="post">
+	<div class="layout__footer">
+		<a class="footer__logo" href="http://www.spirit-project.com" >Spirit</a>
+	</div>
+</div>
 
-		<label for="id_first_name">Primer nombre:</label>
-		
-		<input id="id_first_name" maxlength="30" name="first_name" type="text" />
-
-		<label for="id_last_name">Apellido:</label>
-		
-		<input id="id_last_name" maxlength="30" name="last_name" type="text" />
-
-		<label for="id_location">Ubicacion:</label>
-		
-		<input id="id_location" maxlength="75" name="location" type="text" />
-
-		<label for="id_timezone">Zona horaria:</label>
-		
-		<select id="id_timezone" name="timezone">
-			<option value="Etc/GMT+12">(GMT -12:00) Eniwetok, Kwajalein</option>
-			<option value="Etc/GMT+11">(GMT -11:00) Midway Island, Samoa</option>
-			<option value="Etc/GMT+10">(GMT -10:00) Hawaii</option>
-			<option value="Etc/GMT+9">(GMT -9:00) Alaska</option>
-			<option value="Etc/GMT+8">(GMT -8:00) Pacific Time (US &amp; Canada)</option>
-			<option value="Etc/GMT+7">(GMT -7:00) Mountain Time (US &amp; Canada)</option>
-			<option value="Etc/GMT+6">(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
-			<option value="Etc/GMT+5">(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
-			<option value="Etc/GMT+4">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
-			<option value="Etc/GMT+3">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
-			<option value="Etc/GMT+2">(GMT -2:00) Mid-Atlantic</option>
-			<option value="Etc/GMT+1">(GMT -1:00) Azores, Cape Verde Islands</option>
-			<option value="UTC" selected="selected">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
-			<option value="Etc/GMT-1">(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
-			<option value="Etc/GMT-2">(GMT +2:00) Kaliningrad, South Africa</option>
-			<option value="Etc/GMT-3">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
-			<option value="Etc/GMT-4">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
-			<option value="Etc/GMT-5">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
-			<option value="Etc/GMT-6">(GMT +6:00) Almaty, Dhaka, Colombo</option>
-			<option value="Etc/GMT-7">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
-			<option value="Etc/GMT-8">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
-			<option value="Etc/GMT-9">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
-			<option value="Etc/GMT-10">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
-			<option value="Etc/GMT-11">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
-			<option value="Etc/GMT-12">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
-		</select>
-		
-		<label for="id_is_subscribed">Receive an email when you get a notification:</label>
-		
-		<input checked="checked" id="id_is_subscribed" name="is_subscribed" type="checkbox" />
-
-        <input class="button" type="submit" name="post" value="Guardar" />
-    </form>
-		
-	
-	<footer class="footer">
-		<div class="footer-container">
-			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
-		</div>
-	</footer>
-
-  </body>
+</body>
 
 </html>

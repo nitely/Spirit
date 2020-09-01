@@ -816,7 +816,19 @@
   }
 }
 // Profile_end
-
+// Profile_settings_start
+.profile__settings {
+}
+  .profile__settings__label {
+    margin: 0;
+    margin-bottom: $space-half;
+  }
+  .profile__settings__desc {
+    margin: 0;
+    margin-left: $space-half;
+    margin-bottom: $space-full;
+  }
+// Profile_settings_end
 
 
 
