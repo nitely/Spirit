@@ -7500,6 +7500,15 @@ input.comments__move_checkbox {
   .profile__profile_preferences .button {
     margin: 0 auto; }
 
+.profile__settings__label {
+  margin: 0;
+  margin-bottom: 0.75rem; }
+
+.profile__settings__desc {
+  margin: 0;
+  margin-left: 0.75rem;
+  margin-bottom: 1.5rem; }
+
 .rows {
   margin-bottom: 1.5rem; }
 
