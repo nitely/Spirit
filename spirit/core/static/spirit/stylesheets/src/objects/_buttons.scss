@@ -20,7 +20,7 @@ input[type="submit"].button,
   }
 
   @media #{$medium} {
-    @include inline-block;
+    display: inline-block;
     width: auto;
     padding: 0 $half-spacing-size;
   }
