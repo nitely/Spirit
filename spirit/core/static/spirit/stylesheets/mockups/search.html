@@ -1,61 +1,67 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>search</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<link rel="stylesheet" href="vendors/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
+	<title>Topics</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--[if (lt IE 9) & (!IEMobile)]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <![endif]-->
+	<link rel="stylesheet" href="../vendors/font-awesome.min.css">
+	<link rel="stylesheet" href="../styles.css">
 
-  </head>
+</head>
 
-  <body>
-	
-	<header class="header">
-		<a class="header-logo" href="#">Spirit</a>
+<body>
 
-	</header>
-		
-	<header>
+<div class="layout">
+	<div class="layout__header">
+		<a class="header__logo" href="#">Spirit</a>
+	</div>
+
+	<div class="layout__article">
 		<h1 class="headline">Search categories</h1>
-	</header>
 
-	
-    <form method="get" action="/search/">
-		<label for="id_q">Search:</label>
-		<input id="id_q" name="q" type="text" />
+		<form method="get" action="/search/">
+			<div class="field">
+				<label for="id_q">Search:</label>
+				<ul class="errorlist"><li>Your search must contain at least 3 characters.</li></ul>
+				<input type="search" name="q" id="id_q">
+			</div>
+			<div class="field">
+				<label>Filter by:</label>
+				<ul id="id_category">
+					<li><label for="id_category_0"><input type="checkbox" name="category" value="4" id="id_category_0">
+						Announcements</label>
+					</li>
+					<li><label for="id_category_1"><input type="checkbox" name="category" value="5" id="id_category_1">
+						Bugs</label>
+					</li>
+					<li><label for="id_category_2"><input type="checkbox" name="category" value="3" id="id_category_2">
+						Development</label>
+					</li>
+					<li><label for="id_category_3"><input type="checkbox" name="category" value="7" id="id_category_3">
+						Feature Requests</label>
+					</li>
+					<li><label for="id_category_4"><input type="checkbox" name="category" value="8" id="id_category_4">
+						Test Posting</label>
+					</li>
+					<li><label for="id_category_5"><input type="checkbox" name="category" value="2" id="id_category_5">
+						Uncategorized</label>
+					</li>
+				</ul>
+			</div>
+			<input class="button" type="submit" value="Search">
+		</form>
 
-		<label for="id_category_0">Filtrado por:</label>
-		<ul class="checkboxes" id="id_category">
-			<li><label for="id_category_0"><input id="id_category_0" name="category" type="checkbox" value="1" /> Categoria 1</label></li>
-			<li><label for="id_category_1"><input id="id_category_1" name="category" type="checkbox" value="3" /> --- SubCategoria 1</label></li>
-			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
-			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
-			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
-			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
-			<li><label for="id_category_2"><input id="id_category_2" name="category" type="checkbox" value="2" /> Categoria 2</label></li>
-		</ul>
+	</div>
 
-        <input class="button" type="submit" value="Search" />
-    </form>
-		
-	
-	<footer class="footer">
-		<div class="footer-container">
-			<a class="footer-logo" href="http://www.spirit-project.com" >Spirit</a>
-		</div>
-	</footer>
+	<div class="layout__footer">
+		<a class="footer__logo" href="http://www.spirit-project.com" >Spirit</a>
+	</div>
+</div>
 
-  </body>
+</body>
 
 </html>
