@@ -7091,6 +7091,13 @@ input[type="submit"].button,
   .topic__link:visited, .topic__link.is-visited {
     color: #979797; }
 
+.topic_publish_comment textarea {
+  height: 15rem; }
+.topic_publish_comment .field {
+  margin-bottom: 0.75rem; }
+.topic_publish_comment .comment-text {
+  min-height: 15rem; }
+
 .layout__comments {
   grid-area: ae;
   display: flex;
@@ -7356,7 +7363,9 @@ input.comments__move_checkbox {
       flex-direction: row;
       align-items: center; } }
   .comment__reply__actions > * {
-    margin-top: 0.75rem; }
+    margin-bottom: 0.75rem; }
+    .comment__reply__actions > *:last-child {
+      margin-bottom: 0; }
 
 .comment__reply__actions__list {
   flex: 1;

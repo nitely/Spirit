@@ -299,6 +299,17 @@
         color: $grey;
       }
     }
+.topic_publish_comment {
+  textarea {
+    height: $space-full * 10;
+  }
+  .field {
+    margin-bottom: $space-half;
+  }
+  .comment-text {
+    min-height: $space-full * 10;
+  }
+}
 // Topics_end
 // Comments_start
 .layout__comments {
@@ -639,7 +650,10 @@
         align-items: center;
       }
       & > * {
-        margin-top: $space-half;
+        margin-bottom: $space-half;
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
       .comment__reply__actions__list {
