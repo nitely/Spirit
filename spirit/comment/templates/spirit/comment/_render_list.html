@@ -1,20 +1,50 @@
-{% load spirit_tags i18n %}
+{% load spirit_tags i18n humanize %}
 
 <div class="comments_list">
 
   {% for c in comments %}
 
+  {% if c.action or c.is_removed %}
+  <div class="comments_list__item">
+    <div class="comments_list__item__badge">
+      <i class="fa fa-lock"></i>
+    </div>
+    <div class="comments_list__item__info">
+      <a
+        class="comments_list__item__username__link"
+        href="{{ c.user.st.get_absolute_url }}"
+      >{{ c.user.st.nickname }}</a>
+      <span>
+        {% if c.is_removed %}
+          {% trans "comment deleted" %}
+        {% else %}
+          {% get_comment_action_text c.action %}
+        {% endif %}
+      </span>
+      <span title="{{ c.date }}">{{ c.date|naturaltime }}</span>
+      {% if c.is_removed and user.st.is_moderator %}
+        <a href="{% url "spirit:comment:undelete" c.pk %}"
+        ><i class="fa fa-times"></i> {% trans "undelete" %}</a>
+        <a href="#">{% trans "show" %} <i class="fa fa-chevron-down"></i></a>
+      {% endif %}
+    </div>
+    {% if c.is_removed and user.st.is_moderator %}
+      <div class="comments_list__item__comment" style="display: none;">
+        {% post_render_comment comment=c %}
+      </div>
+    {% endif %}
+  </div>
+  {% else %}
   <div
-    class="comments_list__comment{% if c.action %} is-highlighted{% endif %}"
+    class="comments_list__comment"
     id="c{{forloop.counter0|add:comments.start_index }}"
     data-number="{{ forloop.counter0|add:comments.start_index }}"
-    data-pk="{{ c.pk }}">
-
-    {% if not c.is_removed %}
-
+    data-pk="{{ c.pk }}"
+  >
     <div class="comment__img">
       <img
         class="comment__img__avatar"
+        alt="image"
         src="{% get_gravatar_url user=c.user size=50 %}" />
     </div>
     <div class="comment__info">
@@ -36,14 +66,8 @@
       {% endspaceless %}
     </div>
     <div class="comment__text">
-      {% if not c.action %}
-        {% post_render_comment comment=c %}
-      {% else %}
-        <p>{% get_comment_action_text c.action %}.</p>
-      {% endif %}
+      {% post_render_comment comment=c %}
     </div>
-
-    {% if not c.action %}
     <div class="comment__footer">
       {% spaceless %}
       <ul class="comment__actions">
@@ -113,46 +137,12 @@
         {% endwith %}
       </div>
     </div>
-    {% endif %}
-
-    {% else %}
-
-    <div class="comment-media">
-      <div class="comment-img">
-        <div class="comment-removed">
-          <a href="{{ c.user.st.get_absolute_url }}">{{ c.user.st.nickname }}</a>
-        </div>
-      </div>
-
-      <div class="comment-body">
-
-        <div class="comment-text">
-          {% if user.st.is_moderator %}
-            {{ c.comment_html|safe }}
-          {% else %}
-            {% trans "This comment was deleted" %}.
-          {% endif %}
-        </div>
-      </div>
-    </div>
-
-    {% if user.st.is_moderator %}
-      <ul class="comment-actions">
-        <li>
-          <a href="{% url "spirit:comment:undelete" c.pk %}">
-            <i class="fa fa-times"></i> {% trans "undelete" %}</a>
-        </li>
-      </ul>
-    {% endif %}
-
-    {% endif %}
 
   </div>
-
+  {% endif %}
   {% endfor %}
 
 </div>
-
 
 <script>
 
