@@ -6671,7 +6671,8 @@ h2 {
   margin: 0;
   margin-bottom: 12px; }
 
-.headline, .header__tab__bell ul li, .paginator__pages, .topic__title, .comment__info__username__realname, .comment__text, .comment__reply__info__realname, .admin__items_list__item__title, .admin__statistics__box {
+.headline, .header__tab__bell ul li, .paginator__pages, .layout__list__item__title,
+.topic__title, .comment__info__username__realname, .comment__text, .comment__reply__info__realname, .admin__items_list__item__title, .admin__statistics__box {
   overflow: hidden;
   word-break: break-word;
   overflow-wrap: anywhere; }
@@ -6948,31 +6949,38 @@ input[type="submit"].button,
     flex: none;
     margin-left: auto; } }
 
+.layout__list__item,
 .layout__topics__topic {
   display: flex;
   flex-wrap: wrap;
   padding: 12px;
   border-top: #ececec 1px solid; }
+  .layout__list__item:last-child,
   .layout__topics__topic:last-child {
     border-bottom: #ececec 1px solid; }
 
+.layout__list__item__title,
 .topic__title {
   flex: 0 0 100%; }
 
-.topic__category, .topic__comments, .topic__date {
+.topic__category, .topic__comments, .layout__list__item__date,
+.topic__date {
   flex: none;
   font-size: 0.75rem;
   color: #979797; }
 
+.topic__category {
+  margin-right: 12px; }
+
 .topic__comments {
-  padding-left: 12px; }
+  margin-right: 12px; }
 
-.topic__date {
-  padding-left: 12px; }
-
+.layout__list__item__link,
 .topic__link {
   color: #444444; }
-  .topic__link:visited, .topic__link.is-visited {
+  .layout__list__item__link:visited, .layout__list__item__link.is-visited,
+  .topic__link:visited,
+  .topic__link.is-visited {
     color: #979797; }
 
 .topic_publish_comment textarea {
@@ -7167,6 +7175,28 @@ input.comments__move_checkbox {
   .comment__footer__share__menu a {
     display: block;
     padding: 0 12px; }
+
+.comments_list__item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-top: #ececec 1px solid;
+  font-size: 0.875rem; }
+
+.comments_list__item + .comments_list__item {
+  border-top: 0; }
+
+.comments_list__item__badge {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ececec;
+  color: #979797;
+  margin-right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px; }
 
 @media screen and (min-width: 768px) {
   .comments__footer_menu {

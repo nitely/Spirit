@@ -592,6 +592,28 @@
             padding: 0 $space-half;
           }
         }
+  .comments_list__item {
+    display: flex;
+    align-items: center;
+    padding: $space-half;
+    border-top: $lighter-grey 1px solid;
+    font-size: rem(14px);
+    & + .comments_list__item {
+      border-top: 0;
+    }
+  }
+    .comments_list__item__badge {
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $lighter-grey;
+      color: $grey;
+      margin-right: $space-half;
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+    }
 .comments__footer_menu {
   @extend %flex-nav;
   @media #{$medium} {
