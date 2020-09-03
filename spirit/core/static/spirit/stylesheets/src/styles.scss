@@ -297,8 +297,10 @@
       margin-left: auto;
     }
   }
+.layout__list,
 .layout__topics {
 }
+  .layout__list__item,
   .layout__topics__topic {
     display: flex;
     flex-wrap: wrap;
@@ -308,6 +310,7 @@
       border-bottom: $lighter-grey 1px solid;
     }
   }
+    .layout__list__item__title,
     .topic__title {
       @extend %break-words;
       flex: 0 0 100%;
@@ -319,15 +322,17 @@
     }
     .topic__category {
       @extend %topic__low_cell;
+      margin-right: $space-half;
     }
     .topic__comments {
       @extend %topic__low_cell;
-      padding-left: $space-half;
+      margin-right: $space-half;
     }
+    .layout__list__item__date,
     .topic__date {
       @extend %topic__low_cell;
-      padding-left: $space-half;
     }
+    .layout__list__item__link,
     .topic__link {
       color: $dark-grey;
       &:visited,
