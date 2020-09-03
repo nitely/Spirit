@@ -4,23 +4,25 @@
 {# #number description #}
 {# name, min, max, mode, close_at #}
 
-<div class="comment-poll">
+<div class="comment__text__poll">
   {% if poll.title %}
-    <div class="poll_title">
+    <div class="comment__text__poll__title">
       {{ poll.title|safe }}
     </div>
   {% endif %}
 
-  <div class="poll-choices">
+  <div class="comment__text__poll__choices">
     <ul>
       {% for choice in poll.choices %}
-        <li class="poll-choice">
-          <div class="choice-description">#{{ choice.number }} {{ choice.description|safe }}</div>
+        <li class="comment__text__poll__choices__choice">
+          <div class="comment__text__poll__choices__choice__description">
+            #{{ choice.number }} {{ choice.description|safe }}
+          </div>
         </li>
       {% endfor %}
     </ul>
   </div>
-  <div class="poll-note">
+  <div class="comment__text__poll__note">
     {% if poll.close_at %}
       {% blocktrans trimmed with poll_name=poll.name choice_min=poll.choice_min choice_max=poll.choice_max mode=poll.mode_txt close_at=poll.close_at %}
         Name: {{ poll_name }}, choice selection: from {{ choice_min }} up to {{ choice_max }}, mode: {{ mode }}, close at: {{ close_at }}

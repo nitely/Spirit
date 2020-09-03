@@ -5,7 +5,7 @@
 {% block title %}{% trans "Remove like" %}{% endblock %}
 
 {% block content %}
-
+<div class="layout__article">
   <h1 class="headline">
     {% blocktrans trimmed with username=like.comment.user.st.nickname %}
       Remove {{ username }}'s comment like
@@ -16,5 +16,5 @@
     {% csrf_token %}
     <input class="button" type="submit" name="post" value="{% trans "Remove like" %}" />
   </form>
-
+</div>
 {% endblock %}
