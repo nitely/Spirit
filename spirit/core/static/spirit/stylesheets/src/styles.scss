@@ -594,12 +594,14 @@
         }
   .comments_list__item {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: $space-half;
     border-top: $lighter-grey 1px solid;
     font-size: rem(14px);
     & + .comments_list__item {
       border-top: 0;
+      padding-top: 0;
     }
   }
     .comments_list__item__badge {
@@ -613,6 +615,15 @@
       width: 32px;
       height: 32px;
       border-radius: 16px;
+    }
+    .comments_list__item__comment {
+      flex: 1 1 100%;
+      margin-top: $space-half;
+      & > * {
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
     }
 .comments__footer_menu {
   @extend %flex-nav;

@@ -7178,13 +7178,14 @@ input.comments__move_checkbox {
 
 .comments_list__item {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding: 12px;
   border-top: #ececec 1px solid;
   font-size: 0.875rem; }
-
-.comments_list__item + .comments_list__item {
-  border-top: 0; }
+  .comments_list__item + .comments_list__item {
+    border-top: 0;
+    padding-top: 0; }
 
 .comments_list__item__badge {
   flex: none;
@@ -7197,6 +7198,12 @@ input.comments__move_checkbox {
   width: 32px;
   height: 32px;
   border-radius: 16px; }
+
+.comments_list__item__comment {
+  flex: 1 1 100%;
+  margin-top: 12px; }
+  .comments_list__item__comment > *:last-child {
+    margin-bottom: 0; }
 
 @media screen and (min-width: 768px) {
   .comments__footer_menu {
