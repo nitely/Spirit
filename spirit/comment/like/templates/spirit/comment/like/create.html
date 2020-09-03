@@ -5,7 +5,7 @@
 {% block title %}{% trans "Like" %}{% endblock %}
 
 {% block content %}
-
+<div class="layout__article">
   <h1 class="headline">
     {% blocktrans trimmed with username=comment.user.st.nickname %}
       Like {{ username }}'s comment
@@ -17,5 +17,5 @@
     {% include "spirit/_form.html" %}
     <input class="button" type="submit" name="post" value="{% trans "Like" %}" />
   </form>
-
+</div>
 {% endblock %}
