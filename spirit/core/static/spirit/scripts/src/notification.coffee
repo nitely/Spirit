@@ -24,7 +24,7 @@ class Notification
     constructor: (el, options) ->
         @el = el
         @options = Object.assign({}, @defaults, options)
-        @contentElm = document.querySelector(el.dataset.related)
+        @contentElm = document.querySelector(el.dataset.content)
         @NotificationsElm = document.createElement('ul')
         @setUp()
 
