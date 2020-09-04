@@ -33,11 +33,13 @@
       this.el = el;
       this.options = Object.assign({}, this.defaults, options);
       this.contentElm = document.querySelector(el.dataset.related);
+      this.NotificationsElm = document.createElement('ul');
       this.setUp();
     }
 
     Notification.prototype.setUp = function() {
-      return this.el.addEventListener('click', this.tabSwitch);
+      this.el.addEventListener('click', this.tabSwitch);
+      return this.contentElm.appendChild(this.NotificationsElm);
     };
 
     Notification.prototype.tabSwitch = function(e) {
@@ -91,7 +93,7 @@
           linkElm = document.createElement('a');
           linkElm.setAttribute('href', n.url);
           linkElm.textContent = n.title;
-          txtElm = document.createElement('div');
+          txtElm = document.createElement('li');
           txtElm.innerHTML = utils.format(txt, {
             user: n.user,
             topic: linkElm.outerHTML
@@ -103,19 +105,19 @@
             txtElm.innerHTML += " ";
             txtElm.appendChild(unreadElm);
           }
-          _this.contentElm.appendChild(txtElm);
+          _this.NotificationsElm.appendChild(txtElm);
         };
       })(this));
     };
 
     Notification.prototype.addShowMoreLink = function() {
       var showAllContainerElm, showAllLinkElm;
-      showAllContainerElm = document.createElement('div');
+      showAllContainerElm = document.createElement('li');
       showAllLinkElm = document.createElement('a');
       showAllLinkElm.setAttribute('href', this.options.notificationListUrl);
       showAllLinkElm.innerHTML = this.options.showAll;
       showAllContainerElm.appendChild(showAllLinkElm);
-      return this.contentElm.appendChild(showAllContainerElm);
+      return this.NotificationsElm.appendChild(showAllContainerElm);
     };
 
     Notification.prototype.addIsEmptyTxt = function() {

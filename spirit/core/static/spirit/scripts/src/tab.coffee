@@ -43,7 +43,10 @@ class Tab
         @el.classList.add('is-selected')
 
     showTabContent: =>
-        @containerElm.querySelector(@el.dataset.related).style.display = 'block'
+        @containerElm
+            .querySelector(@el.dataset.related)
+            .style
+            .removeProperty('display')
 
 
 stModules.tab = (elms) -> Array.from(elms).map((elm) -> new Tab(elm))

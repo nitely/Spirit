@@ -68,7 +68,7 @@
     <div class="comment__text">
       {% post_render_comment comment=c %}
     </div>
-    <div class="comment__footer">
+    <div class="comment__footer js-tabs-container">
       {% spaceless %}
       <ul class="comment__actions">
         {% if user.is_authenticated %}
@@ -81,7 +81,7 @@
           ><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
         {% endif %}
 
-        <li><a class="js-share" href="#" data-dialog=".js-share-{{ c.pk }}"
+        <li><a class="js-tab" href="#" data-related=".js-share-{{ c.pk }}"
         ><i class="fa fa-share"></i> {% trans "share" %}</a></li>
 
         {% if user.is_authenticated %}
@@ -118,7 +118,7 @@
       </ul>
       {% endspaceless %}
 
-      <div class="comment__footer__share js-share-{{ c.pk }}" style="display: none;">
+      <div class="comment__footer__share js-tab-content js-share-{{ c.pk }}" style="display: none;">
         {% with comment_url=c.get_absolute_url %}
           <input
             class="comment__footer__share__url"
