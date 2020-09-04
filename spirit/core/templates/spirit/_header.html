@@ -16,9 +16,10 @@
           data-related=".js-search-content"
           ><i class="fa fa-search"></i></a></li>
         <li><a
-          class="header__tabs__item js-tab{% if has_notifications %} is-highlighted{% endif %}"
+          class="header__tabs__item js-tab-notification{% if has_notifications %} is-highlighted{% endif %}"
           href="{% url "spirit:topic:notification:index" %}"
           data-related=".js-notifications-content"
+          data-content=".js-notifications-content-list"
           ><i class="fa fa-bell"></i></a></li>
         <li><a
           class="header__tabs__item js-tab"
@@ -64,7 +65,7 @@
         </nav>
       </div>
       <div class="header__tabs_content__tab js-tab-content js-notifications-content" style="display: none;">
-        <div class="header__tab__bell">
+        <div class="header__tab__bell js-notifications-content-list">
         </div>
       </div>
       <div class="header__tabs_content__tab js-tab-content js-search-content" style="display: none;">

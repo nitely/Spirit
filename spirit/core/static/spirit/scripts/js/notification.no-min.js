@@ -32,7 +32,7 @@
       this.tabSwitch = bind(this.tabSwitch, this);
       this.el = el;
       this.options = Object.assign({}, this.defaults, options);
-      this.contentElm = document.querySelector(el.dataset.related);
+      this.contentElm = document.querySelector(el.dataset.content);
       this.NotificationsElm = document.createElement('ul');
       this.setUp();
     }
