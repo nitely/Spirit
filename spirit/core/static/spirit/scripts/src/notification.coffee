@@ -88,7 +88,7 @@ class Notification
 
             if not n.is_read
                 unreadElm = document.createElement('span')
-                unreadElm.className = 'row-unread'
+                unreadElm.className = 'unread'
                 unreadElm.innerHTML = @options.unread
 
                 txtElm.innerHTML += " "

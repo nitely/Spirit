@@ -1,32 +1,33 @@
 {% load i18n %}
 
-<div class="container">
-  <div class="categories js-tabs-container">
-    {% ifequal active "notifications" %}
-      <a class="dropdown-button js-tab"
-        href="#"
-        data-related=".js-categories-content"
-      >{% trans "Notifications" %} <i class="fa fa-chevron-down"></i></a>
-      {% else %}
-      <a class="dropdown-button js-tab"
-        href="#"
-        data-related=".js-categories-content"
-      >{% trans "Unread notifications" %} <i class="fa fa-chevron-down"></i></a>
-    {% endifequal %}
-
-    <div class="tab-content js-tab-content js-categories-content">
+<div class="layout__menu">
+  <div class="menu__dropdown js-tabs-container">
+    <div class="menu__dropdown_button">
+      {% ifequal active "notifications" %}
+        <a
+          class="dropdown_button js-tab"
+          href="#"
+          data-related=".js-categories-content"
+        >{% trans "Notifications" %} <i class="fa fa-chevron-down"></i></a>
+        {% else %}
+        <a
+          class="dropdown_button js-tab"
+          href="#"
+          data-related=".js-categories-content"
+        >{% trans "Unread notifications" %} <i class="fa fa-chevron-down"></i></a>
+      {% endifequal %}
+    </div>
+    <div class="menu_list_wrapper js-tab-content js-categories-content">
       {% spaceless %}
-        <ul class="menu">
-          <li>
-            <a class="menu-link"
-              href="{% url "spirit:topic:notification:index" %}"
-            >{% trans "Notifications" %}</a>
-          </li>
-          <li>
-            <a class="menu-link"
-              href="{% url "spirit:topic:notification:index-unread" %}"
-            >{% trans "Unread notifications" %}</a>
-          </li>
+        <ul class="menu_list">
+          <li><a
+            class="menu_list__link"
+            href="{% url "spirit:topic:notification:index" %}"
+            >{% trans "Notifications" %}</a></li>
+          <li><a
+            class="menu_list__link"
+            href="{% url "spirit:topic:notification:index-unread" %}"
+            >{% trans "Unread notifications" %}</a></li>
         </ul>
       {% endspaceless %}
     </div>

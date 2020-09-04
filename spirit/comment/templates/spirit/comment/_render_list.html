@@ -36,7 +36,7 @@
   </div>
   {% else %}
   <div
-    class="comments_list__comment"
+    class="comments_list__comment js-comment"
     id="c{{forloop.counter0|add:comments.start_index }}"
     data-number="{{ forloop.counter0|add:comments.start_index }}"
     data-pk="{{ c.pk }}"

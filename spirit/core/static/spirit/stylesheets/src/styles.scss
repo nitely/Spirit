@@ -286,6 +286,10 @@
       border: $lighter-grey 1px solid;
     }
   }
+.unread {
+  font-size: rem(14px);
+  background-color: $light-blue;
+}
 // Base_end
 // Topics_start
 .layout__menu {
