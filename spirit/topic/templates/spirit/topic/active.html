@@ -5,11 +5,11 @@
 {% block title %}{% trans "Latest active topics" %}{% endblock %}
 
 {% block content %}
+  <div class="layout__article">
+    {% include "spirit/topic/_top_bar.html" with category=None categories=categories %}
 
-  {% include "spirit/topic/_top_bar.html" with category=None categories=categories %}
+    {% include "spirit/topic/_render_list.html" %}
 
-  {% include "spirit/topic/_render_list.html" %}
-
-  {% render_paginator topics %}
-
+    {% render_paginator topics %}
+  </div>
 {% endblock %}
