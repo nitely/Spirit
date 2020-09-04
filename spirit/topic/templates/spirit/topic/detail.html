@@ -5,176 +5,160 @@
 {% block title %}{{ topic.title }}{% endblock %}
 
 {% block content %}
+  <div class="layout__article">
+    {% spaceless %}
+      <ul class="breadcrumb_nav">
+        <li><a href="{% url "spirit:index" %}"
+        >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
+        {% if topic.category.parent_id %}
+          <li><a href="{{ topic.category.parent.get_absolute_url }}"
+          >{{ topic.category.parent.title }}</a
+          ><i class="fa fa-chevron-right"></i></li>
+        {% endif %}
+        <li><a href="{{ topic.category.get_absolute_url }}"
+        >{{ topic.category.title }}</a></li>
+      </ul>
+    {% endspaceless %}
 
-  {% spaceless %}
-    <ul class="nav">
-      <li>
-        <a href="{% url "spirit:index" %}" >{% trans "Main" %}</a>
-        <i class="fa fa-chevron-right"></i>
-      </li>
-
-      {% if topic.category.parent_id %}
-        <li>
-          <a href="{{ topic.category.parent.get_absolute_url }}">{{ topic.category.parent.title }}</a>
-          <i class="fa fa-chevron-right"></i>
-        </li>
+    <h1 class="headline">
+      {% if topic.is_pinned or topic.is_globally_pinned %}
+        <i class="fa fa-thumb-tack"></i>
+      {% endif %}
+      {% if topic.is_closed %}
+        <i class="fa fa-lock"></i>
       {% endif %}
 
-      <li>
-        <a href="{{ topic.category.get_absolute_url }}">{{ topic.category.title }}</a>
-      </li>
-    </ul>
-  {% endspaceless %}
+      {{ topic.title }}
 
-  <h1 class="headline">
-    {% if topic.is_pinned or topic.is_globally_pinned %}
-      <i class="fa fa-thumb-tack"></i>
-    {% endif %}
-    {% if topic.is_closed %}
-      <i class="fa fa-lock"></i>
-    {% endif %}
-
-    {{ topic.title }}
-
+      {% if user.st.is_moderator %}
+        <a class="head-edit-link"
+           href="{% url "spirit:topic:update" topic.pk %}"
+        ><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
+        {% elif user.pk == topic.user.pk and not topic.is_closed %}
+        <a class="head-edit-link"
+           href="{% url "spirit:topic:update" topic.pk %}"
+        ><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
+      {% endif %}
+    </h1>
     {% if user.st.is_moderator %}
-      <a class="head-edit-link"
-        href="{% url "spirit:topic:update" topic.pk %}"
-      ><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
-      {% elif user.pk == topic.user.pk and not topic.is_closed %}
-      <a class="head-edit-link"
-        href="{% url "spirit:topic:update" topic.pk %}"
-      ><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
-    {% endif %}
-  </h1>
-
-  {% if user.st.is_moderator %}
-    <div class="topic-moderation js-tabs-container">
-      {% spaceless %}
-        <a class="dropdown-button js-tab" href="#" data-related=".js-mod-content">
-          <i class="fa fa-cogs"></i>
-        </a>
-
-        <div class="tab-content js-tab-content js-mod-content">
-          <ul class="menu">
-            <li>
-              <a class="menu-link js-show-move-comments" href="#">
-                <i class="fa fa-comments"></i> {% trans "Select comments to move" %}</a>
-            </li>
-
+    <div class="layout__menu">
+      <div class="menu__dropdown js-tabs-container">
+        <div class="menu__dropdown_button">
+          <a class="dropdown_button js-tab" href="#" data-related=".js-mod-content"
+          >{% trans "Moderate" %} <i class="fa fa-chevron-down"></i></a>
+        </div>
+        <div class="menu_list_wrapper js-tab-content js-mod-content" style="display: none;">
+          {% spaceless %}
+          <ul class="menu_list">
+            <li><a class="menu_list__link js-show-move-comments" href="#"
+            ><i class="fa fa-comments"></i> {% trans "Select comments to move" %}</a></li>
             {% if topic.is_removed %}
-              <li>
-                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:undelete" topic.pk %}">
-                  <i class="fa fa-trash-o"></i> {% trans "Undelete topic" %}</a>
-              </li>
+              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:undelete" topic.pk %}"
+              ><i class="fa fa-trash-o"></i> {% trans "Undelete topic" %}</a></li>
             {% else %}
-              <li>
-                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:delete" topic.pk %}">
-                  <i class="fa fa-trash-o"></i> {% trans "Delete topic" %}</a>
-              </li>
+              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:delete" topic.pk %}"
+              ><i class="fa fa-trash-o"></i> {% trans "Delete topic" %}</a></li>
             {% endif %}
-
             {% if topic.is_closed %}
-              <li>
-                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:unlock" topic.pk %}">
-                  <i class="fa fa-unlock"></i> {% trans "Open topic" %}</a>
-              </li>
+              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:unlock" topic.pk %}"
+              ><i class="fa fa-unlock"></i> {% trans "Open topic" %}</a></li>
             {% else %}
-              <li>
-                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:lock" topic.pk %}">
-                  <i class="fa fa-lock"></i> {% trans "Close topic" %}</a>
-              </li>
+              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:lock" topic.pk %}"
+              ><i class="fa fa-lock"></i> {% trans "Close topic" %}</a></li>
             {% endif %}
-
             {% if topic.is_pinned %}
-              <li>
-                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:unpin" topic.pk %}">
-                  <i class="fa fa-thumb-tack"></i> {% trans "Unpin topic" %}</a>
-              </li>
+              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:unpin" topic.pk %}"
+              ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic" %}</a></li>
             {% else %}
-              <li>
-                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:pin" topic.pk %}">
-                  <i class="fa fa-thumb-tack"></i> {% trans "Pin topic" %}</a>
-              </li>
+              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:pin" topic.pk %}"
+              ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic" %}</a></li>
             {% endif %}
-
             {% if topic.is_globally_pinned %}
-              <li>
-                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:global-unpin" topic.pk %}">
-                  <i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a>
-              </li>
+              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:global-unpin" topic.pk %}"
+              ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a></li>
             {% else %}
-              <li>
-                <a class="menu-link js-post" href="{% url "spirit:topic:moderate:global-pin" topic.pk %}">
-                  <i class="fa fa-thumb-tack"></i> {% trans "Pin topic globally" %}</a>
-              </li>
+              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:global-pin" topic.pk %}"
+              ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic globally" %}</a></li>
             {% endif %}
           </ul>
+          {% endspaceless %}
         </div>
-      {% endspaceless %}
-    </div>
-
-
-    <div class="move-comments" style="display:none;">
-      <div class="move-container">
-        {% spaceless %}
-          <label class="move-label">{% trans "Topic id" %}:</label>
-          <div class="move-input">
-            <input id="id_move_comments_topic" name="topic" type="text" value="" />
-          </div>
-          <a class="move-link js-move-comments" href="#move_to">{% trans "Move" %}</a>
-        {% endspaceless %}
       </div>
     </div>
-  {% endif %}
+    {% endif %}
 
-  {% include "spirit/comment/_render_list.html" %}
+    {% include "spirit/comment/_render_list.html" %}
 
-  <div class="container">
-    {% render_paginator page=comments %}
-
-    <div class="notify">
-      {% if user.is_authenticated %}
-        {% render_notification_form user=user topic=topic %}
-      {% elif not topic.is_closed %}
-        <a class="button" href="{% url "spirit:comment:publish" topic_id=topic.pk %}">{% trans "Reply" %}</a>
-      {% endif %}
+    <div class="comments__footer_menu">
+      <div class="comments__footer_menu__paginator">
+        {% render_paginator page=comments %}
+      </div>
+      <div class="comments__footer_menu__notify">
+        {% if user.is_authenticated %}
+          {% render_notification_form user=user topic=topic %}
+        {% elif not topic.is_closed %}
+          <a
+            class="button"
+            href="{% url "spirit:comment:publish" topic_id=topic.pk %}"
+          >{% trans "Reply" %}</a>
+        {% endif %}
+      </div>
     </div>
-  </div>
 
-  {% if user.is_authenticated %}
-    {% if not topic.is_closed %}
-      <div id="reply" class="reply">
-
-        <div class="comment-media">
-          <div class="comment-img">
-            <img class="comment-avatar" src="{% get_gravatar_url user=user size=50 %}" />
+    {% if user.st.is_moderator %}
+      <div class="comments__move" style="display:none;">
+        <form action="#" method="post">
+          <div class="field">
+            <label for="id_user">Move selected comments to:</label>
+            <input type="text" name="user" placeholder="topic ID" required="" id="id_user">
           </div>
+          <input class="button" type="submit" value="Move">
+        </form>
+      </div>
+    {% endif %}
 
-          <div class="comment-body">
+    {% if user.is_authenticated %}
+      {% if not topic.is_closed %}
+        <div id="reply" class="comments__reply">
+          <div class="comments__reply__img">
+            <img
+              alt="image"
+              class="comment__img__avatar"
+              src="{% get_gravatar_url user=user size=50 %}" />
+          </div>
+          <div class="comment__reply__info">
+            <a
+              class="comment__reply__info__link"
+              href="{{ user.st.get_absolute_url }}"
+            >{{ user.st.nickname }}</a>
+            <div class="comment__reply__info__realname">
+              {{ user.get_full_name }}
+            </div>
+          </div>
+          <div class="comment__reply__text">
             {% render_comments_form topic=topic %}
           </div>
         </div>
+      {% endif %}
 
-      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+          stModules.bookmark(document.querySelectorAll('.comment'), {
+            csrfToken: "{{ csrf_token }}",
+            target: "{% url "spirit:comment:bookmark:create" topic.pk %}"
+          });
+
+          {% if user.st.is_moderator %}
+            stModules.moveComments(document.querySelectorAll('.js-show-move-comments'), {
+              csrfToken: "{{ csrf_token }}",
+              target: "{% url "spirit:comment:move" topic.pk %}"
+            } );
+          {% endif %}
+
+        });
+      </script>
     {% endif %}
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-
-        stModules.bookmark(document.querySelectorAll('.comment'), {
-          csrfToken: "{{ csrf_token }}",
-          target: "{% url "spirit:comment:bookmark:create" topic.pk %}"
-        });
-
-        {% if user.st.is_moderator %}
-          stModules.moveComments(document.querySelectorAll('.js-show-move-comments'), {
-            csrfToken: "{{ csrf_token }}",
-            target: "{% url "spirit:comment:move" topic.pk %}"
-          } );
-        {% endif %}
-
-      });
-    </script>
-  {% endif %}
-
+  </div>
 {% endblock %}
