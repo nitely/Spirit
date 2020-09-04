@@ -1,46 +1,47 @@
 {% load i18n %}
 
-<div class="container">
-  <div class="categories js-tabs-container">
-    {% if category %}
-      <a class="dropdown-button js-tab"
-        href="#"
-        data-related=".js-categories-content"
-      >{{ category.title }} <i class="fa fa-chevron-down"></i></a>
-    {% else %}
-      <a class="dropdown-button js-tab"
-        href="#"
-        data-related=".js-categories-content"
-      >{% trans "All Categories" %} <i class="fa fa-chevron-down"></i></a>
-    {% endif %}
-
-    <div class="tab-content js-tab-content js-categories-content">
+<div class="layout__menu">
+  <div class="menu__dropdown js-tabs-container">
+    <div class="menu__dropdown_button">
+      {% if category %}
+        <a
+          class="dropdown_button js-tab"
+          href="#"
+          data-related=".js-categories-content"
+        >{{ category.title }} <i class="fa fa-chevron-down"></i></a>
+      {% else %}
+        <a
+          class="dropdown_button js-tab"
+          href="#"
+          data-related=".js-categories-content"
+        >{% trans "All Categories" %} <i class="fa fa-chevron-down"></i></a>
+      {% endif %}
+    </div>
+    <div class="menu_list_wrapper js-tab-content js-categories-content" style="display: none;">
       {% spaceless %}
-        <ul class="menu">
+        <ul class="menu_list">
           {% for c in categories %}
-            <li>
-              <a class="menu-link" href="{{ c.get_absolute_url }}" >{{ c.title }}</a>
-            </li>
+            <li><a class="menu_list__link" href="{{ c.get_absolute_url }}"
+            >{{ c.title }}</a></li>
           {% endfor %}
           {% if category.parent %}
-            <li>
-              <a class="menu-link" href="{{ category.parent.get_absolute_url }}">{% trans "All Subcategories" %}</a>
-            </li>
+            <li><a class="menu_list__link" href="{{ category.parent.get_absolute_url }}"
+            >{% trans "All Subcategories" %}</a></li>
           {% else %}
-            <li>
-              <a class="menu-link" href="{% url "spirit:topic:index-active" %}">{% trans "All Categories" %}</a>
-            </li>
+            <li><a class="menu_list__link" href="{% url "spirit:topic:index-active" %}"
+            >{% trans "All Categories" %}</a></li>
           {% endif %}
         </ul>
       {% endspaceless %}
     </div>
   </div>
-
-  <div class="new-topic">
+  <div class="menu__new_topic">
     {% if category %}
-      <a class="button" href="{% url "spirit:topic:publish" category.pk %}">{% trans "Create Topic" %}</a>
+      <a class="button" href="{% url "spirit:topic:publish" category.pk %}"
+      >{% trans "Create Topic" %}</a>
     {% else %}
-      <a class="button" href="{% url "spirit:topic:publish" %}">{% trans "Create Topic" %}</a>
+      <a class="button" href="{% url "spirit:topic:publish" %}"
+      >{% trans "Create Topic" %}</a>
     {% endif %}
   </div>
 </div>

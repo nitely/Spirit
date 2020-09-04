@@ -5,26 +5,21 @@
 {% block title %}{% trans "Search" %}{% endblock %}
 
 {% block content %}
-
-  {% if not query %}
-    <h1 class="headline">{% trans "Search" %}</h1>
-
-    <form method="get" action="{% url "spirit:search:search" %}">
-      {% include "spirit/_form.html" %}
-
-      <input class="button" type="submit" value="{% trans "Search" %}" />
-    </form>
-
-  {% else %}
-    <h1 class="headline">{% trans "Results" %}</h1>
-
-    {% if page %}
-      {% include "spirit/search/_render_list.html" with topics=page %}
-      {% render_paginator page %}
+  <div class="layout__article">
+    {% if not query %}
+      <h1 class="headline">{% trans "Search" %}</h1>
+      <form method="get" action="{% url "spirit:search:search" %}">
+        {% include "spirit/_form.html" %}
+        <input class="button" type="submit" value="{% trans "Search" %}" />
+      </form>
     {% else %}
-      <p>{% trans "There are no search results." %}</p>
+      <h1 class="headline">{% trans "Results" %}</h1>
+      {% if page %}
+        {% include "spirit/search/_render_list.html" with topics=page %}
+        {% render_paginator page %}
+      {% else %}
+        <p>{% trans "There are no search results." %}</p>
+      {% endif %}
     {% endif %}
-
-  {% endif %}
-
+  </div>
 {% endblock %}

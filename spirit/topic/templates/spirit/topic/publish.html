@@ -16,25 +16,27 @@
 {% endblock %}
 
 {% block content %}
+  <div class="layout__article">
+    <h1 class="headline">{% trans "Publish topic" %}</h1>
 
-  <h1 class="headline">{% trans "Publish topic" %}</h1>
+    <form action="." method="post" class="js-reply">
+      {% csrf_token %}
 
-  <form action="." method="post" class="js-reply">
-    {% csrf_token %}
+      {# topic #}
+      {% include "spirit/_form.html" %}
 
-    {# topic #}
-    {% include "spirit/_form.html" %}
-
-    {# comment #}
-    <div class="topic-publish-comment">
-      {% include "spirit/_form.html" with form=cform %}
-    </div>
-
-    <div class="container">
-      {% include "spirit/comment/_editor.html" %}
-
-      <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
-    </div>
-  </form>
-
+      {# comment #}
+      <div class="topic_publish_comment">
+        {% include "spirit/_form.html" with form=cform %}
+        {% include "spirit/comment/_editor_preview.html" %}
+      </div>
+      <div class="comment__reply__actions">
+        {% include "spirit/comment/_editor.html" %}
+        <input
+          class="button comment__reply__actions__publish"
+          type="submit"
+          value="{% trans "Publish" %}" />
+      </div>
+    </form>
+  </div>
 {% endblock %}

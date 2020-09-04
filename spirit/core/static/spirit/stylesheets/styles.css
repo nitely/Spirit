@@ -6934,12 +6934,16 @@ input[type="submit"].button,
   .paginator__button a {
     display: block;
     padding: 4px 12px;
-    border: #cecece 1px solid; }
+    border: #ececec 1px solid; }
 
 @media screen and (min-width: 768px) {
   .menu__new_topic {
     flex: none;
     margin-left: auto; } }
+
+.layout__list,
+.layout__topics {
+  margin-bottom: 24px; }
 
 .layout__list__item,
 .layout__topics__topic {

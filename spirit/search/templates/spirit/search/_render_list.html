@@ -1,26 +1,20 @@
 {% load spirit_tags i18n %}
 
-<div class="rows">
-
+<div class="layout__topics">
   {% for t in topics %}
-    <div class="row">
-
-      <div class="row-title">
-        <a class="row-link" href="{% url 'spirit:topic:detail' pk=t.pk slug=t.fields.slug %}">
-          {{ t.fields.title }}
-        </a>
+    <div class="layout__topics__topic">
+      <div class="topic__title">
+        <a
+          class="topic__link"
+          href="{% url 'spirit:topic:detail' pk=t.pk slug=t.fields.slug %}"
+        >{{ t.fields.title }}</a>
       </div>
-      <div class="row-info">
-        {% spaceless %}
-          <div>{{ t.fields.main_category_name }}</div>
-          <div><i class="fa fa-comment"></i> {{ t.fields.comment_count }}</div>
-          <div title="{{ t.fields.last_active }}">
-            <i class="fa fa-clock-o"></i> {{ t.fields.last_active|shortnaturaltime }}
-          </div>
-        {% endspaceless %}
-      </div>
-
+      <div class="topic__category"
+      >{{ t.fields.main_category_name }}</div>
+      <div class="topic__comments"
+      ><i class="fa fa-comment"></i> {{ t.fields.comment_count }}</div>
+      <div class="topic__date" title="{{ t.fields.last_active }}"
+      ><i class="fa fa-clock-o"></i> {{ t.fields.last_active|shortnaturaltime }}</div>
     </div>
   {% endfor %}
-
 </div>
