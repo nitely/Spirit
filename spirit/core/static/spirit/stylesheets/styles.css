@@ -6664,7 +6664,8 @@ h2 {
   margin-bottom: 12px; }
 
 .headline, .header__tab__bell ul li, .paginator__pages, .layout__list__item__title,
-.topic__title, .comment__info__username__realname, .comment__text, .comment__reply__info__realname, .admin__items_list__item__title, .admin__statistics__box {
+.topic__title, .comment__info__username__realname, .comment__text, .comment__reply__info__realname, .layout__list__item__title_action,
+.admin__items_list__item__title, .admin__statistics__box {
   overflow: hidden;
   word-break: break-word;
   overflow-wrap: anywhere; }
@@ -6937,7 +6938,7 @@ input[type="submit"].button,
     border: #ececec 1px solid; }
 
 .unread {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   background-color: #e2f5fc; }
 
 @media screen and (min-width: 768px) {
@@ -7297,10 +7298,12 @@ input.comments__move_checkbox {
   .admin__items_list__item:last-child {
     border-bottom: #ececec 1px solid; }
 
+.layout__list__item__title_action,
 .admin__items_list__item__title {
   flex: 1;
   margin-right: 12px; }
 
+.layout__list__item__action,
 .admin__items_list__item__action {
   flex: none; }
 

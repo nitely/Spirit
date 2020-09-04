@@ -22,7 +22,7 @@
             data-related=".js-participants-content"
           >{% trans "Participants" %} <i class="fa fa-chevron-down"></i></a>
         </div>
-        <div class="menu_list_wrapper js-tab-content js-participants-content">
+        <div class="menu_list_wrapper js-tab-content js-participants-content" style="display: none;">
           <ul class="menu_list">
             {% spaceless %}
               {% for tp in topic.topics_private.all %}
@@ -42,12 +42,12 @@
             {% endspaceless %}
           </ul>
         </div>
-        <div class="menu__new_topic">
-          <a
-            class="button"
-            href="{% url "spirit:topic:private:access-remove" topic_private.pk %}"
-          ><i class="fa fa-times"></i> {% trans "Leave topic" %}</a>
-        </div>
+      </div>
+      <div class="menu__new_topic">
+        <a
+          class="button js-post"
+          href="{% url "spirit:topic:private:access-remove" topic_private.pk %}"
+        ><i class="fa fa-times"></i> {% trans "Leave topic" %}</a>
       </div>
     </div>
 
