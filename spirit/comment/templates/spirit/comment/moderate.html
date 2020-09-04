@@ -5,7 +5,7 @@
 {% block title %}{% trans "Moderate comment" %}{% endblock %}
 
 {% block content %}
-
+<div class="layout__article">
   <h1 class="headline">{% trans "Moderate comment" %}</h1>
 
   <form action="." method="post">
@@ -13,5 +13,5 @@
 
     <input class="button" type="submit" name="post" value="{% trans "Apply" %}" />
   </form>
-
+</div>
 {% endblock %}

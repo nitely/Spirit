@@ -40,11 +40,11 @@
 </head>
 
 <body>
-
-{% include 'spirit/_header.html' %}
-{% block content %}{% endblock %}
-{% include 'spirit/_footer.html' %}
-
+  <div class="layout">
+    {% include 'spirit/_header.html' %}
+    {% block content %}{% endblock %}
+    {% include 'spirit/_footer.html' %}
+  </div>
 </body>
 
 </html>

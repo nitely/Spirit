@@ -5,7 +5,7 @@
 {% block title %}{% trans "Publish comment" %}{% endblock %}
 
 {% block content %}
-
+<div class="layout__article">
   <h1 class="headline">{% trans "Publishing comment on" %} "{{ topic.title }}"</h1>
 
   <form action="." method="post" class="js-reply">
@@ -18,5 +18,5 @@
       <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
     </div>
   </form>
-
+</div>
 {% endblock %}
