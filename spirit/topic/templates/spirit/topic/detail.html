@@ -144,7 +144,7 @@
       <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-          stModules.bookmark(document.querySelectorAll('.comment'), {
+          stModules.bookmark(document.querySelectorAll('.js-comment'), {
             csrfToken: "{{ csrf_token }}",
             target: "{% url "spirit:comment:bookmark:create" topic.pk %}"
           });

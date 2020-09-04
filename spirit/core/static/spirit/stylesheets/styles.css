@@ -6936,6 +6936,10 @@ input[type="submit"].button,
     padding: 4px 12px;
     border: #ececec 1px solid; }
 
+.unread {
+  font-size: 0.875rem;
+  background-color: #e2f5fc; }
+
 @media screen and (min-width: 768px) {
   .menu__new_topic {
     flex: none;

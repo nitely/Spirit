@@ -100,7 +100,7 @@
           });
           if (!n.is_read) {
             unreadElm = document.createElement('span');
-            unreadElm.className = 'row-unread';
+            unreadElm.className = 'unread';
             unreadElm.innerHTML = _this.options.unread;
             txtElm.innerHTML += " ";
             txtElm.appendChild(unreadElm);
