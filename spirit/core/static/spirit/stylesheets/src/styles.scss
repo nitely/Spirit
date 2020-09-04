@@ -747,11 +747,13 @@
         border-bottom: $lighter-grey 1px solid;
       }
     }
+      .layout__list__item__title_action,
       .admin__items_list__item__title {
         @extend %break-words;
         flex: 1;
         margin-right: $space-half;
       }
+      .layout__list__item__action,
       .admin__items_list__item__action {
         flex: none;
       }
