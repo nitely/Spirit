@@ -10,12 +10,16 @@
 
   <form action="." method="post" class="js-reply">
     {% csrf_token %}
-    {% include "spirit/_form.html" %}
-
-    <div class="container">
+    <div class="topic_publish_comment">
+      {% include "spirit/_form.html" %}
+      {% include "spirit/comment/_editor_preview.html" %}
+    </div>
+    <div class="comment__reply__actions">
       {% include "spirit/comment/_editor.html" %}
-
-      <input class="button reply-button" type="submit" value="{% trans "Publish" %}" />
+      <input
+        class="button comment__reply__actions__publish"
+        type="submit"
+        value="{% trans "Publish" %}" />
     </div>
   </form>
 </div>

@@ -57,7 +57,7 @@
     };
 
     Tab.prototype.showTabContent = function() {
-      return this.containerElm.querySelector(this.el.dataset.related).style.display = 'block';
+      return this.containerElm.querySelector(this.el.dataset.related).style.removeProperty('display');
     };
 
     return Tab;

@@ -4,16 +4,15 @@
   {% csrf_token %}
   {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
 
-  <div class="topic_publish_comment">
-    {{ form.non_field_errors }}
+  {{ form.non_field_errors }}
 
-    {% for field in form %}
-      {{ field.errors }}
-      {{ field }}
-    {% endfor %}
+  {% for field in form %}
+    {{ field.errors }}
+    {{ field }}
+  {% endfor %}
 
-    {% include "spirit/comment/_editor_preview.html" %}
-  </div>
+  {% include "spirit/comment/_editor_preview.html" %}
+
   <div class="comment__reply__actions">
     {% include "spirit/comment/_editor.html" %}
 
