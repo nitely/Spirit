@@ -7132,6 +7132,13 @@ input[type="submit"].button,
     list-style-type: decimal; }
   .comment__text img {
     vertical-align: text-bottom; }
+    @media screen and (min-width: 768px) {
+      .comment__text img {
+        max-width: 500px; } }
+  .comment__text .img,
+  .comment__text .img_block {
+    display: inline-block;
+    max-width: 500px; }
   .comment__text a {
     text-decoration: underline; }
     .comment__text a.comment-mention {

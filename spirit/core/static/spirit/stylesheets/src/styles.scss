@@ -526,6 +526,15 @@
       }
       img {
         vertical-align: text-bottom;
+        // backward compat
+        @media #{$medium} {
+          max-width: 500px;
+        }
+      }
+      .img,
+      .img_block{
+        display: inline-block;
+        max-width: 500px;
       }
       a {
         text-decoration: underline;

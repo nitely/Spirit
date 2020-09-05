@@ -193,19 +193,20 @@ class UtilsMarkdownTests(TestCase):
         self.assertListEqual(
             comment_md.splitlines(),
             [
-                '<p><img src="http://foo.bar/image.png" alt="image" title="image"></p>',
-                '<p><img src="http://www.foo.bar.fb/path/image.png" alt="image" title="image"></p>',
-                '<p><img src="https://foo.bar/image.png" alt="image" title="image"></p>',
+                '<p><span class="img_block"><img src="http://foo.bar/image.png" alt="image" title="image"></span></p>',
+                '<p><span class="img_block"><img src="http://www.foo.bar.fb/path/image.png" alt="image" title="image"></span></p>',
+                '<p><span class="img_block"><img src="https://foo.bar/image.png" alt="image" title="image"></span></p>',
 
                 # auto-link
                 '<p>bad <a rel="nofollow" href="http://foo.bar/image.png">http://foo.bar/image.png</a><br>',
                 '<a rel="nofollow" href="http://foo.bar/image.png">http://foo.bar/image.png</a> bad<br>',
                 '<a rel="nofollow" href="http://bad.png">http://bad.png</a><br>',
                 '<a rel="nofollow" href="http://foo.bar/.png">http://foo.bar/.png</a><br>',
-                '<img src="http://foo.bar/not_imagified.png" alt="im"><br>',
+                '<span class="img"><img src="http://foo.bar/not_imagified.png" alt="im"></span><br>',
                 'foo.bar/bad.png</p>',
 
-                '<p><img src="http://foo.bar/&lt;escaped&gt;.png" alt="&lt;escaped&gt;" title="&lt;escaped&gt;"></p>'
+                '<p><span class="img_block"><img src="http://foo.bar/&lt;escaped&gt;.png" '
+                'alt="&lt;escaped&gt;" title="&lt;escaped&gt;"></span></p>'
             ]
         )
 
@@ -911,7 +912,7 @@ class UtilsMarkdownTests(TestCase):
             # Image
             self.assertEqual(
                 Markdown().render('![atk](%s)' % vector),
-                '<p><img src="%s" alt="atk"></p>' % expected)
+                '<p><span class="img"><img src="%s" alt="atk"></span></p>' % expected)
             # Link
             self.assertEqual(
                 Markdown().render('[atk](%s)' % vector),

@@ -73,7 +73,7 @@ class Renderer(mistune.Renderer):
         return '<a href="%s" title="%s">%s</a>' % (link, title, text)
 
     # Override
-    def image(self, src, title, text):
+    def _image(self, src, title, text):
         src = sanitize_url(src)
         text = escape(text)
 
@@ -87,6 +87,10 @@ class Renderer(mistune.Renderer):
             return '%s />' % html
 
         return '%s>' % html
+
+    def image(self, src, title, text):
+        image = self._image(src, title, text)
+        return '<span class="img">{image}</span>'.format(image=image)
 
     def emoji(self, name_class, name_raw):
         return (
@@ -116,8 +120,8 @@ class Renderer(mistune.Renderer):
             .format(link=link))
 
     def image_link(self, src, title, text):
-        image = self.image(src, title, text)
-        return '<p>{image}</p>\n'.format(image=image)
+        image = self._image(src, title, text)
+        return '<p><span class="img_block">{image}</span></p>\n'.format(image=image)
 
     def video_link(self, link):
         link = sanitize_url(link)
