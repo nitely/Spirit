@@ -125,17 +125,25 @@
         }
       }
       .header__tab__bell {
+        @extend %break-words;
         flex: 1;
+        @media #{$medium} {
+          flex: initial;
+          margin-left: auto;
+        }
+        // same as menu_list
         ul {
           display: flex;
           flex-direction: column;
           li {
-            @extend %break-words;
             background-color: $lightest-grey;
-            padding: 0 $half-spacing-size;
             margin-bottom: $quarter-spacing-size;
             &:last-child {
               margin-bottom: 0;
+            }
+            a {
+              display: block;
+              padding: 0 $half-spacing-size;
             }
           }
         }

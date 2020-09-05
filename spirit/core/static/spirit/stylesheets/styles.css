@@ -6663,7 +6663,7 @@ h2 {
   margin: 0;
   margin-bottom: 12px; }
 
-.headline, .header__tab__bell ul li, .paginator__pages, .layout__list__item__title,
+.headline, .header__tab__bell, .paginator__pages, .layout__list__item__title,
 .topic__title, .comment__info__username__realname, .comment__text, .comment__reply__info__realname, .layout__list__item__title_action,
 .admin__items_list__item__title, .admin__statistics__box {
   overflow: hidden;
@@ -6805,15 +6805,21 @@ input[type="submit"].button,
 
 .header__tab__bell {
   flex: 1; }
+  @media screen and (min-width: 768px) {
+    .header__tab__bell {
+      flex: initial;
+      margin-left: auto; } }
   .header__tab__bell ul {
     display: flex;
     flex-direction: column; }
     .header__tab__bell ul li {
       background-color: #f6f6f6;
-      padding: 0 12px;
       margin-bottom: 6px; }
       .header__tab__bell ul li:last-child {
         margin-bottom: 0; }
+      .header__tab__bell ul li a {
+        display: block;
+        padding: 0 12px; }
 
 .header__tab__search {
   flex: 1; }
