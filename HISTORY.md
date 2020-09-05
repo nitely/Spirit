@@ -2,6 +2,12 @@
 ==================
 
 * Added Kyrgyz translation (thanks to @jumasheff)
+* Added `django.contrib.humanize` to `INSTALLED_APPS`
+* Fixed user comment reply button
+* Fixed paginator current page button (issue #168)
+* Fixed ordered list style in comment (issue #134)
+* Revamped UI; Internet Explorer Browser is no longer
+  supported
 
 0.8.0
 ==================
