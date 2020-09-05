@@ -106,14 +106,15 @@
     </div>
 
     {% if user.st.is_moderator %}
-      <div class="comments__move" style="display:none;">
-        <form action="#" method="post">
-          <div class="field">
-            <label for="id_user">Move selected comments to:</label>
-            <input type="text" name="user" placeholder="topic ID" required="" id="id_user">
-          </div>
-          <input class="button" type="submit" value="Move">
-        </form>
+      <div class="comments__move js-move-comments-form" style="display:none;">
+        <div class="field">
+          <label for="id_move_comments_topic">{% trans "Move selected comments to" %}:</label>
+          <input id="id_move_comments_topic" name="topic" type="text" value="" placeholder="Topic ID" />
+        </div>
+        <input
+          class="button js-move-comments-button"
+          type="submit"
+          value="{% trans "Move" %}">
       </div>
     {% endif %}
 

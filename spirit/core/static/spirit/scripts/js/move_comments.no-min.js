@@ -17,13 +17,13 @@
       this.show = bind(this.show, this);
       this.isHidden = bind(this.isHidden, this);
       this.moveComments = bind(this.moveComments, this);
-      this.el = document.querySelector('.move-comments');
+      this.el = document.querySelector('.js-move-comments-form');
       this.options = Object.assign({}, this.defaults, options);
       this.setUp();
     }
 
     MoveCommentBox.prototype.setUp = function() {
-      return this.el.querySelector('.js-move-comments').addEventListener('click', this.moveComments);
+      return this.el.querySelector('.js-move-comments-button').addEventListener('click', this.moveComments);
     };
 
     MoveCommentBox.prototype.moveComments = function(e) {
@@ -46,7 +46,7 @@
       inputTopicIdElm.type = 'text';
       inputTopicIdElm.value = this.el.querySelector('#id_move_comments_topic').value;
       formElm.appendChild(inputTopicIdElm);
-      Array.from(document.querySelectorAll('.move-comment-checkbox')).forEach(function(elm) {
+      Array.from(document.querySelectorAll('.js-move-comment-checkbox')).forEach(function(elm) {
         return formElm.appendChild(elm.cloneNode(false));
       });
       formElm.submit();
@@ -87,15 +87,15 @@
     };
 
     MoveComment.prototype.addCommentSelection = function() {
-      return Array.from(document.querySelectorAll('.comment-date')).forEach(function(elm) {
+      return Array.from(document.querySelectorAll('.js-move-comment-checkbox-list')).forEach(function(elm) {
         var inputCheckboxElm, liElm;
         liElm = document.createElement('li');
         elm.appendChild(liElm);
         inputCheckboxElm = document.createElement('input');
-        inputCheckboxElm.className = 'move-comment-checkbox';
+        inputCheckboxElm.className = 'js-move-comment-checkbox';
         inputCheckboxElm.name = 'comments';
         inputCheckboxElm.type = 'checkbox';
-        inputCheckboxElm.value = elm.closest('.comment').dataset.pk;
+        inputCheckboxElm.value = elm.closest('.js-comment').dataset.pk;
         liElm.appendChild(inputCheckboxElm);
       });
     };

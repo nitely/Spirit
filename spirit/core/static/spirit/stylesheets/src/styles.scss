@@ -369,10 +369,6 @@
   .comments__move {
     margin-bottom: $space-full;
   }
-  input.comments__move_checkbox {
-    display: inline-block;
-    margin: 0;
-  }
 .breadcrumb_nav {
   display: flex;
   font-size: rem(14px);
@@ -479,6 +475,11 @@
           &:first-child {
             margin-left: 0;
           }
+        }
+        // move checkbox
+        input[type="checkbox"] {
+          display: inline-block;
+          margin: 0;
         }
       }
         .comment__info__date__topic {
