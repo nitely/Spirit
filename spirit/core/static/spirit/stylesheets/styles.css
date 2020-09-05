@@ -7122,11 +7122,14 @@ input[type="submit"].button,
     margin: 0;
     border-left: #cecece 4px solid;
     padding-left: 24px; }
+  .comment__text ol,
   .comment__text ul {
     list-style-type: disc;
     list-style-position: inside;
-    margin-left: 40px;
+    margin-left: 12px;
     margin-bottom: 1.5rem; }
+  .comment__text ol {
+    list-style-type: decimal; }
   .comment__text img {
     vertical-align: text-bottom; }
   .comment__text > *:last-child {
@@ -7300,6 +7303,14 @@ input[type="submit"].button,
 .comment__reply__actions__publish {
   flex: none;
   margin-left: auto; }
+
+ins.diff {
+  text-decoration: none;
+  background-color: #EAFFEA; }
+
+del.diff {
+  text-decoration: none;
+  background-color: #FFECEC; }
 
 .layout__admin {
   grid-area: ae; }
