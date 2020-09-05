@@ -92,19 +92,19 @@
           }
           linkElm = document.createElement('a');
           linkElm.setAttribute('href', n.url);
-          linkElm.textContent = n.title;
-          txtElm = document.createElement('li');
-          txtElm.innerHTML = utils.format(txt, {
+          linkElm.textContent = utils.format(txt, {
             user: n.user,
-            topic: linkElm.outerHTML
+            topic: n.title
           });
           if (!n.is_read) {
             unreadElm = document.createElement('span');
             unreadElm.className = 'unread';
             unreadElm.innerHTML = _this.options.unread;
-            txtElm.innerHTML += " ";
-            txtElm.appendChild(unreadElm);
+            linkElm.innerHTML += " ";
+            linkElm.appendChild(unreadElm);
           }
+          txtElm = document.createElement('li');
+          txtElm.innerHTML = linkElm.outerHTML;
           _this.NotificationsElm.appendChild(txtElm);
         };
       })(this));

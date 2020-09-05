@@ -81,19 +81,19 @@ class Notification
 
             linkElm = document.createElement('a')
             linkElm.setAttribute('href', n.url)
-            linkElm.textContent = n.title  # Untrusted
-
-            txtElm = document.createElement('li')
-            txtElm.innerHTML = utils.format(txt, {user: n.user, topic: linkElm.outerHTML})
+            # Untrusted input
+            linkElm.textContent = utils.format(txt, {user: n.user, topic: n.title})
 
             if not n.is_read
                 unreadElm = document.createElement('span')
                 unreadElm.className = 'unread'
                 unreadElm.innerHTML = @options.unread
 
-                txtElm.innerHTML += " "
-                txtElm.appendChild(unreadElm)
+                linkElm.innerHTML += " "
+                linkElm.appendChild(unreadElm)
 
+            txtElm = document.createElement('li')
+            txtElm.innerHTML = linkElm.outerHTML
             @NotificationsElm.appendChild(txtElm)
             return
         )
