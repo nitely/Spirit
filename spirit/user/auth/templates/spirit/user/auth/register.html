@@ -24,14 +24,14 @@
 {% endblock %}
 
 {% block content %}
+  <div class="layout__article">
+    <h1 class="headline">{% trans "Register" %}</h1>
 
-  <h1 class="headline">{% trans "Register" %}</h1>
+    <form action="." method="post">
+      {% csrf_token %}
+      {% include "spirit/_form.html" %}
 
-  <form action="." method="post">
-    {% csrf_token %}
-    {% include "spirit/_form.html" %}
-
-    <input class="button" type="submit" name="post" value="{% trans "Register" %}" />
-  </form>
-
+      <input class="button" type="submit" name="post" value="{% trans "Register" %}" />
+    </form>
+  </div>
 {% endblock %}
