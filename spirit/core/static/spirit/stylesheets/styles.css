@@ -6282,7 +6282,7 @@ dfn {
  * contexts in Firefox 4+, Safari 5, and Chrome.
  */
 h1 {
-  font-size: 2em;
+  font-size: 2rem;
   margin: 0.67em 0; }
 
 /**
@@ -6355,8 +6355,13 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
-  font-size: 1em; }
+  font-family: "Consolas","Menlo","Monaco","Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New","monospace","sans-serif";
+  font-size: 0.8125rem;
+  padding: 0 2px;
+  background-color: #f6f6f6; }
+
+pre {
+  padding: 6px 12px; }
 
 /* Forms
    ========================================================================== */
