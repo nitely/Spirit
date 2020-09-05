@@ -293,6 +293,10 @@
       padding: ($base-spacing-size / 6) $half-spacing-size;
       border: $lighter-grey 1px solid;
     }
+    span {
+      display: block;
+      padding: ($base-spacing-size / 6) $half-spacing-size;
+    }
   }
 .unread {
   font-size: rem(12px);
