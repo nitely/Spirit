@@ -6693,7 +6693,8 @@ input[type="submit"].button,
       padding: 0 12px; } }
 
 .headline {
-  font-weight: normal; }
+  font-weight: normal;
+  margin-bottom: 24px; }
 
 .field {
   font-size: 14px;
@@ -6991,6 +6992,9 @@ input[type="submit"].button,
 .topic_publish_comment .comment-text {
   min-height: 240px; }
 
+.topic_edit_link {
+  font-size: 0.875rem; }
+
 .layout__comments {
   grid-area: ae;
   display: flex;
@@ -7005,7 +7009,8 @@ input.comments__move_checkbox {
 
 .breadcrumb_nav {
   display: flex;
-  font-size: 0.875rem; }
+  font-size: 0.875rem;
+  margin-bottom: 24px; }
   .breadcrumb_nav li {
     margin-left: 12px; }
     .breadcrumb_nav li:first-child {
@@ -7283,6 +7288,9 @@ input.comments__move_checkbox {
 
 .layout__admin {
   grid-area: ae; }
+  .layout__admin .menu__dropdown,
+  .layout__admin .messages_info {
+    margin-bottom: 24px; }
 
 .admin__category_menu__new_category {
   flex: 1; }
@@ -7290,6 +7298,9 @@ input.comments__move_checkbox {
     .admin__category_menu__new_category {
       flex: none;
       margin-left: auto; } }
+
+.admin__items_list {
+  margin-bottom: 24px; }
 
 .admin__items_list__item {
   display: flex;

@@ -3,4 +3,5 @@
 .headline {
   @extend %break-words;
   font-weight: normal;
+  margin-bottom: $space-full;
 }
