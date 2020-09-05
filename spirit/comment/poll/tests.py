@@ -530,7 +530,7 @@ class CommentPollTemplateTagsTest(TestCase):
         self.assertNotEqual(out.strip(), "")
         self.assertFalse('show_poll=' in out)
         self.assertFalse('form' in out)
-        self.assertTrue('comment-poll' in out)
+        self.assertTrue('comment__text__poll' in out)
 
 
 class PollModelsTest(TestCase):
