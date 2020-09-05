@@ -1,148 +1,149 @@
 {% load spirit_tags i18n humanize %}
 
 <div class="comments_list">
-
   {% for c in comments %}
+  {% if c.action or c.is_removed %}
   <div
-    class="js-comment"
+    class="comments_list__item js-comment"
     id="c{{forloop.counter0|add:comments.start_index }}"
     data-number="{{ forloop.counter0|add:comments.start_index }}"
     data-pk="{{ c.pk }}"
   >
-    {% if c.action or c.is_removed %}
-    <div class="comments_list__item">
-      <div class="comments_list__item__badge">
-        <i class="fa fa-lock"></i>
-      </div>
-      <div class="comments_list__item__info">
-        <a
-          class="comments_list__item__username__link"
-          href="{{ c.user.st.get_absolute_url }}"
-        >{{ c.user.st.nickname }}</a>
-        <span>
+    <div class="comments_list__item__badge">
+      <i class="fa fa-lock"></i>
+    </div>
+    <div class="comments_list__item__info">
+      <a
+        class="comments_list__item__username__link"
+        href="{{ c.user.st.get_absolute_url }}"
+      >{{ c.user.st.nickname }}</a>
+      <span>
         {% if c.is_removed %}
           {% trans "comment deleted" %}
         {% else %}
           {% get_comment_action_text c.action %}
         {% endif %}
       </span>
-        <span title="{{ c.date }}">{{ c.date|naturaltime }}</span>
-        {% if c.is_removed and user.st.is_moderator %}
-          <a href="{% url "spirit:comment:undelete" c.pk %}"
-          ><i class="fa fa-times"></i> {% trans "undelete" %}</a>
-          <a href="#">{% trans "show" %} <i class="fa fa-chevron-down"></i></a>
-        {% endif %}
-      </div>
+      <span title="{{ c.date }}">{{ c.date|naturaltime }}</span>
       {% if c.is_removed and user.st.is_moderator %}
-        <div class="comments_list__item__comment" style="display: none;">
-          {% post_render_comment comment=c %}
-        </div>
+        <a href="{% url "spirit:comment:undelete" c.pk %}"
+        ><i class="fa fa-times"></i> {% trans "undelete" %}</a>
+        <a href="#">{% trans "show" %} <i class="fa fa-chevron-down"></i></a>
       {% endif %}
     </div>
-    {% else %}
-    <div class="comments_list__comment">
-      <div class="comment__img">
-        <img
-          class="comment__img__avatar"
-          alt="image"
-          src="{% get_gravatar_url user=c.user size=50 %}" />
-      </div>
-      <div class="comment__info">
-        <div class="comment__info__username">
-          <a
-            class="comment__info__username__link{% if c.user.st.is_administrator %} is-admin{% elif c.user.st.is_moderator %} is-mod{% endif %}"
-            href="{{ c.user.st.get_absolute_url }}"
-          >{{ c.user.st.nickname }}</a>
-          <div class="comment__info__username__realname">{{ c.user.get_full_name }}</div>
-        </div>
-        {% spaceless %}
-          <ul class="comment__info__date">
-            {% if c.modified_count > 0 %}
-              <li><a href="{% url "spirit:comment:history:detail" comment_id=c.pk %}"
-              ><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
-            {% endif %}
-            <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
-          </ul>
-        {% endspaceless %}
-      </div>
-      <div class="comment__text">
+    {% if c.is_removed and user.st.is_moderator %}
+      <div class="comments_list__item__comment" style="display: none;">
         {% post_render_comment comment=c %}
       </div>
-      <div class="comment__footer js-tabs-container">
-        {% spaceless %}
-        <ul class="comment__actions">
-          {% if user.is_authenticated %}
-            {% if user.st.is_moderator %}
-              <li><a href="{% url "spirit:comment:delete" c.pk %}"
-              ><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
-            {% endif %}
-
-            <li><a href="{% url "spirit:comment:flag:create" c.pk %}"
-            ><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
-          {% endif %}
-
-          <li><a class="js-tab" href="#" data-related=".js-share-{{ c.pk }}"
-          ><i class="fa fa-share"></i> {% trans "share" %}</a></li>
-
-          {% if user.is_authenticated %}
-          {% if c.like %}
-          <li class="comment-like"><a
-            class="js-like"
-            href="{% url "spirit:comment:like:delete" c.like.pk %}"
-            data-count="{{ c.likes_count }}"
-          ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
-          {% else %}
-          {% ifnotequal c.user user  %}
-          <li class="comment-like"><a
-            class="js-like like"
-            href="{% url "spirit:comment:like:create" c.pk %}"
-            data-count="{{ c.likes_count }}"
-          ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
-          {% else %}
-          <li class="comment-like"><i class="fa fa-heart"></i> ({{ c.likes_count }})</li>
-          {% endifnotequal %}
-          {% endif %}
-
-          {% if user.st.is_moderator or c.user.pk == user.pk %}
-            <li><a href="{% url "spirit:comment:update" pk=c.pk %}"
-            >{% trans "edit" %}</a></li>
-          {% endif %}
-
-          {% ifnotequal c.user.pk user.pk %}
-            <li><a href="{% url "spirit:comment:publish" topic_id=topic.pk pk=c.pk %}"
-            >{% trans "quote" %}</a></li>
-            <li><a href="#reply" class="js-reply-button" data="@{{ c.user.username }}"
-            >{% trans "reply" %}</a></li>
-          {% endifnotequal %}
-          {% endif %}
-        </ul>
-        {% endspaceless %}
-
-        <div class="comment__footer__share js-tab-content js-share-{{ c.pk }}" style="display: none;">
-          {% with comment_url=c.get_absolute_url %}
-            <input
-              class="comment__footer__share__url"
-              type="text"
-              value="{% get_share_url url=comment_url %}" />
-            {% spaceless %}
-              <ul class="comment__footer__share__menu">
-                <li><a href="{% get_twitter_share_url url=comment_url title=topic.title %}" target="_blank"
-                ><i class="fa fa-twitter"></i> Twitter</a></li>
-                <li><a href="{% get_facebook_share_url url=comment_url title=topic.title %}" target="_blank"
-                ><i class="fa fa-facebook"></i> Facebook</a></li>
-                <li><a href="{% get_email_share_url url=comment_url title=topic.title %}"
-                ><i class="fa fa-envelope"></i> Email</a></li>
-              </ul>
-            {% endspaceless %}
-          {% endwith %}
-        </div>
-      </div>
-
-    </div>
     {% endif %}
   </div>
-  {% endfor %}
+  {% else %}
+  <div
+    class="comments_list__comment js-comment"
+    id="c{{forloop.counter0|add:comments.start_index }}"
+    data-number="{{ forloop.counter0|add:comments.start_index }}"
+    data-pk="{{ c.pk }}"
+  >
+    <div class="comment__img">
+      <img
+        class="comment__img__avatar"
+        alt="image"
+        src="{% get_gravatar_url user=c.user size=50 %}" />
+    </div>
+    <div class="comment__info">
+      <div class="comment__info__username">
+        <a
+          class="comment__info__username__link{% if c.user.st.is_administrator %} is-admin{% elif c.user.st.is_moderator %} is-mod{% endif %}"
+          href="{{ c.user.st.get_absolute_url }}"
+        >{{ c.user.st.nickname }}</a>
+        <div class="comment__info__username__realname">{{ c.user.get_full_name }}</div>
+      </div>
+      {% spaceless %}
+        <ul class="comment__info__date js-move-comment-checkbox-list">
+          {% if c.modified_count > 0 %}
+            <li><a href="{% url "spirit:comment:history:detail" comment_id=c.pk %}"
+            ><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
+          {% endif %}
+          <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
+        </ul>
+      {% endspaceless %}
+    </div>
+    <div class="comment__text">
+      {% post_render_comment comment=c %}
+    </div>
+    <div class="comment__footer js-tabs-container">
+      {% spaceless %}
+      <ul class="comment__actions">
+        {% if user.is_authenticated %}
+          {% if user.st.is_moderator %}
+            <li><a href="{% url "spirit:comment:delete" c.pk %}"
+            ><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
+          {% endif %}
 
+          <li><a href="{% url "spirit:comment:flag:create" c.pk %}"
+          ><i class="fa fa-flag"></i> {% trans "report" %}</a></li>
+        {% endif %}
+
+        <li><a class="js-tab" href="#" data-related=".js-share-{{ c.pk }}"
+        ><i class="fa fa-share"></i> {% trans "share" %}</a></li>
+
+        {% if user.is_authenticated %}
+        {% if c.like %}
+        <li class="comment-like"><a
+          class="js-like"
+          href="{% url "spirit:comment:like:delete" c.like.pk %}"
+          data-count="{{ c.likes_count }}"
+        ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
+        {% else %}
+        {% ifnotequal c.user user  %}
+        <li class="comment-like"><a
+          class="js-like like"
+          href="{% url "spirit:comment:like:create" c.pk %}"
+          data-count="{{ c.likes_count }}"
+        ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
+        {% else %}
+        <li class="comment-like"><i class="fa fa-heart"></i> ({{ c.likes_count }})</li>
+        {% endifnotequal %}
+        {% endif %}
+
+        {% if user.st.is_moderator or c.user.pk == user.pk %}
+          <li><a href="{% url "spirit:comment:update" pk=c.pk %}"
+          >{% trans "edit" %}</a></li>
+        {% endif %}
+
+        {% ifnotequal c.user.pk user.pk %}
+          <li><a href="{% url "spirit:comment:publish" topic_id=topic.pk pk=c.pk %}"
+          >{% trans "quote" %}</a></li>
+          <li><a href="#reply" class="js-reply-button" data="@{{ c.user.username }}"
+          >{% trans "reply" %}</a></li>
+        {% endifnotequal %}
+        {% endif %}
+      </ul>
+      {% endspaceless %}
+
+      <div class="comment__footer__share js-tab-content js-share-{{ c.pk }}" style="display: none;">
+        {% with comment_url=c.get_absolute_url %}
+          <input
+            class="comment__footer__share__url"
+            type="text"
+            value="{% get_share_url url=comment_url %}" />
+          {% spaceless %}
+            <ul class="comment__footer__share__menu">
+              <li><a href="{% get_twitter_share_url url=comment_url title=topic.title %}" target="_blank"
+              ><i class="fa fa-twitter"></i> Twitter</a></li>
+              <li><a href="{% get_facebook_share_url url=comment_url title=topic.title %}" target="_blank"
+              ><i class="fa fa-facebook"></i> Facebook</a></li>
+              <li><a href="{% get_email_share_url url=comment_url title=topic.title %}"
+              ><i class="fa fa-envelope"></i> Email</a></li>
+            </ul>
+          {% endspaceless %}
+        {% endwith %}
+      </div>
+    </div>
+
+  </div>
+  {% endif %}
+  {% endfor %}
 </div>
 
 <script>

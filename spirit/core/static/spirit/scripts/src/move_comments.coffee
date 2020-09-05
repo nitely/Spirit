@@ -11,12 +11,14 @@ class MoveCommentBox
     }
 
     constructor: (options) ->
-        @el = document.querySelector('.move-comments')
+        @el = document.querySelector('.js-move-comments-form')
         @options = Object.assign({}, @defaults, options)
         @setUp()
 
     setUp: ->
-        @el.querySelector('.js-move-comments').addEventListener('click', @moveComments)
+        @el
+            .querySelector('.js-move-comments-button')
+            .addEventListener('click', @moveComments)
 
     moveComments: (e) =>
         e.preventDefault()
@@ -42,7 +44,7 @@ class MoveCommentBox
         formElm.appendChild(inputTopicIdElm)
 
         # Append all selection inputs
-        Array.from(document.querySelectorAll('.move-comment-checkbox')).forEach((elm) ->
+        Array.from(document.querySelectorAll('.js-move-comment-checkbox')).forEach((elm) ->
             formElm.appendChild(elm.cloneNode(false))
         )
 
@@ -79,15 +81,15 @@ class MoveComment
         return
 
     addCommentSelection: =>
-        Array.from(document.querySelectorAll('.comment-date')).forEach((elm) ->
+        Array.from(document.querySelectorAll('.js-move-comment-checkbox-list')).forEach((elm) ->
             liElm = document.createElement('li')
             elm.appendChild(liElm)
 
             inputCheckboxElm = document.createElement('input')
-            inputCheckboxElm.className = 'move-comment-checkbox'
+            inputCheckboxElm.className = 'js-move-comment-checkbox'
             inputCheckboxElm.name = 'comments'
             inputCheckboxElm.type = 'checkbox'
-            inputCheckboxElm.value = elm.closest('.comment').dataset.pk
+            inputCheckboxElm.value = elm.closest('.js-comment').dataset.pk
             liElm.appendChild(inputCheckboxElm)
 
             return

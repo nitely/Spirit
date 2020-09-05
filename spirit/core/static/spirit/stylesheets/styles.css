@@ -7003,10 +7003,6 @@ input[type="submit"].button,
 .comments__move {
   margin-bottom: 24px; }
 
-input.comments__move_checkbox {
-  display: inline-block;
-  margin: 0; }
-
 .breadcrumb_nav {
   display: flex;
   font-size: 0.875rem;
@@ -7091,6 +7087,9 @@ input.comments__move_checkbox {
     margin-left: 12px; }
     .comment__info__date li:first-child {
       margin-left: 0; }
+  .comment__info__date input[type="checkbox"] {
+    display: inline-block;
+    margin: 0; }
 
 .comment__info__date__topic {
   max-width: 100px;
