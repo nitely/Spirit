@@ -6943,6 +6943,9 @@ input[type="submit"].button,
     display: block;
     padding: 4px 12px;
     border: #ececec 1px solid; }
+  .paginator__button span {
+    display: block;
+    padding: 4px 12px; }
 
 .unread {
   font-size: 0.75rem;
