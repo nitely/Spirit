@@ -7132,6 +7132,8 @@ input[type="submit"].button,
     list-style-type: decimal; }
   .comment__text img {
     vertical-align: text-bottom; }
+  .comment__text a {
+    text-decoration: underline; }
   .comment__text > *:last-child {
     margin-bottom: 0; }
 
