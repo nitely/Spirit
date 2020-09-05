@@ -31,11 +31,11 @@
       {{ topic.title }}
 
       {% if user.st.is_moderator %}
-        <a class="head-edit-link"
+        <a class="topic_edit_link"
            href="{% url "spirit:topic:update" topic.pk %}"
         ><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
         {% elif user.pk == topic.user.pk and not topic.is_closed %}
-        <a class="head-edit-link"
+        <a class="topic_edit_link"
            href="{% url "spirit:topic:update" topic.pk %}"
         ><i class="fa fa-pencil"></i> {% trans "edit" %}</a>
       {% endif %}

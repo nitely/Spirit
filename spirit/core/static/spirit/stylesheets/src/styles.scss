@@ -356,6 +356,9 @@
     min-height: $space-full * 10;
   }
 }
+.topic_edit_link {
+  font-size: rem(14px);
+}
 // Topics_end
 // Comments_start
 .layout__comments {
@@ -373,6 +376,7 @@
 .breadcrumb_nav {
   display: flex;
   font-size: rem(14px);
+  margin-bottom: $space-full;
   //border: 1px solid #000;
   li {
     margin-left: $space-half;
@@ -726,6 +730,11 @@
 // Admin_start
 .layout__admin {
   grid-area: ae;
+
+  .menu__dropdown,
+  .messages_info {
+    margin-bottom: $space-full;
+  }
 }
   .admin__category_menu {
     @extend %flex-nav;
@@ -738,6 +747,7 @@
       }
     }
   .admin__items_list {
+    margin-bottom: $space-full;
   }
     .admin__items_list__item {
       display: flex;
