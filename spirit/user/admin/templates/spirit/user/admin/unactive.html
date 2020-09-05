@@ -5,11 +5,11 @@
 {% block title %}{% trans "Unactive Users" %}{% endblock %}
 
 {% block content %}
-<div class="layout__admin">
-  {% include "spirit/admin/_nav_menu.html" with active="users" %}
+  <div class="layout__admin">
+    {% include "spirit/admin/_nav_menu.html" with active="users" %}
 
-  <h1 class="headline">{% trans "Unactive Users" %}</h1>
+    <h1 class="headline">{% trans "Unactive Users" %}</h1>
 
-  {% include "spirit/user/admin/_list.html" with active_tab="unactive" %}
-</div>
+    {% include "spirit/user/admin/_list.html" with active_tab="unactive" %}
+  </div>
 {% endblock %}

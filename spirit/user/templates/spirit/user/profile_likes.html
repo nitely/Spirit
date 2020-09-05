@@ -5,11 +5,11 @@
 {% block title %}{{ p_user.st.nickname }} {% trans "likes" %}{% endblock %}
 
 {% block content %}
+  <div class="layout__profile">
+    {% include "spirit/user/_profile.html" with active_tab=2 %}
 
-  {% include "spirit/user/_profile.html" with active_tab=2 %}
+    {% include "spirit/user/_render_comments_list.html" %}
 
-  {% include "spirit/user/_render_comments_list.html" %}
-
-  {% render_paginator comments %}
-
+    {% render_paginator comments %}
+  </div>
 {% endblock %}

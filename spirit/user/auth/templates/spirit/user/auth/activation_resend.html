@@ -5,10 +5,9 @@
 {% block title %}{% trans "Resend activation email" %}{% endblock %}
 
 {% block content %}
+  <div class="layout__article">
+    <h1 class="headline">{% trans "Resend activation email" %}</h1>
 
-  <h1 class="headline">{% trans "Resend activation email" %}</h1>
-
-  <div class="login">
     <form action="." method="post">
       {% csrf_token %}
       {% include "spirit/_form.html" %}
@@ -16,5 +15,4 @@
       <input class="button" type="submit" name="post" value="{% trans "Resend email" %}" />
     </form>
   </div>
-
 {% endblock %}
