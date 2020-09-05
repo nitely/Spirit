@@ -7121,7 +7121,7 @@ input[type="submit"].button,
   .comment__text blockquote {
     margin: 0;
     border-left: #cecece 4px solid;
-    padding-left: 24px; }
+    padding-left: 12px; }
   .comment__text ol,
   .comment__text ul {
     list-style-type: disc;
