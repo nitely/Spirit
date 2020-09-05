@@ -7134,6 +7134,8 @@ input[type="submit"].button,
     vertical-align: text-bottom; }
   .comment__text a {
     text-decoration: underline; }
+    .comment__text a.comment-mention {
+      text-decoration: none; }
   .comment__text > *:last-child {
     margin-bottom: 0; }
 

@@ -529,6 +529,9 @@
       }
       a {
         text-decoration: underline;
+        &.comment-mention {
+          text-decoration: none;
+        }
       }
       & > *:last-child {
         margin-bottom: 0;
