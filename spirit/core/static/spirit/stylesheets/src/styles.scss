@@ -514,11 +514,15 @@
         border-left: $light-grey 4px solid;
       	padding-left: $base-spacing-size;
       }
+      ol,
       ul {
         list-style-type: disc;
         list-style-position: inside;
-      	margin-left: 40px;
+      	margin-left: $space-half;
       	margin-bottom: $base-line-height;
+      }
+      ol {
+        list-style-type: decimal;
       }
       img {
         vertical-align: text-bottom;
@@ -742,6 +746,14 @@
         flex: none;
         margin-left: auto;
       }
+ins.diff {
+  text-decoration: none;
+  background-color: #EAFFEA;
+}
+del.diff {
+  text-decoration: none;
+  background-color: #FFECEC;
+}
 // Comments_end
 // Admin_start
 .layout__admin {
