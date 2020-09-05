@@ -209,7 +209,7 @@ samp {
   font-size: rem(13px);
   //line-height: rem(14px) * 1.5;
   padding: 0 2px;
-  background-color: $lightest-grey;
+  background-color: var(--st-bg-code);
 }
 
 pre {

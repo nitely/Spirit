@@ -3,7 +3,7 @@
 %button-base {
   line-height: 2;
   height: 2em;
-  color: $dark-grey;
+  color: var(--st-text-button);
 }
 
 input[type="submit"].button,
@@ -13,10 +13,10 @@ input[type="submit"].button,
   display: block;
   width: 100%;
   text-align: center;
-  background-color: $light-grey;
+  background-color: var(--st-bg-button);
 
   &.is-undo {
-    background-color: $red;
+    background-color: var(--st-bg-button-undo);
   }
 
   @media #{$medium} {

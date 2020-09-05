@@ -17,8 +17,8 @@ body {
 }
 // WebKit bug in Android 4.0.* fix
 html input[type="button"] {
-  -webkit-appearance: button; /* 2 */
-  cursor: pointer; /* 3 */
+  -webkit-appearance: button;
+  cursor: pointer;
 }
 html input[disabled] {
   cursor: default;

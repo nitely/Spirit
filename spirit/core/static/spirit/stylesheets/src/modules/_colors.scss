@@ -1,10 +1,5 @@
 // Colors
 
-
-:root {
-
-}
-
 $grey: #979797 !default;
 $dark-grey: #444444 !default;
 $light-grey: #cecece !default;
@@ -18,6 +13,55 @@ $blue: #56a9c7 !default;
 $dark-blue: #95a2a7 !default;
 $light-blue: #e2f5fc !default;
 
+$light-green: #eaffea !default;
+
 $black: #1c1c1c !default;
 $white: #fefefe !default;
 $yellow: #ffffe9 !default;
+
+:root {
+  --st-text-primary-color: $dark-grey;
+  --st-font-color: $dark-grey;
+  --st-bg-color: $white;
+  --st-tab-selected: $black;
+  --st-tab-highlighted: $red;
+  --st-bg-notification-item: $lightest-grey;
+  --st-bg-message-info: $light-blue;
+  --st-text-message-info: $dark-blue;
+  --st-bg-message-error: $light-red;
+  --st-text-message-error: $red;
+  --st-header-logo: $dark-grey;
+  --st-bg-menu-item: $lightest-grey;
+  --st-nav-tab-selected: $black;
+  --st-nav-tab-line: $light-grey;
+  --st-br-paginator-button: $lighter-grey;
+  --st-bg-unread: $light-blue;
+  --st-br-topic-item: $lighter-grey;
+  --st-text-topic-item: $grey;
+  --st-text-topic-comment-new: $red;
+  --st-text-topic-item-link: $dark-grey;
+  --st-text-topic-item-link-visited: $grey;
+  --st-br-comment-item: $lighter-grey;
+  --st-bg-comment-user-admin: $yellow;
+  --st-bg-comment-user-mod: $light-blue;
+  --st-br-comment-quote: $light-grey;
+  --st-bg-comment-poll-bar: $light-grey;
+  --st-bg-comment-badge: $light-grey;
+  --st-text-comment-badge: $grey;
+  --st-bg-comment-diff-ins: $light-green;
+  --st-bg-comment-diff-del: $light-red;
+  --st-bg-admin-stat: $lightest-grey;
+  --st-br-textarea: $light-grey;
+  --st-br-input-focus: $red;
+  --st-text-link: $grey;
+  --st-text-link-hover: $black;
+  --st-bg-code: $lightest-grey;
+  --st-bg-selection: $light-grey;
+  --st-text-selection: $white;
+  --st-text-button: $dark-grey;
+  --st-bg-button: $light-grey;
+  --st-bg-button-undo: $red;
+  --st-bg-checkbox: $white;
+  --st-br-checkbox: $light-grey;
+  --st-text-error-list: $red;
+}

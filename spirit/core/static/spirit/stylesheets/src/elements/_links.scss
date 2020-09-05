@@ -1,11 +1,10 @@
 // Links
 
 a {
-  color: $grey;
+  color: var(--st-text-link);
   text-decoration: none;
   outline: 0;
-
   &:hover, &:focus {
-    color: $black;
+    color: var(--st-text-link-hover);
   }
 }

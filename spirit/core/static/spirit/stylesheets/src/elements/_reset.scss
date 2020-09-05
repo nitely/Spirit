@@ -1,14 +1,9 @@
 // Reset styles
 
-::selection {
-  background: $light-grey;
-  color: $white;
-  text-shadow: none;
-}
-
+::selection,
 ::-moz-selection {
-  background: $light-grey;
-  color: $white;
+  background: var(--st-bg-selection);
+  color: var(--st-text-selection);
   text-shadow: none;
 }
 
@@ -22,12 +17,12 @@ p {
 }
 
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
 }
 
 iframe {
@@ -48,7 +43,7 @@ canvas,
 img,
 svg,
 video {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 img {

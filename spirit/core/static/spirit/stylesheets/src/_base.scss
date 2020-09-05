@@ -54,8 +54,8 @@
   font-family: $base-font-family;
   font-size: $base-font-size;
   line-height: $base-line-height;
-  color: $dark-grey;
-  background-color: $white;
+  color: var(--st-font-color);
+  background-color: var(--st-bg-color);
   cursor: default;
   width: 100%;
   max-width: $max-width;
@@ -103,10 +103,10 @@
 }
 .header__tabs__item {
   &.is-selected {
-    color: $black;
+    color: var(--st-tab-selected);
   }
   &.is-highlighted {
-    color: $red;
+    color: var(--st-tab-highlighted);
   }
 }
 .header__tabs_content {
@@ -134,7 +134,7 @@
     display: flex;
     flex-direction: column;
     li {
-      background-color: $lightest-grey;
+      background-color: var(--st-bg-notification-item);
       margin-bottom: $quarter-spacing-size;
       &:last-child {
         margin-bottom: 0;
@@ -174,20 +174,20 @@
 }
 .messages_info {
   @extend %messages;
-  background: $light-blue;
+  background: var(--st-bg-message-info);
 }
 .messages_error {
   @extend %messages;
-  background: $light-red;
+  background: var(--st-bg-message-error);
 }
 .message_title {
   flex: 1 1 100%;
   margin-bottom: $half-spacing-size;
   &.is-info {
-    color: $dark-blue;
+    color: var(--st-text-message-info);
   }
   &.is-error {
-    color: $red;
+    color: var(--st-text-message-error);
   }
 }
 .message_text {
@@ -215,7 +215,7 @@
 .header__logo {
   font-size: rem(28px);
   line-height: $base-line-height * 2;
-  color: $dark-grey;
+  color: var(--st-header-logo);
 }
 .tab_content {
   display: none;
@@ -237,7 +237,7 @@
   display: flex;
   flex-direction: column;
   li {
-    background-color: $lightest-grey;
+    background-color: var(--st-bg-menu-item);
     margin-bottom: $quarter-spacing-size;
     &:last-child {
       margin-bottom: 0;
@@ -258,8 +258,8 @@
   display: block;
   padding: 0 $space-half $space-quarter $space-half;
   &.is-selected {
-    color: $black;
-    border-bottom: $light-grey 4px solid;
+    color: var(--st-nav-tab-selected);
+    border-bottom: var(--st-nav-tab-line) 4px solid;
   }
 }
 .paginator {
@@ -289,7 +289,7 @@
   a {
     display: block;
     padding: ($base-spacing-size / 6) $half-spacing-size;
-    border: $lighter-grey 1px solid;
+    border: var(--st-br-paginator-button) 1px solid;
   }
   span {
     display: block;
@@ -298,7 +298,7 @@
 }
 .unread {
   font-size: rem(12px);
-  background-color: $light-blue;
+  background-color: var(--st-bg-unread);
 }
 // Base_end
 // Topics_start
@@ -320,9 +320,9 @@
   display: flex;
   flex-wrap: wrap;
   padding: $space-half;
-  border-top: $lighter-grey 1px solid;
+  border-top: var(--st-br-topic-item) 1px solid;
   &:last-child {
-    border-bottom: $lighter-grey 1px solid;
+    border-bottom: var(--st-br-topic-item) 1px solid;
   }
 }
 .layout__list__item__title,
@@ -333,7 +333,7 @@
 %topic__low_cell {
   flex: none;
   font-size: rem(12px);
-  color: $grey;
+  color: var(--st-text-topic-item);
 }
 .topic__category {
   @extend %topic__low_cell;
@@ -343,7 +343,7 @@
   @extend %topic__low_cell;
   margin-right: $space-half;
   .is-new {
-    color: $red;
+    color: var(--st-text-topic-comment-new);
   }
 }
 .layout__list__item__date,
@@ -352,10 +352,10 @@
 }
 .layout__list__item__link,
 .topic__link {
-  color: $dark-grey;
+  color: var(--st-text-topic-item-link);
   &:visited,
   &.is-visited {
-    color: $grey;
+    color: var(--st-text-topic-item-link-visited);
   }
 }
 .topic_publish_comment {
@@ -402,30 +402,30 @@
 }
 .comments_list__comment {
   padding: $space-half;
-  border-top: $lighter-grey 1px solid;
+  border-top: var(--st-br-comment-item) 1px solid;
   display: grid;
   grid-template:
-          "im io" auto
-          "tx tx" auto
-          "ac ac" auto / auto 1fr;
+    "im io" auto
+    "tx tx" auto
+    "ac ac" auto / auto 1fr;
   grid-gap: $space-half;
   @media #{$medium} {
     grid-template:
-            "im io" auto
-            "im tx" auto
-            "ac ac" auto / auto 1fr;
+      "im io" auto
+      "im tx" auto
+      "ac ac" auto / auto 1fr;
   }
   &:last-child {
-    border-bottom: $lighter-grey 1px solid;
+    border-bottom: var(--st-br-comment-item) 1px solid;
   }
   &.no-footer {
     grid-template:
-            "im io" auto
-            "tx tx" auto / auto 1fr;
+      "im io" auto
+      "tx tx" auto / auto 1fr;
     @media #{$medium} {
       grid-template:
-              "im io" auto
-              "im tx" auto / auto 1fr;
+        "im io" auto
+        "im tx" auto / auto 1fr;
     }
   }
 }
@@ -467,10 +467,10 @@
 }
 .comment__info__username__link {
   &.is-admin {
-    background: $yellow;
+    background: var(--st-bg-comment-user-admin);
   }
   &.is-mod {
-    background: $light-blue;
+    background: var(--st-bg-comment-user-mod);
   }
 }
 .comment__info__username__realname {
@@ -509,7 +509,7 @@
   grid-area: tx;
   blockquote {
     margin: 0;
-    border-left: $light-grey 4px solid;
+    border-left: var(--st-br-comment-quote) 4px solid;
     padding-left: $space-half;
   }
   ol,
@@ -575,7 +575,7 @@
 //.choice-bar {
 .comment__text__poll__choices__choice__bar {
   height: 14px;
-  background-color: $light-grey;
+  background-color: var(--st-bg-comment-poll-bar);
 }
 //.poll-note {
 .comment__text__poll__note {
@@ -624,7 +624,7 @@
   display: flex;
   flex-direction: column;
   li {
-    background-color: $lightest-grey;
+    background-color: var(--st-bg-menu-item);
     margin-bottom: $space-quarter;
     &:last-child {
       margin-bottom: 0;
@@ -640,7 +640,7 @@
   flex-wrap: wrap;
   align-items: center;
   padding: $space-half;
-  border-top: $lighter-grey 1px solid;
+  border-top: var(--st-br-comment-item) 1px solid;
   font-size: rem(14px);
   & + .comments_list__item {
     border-top: 0;
@@ -652,8 +652,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $lighter-grey;
-  color: $grey;
+  background: var(--st-bg-comment-badge);
+  color: var(--st-text-comment-badge);
   margin-right: $space-half;
   width: 32px;
   height: 32px;
@@ -686,12 +686,12 @@
   margin-top: $space-full * 2;
   display: grid;
   grid-template:
-          "im io" auto
-          "tx tx" auto / auto 1fr;
+    "im io" auto
+    "tx tx" auto / auto 1fr;
   @media #{$medium} {
     grid-template:
-            "im io" auto
-            "im tx" auto / auto 1fr;
+      "im io" auto
+      "im tx" auto / auto 1fr;
   }
 }
 .comments__reply__img {
@@ -762,11 +762,11 @@
 }
 ins.diff {
   text-decoration: none;
-  background-color: #EAFFEA;
+  background-color: var(--st-bg-comment-diff-ins);
 }
 del.diff {
   text-decoration: none;
-  background-color: #FFECEC;
+  background-color: var(--st-bg-comment-diff-del);
 }
 // Comments_end
 // Admin_start
@@ -794,9 +794,9 @@ del.diff {
 .admin__items_list__item {
   display: flex;
   padding: $space-half;
-  border-top: $lighter-grey 1px solid;
+  border-top: var(--st-br-topic-item) 1px solid;
   &:last-child {
-    border-bottom: $lighter-grey 1px solid;
+    border-bottom: var(--st-br-topic-item) 1px solid;
   }
 }
 .layout__list__item__title_action,
@@ -818,7 +818,7 @@ del.diff {
 .admin__statistics__box {
   @extend %break-words;
   padding: $space-half $space-half;
-  background: $lightest-grey;
+  background: var(--st-bg-admin-stat);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -847,8 +847,8 @@ del.diff {
   display: block;
   padding: 0 $space-half $space-quarter $space-half;
   &.is-selected {
-    color: $black;
-    border-bottom: $light-grey 4px solid;
+    color: var(--st-nav-tab-selected);
+    border-bottom: var(--st-nav-tab-line) 4px solid;
   }
 }
 // Admin_end

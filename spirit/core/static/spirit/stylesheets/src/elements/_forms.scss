@@ -19,7 +19,7 @@ select,
 textarea {
   width: 100%;
   padding: $half-spacing-size / 2 $half-spacing-size;
-  border: 1px solid $light-grey;
+  border: 1px solid var(--st-br-textarea);
 }
 
 input[type="text"]:focus,
@@ -29,7 +29,7 @@ input[type="search"]:focus,
 input[type="number"]:focus,
 select:focus,
 textarea:focus {
-  border: 1px solid $red;
+  border: 1px solid var(--st-br-input-focus);
 }
 
 input[type="checkbox"] {

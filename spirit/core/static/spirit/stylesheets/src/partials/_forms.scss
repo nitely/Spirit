@@ -17,11 +17,11 @@
   overflow: auto;
   max-height: $base-line-height * 6;
   margin-bottom: $base-spacing-size;
-  background-color: $white;
-  border: 1px solid $light-grey;
+  background-color: var(--st-bg-checkbox);
+  border: 1px solid var(--st-br-checkbox);
 }
 
 .errorlist {
-  color: $red;
+  color: var(--st-text-error-list);
   margin-bottom: $half-spacing-size;
 }
