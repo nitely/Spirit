@@ -6982,6 +6982,8 @@ input[type="submit"].button,
 
 .topic__comments {
   margin-right: 12px; }
+  .topic__comments .is-new {
+    color: #c65555; }
 
 .layout__list__item__link,
 .topic__link {

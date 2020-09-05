@@ -29,7 +29,7 @@
           <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
         </ul>
       </div>
-      <div class="comment__text">
+      <div class="comment__text js-comment-text">
         {{ c.comment_html|safe }}
       </div>
     </div>
@@ -42,7 +42,7 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       hljs.initHighlightingOnLoad();
-      stModules.commentDiff(document.querySelectorAll('.comment-text'));
+      stModules.commentDiff(document.querySelectorAll('.js-comment-text'));
     });
 
   </script>

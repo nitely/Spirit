@@ -340,6 +340,9 @@
     .topic__comments {
       @extend %topic__low_cell;
       margin-right: $space-half;
+      .is-new {
+        color: $red;
+      }
     }
     .layout__list__item__date,
     .topic__date {
