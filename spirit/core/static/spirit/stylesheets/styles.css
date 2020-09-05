@@ -7163,7 +7163,8 @@ input[type="submit"].button,
 
 .comment__text__poll__actions__action {
   font-size: 0.875rem;
-  margin-left: 6px; }
+  text-decoration: none !important;
+  margin-left: 12px; }
   .comment__text__poll__actions__action:first-child {
     margin-left: 0; }
 
@@ -7401,7 +7402,7 @@ del.diff {
 
 .menu_list__participant__user {
   flex: 1;
-  padding-left: 12px; }
+  padding: 0 12px; }
 
 .menu_list__participant__remove {
   flex: none;

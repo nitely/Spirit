@@ -580,7 +580,8 @@
           //.poll-action {
           .comment__text__poll__actions__action {
             font-size: rem(14px);
-            margin-left: $space-quarter;
+            text-decoration: none !important;
+            margin-left: $space-half;
             &:first-child {
               margin-left: 0;
             }
@@ -864,7 +865,7 @@ del.diff {
 }
   .menu_list__participant__user {
     flex: 1;
-    padding-left: $space-half;
+    padding: 0 $space-half;
   }
   .menu_list__participant__remove {
     flex: none;
