@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 300;
+  src: url("vendors/fonts/Ubuntu-300.woff2") format("woff2"), url("vendors/fonts/Ubuntu-300.woff") format("woff"); }
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; }
+
 .tw {
   display: inline-block;
   height: 20px;
@@ -6174,25 +6187,6 @@
   background-image: url("../emojis/1f4a4.svg"); }
 
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
-/**
- * 1. Set default font family to sans-serif.
- * 2. Prevent iOS text size adjust after orientation change, without disabling
- *    user zoom.
- */
-html {
-  font-family: sans-serif;
-  /* 1 */
-  -ms-text-size-adjust: 100%;
-  /* 2 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */ }
-
-/**
- * Remove default margin.
- */
-body {
-  margin: 0; }
-
 /* HTML5 display definitions
    ========================================================================== */
 /**
@@ -6640,11 +6634,6 @@ label {
     margin: 6px 12px;
     margin-bottom: 0; }
 
-@font-face {
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 300;
-  src: url("vendors/fonts/Ubuntu-300.woff2") format("woff2"), url("vendors/fonts/Ubuntu-300.woff") format("woff"); }
 a {
   color: #979797;
   text-decoration: none;
@@ -6724,6 +6713,7 @@ input[type="submit"].button,
   display: block;
   position: relative;
   padding-bottom: 56.25%;
+  margin-bottom: 12px;
   height: 0;
   overflow: hidden; }
   .video iframe {
