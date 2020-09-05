@@ -11,6 +11,8 @@ html {
   // iOS fix
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  // general
+  background-color: var(--st-bg-color);
 }
 body {
   margin: 0;

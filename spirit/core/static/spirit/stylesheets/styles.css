@@ -1,49 +1,80 @@
 :root {
-  --st-text-primary-color: #444444;
-  --st-font-color: #444444;
-  --st-bg-color: #fefefe;
-  --st-tab-selected: #1c1c1c;
-  --st-tab-highlighted: #c65555;
-  --st-bg-notification-item: #f6f6f6;
+  --st-text-prim: #444444;
+  --st-text-sec: #979797;
+  --st-bg-prim: #fefefe;
+  --st-bg-sec: #cecece;
+  --st-bg-ter: #ececec;
+  --st-bg-qua: #f6f6f6;
+  --st-text-selected-prim: #1c1c1c;
+  --st-highlight-prim: #c65555;
+  --st-font-color: var(--st-text-prim);
+  --st-bg-color: var(--st-bg-prim);
+  --st-tab-selected: var(--st-text-selected-prim);
+  --st-tab-highlighted: var(--st-highlight-prim);
+  --st-bg-notification-item: var(--st-bg-qua);
   --st-bg-message-info: #e2f5fc;
   --st-text-message-info: #95a2a7;
   --st-bg-message-error: #fce2e2;
-  --st-text-message-error: #c65555;
-  --st-header-logo: #444444;
-  --st-bg-menu-item: #f6f6f6;
-  --st-nav-tab-selected: #1c1c1c;
-  --st-nav-tab-line: #cecece;
-  --st-br-paginator-button: #ececec;
+  --st-text-message-error: var(--st-highlight-prim);
+  --st-header-logo: var(--st-text-prim);
+  --st-bg-menu-item: var(--st-bg-qua);
+  --st-nav-tab-selected: var(--st-text-selected-prim);
+  --st-nav-tab-line: var(--st-bg-sec);
+  --st-br-paginator-button: var(--st-bg-ter);
   --st-bg-unread: #e2f5fc;
-  --st-br-topic-item: #ececec;
-  --st-text-topic-item: #979797;
-  --st-text-topic-comment-new: #c65555;
-  --st-text-topic-item-link: #444444;
-  --st-text-topic-item-link-visited: #979797;
-  --st-br-comment-item: #ececec;
-  --st-bg-comment-user-admin: #ffffe9;
-  --st-bg-comment-user-mod: #e2f5fc;
-  --st-br-comment-quote: #cecece;
-  --st-bg-comment-poll-bar: #cecece;
-  --st-bg-comment-badge: #cecece;
-  --st-text-comment-badge: #979797;
+  --st-br-topic-item: var(--st-bg-ter);
+  --st-text-topic-item: var(--st-text-sec);
+  --st-text-topic-comment-new: var(--st-highlight-prim);
+  --st-text-topic-item-link: var(--st-text-prim);
+  --st-text-topic-item-link-visited: var(--st-text-sec);
+  --st-br-comment-item: var(--st-bg-ter);
+  --st-bg-comment-user-admin: #a1a100;
+  --st-bg-comment-user-mod: #207a9b;
+  --st-br-comment-quote: var(--st-bg-sec);
+  --st-bg-comment-poll-bar: var(--st-bg-sec);
+  --st-bg-comment-badge: var(--st-bg-sec);
+  --st-text-comment-badge: var(--st-text-sec);
   --st-bg-comment-diff-ins: #eaffea;
   --st-bg-comment-diff-del: #fce2e2;
-  --st-bg-admin-stat: #f6f6f6;
-  --st-br-textarea: #cecece;
-  --st-br-input-focus: #c65555;
-  --st-text-link: #979797;
-  --st-text-link-hover: #1c1c1c;
-  --st-bg-code: #f6f6f6;
-  --st-bg-selection: #cecece;
-  --st-text-selection: #fefefe;
-  --st-text-button: #444444;
-  --st-bg-button: #cecece;
-  --st-bg-button-undo: #c65555;
-  --st-bg-checkbox: #fefefe;
-  --st-br-checkbox: #cecece;
-  --st-text-error-list: #c65555; }
+  --st-bg-admin-stat: var(--st-bg-qua);
+  --st-br-textarea: var(--st-bg-sec);
+  --st-br-input-focus: var(--st-highlight-prim);
+  --st-bg-input: var(--st-bg-prim);
+  --st-text-link: var(--st-text-sec);
+  --st-text-link-hover: var(--st-text-selected-prim);
+  --st-bg-code: var(--st-bg-qua);
+  --st-bg-selection: var(--st-bg-sec);
+  --st-text-selection: var(--st-bg-prim);
+  --st-text-button: var(--st-text-prim);
+  --st-bg-button: var(--st-bg-sec);
+  --st-bg-button-undo: var(--st-highlight-prim);
+  --st-bg-checkbox: var(--st-bg-prim);
+  --st-br-checkbox: var(--st-bg-sec);
+  --st-text-error-list: var(--st-highlight-prim); }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --st-text-prim: #cecece;
+    --st-text-sec: #979797;
+    --st-bg-prim: #121212;
+    --st-bg-sec: #222222;
+    --st-bg-ter: #1c1c1c;
+    --st-bg-qua: #181818;
+    --st-text-selected-prim: #cecece;
+    --st-highlight-prim: #830000;
+    --st-text-button: var(--st-text-sec);
+    --st-bg-input: #181818;
+    --st-bg-checkbox: #black;
+    --st-bg-comment-user-admin: #979733;
+    --st-bg-comment-user-mod: #2e658f;
+    --st-bg-message-info: #13232f;
+    --st-text-message-info: #95a2a7;
+    --st-bg-message-error: #5e0000;
+    --st-bg-selection: #cecece;
+    --st-text-selection: #1c1c1c;
+    --st-bg-unread: #13232f;
+    --st-bg-comment-diff-ins: #003e00;
+    --st-bg-comment-diff-del: #5e0000; } }
 @font-face {
   font-family: 'Ubuntu';
   font-style: normal;
@@ -52,7 +83,8 @@
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%; }
+  -webkit-text-size-adjust: 100%;
+  background-color: var(--st-bg-color); }
 
 body {
   margin: 0; }
@@ -6652,7 +6684,8 @@ select,
 textarea {
   width: 100%;
   padding: 6px 12px;
-  border: 1px solid var(--st-br-textarea); }
+  border: 1px solid var(--st-br-textarea);
+  background-color: var(--st-bg-input); }
 
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -6961,7 +6994,7 @@ input[type="submit"].button,
   padding: 0 12px 6px 12px; }
   .nav__tabs__link.is-selected {
     color: var(--st-nav-tab-selected);
-    border-bottom: var(--st-nav-tab-line) 4px solid; }
+    border-bottom: 4px solid var(--st-nav-tab-line); }
 
 .paginator {
   display: flex;
@@ -6984,7 +7017,7 @@ input[type="submit"].button,
   .paginator__button a {
     display: block;
     padding: 4px 12px;
-    border: var(--st-br-paginator-button) 1px solid; }
+    border: 1px solid var(--st-br-paginator-button); }
   .paginator__button span {
     display: block;
     padding: 4px 12px; }
@@ -7007,10 +7040,10 @@ input[type="submit"].button,
   display: flex;
   flex-wrap: wrap;
   padding: 12px;
-  border-top: var(--st-br-topic-item) 1px solid; }
+  border-top: 1px solid var(--st-br-topic-item); }
   .layout__list__item:last-child,
   .layout__topics__topic:last-child {
-    border-bottom: var(--st-br-topic-item) 1px solid; }
+    border-bottom: 1px solid var(--st-br-topic-item); }
 
 .layout__list__item__title,
 .topic__title {
@@ -7072,7 +7105,7 @@ input[type="submit"].button,
 
 .comments_list__comment {
   padding: 12px;
-  border-top: var(--st-br-comment-item) 1px solid;
+  border-top: 1px solid var(--st-br-comment-item);
   display: grid;
   grid-template: "im io" auto "tx tx" auto "ac ac" auto / auto 1fr;
   grid-gap: 12px; }
@@ -7080,7 +7113,7 @@ input[type="submit"].button,
     .comments_list__comment {
       grid-template: "im io" auto "im tx" auto "ac ac" auto / auto 1fr; } }
   .comments_list__comment:last-child {
-    border-bottom: var(--st-br-comment-item) 1px solid; }
+    border-bottom: 1px solid var(--st-br-comment-item); }
   .comments_list__comment.no-footer {
     grid-template: "im io" auto "tx tx" auto / auto 1fr; }
     @media screen and (min-width: 768px) {
@@ -7123,10 +7156,10 @@ input[type="submit"].button,
     .comment__info__username {
       flex-direction: row; } }
 
-.comment__info__username__link.is-admin {
-  background: var(--st-bg-comment-user-admin); }
-.comment__info__username__link.is-mod {
-  background: var(--st-bg-comment-user-mod); }
+.comment__info__username__link .is-admin {
+  color: var(--st-bg-comment-user-admin); }
+.comment__info__username__link .is-mod {
+  color: var(--st-bg-comment-user-mod); }
 
 @media screen and (min-width: 768px) {
   .comment__info__username__realname {
@@ -7157,7 +7190,7 @@ input[type="submit"].button,
   grid-area: tx; }
   .comment__text blockquote {
     margin: 0;
-    border-left: var(--st-br-comment-quote) 4px solid;
+    border-left: 4px solid var(--st-br-comment-quote);
     padding-left: 12px; }
   .comment__text ol,
   .comment__text ul {
@@ -7247,7 +7280,7 @@ input[type="submit"].button,
   flex-wrap: wrap;
   align-items: center;
   padding: 12px;
-  border-top: var(--st-br-comment-item) 1px solid;
+  border-top: 1px solid var(--st-br-comment-item);
   font-size: 0.875rem; }
   .comments_list__item + .comments_list__item {
     border-top: 0;
@@ -7373,9 +7406,9 @@ del.diff {
 .admin__items_list__item {
   display: flex;
   padding: 12px;
-  border-top: var(--st-br-topic-item) 1px solid; }
+  border-top: 1px solid var(--st-br-topic-item); }
   .admin__items_list__item:last-child {
-    border-bottom: var(--st-br-topic-item) 1px solid; }
+    border-bottom: 1px solid var(--st-br-topic-item); }
 
 .layout__list__item__title_action,
 .admin__items_list__item__title {
@@ -7420,7 +7453,7 @@ del.diff {
   padding: 0 12px 6px 12px; }
   .admin__tabs__link.is-selected {
     color: var(--st-nav-tab-selected);
-    border-bottom: var(--st-nav-tab-line) 4px solid; }
+    border-bottom: 4px solid var(--st-nav-tab-line); }
 
 .login {
   margin-bottom: 24px; }

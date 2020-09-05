@@ -20,6 +20,7 @@ textarea {
   width: 100%;
   padding: $half-spacing-size / 2 $half-spacing-size;
   border: 1px solid var(--st-br-textarea);
+  background-color: var(--st-bg-input);
 }
 
 input[type="text"]:focus,

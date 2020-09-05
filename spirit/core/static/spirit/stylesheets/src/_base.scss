@@ -259,7 +259,7 @@
   padding: 0 $space-half $space-quarter $space-half;
   &.is-selected {
     color: var(--st-nav-tab-selected);
-    border-bottom: var(--st-nav-tab-line) 4px solid;
+    border-bottom: 4px solid var(--st-nav-tab-line);
   }
 }
 .paginator {
@@ -289,7 +289,7 @@
   a {
     display: block;
     padding: ($base-spacing-size / 6) $half-spacing-size;
-    border: var(--st-br-paginator-button) 1px solid;
+    border: 1px solid var(--st-br-paginator-button);
   }
   span {
     display: block;
@@ -320,9 +320,9 @@
   display: flex;
   flex-wrap: wrap;
   padding: $space-half;
-  border-top: var(--st-br-topic-item) 1px solid;
+  border-top: 1px solid var(--st-br-topic-item);
   &:last-child {
-    border-bottom: var(--st-br-topic-item) 1px solid;
+    border-bottom: 1px solid var(--st-br-topic-item);
   }
 }
 .layout__list__item__title,
@@ -402,7 +402,7 @@
 }
 .comments_list__comment {
   padding: $space-half;
-  border-top: var(--st-br-comment-item) 1px solid;
+  border-top: 1px solid var(--st-br-comment-item);
   display: grid;
   grid-template:
     "im io" auto
@@ -416,7 +416,7 @@
       "ac ac" auto / auto 1fr;
   }
   &:last-child {
-    border-bottom: var(--st-br-comment-item) 1px solid;
+    border-bottom: 1px solid var(--st-br-comment-item);
   }
   &.no-footer {
     grid-template:
@@ -466,11 +466,11 @@
   }
 }
 .comment__info__username__link {
-  &.is-admin {
-    background: var(--st-bg-comment-user-admin);
+  .is-admin {
+    color: var(--st-bg-comment-user-admin);
   }
-  &.is-mod {
-    background: var(--st-bg-comment-user-mod);
+  .is-mod {
+    color: var(--st-bg-comment-user-mod);
   }
 }
 .comment__info__username__realname {
@@ -509,7 +509,7 @@
   grid-area: tx;
   blockquote {
     margin: 0;
-    border-left: var(--st-br-comment-quote) 4px solid;
+    border-left: 4px solid var(--st-br-comment-quote);
     padding-left: $space-half;
   }
   ol,
@@ -640,7 +640,7 @@
   flex-wrap: wrap;
   align-items: center;
   padding: $space-half;
-  border-top: var(--st-br-comment-item) 1px solid;
+  border-top: 1px solid var(--st-br-comment-item);
   font-size: rem(14px);
   & + .comments_list__item {
     border-top: 0;
@@ -794,9 +794,9 @@ del.diff {
 .admin__items_list__item {
   display: flex;
   padding: $space-half;
-  border-top: var(--st-br-topic-item) 1px solid;
+  border-top: 1px solid var(--st-br-topic-item);
   &:last-child {
-    border-bottom: var(--st-br-topic-item) 1px solid;
+    border-bottom: 1px solid var(--st-br-topic-item);
   }
 }
 .layout__list__item__title_action,
@@ -848,7 +848,7 @@ del.diff {
   padding: 0 $space-half $space-quarter $space-half;
   &.is-selected {
     color: var(--st-nav-tab-selected);
-    border-bottom: var(--st-nav-tab-line) 4px solid;
+    border-bottom: 4px solid var(--st-nav-tab-line);
   }
 }
 // Admin_end
