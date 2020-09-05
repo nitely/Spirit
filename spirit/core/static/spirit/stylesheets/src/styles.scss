@@ -572,14 +572,14 @@
             }
         //.poll-note {
         .comment__text__poll__note {
-          font-size: 14px;
+          font-size: rem(14px);
         }
         //.poll_actions
         .comment__text__poll__actions {
         }
           //.poll-action {
           .comment__text__poll__actions__action {
-            font-size: 14px;
+            font-size: rem(14px);
             margin-left: $space-quarter;
             &:first-child {
               margin-left: 0;
@@ -896,7 +896,7 @@ del.diff {
     }
   }
   .profile__img__username {
-    font-size: 18px;
+    font-size: rem(18px);
   }
 .profile__info {
   margin-bottom: $space-full;

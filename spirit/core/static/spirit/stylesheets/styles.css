@@ -7159,10 +7159,10 @@ input[type="submit"].button,
   background-color: #cecece; }
 
 .comment__text__poll__note {
-  font-size: 14px; }
+  font-size: 0.875rem; }
 
 .comment__text__poll__actions__action {
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-left: 6px; }
   .comment__text__poll__actions__action:first-child {
     margin-left: 0; }
@@ -7431,7 +7431,7 @@ del.diff {
       border-radius: 100px; } }
 
 .profile__img__username {
-  font-size: 18px; }
+  font-size: 1.125rem; }
 
 .profile__info {
   margin-bottom: 24px;
