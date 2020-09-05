@@ -129,7 +129,7 @@ dfn {
  */
 
 h1 {
-  font-size: 2em;
+  font-size: 2rem;
   margin: 0.67em 0;
 }
 
@@ -224,8 +224,15 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
+  font-family: "Consolas","Menlo","Monaco","Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New","monospace","sans-serif";
+  font-size: rem(13px);
+  //line-height: rem(14px) * 1.5;
+  padding: 0 2px;
+  background-color: $lightest-grey;
+}
+
+pre {
+  padding: $space-quarter $space-half;
 }
 
 /* Forms
