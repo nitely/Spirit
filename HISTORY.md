@@ -1,13 +1,17 @@
-0.8.1 (dev)
+0.9.0 (dev)
 ==================
 
 * Added Kyrgyz translation (thanks to @jumasheff)
 * Added `django.contrib.humanize` to `INSTALLED_APPS`
 * Fixed user comment reply button
 * Fixed paginator current page button (issue #168)
-* Fixed ordered list style in comment (issue #134)
+* Fixed ordered list style for the comments (issue #134)
 * Revamped UI; Internet Explorer Browser is no longer
   supported
+* Added Dark mode UI; it's active when the web browser
+  is in dark mode, there is no user preference to
+  activate it
+* Namespaced CSS style
 
 0.8.0
 ==================
