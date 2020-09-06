@@ -3,31 +3,9 @@
 
 //elements
 @import "elements/fonts";
-
-// taken from _normalize
-html {
-  // normalize
-  font-family: sans-serif;
-  // iOS fix
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  // general
-  background-color: var(--st-bg-color);
-}
-body {
-  margin: 0;
-}
-// WebKit bug in Android 4.0.* fix
-html input[type="button"] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-html input[disabled] {
-  cursor: default;
-}
+@import "elements/global";
 
 // namespace
-// uncomment to namespace all styles
-//.spirit {
+.spirit {
   @import "base";
-//}
+}

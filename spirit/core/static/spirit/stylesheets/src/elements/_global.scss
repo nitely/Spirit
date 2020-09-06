@@ -1,0 +1,25 @@
+// html & body global styles;
+// elements that cannot be
+// namespaced
+
+// taken from _normalize
+html {
+  // normalize
+  font-family: sans-serif;
+  // iOS fix
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  // general
+  background-color: var(--st-bg-color);
+}
+body {
+  margin: 0;
+}
+// WebKit bug in Android 4.0.* fix
+html input[type="button"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+html input[disabled] {
+  cursor: default;
+}
