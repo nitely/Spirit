@@ -509,15 +509,20 @@
   grid-area: tx;
   blockquote {
     margin: 0;
+    margin-bottom: $space-half;
     border-left: 4px solid var(--st-br-comment-quote);
     padding-left: $space-half;
+  }
+  // outer quote
+  & > blockquote {
+    max-height: $base-line-height * 4.5;
+    overflow-y: auto;
   }
   ol,
   ul {
     list-style-type: disc;
     list-style-position: inside;
     margin-left: $space-half;
-    margin-bottom: $base-line-height;
   }
   ol {
     list-style-type: decimal;
@@ -540,8 +545,11 @@
       text-decoration: none;
     }
   }
-  & > *:last-child {
-    margin-bottom: 0;
+  & > * {
+    margin-bottom: $space-half;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 //.comment-poll
