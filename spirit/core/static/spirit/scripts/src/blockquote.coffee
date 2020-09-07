@@ -2,6 +2,10 @@
     Expand blockquote instead of showing a scrollbar
 ###
 
+# This is not re-calculated on resize, so
+# in case the blockquote grows, the regular
+# scrollbar will show; in case it shrinks, the
+# expand will still show
 stModules.blockquoteExpand = (elms) ->
   Array.from(elms).forEach((elm) ->
     # there's a polyfill, but I don't care about IE
