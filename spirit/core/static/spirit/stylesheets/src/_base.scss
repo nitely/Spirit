@@ -552,6 +552,26 @@
     }
   }
 }
+// blockquote.coffee
+.blockquote_expand {
+  display: flex;
+  border-top: 1px solid var(--st-bg-sec);
+  a {
+    flex: 1;
+    text-align: center;
+    font-size: rem(14px);
+    line-height: rem(16px);
+    padding: 0 $space-quarter;
+    background-color: var(--st-bg-sec);
+  }
+  @media #{$medium} {
+    justify-content: center;
+    a {
+      flex: none
+    }
+  }
+
+}
 //.comment-poll
 .comment__text__poll {
   margin-bottom: $space-half;

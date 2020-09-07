@@ -5033,6 +5033,21 @@ html input[disabled] {
       margin-bottom: 12px; }
       .spirit .comment__text > *:last-child {
         margin-bottom: 0; }
+  .spirit .blockquote_expand {
+    display: flex;
+    border-top: 1px solid var(--st-bg-sec); }
+    .spirit .blockquote_expand a {
+      flex: 1;
+      text-align: center;
+      font-size: 0.875rem;
+      line-height: 1rem;
+      padding: 0 6px;
+      background-color: var(--st-bg-sec); }
+    @media screen and (min-width: 768px) {
+      .spirit .blockquote_expand {
+        justify-content: center; }
+        .spirit .blockquote_expand a {
+          flex: none; } }
   .spirit .comment__text__poll {
     margin-bottom: 12px; }
     .spirit .comment__text__poll form > * {

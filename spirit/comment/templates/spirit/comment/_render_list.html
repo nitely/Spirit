@@ -68,7 +68,7 @@
         </ul>
       {% endspaceless %}
     </div>
-    <div class="comment__text">
+    <div class="comment__text js-comment-text">
       {% post_render_comment comment=c %}
     </div>
     <div class="comment__footer js-tabs-container">
@@ -157,6 +157,9 @@
         removeLikeText: "<span class=\"fa fa-heart\"></span> " + "{% trans "remove like" %} ({count})"
       });
     {% endif %}
+
+    stModules.blockquoteExpand(
+      document.querySelectorAll('.js-comment-text > blockquote'));
 
     hljs.initHighlightingOnLoad();
 
