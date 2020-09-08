@@ -357,6 +357,9 @@
   &.is-visited {
     color: var(--st-text-topic-item-link-visited);
   }
+  &:hover, &:focus {
+    color: var(--st-text-link-hover);
+  }
 }
 .topic_publish_comment {
   textarea {

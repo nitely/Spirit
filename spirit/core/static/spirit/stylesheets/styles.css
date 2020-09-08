@@ -60,7 +60,7 @@
     --st-bg-sec: #222222;
     --st-bg-ter: #1c1c1c;
     --st-bg-qua: #181818;
-    --st-text-selected-prim: #cecece;
+    --st-text-selected-prim: #ececec;
     --st-highlight-prim: #830000;
     --st-text-button: var(--st-text-sec);
     --st-bg-input: #181818;
@@ -4906,6 +4906,10 @@ html input[disabled] {
     .spirit .topic__link:visited,
     .spirit .topic__link.is-visited {
       color: var(--st-text-topic-item-link-visited); }
+    .spirit .layout__list__item__link:hover, .spirit .layout__list__item__link:focus,
+    .spirit .topic__link:hover,
+    .spirit .topic__link:focus {
+      color: var(--st-text-link-hover); }
   .spirit .topic_publish_comment textarea {
     height: 240px; }
   .spirit .topic_publish_comment .field {
