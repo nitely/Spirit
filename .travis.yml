@@ -1,13 +1,15 @@
 dist: xenial
 
-matrix:
+jobs:
   include:
-  - language: node_js
+  - name: "js"
+    language: node_js
     node_js: 12
     script:
       - yarn
       - make testjs
-  - language: python
+  - name: "python"
+    language: python
     python:
       - "3.6"
       - "3.7"
