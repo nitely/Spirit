@@ -1,9 +1,4 @@
 dist: xenial
-language: python
-python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
 
 jobs:
   include:
@@ -12,9 +7,15 @@ jobs:
       script:
         - yarn
         - make testjs
-    - env:
-        - DJANGO=2.2.8
-        - DJANGO=3.0.3
+    - language: python
+      python:
+        - "3.6"
+        - "3.7"
+        - "3.8"
+      env:
+        matrix:
+          - DJANGO=2.2.8
+          - DJANGO=3.0.3
       install:
         - pip install --upgrade pip
         - pip install .[files]
