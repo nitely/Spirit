@@ -5,9 +5,10 @@ describe "postify plugin tests", ->
     isHidden = stModules.utils.isHidden
 
     beforeEach ->
-        fixtures = jasmine.getFixtures()
-        fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures('postify.html')
+        document.body.innerHTML = """
+        <a class="js-post" href="/link1/">link</a>
+        <a class="js-post" href="/link2/">link 2</a>
+        """
 
         a_post = document.querySelectorAll('.js-post')
         plugin_postify = stModules.postify(a_post, {

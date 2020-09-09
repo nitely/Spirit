@@ -4,10 +4,7 @@
     textarea = null;
     storage = null;
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      loadFixtures('store.html');
+      document.body.innerHTML = "<form action=\".\">\n  <textarea id=\"my-fixture\"></textarea>\n  <textarea id=\"my-fixture-2\"></textarea>\n</form>";
       localStorage.clear();
       textarea = document.querySelector('#my-fixture');
       return storage = stModules.store(textarea, 'unique-id');
@@ -39,7 +36,7 @@
       var evt, setItem;
       localStorage.setItem('unique-id', "no-foobar");
       textarea.value = "foobar";
-      setItem = spyOn(Storage.prototype, 'setItem');
+      setItem = spyOn(window.Storage.prototype, 'setItem');
       setItem.and.callFake(function() {
         var evt;
         evt = document.createEvent("HTMLEvents");

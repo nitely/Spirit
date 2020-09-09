@@ -38,8 +38,7 @@
     }
 
     Notification.prototype.setUp = function() {
-      this.el.addEventListener('click', this.tabSwitch);
-      return this.contentElm.appendChild(this.NotificationsElm);
+      return this.el.addEventListener('click', this.tabSwitch);
     };
 
     Notification.prototype.tabSwitch = function(e) {
@@ -64,7 +63,8 @@
         return function(data) {
           if (data.n.length > 0) {
             _this.addNotifications(data.n);
-            return _this.addShowMoreLink();
+            _this.addShowMoreLink();
+            return _this.contentElm.appendChild(_this.NotificationsElm);
           } else {
             return _this.addIsEmptyTxt();
           }

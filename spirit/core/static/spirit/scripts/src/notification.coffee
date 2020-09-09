@@ -30,7 +30,6 @@ class Notification
 
     setUp: ->
         @el.addEventListener('click', @tabSwitch)
-        @contentElm.appendChild(@NotificationsElm)
 
     tabSwitch: (e) =>
         e.preventDefault()
@@ -58,6 +57,7 @@ class Notification
             if data.n.length > 0
                 @addNotifications(data.n)
                 @addShowMoreLink()
+                @contentElm.appendChild(@NotificationsElm)
             else
                 @addIsEmptyTxt()
         )

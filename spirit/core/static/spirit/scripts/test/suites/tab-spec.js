@@ -5,10 +5,7 @@
     tabs = null;
     Tab = null;
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      loadFixtures('tab.html');
+      document.body.innerHTML = "<div class=\"js-tabs-container\">\n  <ul>\n    <li><a class=\"js-tab\" href=\"#\" data-related=\".js-search-content\">t1</a></li>\n    <li><a class=\"js-tab\" href=\"#\" data-related=\".js-notifications-content\">t2</a></li>\n    <li><a class=\"js-tab\" href=\"#\" data-related=\".js-user-content\">t3</a></li>\n  </ul>\n  <div class=\"js-tab-content js-user-content\" style=\"display:none;\"></div>\n  <div class=\"js-tab-content js-notifications-content\" style=\"display:none;\"></div>\n  <div class=\"js-tab-content js-search-content\" style=\"display:none;\"></div>\n</div>";
       tabElms = document.querySelectorAll('.js-tab');
       tabs = stModules.tab(tabElms);
       return Tab = stModules.Tab;
@@ -31,11 +28,11 @@
       tab_content_first = document.querySelector(tabElms[0].dataset.related);
       expect(tab_content_first.style.display).toEqual('none');
       tabElms[0].click();
-      expect(tab_content_first.style.display).toEqual('block');
+      expect(tab_content_first.style.display).toEqual('');
       tab_content_last = document.querySelector(tabElms[tabElms.length - 1].dataset.related);
       expect(tab_content_last.style.display).toEqual('none');
       tabElms[tabElms.length - 1].click();
-      expect(tab_content_last.style.display).toEqual('block');
+      expect(tab_content_last.style.display).toEqual('');
       return expect(tab_content_first.style.display).toEqual('none');
     });
     it("hides the clicked tab content if is selected", function() {
@@ -43,7 +40,7 @@
       tab_content_first = document.querySelector(tabElms[0].dataset.related);
       expect(tab_content_first.style.display).toEqual('none');
       tabElms[0].click();
-      expect(tab_content_first.style.display).toEqual('block');
+      expect(tab_content_first.style.display).toEqual('');
       tabElms[0].click();
       return expect(tab_content_first.style.display).toEqual('none');
     });

@@ -6,10 +6,7 @@
     tab = null;
     isHidden = stModules.utils.isHidden;
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      loadFixtures('notification.html');
+      document.body.innerHTML = "<div class=\"js-tabs-container\">\n  <ul>\n    <li><a\n      class=\"js-tab-notification js-tab\"\n      href=\"#\"\n      data-related=\".js-notifications-content\"\n      data-content=\".js-notifications-content-list\"\n    >bell</a></li>\n  </ul>\n  <div class=\"js-tab-content js-notifications-content\" style=\"display: none;\">\n    <div class=\"js-notifications-content-list\"></div>\n  </div>\n</div>";
       responseData = {
         n: [
           {
@@ -21,7 +18,7 @@
           }
         ]
       };
-      get = spyOn(window, 'fetch');
+      get = spyOn(global, 'fetch');
       get.and.callFake(function() {
         return {
           then: function(func) {
@@ -84,25 +81,25 @@
       };
       tab.click();
       expect(get.calls.count()).toEqual(1);
-      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>username foo you on <a href="/foobar/">&lt;bad&gt;"bad"&lt;/bad&gt;</a></div>' + '<div><a href="/foo/list/">foo Show all</a></div>');
+      return expect(document.querySelector('.js-notifications-content-list').innerHTML).toEqual('<ul><li><a href="/foobar/">username foo you on &lt;bad&gt;"bad"&lt;/bad&gt;</a></li>' + '<li><a href="/foo/list/">foo Show all</a></li></ul>');
     });
     it("shows mention notifications", function() {
       get.calls.reset();
       tab.click();
       expect(get.calls.count()).toEqual(1);
-      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>username foo you on <a href="/foobar/">title</a></div>' + '<div><a href="/foo/list/">foo Show all</a></div>');
+      return expect(document.querySelector('.js-notifications-content-list').innerHTML).toEqual('<ul><li><a href="/foobar/">username foo you on title</a></li>' + '<li><a href="/foo/list/">foo Show all</a></li></ul>');
     });
     it("shows comment notifications", function() {
       responseData.n[0].action = 2;
       tab.click();
       expect(get.calls.count()).toEqual(1);
-      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>username has bar on <a href="/foobar/">title</a></div>' + '<div><a href="/foo/list/">foo Show all</a></div>');
+      return expect(document.querySelector('.js-notifications-content-list').innerHTML).toEqual('<ul><li><a href="/foobar/">username has bar on title</a></li>' + '<li><a href="/foo/list/">foo Show all</a></li></ul>');
     });
     it("marks unread notifications", function() {
       responseData.n[0].is_read = false;
       tab.click();
       expect(get.calls.count()).toEqual(1);
-      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>username foo you on <a href="/foobar/">title</a> ' + '<span class="row-unread">foo unread</span></div>' + '<div><a href="/foo/list/">foo Show all</a></div>');
+      return expect(document.querySelector('.js-notifications-content-list').innerHTML).toEqual('<ul><li><a href="/foobar/">username foo you on title <span class="unread">foo unread</span></a></li>' + '<li><a href="/foo/list/">foo Show all</a></li></ul>');
     });
     it("shows an error on server error", function() {
       var log;
@@ -140,7 +137,7 @@
       });
       tab.click();
       expect(get.calls.count()).toEqual(1);
-      return expect(document.querySelector('.js-notifications-content').innerHTML).toEqual('<div>error: 500 server error</div>');
+      return expect(document.querySelector('.js-notifications-content-list').innerHTML).toEqual('<div>error: 500 server error</div>');
     });
     return it("prevents the default click behaviour", function() {
       var evt, preventDefault, stopPropagation;

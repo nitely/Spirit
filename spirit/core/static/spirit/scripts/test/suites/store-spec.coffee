@@ -3,9 +3,12 @@ describe "store plugin tests", ->
     storage = null
 
     beforeEach ->
-        fixtures = jasmine.getFixtures()
-        fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures('store.html')
+        document.body.innerHTML = """
+        <form action=".">
+          <textarea id="my-fixture"></textarea>
+          <textarea id="my-fixture-2"></textarea>
+        </form>
+        """
 
         localStorage.clear()
         textarea = document.querySelector('#my-fixture')
@@ -44,7 +47,7 @@ describe "store plugin tests", ->
         localStorage.setItem('unique-id', "no-foobar")
         textarea.value = "foobar"
 
-        setItem = spyOn(Storage.prototype, 'setItem')
+        setItem = spyOn(window.Storage.prototype, 'setItem')
         setItem.and.callFake( ->
             # Force storage event
             evt = document.createEvent("HTMLEvents")
@@ -59,7 +62,6 @@ describe "store plugin tests", ->
         expect(setItem.calls.count()).toEqual(1)
         expect(localStorage.getItem('unique-id')).toEqual("no-foobar")
         expect(textarea.value).toEqual("foobar")
-
 
     it "gets cleared on submit", ->
         localStorage.setItem('unique-id', "text")

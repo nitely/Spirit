@@ -5,10 +5,7 @@
     plugin_postify = null;
     isHidden = stModules.utils.isHidden;
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      loadFixtures('postify.html');
+      document.body.innerHTML = "<a class=\"js-post\" href=\"/link1/\">link</a>\n<a class=\"js-post\" href=\"/link2/\">link 2</a>";
       a_post = document.querySelectorAll('.js-post');
       return plugin_postify = stModules.postify(a_post, {
         csrfToken: "foobar"

@@ -2,15 +2,7 @@
   "spec_dir": "spirit/core/static/spirit/scripts",
   "spec_files": [
     "all.min.js",
-    "test/suites/bookmark-spec.js",
-    "test/suites/comment_diff-spec.js",
-    "test/suites/editor-spec.js",
-    "test/suites/editor_file_upload-spec.js",
-    "test/suites/editor_image_upload-spec.js",
-    "test/suites/emoji_list-spec.js",
-    "test/suites/like-spec.js",
-    "test/suites/messages-spec.js",
-    "test/suites/move_comments-spec.js"
+    "test/suites/*-spec.js"
   ],
   "helpers": [
     "test/helpers/**/*.js"
