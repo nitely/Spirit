@@ -7,6 +7,13 @@ docs:
 test:
 	python -Wd runtests.py
 
+testjs:
+	npm run gulp test && \
+	jasmine --config=spirit/core/static/spirit/scripts/test/support/jasmine.json
+
+buildjs:
+	npm run gulp coffee
+
 sdist: test clean
 	python setup.py sdist
 

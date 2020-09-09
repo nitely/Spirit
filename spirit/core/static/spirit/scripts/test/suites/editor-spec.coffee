@@ -3,9 +3,22 @@ describe "editor plugin tests", ->
     editor = null
 
     beforeEach ->
-        fixtures = do jasmine.getFixtures
-        fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures('editor.html')
+        document.body.innerHTML = """
+        <form class="js-reply" action=".">
+            <textarea id="id_comment"></textarea>
+            <div class="js-box-preview-content" style="display:none;"></div>
+            <ul>
+                <li><a class="js-box-bold" href="#" title="Bold"></a></li>
+                <li><a class="js-box-italic" href="#" title="Italic"></a></li>
+                <li><a class="js-box-list" href="#" title="List"></a></li>
+                <li><a class="js-box-url" href="#" title="URL"></a></li>
+                <li><a class="js-box-image" href="#" title="Image"></a></li>
+                <li><a class="js-box-file" href="#" title="File"></a></li>
+                <li><a class="js-box-poll" href="#" title="Poll"></a></li>
+                <li><a class="js-box-preview" href="#" title="Preview"></a></li>
+            </ul>
+        </form>
+        """
 
         editor = stModules.editor(document.querySelectorAll('.js-reply'), {
             boldedText: "foo bolded text",
@@ -99,6 +112,9 @@ describe "editor plugin tests", ->
         document.querySelector('.js-box-image').click()
         expect(textarea.value).toEqual("bir![foo](foo image url)bar")
 
+    # XXX marked uses module.export
+    #     instead of global/window when defined
+    ###
     it "shows html preview", ->
         textarea.value = "*foo*"
         document.querySelector('.js-box-preview').click()
@@ -111,5 +127,5 @@ describe "editor plugin tests", ->
         document.querySelector('.js-box-preview').click()
         expect(textarea.style.display).toEqual('block')
         expect(document.querySelector('.js-box-preview-content').style.display).toEqual('none')
-
+    ###
     # todo: test pointer location

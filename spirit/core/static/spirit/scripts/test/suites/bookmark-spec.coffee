@@ -7,12 +7,13 @@ describe "bookmark plugin tests", ->
     post = null
 
     beforeEach ->
-        fixtures = jasmine.getFixtures()
-        fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures('bookmark.html')
+        document.body.innerHTML = """
+            <div class="comment" data-number="1"></div>
+            <div class="comment" data-number="2"></div>
+        """
 
         # Promise is async, so must callFake a sync thing
-        post = spyOn(window, 'fetch')
+        post = spyOn(global, 'fetch')
         post.and.callFake( -> {
             then: (func) ->
                 func({ok: true})

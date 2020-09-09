@@ -8,11 +8,8 @@
     Mark = null;
     post = null;
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      loadFixtures('bookmark.html');
-      post = spyOn(window, 'fetch');
+      document.body.innerHTML = "<div class=\"comment\" data-number=\"1\"></div>\n<div class=\"comment\" data-number=\"2\"></div>";
+      post = spyOn(global, 'fetch');
       post.and.callFake(function() {
         return {
           then: function(func) {

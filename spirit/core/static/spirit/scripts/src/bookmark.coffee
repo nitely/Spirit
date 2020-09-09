@@ -3,6 +3,8 @@
     requires: modules, waypoints
 ###
 
+Waypoint = if Waypoint? then Waypoint else window.Waypoint
+
 
 class Mark
     ## This is shared among a set of bookmarks

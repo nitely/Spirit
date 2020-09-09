@@ -13,10 +13,9 @@
     "gulp-ruby-sass": "^4.0.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
-    "jasmine-core": "^3.6.0",
-    "karma": "^5.1.1",
-    "karma-cli": "^2.0.0",
-    "karma-jasmine": "^4.0.1"
+    "jasmine": "^3.6.1",
+    "jquery": "^3.5.1",
+    "jsdom": "^16.4.0"
   },
   "scripts": {
     "gulp": "gulp"
@@ -26,5 +25,7 @@
   "repository": "https://github.com/nitely/Spirit.git",
   "author": "nitely <ecastroborsani@gmail.com>",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
 }

@@ -47,11 +47,11 @@ $ yarn
 # Build
 
 ```
-$ npm run gulp coffee
+$ make buildjs
 ```
 
 # Test
 
 ```
-$ npm run gulp test
+$ make testjs
 ```

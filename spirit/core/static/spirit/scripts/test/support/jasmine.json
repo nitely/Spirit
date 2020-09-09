@@ -1,0 +1,13 @@
+{
+  "spec_dir": "spirit/core/static/spirit/scripts",
+  "spec_files": [
+    "all.min.js",
+    "test/suites/bookmark-spec.js",
+    "test/suites/editor-spec.js"
+  ],
+  "helpers": [
+    "test/helpers/**/*.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false
+}

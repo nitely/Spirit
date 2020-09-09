@@ -5,8 +5,10 @@
  */
 
 (function() {
-  var Bookmark, Mark,
+  var Bookmark, Mark, Waypoint,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+  Waypoint = Waypoint != null ? Waypoint : window.Waypoint;
 
   Mark = (function() {
     Mark.prototype.defaults = {

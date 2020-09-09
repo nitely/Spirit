@@ -4,10 +4,7 @@
     textarea = null;
     editor = null;
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      loadFixtures('editor.html');
+      document.body.innerHTML = "<form class=\"js-reply\" action=\".\">\n    <textarea id=\"id_comment\"></textarea>\n    <div class=\"js-box-preview-content\" style=\"display:none;\"></div>\n    <ul>\n        <li><a class=\"js-box-bold\" href=\"#\" title=\"Bold\"></a></li>\n        <li><a class=\"js-box-italic\" href=\"#\" title=\"Italic\"></a></li>\n        <li><a class=\"js-box-list\" href=\"#\" title=\"List\"></a></li>\n        <li><a class=\"js-box-url\" href=\"#\" title=\"URL\"></a></li>\n        <li><a class=\"js-box-image\" href=\"#\" title=\"Image\"></a></li>\n        <li><a class=\"js-box-file\" href=\"#\" title=\"File\"></a></li>\n        <li><a class=\"js-box-poll\" href=\"#\" title=\"Poll\"></a></li>\n        <li><a class=\"js-box-preview\" href=\"#\" title=\"Preview\"></a></li>\n    </ul>\n</form>";
       editor = stModules.editor(document.querySelectorAll('.js-reply'), {
         boldedText: "foo bolded text",
         italicisedText: "foo italicised text",
@@ -84,23 +81,28 @@
       document.querySelector('.js-box-url').click();
       return expect(textarea.value).toEqual("bir[foo](foo link url)bar");
     });
-    it("wraps the selected text, image", function() {
+    return it("wraps the selected text, image", function() {
       textarea.value = "birfoobar";
       textarea.selectionStart = 3;
       textarea.selectionEnd = 6;
       document.querySelector('.js-box-image').click();
       return expect(textarea.value).toEqual("bir![foo](foo image url)bar");
     });
-    return it("shows html preview", function() {
-      textarea.value = "*foo*";
-      document.querySelector('.js-box-preview').click();
-      expect(textarea.style.display).toEqual('none');
-      expect(document.querySelector('.js-box-preview-content').style.display).toEqual('block');
-      expect(document.querySelector('.js-box-preview-content').innerHTML).toEqual("<p><em>foo</em></p>\n");
-      document.querySelector('.js-box-preview').click();
-      expect(textarea.style.display).toEqual('block');
-      return expect(document.querySelector('.js-box-preview-content').style.display).toEqual('none');
-    });
+
+    /*
+    it "shows html preview", ->
+        textarea.value = "*foo*"
+        document.querySelector('.js-box-preview').click()
+        expect(textarea.style.display).toEqual('none')
+        expect(document.querySelector('.js-box-preview-content').style.display).toEqual('block')
+        expect(document.querySelector('.js-box-preview-content').innerHTML).toEqual(
+          "<p><em>foo</em></p>\n")
+    
+         * clicking again should hide the preview and show the textarea
+        document.querySelector('.js-box-preview').click()
+        expect(textarea.style.display).toEqual('block')
+        expect(document.querySelector('.js-box-preview-content').style.display).toEqual('none')
+     */
   });
 
 }).call(this);
