@@ -1,4 +1,5 @@
 dist: xenial
+language: python
 python:
   - "3.6"
   - "3.7"
@@ -11,8 +12,7 @@ jobs:
       script:
         - yarn
         - make testjs
-    - language: python
-      env:
+    - env:
         - DJANGO=2.2.8
         - DJANGO=3.0.3
       install:
