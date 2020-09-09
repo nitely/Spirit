@@ -1,10 +1,7 @@
 (function() {
   describe("comment_diff plugin tests", function() {
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      return loadFixtures('comment_diff.html');
+      return document.body.innerHTML = "<div class=\"comment\">Hello</div>\n<div class=\"comment\">Hello world</div>\n<div class=\"comment\">Hello world!</div>";
     });
     return it("diffes comments", function() {
       var comments;

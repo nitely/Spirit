@@ -3,10 +3,7 @@
     var isHidden;
     isHidden = stModules.utils.isHidden;
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      return loadFixtures('messages.html');
+      return document.body.innerHTML = "<div class=\"js-messages\">\n  <div class=\"js-messages-set\">\n    <ul>\n      <li>success 1</li>\n      <li>success 2</li>\n    </ul>\n    <div class=\"js-messages-close\" style=\"display: none\">\n      <i class=\"js-messages-close-button\"></i>\n    </div>\n  </div>\n  <div class=\"js-messages-set\">\n    <ul>\n      <li>error 1</li>\n      <li>error 2</li>\n    </ul>\n    <div class=\"js-messages-close\" style=\"display: none\">\n      <i class=\"js-messages-close-button\"></i>\n    </div>\n  </div>\n</div>\n<div class=\"js-messages-dummy\"></div>\n<div class=\"js-messages-dummy\"></div>";
     });
     it("attaches all messages", function() {
       var messages;

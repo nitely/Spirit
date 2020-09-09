@@ -356,14 +356,12 @@
 
   diff.render_operations = render_operations;
 
-  if (typeof define === 'function') {
-    define([], function() {
-      return diff;
-    });
-  } else if (typeof module !== "undefined" && module !== null) {
-    module.exports = diff;
-  } else {
-    this.htmldiff = diff;
+  if (typeof global !== "undefined" && global !== null) {
+    global.htmldiff = diff;
+  }
+
+  if (typeof window !== "undefined" && window !== null) {
+    window.htmldiff = diff;
   }
 
 }).call(this);

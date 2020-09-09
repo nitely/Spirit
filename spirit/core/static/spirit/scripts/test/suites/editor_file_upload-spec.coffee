@@ -16,13 +16,26 @@ describe "editor file upload plugin tests", ->
             editor.inputFile = inputFileOrg
 
     beforeEach ->
-        fixtures = jasmine.getFixtures()
-        fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures('editor.html')
+        document.body.innerHTML = """
+        <form class="js-reply" action=".">
+            <textarea id="id_comment"></textarea>
+            <div class="js-box-preview-content" style="display:none;"></div>
+            <ul>
+                <li><a class="js-box-bold" href="#" title="Bold"></a></li>
+                <li><a class="js-box-italic" href="#" title="Italic"></a></li>
+                <li><a class="js-box-list" href="#" title="List"></a></li>
+                <li><a class="js-box-url" href="#" title="URL"></a></li>
+                <li><a class="js-box-image" href="#" title="Image"></a></li>
+                <li><a class="js-box-file" href="#" title="File"></a></li>
+                <li><a class="js-box-poll" href="#" title="Poll"></a></li>
+                <li><a class="js-box-preview" href="#" title="Preview"></a></li>
+            </ul>
+        </form>
+        """
 
         responseData = {url: '/path/foo'}
 
-        post = spyOn(window, 'fetch')
+        post = spyOn(global, 'fetch')
         post.and.callFake( -> {
             then: (func) ->
                 data = func({ok: true, json: -> responseData})
@@ -56,7 +69,7 @@ describe "editor file upload plugin tests", ->
         post.calls.reset()
 
         formDataMock = jasmine.createSpyObj('formDataMock', ['append', ])
-        spyOn(window, "FormData").and.returnValue(formDataMock)
+        spyOn(global, "FormData").and.returnValue(formDataMock)
 
         triggerFakeUpload('foo.doc')
         expect(post.calls.any()).toEqual(true)

@@ -5,13 +5,22 @@ describe "like plugin tests", ->
     responseData = null
 
     beforeEach ->
-        fixtures = jasmine.getFixtures()
-        fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures('like.html')
+        document.body.innerHTML = """
+        <div>
+          <ul>
+            <li><a class="js-like" href="/foo/create/" data-count="0"><i class="fa fa-heart"></i> like</a></li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li><a class="js-like" href="foo/delete/" data-count="1"><i class="fa fa-heart"></i> remove like</a></li>
+          </ul>
+        </div>
+        """
 
         responseData = {url_create: '/create/foo'}
 
-        post = spyOn(window, 'fetch')
+        post = spyOn(global, 'fetch')
         post.and.callFake( -> {
             then: (func) ->
                 data = func({ok: true, json: -> responseData})

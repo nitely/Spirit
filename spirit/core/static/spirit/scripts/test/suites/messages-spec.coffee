@@ -3,9 +3,30 @@ describe "messages plugin tests", ->
     isHidden = stModules.utils.isHidden
 
     beforeEach ->
-        fixtures = jasmine.getFixtures()
-        fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures('messages.html')
+        document.body.innerHTML = """
+        <div class="js-messages">
+          <div class="js-messages-set">
+            <ul>
+              <li>success 1</li>
+              <li>success 2</li>
+            </ul>
+            <div class="js-messages-close" style="display: none">
+              <i class="js-messages-close-button"></i>
+            </div>
+          </div>
+          <div class="js-messages-set">
+            <ul>
+              <li>error 1</li>
+              <li>error 2</li>
+            </ul>
+            <div class="js-messages-close" style="display: none">
+              <i class="js-messages-close-button"></i>
+            </div>
+          </div>
+        </div>
+        <div class="js-messages-dummy"></div>
+        <div class="js-messages-dummy"></div>
+        """
 
     it "attaches all messages", ->
         messages = stModules.messages(document.querySelectorAll('.js-messages-dummy'))

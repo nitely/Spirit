@@ -28,14 +28,11 @@
       }
     };
     beforeEach(function() {
-      var fixtures;
-      fixtures = jasmine.getFixtures();
-      fixtures.fixturesPath = 'base/test/fixtures/';
-      loadFixtures('editor.html');
+      document.body.innerHTML = "<form class=\"js-reply\" action=\".\">\n    <textarea id=\"id_comment\"></textarea>\n    <div class=\"js-box-preview-content\" style=\"display:none;\"></div>\n    <ul>\n        <li><a class=\"js-box-bold\" href=\"#\" title=\"Bold\"></a></li>\n        <li><a class=\"js-box-italic\" href=\"#\" title=\"Italic\"></a></li>\n        <li><a class=\"js-box-list\" href=\"#\" title=\"List\"></a></li>\n        <li><a class=\"js-box-url\" href=\"#\" title=\"URL\"></a></li>\n        <li><a class=\"js-box-image\" href=\"#\" title=\"Image\"></a></li>\n        <li><a class=\"js-box-file\" href=\"#\" title=\"File\"></a></li>\n        <li><a class=\"js-box-poll\" href=\"#\" title=\"Poll\"></a></li>\n        <li><a class=\"js-box-preview\" href=\"#\" title=\"Preview\"></a></li>\n    </ul>\n</form>";
       responseData = {
         url: '/path/foo'
       };
-      post = spyOn(window, 'fetch');
+      post = spyOn(global, 'fetch');
       post.and.callFake(function() {
         return {
           then: function(func) {
@@ -76,7 +73,7 @@
       var formDataMock;
       post.calls.reset();
       formDataMock = jasmine.createSpyObj('formDataMock', ['append']);
-      spyOn(window, "FormData").and.returnValue(formDataMock);
+      spyOn(global, "FormData").and.returnValue(formDataMock);
       triggerFakeUpload('foo.doc');
       expect(post.calls.any()).toEqual(true);
       expect(post.calls.argsFor(0)[0]).toEqual('/foo/');

@@ -290,9 +290,7 @@ find_matching_blocks.create_index = create_index
 diff.calculate_operations = calculate_operations
 diff.render_operations = render_operations
 
-if typeof define is 'function'
-  define [], ()-> diff
-else if module?
-  module.exports = diff
-else
-  this.htmldiff = diff
+if global?
+  global.htmldiff = diff
+if window?
+  window.htmldiff = diff

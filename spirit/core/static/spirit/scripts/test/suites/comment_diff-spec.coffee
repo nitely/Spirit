@@ -1,9 +1,11 @@
 describe "comment_diff plugin tests", ->
 
     beforeEach ->
-        fixtures = jasmine.getFixtures()
-        fixtures.fixturesPath = 'base/test/fixtures/'
-        loadFixtures('comment_diff.html')
+        document.body.innerHTML = """
+        <div class="comment">Hello</div>
+        <div class="comment">Hello world</div>
+        <div class="comment">Hello world!</div>
+        """
 
     it "diffes comments", ->
         comments = document.querySelectorAll('.comment')
