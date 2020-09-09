@@ -1,35 +1,34 @@
 dist: xenial
 
-jobs:
+matrix:
   include:
-    - language: node_js
-      node_js: 12
-      script:
-        - yarn
-        - make testjs
-    - language: python
-      python:
-        - "3.6"
-        - "3.7"
-        - "3.8"
-      env:
-        matrix:
-          - DJANGO=2.2.8
-          - DJANGO=3.0.3
-      install:
-        - pip install --upgrade pip
-        - pip install .[files]
-        - pip uninstall django-spirit -y
-        - pip install -q Django==$DJANGO
-        - pip install coveralls pep8==1.5.7 flake8
-      script:
-        - flake8 --exit-zero
-        - python setup.py build
-        - python ./spirit/extra/bin/spirit.py startproject project
-        - export PYTHONWARNINGS="default"
-        - coverage run --source=. runtests.py
-      after_success:
-        - coveralls
+  - language: node_js
+    node_js: 12
+    script:
+      - yarn
+      - make testjs
+  - language: python
+    python:
+      - "3.6"
+      - "3.7"
+      - "3.8"
+    env:
+      - DJANGO=2.2.8
+      - DJANGO=3.0.3
+    install:
+      - pip install --upgrade pip
+      - pip install .[files]
+      - pip uninstall django-spirit -y
+      - pip install -q Django==$DJANGO
+      - pip install coveralls pep8==1.5.7 flake8
+    script:
+      - flake8 --exit-zero
+      - python setup.py build
+      - python ./spirit/extra/bin/spirit.py startproject project
+      - export PYTHONWARNINGS="default"
+      - coverage run --source=. runtests.py
+    after_success:
+      - coveralls
 notifications:
   email:
     on_failure: never
