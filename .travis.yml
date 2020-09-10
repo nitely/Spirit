@@ -26,10 +26,9 @@ notifications:
     on_failure: never
     on_success: never
 
-jobs:
+matrix:
   include:
-    - name: "JS tests"
-      language: node_js
+    - language: node_js
       node_js: 12
       script:
         - yarn
