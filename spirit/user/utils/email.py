@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import logging
-
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import ugettext as _
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
 
-from ...core.conf import settings
+from spirit.core.conf import settings
+from spirit.core import tasks
 from .tokens import (
     UserActivationTokenGenerator,
     UserEmailChangeTokenGenerator)
-
-logger = logging.getLogger(__name__)
 
 
 def sender(request, subject, template_name, context, to):
@@ -35,16 +31,7 @@ def sender(request, subject, template_name, context, to):
     if settings.DEFAULT_FROM_EMAIL != 'webmaster@localhost':
         from_email = settings.DEFAULT_FROM_EMAIL
 
-    for recipient in to:
-        try:
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=from_email,
-                recipient_list=[recipient]
-            )
-        except OSError as err:
-            logger.exception(err)
+    tasks.send_email(subject, message, from_email, to)
 
 
 def send_activation_email(request, user):

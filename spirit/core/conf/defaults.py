@@ -7,6 +7,12 @@ They can be overridden by the project settings
 
 import os
 
+#: The task manager to run delayed and periodic tasks
+#: such as send emails, update the search index, clean up django
+#: sessions, etc. Valid values are: ``'celery'``, ``'huey'``, and
+#: ``None``
+ST_TASK_MANAGER = None
+
 #: The category's PK containing all of the private topics.
 #: The category is auto-created and so this value should not change
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
