@@ -1,7 +1,5 @@
 language: python
-sudo: false
 dist: xenial
-
 python:
   - "3.6"
   - "3.7"
@@ -27,3 +25,14 @@ notifications:
   email:
     on_failure: never
     on_success: never
+
+jobs:
+  include:
+    - language: node_js
+      node_js: 12
+      script:
+        - yarn
+        - make testjs
+      install: []
+      env: []
+      after_success: []
