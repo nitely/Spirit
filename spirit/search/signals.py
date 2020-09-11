@@ -2,8 +2,7 @@
 
 from haystack import signals
 
-from django.conf import settings
-
+from spirit.core.conf import settings
 from spirit.core.signals import search_index_update
 from spirit.topic.models import Topic
 

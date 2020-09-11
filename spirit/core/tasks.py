@@ -6,30 +6,37 @@ from django.db import transaction
 from django.core.mail import send_mail
 from django.apps import apps
 
-from spirit.core.conf import settings
+from .conf import settings
+from . import signals
 
 logger = logging.getLogger(__name__)
 
 
-if settings.ST_TASK_MANAGER == 'celery':
-    from celery import shared_task
+# XXX support custom task manager __import__('foo.task')?
+def task_manager(tm):
+    if tm == 'celery':
+        from celery import shared_task
+        def task(t):
+            t = shared_task(t)
+            def _task(*args, **kwargs):
+                print('delay')
+                return t.delay(*args, **kwargs)
+            return _task
+    elif tm == 'huey':
+        from huey.contrib.djhuey import db_task
+        task = db_task()
+    else:
+        assert tm is None
+        def task(t):
+            return t
 
-    def task(t):
-        t = shared_task(t)
-        def _task(*args, **kwargs):
-            return t.delay(*args, **kwargs)
-        return _task
+    return task
 
-elif settings.ST_TASK_MANAGER == 'huey':
-    from huey.contrib.djhuey import task
-else:
-    assert settings.ST_TASK_MANAGER is None
-    def task(t):
-        return t
+task = task_manager(settings.ST_TASK_MANAGER)
 
 
 def delayed_task(t):
-    t = task(t)
+    t = task(t)  # wrap at import time
     def delayed_task_inner(*args, **kwargs):
         transaction.on_commit(lambda: t(*args, **kwargs))
     return delayed_task_inner
@@ -67,7 +74,7 @@ def search_index_update(topic_pk):
     if settings.ST_TASK_MANAGER is None:
         return
     Topic = apps.get_model('spirit_topic.Topic')
-    search_index_update.send(
+    signals.search_index_update.send(
         sender=Topic,
         instance=Topic.objects.get(pk=topic_pk))
 

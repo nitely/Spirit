@@ -11,6 +11,7 @@ SECRET_KEY = 'TEST'
 
 INSTALLED_APPS += [
     'spirit.core.tests',
+    'huey.contrib.djhuey'
 ]
 
 ROOT_URLCONF = 'project.project.urls'
@@ -57,6 +58,13 @@ TEMPLATES[0]['OPTIONS']['debug'] = True
 ST_RATELIMIT_CACHE = 'st_rate_limit'
 ST_UPLOAD_FILE_ENABLED = True
 ST_ORDERED_CATEGORIES = True
+ST_TASK_MANAGER = None
+HUEY = {
+    'name': 'test',
+    'immediate': True
+}
+CELERY_ALWAYS_EAGER = True
+CELERY_TASK_ALWAYS_EAGER = True
 
 HAYSTACK_CONNECTIONS['default']['STORAGE'] = 'ram'
 HAYSTACK_LIMIT_TO_REGISTERED_MODELS = False

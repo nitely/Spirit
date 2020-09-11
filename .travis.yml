@@ -10,6 +10,8 @@ env:
 install:
   - pip install --upgrade pip
   - pip install .[files]
+  - pip install .[huey]
+  - pip install .[celery]
   - pip uninstall django-spirit -y
   - pip install -q Django==$DJANGO
   - pip install coveralls pep8==1.5.7 flake8
