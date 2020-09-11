@@ -112,6 +112,9 @@ class Topic(models.Model):
         (Topic.objects
          .filter(pk=self.pk)
          .update(comment_count=F('comment_count') + 1, last_active=timezone.now()))
+        models.signals.post_save.send(
+            sender=Topic, instance=self, created=False,
+            raw=False, using='default', update_fields=None)
 
     def decrease_comment_count(self):
         # todo: update last_active to last() comment

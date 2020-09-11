@@ -2,7 +2,8 @@
 ==================
 
 * Added Kyrgyz translation (thanks to @jumasheff)
-* Added `django.contrib.humanize` to `INSTALLED_APPS`
+* Added `django.contrib.humanize` to `INSTALLED_APPS` settings
+* Added `HAYSTACK_SIGNAL_PROCESSOR` to settings
 * Fixed user comment reply button
 * Fixed paginator current page button (issue #168)
 * Fixed ordered list style for the comments (issue #134)

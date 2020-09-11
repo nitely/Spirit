@@ -4,6 +4,7 @@ import logging
 
 from django.db import transaction
 from django.core.mail import send_mail
+from django.apps import apps
 
 from spirit.core.conf import settings
 
@@ -57,9 +58,18 @@ def backup_database():
     pass
 
 
+# XXX update everything every 24hs to
+#     update deleted categories
 @delayed_task
-def search_index_update():
-    pass
+def search_index_update(topic_pk):
+    # Indexing is too expensive; skip if
+    # there's no dedicated task manager
+    if settings.ST_TASK_MANAGER is None:
+        return
+    Topic = apps.get_model('spirit_topic.Topic')
+    search_index_update.send(
+        sender=Topic,
+        instance=Topic.objects.get(pk=topic_pk))
 
 
 @delayed_task
