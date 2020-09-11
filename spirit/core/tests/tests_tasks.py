@@ -81,3 +81,12 @@ class TasksTests(TestCase):
         tasks.search_index_update(topic.pk)
         sq = SearchQuerySet().models(topic.__class__)
         self.assertEqual([s.object for s in sq], [topic])
+
+    @override_settings(ST_TASK_MANAGER=None)
+    @test_utils.immediate_on_commit
+    def test_search_index_update_no_task_manager(self):
+        rebuild_index()
+        topic = test_utils.create_topic(test_utils.create_category())
+        tasks.search_index_update(topic.pk)
+        sq = SearchQuerySet().models(topic.__class__)
+        self.assertEqual([s.object for s in sq], [])

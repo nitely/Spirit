@@ -72,3 +72,12 @@ LANGUAGE_CODE = 'en'
 
 # Append the MD5 hash of the file’s content to the filename
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+# Celery is optional, Huey can be used instead
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERYBEAT_SCHEDULE = {
+    'context': {
+        'task': 'spirit.core.tasks.full_search_index_update',
+        'schedule': 3600 * 24,
+    }
+}

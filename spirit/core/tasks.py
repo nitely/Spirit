@@ -5,6 +5,7 @@ import logging
 from django.db import transaction
 from django.core.mail import send_mail
 from django.apps import apps
+from django.core.management import call_command
 
 from .conf import settings
 from . import signals
@@ -65,8 +66,6 @@ def backup_database():
     pass
 
 
-# XXX update everything every 24hs to
-#     update deleted categories
 @delayed_task
 def search_index_update(topic_pk):
     # Indexing is too expensive; skip if
@@ -77,6 +76,11 @@ def search_index_update(topic_pk):
     signals.search_index_update.send(
         sender=Topic,
         instance=Topic.objects.get(pk=topic_pk))
+
+
+@delayed_task
+def full_search_index_update():
+    call_command("update_index", age=24, interactive=False)
 
 
 @delayed_task
