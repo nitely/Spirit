@@ -65,7 +65,7 @@ HUEY = {
     'connection': {},
     'consumer': {
         'workers': 3,
-        'worker_type': 'process',
+        'worker_type': 'thread',
         'initial_delay': 0.1,
         'backoff': 1.15,
         'max_delay': 10.0,

@@ -67,7 +67,7 @@ jobs:
         - python ./spirit/extra/bin/spirit.py startproject project
         - export PYTHONWARNINGS="default"
         - export ST_UPLOAD_FILE_ENABLED=0
-        - export ST_TASK_MANAGER=huey
+        - export ST_TASK_MANAGER="huey"
         - python runtests.py
       env: []
       after_success: []
