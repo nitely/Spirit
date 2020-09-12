@@ -122,6 +122,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(BASE_DIR, 'st_search'),
     },
 }
+HAYSTACK_SIGNAL_PROCESSOR = 'spirit.search.signals.RealtimeSignalProcessor'
 
 ROOT_URLCONF = '{{ project_name }}.urls'
 

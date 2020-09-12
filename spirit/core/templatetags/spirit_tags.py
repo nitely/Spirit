@@ -20,7 +20,6 @@ from ..tags.registry import register
 __all__ = [
     'comment',
     'comment_like',
-    'comment_poll',
     'search',
     'topic_favorite',
     'topic_notification',

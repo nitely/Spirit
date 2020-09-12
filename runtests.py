@@ -14,6 +14,16 @@ from django.test.runner import DiscoverRunner
 os.environ['DJANGO_SETTINGS_MODULE'] = 'project.project.settings.test'
 
 
+def setup_celery():
+    try:
+        from celery import Celery
+    except ImportError:
+        return
+    app = Celery('test')
+    app.config_from_object('django.conf:settings', namespace='CELERY')
+    app.autodiscover_tasks()
+
+
 def log_warnings():
     logger = logging.getLogger('py.warnings')
     handler = logging.StreamHandler()
@@ -30,6 +40,7 @@ def run_tests(reverse=False):
 def start():
     django.setup()
     log_warnings()
+    setup_celery()
     if run_tests() or run_tests(reverse=True):
         sys.exit(1)
 

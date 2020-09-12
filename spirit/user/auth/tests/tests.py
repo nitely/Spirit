@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from django.test.utils import override_settings
 from django.urls import NoReverseMatch
 
-from ....core.tests import utils
+from spirit.core.tests import utils
 from ..forms import RegistrationForm, ResendActivationForm, LoginForm
 from ..backends import EmailAuthBackend, UsernameAuthBackend
 from ...utils.tokens import UserActivationTokenGenerator
@@ -160,6 +160,7 @@ class UserViewTest(TestCase):
         self.assertTrue(
             User.objects.filter(username='UnIqUeFoO').exists())
 
+    @utils.immediate_on_commit
     def test_register_email_sent(self):
         """
         register and send activation email
@@ -291,6 +292,7 @@ class UserViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(User.objects.get(pk=self.user.pk).is_active)
 
+    @utils.immediate_on_commit
     def test_resend_activation_email(self):
         """
         resend_activation_email

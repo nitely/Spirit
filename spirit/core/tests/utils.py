@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from unittest import mock
+
 from django.contrib.auth import get_user_model
 from django.core.cache import caches, cache
 
@@ -86,3 +88,10 @@ def cache_clear():
 
     for c in caches.all():
         c.clear()
+
+
+def immediate_on_commit(func):
+    def wrapper(*args, **kwargs):
+        with mock.patch('django.db.transaction.on_commit', side_effect=lambda x: x()):
+            func(*args, **kwargs)
+    return wrapper

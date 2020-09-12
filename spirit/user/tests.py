@@ -3,7 +3,7 @@
 import datetime
 import importlib
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, TransactionTestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model, HASH_SESSION_KEY
 from django.core import mail
@@ -512,16 +512,18 @@ class UserViewTest(TestCase):
         self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
 
+    @utils.immediate_on_commit
     def test_profile_email_change(self):
         """
         email change
         """
         user = utils.create_user(password="foo")
         utils.login(self, user=user, password="foo")
-        form_data = {'password': 'foo',
-                     'email': 'newfoo@bar.com'}
-        response = self.client.post(reverse('spirit:user:email-change'),
-                                    form_data)
+        form_data = {
+            'password': 'foo',
+            'email': 'newfoo@bar.com'}
+        response = self.client.post(
+            reverse('spirit:user:email-change'), form_data)
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(len(mail.outbox), 1)
@@ -742,7 +744,7 @@ class UserModelTest(TestCase):
         self.assertEqual('', User.objects.get(pk=user_b.pk).st.last_post_hash)
 
 
-class UtilsUserTests(TestCase):
+class UtilsUserTests(TransactionTestCase):
 
     def setUp(self):
         utils.cache_clear()

@@ -23,6 +23,7 @@ ALLOWED_HOSTS = ['127.0.0.1', ]
 
 # INSTALLED_APPS.extend([
 #    'debug_toolbar',
+#    'huey.contrib.djhuey',
 # ])
 
 # Database
@@ -51,3 +52,26 @@ PASSWORD_HASHERS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# ST_TASK_MANAGER = 'huey'
+
+HUEY = {
+    'huey_class': 'huey.SqliteHuey',
+    'name': 'spirit',
+    'filename': os.path.join(BASE_DIR, 'huey.sqlite3'),
+    'immediate_use_memory': False,
+    'immediate': False,
+    'utc': True,
+    'connection': {},
+    'consumer': {
+        'workers': 3,
+        'worker_type': 'process',
+        'initial_delay': 0.1,
+        'backoff': 1.15,
+        'max_delay': 10.0,
+        'scheduler_interval': 1,
+        'periodic': True,
+        'check_worker_health': True,
+        'health_check_interval': 1,
+    }
+}

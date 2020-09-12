@@ -5,6 +5,7 @@ import json
 import shutil
 import hashlib
 import io
+from unittest import skipIf
 
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
@@ -628,6 +629,7 @@ class CommentViewTest(TestCase):
         self.assertIn('error', res.keys())
         self.assertIn('image', res['error'].keys())
 
+    @skipIf(not settings.ST_UPLOAD_FILE_ENABLED, 'No magic file support')
     @override_settings(
         MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
         FILE_UPLOAD_MAX_MEMORY_SIZE=2621440,
@@ -665,6 +667,7 @@ class CommentViewTest(TestCase):
 
         shutil.rmtree(settings.MEDIA_ROOT)  # cleanup
 
+    @skipIf(not settings.ST_UPLOAD_FILE_ENABLED, 'No magic file support')
     @override_settings(
         MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
         FILE_UPLOAD_MAX_MEMORY_SIZE=1,
@@ -702,6 +705,7 @@ class CommentViewTest(TestCase):
 
         shutil.rmtree(settings.MEDIA_ROOT)  # cleanup
 
+    @skipIf(not settings.ST_UPLOAD_FILE_ENABLED, 'No magic file support')
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_file_upload_unique(self):
         user_files_parts = ('spirit', 'files', str(self.user.pk))
@@ -738,6 +742,7 @@ class CommentViewTest(TestCase):
             user_media, os.listdir(user_media)[0], file_name))
         shutil.rmtree(settings.MEDIA_ROOT)  # cleanup
 
+    @skipIf(not settings.ST_UPLOAD_FILE_ENABLED, 'No magic file support')
     @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
     def test_comment_file_upload_unique_no_duplication(self):
         utils.login(self)
@@ -768,6 +773,7 @@ class CommentViewTest(TestCase):
 
         self.assertNotEqual(first_url, second_url)
 
+    @skipIf(not settings.ST_UPLOAD_FILE_ENABLED, 'No magic file support')
     def test_comment_file_upload_invalid_ext(self):
         """
         comment file upload, invalid file extension
@@ -791,6 +797,7 @@ class CommentViewTest(TestCase):
             res['error']['file'],
             ['Unsupported file extension gif. Supported extensions are doc, docx, pdf.'])
 
+    @skipIf(not settings.ST_UPLOAD_FILE_ENABLED, 'No magic file support')
     def test_comment_file_upload_invalid_mime(self):
         """
         comment file upload, invalid mime type

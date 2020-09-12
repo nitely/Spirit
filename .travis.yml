@@ -10,6 +10,8 @@ env:
 install:
   - pip install --upgrade pip
   - pip install .[files]
+  - pip install .[huey]
+  - pip install .[celery]
   - pip uninstall django-spirit -y
   - pip install -q Django==$DJANGO
   - pip install coveralls pep8==1.5.7 flake8
@@ -34,5 +36,21 @@ jobs:
         - yarn
         - make testjs
       install: []
+      env: []
+      after_success: []
+    - name: "No opt deps"
+      language: python
+      python: "3.8"
+      install:
+        - pip install --upgrade pip
+        - pip install .
+        - pip uninstall django-spirit -y
+        - pip install -q Django==3.0.3
+      script:
+        - python ./spirit/extra/bin/spirit.py startproject project
+        - export PYTHONWARNINGS="default"
+        - export ST_UPLOAD_FILE_ENABLED=0
+        - export ST_INSTALL_HUEY=0
+        - python runtests.py
       env: []
       after_success: []
