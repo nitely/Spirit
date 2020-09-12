@@ -74,13 +74,8 @@ def send_email(subject, message, from_email, recipients):
 
 
 @delayed_task
-def backup_database():
-    pass
-
-
-@delayed_task
 def search_index_update(topic_pk):
-    # Indexing is too expensive; skip if
+    # Indexing is too expensive; bail if
     # there's no dedicated task manager
     if settings.ST_TASK_MANAGER is None:
         return
@@ -99,3 +94,9 @@ def full_search_index_update():
 @delayed_task
 def clean_sessions():
     pass
+
+
+@delayed_task
+def backup_database():
+    pass
+
