@@ -64,7 +64,7 @@ HUEY = {
     'utc': True,
     'connection': {},
     'consumer': {
-        'workers': 3,
+        'workers': os.cpu_count() * 2 + 1,
         'worker_type': 'thread',
         'initial_delay': 0.1,
         'backoff': 1.15,
