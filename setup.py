@@ -47,7 +47,7 @@ spirit=spirit.extra.bin.spirit:main
     extras_require={
         'files': PYTHON_MAGIC_DEP,
         'huey': 'huey == 2.3.0',
-        'celery': 'celery == 4.4.7'},
+        'celery': 'celery[redis] == 4.4.7'},
     license='MIT License',
     classifiers=[
         'Development Status :: 5 - Production/Stable',

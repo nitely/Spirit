@@ -75,3 +75,13 @@ HUEY = {
         'health_check_interval': 1,
     }
 }
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_BEAT_SCHEDULE = {
+    'context': {
+        'task': 'spirit.core.tasks.full_search_index_update',
+        'schedule': 3600 * 24  # run once every 24hs
+    }
+}

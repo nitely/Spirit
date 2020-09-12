@@ -5,6 +5,7 @@
 /example/static/
 /manage.py
 /project
+celerybeat-schedule
 
 # Node
 node_modules

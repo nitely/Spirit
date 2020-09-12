@@ -76,11 +76,13 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 # Celery is optional, Huey can be used instead
 # https://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
 # https://docs.celeryproject.org/en/latest/userguide/configuration.html
-CELERY_BROKER_URL = 'amqp://localhost'
-CELERYBEAT_SCHEDULE = {
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_BEAT_SCHEDULE = {
     'context': {
         'task': 'spirit.core.tasks.full_search_index_update',
-        'schedule': 3600 * 24,
+        'schedule': 3600 * 24  # run once every 24hs
     }
 }
 
