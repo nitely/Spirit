@@ -10,9 +10,11 @@ from .base import *
 SECRET_KEY = 'TEST'
 
 INSTALLED_APPS += [
-    'spirit.core.tests',
-    'huey.contrib.djhuey'
+    'spirit.core.tests'
 ]
+
+if bool(int(os.getenv('ST_INSTALL_HUEY', True))):
+    INSTALLED_APPS.append('huey.contrib.djhuey')
 
 ROOT_URLCONF = 'project.project.urls'
 
@@ -56,7 +58,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 TEMPLATES[0]['OPTIONS']['debug'] = True
 
 ST_RATELIMIT_CACHE = 'st_rate_limit'
-ST_UPLOAD_FILE_ENABLED = True
+ST_UPLOAD_FILE_ENABLED = bool(int(os.getenv('ST_UPLOAD_FILE_ENABLED', True)))
 ST_ORDERED_CATEGORIES = True
 ST_TASK_MANAGER = None
 HUEY = {
