@@ -70,6 +70,7 @@ def send_email(subject, message, from_email, recipients):
                 recipient_list=[recipient])
         except OSError as err:
             logger.exception(err)
+            return  # bail out
 
 
 @delayed_task
