@@ -54,3 +54,20 @@ jobs:
         - python runtests.py
       env: []
       after_success: []
+    - name: "Huey"
+      language: python
+      python: "3.8"
+      install:
+        - pip install --upgrade pip
+        - pip install .
+        - pip install .[huey]
+        - pip uninstall django-spirit -y
+        - pip install -q Django==3.0.3
+      script:
+        - python ./spirit/extra/bin/spirit.py startproject project
+        - export PYTHONWARNINGS="default"
+        - export ST_UPLOAD_FILE_ENABLED=0
+        - export ST_TASK_MANAGER=huey
+        - python runtests.py
+      env: []
+      after_success: []
