@@ -22,15 +22,12 @@ def task_manager(tm):
             def _task(*args, **kwargs):
                 return t.delay(*args, **kwargs)
             return _task
-    elif tm == 'huey':
+        return task
+    if tm == 'huey':
         from huey.contrib.djhuey import db_task
-        task = db_task()
-    else:
-        assert tm is None
-        def task(t):
-            return t
-
-    return task
+        return db_task()
+    assert tm is None
+    return lambda t: t
 
 task = task_manager(settings.ST_TASK_MANAGER)
 
