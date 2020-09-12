@@ -37,7 +37,8 @@ def periodic_task_manager(tm):
         from huey import crontab
         from huey.contrib.djhuey import db_periodic_task
         def periodic_task(hours):
-            return db_periodic_task(crontab(hour='*/{}'.format(hours)))
+            return db_periodic_task(crontab(
+                minute='0', hour='*/{}'.format(hours)))
         return periodic_task
     assert tm in ('celery', None)
     def fake_periodic_task(*args, **kwargs):

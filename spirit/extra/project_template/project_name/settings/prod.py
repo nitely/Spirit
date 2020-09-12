@@ -30,7 +30,7 @@ EMAIL_TIMEOUT = 20  # Default is None (infinite)
 # Extend the Spirit installed apps
 # Check out the .base.py file for more examples
 INSTALLED_APPS.extend([
-    # 'my_app1',
+    # 'huey.contrib.djhuey',
 ])
 
 # Database
@@ -74,10 +74,44 @@ LANGUAGE_CODE = 'en'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Celery is optional, Huey can be used instead
+# https://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
+# https://docs.celeryproject.org/en/latest/userguide/configuration.html
 CELERY_BROKER_URL = 'amqp://localhost'
 CELERYBEAT_SCHEDULE = {
     'context': {
         'task': 'spirit.core.tasks.full_search_index_update',
         'schedule': 3600 * 24,
+    }
+}
+
+# Huey
+# https://huey.readthedocs.io/en/latest/django.html
+HUEY = {
+    'huey_class': 'huey.RedisHuey',
+    'name': 'spirit',
+    'immediate_use_memory': False,
+    'immediate': False,
+    'utc': True,
+    'blocking': True,
+    'connection': {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+        'max_connections': 500,  # Pooling
+        # ... tons of other options, see redis-py for details.
+        # huey-specific connection parameters.
+        'read_timeout': 1,
+        'url': None,  # Allow Redis config via a DSN.
+    },
+    'consumer': {
+        'workers': 3,
+        'worker_type': 'process',
+        'initial_delay': 0.1,
+        'backoff': 1.15,
+        'max_delay': 10.0,
+        'scheduler_interval': 1,
+        'periodic': True,
+        'check_worker_health': True,
+        'health_check_interval': 1,
     }
 }
