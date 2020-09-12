@@ -20,7 +20,6 @@ def task_manager(tm):
         def task(t):
             t = shared_task(t)
             def _task(*args, **kwargs):
-                print('delay')
                 return t.delay(*args, **kwargs)
             return _task
     elif tm == 'huey':
@@ -34,6 +33,21 @@ def task_manager(tm):
     return task
 
 task = task_manager(settings.ST_TASK_MANAGER)
+
+
+def periodic_task_manager(tm):
+    if tm == 'huey':
+        from huey import crontab
+        from huey.contrib.djhuey import db_periodic_task
+        def periodic_task(hours):
+            return db_periodic_task(crontab(hour='*/{}'.format(hours)))
+        return periodic_task
+    assert tm in ('celery', None)
+    def fake_periodic_task(*args, **kwargs):
+        return task_manager(tm)
+    return fake_periodic_task
+
+periodic_task = periodic_task_manager(settings.ST_TASK_MANAGER)
 
 
 def delayed_task(t):
@@ -78,9 +92,10 @@ def search_index_update(topic_pk):
         instance=Topic.objects.get(pk=topic_pk))
 
 
-@delayed_task
+@periodic_task(hours=settings.ST_SEARCH_INDEX_UPDATE_HOURS)
 def full_search_index_update():
-    call_command("update_index", age=24, interactive=False)
+    age = settings.ST_SEARCH_INDEX_UPDATE_HOURS
+    call_command("update_index", age=age)
 
 
 @delayed_task

@@ -13,6 +13,14 @@ import os
 #: ``None``
 ST_TASK_MANAGER = None
 
+#: The age in hours of the items
+#: to index into the search index on each update.
+#: The update runs every this amount of time
+#: when ``ST_TASK_MANAGER`` is set to ``'huey'``.
+#: Other task managers will need to sync their
+#: configuration to this value
+ST_SEARCH_INDEX_UPDATE_HOURS = 24
+
 #: The category's PK containing all of the private topics.
 #: The category is auto-created and so this value should not change
 ST_TOPIC_PRIVATE_CATEGORY_PK = 1
