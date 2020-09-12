@@ -43,6 +43,7 @@ jobs:
       python: "3.8"
       install:
         - pip install --upgrade pip
+        - pip install .
         - pip uninstall django-spirit -y
         - pip install -q Django==3.0.3
       script:
