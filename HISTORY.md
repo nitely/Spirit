@@ -4,6 +4,10 @@
 * Added Kyrgyz translation (thanks to @jumasheff)
 * Added `django.contrib.humanize` to `INSTALLED_APPS` settings
 * Added `HAYSTACK_SIGNAL_PROCESSOR` to settings
+* Added support for `Huey` and `Celery` task managers;
+  added `ST_TASK_MANAGER` and `ST_SEARCH_INDEX_UPDATE_HOURS` settings
+* Added realtime search indexation, full search index (periodic) update,
+  and send email tasks
 * Fixed user comment reply button
 * Fixed paginator current page button (issue #168)
 * Fixed ordered list style for the comments (issue #134)
