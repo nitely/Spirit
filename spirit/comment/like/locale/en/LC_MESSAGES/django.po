@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-13 00:52+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,15 +12,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:30
+#: forms.py:28
 msgid "This like already exists"
 msgstr ""
 
-#: models.py:29
+#: models.py:27
 msgid "like"
 msgstr ""
 
-#: models.py:30
+#: models.py:28
 msgid "likes"
 msgstr ""
 

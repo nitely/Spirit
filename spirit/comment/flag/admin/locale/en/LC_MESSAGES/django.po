@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-13 00:52+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,15 +12,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:9
+#: templates/spirit/comment/flag/admin/_list.html:14
 msgid "moderate"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/_tabs.html:4
+#: templates/spirit/comment/flag/admin/_tabs.html:7
 msgid "Open"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/_tabs.html:5
+#: templates/spirit/comment/flag/admin/_tabs.html:11
 msgid "Closed"
 msgstr ""
 
@@ -30,39 +30,39 @@ msgid "Closed flags"
 msgstr ""
 
 #: templates/spirit/comment/flag/admin/detail.html:5
-#: templates/spirit/comment/flag/admin/detail.html:14
+#: templates/spirit/comment/flag/admin/detail.html:16
 msgid "Flag"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:10
+#: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Admin"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:11
+#: templates/spirit/comment/flag/admin/detail.html:13
 msgid "Flags"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:18
+#: templates/spirit/comment/flag/admin/detail.html:22
 msgid "Moderated by"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:27
+#: templates/spirit/comment/flag/admin/detail.html:35
 msgid "Save"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:30
+#: templates/spirit/comment/flag/admin/detail.html:38
 msgid "Comment flagged"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:55
+#: templates/spirit/comment/flag/admin/detail.html:67
 msgid "delete"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:57
+#: templates/spirit/comment/flag/admin/detail.html:72
 msgid "undelete"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:65
+#: templates/spirit/comment/flag/admin/detail.html:79
 msgid "Reporters"
 msgstr ""
 

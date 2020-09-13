@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-13 00:52+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/spirit/user/admin/_list.html:12
+#: templates/spirit/user/admin/_list.html:13
 msgid "edit"
 msgstr ""
 
@@ -20,19 +20,19 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: templates/spirit/user/admin/_tabs.html:13
+#: templates/spirit/user/admin/_tabs.html:12
 #: templates/spirit/user/admin/admins.html:5
 #: templates/spirit/user/admin/admins.html:11
 msgid "Admins"
 msgstr ""
 
-#: templates/spirit/user/admin/_tabs.html:18
+#: templates/spirit/user/admin/_tabs.html:16
 #: templates/spirit/user/admin/mods.html:5
 #: templates/spirit/user/admin/mods.html:11
 msgid "Mods"
 msgstr ""
 
-#: templates/spirit/user/admin/_tabs.html:23
+#: templates/spirit/user/admin/_tabs.html:20
 msgid "Unactive"
 msgstr ""
 
@@ -55,6 +55,6 @@ msgstr ""
 msgid "Unactive Users"
 msgstr ""
 
-#: views.py:30
+#: views.py:26
 msgid "This profile has been updated!"
 msgstr ""

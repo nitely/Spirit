@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-13 00:52+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,39 +12,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:32
+#: forms.py:30
 msgid "This flag already exists"
 msgstr ""
 
-#: models.py:12
+#: models.py:10
 msgid "Spam"
 msgstr ""
 
-#: models.py:13
+#: models.py:11
 msgid "Other"
 msgstr ""
 
-#: models.py:33
+#: models.py:31
 msgid "comment flag"
 msgstr ""
 
-#: models.py:34
+#: models.py:32
 msgid "comments flags"
 msgstr ""
 
-#: models.py:51
+#: models.py:49
 msgid "reason"
 msgstr ""
 
-#: models.py:52
+#: models.py:50
 msgid "body"
 msgstr ""
 
-#: models.py:57
+#: models.py:55
 msgid "flag"
 msgstr ""
 
-#: models.py:58
+#: models.py:56
 msgid "flags"
 msgstr ""
 

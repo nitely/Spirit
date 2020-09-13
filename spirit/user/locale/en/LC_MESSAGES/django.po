@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-13 00:52+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,33 +12,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:35
+#: forms.py:34
 msgid "The email is taken."
 msgstr ""
 
-#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:13
+#: forms.py:44 forms.py:49 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr ""
 
-#: forms.py:51 templates/spirit/user/profile_update.html:19
+#: forms.py:50 templates/spirit/user/profile_update.html:17
 msgid "Password"
 msgstr ""
 
-#: forms.py:61
+#: forms.py:60
 msgid "The provided password is incorrect."
 msgstr ""
 
-#: forms.py:75
+#: forms.py:74
 msgid "Time zone"
 msgstr ""
 
-#: forms.py:84
+#: forms.py:83
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr ""
 
-#: models.py:18
+#: models.py:17
 msgid "profile"
+msgstr ""
+
+#: models.py:22
+msgid "nickname"
 msgstr ""
 
 #: models.py:23
@@ -99,11 +103,11 @@ msgstr ""
 msgid "forum profiles"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:13
+#: templates/spirit/user/_profile.html:14
 msgid "Joined at"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:17
+#: templates/spirit/user/_profile.html:18
 msgid "Seen"
 msgstr ""
 
@@ -111,33 +115,33 @@ msgstr ""
 msgid "Last IP"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:35
+#: templates/spirit/user/_profile.html:36
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:41
+#: templates/spirit/user/_profile.html:43
 msgid "Private Message"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:49
+#: templates/spirit/user/_profile.html:52
 msgid "Edit user"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:58
+#: templates/spirit/user/_profile.html:61
 msgid "Comments"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:63 templates/spirit/user/menu.html:21
+#: templates/spirit/user/_profile.html:65 templates/spirit/user/menu.html:22
 msgid "Topics"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:68
+#: templates/spirit/user/_profile.html:69
 msgid "Likes"
 msgstr ""
 
-#: templates/spirit/user/_render_comments_list.html:41
+#: templates/spirit/user/_render_comments_list.html:35
 msgid "There are no comments here, yet"
 msgstr ""
 
@@ -177,19 +181,19 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: templates/spirit/user/menu.html:24
+#: templates/spirit/user/menu.html:26
 msgid "Unread topics"
 msgstr ""
 
-#: templates/spirit/user/menu.html:27
+#: templates/spirit/user/menu.html:30
 msgid "Private topics"
 msgstr ""
 
-#: templates/spirit/user/menu.html:32
+#: templates/spirit/user/menu.html:35
 msgid "Admin"
 msgstr ""
 
-#: templates/spirit/user/menu.html:37
+#: templates/spirit/user/menu.html:40
 msgid "Log out"
 msgstr ""
 
@@ -213,8 +217,8 @@ msgid "comments"
 msgstr ""
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:454 tests.py:768
-#: utils/email.py:60
+#: templates/spirit/user/profile_email_change.html:9 tests.py:530 tests.py:844
+#: utils/email.py:46
 msgid "Email change"
 msgstr ""
 
@@ -239,51 +243,51 @@ msgstr ""
 msgid "topics"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:22
+#: templates/spirit/user/profile_update.html:20
 msgid "Change password"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:25
+#: templates/spirit/user/profile_update.html:21
 msgid "Avatar"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:27
+#: templates/spirit/user/profile_update.html:24
 msgid "Change avatar"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:28
+#: templates/spirit/user/profile_update.html:25
 msgid "Go to gravatar.com and use your current email to change it"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:37
+#: templates/spirit/user/profile_update.html:34
 msgid "Save"
 msgstr ""
 
-#: tests.py:732 utils/email.py:52
+#: tests.py:808 utils/email.py:38
 msgid "User activation"
 msgstr ""
 
-#: utils/email.py:69
+#: utils/email.py:55
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr ""
 
-#: views.py:35
+#: views.py:36
 msgid "Your profile has been updated!"
 msgstr ""
 
-#: views.py:57
+#: views.py:52
 msgid "Your password has been changed!"
 msgstr ""
 
-#: views.py:74
+#: views.py:69
 msgid "We have sent you an email so you can confirm the change!"
 msgstr ""
 
-#: views.py:96
+#: views.py:90
 msgid "Your email has been changed!"
 msgstr ""
 
-#: views.py:99
+#: views.py:93
 msgid "Sorry, we were not able to change your email."
 msgstr ""

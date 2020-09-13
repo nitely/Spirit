@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-13 00:52+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,21 +12,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: tags/time.py:33
+#: tags/time.py:32
 msgid "now"
 msgstr ""
 
-#: tags/time.py:37
+#: tags/time.py:36
 #, python-format
 msgid "%(count)ss"
 msgstr ""
 
-#: tags/time.py:41
+#: tags/time.py:40
 #, python-format
 msgid "%(count)sm"
 msgstr ""
 
-#: tags/time.py:44
+#: tags/time.py:43
 #, python-format
 msgid "%(count)sh"
 msgstr ""
@@ -61,11 +61,11 @@ msgstr ""
 msgid "unread"
 msgstr ""
 
-#: templates/spirit/_header.html:42
+#: templates/spirit/_header.html:40
 msgid "Profile"
 msgstr ""
 
-#: templates/spirit/_header.html:45
+#: templates/spirit/_header.html:44
 msgid "Topics"
 msgstr ""
 
@@ -73,15 +73,15 @@ msgstr ""
 msgid "Unread topics"
 msgstr ""
 
-#: templates/spirit/_header.html:51
+#: templates/spirit/_header.html:52
 msgid "Private topics"
 msgstr ""
 
-#: templates/spirit/_header.html:56
+#: templates/spirit/_header.html:57
 msgid "Admin"
 msgstr ""
 
-#: templates/spirit/_header.html:63
+#: templates/spirit/_header.html:62
 msgid "Log out"
 msgstr ""
 
@@ -89,16 +89,16 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: templates/spirit/utils/paginator/_paginator.html:4
+#: templates/spirit/utils/paginator/_paginator.html:5
 #, python-format
 msgid "Page %(number)s of %(num_pages)s"
 msgstr ""
 
-#: templates/spirit/utils/paginator/_paginator.html:8
+#: templates/spirit/utils/paginator/_paginator.html:9
 msgid "Last"
 msgstr ""
 
-#: templates/spirit/utils/paginator/_paginator.html:10
+#: templates/spirit/utils/paginator/_paginator.html:11
 msgid "First"
 msgstr ""
 
@@ -106,12 +106,12 @@ msgstr ""
 msgid "Page 1 of 1"
 msgstr ""
 
-#: utils/markdown/utils/quote.py:37
+#: utils/markdown/utils/quote.py:36
 #, python-format
 msgid "@%(username)s said:"
 msgstr ""
 
-#: utils/ratelimit/decorators.py:27
+#: utils/ratelimit/decorators.py:25
 #, python-format
 msgid "Too many submissions, wait %(time)s."
 msgstr ""

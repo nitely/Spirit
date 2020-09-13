@@ -13,8 +13,7 @@ tasks may not run, as they are too expensive to run as part
 of the request-response cycle (web server), or they are require to be run
 periodically.
 
-Functionality that does not work without a task manager includes:
-search indexation.
+Functionality that requires a task manager includes: search indexation.
 
 Huey
 ----
