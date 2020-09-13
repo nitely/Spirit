@@ -171,6 +171,7 @@ LOGGING = {
         'mail_admins': {
             'class': 'django.utils.log.AdminEmailHandler',
             'filters': ['require_debug_false'],
+            'level': 'ERROR',
         },
         'console': {
             'class': 'logging.StreamHandler',
@@ -178,6 +179,7 @@ LOGGING = {
         'file': {
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'django.log'),
+            'level': 'ERROR',
         },
     },
     'loggers': {
