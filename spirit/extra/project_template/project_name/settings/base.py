@@ -179,21 +179,21 @@ LOGGING = {
             'formatter': 'verbose',
             'level': 'ERROR',
         },
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
-        },
         'file': {
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'django.log'),
             'formatter': 'verbose',
             'level': 'ERROR',
         },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         '': {
             'handlers': ['console', 'mail_admins'],
-            'level': 'ERROR',
+            'level': 'INFO',
             'propagate': False,
         },
         'django': {
@@ -203,7 +203,12 @@ LOGGING = {
         },
         'celery': {
             'handlers': ['console', 'mail_admins'],
-            'level': 'ERROR',
+            'level': 'INFO',
+            'propagate': False
+        },
+        'huey': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
             'propagate': False
         },
     }
