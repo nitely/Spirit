@@ -1,7 +1,7 @@
-0.9.1 (dev)
+0.9.1
 ==================
 
-* 
+* Add default logs formatter and level to `settings/base.py`
 
 0.9.0
 ==================
