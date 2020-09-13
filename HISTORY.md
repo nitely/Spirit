@@ -1,4 +1,4 @@
-0.9.0 (dev)
+0.9.0
 ==================
 
 * Added Kyrgyz translation (thanks to @jumasheff)
