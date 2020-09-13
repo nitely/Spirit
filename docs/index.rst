@@ -14,8 +14,8 @@ User’s Guide
 
    installation
    upgrade
-   settings
    task_manager
+   settings
 
 Additional Notes
 ----------------

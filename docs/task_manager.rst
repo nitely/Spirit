@@ -10,7 +10,7 @@ The supported task managers to run these tasks are
 
 While Spirit can run without a task manager, some of the
 tasks may not run, as they are too expensive to run as part
-of the request cycle (web server), or they are require to be run
+of the request-response cycle (web server), or they are require to be run
 periodically.
 
 Functionality that does not work without a task manager includes:
@@ -38,7 +38,7 @@ Set Huey as the Spirit task manager::
 The ``settings/prod.py`` and ``settings/dev.py`` files include sample
 configuration for Huey. The ``prod.py`` settings set Redis as the backend,
 and the ``dev.py`` settings set SQLite as the backend. Redis is recommended
-for production environments, and it's a good option to use as Django cache
+for production environments, and it's a good option to use as the Django cache
 as well.
 
 How to install `Redis <https://redis.io/>`_ depends on the OS, for example
@@ -114,3 +114,13 @@ To start the periodic task manager, run::
     celery -A mysite beat -l info
 
 Note this will just enqueue tasks that will later be consumed by the worker.
+
+Celery does not work
+********************
+
+Celery likes to break all the things in every major version.
+The celery configuration (including ``prod.py``, ``dev.py``, and
+``mysite/celery.py``) were tested on ``v4.4.7``.
+
+I'm not a Celery user. These docs and the Celery support are a
+community effort. Please, send a PR if something breaks.
