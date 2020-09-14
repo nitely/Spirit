@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django.utils.translation import ugettext_lazy as _
-from django.utils.html import mark_safe
+from django.utils.html import mark_safe, format_html
+from django.contrib.humanize.templatetags import humanize
+from django.template.defaultfilters import date as date_format
 
 from ..core.conf import settings
 from ..core.tags.registry import register
 from .poll.utils.render import render_polls
 from .forms import CommentForm
-from .models import MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED
+from .models import Comment
 
 
 @register.inclusion_tag('spirit/comment/_form.html', takes_context=True)
@@ -37,16 +39,28 @@ def get_allowed_image_types():
 
 
 ACTIONS = {
-    MOVED: _("This topic has been moved"),
-    CLOSED: _("This topic has been closed"),
-    UNCLOSED: _("This topic has been unclosed"),
-    PINNED: _("This topic has been pinned"),
-    UNPINNED: _("This topic has been unpinned")}
+    Comment.MOVED: _("{user} moved this {time_ago}"),
+    Comment.CLOSED: _("{user} closed this {time_ago}"),
+    Comment.UNCLOSED: _("{user} reopened this {time_ago}"),
+    Comment.PINNED: _("{user} pinned this {time_ago}"),
+    Comment.UNPINNED: _("{user} unpinned this {time_ago}"),
+}
 
 
 @register.simple_tag()
-def get_comment_action_text(action):
-    return ACTIONS.get(action, _("Unknown topic moderation action"))
+def get_comment_action_text(comment):
+    user_frag = '<a href="{url}">{user}</a>'
+    date_frag = '<span title="{title}">{date}</span>'
+    return format_html(
+        ACTIONS.get(comment.action, "{user} unknown action {time_ago}"),
+        user=format_html(
+            user_frag,
+            url=comment.user.st.get_absolute_url(),
+            user=comment.user.st.nickname),
+        time_ago=format_html(
+            date_frag,
+            title=date_format(comment.date, "DATETIME_FORMAT"),
+            date=humanize.naturaltime(comment.date)))
 
 
 @register.simple_tag(takes_context=True)

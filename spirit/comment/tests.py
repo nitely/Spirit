@@ -901,11 +901,15 @@ class CommentTemplateTagTests(TestCase):
         """
         should display action
         """
+        comment = utils.create_comment(topic=self.topic)
+        comment.action = Comment.CLOSED
         out = Template(
             "{% load spirit_tags %}"
-            "{% get_comment_action_text 1 %}"
-        ).render(Context())
+            "{% get_comment_action_text comment %}"
+        ).render(Context({'comment': comment}))
         self.assertNotEqual(out, "")
+        self.assertIn(comment.user.st.nickname, out)
+        self.assertIn("closed this", out)
 
 
 class CommentFormTest(TestCase):

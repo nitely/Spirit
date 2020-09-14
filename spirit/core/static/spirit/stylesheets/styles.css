@@ -52,7 +52,7 @@
   --st-br-checkbox: var(--st-bg-sec);
   --st-text-error-list: var(--st-highlight-prim); }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
   :root {
     --st-text-prim: #cecece;
     --st-text-sec: #979797;

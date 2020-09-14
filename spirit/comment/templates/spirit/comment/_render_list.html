@@ -13,18 +13,11 @@
       <i class="fa fa-lock"></i>
     </div>
     <div class="comments_list__item__info">
-      <a
-        class="comments_list__item__username__link"
-        href="{{ c.user.st.get_absolute_url }}"
-      >{{ c.user.st.nickname }}</a>
-      <span>
-        {% if c.is_removed %}
-          {% trans "comment deleted" %}
-        {% else %}
-          {% get_comment_action_text c.action %}
-        {% endif %}
-      </span>
-      <span title="{{ c.date }}">{{ c.date|naturaltime }}</span>
+      {% if c.is_removed %}
+        {% trans "comment deleted" %}
+      {% else %}
+        {% get_comment_action_text c %}
+      {% endif %}
       {% if c.is_removed and user.st.is_moderator %}
         <a href="{% url "spirit:comment:undelete" c.pk %}"
         ><i class="fa fa-times"></i> {% trans "undelete" %}</a>

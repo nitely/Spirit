@@ -75,7 +75,7 @@ $yellow: #ffffe9 !default;
   --st-text-error-list: var(--st-highlight-prim);
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
   :root {
     --st-text-prim: $light-grey;
     --st-text-sec: $grey;

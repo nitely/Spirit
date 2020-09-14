@@ -11,7 +11,6 @@ from djconfig.utils import override_djconfig
 
 from ..core.tests import utils
 from . import utils as utils_topic
-from ..comment.models import MOVED
 from .models import Topic
 from .forms import TopicForm
 from ..comment.models import Comment
@@ -209,7 +208,9 @@ class TopicViewTest(TestCase):
         form_data = {'title': 'foobar', 'category': category2.pk}
         self.client.post(reverse('spirit:topic:update', kwargs={'pk': topic.pk, }),
                          form_data)
-        self.assertEqual(len(Comment.objects.filter(user=self.user, topic_id=topic.pk, action=MOVED)), 1)
+        self.assertEqual(
+            len(Comment.objects.filter(
+                user=self.user, topic_id=topic.pk, action=Comment.MOVED)), 1)
 
     def test_topic_update_invalid_user(self):
         """

@@ -14,6 +14,9 @@ testjs:
 buildjs:
 	npm run gulp coffee
 
+buildcss:
+	npm run gulp css
+
 sdist: test clean
 	python setup.py sdist
 
@@ -32,5 +35,8 @@ tx: txpush txpull
 
 start:
 	python manage.py runserver
+
+start_tasks_manager:
+	python manage.py run_huey
 
 .PHONY: clean test sdist release docs txpush txpull tx start

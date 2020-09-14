@@ -6,9 +6,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from ...core.tests import utils
-from ...comment.models import Comment, CLOSED, UNCLOSED, PINNED, UNPINNED
-from ..models import Topic
+from spirit.core.tests import utils
+from spirit.comment.models import Comment
+from spirit.topic.models import Topic
 
 
 class TopicViewTest(TestCase):
@@ -79,7 +79,8 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_closed)
         self.assertEqual(
-            len(Comment.objects.filter(user=self.user, topic=topic, action=CLOSED)),
+            len(Comment.objects.filter(
+                user=self.user, topic=topic, action=Comment.CLOSED)),
             1)
 
     def test_topic_moderate_unlock(self):
@@ -100,7 +101,8 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_closed)
         self.assertEqual(
-            len(Comment.objects.filter(user=self.user, topic=topic, action=UNCLOSED)),
+            len(Comment.objects.filter(
+                user=self.user, topic=topic, action=Comment.UNCLOSED)),
             1)
 
     def test_topic_moderate_pin(self):
@@ -121,7 +123,8 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_pinned)
         self.assertEqual(
-            len(Comment.objects.filter(user=self.user, topic=topic, action=PINNED)),
+            len(Comment.objects.filter(
+                user=self.user, topic=topic, action=Comment.PINNED)),
             1)
 
     def test_topic_moderate_unpin(self):
@@ -142,7 +145,8 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_pinned)
         self.assertEqual(
-            len(Comment.objects.filter(user=self.user, topic=topic, action=UNPINNED)),
+            len(Comment.objects.filter(
+                user=self.user, topic=topic, action=Comment.UNPINNED)),
             1)
 
     def test_topic_moderate_global_pin(self):
@@ -163,7 +167,8 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_globally_pinned)
         self.assertEqual(
-            len(Comment.objects.filter(user=self.user, topic=topic, action=PINNED)),
+            len(Comment.objects.filter(
+                user=self.user, topic=topic, action=Comment.PINNED)),
             1)
 
     def test_topic_moderate_global_unpin(self):
@@ -184,5 +189,6 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_globally_pinned)
         self.assertEqual(
-            len(Comment.objects.filter(user=self.user, topic=topic, action=UNPINNED)),
+            len(Comment.objects.filter(
+                user=self.user, topic=topic, action=Comment.UNPINNED)),
             1)

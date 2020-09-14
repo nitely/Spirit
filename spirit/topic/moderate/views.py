@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from ...core.utils.views import is_post
 from ...core.utils.decorators import moderator_required
-from ...comment.models import Comment, CLOSED, UNCLOSED, PINNED, UNPINNED
+from ...comment.models import Comment
 from ..models import Topic
 
 
@@ -59,7 +59,7 @@ def lock(request, pk):
         pk=pk,
         field_name='is_closed',
         to_value=True,
-        action=CLOSED)
+        action=Comment.CLOSED)
 
 
 def unlock(request, pk):
@@ -68,7 +68,7 @@ def unlock(request, pk):
         pk=pk,
         field_name='is_closed',
         to_value=False,
-        action=UNCLOSED)
+        action=Comment.UNCLOSED)
 
 
 def pin(request, pk):
@@ -77,7 +77,7 @@ def pin(request, pk):
         pk=pk,
         field_name='is_pinned',
         to_value=True,
-        action=PINNED)
+        action=Comment.PINNED)
 
 
 def unpin(request, pk):
@@ -86,7 +86,7 @@ def unpin(request, pk):
         pk=pk,
         field_name='is_pinned',
         to_value=False,
-        action=UNPINNED)
+        action=Comment.UNPINNED)
 
 
 def global_pin(request, pk):
@@ -95,7 +95,7 @@ def global_pin(request, pk):
         pk=pk,
         field_name='is_globally_pinned',
         to_value=True,
-        action=PINNED)
+        action=Comment.PINNED)
 
 
 def global_unpin(request, pk):
@@ -104,4 +104,4 @@ def global_unpin(request, pk):
         pk=pk,
         field_name='is_globally_pinned',
         to_value=False,
-        action=UNPINNED)
+        action=Comment.UNPINNED)

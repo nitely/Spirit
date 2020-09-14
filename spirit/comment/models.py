@@ -9,18 +9,16 @@ from django.utils import timezone
 from ..core.conf import settings
 from .managers import CommentQuerySet
 
-COMMENT, MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED = range(6)
-
-ACTION = (
-    (COMMENT, _("comment")),
-    (MOVED, _("topic moved")),
-    (CLOSED, _("topic closed")),
-    (UNCLOSED, _("topic unclosed")),
-    (PINNED, _("topic pinned")),
-    (UNPINNED, _("topic unpinned")))
-
 
 class Comment(models.Model):
+    COMMENT, MOVED, CLOSED, UNCLOSED, PINNED, UNPINNED = range(6)
+    ACTIONS = (
+        (COMMENT, _("comment")),
+        (MOVED, _("topic moved")),
+        (CLOSED, _("topic closed")),
+        (UNCLOSED, _("topic unclosed")),
+        (PINNED, _("topic pinned")),
+        (UNPINNED, _("topic unpinned")))
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -32,7 +30,7 @@ class Comment(models.Model):
 
     comment = models.TextField(_("comment"))
     comment_html = models.TextField(_("comment html"))
-    action = models.IntegerField(_("action"), choices=ACTION, default=COMMENT)
+    action = models.IntegerField(_("action"), choices=ACTIONS, default=COMMENT)
     date = models.DateTimeField(default=timezone.now)
     is_removed = models.BooleanField(default=False)
     is_modified = models.BooleanField(default=False)

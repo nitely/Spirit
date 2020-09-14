@@ -10,7 +10,6 @@ from ..core.utils.views import is_post, post_data
 from ..core.utils.paginator import paginate, yt_paginate
 from ..core.utils.ratelimit.decorators import ratelimit
 from ..category.models import Category
-from ..comment.models import MOVED
 from ..comment.forms import CommentForm
 from ..comment.utils import comment_posted
 from ..comment.models import Comment
@@ -66,7 +65,7 @@ def update(request, pk):
         topic = form.save()
         if topic.category_id != category_id:
             Comment.create_moderation_action(
-                user=request.user, topic=topic, action=MOVED)
+                user=request.user, topic=topic, action=Comment.MOVED)
         return redirect(request.POST.get('next', topic.get_absolute_url()))
     return render(
         request=request,
