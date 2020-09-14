@@ -10,14 +10,22 @@
     data-pk="{{ c.pk }}"
   >
     <div class="comments_list__item__badge">
-      <i class="fa fa-lock"></i>
+      {% if c.is_removed %}
+        <i class="fa fa-trash"></i>
+      {% elif c.action == c.MOVED %}
+        <i class="fa fa-suitcase"></i>
+      {% elif c.action == c.CLOSED %}
+        <i class="fa fa-lock"></i>
+      {% elif c.action == c.UNCLOSED %}
+        <i class="fa fa-unlock-alt"></i>
+      {% elif c.action == c.PINNED %}
+        <i class="fa fa-thumb-tack"></i>
+      {% elif c.action == c.UNPINNED %}
+        <i class="fa fa-thumb-tack fa-rotate-180"></i>
+      {% endif %}
     </div>
     <div class="comments_list__item__info">
-      {% if c.is_removed %}
-        {% trans "comment deleted" %}
-      {% else %}
-        {% get_comment_action_text c %}
-      {% endif %}
+      {% get_comment_action_text c  %}
       {% if c.is_removed and user.st.is_moderator %}
         <a href="{% url "spirit:comment:undelete" c.pk %}"
         ><i class="fa fa-times"></i> {% trans "undelete" %}</a>
@@ -78,7 +86,7 @@
         {% endif %}
 
         <li><a class="js-tab" href="#" data-related=".js-share-{{ c.pk }}"
-        ><i class="fa fa-share"></i> {% trans "share" %}</a></li>
+        ><i class="fa fa-share-alt"></i> {% trans "share" %}</a></li>
 
         {% if user.is_authenticated %}
         {% if c.like %}

@@ -51,8 +51,11 @@ ACTIONS = {
 def get_comment_action_text(comment):
     user_frag = '<a href="{url}">{user}</a>'
     date_frag = '<span title="{title}">{date}</span>'
+    text_frag = ACTIONS.get(comment.action, "{user} unknown action {time_ago}")
+    if comment.is_removed:
+        text_frag = _("{user}'s comment was removed {time_ago}")
     return format_html(
-        ACTIONS.get(comment.action, "{user} unknown action {time_ago}"),
+        text_frag,
         user=format_html(
             user_frag,
             url=comment.user.st.get_absolute_url(),
