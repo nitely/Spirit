@@ -32,6 +32,11 @@
           unread: "{% trans "unread" %}"
         });
       {% endif %}
+      stModules.clickableArea({
+        areaClass: '.js-clickable-area',
+        targetColor: 'var(--st-text-link-hover)'
+      });
+
     });
   </script>
 

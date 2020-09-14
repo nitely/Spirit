@@ -1,7 +1,10 @@
 0.9.2 (dev)
 ==================
 
-*
+* Added `huey` to the logging settings
+* Fixed password reset should use the send email task
+* UX: every row in the topic list redirects to the
+  topic on click
 
 0.9.1
 ==================

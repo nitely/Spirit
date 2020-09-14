@@ -5,6 +5,7 @@
   --st-bg-sec: #cecece;
   --st-bg-ter: #ececec;
   --st-bg-qua: #f6f6f6;
+  --st-bg-qui: #fcfcfc;
   --st-text-selected-prim: #1c1c1c;
   --st-highlight-prim: #c65555;
   --st-font-color: var(--st-text-prim);
@@ -24,6 +25,7 @@
   --st-bg-unread: #e2f5fc;
   --st-br-topic-item: var(--st-bg-ter);
   --st-text-topic-item: var(--st-text-sec);
+  --st-bg-topic-item: var(--st-bg-qui);
   --st-text-topic-comment-new: var(--st-highlight-prim);
   --st-text-topic-item-link: var(--st-text-prim);
   --st-text-topic-item-link-visited: var(--st-text-sec);
@@ -60,6 +62,7 @@
     --st-bg-sec: #222222;
     --st-bg-ter: #1c1c1c;
     --st-bg-qua: #181818;
+    --st-bg-qui: #131313;
     --st-text-selected-prim: #ececec;
     --st-highlight-prim: #830000;
     --st-text-button: var(--st-text-sec);

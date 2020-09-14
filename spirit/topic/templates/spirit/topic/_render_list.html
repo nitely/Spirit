@@ -2,7 +2,7 @@
 
 <div class="layout__topics">
   {% for t in topics %}
-    <div class="layout__topics__topic">
+    <div class="layout__topics__topic js-clickable-area">
       <div class="topic__title">
         {% if t.is_pinned or t.is_globally_pinned %}
           <i class="fa fa-thumb-tack"></i>
@@ -11,7 +11,7 @@
           <i class="fa fa-lock"></i>
         {% endif %}
         <a
-          class="topic__link{% if t.is_visited %} is-visited{% endif %}"
+          class="topic__link{% if t.is_visited %} is-visited{% endif %} js-clickable-area-target"
           href="{{ t.get_bookmark_url }}"
         >{{ t.title }}</a>
       </div>

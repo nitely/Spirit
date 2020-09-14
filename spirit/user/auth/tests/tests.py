@@ -235,6 +235,7 @@ class UserViewTest(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("Password reset on", mail.outbox[0].subject)
         self.assertIn("you requested a password reset", mail.outbox[0].body)
+        self.assertEqual(mail.outbox[0].to, [self.user.email])
 
     def test_password_reset_confirm(self):
         """

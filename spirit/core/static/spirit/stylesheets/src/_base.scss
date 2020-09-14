@@ -324,6 +324,9 @@
   &:last-child {
     border-bottom: 1px solid var(--st-br-topic-item);
   }
+  //&:hover {
+  //  background-color: var(--st-bg-topic-item);
+  //}
 }
 .layout__list__item__title,
 .topic__title {
