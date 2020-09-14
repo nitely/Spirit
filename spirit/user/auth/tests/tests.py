@@ -224,6 +224,18 @@ class UserViewTest(TestCase):
         expected_url = reverse("spirit:user:auth:password-reset")
         self.assertRedirects(response, expected_url, status_code=302)
 
+    @utils.immediate_on_commit
+    def test_custom_reset_password_email(self):
+        self.assertEqual(len(mail.outbox), 0)
+        form_data = {'email': self.user.email}
+        response = self.client.post(
+            reverse('spirit:user:auth:password-reset'), form_data)
+        expected_url = reverse("spirit:user:auth:password-reset-done")
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Password reset on", mail.outbox[0].subject)
+        self.assertIn("you requested a password reset", mail.outbox[0].body)
+
     def test_password_reset_confirm(self):
         """
         test access

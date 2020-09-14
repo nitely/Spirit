@@ -31,6 +31,8 @@ def sender(request, subject, template_name, context, to):
     if settings.DEFAULT_FROM_EMAIL != 'webmaster@localhost':
         from_email = settings.DEFAULT_FROM_EMAIL
 
+    # Subject cannot contain new lines
+    subject = ''.join(subject.splitlines())
     tasks.send_email(subject, message, from_email, to)
 
 

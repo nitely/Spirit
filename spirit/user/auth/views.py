@@ -8,21 +8,26 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 
-from ...core.utils.views import is_post, post_data
-from ...core.utils.ratelimit.decorators import ratelimit
-from ..utils.email import send_activation_email
-from ..utils.tokens import UserActivationTokenGenerator
-from .forms import RegistrationForm, LoginForm, ResendActivationForm
+from spirit.core.utils.views import is_post, post_data
+from spirit.core.utils.ratelimit.decorators import ratelimit
+from spirit.user.utils.email import send_activation_email
+from spirit.user.utils.tokens import UserActivationTokenGenerator
+from .forms import (
+    RegistrationForm,
+    LoginForm,
+    ResendActivationForm,
+    CustomPasswordResetForm)
 
 User = get_user_model()
 
 
-# I wish django would not force its crappy CBV on us
+# I wish django would not force its crappy CBV on me
 class _CustomPasswordResetView(django_views.PasswordResetView):
     template_name = 'spirit/user/auth/password_reset_form.html'
     email_template_name = 'spirit/user/auth/password_reset_email.html'
     subject_template_name = 'spirit/user/auth/password_reset_subject.txt'
     success_url = reverse_lazy('spirit:user:auth:password-reset-done')
+    form_class = CustomPasswordResetForm
 
 
 class _CustomPasswordResetConfirmView(django_views.PasswordResetConfirmView):

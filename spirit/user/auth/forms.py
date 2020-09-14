@@ -2,11 +2,13 @@
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext_lazy as _
+from django.template.loader import render_to_string
 
-from ...core.conf import settings
-from ..forms import CleanEmailMixin
+from spirit.core.conf import settings
+from spirit.core import tasks
+from spirit.user.forms import CleanEmailMixin
 
 User = get_user_model()
 
@@ -166,3 +168,13 @@ class ResendActivationForm(forms.Form):
 
     def get_user(self):
         return self.user
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    def send_mail(
+            self, subject_template_name, email_template_name,
+            context, from_email, to_email, html_email_template_name=None):
+        subject = render_to_string(subject_template_name, context)
+        subject = ''.join(subject.splitlines())
+        body = render_to_string(email_template_name, context)
+        tasks.send_email(subject, body, from_email, [to_email])
