@@ -31,7 +31,8 @@
   --st-text-topic-item-link-visited: var(--st-text-sec);
   --st-br-comment-item: var(--st-bg-ter);
   --st-bg-comment-user-admin: #a1a100;
-  --st-bg-comment-user-mod: #207a9b;
+  --st-bg-comment-user-mod: #259b20;
+  --st-bg-comment-user-topic-owner: #207a9b;
   --st-br-comment-quote: var(--st-bg-sec);
   --st-bg-comment-poll-bar: var(--st-bg-sec);
   --st-bg-comment-badge: var(--st-bg-sec);
@@ -69,7 +70,8 @@
     --st-bg-input: #181818;
     --st-bg-checkbox: #black;
     --st-bg-comment-user-admin: #979733;
-    --st-bg-comment-user-mod: #2e658f;
+    --st-bg-comment-user-mod: #2e8f38;
+    --st-bg-comment-user-topic-owner: #2e658f;
     --st-bg-message-info: #13232f;
     --st-text-message-info: #95a2a7;
     --st-bg-message-error: #5e0000;
@@ -4991,6 +4993,12 @@ html input[disabled] {
     color: var(--st-bg-comment-user-admin); }
   .spirit .comment__info__username__link .is-mod {
     color: var(--st-bg-comment-user-mod); }
+  .spirit .comment__info__username__link .is-owner {
+    color: var(--st-bg-comment-user-topic-owner); }
+  .spirit .comment__info__username__link > * {
+    margin-right: 6px; }
+    .spirit .comment__info__username__link > *:last-child {
+      margin-right: 0; }
   @media screen and (min-width: 768px) {
     .spirit .comment__info__username__realname {
       margin-left: 12px; } }

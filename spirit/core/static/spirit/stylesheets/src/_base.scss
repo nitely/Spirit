@@ -478,6 +478,15 @@
   .is-mod {
     color: var(--st-bg-comment-user-mod);
   }
+  .is-owner {
+    color: var(--st-bg-comment-user-topic-owner);
+  }
+  & > * {
+    margin-right: $space-quarter;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 .comment__info__username__realname {
   @extend %break-words;

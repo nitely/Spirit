@@ -52,13 +52,24 @@
         src="{% get_gravatar_url user=c.user size=50 %}" />
     </div>
     <div class="comment__info">
+      {% spaceless %}
       <div class="comment__info__username">
         <a
           class="comment__info__username__link"
           href="{{ c.user.st.get_absolute_url }}"
-        >{{ c.user.st.nickname }} {% if c.user.st.is_administrator %}<i class="fa fa-shield is-admin"></i>{% elif c.user.st.is_moderator %}<i class="fa fa-shield is-mod"></i>{% endif %}</a>
+        ><span>{{ c.user.st.nickname }}</span>
+          {% if c.user.st.is_administrator %}
+            <i class="fa fa-shield is-admin"></i>
+          {% elif c.user.st.is_moderator %}
+            <i class="fa fa-shield is-mod"></i>
+          {% endif %}
+          {% if c.user.pk == topic.user.pk %}
+            <i class="fa fa-microphone is-owner"></i>
+          {% endif %}
+        </a>
         <div class="comment__info__username__realname">{{ c.user.get_full_name }}</div>
       </div>
+      {% endspaceless %}
       {% spaceless %}
         <ul class="comment__info__date js-move-comment-checkbox-list">
           {% if c.modified_count > 0 %}
