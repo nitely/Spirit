@@ -63,7 +63,7 @@
           {% elif c.user.st.is_moderator %}
             <i class="fa fa-shield is-mod"></i>
           {% endif %}
-          {% if c.user.pk == topic.user.pk %}
+          {% if c.user.pk == topic.user_id %}
             <i class="fa fa-microphone is-owner"></i>
           {% endif %}
         </a>

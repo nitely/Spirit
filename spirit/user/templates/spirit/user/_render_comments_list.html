@@ -14,7 +14,11 @@
           <a
             class="comment__info__username__link"
             href="{{ c.user.st.get_absolute_url }}"
-          >{{ c.user.st.nickname }}</a>
+          ><span>{{ c.user.st.nickname }}</span>
+            {% if c.user.pk == c.topic.user_id %}
+              <i class="fa fa-microphone is-owner"></i>
+            {% endif %}
+          </a>
           <div class="comment__info__username__realname">
             {{ c.user.get_full_name }}
           </div>
