@@ -5,6 +5,7 @@
 * Fixed password reset should use the send email task
 * UX: every row in the topic list redirects to the
   topic on click
+* UX: added microphone badge to OP
 
 0.9.1
 ==================
