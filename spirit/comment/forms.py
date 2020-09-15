@@ -85,8 +85,8 @@ class CommentForm(forms.ModelForm):
         ))
 
     def _get_comment_html(self):
-        user = self.user or self.instance.user
-        markdown = Markdown(no_follow=not user.st.is_moderator)
+        # user = self.user or self.instance.user
+        markdown = Markdown()
         comment_html = markdown.render(self.cleaned_data['comment'])
         self.mentions = markdown.get_mentions()
         self.polls = markdown.get_polls()

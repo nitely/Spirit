@@ -249,13 +249,13 @@ class UtilsMarkdownTests(TestCase):
                 '<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?html5=1"'
                 ' allowfullscreen></iframe></span>',
                 '<p><a rel="nofollow" href="https://www.youtube.com/watch?v=&lt;bad&gt;">'
-                'https://www.youtube.com/watch?v=&lt;bad&gt;</a></p>',
+                'https://www.youtube.com/watch…</a></p>',
                 '<p><a rel="nofollow" href="https://www.noyoutube.com/watch?v=Z0UISCEe52Y">'
-                'https://www.noyoutube.com/watch?v=Z0UISCEe52Y</a></p>',
+                'https://www.noyoutube.com/wat…</a></p>',
                 '<p>badbad <a rel="nofollow" href="https://www.youtube.com/watch?v=Z0UISCEe52Y">'
-                'https://www.youtube.com/watch?v=Z0UISCEe52Y</a></p>',
+                'https://www.youtube.com/watch…</a></p>',
                 '<p><a rel="nofollow" href="https://www.youtube.com/watch?v=Z0UISCEe52Y">'
-                'https://www.youtube.com/watch?v=Z0UISCEe52Y</a> badbad</p>'
+                'https://www.youtube.com/watch…</a> badbad</p>'
             ]
         )
 
@@ -326,9 +326,9 @@ class UtilsMarkdownTests(TestCase):
                 'frameborder="0" scrolling="no" allowfullscreen></iframe></span>',
 
                 '<p>bad <a rel="nofollow" href="https://gfycat.com/PointedVengefulHyracotherium">'
-                'https://gfycat.com/PointedVengefulHyracotherium</a><br>',
+                'https://gfycat.com/PointedVen…</a><br>',
                 '<a rel="nofollow" href="https://gfycat.com/PointedVengefulHyracotherium">'
-                'https://gfycat.com/PointedVengefulHyracotherium</a> bad</p>'
+                'https://gfycat.com/PointedVen…</a> bad</p>'
             ]
         )
 

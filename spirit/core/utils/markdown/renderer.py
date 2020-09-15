@@ -3,8 +3,9 @@
 import mistune
 
 from django.utils.html import escape
+from django.template.defaultfilters import truncatechars
 
-from ...conf import settings
+from spirit.core.conf import settings
 
 
 def sanitize_url(url):
@@ -41,36 +42,28 @@ class Renderer(mistune.Renderer):
     # Override
     def autolink(self, link, is_email=False):
         link = sanitize_url(link)
-        text = link
-
+        text = truncatechars(link, settings.ST_COMMENT_MAX_URL_LEN)
         if is_email:
             link = 'mailto:%s' % link
-
+        no_follow = ''
         if self.options['no_follow']:
-            return '<a rel="nofollow" href="%s">%s</a>' % (link, text)
-
-        return '<a href="%s">%s</a>' % (link, text)
+            no_follow = ' rel="nofollow"'
+        result = '<a{no_follow} href="{href}">{text}</a>'
+        return result.format(
+            no_follow=no_follow, href=link, text=text)
 
     # Override
     def link(self, link, title, text):
         link = sanitize_url(link)
-
-        if not title:
-            if self.options['no_follow']:
-                return (
-                    '<a rel="nofollow" href="%s">%s</a>'
-                    % (link, text))
-
-            return '<a href="%s">%s</a>' % (link, text)
-
-        title = escape(title)
-
+        no_follow = ''
         if self.options['no_follow']:
-            return (
-                '<a rel="nofollow" href="%s" title="%s">%s</a>'
-                % (link, title, text))
-
-        return '<a href="%s" title="%s">%s</a>' % (link, title, text)
+            no_follow = ' rel="nofollow"'
+        title = title or ''
+        if title:
+            title = ' title="%s"' % escape(title)
+        result = '<a{no_follow} href="{href}"{title}>{text}</a>'
+        return result.format(
+            no_follow=no_follow, href=link, title=title, text=text)
 
     # Override
     def _image(self, src, title, text):

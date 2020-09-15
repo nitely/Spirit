@@ -555,6 +555,8 @@
   //  max-width: 500px;
   //}
   a {
+    // cannot add ellipsis here,
+    // because a link may contain an image
     text-decoration: underline;
     &.comment-mention {
       text-decoration: none;

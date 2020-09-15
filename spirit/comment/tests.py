@@ -947,7 +947,7 @@ class CommentFormTest(TestCase):
 
         self.user.st.is_moderator = True
         comment2 = form.save()
-        self.assertEqual(comment2.comment_html, '<p><a href="http://foo.com">http://foo.com</a></p>')
+        self.assertEqual(comment2.comment_html, '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>')
 
     def test_comment_get_comment_hash(self):
         """

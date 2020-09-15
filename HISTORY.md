@@ -1,7 +1,9 @@
 0.9.2 (dev)
 ==================
 
+* Added `ST_COMMENT_MAX_URL_LEN` setting
 * Added `huey` to the logging settings
+* Added `rel=nofollow` to moderator/admin posted URLs
 * Fixed password reset should use the send email task
 * UX: every row in the topic list redirects to the
   topic on click

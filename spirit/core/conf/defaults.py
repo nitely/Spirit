@@ -46,6 +46,9 @@ ST_NOTIFICATIONS_PER_PAGE = 20
 
 #: Maximum length for a comment
 ST_COMMENT_MAX_LEN = 3000
+#: Truncate displayed URL in comments
+# if it's longer than this number of characters
+ST_COMMENT_MAX_URL_LEN = 30
 #: Maximum number of mentions per comment willing to process
 ST_MENTIONS_PER_COMMENT = 30
 #: Minutes to wait before a given user
