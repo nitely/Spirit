@@ -1,10 +1,11 @@
-0.9.2 (dev)
+0.10.0 (dev)
 ==================
 
 * Added `ST_COMMENT_MAX_URL_LEN` setting
 * Added `huey` to the logging settings
 * Added `rel=nofollow` to moderator/admin posted URLs
 * Fixed password reset should use the send email task
+* Removed admin footer snippet (issue #197)
 * UX: every row in the topic list redirects to the
   topic on click
 * UX: added microphone badge to OP
