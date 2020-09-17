@@ -56,7 +56,7 @@ The ``templates`` folder must be next to the ``static`` and ``media``
 folders.
 
 There is a bunch more of CSS color variables in the
-`Sass colors file<https://github.com/nitely/Spirit/blob/master/spirit/core/static/spirit/stylesheets/src/modules/_colors.scss>`_.
+`Sass colors file <https://github.com/nitely/Spirit/blob/master/spirit/core/static/spirit/stylesheets/src/modules/_colors.scss>`_.
 There is also a dark-mode that is active when the OS is in dark-mode, but
 it can be set as the default or as the only theme the same way.
 
