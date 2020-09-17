@@ -34,7 +34,7 @@ txpull:
 tx: txpush txpull
 
 start:
-	python manage.py runserver
+	python manage.py runserver 8888
 
 start_tasks_manager:
 	python manage.py run_huey

@@ -1,11 +1,14 @@
 0.10.0 (dev)
 ==================
 
-* Added `spirit/_head_extra.html`,
-  `spirit/_before_spirit_body.html`, and
-  `spirit/_after_spirit_body.html`
-  templates to include custom markup/styles/code
-  into Spirit's base template.
+* Added `DIRS` to the `TEMPLATES` setting to 
+  support templates overriding
+* Added `custom_head_extra`,
+  `custom_before_spirit_body`, and
+  `custom_after_spirit_body` blocks to
+  `template/spirit/_base.html` template to
+  extend and include custom markup/styles/code
+  into Spirit's base template
 * Added `ST_COMMENT_MAX_URL_LEN` setting
 * Added `huey` to the logging settings
 * Added `rel=nofollow` to moderator/admin posted URLs

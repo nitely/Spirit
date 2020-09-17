@@ -15,6 +15,7 @@ User’s Guide
    installation
    upgrade
    task_manager
+   templates
    settings
 
 Additional Notes
