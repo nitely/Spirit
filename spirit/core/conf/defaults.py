@@ -146,6 +146,10 @@ ST_CASE_INSENSITIVE_USERNAMES = True
 #:     Defaults to ``False`` since Spirit 0.8
 ST_PREVENT_SOME_FILE_DUPLICATION = False
 
+#: Use the extended font variation. Includes
+#: Latin, Greek, and Cyrillic charsets
+ST_EXTENDED_FONT = False
+
 # Tests helper
 ST_TESTS_RATELIMIT_NEVER_EXPIRE = False
 

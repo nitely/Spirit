@@ -1,5 +1,6 @@
 {% load spirit_tags i18n %}
 {% load static %}
+{% load_settings 'ST_EXTENDED_FONT' %}
 <!doctype html>
 <html>
 <head>
@@ -39,6 +40,18 @@
 
     });
   </script>
+
+  {% if st_settings.ST_EXTENDED_FONT %}
+    <style>
+      @font-face {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: 300;
+        src: url("{% static "spirit/stylesheets/vendors/fonts/Ubuntu-all-300.woff2" %}") format('woff2'),
+        url("{% static "spirit/stylesheets/vendors/fonts/Ubuntu-all-300.woff" %}") format('woff');
+      }
+    </style>
+  {% endif %}
 
   {% block head-extra %}{% endblock %}
   {% block custom_head_extra %}{% endblock %}

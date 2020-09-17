@@ -57,6 +57,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEMPLATES[0]['OPTIONS']['debug'] = True
 
+ST_EXTENDED_FONT = True
 ST_RATELIMIT_CACHE = 'st_rate_limit'
 ST_UPLOAD_FILE_ENABLED = bool(int(os.getenv('ST_UPLOAD_FILE_ENABLED', True)))
 ST_ORDERED_CATEGORIES = True

@@ -1,6 +1,9 @@
 0.10.0 (dev)
 ==================
 
+* Added `ST_EXTENDED_FONT` setting to
+  load the extended font (includes Latin, Greek, and
+  Cyrillic charsets)
 * Added `DIRS` to the `TEMPLATES` setting to 
   support templates overriding
 * Added `custom_head_extra`,
