@@ -15,7 +15,7 @@ Upgrade a minor version
 
 Trying to skip a minor version while upgrading will
 break things. For example, it's not possible to upgrade
-from 0.4.x to 0.6.x without upgrading to 0.5.x first.
+from ``v0.4.x`` to ``v0.6.x`` without upgrading to ``v0.5.x`` first.
 
 Make sure to check the changelog for every patch version
 of the upgrade target, and make changes accordingly;
@@ -36,7 +36,7 @@ Upgrade a patch version
 -----------------------
 
 Unlike minor versions, it's possible to skip patch versions,
-ex: upgrade from 0.4.x to 0.4.xx. This is because patch versions
+ex: upgrade from ``v0.4.x`` to ``v0.4.xx``. This is because patch versions
 should not introduce breaking changes. However, it's advised to
 always backup the data base, media folder, and current setup if
 at all possible. Upgrades are not risk free.
