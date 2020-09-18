@@ -46,7 +46,10 @@ class UtilsTests(TestCase):
 
         res = utils.render_form_errors(MockForm())
         lines = [line.strip() for line in res.splitlines()]
-        self.assertEqual("".join(lines), '<ul class="errorlist"><li>error1</li><li>error2</li><li>error3</li></ul>')
+        self.assertEqual(
+            "".join(lines),
+            '<ul class="errorlist"><li>error1</li>'
+            '<li>error2</li><li>error3</li></ul>')
 
     def test_json_response(self):
         """
@@ -58,8 +61,10 @@ class UtilsTests(TestCase):
         self.assertEqual(res['Content-Type'], 'application/json')
         self.assertDictEqual(json.loads(res.content.decode('utf-8')), {})
 
-        res = utils.json_response({"foo": "bar", })
-        self.assertDictEqual(json.loads(res.content.decode('utf-8')), {"foo": "bar", })
+        res = utils.json_response({"foo": "bar"})
+        self.assertDictEqual(
+            json.loads(res.content.decode('utf-8')),
+            {"foo": "bar"})
 
         res = utils.json_response(status=404)
         self.assertEqual(res.status_code, 404)
@@ -145,8 +150,9 @@ class UtilsTemplateTagTests(TestCase):
                 return None
 
         def render(date):
-            t = Template('{% load spirit_tags %}'
-                         '{{ date|shortnaturaltime }}')
+            t = Template(
+                '{% load spirit_tags %}'
+                '{{ date|shortnaturaltime }}')
             return t.render(Context({'date': date, }))
 
         orig_humanize_datetime, ttags_utils.datetime = ttags_utils.datetime, MockDateTime
@@ -196,29 +202,32 @@ class UtilsTemplateTagTests(TestCase):
         m2 = MockMessage(messages.constants.ERROR, 'error 2')
         m3 = MockMessage(messages.constants.INFO, 'info 3')
         res = render_messages([m1, m2, m3])
-        self.assertDictEqual(dict(res['messages_grouped']), {'error': [m1, m2],
-                                                             'info': [m3, ]})
+        self.assertDictEqual(
+            dict(res['messages_grouped']),
+            {'error': [m1, m2], 'info': [m3, ]})
 
     def test_social_share(self):
         """
         Test social share tags with unicode input
         """
-        t = Template('{% load spirit_tags %}'
-                     '{% get_facebook_share_url url="/á/foo bar/" title="á" %}'
-                     '{% get_twitter_share_url url="/á/foo bar/" title="á" %}'
-                     '{% get_gplus_share_url url="/á/foo bar/" %}'
-                     '{% get_email_share_url url="/á/foo bar/" title="á" %}'
-                     '{% get_share_url url="/á/foo bar/" %}')
-        res = t.render(Context({'request': RequestFactory().get('/'), }, autoescape=False))
-        self.assertEqual(res.strip(), "http://www.facebook.com/sharer.php?s=100&p%5Burl%5D=http%3A%2F%2Ftestserver"
-                                      "%2F%25C3%25A1%2Ffoo%2520bar%2F&p%5Btitle%5D=%C3%A1"
-                                      "https://twitter.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
-                                      "foo%2520bar%2F&text=%C3%A1"
-                                      "https://plus.google.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
-                                      "foo%2520bar%2F"
-                                      "mailto:?body=http%3A%2F%2Ftestserver%2F%25C3%25A1%2Ffoo%2520bar%2F"
-                                      "&subject=%C3%A1&to="
-                                      "http://testserver/%C3%A1/foo%20bar/")
+        t = Template(
+            '{% load spirit_tags %}'
+            '{% get_facebook_share_url url="/á/foo bar/" title="á" %}'
+            '{% get_twitter_share_url url="/á/foo bar/" title="á" %}'
+            '{% get_email_share_url url="/á/foo bar/" title="á" %}'
+            '{% get_share_url url="/á/foo bar/" %}')
+        res = t.render(Context(
+            {'request': RequestFactory().get('/')},
+            autoescape=False))
+        self.assertEqual(
+            res.strip(),
+            "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftestserver"
+            "%2F%25C3%25A1%2Ffoo%2520bar%2F&t=%C3%A1"
+            "https://twitter.com/share?url=http%3A%2F%2Ftestserver%2F%25C3%25A1%2F"
+            "foo%2520bar%2F&text=%C3%A1"
+            "mailto:?body=http%3A%2F%2Ftestserver%2F%25C3%25A1%2Ffoo%2520bar%2F"
+            "&subject=%C3%A1&to="
+            "http://testserver/%C3%A1/foo%20bar/")
 
     def test_social_share_twitter_length(self):
         """
@@ -227,9 +236,12 @@ class UtilsTemplateTagTests(TestCase):
         # so this unicode title when is *url-quoted* becomes really large, like 1000 chars large,
         # browsers support up to 2000 chars for an address, we should be fine.
         long_title = "á" * 150
-        t = Template('{% load spirit_tags %}'
-                     '{% get_twitter_share_url url="/foo/" title=long_title %}')
-        res = t.render(Context({'request': RequestFactory().get('/'), 'long_title': long_title}))
+        t = Template(
+            '{% load spirit_tags %}'
+            '{% get_twitter_share_url url="/foo/" title=long_title %}')
+        res = t.render(Context(
+            {'request': RequestFactory().get('/'),
+             'long_title': long_title}))
         url = urlunquote(res.strip())
         self.assertEqual(len(url.split("text=")[-1]) + 23, 139)  # 140 for https
 
@@ -245,14 +257,17 @@ class UtilsFormsTests(TestCase):
         category = test_utils.create_category()
         category2 = test_utils.create_category()
         subcategory = test_utils.create_subcategory(category)
-        field = NestedModelChoiceField(queryset=Category.objects.all(),
-                                       related_name='category_set',
-                                       parent_field='parent_id',
-                                       label_field='title')
-        self.assertSequenceEqual(list(field.choices), [('', '---------'),
-                                                       (category.pk, '%s' % category.title),
-                                                       (subcategory.pk, '--- %s' % subcategory.title),
-                                                       (category2.pk, '%s' % category2.title)])
+        field = NestedModelChoiceField(
+            queryset=Category.objects.all(),
+            related_name='category_set',
+            parent_field='parent_id',
+            label_field='title')
+        self.assertSequenceEqual(
+            list(field.choices),
+            [('', '---------'),
+             (category.pk, '%s' % category.title),
+             (subcategory.pk, '--- %s' % subcategory.title),
+             (category2.pk, '%s' % category2.title)])
 
 
 class UtilsDecoratorsTests(TestCase):
@@ -300,4 +315,3 @@ class UtilsDecoratorsTests(TestCase):
 
         req.user.st.is_administrator = True
         self.assertIsNone(view(req))
-
