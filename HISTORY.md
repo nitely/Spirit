@@ -19,6 +19,7 @@
 * Removed admin footer snippet (issue #197)
 * Removed `spirit.topic.poll` that was deprecated
   in Spirit v0.5
+* Upgraded `django-haystack` and `Pillow` dependencies
 * UX: every row in the topic list redirects to the
   topic on click
 * UX: added microphone badge to OP
