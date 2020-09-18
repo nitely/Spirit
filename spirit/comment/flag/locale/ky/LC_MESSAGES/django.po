@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2020-06-17 00:57+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
@@ -15,39 +15,39 @@ msgstr ""
 "Language: ky\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:32
+#: forms.py:30
 msgid "This flag already exists"
 msgstr "Бул желекче мурдатан бар"
 
-#: models.py:12
+#: models.py:10
 msgid "Spam"
 msgstr "Спам"
 
-#: models.py:13
+#: models.py:11
 msgid "Other"
 msgstr "Башка"
 
-#: models.py:33
+#: models.py:31
 msgid "comment flag"
 msgstr "жорум желекчеси"
 
-#: models.py:34
+#: models.py:32
 msgid "comments flags"
 msgstr "жорум желекчеси"
 
-#: models.py:51
+#: models.py:49
 msgid "reason"
 msgstr "себеп"
 
-#: models.py:52
+#: models.py:50
 msgid "body"
 msgstr "дене"
 
-#: models.py:57
+#: models.py:55
 msgid "flag"
 msgstr "желек"
 
-#: models.py:58
+#: models.py:56
 msgid "flags"
 msgstr "желек"
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/language/sv/)\n"
@@ -14,39 +14,39 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:32
+#: forms.py:30
 msgid "This flag already exists"
 msgstr "Denna flagga finns redan"
 
-#: models.py:12
+#: models.py:10
 msgid "Spam"
 msgstr "Spam"
 
-#: models.py:13
+#: models.py:11
 msgid "Other"
 msgstr "Övrigt"
 
-#: models.py:33
+#: models.py:31
 msgid "comment flag"
 msgstr "flagga för kommentar"
 
-#: models.py:34
+#: models.py:32
 msgid "comments flags"
 msgstr "flaggor för kommentarer"
 
-#: models.py:51
+#: models.py:49
 msgid "reason"
 msgstr "anledning"
 
-#: models.py:52
+#: models.py:50
 msgid "body"
 msgstr "brödtext"
 
-#: models.py:57
+#: models.py:55
 msgid "flag"
 msgstr "flagga"
 
-#: models.py:58
+#: models.py:56
 msgid "flags"
 msgstr "flaggor"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: sirex <sirexas@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: lt\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-#: templates/spirit/user/admin/_list.html:12
+#: templates/spirit/user/admin/_list.html:13
 msgid "edit"
 msgstr "keisti"
 
@@ -25,19 +25,19 @@ msgstr "keisti"
 msgid "List"
 msgstr "Sąrašas"
 
-#: templates/spirit/user/admin/_tabs.html:13
+#: templates/spirit/user/admin/_tabs.html:12
 #: templates/spirit/user/admin/admins.html:5
 #: templates/spirit/user/admin/admins.html:11
 msgid "Admins"
 msgstr "Administratoriai"
 
-#: templates/spirit/user/admin/_tabs.html:18
+#: templates/spirit/user/admin/_tabs.html:16
 #: templates/spirit/user/admin/mods.html:5
 #: templates/spirit/user/admin/mods.html:11
 msgid "Mods"
 msgstr "Moderatoriai"
 
-#: templates/spirit/user/admin/_tabs.html:23
+#: templates/spirit/user/admin/_tabs.html:20
 msgid "Unactive"
 msgstr "Neaktyvūs"
 
@@ -60,6 +60,6 @@ msgstr "Vartotojų sąrašas"
 msgid "Unactive Users"
 msgstr "Neaktyvūs naudotojai"
 
-#: views.py:30
+#: views.py:26
 msgid "This profile has been updated!"
 msgstr "Šis profilis buvo atnaujintas!"

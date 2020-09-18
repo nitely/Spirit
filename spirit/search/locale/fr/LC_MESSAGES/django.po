@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/spirit-project/spirit/language/fr/)\n"
@@ -14,25 +14,25 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:24
+#: forms.py:22
 #, python-format
 msgid "Your search must contain at least %(length)s characters."
 msgstr ""
 
-#: forms.py:51
+#: forms.py:49
 msgid "Filter by"
 msgstr "Filtrer par"
 
 #: templates/spirit/search/_form.html:6 templates/spirit/search/search.html:5
 #: templates/spirit/search/search.html:10
-#: templates/spirit/search/search.html:15
+#: templates/spirit/search/search.html:13
 msgid "Search"
 msgstr ""
 
-#: templates/spirit/search/search.html:19
+#: templates/spirit/search/search.html:16
 msgid "Results"
 msgstr ""
 
-#: templates/spirit/search/search.html:25
+#: templates/spirit/search/search.html:21
 msgid "There are no search results."
 msgstr ""

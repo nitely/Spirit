@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Alper Buluc <ihtiyaroyuncu@yandex.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/language/tr/)\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:30
+#: forms.py:28
 msgid "This like already exists"
 msgstr "Bu beğeni zaten mevcut"
 
-#: models.py:29
+#: models.py:27
 msgid "like"
 msgstr "beğeni"
 
-#: models.py:30
+#: models.py:28
 msgid "likes"
 msgstr "beğeniler"
 

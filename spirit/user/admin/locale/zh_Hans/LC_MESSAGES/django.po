@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: templates/spirit/user/admin/_list.html:12
+#: templates/spirit/user/admin/_list.html:13
 msgid "edit"
 msgstr "编辑"
 
@@ -22,19 +22,19 @@ msgstr "编辑"
 msgid "List"
 msgstr "列表"
 
-#: templates/spirit/user/admin/_tabs.html:13
+#: templates/spirit/user/admin/_tabs.html:12
 #: templates/spirit/user/admin/admins.html:5
 #: templates/spirit/user/admin/admins.html:11
 msgid "Admins"
 msgstr "管理员"
 
-#: templates/spirit/user/admin/_tabs.html:18
+#: templates/spirit/user/admin/_tabs.html:16
 #: templates/spirit/user/admin/mods.html:5
 #: templates/spirit/user/admin/mods.html:11
 msgid "Mods"
 msgstr "版主"
 
-#: templates/spirit/user/admin/_tabs.html:23
+#: templates/spirit/user/admin/_tabs.html:20
 msgid "Unactive"
 msgstr "未激活的"
 
@@ -57,6 +57,6 @@ msgstr "用户列表"
 msgid "Unactive Users"
 msgstr "未激活用户"
 
-#: views.py:30
+#: views.py:26
 msgid "This profile has been updated!"
 msgstr "个人资料修改成功"

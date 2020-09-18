@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: sirex <sirexas@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
@@ -16,39 +16,39 @@ msgstr ""
 "Language: lt\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-#: forms.py:32
+#: forms.py:30
 msgid "This flag already exists"
 msgstr "Toks pranešimas jau yra"
 
-#: models.py:12
+#: models.py:10
 msgid "Spam"
 msgstr "Šlamštas"
 
-#: models.py:13
+#: models.py:11
 msgid "Other"
 msgstr "Kita"
 
-#: models.py:33
+#: models.py:31
 msgid "comment flag"
 msgstr "praneštas komentaras"
 
-#: models.py:34
+#: models.py:32
 msgid "comments flags"
 msgstr "pranešti komentarai"
 
-#: models.py:51
+#: models.py:49
 msgid "reason"
 msgstr "priežastis"
 
-#: models.py:52
+#: models.py:50
 msgid "body"
 msgstr "turinys"
 
-#: models.py:57
+#: models.py:55
 msgid "flag"
 msgstr "pranešimas"
 
-#: models.py:58
+#: models.py:56
 msgid "flags"
 msgstr "pranešimai"
 

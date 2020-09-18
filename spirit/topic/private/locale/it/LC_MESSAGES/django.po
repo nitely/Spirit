@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
@@ -14,32 +14,32 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:68
+#: forms.py:75
 msgid "Invite users"
 msgstr ""
 
-#: forms.py:71
+#: forms.py:85
 msgid "user1, user2, ..."
 msgstr "utente1, utente2, ..."
 
-#: forms.py:103
-msgid "username"
-msgstr "nome utente"
-
-#: forms.py:104
+#: forms.py:120
 msgid "Invite user"
 msgstr "Invita un utente"
 
-#: forms.py:122 forms.py:156
+#: forms.py:127
+msgid "username"
+msgstr "nome utente"
+
+#: forms.py:142 forms.py:177
 #, python-format
 msgid "%(username)s is already a participant"
 msgstr "%(username)s è già un partecipante"
 
-#: models.py:31
+#: models.py:29
 msgid "private topic"
 msgstr "topic privato"
 
-#: models.py:32
+#: models.py:30
 msgid "private topics"
 msgstr "topics privati"
 
@@ -47,17 +47,17 @@ msgstr "topics privati"
 msgid "Invite"
 msgstr "Invita"
 
-#: templates/spirit/topic/private/_top_bar.html:9
-#: templates/spirit/topic/private/_top_bar.html:26
+#: templates/spirit/topic/private/_top_bar.html:11
+#: templates/spirit/topic/private/_top_bar.html:30
 msgid "Participating in"
 msgstr "A cui partecipi"
 
-#: templates/spirit/topic/private/_top_bar.html:14
-#: templates/spirit/topic/private/_top_bar.html:22
+#: templates/spirit/topic/private/_top_bar.html:17
+#: templates/spirit/topic/private/_top_bar.html:26
 msgid "Left"
 msgstr "Abbandonati"
 
-#: templates/spirit/topic/private/_top_bar.html:35
+#: templates/spirit/topic/private/_top_bar.html:37
 msgid "Create private topic"
 msgstr "Crea topic privato"
 
@@ -70,20 +70,20 @@ msgstr "Rimuovi l'utente dal topic privato"
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr "Si sta rimuovendo %(username)s da %(topic_title)s"
 
-#: templates/spirit/topic/private/delete.html:17
+#: templates/spirit/topic/private/delete.html:16
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: templates/spirit/topic/private/detail.html:10
+#: templates/spirit/topic/private/detail.html:11
 #: templates/spirit/topic/private/index.html:5
 msgid "Private topics"
 msgstr "Topic privato"
 
-#: templates/spirit/topic/private/detail.html:20
+#: templates/spirit/topic/private/detail.html:23
 msgid "Participants"
 msgstr "Partecipanti"
 
-#: templates/spirit/topic/private/detail.html:47
+#: templates/spirit/topic/private/detail.html:50
 msgid "Leave topic"
 msgstr "Lascia topic"
 
@@ -91,11 +91,11 @@ msgstr "Lascia topic"
 msgid "Created private topics"
 msgstr "Crea topic privato"
 
-#: templates/spirit/topic/private/index_author.html:18
+#: templates/spirit/topic/private/index_author.html:20
 msgid "join"
 msgstr "unisciti"
 
-#: templates/spirit/topic/private/index_author.html:21
+#: templates/spirit/topic/private/index_author.html:24
 msgid "There are no topics here, yet"
 msgstr "Non ci sono topic"
 
@@ -120,6 +120,6 @@ msgstr "Pubblica un topic privato"
 msgid "Publish private topic"
 msgstr "Pubblica un topic privato"
 
-#: templates/spirit/topic/private/publish.html:23
+#: templates/spirit/topic/private/publish.html:26
 msgid "Publish"
 msgstr "Pubblica"

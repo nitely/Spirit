@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2020-06-17 00:57+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Language: ky\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:9
+#: templates/spirit/comment/flag/admin/_list.html:14
 msgid "moderate"
 msgstr "модерациялоо"
 
-#: templates/spirit/comment/flag/admin/_tabs.html:4
+#: templates/spirit/comment/flag/admin/_tabs.html:7
 msgid "Open"
 msgstr "Ачык"
 
-#: templates/spirit/comment/flag/admin/_tabs.html:5
+#: templates/spirit/comment/flag/admin/_tabs.html:11
 msgid "Closed"
 msgstr "Жабык"
 
@@ -33,39 +33,39 @@ msgid "Closed flags"
 msgstr "Жабык желекчелер"
 
 #: templates/spirit/comment/flag/admin/detail.html:5
-#: templates/spirit/comment/flag/admin/detail.html:14
+#: templates/spirit/comment/flag/admin/detail.html:16
 msgid "Flag"
 msgstr "Желекче"
 
-#: templates/spirit/comment/flag/admin/detail.html:10
+#: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Admin"
 msgstr "Админ"
 
-#: templates/spirit/comment/flag/admin/detail.html:11
+#: templates/spirit/comment/flag/admin/detail.html:13
 msgid "Flags"
 msgstr "Желекчелер"
 
-#: templates/spirit/comment/flag/admin/detail.html:18
+#: templates/spirit/comment/flag/admin/detail.html:22
 msgid "Moderated by"
 msgstr "Модерациялаган"
 
-#: templates/spirit/comment/flag/admin/detail.html:27
+#: templates/spirit/comment/flag/admin/detail.html:35
 msgid "Save"
 msgstr "Сакта"
 
-#: templates/spirit/comment/flag/admin/detail.html:30
+#: templates/spirit/comment/flag/admin/detail.html:38
 msgid "Comment flagged"
 msgstr "Жорумга желекче илинген"
 
-#: templates/spirit/comment/flag/admin/detail.html:55
+#: templates/spirit/comment/flag/admin/detail.html:67
 msgid "delete"
 msgstr "жок кылуу"
 
-#: templates/spirit/comment/flag/admin/detail.html:57
+#: templates/spirit/comment/flag/admin/detail.html:72
 msgid "undelete"
 msgstr "кайтаруу"
 
-#: templates/spirit/comment/flag/admin/detail.html:65
+#: templates/spirit/comment/flag/admin/detail.html:79
 msgid "Reporters"
 msgstr "Арыздануучулар"
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2020-06-17 00:57+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Language: ky\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:15
+#: models.py:13
 msgid "original comment"
 msgstr "жорумдун түп нускасы"
 
-#: models.py:18
+#: models.py:16
 msgid "comment html"
 msgstr "жорумдун HTML'и"
 
-#: models.py:23
+#: models.py:21
 msgid "comment history"
 msgstr "жорум таржымалы"
 
-#: models.py:24
+#: models.py:22
 msgid "comments history"
 msgstr "жорум таржымалы"
 

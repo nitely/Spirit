@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-11-26 00:01+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:9
+#: templates/spirit/comment/flag/admin/_list.html:14
 msgid "moderate"
 msgstr "审核"
 
-#: templates/spirit/comment/flag/admin/_tabs.html:4
+#: templates/spirit/comment/flag/admin/_tabs.html:7
 msgid "Open"
 msgstr "未处理"
 
-#: templates/spirit/comment/flag/admin/_tabs.html:5
+#: templates/spirit/comment/flag/admin/_tabs.html:11
 msgid "Closed"
 msgstr "已处理"
 
@@ -33,39 +33,39 @@ msgid "Closed flags"
 msgstr "已处理的举报"
 
 #: templates/spirit/comment/flag/admin/detail.html:5
-#: templates/spirit/comment/flag/admin/detail.html:14
+#: templates/spirit/comment/flag/admin/detail.html:16
 msgid "Flag"
 msgstr "举报"
 
-#: templates/spirit/comment/flag/admin/detail.html:10
+#: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Admin"
 msgstr "管理中心"
 
-#: templates/spirit/comment/flag/admin/detail.html:11
+#: templates/spirit/comment/flag/admin/detail.html:13
 msgid "Flags"
 msgstr "举报"
 
-#: templates/spirit/comment/flag/admin/detail.html:18
+#: templates/spirit/comment/flag/admin/detail.html:22
 msgid "Moderated by"
 msgstr "审核者"
 
-#: templates/spirit/comment/flag/admin/detail.html:27
+#: templates/spirit/comment/flag/admin/detail.html:35
 msgid "Save"
 msgstr "保存"
 
-#: templates/spirit/comment/flag/admin/detail.html:30
+#: templates/spirit/comment/flag/admin/detail.html:38
 msgid "Comment flagged"
 msgstr "被举报的评论"
 
-#: templates/spirit/comment/flag/admin/detail.html:55
+#: templates/spirit/comment/flag/admin/detail.html:67
 msgid "delete"
 msgstr "删除"
 
-#: templates/spirit/comment/flag/admin/detail.html:57
+#: templates/spirit/comment/flag/admin/detail.html:72
 msgid "undelete"
 msgstr "恢复"
 
-#: templates/spirit/comment/flag/admin/detail.html:65
+#: templates/spirit/comment/flag/admin/detail.html:79
 msgid "Reporters"
 msgstr "报告者"
 

@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
-"PO-Revision-Date: 2018-01-30 16:04+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -15,77 +15,77 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: forms.py:35
+#: forms.py:33
 msgid "Category"
 msgstr "Категория"
 
-#: forms.py:36
+#: forms.py:34
 msgid "Choose a category"
 msgstr "Выбрать категорию"
 
-#: models.py:34
+#: models.py:32
 msgid "category"
 msgstr "категория"
 
-#: models.py:37
+#: models.py:35
 msgid "title"
 msgstr "заголовок"
 
-#: models.py:39
+#: models.py:37
 msgid "date"
 msgstr "дата"
 
-#: models.py:40
+#: models.py:38
 msgid "last active"
 msgstr "последнее посещение"
 
-#: models.py:41
+#: models.py:39
 msgid "reindex at"
 msgstr ""
 
-#: models.py:43
+#: models.py:41
 msgid "pinned"
 msgstr "прикреплено"
 
-#: models.py:44
+#: models.py:42
 msgid "globally pinned"
 msgstr "глобально прикреплено"
 
-#: models.py:45
+#: models.py:43
 msgid "closed"
 msgstr "закрыто"
 
-#: models.py:48
+#: models.py:46
 msgid "views count"
 msgstr "количество просмотров"
 
-#: models.py:49
+#: models.py:47
 msgid "comment count"
 msgstr "количество комментариев"
 
-#: models.py:55
+#: models.py:53
 msgid "topic"
 msgstr "тема"
 
-#: models.py:56
+#: models.py:54
 msgid "topics"
 msgstr "темы"
 
-#: templates/spirit/topic/_render_list.html:51
+#: templates/spirit/topic/_render_list.html:48
 msgid "There are no topics here, yet"
 msgstr "Здесь пока нет тем"
 
-#: templates/spirit/topic/_top_bar.html:14
-#: templates/spirit/topic/_top_bar.html:31
+#: templates/spirit/topic/_top_bar.html:17
+#: templates/spirit/topic/_top_bar.html:32
 msgid "All Categories"
 msgstr "Все категории"
 
-#: templates/spirit/topic/_top_bar.html:27
+#: templates/spirit/topic/_top_bar.html:29
 msgid "All Subcategories"
 msgstr "Все субкатегории"
 
 #: templates/spirit/topic/_top_bar.html:41
-#: templates/spirit/topic/_top_bar.html:43
+#: templates/spirit/topic/_top_bar.html:44
 msgid "Create Topic"
 msgstr "Создать тему"
 
@@ -97,57 +97,61 @@ msgstr "Последние активные темы"
 msgid "Main"
 msgstr "Главная"
 
-#: templates/spirit/topic/detail.html:42 templates/spirit/topic/detail.html:46
+#: templates/spirit/topic/detail.html:36 templates/spirit/topic/detail.html:40
 msgid "edit"
 msgstr "редактировать"
 
-#: templates/spirit/topic/detail.html:61
+#: templates/spirit/topic/detail.html:48
+msgid "Moderate"
+msgstr ""
+
+#: templates/spirit/topic/detail.html:54
 msgid "Select comments to move"
 msgstr "Выберите комментарии для перемещения"
 
-#: templates/spirit/topic/detail.html:67
+#: templates/spirit/topic/detail.html:57
 msgid "Undelete topic"
 msgstr "Отменить удаление темы"
 
-#: templates/spirit/topic/detail.html:72
+#: templates/spirit/topic/detail.html:60
 msgid "Delete topic"
 msgstr "Удалить тему"
 
-#: templates/spirit/topic/detail.html:79
+#: templates/spirit/topic/detail.html:64
 msgid "Open topic"
 msgstr "Открыть тему"
 
-#: templates/spirit/topic/detail.html:84
+#: templates/spirit/topic/detail.html:67
 msgid "Close topic"
 msgstr "Закрыть тему"
 
-#: templates/spirit/topic/detail.html:91
+#: templates/spirit/topic/detail.html:71
 msgid "Unpin topic"
 msgstr "Открепить тему"
 
-#: templates/spirit/topic/detail.html:96
+#: templates/spirit/topic/detail.html:74
 msgid "Pin topic"
 msgstr "Прикрепить тему"
 
-#: templates/spirit/topic/detail.html:103
+#: templates/spirit/topic/detail.html:78
 msgid "Unpin topic globally"
 msgstr "Глобально открепить тему"
 
-#: templates/spirit/topic/detail.html:108
+#: templates/spirit/topic/detail.html:81
 msgid "Pin topic globally"
 msgstr "Глобально прикрепить тему"
 
-#: templates/spirit/topic/detail.html:120
-msgid "Topic id"
-msgstr "id темы"
-
-#: templates/spirit/topic/detail.html:124
-msgid "Move"
-msgstr "Переместить"
-
-#: templates/spirit/topic/detail.html:139
+#: templates/spirit/topic/detail.html:103
 msgid "Reply"
 msgstr "Ответить"
+
+#: templates/spirit/topic/detail.html:111
+msgid "Move selected comments to"
+msgstr ""
+
+#: templates/spirit/topic/detail.html:117
+msgid "Move"
+msgstr "Переместить"
 
 #: templates/spirit/topic/moderate.html:5
 #: templates/spirit/topic/moderate.html:9
@@ -163,7 +167,7 @@ msgstr "Применить"
 msgid "Publish topic"
 msgstr "Опубликовать тему"
 
-#: templates/spirit/topic/publish.html:36
+#: templates/spirit/topic/publish.html:38
 msgid "Publish"
 msgstr "Опубликовать"
 
@@ -171,6 +175,6 @@ msgstr "Опубликовать"
 msgid "Update topic"
 msgstr "Обновить тему"
 
-#: templates/spirit/topic/update.html:15
+#: templates/spirit/topic/update.html:13
 msgid "Update"
 msgstr "Обновить"

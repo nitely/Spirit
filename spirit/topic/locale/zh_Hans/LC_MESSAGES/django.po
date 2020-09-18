@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
-"PO-Revision-Date: 2018-01-30 16:04+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -16,77 +16,77 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:35
+#: forms.py:33
 msgid "Category"
 msgstr "分类"
 
-#: forms.py:36
+#: forms.py:34
 msgid "Choose a category"
 msgstr "选择分类"
 
-#: models.py:34
+#: models.py:32
 msgid "category"
 msgstr "分类"
 
-#: models.py:37
+#: models.py:35
 msgid "title"
 msgstr "标题"
 
-#: models.py:39
+#: models.py:37
 msgid "date"
 msgstr "日期"
 
-#: models.py:40
+#: models.py:38
 msgid "last active"
 msgstr "上次活动"
 
-#: models.py:41
+#: models.py:39
 msgid "reindex at"
 msgstr ""
 
-#: models.py:43
+#: models.py:41
 msgid "pinned"
 msgstr "置顶的"
 
-#: models.py:44
+#: models.py:42
 msgid "globally pinned"
 msgstr "主题已置顶"
 
-#: models.py:45
+#: models.py:43
 msgid "closed"
 msgstr "关闭的"
 
-#: models.py:48
+#: models.py:46
 msgid "views count"
 msgstr "浏览次数"
 
-#: models.py:49
+#: models.py:47
 msgid "comment count"
 msgstr "评论次数"
 
-#: models.py:55
+#: models.py:53
 msgid "topic"
 msgstr "主题"
 
-#: models.py:56
+#: models.py:54
 msgid "topics"
 msgstr "主题"
 
-#: templates/spirit/topic/_render_list.html:51
+#: templates/spirit/topic/_render_list.html:48
 msgid "There are no topics here, yet"
 msgstr "还没有主题"
 
-#: templates/spirit/topic/_top_bar.html:14
-#: templates/spirit/topic/_top_bar.html:31
+#: templates/spirit/topic/_top_bar.html:17
+#: templates/spirit/topic/_top_bar.html:32
 msgid "All Categories"
 msgstr "全部分类"
 
-#: templates/spirit/topic/_top_bar.html:27
+#: templates/spirit/topic/_top_bar.html:29
 msgid "All Subcategories"
 msgstr "全部子分类"
 
 #: templates/spirit/topic/_top_bar.html:41
-#: templates/spirit/topic/_top_bar.html:43
+#: templates/spirit/topic/_top_bar.html:44
 msgid "Create Topic"
 msgstr "创建主题"
 
@@ -98,57 +98,61 @@ msgstr "最近活动的主题"
 msgid "Main"
 msgstr "首页"
 
-#: templates/spirit/topic/detail.html:42 templates/spirit/topic/detail.html:46
+#: templates/spirit/topic/detail.html:36 templates/spirit/topic/detail.html:40
 msgid "edit"
 msgstr "编辑"
 
-#: templates/spirit/topic/detail.html:61
+#: templates/spirit/topic/detail.html:48
+msgid "Moderate"
+msgstr ""
+
+#: templates/spirit/topic/detail.html:54
 msgid "Select comments to move"
 msgstr "选择要移动的评论"
 
-#: templates/spirit/topic/detail.html:67
+#: templates/spirit/topic/detail.html:57
 msgid "Undelete topic"
 msgstr "恢复删除主题"
 
-#: templates/spirit/topic/detail.html:72
+#: templates/spirit/topic/detail.html:60
 msgid "Delete topic"
 msgstr "删除主题"
 
-#: templates/spirit/topic/detail.html:79
+#: templates/spirit/topic/detail.html:64
 msgid "Open topic"
 msgstr "开启主题"
 
-#: templates/spirit/topic/detail.html:84
+#: templates/spirit/topic/detail.html:67
 msgid "Close topic"
 msgstr "关闭主题"
 
-#: templates/spirit/topic/detail.html:91
+#: templates/spirit/topic/detail.html:71
 msgid "Unpin topic"
 msgstr "撤销置顶主题"
 
-#: templates/spirit/topic/detail.html:96
+#: templates/spirit/topic/detail.html:74
 msgid "Pin topic"
 msgstr "置顶主题"
 
-#: templates/spirit/topic/detail.html:103
+#: templates/spirit/topic/detail.html:78
 msgid "Unpin topic globally"
 msgstr "撤销置顶主题"
 
-#: templates/spirit/topic/detail.html:108
+#: templates/spirit/topic/detail.html:81
 msgid "Pin topic globally"
 msgstr "置顶主题"
 
-#: templates/spirit/topic/detail.html:120
-msgid "Topic id"
-msgstr "主题"
-
-#: templates/spirit/topic/detail.html:124
-msgid "Move"
-msgstr "移动"
-
-#: templates/spirit/topic/detail.html:139
+#: templates/spirit/topic/detail.html:103
 msgid "Reply"
 msgstr "回复"
+
+#: templates/spirit/topic/detail.html:111
+msgid "Move selected comments to"
+msgstr ""
+
+#: templates/spirit/topic/detail.html:117
+msgid "Move"
+msgstr "移动"
 
 #: templates/spirit/topic/moderate.html:5
 #: templates/spirit/topic/moderate.html:9
@@ -164,7 +168,7 @@ msgstr "应用"
 msgid "Publish topic"
 msgstr "发布主题"
 
-#: templates/spirit/topic/publish.html:36
+#: templates/spirit/topic/publish.html:38
 msgid "Publish"
 msgstr "发布"
 
@@ -172,6 +176,6 @@ msgstr "发布"
 msgid "Update topic"
 msgstr "更新主题"
 
-#: templates/spirit/topic/update.html:15
+#: templates/spirit/topic/update.html:13
 msgid "Update"
 msgstr "更新"

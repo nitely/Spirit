@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2020-06-17 01:02+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
@@ -15,32 +15,32 @@ msgstr ""
 "Language: ky\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:68
+#: forms.py:75
 msgid "Invite users"
 msgstr "Колдонуучуларды чакыруу"
 
-#: forms.py:71
+#: forms.py:85
 msgid "user1, user2, ..."
 msgstr "колдонуучу1, колдонуучу2, ..."
 
-#: forms.py:103
-msgid "username"
-msgstr "колдонуучу аты"
-
-#: forms.py:104
+#: forms.py:120
 msgid "Invite user"
 msgstr "Колдонуучу чакыруу"
 
-#: forms.py:122 forms.py:156
+#: forms.py:127
+msgid "username"
+msgstr "колдонуучу аты"
+
+#: forms.py:142 forms.py:177
 #, python-format
 msgid "%(username)s is already a participant"
 msgstr "%(username)sмурунтан эле катышуучу "
 
-#: models.py:31
+#: models.py:29
 msgid "private topic"
 msgstr "жашыруун тема"
 
-#: models.py:32
+#: models.py:30
 msgid "private topics"
 msgstr "жашыруун тема"
 
@@ -48,17 +48,17 @@ msgstr "жашыруун тема"
 msgid "Invite"
 msgstr "Чакыруу"
 
-#: templates/spirit/topic/private/_top_bar.html:9
-#: templates/spirit/topic/private/_top_bar.html:26
+#: templates/spirit/topic/private/_top_bar.html:11
+#: templates/spirit/topic/private/_top_bar.html:30
 msgid "Participating in"
 msgstr "Катышып жаткан жерлер:"
 
-#: templates/spirit/topic/private/_top_bar.html:14
-#: templates/spirit/topic/private/_top_bar.html:22
+#: templates/spirit/topic/private/_top_bar.html:17
+#: templates/spirit/topic/private/_top_bar.html:26
 msgid "Left"
 msgstr "Калды"
 
-#: templates/spirit/topic/private/_top_bar.html:35
+#: templates/spirit/topic/private/_top_bar.html:37
 msgid "Create private topic"
 msgstr "Жашыруун тема түзүү"
 
@@ -71,20 +71,20 @@ msgstr "Колдонуучуну жашыруун темадан чыгарып 
 msgid "Removing %(username)s's from %(topic_title)s"
 msgstr "%(username)s колдонуучусу %(topic_title)sтемасынан чыгарылууда"
 
-#: templates/spirit/topic/private/delete.html:17
+#: templates/spirit/topic/private/delete.html:16
 msgid "Remove"
 msgstr "Чыгар"
 
-#: templates/spirit/topic/private/detail.html:10
+#: templates/spirit/topic/private/detail.html:11
 #: templates/spirit/topic/private/index.html:5
 msgid "Private topics"
 msgstr "Жашыруун темалар"
 
-#: templates/spirit/topic/private/detail.html:20
+#: templates/spirit/topic/private/detail.html:23
 msgid "Participants"
 msgstr "Колдонуучулар"
 
-#: templates/spirit/topic/private/detail.html:47
+#: templates/spirit/topic/private/detail.html:50
 msgid "Leave topic"
 msgstr "Темадан чыгуу"
 
@@ -92,11 +92,11 @@ msgstr "Темадан чыгуу"
 msgid "Created private topics"
 msgstr "Жашыруун тема түзүлдү"
 
-#: templates/spirit/topic/private/index_author.html:18
+#: templates/spirit/topic/private/index_author.html:20
 msgid "join"
 msgstr "Кошулуу"
 
-#: templates/spirit/topic/private/index_author.html:21
+#: templates/spirit/topic/private/index_author.html:24
 msgid "There are no topics here, yet"
 msgstr "Темалар азырынча жок"
 
@@ -121,6 +121,6 @@ msgstr "Жашыруун тема жарыялоо"
 msgid "Publish private topic"
 msgstr "Жашыруун теманы жарыялоо"
 
-#: templates/spirit/topic/private/publish.html:23
+#: templates/spirit/topic/private/publish.html:26
 msgid "Publish"
 msgstr "Жарыялоо"

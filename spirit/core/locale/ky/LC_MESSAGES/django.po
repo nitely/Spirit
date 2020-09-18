@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2020-06-17 01:00+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
@@ -15,21 +15,21 @@ msgstr ""
 "Language: ky\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: tags/time.py:33
+#: tags/time.py:32
 msgid "now"
 msgstr "азыр"
 
-#: tags/time.py:37
+#: tags/time.py:36
 #, python-format
 msgid "%(count)ss"
 msgstr "%(count)sс"
 
-#: tags/time.py:41
+#: tags/time.py:40
 #, python-format
 msgid "%(count)sm"
 msgstr "%(count)sм"
 
-#: tags/time.py:44
+#: tags/time.py:43
 #, python-format
 msgid "%(count)sh"
 msgstr "%(count)sс"
@@ -42,33 +42,33 @@ msgstr "Сизде бул бетке кирүүгө уруксат жок"
 msgid "what you are looking for is gone..."
 msgstr "сиз издеп жаткан нерсе жок кылынып кетиптир ..."
 
-#: templates/spirit/_base.html:28
+#: templates/spirit/_base.html:29
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} сизди {topic} темасында белгиледи"
 
-#: templates/spirit/_base.html:29
+#: templates/spirit/_base.html:30
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user} {topic} темасында жорум калтырды"
 
-#: templates/spirit/_base.html:30
+#: templates/spirit/_base.html:31
 msgid "Show all"
 msgstr "Баарын көрсөт"
 
-#: templates/spirit/_base.html:31
+#: templates/spirit/_base.html:32
 msgid "No new notifications, yet"
 msgstr "Жаңы маалымдоо жок"
 
-#: templates/spirit/_base.html:32
+#: templates/spirit/_base.html:33
 msgid "unread"
 msgstr "окулбаган"
 
-#: templates/spirit/_header.html:42
+#: templates/spirit/_header.html:40
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/spirit/_header.html:45
+#: templates/spirit/_header.html:44
 msgid "Topics"
 msgstr "Темалар"
 
@@ -76,15 +76,15 @@ msgstr "Темалар"
 msgid "Unread topics"
 msgstr "Окулбаган темалар"
 
-#: templates/spirit/_header.html:51
+#: templates/spirit/_header.html:52
 msgid "Private topics"
 msgstr "Жашыруун темалар"
 
-#: templates/spirit/_header.html:56
+#: templates/spirit/_header.html:57
 msgid "Admin"
 msgstr "Админ"
 
-#: templates/spirit/_header.html:63
+#: templates/spirit/_header.html:62
 msgid "Log out"
 msgstr "Чыгуу"
 
@@ -92,16 +92,16 @@ msgstr "Чыгуу"
 msgid "Log in"
 msgstr "Кирүү"
 
-#: templates/spirit/utils/paginator/_paginator.html:4
+#: templates/spirit/utils/paginator/_paginator.html:5
 #, python-format
 msgid "Page %(number)s of %(num_pages)s"
 msgstr "%(number)s ичинен %(num_pages)s"
 
-#: templates/spirit/utils/paginator/_paginator.html:8
+#: templates/spirit/utils/paginator/_paginator.html:9
 msgid "Last"
 msgstr "Акыркы"
 
-#: templates/spirit/utils/paginator/_paginator.html:10
+#: templates/spirit/utils/paginator/_paginator.html:11
 msgid "First"
 msgstr "Биринчи"
 
@@ -109,12 +109,12 @@ msgstr "Биринчи"
 msgid "Page 1 of 1"
 msgstr "1 ичинен 1"
 
-#: utils/markdown/utils/quote.py:37
+#: utils/markdown/utils/quote.py:36
 #, python-format
 msgid "@%(username)s said:"
 msgstr "@%(username)s мындай дейт:"
 
-#: utils/ratelimit/decorators.py:27
+#: utils/ratelimit/decorators.py:25
 #, python-format
 msgid "Too many submissions, wait %(time)s."
 msgstr "Өтө көп жазып жиберипсиз, %(time)sубакыт күтө туруңуз."

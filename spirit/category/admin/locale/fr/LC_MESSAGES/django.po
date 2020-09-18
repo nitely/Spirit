@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/spirit-project/spirit/language/fr/)\n"
@@ -34,16 +34,16 @@ msgid "Save"
 msgstr "Enregistrer"
 
 #: templates/spirit/category/admin/index.html:5
-#: templates/spirit/category/admin/index.html:11
+#: templates/spirit/category/admin/index.html:13
 msgid "Category list"
 msgstr ""
 
-#: templates/spirit/category/admin/index.html:13
+#: templates/spirit/category/admin/index.html:20
 msgid "Create Category"
 msgstr "Créer ure catégorie"
 
-#: templates/spirit/category/admin/index.html:29
-#: templates/spirit/category/admin/index.html:44
+#: templates/spirit/category/admin/index.html:50
+#: templates/spirit/category/admin/index.html:83
 msgid "edit"
 msgstr "éditer"
 
@@ -52,6 +52,6 @@ msgstr "éditer"
 msgid "Update Category"
 msgstr ""
 
-#: views.py:50
+#: views.py:48
 msgid "The category has been updated!"
 msgstr ""

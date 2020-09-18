@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
@@ -15,21 +15,21 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: tags/time.py:33
+#: tags/time.py:32
 msgid "now"
 msgstr "现在"
 
-#: tags/time.py:37
+#: tags/time.py:36
 #, python-format
 msgid "%(count)ss"
 msgstr "%(count)s秒"
 
-#: tags/time.py:41
+#: tags/time.py:40
 #, python-format
 msgid "%(count)sm"
 msgstr "%(count)s分"
 
-#: tags/time.py:44
+#: tags/time.py:43
 #, python-format
 msgid "%(count)sh"
 msgstr "%(count)s时"
@@ -42,33 +42,33 @@ msgstr "您无权访问该页"
 msgid "what you are looking for is gone..."
 msgstr "没找到你想要的信息"
 
-#: templates/spirit/_base.html:28
+#: templates/spirit/_base.html:29
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} 在主题 {topic} 提到了你"
 
-#: templates/spirit/_base.html:29
+#: templates/spirit/_base.html:30
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user} 回复了主题 {topic}"
 
-#: templates/spirit/_base.html:30
+#: templates/spirit/_base.html:31
 msgid "Show all"
 msgstr "显示全部"
 
-#: templates/spirit/_base.html:31
+#: templates/spirit/_base.html:32
 msgid "No new notifications, yet"
 msgstr "没有新的提醒"
 
-#: templates/spirit/_base.html:32
+#: templates/spirit/_base.html:33
 msgid "unread"
 msgstr "未读"
 
-#: templates/spirit/_header.html:42
+#: templates/spirit/_header.html:40
 msgid "Profile"
 msgstr "个人资料"
 
-#: templates/spirit/_header.html:45
+#: templates/spirit/_header.html:44
 msgid "Topics"
 msgstr "主题"
 
@@ -76,15 +76,15 @@ msgstr "主题"
 msgid "Unread topics"
 msgstr "未读主题"
 
-#: templates/spirit/_header.html:51
+#: templates/spirit/_header.html:52
 msgid "Private topics"
 msgstr "私密主题"
 
-#: templates/spirit/_header.html:56
+#: templates/spirit/_header.html:57
 msgid "Admin"
 msgstr "管理中心"
 
-#: templates/spirit/_header.html:63
+#: templates/spirit/_header.html:62
 msgid "Log out"
 msgstr "登出"
 
@@ -92,16 +92,16 @@ msgstr "登出"
 msgid "Log in"
 msgstr "登入"
 
-#: templates/spirit/utils/paginator/_paginator.html:4
+#: templates/spirit/utils/paginator/_paginator.html:5
 #, python-format
 msgid "Page %(number)s of %(num_pages)s"
 msgstr "%(number)s / %(num_pages)s 页"
 
-#: templates/spirit/utils/paginator/_paginator.html:8
+#: templates/spirit/utils/paginator/_paginator.html:9
 msgid "Last"
 msgstr "末页"
 
-#: templates/spirit/utils/paginator/_paginator.html:10
+#: templates/spirit/utils/paginator/_paginator.html:11
 msgid "First"
 msgstr "首页"
 
@@ -109,12 +109,12 @@ msgstr "首页"
 msgid "Page 1 of 1"
 msgstr "1/1页"
 
-#: utils/markdown/utils/quote.py:37
+#: utils/markdown/utils/quote.py:36
 #, python-format
 msgid "@%(username)s said:"
 msgstr "@%(username)s 评论道:"
 
-#: utils/ratelimit/decorators.py:27
+#: utils/ratelimit/decorators.py:25
 #, python-format
 msgid "Too many submissions, wait %(time)s."
 msgstr "太多提交次数，请等待%(time)s"

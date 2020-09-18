@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
@@ -15,21 +15,21 @@ msgstr ""
 "Language: lt\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-#: tags/time.py:33
+#: tags/time.py:32
 msgid "now"
 msgstr "dabar"
 
-#: tags/time.py:37
+#: tags/time.py:36
 #, python-format
 msgid "%(count)ss"
 msgstr "%(count)ss"
 
-#: tags/time.py:41
+#: tags/time.py:40
 #, python-format
 msgid "%(count)sm"
 msgstr "%(count)sm"
 
-#: tags/time.py:44
+#: tags/time.py:43
 #, python-format
 msgid "%(count)sh"
 msgstr "%(count)sv"
@@ -42,33 +42,33 @@ msgstr "Neturite reikiamų teisių, kad pasiekti šį puslapį"
 msgid "what you are looking for is gone..."
 msgstr "to ko ieškote jau nebėra..."
 
-#: templates/spirit/_base.html:28
+#: templates/spirit/_base.html:29
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} paminėjo jus {topic} temoje"
 
-#: templates/spirit/_base.html:29
+#: templates/spirit/_base.html:30
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user} pateikė komentarą {topic} temoje"
 
-#: templates/spirit/_base.html:30
+#: templates/spirit/_base.html:31
 msgid "Show all"
 msgstr "Rodyti viską"
 
-#: templates/spirit/_base.html:31
+#: templates/spirit/_base.html:32
 msgid "No new notifications, yet"
 msgstr "Naujų pranešimų nėra"
 
-#: templates/spirit/_base.html:32
+#: templates/spirit/_base.html:33
 msgid "unread"
 msgstr "neskaityta"
 
-#: templates/spirit/_header.html:42
+#: templates/spirit/_header.html:40
 msgid "Profile"
 msgstr "Profilis"
 
-#: templates/spirit/_header.html:45
+#: templates/spirit/_header.html:44
 msgid "Topics"
 msgstr "Temos"
 
@@ -76,15 +76,15 @@ msgstr "Temos"
 msgid "Unread topics"
 msgstr "Neskaitytos temos"
 
-#: templates/spirit/_header.html:51
+#: templates/spirit/_header.html:52
 msgid "Private topics"
 msgstr "Privačios temos"
 
-#: templates/spirit/_header.html:56
+#: templates/spirit/_header.html:57
 msgid "Admin"
 msgstr "Administravimas"
 
-#: templates/spirit/_header.html:63
+#: templates/spirit/_header.html:62
 msgid "Log out"
 msgstr "Atsijungti"
 
@@ -92,16 +92,16 @@ msgstr "Atsijungti"
 msgid "Log in"
 msgstr "Prisijungti"
 
-#: templates/spirit/utils/paginator/_paginator.html:4
+#: templates/spirit/utils/paginator/_paginator.html:5
 #, python-format
 msgid "Page %(number)s of %(num_pages)s"
 msgstr "Puslapis nr. %(number)s iš %(num_pages)s"
 
-#: templates/spirit/utils/paginator/_paginator.html:8
+#: templates/spirit/utils/paginator/_paginator.html:9
 msgid "Last"
 msgstr "Paskutinis"
 
-#: templates/spirit/utils/paginator/_paginator.html:10
+#: templates/spirit/utils/paginator/_paginator.html:11
 msgid "First"
 msgstr "Pirmas"
 
@@ -109,12 +109,12 @@ msgstr "Pirmas"
 msgid "Page 1 of 1"
 msgstr "Puslapis nr. 1 iš 1"
 
-#: utils/markdown/utils/quote.py:37
+#: utils/markdown/utils/quote.py:36
 #, python-format
 msgid "@%(username)s said:"
 msgstr "@%(username)s sakė:"
 
-#: utils/ratelimit/decorators.py:27
+#: utils/ratelimit/decorators.py:25
 #, python-format
 msgid "Too many submissions, wait %(time)s."
 msgstr "Per dažni pateikimai, laukite %(time)s."

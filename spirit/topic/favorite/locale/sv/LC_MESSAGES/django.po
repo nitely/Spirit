@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/language/sv/)\n"
@@ -14,14 +14,14 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:30
+#: forms.py:28
 msgid "This favorite already exists"
 msgstr "Denna favorit finns redan"
 
-#: models.py:27
+#: models.py:25
 msgid "favorite"
 msgstr "favorit"
 
-#: models.py:28
+#: models.py:26
 msgid "favorites"
 msgstr "favoriter"

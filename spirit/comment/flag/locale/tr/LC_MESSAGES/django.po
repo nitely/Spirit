@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: Alper Buluc <ihtiyaroyuncu@yandex.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/language/tr/)\n"
@@ -15,39 +15,39 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:32
+#: forms.py:30
 msgid "This flag already exists"
 msgstr "Bu işaret zaten mevcut"
 
-#: models.py:12
+#: models.py:10
 msgid "Spam"
 msgstr "Spam"
 
-#: models.py:13
+#: models.py:11
 msgid "Other"
 msgstr "Diğer"
 
-#: models.py:33
+#: models.py:31
 msgid "comment flag"
 msgstr "yorum işareti"
 
-#: models.py:34
+#: models.py:32
 msgid "comments flags"
 msgstr "yorum işaretleri"
 
-#: models.py:51
+#: models.py:49
 msgid "reason"
 msgstr "sebep"
 
-#: models.py:52
+#: models.py:50
 msgid "body"
 msgstr "gövde"
 
-#: models.py:57
+#: models.py:55
 msgid "flag"
 msgstr "işaret"
 
-#: models.py:58
+#: models.py:56
 msgid "flags"
 msgstr "işaretler"
 

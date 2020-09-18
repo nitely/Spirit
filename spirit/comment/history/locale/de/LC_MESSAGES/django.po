@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
@@ -14,19 +14,19 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:15
+#: models.py:13
 msgid "original comment"
 msgstr "originaler Kommentar"
 
-#: models.py:18
+#: models.py:16
 msgid "comment html"
 msgstr "comment html"
 
-#: models.py:23
+#: models.py:21
 msgid "comment history"
 msgstr "Kommentar-Verlauf"
 
-#: models.py:24
+#: models.py:22
 msgid "comments history"
 msgstr "Kommentar-Verlauf"
 

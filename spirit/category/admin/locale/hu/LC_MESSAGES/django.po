@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/language/hu/)\n"
@@ -36,16 +36,16 @@ msgid "Save"
 msgstr "Mentés"
 
 #: templates/spirit/category/admin/index.html:5
-#: templates/spirit/category/admin/index.html:11
+#: templates/spirit/category/admin/index.html:13
 msgid "Category list"
 msgstr "Kategóriák listája"
 
-#: templates/spirit/category/admin/index.html:13
+#: templates/spirit/category/admin/index.html:20
 msgid "Create Category"
 msgstr "Kategória létrehozása"
 
-#: templates/spirit/category/admin/index.html:29
-#: templates/spirit/category/admin/index.html:44
+#: templates/spirit/category/admin/index.html:50
+#: templates/spirit/category/admin/index.html:83
 msgid "edit"
 msgstr "szerkesztés"
 
@@ -54,6 +54,6 @@ msgstr "szerkesztés"
 msgid "Update Category"
 msgstr "Kategória frissítése"
 
-#: views.py:50
+#: views.py:48
 msgid "The category has been updated!"
 msgstr "A kategória frissítése megtörtént! "

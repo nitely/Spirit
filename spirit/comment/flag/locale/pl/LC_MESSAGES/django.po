@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/language/pl/)\n"
@@ -14,39 +14,39 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: forms.py:32
+#: forms.py:30
 msgid "This flag already exists"
 msgstr "Ta flaga już istnieje"
 
-#: models.py:12
+#: models.py:10
 msgid "Spam"
 msgstr "Spam"
 
-#: models.py:13
+#: models.py:11
 msgid "Other"
 msgstr "Inne"
 
-#: models.py:33
+#: models.py:31
 msgid "comment flag"
 msgstr "flaga komentarza"
 
-#: models.py:34
+#: models.py:32
 msgid "comments flags"
 msgstr "flagi komentarzy"
 
-#: models.py:51
+#: models.py:49
 msgid "reason"
 msgstr "powód"
 
-#: models.py:52
+#: models.py:50
 msgid "body"
 msgstr "treść"
 
-#: models.py:57
+#: models.py:55
 msgid "flag"
 msgstr "flaga"
 
-#: models.py:58
+#: models.py:56
 msgid "flags"
 msgstr "flagi"
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-11-26 00:01+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
@@ -14,15 +14,15 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:9
+#: templates/spirit/comment/flag/admin/_list.html:14
 msgid "moderate"
 msgstr "modera"
 
-#: templates/spirit/comment/flag/admin/_tabs.html:4
+#: templates/spirit/comment/flag/admin/_tabs.html:7
 msgid "Open"
 msgstr "Aperto"
 
-#: templates/spirit/comment/flag/admin/_tabs.html:5
+#: templates/spirit/comment/flag/admin/_tabs.html:11
 msgid "Closed"
 msgstr "Chiuso"
 
@@ -32,39 +32,39 @@ msgid "Closed flags"
 msgstr "Segnalazioni chiuse"
 
 #: templates/spirit/comment/flag/admin/detail.html:5
-#: templates/spirit/comment/flag/admin/detail.html:14
+#: templates/spirit/comment/flag/admin/detail.html:16
 msgid "Flag"
 msgstr "Segnalazione"
 
-#: templates/spirit/comment/flag/admin/detail.html:10
+#: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/spirit/comment/flag/admin/detail.html:11
+#: templates/spirit/comment/flag/admin/detail.html:13
 msgid "Flags"
 msgstr "Segnalazioni"
 
-#: templates/spirit/comment/flag/admin/detail.html:18
+#: templates/spirit/comment/flag/admin/detail.html:22
 msgid "Moderated by"
 msgstr "Moderato da"
 
-#: templates/spirit/comment/flag/admin/detail.html:27
+#: templates/spirit/comment/flag/admin/detail.html:35
 msgid "Save"
 msgstr "Salva"
 
-#: templates/spirit/comment/flag/admin/detail.html:30
+#: templates/spirit/comment/flag/admin/detail.html:38
 msgid "Comment flagged"
 msgstr "Commento segnalato"
 
-#: templates/spirit/comment/flag/admin/detail.html:55
+#: templates/spirit/comment/flag/admin/detail.html:67
 msgid "delete"
 msgstr "elimina"
 
-#: templates/spirit/comment/flag/admin/detail.html:57
+#: templates/spirit/comment/flag/admin/detail.html:72
 msgid "undelete"
 msgstr "ripristina"
 
-#: templates/spirit/comment/flag/admin/detail.html:65
+#: templates/spirit/comment/flag/admin/detail.html:79
 msgid "Reporters"
 msgstr "Seganaltori"
 

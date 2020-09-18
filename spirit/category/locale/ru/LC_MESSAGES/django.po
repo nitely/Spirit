@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
-"PO-Revision-Date: 2018-01-30 15:40+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/spirit-project/spirit/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -15,55 +15,59 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: models.py:26
+#: models.py:24
 msgid "category parent"
 msgstr "родительская категория"
 
-#: models.py:31
+#: models.py:29
 msgid "title"
 msgstr "заголовок"
 
-#: models.py:33
+#: models.py:31
 msgid "description"
 msgstr "описание"
 
-#: models.py:35
+#: models.py:33
 msgid "color"
 msgstr ""
 
-#: models.py:36
+#: models.py:34
 msgid "Title color in hex format (i.e: #1aafd0)."
 msgstr ""
 
-#: models.py:37
+#: models.py:35
+msgid "sorting order"
+msgstr ""
+
+#: models.py:36
 msgid "modified at"
 msgstr ""
 
-#: models.py:40
+#: models.py:39
 msgid "global"
 msgstr "глобальная"
 
-#: models.py:42
+#: models.py:41
 msgid ""
 "Designates whether the topics will bedisplayed in the all-categories list."
 msgstr "Означает, что данная тема будет показана в списке всех категорий."
 
-#: models.py:44
+#: models.py:43
 msgid "closed"
 msgstr "закрыто"
 
-#: models.py:45
+#: models.py:44
 msgid "removed"
 msgstr "удалено"
 
-#: models.py:46
+#: models.py:45
 msgid "private"
 msgstr "приватная"
 
-#: models.py:52
+#: models.py:54
 msgid "category"
 msgstr "категория"
 
-#: models.py:53
+#: models.py:55
 msgid "categories"
 msgstr "категории"

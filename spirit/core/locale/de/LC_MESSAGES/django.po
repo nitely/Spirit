@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: tags/time.py:33
+#: tags/time.py:32
 msgid "now"
 msgstr "jetzt"
 
-#: tags/time.py:37
+#: tags/time.py:36
 #, python-format
 msgid "%(count)ss"
 msgstr "%(count)sSek."
 
-#: tags/time.py:41
+#: tags/time.py:40
 #, python-format
 msgid "%(count)sm"
 msgstr "%(count)sMin."
 
-#: tags/time.py:44
+#: tags/time.py:43
 #, python-format
 msgid "%(count)sh"
 msgstr "%(count)sStd."
@@ -43,33 +43,33 @@ msgstr "Unzureichende Rechte zum aufrufen dieser Seite"
 msgid "what you are looking for is gone..."
 msgstr "was Du suchst ist nicht mehr hier..."
 
-#: templates/spirit/_base.html:28
+#: templates/spirit/_base.html:29
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
 msgstr "{user} erwähnte Dich in {topic}"
 
-#: templates/spirit/_base.html:29
+#: templates/spirit/_base.html:30
 #, python-brace-format
 msgid "{user} has commented on {topic}"
 msgstr "{user} kommentierte {topic}"
 
-#: templates/spirit/_base.html:30
+#: templates/spirit/_base.html:31
 msgid "Show all"
 msgstr "Zeige alles"
 
-#: templates/spirit/_base.html:31
+#: templates/spirit/_base.html:32
 msgid "No new notifications, yet"
 msgstr "Keine neuen Benachrichtigungen, bis jetzt"
 
-#: templates/spirit/_base.html:32
+#: templates/spirit/_base.html:33
 msgid "unread"
 msgstr "ungelesen"
 
-#: templates/spirit/_header.html:42
+#: templates/spirit/_header.html:40
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/spirit/_header.html:45
+#: templates/spirit/_header.html:44
 msgid "Topics"
 msgstr "Themen"
 
@@ -77,15 +77,15 @@ msgstr "Themen"
 msgid "Unread topics"
 msgstr "ungelesen Themen"
 
-#: templates/spirit/_header.html:51
+#: templates/spirit/_header.html:52
 msgid "Private topics"
 msgstr "private Themen"
 
-#: templates/spirit/_header.html:56
+#: templates/spirit/_header.html:57
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/spirit/_header.html:63
+#: templates/spirit/_header.html:62
 msgid "Log out"
 msgstr "abmelden"
 
@@ -93,16 +93,16 @@ msgstr "abmelden"
 msgid "Log in"
 msgstr "anmelden"
 
-#: templates/spirit/utils/paginator/_paginator.html:4
+#: templates/spirit/utils/paginator/_paginator.html:5
 #, python-format
 msgid "Page %(number)s of %(num_pages)s"
 msgstr "Seite %(number)s von %(num_pages)s"
 
-#: templates/spirit/utils/paginator/_paginator.html:8
+#: templates/spirit/utils/paginator/_paginator.html:9
 msgid "Last"
 msgstr "letzte"
 
-#: templates/spirit/utils/paginator/_paginator.html:10
+#: templates/spirit/utils/paginator/_paginator.html:11
 msgid "First"
 msgstr "erste"
 
@@ -110,12 +110,12 @@ msgstr "erste"
 msgid "Page 1 of 1"
 msgstr "Seite 1 von 1"
 
-#: utils/markdown/utils/quote.py:37
+#: utils/markdown/utils/quote.py:36
 #, python-format
 msgid "@%(username)s said:"
 msgstr "@%(username)s sagte:"
 
-#: utils/ratelimit/decorators.py:27
+#: utils/ratelimit/decorators.py:25
 #, python-format
 msgid "Too many submissions, wait %(time)s."
 msgstr "Zu viele Anfragen, warte %(time)s."

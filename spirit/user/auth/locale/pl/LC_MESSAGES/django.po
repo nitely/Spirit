@@ -1,12 +1,12 @@
 # 
 # Translators:
-# sittingbrain <sittingbrain@o2.pl>, 2015
-# sittingbrain <sittingbrain@o2.pl>, 2015
+# 66cda7c6397d17027db0c4727dcd431a, 2015
+# 66cda7c6397d17027db0c4727dcd431a, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/language/pl/)\n"
@@ -28,44 +28,44 @@ msgstr ""
 msgid "Password"
 msgstr "Hasło"
 
-#: forms.py:26
+#: forms.py:28
 msgid "Leave blank"
 msgstr "Zostaw puste"
 
-#: forms.py:41
+#: forms.py:45
 msgid "Do not fill this field."
 msgstr "Nie wypełniaj tego pola."
 
-#: forms.py:53
+#: forms.py:61
 msgid "The username is taken."
 msgstr "Ta nazwa użytkownika jest już zajęta."
 
-#: forms.py:66
+#: forms.py:74
 msgid "The two email fields didn't match."
 msgstr ""
 
-#: forms.py:79
+#: forms.py:87
 msgid "Username or Email"
 msgstr "Nazwa użytkownika lub email"
 
-#: forms.py:83
+#: forms.py:92
 msgid "The password is not valid."
 msgstr ""
 
-#: forms.py:115
+#: forms.py:127
 #, python-format
 msgid "No account matches %(username)s."
 msgstr ""
 
-#: forms.py:125
+#: forms.py:138
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:138
+#: forms.py:154
 msgid "The provided email does not exists."
 msgstr "Podany email nie istnieje."
 
-#: forms.py:146
+#: forms.py:165
 msgid "This account is verified, try logging-in."
 msgstr "To konto jest już zweryfikowane, spróbuj się zalogować"
 
@@ -75,7 +75,7 @@ msgstr "To konto jest już zweryfikowane, spróbuj się zalogować"
 msgid "Resend activation email"
 msgstr "Wyślij maila aktywacyjnego ponownie"
 
-#: templates/spirit/user/auth/activation_resend.html:16
+#: templates/spirit/user/auth/activation_resend.html:15
 msgid "Resend email"
 msgstr "Wyślij maila ponownie"
 
@@ -94,7 +94,7 @@ msgid "I don't know my password"
 msgstr "Zapomniałem hasła"
 
 #: templates/spirit/user/auth/logout.html:5
-#: templates/spirit/user/auth/logout.html:15
+#: templates/spirit/user/auth/logout.html:14
 msgid "Log out"
 msgstr "Wyloguj się"
 
@@ -107,7 +107,7 @@ msgstr "Czy jesteś pewny, że chcesz się wylogować?"
 msgid "Password change successful"
 msgstr "Zmieniono hasło"
 
-#: templates/spirit/user/auth/password_reset_complete.html:13
+#: templates/spirit/user/auth/password_reset_complete.html:14
 msgid "Continue to login"
 msgstr "Przejdź do logowania się"
 
@@ -115,7 +115,7 @@ msgstr "Przejdź do logowania się"
 msgid "Password reset confirmation"
 msgstr "Potwierdzenie resetu hasła"
 
-#: templates/spirit/user/auth/password_reset_confirm.html:11
+#: templates/spirit/user/auth/password_reset_confirm.html:10
 msgid "Enter new password"
 msgstr "Wprowadź nowe hasło"
 
@@ -123,11 +123,11 @@ msgstr "Wprowadź nowe hasło"
 msgid "Save"
 msgstr "Zapisz"
 
-#: templates/spirit/user/auth/password_reset_confirm.html:21
+#: templates/spirit/user/auth/password_reset_confirm.html:19
 msgid "Password reset unsuccessful"
 msgstr "Niepowodzenie resetu hasła"
 
-#: templates/spirit/user/auth/password_reset_confirm.html:23
+#: templates/spirit/user/auth/password_reset_confirm.html:21
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
@@ -144,7 +144,7 @@ msgid ""
 "receiving them shortly."
 msgstr "Wysłaliśmy ci instrukcje ustawienia twojego hasła. Niedługo powinieneś je dostać, sprawdź swoją skrzynkę."
 
-#: templates/spirit/user/auth/password_reset_done.html:12 views.py:147
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:148
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -190,16 +190,16 @@ msgstr "Reset hasła na %(site_name)s"
 msgid "Register"
 msgstr "Zarejestruj się"
 
-#: tests/tests.py:90 tests/tests.py:225
+#: tests/tests.py:173 tests/tests.py:322
 msgid "User activation"
 msgstr "Aktywacja użytkownika"
 
-#: views.py:101
+#: views.py:105
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
 msgstr ""
 
-#: views.py:126
+#: views.py:128
 msgid "Your account has been activated!"
 msgstr "Twoje konto zostało aktywowane!"

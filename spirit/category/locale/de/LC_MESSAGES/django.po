@@ -1,13 +1,13 @@
 # 
 # Translators:
-# datKater <imperator.katz@gmail.com>, 2016
+# 5a85a00218ad0559ac6870a4179f4dbc, 2016
 # Sven Hessenmüller <sven.hessenmueller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
-"PO-Revision-Date: 2018-01-30 15:40+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -16,55 +16,59 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:26
+#: models.py:24
 msgid "category parent"
 msgstr "übergeordnete Kategorie (parent)"
 
-#: models.py:31
+#: models.py:29
 msgid "title"
 msgstr "Titel"
 
-#: models.py:33
+#: models.py:31
 msgid "description"
 msgstr "Beschreibung"
 
-#: models.py:35
+#: models.py:33
 msgid "color"
 msgstr ""
 
-#: models.py:36
+#: models.py:34
 msgid "Title color in hex format (i.e: #1aafd0)."
 msgstr ""
 
-#: models.py:37
+#: models.py:35
+msgid "sorting order"
+msgstr ""
+
+#: models.py:36
 msgid "modified at"
 msgstr ""
 
-#: models.py:40
+#: models.py:39
 msgid "global"
 msgstr "global"
 
-#: models.py:42
+#: models.py:41
 msgid ""
 "Designates whether the topics will bedisplayed in the all-categories list."
 msgstr "Gibt an, ob die Themen in der \"Alle-Kategorien\"-Liste angezeigt werden."
 
-#: models.py:44
+#: models.py:43
 msgid "closed"
 msgstr "geschlossen"
 
-#: models.py:45
+#: models.py:44
 msgid "removed"
 msgstr "entfernt"
 
-#: models.py:46
+#: models.py:45
 msgid "private"
 msgstr "privat"
 
-#: models.py:52
+#: models.py:54
 msgid "category"
 msgstr "Kategorie"
 
-#: models.py:53
+#: models.py:55
 msgid "categories"
 msgstr "Kategorien"

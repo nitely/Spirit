@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
-"PO-Revision-Date: 2018-01-30 15:40+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"PO-Revision-Date: 2020-09-13 00:52+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -15,34 +15,38 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forms.py:35
+#: forms.py:34
 msgid "The email is taken."
 msgstr "Be eposta adresi zaten mevcut"
 
-#: forms.py:45 forms.py:50 templates/spirit/user/profile_update.html:13
+#: forms.py:44 forms.py:49 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr "Eposta"
 
-#: forms.py:51 templates/spirit/user/profile_update.html:19
+#: forms.py:50 templates/spirit/user/profile_update.html:17
 msgid "Password"
 msgstr "Şifre"
 
-#: forms.py:61
+#: forms.py:60
 msgid "The provided password is incorrect."
 msgstr "Girmiş olduğunu şifre yalnış."
 
-#: forms.py:75
+#: forms.py:74
 msgid "Time zone"
 msgstr ""
 
-#: forms.py:84
+#: forms.py:83
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr ""
 
-#: models.py:18
+#: models.py:17
 msgid "profile"
 msgstr "profil"
+
+#: models.py:22
+msgid "nickname"
+msgstr ""
 
 #: models.py:23
 msgid "location"
@@ -102,11 +106,11 @@ msgstr "forum profili"
 msgid "forum profiles"
 msgstr "forum profilleri"
 
-#: templates/spirit/user/_profile.html:13
+#: templates/spirit/user/_profile.html:14
 msgid "Joined at"
 msgstr "Şu tarihte katıldı"
 
-#: templates/spirit/user/_profile.html:17
+#: templates/spirit/user/_profile.html:18
 msgid "Seen"
 msgstr "Görülme"
 
@@ -114,33 +118,33 @@ msgstr "Görülme"
 msgid "Last IP"
 msgstr "Son IP"
 
-#: templates/spirit/user/_profile.html:35
+#: templates/spirit/user/_profile.html:36
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
 msgstr "Seçenekler"
 
-#: templates/spirit/user/_profile.html:41
+#: templates/spirit/user/_profile.html:43
 msgid "Private Message"
 msgstr "Özel Mesaj"
 
-#: templates/spirit/user/_profile.html:49
+#: templates/spirit/user/_profile.html:52
 msgid "Edit user"
 msgstr "Kullanıcıyı Düzenle"
 
-#: templates/spirit/user/_profile.html:58
+#: templates/spirit/user/_profile.html:61
 msgid "Comments"
 msgstr "Yorumlar"
 
-#: templates/spirit/user/_profile.html:63 templates/spirit/user/menu.html:21
+#: templates/spirit/user/_profile.html:65 templates/spirit/user/menu.html:22
 msgid "Topics"
 msgstr "Konuar"
 
-#: templates/spirit/user/_profile.html:68
+#: templates/spirit/user/_profile.html:69
 msgid "Likes"
 msgstr "Beğeniler"
 
-#: templates/spirit/user/_render_comments_list.html:41
+#: templates/spirit/user/_render_comments_list.html:39
 msgid "There are no comments here, yet"
 msgstr "Henüz yorum yapılmamış."
 
@@ -180,19 +184,19 @@ msgstr "Menü"
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/spirit/user/menu.html:24
+#: templates/spirit/user/menu.html:26
 msgid "Unread topics"
 msgstr "Okunmamış konular"
 
-#: templates/spirit/user/menu.html:27
+#: templates/spirit/user/menu.html:30
 msgid "Private topics"
 msgstr "Gizli konular"
 
-#: templates/spirit/user/menu.html:32
+#: templates/spirit/user/menu.html:35
 msgid "Admin"
 msgstr "Yönetici"
 
-#: templates/spirit/user/menu.html:37
+#: templates/spirit/user/menu.html:40
 msgid "Log out"
 msgstr "Çıkış"
 
@@ -216,8 +220,8 @@ msgid "comments"
 msgstr "yorumlar"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:454 tests.py:768
-#: utils/email.py:60
+#: templates/spirit/user/profile_email_change.html:9 tests.py:530 tests.py:844
+#: utils/email.py:48
 msgid "Email change"
 msgstr "Eposta değiştir"
 
@@ -242,51 +246,51 @@ msgstr "Şifremi değiştri"
 msgid "topics"
 msgstr "konular"
 
-#: templates/spirit/user/profile_update.html:22
+#: templates/spirit/user/profile_update.html:20
 msgid "Change password"
 msgstr "Şifre değiştir"
 
-#: templates/spirit/user/profile_update.html:25
+#: templates/spirit/user/profile_update.html:21
 msgid "Avatar"
 msgstr "Avatar"
 
-#: templates/spirit/user/profile_update.html:27
+#: templates/spirit/user/profile_update.html:24
 msgid "Change avatar"
 msgstr "Avatar değiştir"
 
-#: templates/spirit/user/profile_update.html:28
+#: templates/spirit/user/profile_update.html:25
 msgid "Go to gravatar.com and use your current email to change it"
 msgstr ""
 
-#: templates/spirit/user/profile_update.html:37
+#: templates/spirit/user/profile_update.html:34
 msgid "Save"
 msgstr "Kaydet"
 
-#: tests.py:732 utils/email.py:52
+#: tests.py:808 utils/email.py:40
 msgid "User activation"
 msgstr "Kullanıcı aktivasyonu"
 
-#: utils/email.py:69
+#: utils/email.py:57
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr ""
 
-#: views.py:35
+#: views.py:36
 msgid "Your profile has been updated!"
 msgstr "Profiliniz güncellendi!"
 
-#: views.py:57
+#: views.py:52
 msgid "Your password has been changed!"
 msgstr "Şifreniz değiştrildi!"
 
-#: views.py:74
+#: views.py:69
 msgid "We have sent you an email so you can confirm the change!"
 msgstr ""
 
-#: views.py:96
+#: views.py:90
 msgid "Your email has been changed!"
 msgstr "Eposta adresiniz değiştirildi!"
 
-#: views.py:99
+#: views.py:93
 msgid "Sorry, we were not able to change your email."
 msgstr ""

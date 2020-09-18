@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2020-06-17 01:02+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
@@ -15,31 +15,31 @@ msgstr ""
 "Language: ky\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:37
+#: forms.py:35
 msgid "This notification already exists"
 msgstr "Бул билдирүү мурунтан бар"
 
-#: forms.py:43
+#: forms.py:41
 msgid "You can't subscribe to a topic with no comments"
 msgstr "Жорумдары жок темага жазыла албайсыз"
 
-#: models.py:16
+#: models.py:14
 msgid "Undefined"
 msgstr "Аныкталбаган"
 
-#: models.py:17
+#: models.py:15
 msgid "Mention"
 msgstr "Белгилөө"
 
-#: models.py:18
+#: models.py:16
 msgid "Comment"
 msgstr "Жорум"
 
-#: models.py:44
+#: models.py:42
 msgid "topic notification"
 msgstr "тема маалымдоосу"
 
-#: models.py:45
+#: models.py:43
 msgid "topics notification"
 msgstr "тема маалымдоосу"
 
@@ -51,36 +51,36 @@ msgstr "Маалымдоодон баш тартам"
 msgid "Notify Me"
 msgstr "Маалымдап тур"
 
-#: templates/spirit/topic/notification/_render_list.html:9
+#: templates/spirit/topic/notification/_render_list.html:11
 #, python-format
 msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a "
 "href=\"%(url_topic)s\">%(topic_title)s</a>"
 msgstr "<a href=\"%(url_profile)s\">%(username)s</a>колдонуучусу <a href=\"%(url_topic)s\">%(topic_title)s</a>боюнча жорум калтырды"
 
-#: templates/spirit/topic/notification/_render_list.html:13
+#: templates/spirit/topic/notification/_render_list.html:15
 #, python-format
 msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a "
 "href=\"%(url_topic)s\">%(topic_title)s</a>"
 msgstr "<a href=\"%(url_profile)s\">%(username)s</a> колдонуучусу сизди <a href=\"%(url_topic)s\">%(topic_title)s</a>темасында белгиледи"
 
-#: templates/spirit/topic/notification/_render_list.html:21
+#: templates/spirit/topic/notification/_render_list.html:22
 msgid "unread"
 msgstr "окулбаган"
 
-#: templates/spirit/topic/notification/_render_list.html:25
+#: templates/spirit/topic/notification/_render_list.html:27
 msgid "There are no notifications, yet"
 msgstr "Маалымдоолор жок"
 
-#: templates/spirit/topic/notification/_top_bar.html:9
-#: templates/spirit/topic/notification/_top_bar.html:23
+#: templates/spirit/topic/notification/_top_bar.html:11
+#: templates/spirit/topic/notification/_top_bar.html:26
 #: templates/spirit/topic/notification/index.html:5
 msgid "Notifications"
 msgstr "Маалымдоолор"
 
-#: templates/spirit/topic/notification/_top_bar.html:14
-#: templates/spirit/topic/notification/_top_bar.html:28
+#: templates/spirit/topic/notification/_top_bar.html:17
+#: templates/spirit/topic/notification/_top_bar.html:30
 #: templates/spirit/topic/notification/index_unread.html:5
 msgid "Unread notifications"
 msgstr "Окулбаган маалымдоо"
@@ -89,6 +89,6 @@ msgstr "Окулбаган маалымдоо"
 msgid "There are no new notifications"
 msgstr "Жаңы маалымдоо жок"
 
-#: templates/spirit/topic/notification/index_unread.html:25
+#: templates/spirit/topic/notification/index_unread.html:24
 msgid "Next"
 msgstr "Кийинки"

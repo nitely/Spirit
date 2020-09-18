@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-13 00:52+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -16,23 +16,19 @@ msgstr ""
 msgid "site name"
 msgstr ""
 
-#: forms.py:12
+#: forms.py:13
 msgid "site description"
 msgstr ""
 
-#: forms.py:13
+#: forms.py:15
 msgid "footer snippet"
 msgstr ""
 
-#: forms.py:15
-msgid "This gets rendered just before the footer in your template."
-msgstr ""
-
-#: forms.py:16
+#: forms.py:21
 msgid "comments per page"
 msgstr ""
 
-#: forms.py:17
+#: forms.py:23
 msgid "topics per page"
 msgstr ""
 

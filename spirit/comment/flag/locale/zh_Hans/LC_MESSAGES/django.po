@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
@@ -15,39 +15,39 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:32
+#: forms.py:30
 msgid "This flag already exists"
 msgstr "该标记已经存在"
 
-#: models.py:12
+#: models.py:10
 msgid "Spam"
 msgstr "垃圾信息"
 
-#: models.py:13
+#: models.py:11
 msgid "Other"
 msgstr "其他"
 
-#: models.py:33
+#: models.py:31
 msgid "comment flag"
 msgstr "评论标记"
 
-#: models.py:34
+#: models.py:32
 msgid "comments flags"
 msgstr "评论标记"
 
-#: models.py:51
+#: models.py:49
 msgid "reason"
 msgstr "举报原因"
 
-#: models.py:52
+#: models.py:50
 msgid "body"
 msgstr "附加信息（可不填）"
 
-#: models.py:57
+#: models.py:55
 msgid "flag"
 msgstr "标记"
 
-#: models.py:58
+#: models.py:56
 msgid "flags"
 msgstr "标记"
 

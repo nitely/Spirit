@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-11-26 00:01+0000\n"
 "Last-Translator: Alper Buluc <ihtiyaroyuncu@yandex.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/language/tr/)\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:9
+#: templates/spirit/comment/flag/admin/_list.html:14
 msgid "moderate"
 msgstr "yönet"
 
-#: templates/spirit/comment/flag/admin/_tabs.html:4
+#: templates/spirit/comment/flag/admin/_tabs.html:7
 msgid "Open"
 msgstr "Aç"
 
-#: templates/spirit/comment/flag/admin/_tabs.html:5
+#: templates/spirit/comment/flag/admin/_tabs.html:11
 msgid "Closed"
 msgstr "Kapalı"
 
@@ -33,39 +33,39 @@ msgid "Closed flags"
 msgstr "Kapatılmış işaretler"
 
 #: templates/spirit/comment/flag/admin/detail.html:5
-#: templates/spirit/comment/flag/admin/detail.html:14
+#: templates/spirit/comment/flag/admin/detail.html:16
 msgid "Flag"
 msgstr "İşaret"
 
-#: templates/spirit/comment/flag/admin/detail.html:10
+#: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Admin"
 msgstr "Yönetici"
 
-#: templates/spirit/comment/flag/admin/detail.html:11
+#: templates/spirit/comment/flag/admin/detail.html:13
 msgid "Flags"
 msgstr "İşaretler"
 
-#: templates/spirit/comment/flag/admin/detail.html:18
+#: templates/spirit/comment/flag/admin/detail.html:22
 msgid "Moderated by"
 msgstr "Yöneten"
 
-#: templates/spirit/comment/flag/admin/detail.html:27
+#: templates/spirit/comment/flag/admin/detail.html:35
 msgid "Save"
 msgstr "Kaydet"
 
-#: templates/spirit/comment/flag/admin/detail.html:30
+#: templates/spirit/comment/flag/admin/detail.html:38
 msgid "Comment flagged"
 msgstr "Yorum işaretlendi"
 
-#: templates/spirit/comment/flag/admin/detail.html:55
+#: templates/spirit/comment/flag/admin/detail.html:67
 msgid "delete"
 msgstr "sil"
 
-#: templates/spirit/comment/flag/admin/detail.html:57
+#: templates/spirit/comment/flag/admin/detail.html:72
 msgid "undelete"
 msgstr "çöpten çıkar"
 
-#: templates/spirit/comment/flag/admin/detail.html:65
+#: templates/spirit/comment/flag/admin/detail.html:79
 msgid "Reporters"
 msgstr "Rapor Edenler"
 

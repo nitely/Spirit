@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-13 00:52+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-#: templates/spirit/user/_render_comments_list.html:35
+#: templates/spirit/user/_render_comments_list.html:39
 msgid "There are no comments here, yet"
 msgstr ""
 
@@ -218,7 +218,7 @@ msgstr ""
 
 #: templates/spirit/user/profile_email_change.html:5
 #: templates/spirit/user/profile_email_change.html:9 tests.py:530 tests.py:844
-#: utils/email.py:46
+#: utils/email.py:48
 msgid "Email change"
 msgstr ""
 
@@ -263,11 +263,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: tests.py:808 utils/email.py:38
+#: tests.py:808 utils/email.py:40
 msgid "User activation"
 msgstr ""
 
-#: utils/email.py:55
+#: utils/email.py:57
 #, python-format
 msgid "New notification: %(topic_name)s"
 msgstr ""

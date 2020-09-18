@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2015-10-14 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/spirit-project/spirit/language/pl_PL/)\n"
@@ -17,21 +17,21 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: forms.py:31 forms.py:37
+#: forms.py:29 forms.py:35
 msgid "Poll choices"
 msgstr "Pola ankiety"
 
-#: forms.py:63
+#: forms.py:61
 #, python-format
 msgid "Too many selected choices. Limit is %s"
 msgstr "Zbyt wiele zaznaczonych pól. Limit to %s"
 
-#: forms.py:69
+#: forms.py:67
 #, python-format
 msgid "Too few selected choices. Minimum is %s"
 msgstr ""
 
-#: forms.py:79
+#: forms.py:77
 msgid "This poll is closed"
 msgstr "Ta ankieta jest zamknięta"
 
@@ -59,39 +59,39 @@ msgstr ""
 msgid "auto close at"
 msgstr ""
 
-#: models.py:50
+#: models.py:49
 msgid "comment poll"
 msgstr ""
 
-#: models.py:51
+#: models.py:50
 msgid "comments polls"
 msgstr ""
 
-#: models.py:138
+#: models.py:137
 msgid "number"
 msgstr ""
 
-#: models.py:139
+#: models.py:138
 msgid "choice description"
 msgstr "opis pola"
 
-#: models.py:140
+#: models.py:139
 msgid "vote count"
 msgstr "liczba głowsów"
 
-#: models.py:148
+#: models.py:147
 msgid "poll choice"
 msgstr "pole ankiety"
 
-#: models.py:149
+#: models.py:148
 msgid "poll choices"
 msgstr "pola ankiety"
 
-#: models.py:223
+#: models.py:222
 msgid "poll vote"
 msgstr "głos"
 
-#: models.py:224
+#: models.py:223
 msgid "poll votes"
 msgstr "głosy"
 
@@ -121,21 +121,21 @@ msgstr ""
 msgid "Results will be available when the poll is closed."
 msgstr ""
 
-#: templates/spirit/comment/poll/_form.html:50
+#: templates/spirit/comment/poll/_form.html:52
 msgid "Vote"
 msgstr "Głosuj"
 
-#: templates/spirit/comment/poll/_form.html:54
+#: templates/spirit/comment/poll/_form.html:58
 msgid "Show results"
 msgstr ""
 
-#: templates/spirit/comment/poll/_form.html:60
-#: templates/spirit/comment/poll/_results.html:41
+#: templates/spirit/comment/poll/_form.html:66
+#: templates/spirit/comment/poll/_results.html:45
 msgid "open"
 msgstr "otwarty"
 
-#: templates/spirit/comment/poll/_form.html:63
-#: templates/spirit/comment/poll/_results.html:45
+#: templates/spirit/comment/poll/_form.html:71
+#: templates/spirit/comment/poll/_results.html:50
 msgid "close"
 msgstr "zamknij"
 
@@ -152,18 +152,18 @@ msgstr ""
 msgid "Votes"
 msgstr ""
 
-#: templates/spirit/comment/poll/_results.html:34
+#: templates/spirit/comment/poll/_results.html:37
 msgid "Show vote choices"
 msgstr ""
 
-#: templates/spirit/comment/poll/_static.html:25
+#: templates/spirit/comment/poll/_static.html:27
 #, python-format
 msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
 msgstr ""
 
-#: templates/spirit/comment/poll/_static.html:29
+#: templates/spirit/comment/poll/_static.html:31
 #, python-format
 msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "

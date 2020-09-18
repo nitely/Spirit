@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
@@ -14,31 +14,31 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:37
+#: forms.py:35
 msgid "This notification already exists"
 msgstr "Questa notifica esiste  già"
 
-#: forms.py:43
+#: forms.py:41
 msgid "You can't subscribe to a topic with no comments"
 msgstr "Non è sottoscriversi ad un topic con nessun commento"
 
-#: models.py:16
+#: models.py:14
 msgid "Undefined"
 msgstr "Non definito"
 
-#: models.py:17
+#: models.py:15
 msgid "Mention"
 msgstr "Menzione"
 
-#: models.py:18
+#: models.py:16
 msgid "Comment"
 msgstr "Commento"
 
-#: models.py:44
+#: models.py:42
 msgid "topic notification"
 msgstr "notifica di topic"
 
-#: models.py:45
+#: models.py:43
 msgid "topics notification"
 msgstr "notifiche di topics"
 
@@ -50,36 +50,36 @@ msgstr "Non noitficarmi piu'"
 msgid "Notify Me"
 msgstr "Notificami"
 
-#: templates/spirit/topic/notification/_render_list.html:9
+#: templates/spirit/topic/notification/_render_list.html:11
 #, python-format
 msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a "
 "href=\"%(url_topic)s\">%(topic_title)s</a>"
 msgstr "<a href=\"%(url_profile)s\">%(username)s</a> ha commentato su <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:13
+#: templates/spirit/topic/notification/_render_list.html:15
 #, python-format
 msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a "
 "href=\"%(url_topic)s\">%(topic_title)s</a>"
 msgstr "<a href=\"%(url_profile)s\">%(username)s</a> ti ha menzionato su <a href=\"%(url_topic)s\">%(topic_title)s</a>"
 
-#: templates/spirit/topic/notification/_render_list.html:21
+#: templates/spirit/topic/notification/_render_list.html:22
 msgid "unread"
 msgstr "da leggere"
 
-#: templates/spirit/topic/notification/_render_list.html:25
+#: templates/spirit/topic/notification/_render_list.html:27
 msgid "There are no notifications, yet"
 msgstr "Non ci sono notifiche"
 
-#: templates/spirit/topic/notification/_top_bar.html:9
-#: templates/spirit/topic/notification/_top_bar.html:23
+#: templates/spirit/topic/notification/_top_bar.html:11
+#: templates/spirit/topic/notification/_top_bar.html:26
 #: templates/spirit/topic/notification/index.html:5
 msgid "Notifications"
 msgstr "Notifiche"
 
-#: templates/spirit/topic/notification/_top_bar.html:14
-#: templates/spirit/topic/notification/_top_bar.html:28
+#: templates/spirit/topic/notification/_top_bar.html:17
+#: templates/spirit/topic/notification/_top_bar.html:30
 #: templates/spirit/topic/notification/index_unread.html:5
 msgid "Unread notifications"
 msgstr "Notifiche non lette"
@@ -88,6 +88,6 @@ msgstr "Notifiche non lette"
 msgid "There are no new notifications"
 msgstr "Non ci sono nuove notifiche"
 
-#: templates/spirit/topic/notification/index_unread.html:25
+#: templates/spirit/topic/notification/index_unread.html:24
 msgid "Next"
 msgstr "Prossima"

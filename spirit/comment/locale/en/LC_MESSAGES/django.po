@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-13 00:52+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -41,72 +41,78 @@ msgstr ""
 msgid "Unsupported file mime type %(mime)s. Supported types are %(supported)s."
 msgstr ""
 
-#: models.py:15 models.py:33 models.py:48
+#: models.py:16 models.py:31 models.py:46
 msgid "comment"
 msgstr ""
 
-#: models.py:16
+#: models.py:17
 msgid "topic moved"
 msgstr ""
 
-#: models.py:17
+#: models.py:18
 msgid "topic closed"
 msgstr ""
 
-#: models.py:18
+#: models.py:19
 msgid "topic unclosed"
 msgstr ""
 
-#: models.py:19
+#: models.py:20
 msgid "topic pinned"
 msgstr ""
 
-#: models.py:20
+#: models.py:21
 msgid "topic unpinned"
 msgstr ""
 
-#: models.py:34
+#: models.py:32
 msgid "comment html"
 msgstr ""
 
-#: models.py:35
+#: models.py:33
 msgid "action"
 msgstr ""
 
-#: models.py:41
+#: models.py:39
 msgid "modified count"
 msgstr ""
 
-#: models.py:42
+#: models.py:40
 msgid "likes count"
 msgstr ""
 
-#: models.py:49
+#: models.py:47
 msgid "comments"
 msgstr ""
 
-#: tags.py:40
-msgid "This topic has been moved"
-msgstr ""
-
-#: tags.py:41
-msgid "This topic has been closed"
-msgstr ""
-
 #: tags.py:42
-msgid "This topic has been unclosed"
+#, python-brace-format
+msgid "{user} moved this {time_ago}"
 msgstr ""
 
 #: tags.py:43
-msgid "This topic has been pinned"
+#, python-brace-format
+msgid "{user} closed this {time_ago}"
 msgstr ""
 
 #: tags.py:44
-msgid "This topic has been unpinned"
+#, python-brace-format
+msgid "{user} reopened this {time_ago}"
 msgstr ""
 
-#: tags.py:49
-msgid "Unknown topic moderation action"
+#: tags.py:45
+#, python-brace-format
+msgid "{user} pinned this {time_ago}"
+msgstr ""
+
+#: tags.py:46
+#, python-brace-format
+msgid "{user} unpinned this {time_ago}"
+msgstr ""
+
+#: tags.py:56
+#, python-brace-format
+msgid "{user}'s comment was removed {time_ago}"
 msgstr ""
 
 #: templates/spirit/comment/_editor.html:9
@@ -197,49 +203,57 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:22
-msgid "comment deleted"
-msgstr ""
-
-#: templates/spirit/comment/_render_list.html:30
+#: templates/spirit/comment/_render_list.html:31
 msgid "undelete"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:31
+#: templates/spirit/comment/_render_list.html:32
 msgid "show"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:80
+#: templates/spirit/comment/_render_list.html:62
+msgid "Admin"
+msgstr ""
+
+#: templates/spirit/comment/_render_list.html:64
+msgid "Moderator"
+msgstr ""
+
+#: templates/spirit/comment/_render_list.html:67
+msgid "Original Poster"
+msgstr ""
+
+#: templates/spirit/comment/_render_list.html:92
 msgid "delete"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:84
+#: templates/spirit/comment/_render_list.html:96
 msgid "report"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:88
+#: templates/spirit/comment/_render_list.html:100
 msgid "share"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:96
-#: templates/spirit/comment/_render_list.html:157
+#: templates/spirit/comment/_render_list.html:108
+#: templates/spirit/comment/_render_list.html:169
 msgid "remove like"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:103
-#: templates/spirit/comment/_render_list.html:156
+#: templates/spirit/comment/_render_list.html:115
+#: templates/spirit/comment/_render_list.html:168
 msgid "like"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:111
+#: templates/spirit/comment/_render_list.html:123
 msgid "edit"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:116
+#: templates/spirit/comment/_render_list.html:128
 msgid "quote"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:118
+#: templates/spirit/comment/_render_list.html:130
 msgid "reply"
 msgstr ""
 

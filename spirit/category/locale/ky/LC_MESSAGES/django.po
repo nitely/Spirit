@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 00:12+0000\n"
-"PO-Revision-Date: 2020-06-17 00:54+0000\n"
+"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
 "MIME-Version: 1.0\n"
@@ -15,55 +15,59 @@ msgstr ""
 "Language: ky\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:26
+#: models.py:24
 msgid "category parent"
 msgstr "аталык категория"
 
-#: models.py:31
+#: models.py:29
 msgid "title"
 msgstr "аталышы"
 
-#: models.py:33
+#: models.py:31
 msgid "description"
 msgstr "сүрөттөмөсү"
 
-#: models.py:35
+#: models.py:33
 msgid "color"
 msgstr "түсү"
 
-#: models.py:36
+#: models.py:34
 msgid "Title color in hex format (i.e: #1aafd0)."
 msgstr "Аталышынын түсү, хекс форматында (мисалы, #1aafd0)."
 
-#: models.py:37
+#: models.py:35
+msgid "sorting order"
+msgstr ""
+
+#: models.py:36
 msgid "modified at"
 msgstr "өзгөртүлгөн убактысы"
 
-#: models.py:40
+#: models.py:39
 msgid "global"
 msgstr "глобалдык"
 
-#: models.py:42
+#: models.py:41
 msgid ""
 "Designates whether the topics will bedisplayed in the all-categories list."
 msgstr "Темалар бардык категориялардын тизмегинде көрсөтүлөөрүн билдирет."
 
-#: models.py:44
+#: models.py:43
 msgid "closed"
 msgstr "жабылган"
 
-#: models.py:45
+#: models.py:44
 msgid "removed"
 msgstr "жок кылынган"
 
-#: models.py:46
+#: models.py:45
 msgid "private"
 msgstr "жеке"
 
-#: models.py:52
+#: models.py:54
 msgid "category"
 msgstr "категория"
 
-#: models.py:53
+#: models.py:55
 msgid "categories"
 msgstr "категория"
