@@ -3,10 +3,6 @@
 Upgrade
 =======
 
-.. Note::
-    Upgrade steps for older versions can be found at the
-    `Wiki <https://github.com/nitely/Spirit/wiki/Upgrading>`_
-
 .. Warning::
     Make a database backup before upgrading to avoid data loss,
     you have been warned. Use the ``pg_dump`` command on PostgreSQL or
@@ -14,28 +10,38 @@ Upgrade
     ``python manage.py dumpdata --indent=4 > database.json``.
     You may want to backup the media folder as well.
 
-.. Note::
-    Make sure to check the changelog for every patch version
-    of the upgrading target and make changes accordingly.
-    Check the logs for Spirit deprecation warnings.
+Upgrade a minor version
+-----------------------
 
-.. Warning::
-    Trying to skip a minor version while upgrading will break things. For example, it's
-    not possible to upgrade from 0.4.x to 0.6.x without upgrading to 0.5.x first,
-    however it's possible to skip patch versions, i.e: upgrade from 0.4.x to 0.4.xx
+Trying to skip a minor version while upgrading will
+break things. For example, it's not possible to upgrade
+from 0.4.x to 0.6.x without upgrading to 0.5.x first.
 
-From v0.4.x to v0.5.x
----------------------
+Make sure to check the changelog for every patch version
+of the upgrade target, and make changes accordingly;
+ex: added/removed installed apps, new settings, etc.
+Check the Django logs for Spirit deprecation warnings.
 
-Starting from spirit v0.5, cloning the repo is no longer encouraged. Pip it instead.
+Run the install command. Replace ``x`` by the next minor version.
+Replace ``y`` by the latest patch version::
 
-Installation::
+    pip install -I django-spirit==0.x.y
 
-    pip install -I django-spirit==0.5.x
-    # Replace the x by the latest patch version
-
-Migration::
+Run the upgrade command. This command will run
+``migrate``, ``rebuild_index``, and ``collectstatic``::
 
     python manage.py spiritupgrade
-    # this will run ``migrate``, ``rebuild_index`` and ``collectstatic``
 
+Upgrade a patch version
+-----------------------
+
+Unlike minor versions, it's possible to skip patch versions,
+ex: upgrade from 0.4.x to 0.4.xx. This is because patch versions
+should not introduce breaking changes. However, it's advised to
+always backup the data base, media folder, and current setup if
+at all possible. Upgrades are not risk free.
+
+Upgrade from +v0.1 to v0.4
+--------------------------
+
+Read the `Wiki <https://github.com/nitely/Spirit/wiki/Upgrading>`_.
