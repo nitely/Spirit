@@ -17,6 +17,8 @@
 * Added `rel=nofollow` to moderator/admin posted URLs
 * Fixed password reset should use the send email task
 * Removed admin footer snippet (issue #197)
+* Removed `spirit.topic.poll` that was deprecated
+  in Spirit v0.5
 * UX: every row in the topic list redirects to the
   topic on click
 * UX: added microphone badge to OP
