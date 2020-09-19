@@ -8,6 +8,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 
+from spirit.core.conf import settings
 from spirit.core.utils.views import is_post, post_data
 from spirit.core.utils.ratelimit.decorators import ratelimit
 from spirit.user.utils.email import send_activation_email
@@ -72,7 +73,7 @@ def custom_login(request, **kwargs):
 # TODO: @login_required ?
 def custom_logout(request, **kwargs):
     if not request.user.is_authenticated:
-        return redirect(request.GET.get('next', reverse('spirit:user:auth:login')))
+        return redirect(request.GET.get('next', reverse(settings.LOGIN_URL)))
 
     if request.method == 'POST':
         return _logout_view(request, **kwargs)
@@ -110,7 +111,7 @@ def register(request, registration_form=RegistrationForm):
         # login(request, user)
         # return redirect(request.GET.get('next', reverse('spirit:user:update')))
 
-        return redirect(reverse('spirit:user:auth:login'))
+        return redirect(reverse(settings.LOGIN_URL))
     return render(
         request=request,
         template_name='spirit/user/auth/register.html',
@@ -127,7 +128,7 @@ def registration_activation(request, pk, token):
         user.save()
         messages.info(request, _("Your account has been activated!"))
 
-    return redirect(reverse('spirit:user:auth:login'))
+    return redirect(reverse(settings.LOGIN_URL))
 
 
 @ratelimit(field='email', rate='5/5m')
@@ -147,7 +148,7 @@ def resend_activation_email(request):
             request, _(
                 "If you don't receive an email, please make sure you've entered "
                 "the address you registered with, and check your spam folder."))
-        return redirect(reverse('spirit:user:auth:login'))
+        return redirect(reverse(settings.LOGIN_URL))
     return render(
         request=request,
         template_name='spirit/user/auth/activation_resend.html',

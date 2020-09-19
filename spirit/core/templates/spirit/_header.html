@@ -1,4 +1,5 @@
 {% load spirit_tags i18n %}
+{% load_settings 'LOGIN_URL' %}
 
 <header class="layout__header js-tabs-container">
   <div class="header__logo_wrapper">
@@ -76,7 +77,7 @@
     </div>
   {% else %}
     <a class="header__login"
-      href="{% url "spirit:user:auth:login" %}?next={% firstof request.get_full_path|urlencode '/' %}"
+      href="{% url st_settings.LOGIN_URL %}?next={% firstof request.get_full_path|urlencode '/' %}"
     >{% trans "Log in" %}</a>
   {% endif %}
 
