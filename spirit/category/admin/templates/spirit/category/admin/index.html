@@ -22,7 +22,7 @@
     </div>
     <div class="admin__items_list">
       {% for c in categories %}
-        <div class="admin__items_list__item">
+        <div class="admin__items_list__item js-clickable-area">
           <div class="admin__items_list__item__title">
             {% if st_settings.ST_ORDERED_CATEGORIES %}
               <a
@@ -46,13 +46,15 @@
             {% endif %}
           </div>
           <div class="admin__items_list__item__action">
-            <a href="{% url "spirit:admin:category:update" category_id=c.pk %}"
+            <a
+              class="js-clickable-area-target"
+              href="{% url "spirit:admin:category:update" category_id=c.pk %}"
             ><i class="fa fa-cog"></i> {% trans "edit" %}</a>
           </div>
         </div>
 
         {% for subc in c.category_set.all %}
-          <div class="admin__items_list__item">
+          <div class="admin__items_list__item js-clickable-area">
             <div class="admin__items_list__item__title">
               {% if st_settings.ST_ORDERED_CATEGORIES %}
                 <a
@@ -79,7 +81,9 @@
               {% endif %}
             </div>
             <div class="admin__items_list__item__action">
-              <a href="{% url "spirit:admin:category:update" category_id=subc.pk %}"
+              <a
+                class="js-clickable-area-target"
+                href="{% url "spirit:admin:category:update" category_id=subc.pk %}"
               ><i class="fa fa-cog"></i> {% trans "edit" %}</a>
             </div>
           </div>

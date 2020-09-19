@@ -4,12 +4,14 @@
 
 <div class="admin__items_list">
   {% for u in users %}
-    <div class="admin__items_list__item">
+    <div class="admin__items_list__item js-clickable-area">
       <div class="admin__items_list__item__title">
         <a href="{{ u.st.get_absolute_url }}">{{ u.st.nickname }}</a>
       </div>
       <div class="admin__items_list__item__action">
-        <a href="{% url "spirit:admin:user:edit" user_id=u.pk %}"
+        <a
+          class="js-clickable-area-target"
+          href="{% url "spirit:admin:user:edit" user_id=u.pk %}"
         ><i class="fa fa-cog"></i> {% trans "edit" %}</a>
       </div>
     </div>

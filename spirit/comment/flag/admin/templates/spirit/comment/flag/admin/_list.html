@@ -4,13 +4,15 @@
 
 <div class="admin__items_list">
   {% for f in flags %}
-    <div class="admin__items_list__item">
+    <div class="admin__items_list__item js-clickable-area">
       <div class="admin__items_list__item__title">
         <a href="{{ f.comment.get_absolute_url }}"
         >{{ f.comment.topic.title }}</a>
       </div>
       <div class="admin__items_list__item__action">
-        <a href="{% url "spirit:admin:flag:detail" pk=f.pk %}"
+        <a
+          class="js-clickable-area-target"
+          href="{% url "spirit:admin:flag:detail" pk=f.pk %}"
         ><i class="fa fa-cog"></i> {% trans "moderate" %}</a>
       </div>
     </div>
