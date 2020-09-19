@@ -7,12 +7,14 @@ from django.test import TestCase, override_settings
 from django.core import mail
 from django.core.management import call_command
 from django.utils import timezone
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from haystack.query import SearchQuerySet
 
 from . import utils as test_utils
 from spirit.core import tasks
 from spirit.core.tests.models import TaskResultModel
+from spirit.core.storage import spirit_storage
 
 try:
     @tasks.task_manager('celery')
@@ -147,3 +149,28 @@ class TasksTests(TestCase):
         tasks.full_search_index_update()
         sq = SearchQuerySet().models(topic.__class__)
         self.assertEqual([s.object for s in sq], [topic])
+
+    @test_utils.with_test_storage
+    @test_utils.immediate_on_commit
+    @override_settings(ST_ALLOWED_AVATAR_FORMAT=('gif',))
+    def test_make_avatars(self):
+        test_utils.clean_media()
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        file = SimpleUploadedFile(
+            'foo.gif', content=content, content_type='image/gif')
+        user = test_utils.create_user()
+        user.st.avatar = file
+        user.st.save()
+        self.assertTrue(spirit_storage.exists(user.st.avatar.name))
+        tasks.make_avatars(user.pk)
+        # original image is deleted
+        self.assertFalse(spirit_storage.exists(user.st.avatar.name))
+        user.refresh_from_db()
+        self.assertTrue(spirit_storage.exists(user.st.avatar.name))
+        self.assertEqual(
+            user.st.avatar.name,
+            'spirit/avatars/{}/pic_test.jpg'.format(user.pk))
+        self.assertTrue(spirit_storage.exists(
+            'spirit/avatars/{}/pic_test_small_test.jpg'.format(user.pk)))

@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import redirect
 
-from ..conf import settings
+from spirit.core.conf import settings
 
 
 def moderator_required(view_func):

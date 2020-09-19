@@ -7,6 +7,16 @@ They can be overridden by the project settings
 
 import os
 
+#: The media file storage for Spirit.
+#: The default file storage is used if this
+#: is not set. In either case, the storage should
+#: be set to overwrite files. Otherwise, files such
+#: as user avatar changes will waste space. Other uploaded
+#: files/images have a unique path so they are never overwritten.
+#: Changing this value will create a pointless
+#: DB migration in ``Django < 3.1``
+ST_STORAGE = None
+
 #: The task manager to run delayed and periodic tasks
 #: such as send emails, update the search index, clean up django
 #: sessions, etc. Valid values are: ``'celery'``, ``'huey'``, and
@@ -69,6 +79,15 @@ ST_SEARCH_QUERY_MIN_LEN = 3
 #: Threshold in minutes before the user
 #: `"last seen"` info can be updated
 ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
+
+#: The user avatar will be validated against these formats.
+#: See the `Pillow docs <http://pillow.readthedocs.io/en/latest/handbook/image-file-formats.html>`_
+#: for a list of supported formats
+#:
+#: .. Warning::
+#:     Allowing PNG files is a security risk as it may contain malicious HTML.
+#:     See `Django notes <https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content>`_
+ST_ALLOWED_AVATAR_FORMAT = ('jpeg', 'jpg')
 
 #: Settings this to ``True`` will require
 #: all users to be logged-in to access any section

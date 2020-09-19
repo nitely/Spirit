@@ -6,9 +6,14 @@ from django.db import transaction
 from django.core.mail import send_mail
 from django.apps import apps
 from django.core.management import call_command
+from django.contrib.auth import get_user_model
+
+from PIL import Image
 
 from .conf import settings
+from .storage import spirit_storage
 from . import signals
+from .utils.tasks import avatars
 
 logger = logging.getLogger(__name__)
 
@@ -90,6 +95,24 @@ def search_index_update(topic_pk):
 def full_search_index_update():
     age = settings.ST_SEARCH_INDEX_UPDATE_HOURS
     call_command("update_index", age=age)
+
+
+@delayed_task
+def make_avatars(user_id):
+    User = get_user_model()
+    user = User.objects.get(pk=user_id)
+    user.st.avatar.open()
+    image = Image.open(user.st.avatar)
+    image = avatars.crop_max_square(image)
+    big_avatar = avatars.thumbnail(image, 300)
+    # delete original even for overwrite storage,
+    # as it may have other extension
+    user.st.avatar.delete()
+    user.st.avatar.save('pic.jpg', big_avatar)
+    user.st.save()
+    small_avatar = avatars.thumbnail(image, 100)
+    spirit_storage.save(
+        user.st.small_avatar_name(), small_avatar)
 
 
 @delayed_task

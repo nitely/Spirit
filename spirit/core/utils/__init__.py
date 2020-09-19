@@ -6,9 +6,10 @@ import hashlib
 import uuid
 from contextlib import contextmanager
 
-from django.core.files.storage import default_storage
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+
+from spirit.core.storage import spirit_storage
 
 
 def render_form_errors(form):
@@ -100,7 +101,7 @@ def unique_filename(file):
     is assumed to be valid
     """
     name, ext = os.path.splitext(file.name)
-    name = default_storage.get_valid_name(name)
+    name = spirit_storage.get_valid_name(name)
     return os.path.join(
         safe_uuid(),
         '{name}{ext}'.format(

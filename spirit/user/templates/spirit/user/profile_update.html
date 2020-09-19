@@ -18,15 +18,10 @@
         <dd class="profile__settings__desc"><a
           href="{% url "spirit:user:password-change" %}"
         ><i class="fa fa-pencil"></i> {% trans "Change password" %}</a></dd>
-        <dt class="profile__settings__label">{% trans "Avatar" %}:</dt>
-        <dd class="profile__settings__desc"><a
-          href="https://gravatar.com"
-        ><i class="fa fa-pencil"></i> {% trans "Change avatar" %}</a
-        > ({% trans "Go to gravatar.com and use your current email to change it" %})</dd>
       </dl>
     {% endspaceless %}
 
-    <form action="." method="post">
+    <form action="." method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {% include "spirit/_form.html" with form=uform %}
       {% include "spirit/_form.html" %}

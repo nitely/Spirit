@@ -16,8 +16,8 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
 
 from . import forms as comment_forms
-from ..core.conf import settings
-from ..core.tests import utils
+from spirit.core.conf import settings
+from spirit.core.tests import utils
 from .models import Comment
 from .forms import (
     CommentForm,
@@ -25,15 +25,15 @@ from .forms import (
     CommentImageForm,
     CommentFileForm)
 from .tags import render_comments_form
-from ..core.utils import markdown
+from spirit.core.utils import markdown
 from .views import delete as comment_delete
-from ..topic.models import Topic
-from ..category.models import Category
-from ..user.models import UserProfile
+from spirit.topic.models import Topic
+from spirit.category.models import Category
+from spirit.user.models import UserProfile
 from .history.models import CommentHistory
 from .utils import comment_posted, pre_comment_update, post_comment_update
-from ..topic.notification.models import TopicNotification, MENTION
-from ..topic.unread.models import TopicUnread
+from spirit.topic.notification.models import TopicNotification, MENTION
+from spirit.topic.unread.models import TopicUnread
 from .poll.models import CommentPoll
 from . import views
 
@@ -58,21 +58,25 @@ class CommentViewTest(TestCase):
         create comment
         """
         utils.login(self)
-        form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        form_data = {'comment': 'foobar'}
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
+            form_data)
         comment = Comment.objects.all().order_by('-pk').last()
-        expected_url = reverse('spirit:comment:find', kwargs={'pk': comment.pk, })
-        self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+        expected_url = reverse('spirit:comment:find', kwargs={'pk': comment.pk})
+        self.assertRedirects(
+            response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(len(Comment.objects.all()), 1)
 
         # ratelimit
         self.client.post(
-            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }), form_data)
+            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
+            form_data)
         self.assertEqual(len(Comment.objects.all()), 1)
 
         # get
-        response = self.client.get(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }))
+        response = self.client.get(reverse(
+            'spirit:comment:publish', kwargs={'topic_id': self.topic.pk}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['topic'], self.topic)
 
@@ -86,12 +90,14 @@ class CommentViewTest(TestCase):
             res.append(comment)
             res.append(mentions)
 
-        org_comment_posted, views.comment_posted = views.comment_posted, mocked_comment_posted
+        org_comment_posted, views.comment_posted = (
+            views.comment_posted, mocked_comment_posted)
         try:
             utils.login(self)
-            form_data = {'comment': 'foobar', }
-            self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
-                             form_data)
+            form_data = {'comment': 'foobar'}
+            self.client.post(
+                reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
+                form_data)
             self.assertEqual(len(Comment.objects.all()), 1)
             self.assertEqual(res[0], Comment.objects.first())
             self.assertEqual(res[1], {})
@@ -161,12 +167,14 @@ class CommentViewTest(TestCase):
         private = utils.create_private_topic(user=self.user)
 
         utils.login(self)
-        form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': private.topic.pk, }),
-                                    form_data)
+        form_data = {'comment': 'foobar'}
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': private.topic.pk}),
+            form_data)
         comment = Comment.objects.all().order_by('-pk').last()
         expected_url = reverse('spirit:comment:find', kwargs={'pk': comment.pk, })
-        self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+        self.assertRedirects(
+            response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(len(Comment.objects.all()), 1)
 
     def test_comment_publish_on_closed_topic(self):
@@ -176,9 +184,10 @@ class CommentViewTest(TestCase):
         Topic.objects.filter(pk=self.topic.pk).update(is_closed=True)
 
         utils.login(self)
-        form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        form_data = {'comment': 'foobar'}
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
+            form_data)
         self.assertEqual(response.status_code, 404)
 
     def test_comment_publish_on_closed_category(self):
@@ -188,9 +197,10 @@ class CommentViewTest(TestCase):
         Category.objects.filter(pk=self.category.pk).update(is_closed=True)
 
         utils.login(self)
-        form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        form_data = {'comment': 'foobar'}
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
+            form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(Comment.objects.all()), 1)
 
@@ -202,9 +212,10 @@ class CommentViewTest(TestCase):
         Category.objects.all().update(is_removed=True)
 
         utils.login(self)
-        form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        form_data = {'comment': 'foobar'}
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
+            form_data)
         self.assertEqual(response.status_code, 404)
 
         # removed subcategory
@@ -213,9 +224,10 @@ class CommentViewTest(TestCase):
         topic2 = utils.create_topic(subcategory)
 
         utils.login(self)
-        form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': topic2.pk, }),
-                                    form_data)
+        form_data = {'comment': 'foobar'}
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': topic2.pk}),
+            form_data)
         self.assertEqual(response.status_code, 404)
 
         # removed topic
@@ -223,9 +235,10 @@ class CommentViewTest(TestCase):
         Topic.objects.all().update(is_removed=True)
 
         utils.login(self)
-        form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        form_data = {'comment': 'foobar'}
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': self.topic.pk}),
+            form_data)
         self.assertEqual(response.status_code, 404)
 
     def test_comment_publish_no_access(self):
@@ -236,9 +249,10 @@ class CommentViewTest(TestCase):
         private.delete()
 
         utils.login(self)
-        form_data = {'comment': 'foobar', }
-        response = self.client.post(reverse('spirit:comment:publish', kwargs={'topic_id': private.topic.pk, }),
-                                    form_data)
+        form_data = {'comment': 'foobar'}
+        response = self.client.post(
+            reverse('spirit:comment:publish', kwargs={'topic_id': private.topic.pk}),
+            form_data)
         self.assertEqual(response.status_code, 404)
 
     def test_comment_publish_quote(self):
@@ -274,16 +288,17 @@ class CommentViewTest(TestCase):
 
         utils.login(self)
         form_data = {'comment': 'barfoo', }
-        response = self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse('spirit:comment:update', kwargs={'pk': comment.pk}),
+            form_data)
         expected_url = reverse('spirit:comment:find', kwargs={'pk': comment.pk, })
         self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(Comment.objects.get(pk=comment.pk).comment, 'barfoo')
 
         # next
-        form_data.update({'next': '/fakepath/', })
+        form_data.update({'next': '/fakepath/'})
         response = self.client.post(
-            reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
+            reverse('spirit:comment:update', kwargs={'pk': comment.pk}),
             form_data)
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
 
@@ -295,9 +310,9 @@ class CommentViewTest(TestCase):
         comment = utils.create_comment(user=user, topic=self.topic)
 
         utils.login(self)
-        form_data = {'comment': 'barfoo', }
+        form_data = {'comment': 'barfoo'}
         response = self.client.post(
-            reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
+            reverse('spirit:comment:update', kwargs={'pk': comment.pk}),
             form_data)
         self.assertEqual(response.status_code, 404)
 
@@ -310,12 +325,13 @@ class CommentViewTest(TestCase):
         comment = utils.create_comment(user=user, topic=self.topic)
 
         utils.login(self)
-        form_data = {'comment': 'barfoo', }
+        form_data = {'comment': 'barfoo'}
         response = self.client.post(
-            reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
+            reverse('spirit:comment:update', kwargs={'pk': comment.pk}),
             form_data)
-        expected_url = reverse('spirit:comment:find', kwargs={'pk': comment.pk, })
-        self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+        expected_url = reverse('spirit:comment:find', kwargs={'pk': comment.pk})
+        self.assertRedirects(
+            response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(Comment.objects.get(pk=comment.pk).comment, 'barfoo')
 
     def test_comment_update_moderator_private(self):
@@ -328,9 +344,10 @@ class CommentViewTest(TestCase):
         comment = utils.create_comment(user=user, topic=topic_private.topic)
 
         utils.login(self)
-        form_data = {'comment': 'barfoo', }
-        response = self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment.pk, }),
-                                    form_data)
+        form_data = {'comment': 'barfoo'}
+        response = self.client.post(
+            reverse('spirit:comment:update', kwargs={'pk': comment.pk}),
+            form_data)
         self.assertEqual(response.status_code, 404)
 
     def test_comment_update_increase_modified_count(self):
@@ -339,9 +356,9 @@ class CommentViewTest(TestCase):
         """
         utils.login(self)
         comment_posted = utils.create_comment(user=self.user, topic=self.topic)
-        form_data = {'comment': 'my comment, oh!', }
+        form_data = {'comment': 'my comment, oh!'}
         self.client.post(
-            reverse('spirit:comment:update', kwargs={'pk': comment_posted.pk, }),
+            reverse('spirit:comment:update', kwargs={'pk': comment_posted.pk}),
             form_data)
         self.assertEqual(Comment.objects.get(pk=comment_posted.pk).modified_count, 1)
 
@@ -351,9 +368,10 @@ class CommentViewTest(TestCase):
         """
         utils.login(self)
         comment_posted = utils.create_comment(user=self.user, topic=self.topic)
-        form_data = {'comment': 'my comment, oh!', }
-        self.client.post(reverse('spirit:comment:update', kwargs={'pk': comment_posted.pk, }),
-                         form_data)
+        form_data = {'comment': 'my comment, oh!'}
+        self.client.post(
+            reverse('spirit:comment:update', kwargs={'pk': comment_posted.pk}),
+            form_data)
         comments_history = CommentHistory.objects.filter(comment_fk=comment_posted).order_by('pk')
         self.assertEqual(len(comments_history), 2)  # first and edited
         self.assertIn(comment_posted.comment_html, comments_history[0].comment_html)  # first
@@ -376,12 +394,15 @@ class CommentViewTest(TestCase):
 
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:comment:delete', kwargs={'pk': comment.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse('spirit:comment:delete', kwargs={'pk': comment.pk}),
+            form_data)
         expected_url = comment.get_absolute_url()
-        self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+        self.assertRedirects(
+            response, expected_url, status_code=302, target_status_code=302)
 
-        response = self.client.get(reverse('spirit:comment:delete', kwargs={'pk': comment.pk, }))
+        response = self.client.get(reverse(
+            'spirit:comment:delete', kwargs={'pk': comment.pk}))
         self.assertEqual(response.status_code, 200)
 
     def test_comment_undelete(self):
@@ -395,12 +416,15 @@ class CommentViewTest(TestCase):
 
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:comment:undelete', kwargs={'pk': comment.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse('spirit:comment:undelete', kwargs={'pk': comment.pk}),
+            form_data)
         expected_url = comment.get_absolute_url()
-        self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
+        self.assertRedirects(
+            response, expected_url, status_code=302, target_status_code=302)
 
-        response = self.client.get(reverse('spirit:comment:undelete', kwargs={'pk': comment.pk, }))
+        response = self.client.get(reverse(
+            'spirit:comment:undelete', kwargs={'pk': comment.pk}))
         self.assertEqual(response.status_code, 200)
 
     def test_comment_move(self):
@@ -414,10 +438,12 @@ class CommentViewTest(TestCase):
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)
         to_topic = utils.create_topic(category=self.category)
-        form_data = {'topic': to_topic.pk,
-                     'comments': [comment.pk, comment2.pk], }
-        response = self.client.post(reverse('spirit:comment:move', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        form_data = {
+            'topic': to_topic.pk,
+            'comments': [comment.pk, comment2.pk], }
+        response = self.client.post(
+            reverse('spirit:comment:move', kwargs={'topic_id': self.topic.pk}),
+            form_data)
         expected_url = self.topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(Comment.objects.filter(topic=to_topic.pk).count(), 2)
@@ -429,7 +455,8 @@ class CommentViewTest(TestCase):
         comment absolute and lazy url
         """
         comment = utils.create_comment(user=self.user, topic=self.topic)
-        response = self.client.post(reverse('spirit:comment:find', kwargs={'pk': comment.pk, }))
+        response = self.client.post(
+            reverse('spirit:comment:find', kwargs={'pk': comment.pk}))
         expected_url = comment.topic.get_absolute_url() + "#c1"
         self.assertRedirects(response, expected_url, status_code=302)
 
@@ -445,7 +472,7 @@ class CommentViewTest(TestCase):
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         files = {'image': SimpleUploadedFile(
-            'image.gif', img.read(), content_type='image/gif'), }
+            'image.gif', img.read(), content_type='image/gif')}
         response = self.client.post(
             reverse('spirit:comment:image-upload-ajax'),
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
@@ -458,8 +485,7 @@ class CommentViewTest(TestCase):
         self.assertEqual(res['url'], image_url)
         image_path = os.path.join(
             settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk),
-            "bf21c3043d749d5598366c26e7e4ab44.gif"
-        )
+            "bf21c3043d749d5598366c26e7e4ab44.gif")
         self.assertTrue(os.path.isfile(image_path))
         shutil.rmtree(settings.MEDIA_ROOT)  # cleanup
 
@@ -621,13 +647,29 @@ class CommentViewTest(TestCase):
         image = io.BytesIO(b'BAD\x02D\x01\x00;')
         image.name = 'image.gif'
         image.content_type = 'image/gif'
-        files = {'image': SimpleUploadedFile(image.name, image.read()), }
-        response = self.client.post(reverse('spirit:comment:image-upload-ajax'),
-                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest',
-                                    data=files)
+        files = {'image': SimpleUploadedFile(image.name, image.read())}
+        response = self.client.post(
+            reverse('spirit:comment:image-upload-ajax'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+            data=files)
         res = json.loads(response.content.decode('utf-8'))
         self.assertIn('error', res.keys())
         self.assertIn('image', res['error'].keys())
+
+    @utils.with_test_storage
+    def test_comment_image_upload_spirit_storage(self):
+        utils.clean_media()
+        utils.login(self)
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        file = SimpleUploadedFile('image.gif', content)
+        response = self.client.post(
+            reverse('spirit:comment:image-upload-ajax'),
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+            data={'image': file})
+        res = json.loads(response.content.decode('utf-8'))
+        self.assertTrue(res['url'].endswith('/image_test.gif'))
 
     @skipIf(not settings.ST_UPLOAD_FILE_ENABLED, 'No magic file support')
     @override_settings(
@@ -646,7 +688,8 @@ class CommentViewTest(TestCase):
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
             b'f\n149\n%EOF\n')
-        files = {'file': SimpleUploadedFile('file.pdf', file.read(), content_type='application/pdf'), }
+        files = {'file': SimpleUploadedFile(
+            'file.pdf', file.read(), content_type='application/pdf')}
         response = self.client.post(
             reverse('spirit:comment:file-upload-ajax'),
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
@@ -658,8 +701,7 @@ class CommentViewTest(TestCase):
         ).replace("\\", "/")
         self.assertEqual(res['url'], file_url)
         file_path = os.path.join(
-            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.pdf"
-        )
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.pdf")
 
         with open(file_path, 'rb') as fh:
             file.seek(0)
@@ -684,7 +726,7 @@ class CommentViewTest(TestCase):
             b'f\n149\n%EOF\n')
         files = {
             'file': SimpleUploadedFile(
-                'file_large.pdf', file.read(), content_type='application/pdf'),}
+                'file_large.pdf', file.read(), content_type='application/pdf')}
         response = self.client.post(
             reverse('spirit:comment:file-upload-ajax'),
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
@@ -696,8 +738,7 @@ class CommentViewTest(TestCase):
         ).replace("\\", "/")
         self.assertEqual(res['url'], file_url)
         file_path = os.path.join(
-            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.pdf"
-        )
+            settings.MEDIA_ROOT, 'spirit', 'files', str(self.user.pk), "fadcb2389bb2b69b46bc54185de0ae91.pdf")
 
         with open(file_path, 'rb') as fh:
             file.seek(0)
@@ -785,7 +826,8 @@ class CommentViewTest(TestCase):
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
             b'f\n149\n%EOF\n')
-        files = {'file': SimpleUploadedFile('fake.gif', file.read(), content_type='application/pdf'), }
+        files = {'file': SimpleUploadedFile(
+            'fake.gif', file.read(), content_type='application/pdf')}
         response = self.client.post(
             reverse('spirit:comment:file-upload-ajax'),
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
@@ -859,7 +901,8 @@ class CommentModelsTest(TestCase):
         Create comment that tells what moderation action was made
         """
         Comment.create_moderation_action(user=self.user, topic=self.topic, action=1)
-        self.assertEqual(Comment.objects.filter(user=self.user, topic=self.topic, action=1).count(), 1)
+        self.assertEqual(Comment.objects.filter(
+            user=self.user, topic=self.topic, action=1).count(), 1)
 
     def test_comment_get_last_for_topic(self):
         """
@@ -926,15 +969,17 @@ class CommentFormTest(TestCase):
         self.assertEqual(form.is_valid(), True)
 
     def test_comment_markdown(self):
-        form_data = {'comment': '**Spirit unicode: áéíóú** '
-                                '<script>alert();</script>', }
+        form_data = {
+            'comment': '**Spirit unicode: áéíóú** <script>alert();</script>'}
         form = CommentForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
         form.user = self.user
         form.topic = self.topic
         comment = form.save()
-        self.assertEqual(comment.comment_html, '<p><strong>Spirit unicode: áéíóú</strong> '
-                                               '&lt;script&gt;alert();&lt;/script&gt;</p>')
+        self.assertEqual(
+            comment.comment_html,
+            '<p><strong>Spirit unicode: áéíóú</strong> '
+            '&lt;script&gt;alert();&lt;/script&gt;</p>')
 
     def test_comment_markdown_no_follow(self):
         form_data = {'comment': 'http://foo.com'}
@@ -943,11 +988,15 @@ class CommentFormTest(TestCase):
         form.user = self.user
         form.topic = self.topic
         comment = form.save()
-        self.assertEqual(comment.comment_html, '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>')
+        self.assertEqual(
+            comment.comment_html,
+            '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>')
 
         self.user.st.is_moderator = True
         comment2 = form.save()
-        self.assertEqual(comment2.comment_html, '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>')
+        self.assertEqual(
+            comment2.comment_html,
+            '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>')
 
     def test_comment_get_comment_hash(self):
         """
@@ -977,8 +1026,9 @@ class CommentFormTest(TestCase):
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)
         to_topic = utils.create_topic(category=self.category)
-        form_data = {'topic': to_topic.pk,
-                     'comments': [comment.pk, comment2.pk], }
+        form_data = {
+            'topic': to_topic.pk,
+            'comments': [comment.pk, comment2.pk], }
         form = CommentMoveForm(topic=self.topic, data=form_data)
         self.assertEqual(form.is_valid(), True)
         self.assertEqual(form.save(), list(Comment.objects.filter(topic=to_topic)))
@@ -992,16 +1042,20 @@ class CommentFormTest(TestCase):
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         img = io.BytesIO(content)
-        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
+        files = {
+            'image': SimpleUploadedFile(
+                'image.gif', img.read(), content_type='image/gif')}
 
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertTrue(form.is_valid())
         image = form.save()
         self.assertEqual(image.name, "bf21c3043d749d5598366c26e7e4ab44.gif")
-        image_url = os.path.join(settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
-                                 image.name).replace("\\", "/")
+        image_url = os.path.join(
+            settings.MEDIA_URL, 'spirit', 'images', str(self.user.pk),
+            image.name).replace("\\", "/")
         self.assertEqual(image.url, image_url)
-        image_path = os.path.join(settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name)
+        image_path = os.path.join(
+            settings.MEDIA_ROOT, 'spirit', 'images', str(self.user.pk), image.name)
         self.assertTrue(os.path.isfile(image_path))
 
         with open(image_path, "rb") as fh:
@@ -1027,7 +1081,8 @@ class CommentFormTest(TestCase):
         img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        files = {'image': SimpleUploadedFile('image', img.read(), content_type='image/gif'), }
+        files = {'image': SimpleUploadedFile(
+            'image', img.read(), content_type='image/gif')}
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertFalse(form.is_valid())
 
@@ -1038,7 +1093,8 @@ class CommentFormTest(TestCase):
         img = io.BytesIO(
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
-        files = {'image': SimpleUploadedFile('image.png', img.read(), content_type='image/png'), }
+        files = {'image': SimpleUploadedFile(
+            'image.png', img.read(), content_type='image/png')}
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertFalse(form.is_valid())
 
@@ -1051,7 +1107,8 @@ class CommentFormTest(TestCase):
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
             b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
         # fake png extension
-        files = {'image': SimpleUploadedFile('image.png', img.read(), content_type='image/png'), }
+        files = {'image': SimpleUploadedFile(
+            'image.png', img.read(), content_type='image/png')}
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())
 
@@ -1060,9 +1117,25 @@ class CommentFormTest(TestCase):
         Image upload with bad content but good extension should raise an error
         """
         img = io.BytesIO(b'bad\x00;')
-        files = {'image': SimpleUploadedFile('image.gif', img.read(), content_type='image/gif'), }
+        files = {'image': SimpleUploadedFile(
+            'image.gif', img.read(), content_type='image/gif')}
         form = CommentImageForm(data={}, files=files)
         self.assertFalse(form.is_valid())
+
+    @utils.with_test_storage
+    def test_comment_image_upload_spirit_storage(self):
+        utils.clean_media()
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        img = io.BytesIO(content)
+        files = {
+            'image': SimpleUploadedFile(
+                'image.gif', img.read(), content_type='image/gif')}
+        form = CommentImageForm(user=self.user, data={}, files=files)
+        self.assertTrue(form.is_valid())
+        image = form.save()
+        self.assertEqual(image.name, "image_test.gif")
 
     def test_comment_file_upload_no_libmagic(self):
         """
@@ -1074,7 +1147,8 @@ class CommentFormTest(TestCase):
             b'>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\nxref\n0 4\n0000000000 65535 f\n000000'
             b'0010 00000 n\n0000000053 00000 n\n0000000102 00000 n\ntrailer<</Size 4/Root 1 0 R>>\nstartxre'
             b'f\n149\n%EOF\n')
-        files = {'file': SimpleUploadedFile('file.pdf', file.read(), content_type='application/pdf'),}
+        files = {'file': SimpleUploadedFile(
+            'file.pdf', file.read(), content_type='application/pdf')}
         form = CommentFileForm(data={}, files=files)
 
         comment_forms_magic_orig, comment_forms.magic = comment_forms.magic, None
@@ -1088,7 +1162,7 @@ class CommentFormTest(TestCase):
         Restrict comment len
         """
         comment = 'a' * settings.ST_COMMENT_MAX_LEN
-        form_data = {'comment': comment, }
+        form_data = {'comment': comment}
         form = CommentForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -1097,7 +1171,7 @@ class CommentFormTest(TestCase):
         Restrict comment len
         """
         comment = 'a' * (settings.ST_COMMENT_MAX_LEN + 1)
-        form_data = {'comment': comment, }
+        form_data = {'comment': comment}
         form = CommentForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
 
@@ -1123,28 +1197,34 @@ class CommentUtilsTest(TestCase):
         comment = utils.create_comment(user=subscriber, topic=self.topic)
         comment_posted(comment=comment, mentions=None)
         self.assertEqual(len(TopicNotification.objects.all()), 1)
-        self.assertTrue(TopicNotification.objects.get(user=subscriber, topic=self.topic).is_read)
+        self.assertTrue(TopicNotification.objects.get(
+            user=subscriber, topic=self.topic).is_read)
 
         # Should notify subscribers
         user = utils.create_user()
         comment = utils.create_comment(user=user, topic=self.topic)
         comment_posted(comment=comment, mentions=None)
         self.assertEqual(len(TopicNotification.objects.all()), 2)
-        self.assertFalse(TopicNotification.objects.get(user=subscriber, topic=self.topic).is_read)
+        self.assertFalse(TopicNotification.objects.get(
+            user=subscriber, topic=self.topic).is_read)
 
         # Should notify mentions
         mentioned = utils.create_user()
         mentions = {mentioned.username: mentioned, }
         comment = utils.create_comment(user=user, topic=self.topic)
         comment_posted(comment=comment, mentions=mentions)
-        self.assertEqual(TopicNotification.objects.get(user=mentioned, comment=comment).action, MENTION)
-        self.assertFalse(TopicNotification.objects.get(user=mentioned, comment=comment).is_read)
+        self.assertEqual(TopicNotification.objects.get(
+            user=mentioned, comment=comment).action, MENTION)
+        self.assertFalse(TopicNotification.objects.get(
+            user=mentioned, comment=comment).is_read)
 
         # Should mark the topic as unread
         user_unread = utils.create_user()
         topic = utils.create_topic(self.category)
-        topic_unread_creator = TopicUnread.objects.create(user=user, topic=topic, is_read=True)
-        topic_unread_subscriber = TopicUnread.objects.create(user=user_unread, topic=topic, is_read=True)
+        topic_unread_creator = TopicUnread.objects.create(
+            user=user, topic=topic, is_read=True)
+        topic_unread_subscriber = TopicUnread.objects.create(
+            user=user_unread, topic=topic, is_read=True)
         comment = utils.create_comment(user=user, topic=topic)
         comment_posted(comment=comment, mentions=None)
         self.assertTrue(TopicUnread.objects.get(pk=topic_unread_creator.pk).is_read)
@@ -1164,7 +1244,8 @@ class CommentUtilsTest(TestCase):
         * Should create comment history maybe
         """
         # Should render static polls
-        comment = utils.create_comment(user=self.user, topic=self.topic, comment_html='<poll name=foo>')
+        comment = utils.create_comment(
+            user=self.user, topic=self.topic, comment_html='<poll name=foo>')
         CommentPoll.objects.create(comment=comment, name='foo', title="my poll")
         pre_comment_update(comment=comment)
         self.assertTrue('my poll' in comment.comment_html)
@@ -1190,7 +1271,8 @@ class CommentUtilsTest(TestCase):
         self.assertEqual(Comment.objects.get(pk=comment.pk).modified_count, 2)
 
         # Should render static polls
-        comment = utils.create_comment(user=self.user, topic=self.topic, comment_html='<poll name=foo>')
+        comment = utils.create_comment(
+            user=self.user, topic=self.topic, comment_html='<poll name=foo>')
         CommentPoll.objects.create(comment=comment, name='foo', title="my poll")
         post_comment_update(comment=comment)
         self.assertTrue('my poll' in comment.comment_html)

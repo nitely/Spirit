@@ -71,10 +71,7 @@
 
     <div id="reply" class="comments__reply">
       <div class="comments__reply__img">
-        <img
-          alt=""
-          class="comment__img__avatar"
-          src="{% get_gravatar_url user=user size=50 %}" />
+        {% include "spirit/comment/_avatar.html" with u=user only %}
       </div>
       <div class="comment__reply__info">
         <a

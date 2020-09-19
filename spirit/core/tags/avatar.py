@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import math
-
-from django.utils.encoding import smart_text
-
 from .registry import register
 
 
 @register.simple_tag()
-def get_avatar_color(user):
-    # returns 0-215
-    return smart_text(int(215 * math.log10(user.pk)))
+def get_avatar_color(user_id):
+    hue = (user_id % 37) * 10
+    return 'hsl({}, 75%, 25%)'.format(hue)

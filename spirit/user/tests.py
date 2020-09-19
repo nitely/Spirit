@@ -14,16 +14,18 @@ from django.contrib.auth.models import AnonymousUser
 from django.apps import apps
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from djconfig.utils import override_djconfig
 
-from ..core.tests import utils
-from ..core.conf import settings
+from spirit.core.tests import utils
+from spirit.core.conf import settings
+from spirit.core.storage import spirit_storage
 from .forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
-from ..comment.like.models import CommentLike
-from ..topic.models import Topic
-from ..comment.models import Comment
-from ..comment.bookmark.models import CommentBookmark
+from spirit.comment.like.models import CommentLike
+from spirit.topic.models import Topic
+from spirit.comment.models import Comment
+from spirit.comment.bookmark.models import CommentBookmark
 from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
 from .utils.email import send_activation_email, send_email_change_email, sender
 from .utils import email
@@ -55,11 +57,14 @@ class UserViewTest(TestCase):
         pk = self.user.pk
         slug = self.user.st.slug
 
-        response = self.client.get(reverse('spirit:user:topics', kwargs={'pk': pk, 'slug': slug}))
+        response = self.client.get(reverse(
+            'spirit:user:topics', kwargs={'pk': pk, 'slug': slug}))
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('spirit:user:detail', kwargs={'pk': pk, 'slug': slug}))
+        response = self.client.get(reverse(
+            'spirit:user:detail', kwargs={'pk': pk, 'slug': slug}))
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('spirit:user:likes', kwargs={'pk': pk, 'slug': slug}))
+        response = self.client.get(reverse(
+            'spirit:user:likes', kwargs={'pk': pk, 'slug': slug}))
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(reverse('spirit:user:update'))
@@ -68,7 +73,8 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('spirit:user:email-change'))
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': "foo"}))
+        response = self.client.get(reverse(
+            'spirit:user:email-change-confirm', kwargs={'token': "foo"}))
         self.assertEqual(response.status_code, 302)
 
     def test_profile_creation_on_save(self):
@@ -142,10 +148,11 @@ class UserViewTest(TestCase):
         profile user's topics
         """
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
+        response = self.client.get(
+            reverse("spirit:user:topics", kwargs={
+                'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['topics']), [self.topic, ])
+        self.assertEqual(list(response.context['topics']), [self.topic])
         self.assertEqual(response.context['p_user'], self.user2)
 
     def test_profile_topics_order(self):
@@ -159,13 +166,18 @@ class UserViewTest(TestCase):
         topic_b = utils.create_topic(category=category, user=self.user2)
         topic_c = utils.create_topic(category=category, user=self.user2)
 
-        Topic.objects.filter(pk=topic_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
-        Topic.objects.filter(pk=topic_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
+        Topic.objects.filter(pk=topic_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10))
+        Topic.objects.filter(pk=topic_c.pk).update(
+            date=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:topics", kwargs={'pk': self.user2.pk,
-                                                                            'slug': self.user2.st.slug}))
-        self.assertEqual(list(response.context['topics']), [topic_b, topic_c, topic_a])
+        response = self.client.get(reverse(
+            "spirit:user:topics", kwargs={
+                'pk': self.user2.pk, 'slug': self.user2.st.slug}))
+        self.assertEqual(
+            list(response.context['topics']),
+            [topic_b, topic_c, topic_a])
 
     def test_profile_topics_bookmarks(self):
         """
@@ -174,10 +186,11 @@ class UserViewTest(TestCase):
         bookmark = CommentBookmark.objects.create(topic=self.topic, user=self.user)
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:topics",
-                                           kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
+        response = self.client.get(reverse(
+            "spirit:user:topics", kwargs={
+                'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['topics']), [self.topic, ])
+        self.assertEqual(list(response.context['topics']), [self.topic])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
@@ -192,7 +205,7 @@ class UserViewTest(TestCase):
             "spirit:user:topics",
             kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['topics']), [topic, ])
+        self.assertEqual(list(response.context['topics']), [topic])
 
     def test_profile_topics_dont_show_removed_or_private(self):
         """
@@ -240,7 +253,7 @@ class UserViewTest(TestCase):
             "spirit:user:detail",
             kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['comments']), [comment, ])
+        self.assertEqual(list(response.context['comments']), [comment])
         self.assertEqual(response.context['p_user'], self.user2)
 
     def test_profile_comments_order(self):
@@ -251,14 +264,18 @@ class UserViewTest(TestCase):
         comment_b = utils.create_comment(user=self.user2, topic=self.topic)
         comment_c = utils.create_comment(user=self.user2, topic=self.topic)
 
-        Comment.objects.filter(pk=comment_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
-        Comment.objects.filter(pk=comment_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
+        Comment.objects.filter(pk=comment_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10))
+        Comment.objects.filter(pk=comment_c.pk).update(
+            date=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
         response = self.client.get(reverse(
             "spirit:user:detail",
             kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
-        self.assertEqual(list(response.context['comments']), [comment_b, comment_c, comment_a])
+        self.assertEqual(
+            list(response.context['comments']),
+            [comment_b, comment_c, comment_a])
 
     @override_djconfig(comments_per_page=1)
     def test_profile_comments_paginate(self):
@@ -273,7 +290,7 @@ class UserViewTest(TestCase):
             "spirit:user:detail",
             kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['comments']), [comment, ])
+        self.assertEqual(list(response.context['comments']), [comment])
 
     def test_profile_comments_dont_show_removed_or_private(self):
         """
@@ -326,7 +343,7 @@ class UserViewTest(TestCase):
             "spirit:user:likes",
             kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['comments']), [like.comment, ])
+        self.assertEqual(list(response.context['comments']), [like.comment])
         self.assertEqual(response.context['p_user'], self.user2)
 
     def test_profile_likes_order(self):
@@ -340,14 +357,18 @@ class UserViewTest(TestCase):
         CommentLike.objects.create(user=self.user2, comment=comment_b)
         like_c = CommentLike.objects.create(user=self.user2, comment=comment_c)
 
-        CommentLike.objects.filter(pk=like_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
-        CommentLike.objects.filter(pk=like_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
+        CommentLike.objects.filter(pk=like_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10))
+        CommentLike.objects.filter(pk=like_c.pk).update(
+            date=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
         response = self.client.get(reverse(
             "spirit:user:likes",
             kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
-        self.assertEqual(list(response.context['comments']), [comment_b, comment_c, comment_a])
+        self.assertEqual(
+            list(response.context['comments']),
+            [comment_b, comment_c, comment_a])
 
     def test_profile_likes_dont_show_removed_or_private(self):
         """
@@ -407,7 +428,7 @@ class UserViewTest(TestCase):
             "spirit:user:likes",
             kwargs={'pk': self.user2.pk, 'slug': self.user2.st.slug}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['comments']), [like.comment, ])
+        self.assertEqual(list(response.context['comments']), [like.comment])
 
     def test_profile_update(self):
         """
@@ -417,14 +438,112 @@ class UserViewTest(TestCase):
         # get
         response = self.client.get(reverse('spirit:user:update'))
         self.assertEqual(response.status_code, 200)
-
         # post
-        form_data = {'first_name': 'foo', 'last_name': 'bar',
-                     'location': 'spirit', 'timezone': self.user.st.timezone}
-        response = self.client.post(reverse('spirit:user:update'),
-                                    form_data)
+        form_data = {
+            'first_name': 'foo', 'last_name': 'bar',
+            'location': 'spirit', 'timezone': self.user.st.timezone}
+        response = self.client.post(
+            reverse('spirit:user:update'), form_data)
         expected_url = reverse('spirit:user:update')
         self.assertRedirects(response, expected_url, status_code=302)
+
+    @utils.with_test_storage
+    @utils.immediate_on_commit
+    @override_settings(ST_ALLOWED_AVATAR_FORMAT=('gif',))
+    def test_profile_update_avatar(self):
+        utils.clean_media()
+        utils.login(self)
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        form_data = {
+            'first_name': 'foo',
+            'last_name': 'bar',
+            'location': 'spirit',
+            'timezone': self.user.st.timezone,
+            'avatar': SimpleUploadedFile('foo.gif', content=content)}
+        response = self.client.post(
+            reverse('spirit:user:update'), form_data)
+        expected_url = reverse('spirit:user:update')
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.user.refresh_from_db()
+        self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
+        self.assertEqual(
+            self.user.st.avatar.name,
+            'spirit/avatars/{}/pic_test.jpg'.format(self.user.pk))
+        self.assertTrue(spirit_storage.exists(
+            'spirit/avatars/{}/pic_test_small_test.jpg'.format(self.user.pk)))
+
+    @utils.with_test_storage
+    @utils.immediate_on_commit
+    @override_settings(ST_ALLOWED_AVATAR_FORMAT=('gif',))
+    def test_profile_update_change_avatar(self):
+        utils.clean_media()
+        utils.login(self)
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        # store initial avatar
+        self.user.st.avatar = SimpleUploadedFile('foo.gif', content=content)
+        self.user.st.save()
+        self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
+        self.assertEqual(
+            self.user.st.avatar.name,
+            'spirit/avatars/{}/pic_test.gif'.format(self.user.pk))
+        # change avatar
+        form_data = {
+            'first_name': 'foo',
+            'last_name': 'bar',
+            'location': 'spirit',
+            'timezone': self.user.st.timezone,
+            'avatar': SimpleUploadedFile('foo.gif', content=content)}
+        response = self.client.post(
+            reverse('spirit:user:update'), form_data)
+        expected_url = reverse('spirit:user:update')
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.user.refresh_from_db()
+        self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
+        self.assertEqual(
+            self.user.st.avatar.name,
+            'spirit/avatars/{}/pic_test.jpg'.format(self.user.pk))
+        self.assertNotEqual(
+            self.user.st.avatar.open().read(), content)
+        self.assertTrue(spirit_storage.exists(
+            'spirit/avatars/{}/pic_test_small_test.jpg'.format(self.user.pk)))
+
+    @utils.with_test_storage
+    @utils.immediate_on_commit
+    @override_settings(ST_ALLOWED_AVATAR_FORMAT=('gif',))
+    def test_profile_update_no_change_avatar(self):
+        utils.clean_media()
+        utils.login(self)
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        # store initial avatar
+        self.user.st.avatar = SimpleUploadedFile('foo.gif', content=content)
+        self.user.st.save()
+        self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
+        self.assertEqual(
+            self.user.st.avatar.name,
+            'spirit/avatars/{}/pic_test.gif'.format(self.user.pk))
+        # do not change avatar
+        form_data = {
+            'first_name': 'foo',
+            'last_name': 'bar',
+            'location': 'spirit',
+            'timezone': self.user.st.timezone}
+        response = self.client.post(
+            reverse('spirit:user:update'), form_data)
+        expected_url = reverse('spirit:user:update')
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.user.refresh_from_db()
+        self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
+        self.assertEqual(
+            self.user.st.avatar.name,
+            'spirit/avatars/{}/pic_test.gif'.format(self.user.pk))
+        self.assertEqual(
+            self.user.st.avatar.open().read(), content)
 
     def test_profile_password_change(self):
         """
@@ -432,11 +551,12 @@ class UserViewTest(TestCase):
         """
         user = utils.create_user(password="foo")
         utils.login(self, user=user, password="foo")
-        form_data = {'old_password': 'foo',
-                     'new_password1': 'bar',
-                     'new_password2': 'bar'}
-        response = self.client.post(reverse('spirit:user:password-change'),
-                                    form_data)
+        form_data = {
+            'old_password': 'foo',
+            'new_password1': 'bar',
+            'new_password2': 'bar'}
+        response = self.client.post(
+            reverse('spirit:user:password-change'), form_data)
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         utils.login(self, user=user, password="bar")
@@ -453,9 +573,10 @@ class UserViewTest(TestCase):
         utils.login(self, user=user, password="foo")
         old_hash = self.client.session[HASH_SESSION_KEY]
 
-        form_data = {'old_password': 'foo',
-                     'new_password1': 'bar',
-                     'new_password2': 'bar'}
+        form_data = {
+            'old_password': 'foo',
+            'new_password1': 'bar',
+            'new_password2': 'bar'}
         response = self.client.post(reverse('spirit:user:password-change'), form_data)
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -469,7 +590,8 @@ class UserViewTest(TestCase):
         utils.login(self)
         new_email = "newfoo@bar.com"
         token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
-        response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
+        response = self.client.get(reverse(
+            'spirit:user:email-change-confirm', kwargs={'token': token}))
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
@@ -483,7 +605,8 @@ class UserViewTest(TestCase):
         token = UserEmailChangeTokenGenerator().generate(self.user, old_email)
         new_email = "newfoo@bar.com"
         User.objects.filter(pk=self.user.pk).update(email=new_email)
-        response = self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
+        response = self.client.get(reverse(
+            'spirit:user:email-change-confirm', kwargs={'token': token}))
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
@@ -497,7 +620,8 @@ class UserViewTest(TestCase):
         new_email = "duplicated@bar.com"
         old_email = self.user.email
         token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
-        self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
+        self.client.get(reverse(
+            'spirit:user:email-change-confirm', kwargs={'token': token}))
         self.assertEqual(User.objects.get(pk=self.user.pk).email, old_email)
 
     @override_settings(ST_UNIQUE_EMAILS=False)
@@ -509,7 +633,8 @@ class UserViewTest(TestCase):
         utils.create_user(email="duplicated@bar.com")
         new_email = "duplicated@bar.com"
         token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
-        self.client.get(reverse('spirit:user:email-change-confirm', kwargs={'token': token}))
+        self.client.get(reverse(
+            'spirit:user:email-change-confirm', kwargs={'token': token}))
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
 
     @utils.immediate_on_commit
@@ -544,8 +669,9 @@ class UserFormTest(TestCase):
         """
         edit user profile
         """
-        form_data = {'first_name': 'foo', 'last_name': 'bar',
-                     'location': 'spirit', 'timezone': self.user.st.timezone}
+        form_data = {
+            'first_name': 'foo', 'last_name': 'bar',
+            'location': 'spirit', 'timezone': self.user.st.timezone}
         form = UserProfileForm(data=form_data, instance=self.user.st)
         self.assertEqual(form.is_valid(), True)
 
@@ -564,6 +690,30 @@ class UserFormTest(TestCase):
         form = UserProfileForm(data=form_data, instance=self.user.st)
         self.assertEqual(form.is_valid(), False)
         self.assertTrue('timezone' in form.errors)
+
+    @utils.with_test_storage
+    @utils.immediate_on_commit
+    @override_settings(ST_ALLOWED_AVATAR_FORMAT=('gif',))
+    def test_profile_avatar(self):
+        utils.clean_media()
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        form_data = {
+            'first_name': 'foo',
+            'last_name': 'bar',
+            'location': 'spirit',
+            'timezone': self.user.st.timezone}
+        data_files = {
+            'avatar': SimpleUploadedFile('foo.gif', content=content)}
+        form = UserProfileForm(data=form_data, files=data_files, instance=self.user.st)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
+        self.assertEqual(
+            self.user.st.avatar.name,
+            'spirit/avatars/{}/pic_test.jpg'.format(self.user.pk))
 
     def test_email_change(self):
         """
@@ -634,7 +784,7 @@ class UserFormTest(TestCase):
         Check it's an email
         """
         # Unique email
-        form_data = {'email': 'unique@bar.com', }
+        form_data = {'email': 'unique@bar.com'}
         form = EmailCheckForm(form_data)
         self.assertTrue(form.is_valid())
 
@@ -742,6 +892,32 @@ class UserModelTest(TestCase):
         self.assertTrue(user.st.update_post_hash('my_hash'))
         self.assertEqual('my_hash', User.objects.get(pk=user.pk).st.last_post_hash)
         self.assertEqual('', User.objects.get(pk=user_b.pk).st.last_post_hash)
+
+    @utils.with_test_storage
+    def test_small_avatar_name(self):
+        user = User(username='foo')
+        user.save()
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        user.st.avatar = SimpleUploadedFile('foo.gif', content=content)
+        user.st.save()
+        self.assertEqual(
+            user.st.small_avatar_name(),
+            'spirit/avatars/{}/pic_test_small.gif'.format(user.pk))
+
+    @utils.with_test_storage
+    def test_small_avatar_url(self):
+        user = User(username='foo')
+        user.save()
+        content = (
+            b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00'
+            b'\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;')
+        user.st.avatar = SimpleUploadedFile('foo.gif', content=content)
+        user.st.save()
+        self.assertEqual(
+            user.st.small_avatar_url(),
+            '/media/spirit/avatars/{}/pic_test_small.gif'.format(user.pk))
 
 
 class UtilsUserTests(TransactionTestCase):
@@ -877,11 +1053,12 @@ class UtilsUserTests(TransactionTestCase):
 
         def monkey_render_to_string(template, data):
             self.assertEqual(template, template_name)
-            self.assertDictEqual(data, {'user_id': self.user.pk,
-                                        'token': token,
-                                        'site_name': SiteMock.name,
-                                        'domain': SiteMock.domain,
-                                        'protocol': 'https' if req.is_secure() else 'http'})
+            self.assertDictEqual(data, {
+                'user_id': self.user.pk,
+                'token': token,
+                'site_name': SiteMock.name,
+                'domain': SiteMock.domain,
+                'protocol': 'https' if req.is_secure() else 'http'})
             return "email body"
 
         req = RequestFactory().get('/')
@@ -890,10 +1067,12 @@ class UtilsUserTests(TransactionTestCase):
         template_name = "template.html"
         context = {'user_id': self.user.pk, 'token': token}
 
-        org_site, email.get_current_site = email.get_current_site, monkey_get_current_site
-        org_render_to_string, email.render_to_string = email.render_to_string, monkey_render_to_string
+        org_site, email.get_current_site = (
+            email.get_current_site, monkey_get_current_site)
+        org_render_to_string, email.render_to_string = (
+            email.render_to_string, monkey_render_to_string)
         try:
-            sender(req, subject, template_name, context, [self.user.email, ])
+            sender(req, subject, template_name, context, [self.user.email])
         finally:
             email.get_current_site = org_site
             email.render_to_string = org_render_to_string
@@ -925,10 +1104,12 @@ class UtilsUserTests(TransactionTestCase):
         template_name = "template.html"
         context = {'user_id': self.user.pk, 'token': token}
 
-        org_site, email.get_current_site = email.get_current_site, monkey_get_current_site
-        org_render_to_string, email.render_to_string = email.render_to_string, monkey_render_to_string
+        org_site, email.get_current_site = (
+            email.get_current_site, monkey_get_current_site)
+        org_render_to_string, email.render_to_string = (
+            email.render_to_string, monkey_render_to_string)
         try:
-            sender(req, subject, template_name, context, [self.user.email, ])
+            sender(req, subject, template_name, context, [self.user.email])
         finally:
             email.get_current_site = org_site
             email.render_to_string = org_render_to_string

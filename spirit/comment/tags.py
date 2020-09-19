@@ -5,8 +5,8 @@ from django.utils.html import mark_safe, format_html
 from django.contrib.humanize.templatetags import humanize
 from django.template.defaultfilters import date as date_format
 
-from ..core.conf import settings
-from ..core.tags.registry import register
+from spirit.core.conf import settings
+from spirit.core.tags.registry import register
 from .poll.utils.render import render_polls
 from .forms import CommentForm
 from .models import Comment
