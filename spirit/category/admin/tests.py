@@ -2,15 +2,15 @@
 
 import datetime
 
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, override_settings
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
-from ...core.tests import utils
+from spirit.core.tests import utils
 from . import views as category_views
-from ..models import Category
+from spirit.category.models import Category
 from .forms import CategoryForm
 
 User = get_user_model()
@@ -195,3 +195,26 @@ class AdminFormTest(TestCase):
         self.assertGreater(
             Category.objects.get(pk=category.pk).reindex_at,
             yesterday)
+
+    @override_settings(ST_ORDERED_CATEGORIES=True)
+    def test_category_order(self):
+        Category.objects.all().delete()
+        cat1 = utils.create_category(title="1", sort=2)
+        cat2 = utils.create_category(title="2", sort=1)
+        self.assertTrue(list(Category.objects.all()), [cat1, cat2])
+        form = CategoryForm(data=None)
+        self.assertTrue(list(form.fields['parent'].queryset), [cat2, cat1])
+        cat1.sort = 0
+        cat1.save()
+        self.assertTrue(list(Category.objects.all()), [cat1, cat2])
+        form = CategoryForm(data=None)
+        self.assertTrue(list(form.fields['parent'].queryset), [cat1, cat2])
+
+    @override_settings(ST_ORDERED_CATEGORIES=False)
+    def test_category_order_by_title(self):
+        Category.objects.all().delete()
+        cat1 = utils.create_category(title="1", sort=2)
+        cat2 = utils.create_category(title="2", sort=1)
+        self.assertTrue(list(Category.objects.all()), [cat1, cat2])
+        form = CategoryForm(data=None)
+        self.assertTrue(list(form.fields['parent'].queryset), [cat1, cat2])
