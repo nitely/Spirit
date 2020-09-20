@@ -34,6 +34,7 @@ setup(
     author='Esteban Castro Borsani',
     author_email='ecastroborsani@gmail.com',
     long_description=README,
+    long_description_content_type='text/markdown',
     url='http://spirit-project.com/',
     packages=find_packages(),
     test_suite="runtests.start",
