@@ -26,7 +26,7 @@ class TopicForm(forms.ModelForm):
         super(TopicForm, self).__init__(*args, **kwargs)
         self.user = user
         self.fields['category'] = NestedModelChoiceField(
-            queryset=Category.objects.visible().opened(),
+            queryset=Category.objects.visible().opened().ordered(),
             related_name='category_set',
             parent_field='parent_id',
             label_field='title',

@@ -17,7 +17,10 @@ User = get_user_model()
 
 @administrator_required
 def index(request):
-    categories = Category.objects.filter(parent=None, is_private=False)
+    categories = (
+        Category.objects
+        .filter(parent=None, is_private=False)
+        .ordered())
     return render(
         request=request,
         template_name='spirit/category/admin/index.html',

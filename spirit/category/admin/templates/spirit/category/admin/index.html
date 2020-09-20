@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        {% for subc in c.category_set.all %}
+        {% for subc in c.category_set.all.ordered %}
           <div class="admin__items_list__item js-clickable-area">
             <div class="admin__items_list__item__title">
               {% if st_settings.ST_ORDERED_CATEGORIES %}

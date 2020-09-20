@@ -22,7 +22,8 @@ def detail(request, pk, slug):
     subcategories = (
         Category.objects
         .visible()
-        .children(parent=category))
+        .children(parent=category)
+        .ordered())
 
     topics = (
         Topic.objects
@@ -51,4 +52,4 @@ class IndexView(ListView):
 
     template_name = 'spirit/category/index.html'
     context_object_name = "categories"
-    queryset = Category.objects.visible().parents()
+    queryset = Category.objects.visible().parents().ordered()

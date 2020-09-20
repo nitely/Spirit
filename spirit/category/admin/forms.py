@@ -25,8 +25,12 @@ class CategoryForm(forms.ModelForm):
             "color")
 
     def __init__(self, *args, **kwargs):
-        super(CategoryForm, self).__init__(*args, **kwargs)
-        queryset = Category.objects.visible().parents()
+        super().__init__(*args, **kwargs)
+        queryset = (
+            Category.objects
+            .visible()
+            .parents()
+            .ordered())
 
         if self.instance.pk:
             queryset = queryset.exclude(pk=self.instance.pk)
@@ -59,10 +63,12 @@ class CategoryForm(forms.ModelForm):
         return color
 
     def get_max_sort(self):
-        return Category.objects.aggregate(max_sort=Max('sort'))['max_sort'] or 0
+        return (
+            Category.objects
+            .aggregate(max_sort=Max('sort'))['max_sort'] or 0)
 
     def save(self, commit=True):
         if not self.instance.pk:
             self.instance.sort = self.get_max_sort() + 1
         self.instance.reindex_at = timezone.now()
-        return super(CategoryForm, self).save(commit)
+        return super().save(commit)

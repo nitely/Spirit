@@ -105,7 +105,8 @@ def index_active(request):
     categories = (
         Category.objects
         .visible()
-        .parents())
+        .parents()
+        .ordered())
 
     topics = (
         Topic.objects

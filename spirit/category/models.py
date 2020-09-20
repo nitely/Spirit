@@ -47,10 +47,7 @@ class Category(models.Model):
     objects = CategoryQuerySet.as_manager()
 
     class Meta:
-        if settings.ST_ORDERED_CATEGORIES:
-            ordering = ['sort', 'pk']
-        else:
-            ordering = ['title', 'pk']
+        ordering = ['title', 'pk']
         verbose_name = _("category")
         verbose_name_plural = _("categories")
 
