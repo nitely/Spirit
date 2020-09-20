@@ -74,6 +74,11 @@ def create_comment(**kwargs):
     return Comment.objects.create(**kwargs)
 
 
+def default_categories():
+    # Only public categories are included
+    return Category.objects.filter(title="Uncategorized")
+
+
 def login(test_case_instance, user=None, password=None):
     user = user or test_case_instance.user
     password = password or "bar"

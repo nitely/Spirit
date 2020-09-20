@@ -3,7 +3,7 @@
 import datetime
 import importlib
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from django.apps import apps
@@ -28,7 +28,8 @@ class CategoryViewTest(TestCase):
         self.category_1 = utils.create_category(title="cat1")
         self.subcategory_1 = utils.create_subcategory(self.category_1)
         self.category_2 = utils.create_category(title="cat2")
-        self.category_removed = utils.create_category(title="cat3", is_removed=True)
+        self.category_removed = utils.create_category(
+            title="cat3", is_removed=True)
 
     def test_category_detail_view(self):
         """
@@ -39,12 +40,18 @@ class CategoryViewTest(TestCase):
         topic2 = utils.create_topic(category=self.subcategory_1)
         topic3 = utils.create_topic(category=self.category_1)
 
-        Topic.objects.filter(pk=topic.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
-        Topic.objects.filter(pk=topic3.pk).update(last_active=timezone.now() - datetime.timedelta(days=5))
+        (Topic.objects
+         .filter(pk=topic.pk)
+         .update(last_active=timezone.now() - datetime.timedelta(days=10)))
+        (Topic.objects
+         .filter(pk=topic3.pk)
+         .update(last_active=timezone.now() - datetime.timedelta(days=5)))
 
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
-                                                                             'slug': self.category_1.slug}))
-        self.assertEqual(list(response.context['topics']), [topic2, topic3, topic])
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': self.category_1.pk, 'slug': self.category_1.slug}))
+        self.assertEqual(
+            list(response.context['topics']), [topic2, topic3, topic])
 
     def test_category_detail_view_order(self):
         """
@@ -52,13 +59,17 @@ class CategoryViewTest(TestCase):
         """
         topic_a = utils.create_topic(category=self.category_1, is_pinned=True)
         topic_b = utils.create_topic(category=self.category_1)
-        utils.create_topic(category=self.category_1, is_pinned=True, is_removed=True)
+        utils.create_topic(
+            category=self.category_1, is_pinned=True, is_removed=True)
         # show pinned first
-        Topic.objects.filter(pk=topic_a.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
+        (Topic.objects
+         .filter(pk=topic_a.pk)
+         .update(last_active=timezone.now() - datetime.timedelta(days=10)))
 
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
-                                                                             'slug': self.category_1.slug}))
-        self.assertEqual(list(response.context['topics']), [topic_a, topic_b, ])
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': self.category_1.pk, 'slug': self.category_1.slug}))
+        self.assertEqual(list(response.context['topics']), [topic_a, topic_b])
 
     def test_category_detail_view_pinned(self):
         """
@@ -70,57 +81,71 @@ class CategoryViewTest(TestCase):
         topic_c = utils.create_topic(category=category)
         topic_d = utils.create_topic(category=category, is_globally_pinned=True)
         # show globally pinned first
-        Topic.objects.filter(pk=topic_d.pk).update(last_active=timezone.now() - datetime.timedelta(days=10))
+        (Topic.objects
+         .filter(pk=topic_d.pk)
+         .update(last_active=timezone.now() - datetime.timedelta(days=10)))
 
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': category.pk,
-                                                                             'slug': category.slug}))
-        self.assertEqual(list(response.context['topics']), [topic_d, topic_b, topic_c, topic_a])
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': category.pk, 'slug': category.slug}))
+        self.assertEqual(
+            list(response.context['topics']),
+            [topic_d, topic_b, topic_c, topic_a])
 
     def test_category_detail_view_removed_topics(self):
         """
         should not display removed topics or from other categories
         """
-        subcategory_removed = utils.create_subcategory(self.category_1, is_removed=True)
+        subcategory_removed = utils.create_subcategory(
+            self.category_1, is_removed=True)
         utils.create_topic(category=subcategory_removed)
         utils.create_topic(category=self.category_1, is_removed=True)
         utils.create_topic(category=self.category_2)
 
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
-                                                                             'slug': self.category_1.slug}))
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': self.category_1.pk, 'slug': self.category_1.slug}))
         self.assertEqual(list(response.context['topics']), [])
 
     def test_category_detail_view_invalid_category(self):
         """
         invalid category
         """
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': str(99), }))
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={'pk': str(99)}))
         self.assertEqual(response.status_code, 404)
 
     def test_category_detail_view_invalid_slug(self):
         """
         invalid slug
         """
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
-                                                                             'slug': 'bar'}))
-        self.assertRedirects(response, self.category_1.get_absolute_url(), status_code=301)
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': self.category_1.pk, 'slug': 'bar'}))
+        self.assertRedirects(
+            response, self.category_1.get_absolute_url(), status_code=301)
 
     def test_category_detail_view_no_slug(self):
         """
         no slug
         """
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
-                                                                             'slug': ''}))
-        self.assertRedirects(response, self.category_1.get_absolute_url(), status_code=301)
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': self.category_1.pk, 'slug': ''}))
+        self.assertRedirects(
+            response, self.category_1.get_absolute_url(), status_code=301)
 
     def test_category_detail_subcategory(self):
         """
         should display all topics in  subcategory
         """
         utils.create_topic(category=self.category_1)
-        topic2 = utils.create_topic(category=self.subcategory_1, title="topic_subcat1")
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.subcategory_1.pk,
-                                                                             'slug': self.subcategory_1.slug}))
-        self.assertEqual(list(response.context['topics']), [topic2, ])
+        topic2 = utils.create_topic(
+            category=self.subcategory_1, title="topic_subcat1")
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': self.subcategory_1.pk, 'slug': self.subcategory_1.slug}))
+        self.assertEqual(list(response.context['topics']), [topic2])
         self.assertEqual(list(response.context['categories']), [])
 
     def test_category_detail_view_bookmarks(self):
@@ -131,10 +156,10 @@ class CategoryViewTest(TestCase):
         topic = utils.create_topic(category=self.category_1)
         bookmark = CommentBookmark.objects.create(topic=topic, user=self.user)
 
-        response = self.client.get(reverse('spirit:category:detail',
-                                           kwargs={'pk': self.category_1.pk,
-                                                   'slug': self.category_1.slug}))
-        self.assertEqual(list(response.context['topics']), [topic, ])
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': self.category_1.pk, 'slug': self.category_1.slug}))
+        self.assertEqual(list(response.context['topics']), [topic])
         self.assertEqual(response.context['topics'][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
@@ -145,9 +170,41 @@ class CategoryViewTest(TestCase):
         utils.create_topic(category=self.category_1)
         topic = utils.create_topic(category=self.category_1)
 
-        response = self.client.get(reverse('spirit:category:detail', kwargs={'pk': self.category_1.pk,
-                                                                             'slug': self.category_1.slug}))
-        self.assertEqual(list(response.context['topics']), [topic, ])
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': self.category_1.pk, 'slug': self.category_1.slug}))
+        self.assertEqual(list(response.context['topics']), [topic])
+
+    @override_settings(ST_ORDERED_CATEGORIES=True)
+    def test_detail_subcategories_ordered(self):
+        Category.objects.all().delete()
+        cat_parent = utils.create_category()
+        cat1 = utils.create_category(title="1", sort=2, parent=cat_parent)
+        cat2 = utils.create_category(title="2", sort=1, parent=cat_parent)
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': cat_parent.pk, 'slug': cat_parent.slug}))
+        self.assertEqual(
+            list(response.context['subcategories']), [cat2, cat1])
+        cat1.sort = 0
+        cat1.save()
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': cat_parent.pk, 'slug': cat_parent.slug}))
+        self.assertEqual(
+            list(response.context['subcategories']), [cat1, cat2])
+
+    @override_settings(ST_ORDERED_CATEGORIES=False)
+    def test_detail_subcategories_title_order(self):
+        Category.objects.all().delete()
+        cat_parent = utils.create_category()
+        cat1 = utils.create_category(title="1", sort=2, parent=cat_parent)
+        cat2 = utils.create_category(title="2", sort=1, parent=cat_parent)
+        response = self.client.get(reverse(
+            'spirit:category:detail', kwargs={
+                'pk': cat_parent.pk, 'slug': cat_parent.slug}))
+        self.assertEqual(
+            list(response.context['subcategories']), [cat1, cat2])
 
 
 class CategoryModelTest(TestCase):
@@ -186,7 +243,8 @@ class CategoryMigrationTest(TestCase):
         """
         There should be a category named Uncategorized
         """
-        self.assertEqual(len(Category.objects.filter(title="Uncategorized")), 1)
+        self.assertEqual(
+            len(Category.objects.filter(title="Uncategorized")), 1)
 
     def test_private_category(self):
         """
