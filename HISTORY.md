@@ -1,7 +1,10 @@
-0.11.0
+0.10.1
 ==================
 
-*
+* Fixed `ST_ORDERED_CATEGORIES` generating migrations
+* Fixed `LOGIN_URL` not being used in some places;
+  now it's uses everywhere
+* UX: all lists rows in the admin section are now clickable
 
 0.10.0
 ==================
