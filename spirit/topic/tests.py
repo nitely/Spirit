@@ -548,6 +548,26 @@ class TopicFormTest(TestCase):
         form = TopicForm(self.user, data=form_data, instance=topic)
         self.assertEqual(form.is_valid(), True)
 
+    def test_topic_update_moderator(self):
+        category = utils.create_category()
+        topic = utils.create_topic(category)
+        self.user.st.is_moderator = True
+        self.user.st.save()
+        form = TopicForm(self.user, data=None, instance=topic)
+        self.assertIn('category', form.fields)
+        form = TopicForm(self.user, data=None)
+        self.assertIn('category', form.fields)
+
+    def test_topic_update_not_moderator(self):
+        category = utils.create_category()
+        topic = utils.create_topic(category)
+        self.user.st.is_moderator = False
+        self.user.st.save()
+        form = TopicForm(self.user, data=None, instance=topic)
+        self.assertNotIn('category', form.fields)
+        form = TopicForm(self.user, data=None)
+        self.assertIn('category', form.fields)
+
     def test_topic_get_category(self):
         """
         Should return the category
@@ -608,6 +628,32 @@ class TopicFormTest(TestCase):
         form.save()
         self.assertGreater(
             Topic.objects.get(pk=topic.pk).reindex_at, yesterday)
+
+    @override_settings(ST_ORDERED_CATEGORIES=True)
+    def test_category_ordered(self):
+        utils.default_categories().delete()
+        cat1 = utils.create_category(title="1", sort=2)
+        cat2 = utils.create_category(title="2", sort=1)
+        form = TopicForm(self.user, data=None)
+        self.assertEqual(
+            list(form.fields['category'].queryset), [cat2, cat1])
+        cat1.sort = 0
+        cat1.save()
+        form = TopicForm(self.user, data=None)
+        self.assertEqual(
+            list(form.fields['category'].queryset), [cat1, cat2])
+
+    @override_settings(ST_ORDERED_CATEGORIES=False)
+    def test_category_title_order(self):
+        utils.default_categories().delete()
+        cat1 = utils.create_category(title="1", sort=2)
+        cat2 = utils.create_category(title="2", sort=1)
+        cat3 = utils.create_category(title="3", sort=3)
+        cat0 = utils.create_category(title="0", sort=0)
+        form = TopicForm(self.user, data=None)
+        self.assertEqual(
+            list(form.fields['category'].queryset),
+            [cat0, cat1, cat2, cat3])
 
 
 class TopicUtilsTest(TestCase):
