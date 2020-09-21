@@ -39,7 +39,7 @@
               href="{{ c.get_absolute_url }}"
             >{{ c.title }}</a>
             {% if c.is_removed %}
-              <i class="fa fa-times"></i>
+              <i class="fa fa-trash-o"></i>
             {% endif %}
             {% if c.is_closed %}
               <i class="fa fa-lock"></i>
@@ -73,7 +73,7 @@
               >{{ subc.title }}</a>
 
               {% if subc.is_removed %}
-                <i class="fa fa-times"></i>
+                <i class="fa fa-trash-o"></i>
               {% endif %}
 
               {% if subc.is_closed %}

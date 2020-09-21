@@ -2,15 +2,17 @@
 
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.utils.translation import ugettext as _
 
-from ...core.utils.views import is_post
-from ...core.utils.decorators import moderator_required
-from ...comment.models import Comment
-from ..models import Topic
+from spirit.core.utils.views import is_post
+from spirit.core.utils.decorators import moderator_required
+from spirit.comment.models import Comment
+from spirit.topic.models import Topic
 
 
 @moderator_required
-def _moderate(request, pk, field_name, to_value, action=None):
+def _moderate(request, pk, field_name, to_value, action=None, message=None):
     topic = get_object_or_404(Topic, pk=pk)
 
     if is_post(request):
@@ -28,6 +30,9 @@ def _moderate(request, pk, field_name, to_value, action=None):
                 topic=topic,
                 action=action)
 
+        if message is not None:
+            messages.info(request, message)
+
         return redirect(request.POST.get(
             'next', topic.get_absolute_url()))
 
@@ -42,7 +47,8 @@ def delete(request, pk):
         request=request,
         pk=pk,
         field_name='is_removed',
-        to_value=True)
+        to_value=True,
+        message=_("The topic has been deleted"))
 
 
 def undelete(request, pk):
@@ -50,7 +56,8 @@ def undelete(request, pk):
         request=request,
         pk=pk,
         field_name='is_removed',
-        to_value=False)
+        to_value=False,
+        message=_("The topic has been undeleted"))
 
 
 def lock(request, pk):
@@ -59,7 +66,8 @@ def lock(request, pk):
         pk=pk,
         field_name='is_closed',
         to_value=True,
-        action=Comment.CLOSED)
+        action=Comment.CLOSED,
+        message=_("The topic has been locked"))
 
 
 def unlock(request, pk):
@@ -68,7 +76,8 @@ def unlock(request, pk):
         pk=pk,
         field_name='is_closed',
         to_value=False,
-        action=Comment.UNCLOSED)
+        action=Comment.UNCLOSED,
+        message=_("The topic has been unlocked"))
 
 
 def pin(request, pk):
@@ -77,7 +86,8 @@ def pin(request, pk):
         pk=pk,
         field_name='is_pinned',
         to_value=True,
-        action=Comment.PINNED)
+        action=Comment.PINNED,
+        message=_("The topic has been pinned"))
 
 
 def unpin(request, pk):
@@ -86,7 +96,8 @@ def unpin(request, pk):
         pk=pk,
         field_name='is_pinned',
         to_value=False,
-        action=Comment.UNPINNED)
+        action=Comment.UNPINNED,
+        message=_("The topic has been unpinned"))
 
 
 def global_pin(request, pk):
@@ -95,7 +106,8 @@ def global_pin(request, pk):
         pk=pk,
         field_name='is_globally_pinned',
         to_value=True,
-        action=Comment.PINNED)
+        action=Comment.PINNED,
+        message=_("The topic has been globally pinned"))
 
 
 def global_unpin(request, pk):
@@ -104,4 +116,5 @@ def global_unpin(request, pk):
         pk=pk,
         field_name='is_globally_pinned',
         to_value=False,
-        action=Comment.UNPINNED)
+        action=Comment.UNPINNED,
+        message=_("The topic has been globally unpinned"))

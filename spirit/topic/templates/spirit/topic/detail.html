@@ -21,6 +21,9 @@
     {% endspaceless %}
 
     <h1 class="headline">
+      {% if topic.is_removed %}
+        <i class="fa fa-trash-o"></i>
+      {% endif %}
       {% if topic.is_pinned or topic.is_globally_pinned %}
         <i class="fa fa-thumb-tack"></i>
       {% endif %}
