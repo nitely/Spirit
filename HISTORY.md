@@ -1,14 +1,14 @@
 0.11.0 (dev)
 ==================
 
-*
+* Added: show success message after a topic moderation action
 
 0.10.1
 ==================
 
-* Fixed `ST_ORDERED_CATEGORIES` generating migrations
-* Fixed `LOGIN_URL` not being used in some places;
-  now it's uses everywhere
+* Fixed: `ST_ORDERED_CATEGORIES` no longer generates migrations
+* Fixed: `LOGIN_URL` not being used in some places;
+  now it's used everywhere
 * UX: all lists rows in the admin section are now clickable
 
 0.10.0
@@ -29,6 +29,7 @@
 * Added `huey` to the logging settings
 * Added `rel=nofollow` to moderator/admin posted URLs
 * Fixed password reset should use the send email task
+* Fixed Facebook share comment link
 * Removed admin footer snippet (issue #197)
 * Removed `spirit.topic.poll` that was deprecated
   in Spirit v0.5
