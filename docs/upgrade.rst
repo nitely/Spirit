@@ -25,7 +25,7 @@ Check the Django logs for Spirit deprecation warnings.
 Run the install command. Replace ``x`` by the next minor version.
 Replace ``y`` by the latest patch version::
 
-    pip install -I django-spirit==0.x.y
+    pip install --upgrade django-spirit==0.x.y
 
 Run the upgrade command. This command will run
 ``migrate``, ``rebuild_index``, and ``collectstatic``::
