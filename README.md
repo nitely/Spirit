@@ -9,6 +9,10 @@ Spirit is a Python based forum built using the Django framework.
 
 To see it in action, please visit [The Spirit Project](http://spirit-project.com/).
 
+## Documentation
+
+Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
+
 ## Compatibility
 
 * Python 3.5, 3.6, 3.7, and 3.8 (recommended)
@@ -32,11 +36,7 @@ python manage.py runserver
 
 Visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-For detailed installation and setup docs, see [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
-
-## Documentation
-
-Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
+For detailed setup docs, see [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
 
 ## Testing
 
