@@ -5144,6 +5144,10 @@ html input[disabled] {
     margin-top: 12px; }
     .spirit .comments_list__item__comment > *:last-child {
       margin-bottom: 0; }
+  .spirit .comments_list__item__info > * {
+    margin-right: 12px; }
+    .spirit .comments_list__item__info > *:last-child {
+      margin-right: 0; }
   @media screen and (min-width: 768px) {
     .spirit .comments__footer_menu {
       align-items: center; } }

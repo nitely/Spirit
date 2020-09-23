@@ -11,7 +11,7 @@
   >
     <div class="comments_list__item__badge">
       {% if c.is_removed %}
-        <i class="fa fa-trash"></i>
+        <i class="fa fa-trash-o"></i>
       {% elif c.action == c.MOVED %}
         <i class="fa fa-suitcase"></i>
       {% elif c.action == c.CLOSED %}
@@ -24,14 +24,16 @@
         <i class="fa fa-thumb-tack fa-rotate-180"></i>
       {% endif %}
     </div>
-    <div class="comments_list__item__info">
-      {% get_comment_action_text c  %}
-      {% if c.is_removed and user.st.is_moderator %}
-        <a class="js-post" href="{% url "spirit:comment:undelete" c.pk %}"
-        ><i class="fa fa-times"></i> {% trans "undelete" %}</a>
-        <a href="#">{% trans "show" %} <i class="fa fa-chevron-down"></i></a>
-      {% endif %}
-    </div>
+    {% spaceless %}
+      <div class="comments_list__item__info">
+        <span>{% get_comment_action_text c  %}</span>
+        {% if c.is_removed and user.st.is_moderator %}
+          <a class="js-post" href="{% url "spirit:comment:undelete" c.pk %}"
+          ><i class="fa fa-trash"></i> {% trans "undelete" %}</a>
+          <a href="#">{% trans "show" %} <i class="fa fa-chevron-down"></i></a>
+        {% endif %}
+      </div>
+    {% endspaceless %}
     {% if c.is_removed and user.st.is_moderator %}
       <div class="comments_list__item__comment" style="display: none;">
         {% post_render_comment comment=c %}
@@ -89,7 +91,7 @@
         {% if user.is_authenticated %}
           {% if user.st.is_moderator %}
             <li><a class="js-post" href="{% url "spirit:comment:delete" c.pk %}"
-            ><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
+            ><i class="fa fa-trash"></i> {% trans "delete" %}</a></li>
           {% endif %}
 
           <li><a href="{% url "spirit:comment:flag:create" c.pk %}"
