@@ -27,7 +27,7 @@
     <div class="comments_list__item__info">
       {% get_comment_action_text c  %}
       {% if c.is_removed and user.st.is_moderator %}
-        <a href="{% url "spirit:comment:undelete" c.pk %}"
+        <a class="js-post" href="{% url "spirit:comment:undelete" c.pk %}"
         ><i class="fa fa-times"></i> {% trans "undelete" %}</a>
         <a href="#">{% trans "show" %} <i class="fa fa-chevron-down"></i></a>
       {% endif %}
@@ -88,7 +88,7 @@
       <ul class="comment__actions">
         {% if user.is_authenticated %}
           {% if user.st.is_moderator %}
-            <li><a href="{% url "spirit:comment:delete" c.pk %}"
+            <li><a class="js-post" href="{% url "spirit:comment:delete" c.pk %}"
             ><i class="fa fa-times"></i> {% trans "delete" %}</a></li>
           {% endif %}
 
