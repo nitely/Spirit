@@ -31,7 +31,7 @@
           </ul>
         {% endspaceless %}
       </div>
-      <div class="comment__text">
+      <div class="comment__text js-comment-text">
         {% post_render_comment comment=c %}
       </div>
     </div>
@@ -42,6 +42,9 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    stModules.blockquoteExpand(
+      document.querySelectorAll('.js-comment-text > blockquote'));
+
     hljs.initHighlightingOnLoad();
   });
 </script>
