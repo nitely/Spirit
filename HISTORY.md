@@ -2,6 +2,12 @@
 ==================
 
 * Added: show success message after a topic moderation action
+* Fixed: Gravatar was removed (issue #103)
+* Added: user avatar upload, and default CSS avatar
+* Added: `ST_STORAGE` setting to use a custom media storage
+  for Spirit images
+* Added: `ST_ALLOWED_AVATAR_FORMAT` setting to restrict the
+  allowed avatar image formats
 
 0.10.1
 ==================
