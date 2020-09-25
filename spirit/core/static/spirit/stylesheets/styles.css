@@ -5370,6 +5370,11 @@ html input[disabled] {
     display: flex; }
     .spirit .profile__profile_preferences .button {
       margin: 0 auto; }
+  .spirit .profile__form {
+    display: flex;
+    flex-direction: column; }
+    .spirit .profile__form .field:nth-child(3) {
+      order: -1; }
   .spirit .profile__settings__label {
     margin: 0;
     margin-bottom: 12px; }
