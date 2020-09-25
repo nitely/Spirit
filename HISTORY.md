@@ -8,6 +8,9 @@
   for Spirit images
 * Added: `ST_ALLOWED_AVATAR_FORMAT` setting to restrict the
   allowed avatar image formats
+* Added: `DEFAULT_FILE_STORAGE` is set to use a file system
+  storage that will overwrite files instead of renaming them:
+  `'spirit.core.storage.OverwriteFileSystemStorage'`
 
 0.10.1
 ==================
