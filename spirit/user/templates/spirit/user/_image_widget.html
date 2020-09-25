@@ -1,0 +1,13 @@
+{# django/forms/widgets/clearable_file_input.html #}
+{% if widget.is_initial %}
+  <div class="image_widget">
+    <img src="{{ widget.value.url }}" alt="">
+    {% if not widget.required %}
+      <div class="image_widget__clear">
+        <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"{% if widget.attrs.disabled %} disabled{% endif %}>
+        <label for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>

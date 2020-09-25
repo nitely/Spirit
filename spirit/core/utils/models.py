@@ -4,7 +4,7 @@ from django.db.models.fields import SlugField
 from django.utils.encoding import smart_text
 from django.utils.text import slugify
 
-from ..conf import settings
+from spirit.core.conf import settings
 
 __all__ = ['AutoSlugField', ]
 

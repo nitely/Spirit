@@ -598,7 +598,6 @@ class TopicPrivateFormTest(TestCase):
         users = 'UnIQuEfOo, uniquebar'
         form_data = {'users': users}
         form = TopicPrivateManyForm(self.user, data=form_data)
-        print(form.errors)
         self.assertEqual(form.is_valid(), True)
 
     def test_private_create(self):

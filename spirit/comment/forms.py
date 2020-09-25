@@ -4,15 +4,15 @@ import os
 import logging
 
 from django import forms
-from django.core.files.storage import default_storage
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_bytes
 from django.core.files.uploadedfile import TemporaryUploadedFile
 
-from ..core.conf import settings
-from ..core import utils
-from ..core.utils.markdown import Markdown
-from ..topic.models import Topic
+from spirit.core.conf import settings
+from spirit.core import utils
+from spirit.core.storage import spirit_storage
+from spirit.core.utils.markdown import Markdown
+from spirit.topic.models import Topic
 from .poll.models import CommentPoll, CommentPollChoice
 from .models import Comment
 
@@ -39,9 +39,9 @@ def save_user_file(user, file, subdir, hashed=False):
     """
     file_path = utils.generate_filename(file, hashed=hashed)
     name = os.path.join('spirit', subdir, str(user.pk), file_path)
-    name = default_storage.save(name, file)
-    file.name = os.path.basename(file_path)
-    file.url = default_storage.url(name)
+    name = spirit_storage.save(name, file)
+    file.name = os.path.basename(name)
+    file.url = spirit_storage.url(name)
     return file
 
 

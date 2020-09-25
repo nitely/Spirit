@@ -1,0 +1,12 @@
+{% load spirit_tags %}
+{% if u.st.avatar %}
+  <img
+    alt=""
+    class="comment__img__avatar"
+    src="{{ u.st.small_avatar_url }}" />
+{% else %}
+  <div
+    class="comment__img__avatar no-pic"
+    style="background-color:{% get_avatar_color u.pk %};"
+  >{{ u.st.nickname.0.upper }}</div>
+{% endif %}

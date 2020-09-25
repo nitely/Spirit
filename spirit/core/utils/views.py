@@ -11,3 +11,9 @@ def post_data(request):
     if is_post(request):
         return request.POST
     return None
+
+
+def post_files(request):
+    if is_post(request):
+        return request.FILES
+    return None

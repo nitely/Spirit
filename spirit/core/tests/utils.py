@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 
+import os
+import shutil
 from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.core.cache import caches, cache
 
-from ...core.conf import settings
-from ...topic.models import Topic
-from ...category.models import Category
-from ...comment.models import Comment
-from ...topic.private.models import TopicPrivate
+from spirit.core.conf import settings
+from spirit.core.storage import spirit_storage
+from spirit.topic.models import Topic
+from spirit.category.models import Category
+from spirit.comment.models import Comment
+from spirit.topic.private.models import TopicPrivate
 
 User = get_user_model()
 
@@ -99,4 +102,23 @@ def immediate_on_commit(func):
     def wrapper(*args, **kwargs):
         with mock.patch('django.db.transaction.on_commit', side_effect=lambda x: x()):
             func(*args, **kwargs)
+    return wrapper
+
+
+def clean_media():
+    assert 'media_test' in settings.MEDIA_ROOT
+    shutil.rmtree(settings.MEDIA_ROOT, ignore_errors=True)
+
+
+def with_test_storage(func):
+    org_get_available_name = spirit_storage.get_available_name
+    def get_available_name(name, **kwargs):
+        name, ext = os.path.splitext(name)
+        name = ''.join((name, '_test', ext))
+        return org_get_available_name(name, **kwargs)
+    def wrapper(*args, **kwargs):
+        target = 'spirit.core.storage.spirit_storage.get_available_name'
+        with mock.patch(target, get_available_name):
+            func(*args, **kwargs)
+        clean_media()
     return wrapper

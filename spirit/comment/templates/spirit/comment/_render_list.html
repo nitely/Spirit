@@ -48,10 +48,7 @@
     data-pk="{{ c.pk }}"
   >
     <div class="comment__img">
-      <img
-        class="comment__img__avatar"
-        alt=""
-        src="{% get_gravatar_url user=c.user size=50 %}" />
+      {% include "spirit/comment/_avatar.html" with u=c.user only %}
     </div>
     <div class="comment__info">
       {% spaceless %}

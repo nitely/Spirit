@@ -1,20 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from ...comment import tags as comment
-from ...comment.like import tags as comment_like
-from ...search import tags as search
-from ...topic.favorite import tags as topic_favorite
-from ...topic.notification import tags as topic_notification
-from ...topic.private import tags as topic_private
-from ..tags import avatar
-from ..tags import gravatar
-from ..tags import messages
-from ..tags import paginator
-from ..tags import settings
-from ..tags import social_share
-from ..tags import time
-from ..tags import urls
-from ..tags.registry import register
+from spirit.comment import tags as comment
+from spirit.comment.like import tags as comment_like
+from spirit.search import tags as search
+from spirit.topic.favorite import tags as topic_favorite
+from spirit.topic.notification import tags as topic_notification
+from spirit.topic.private import tags as topic_private
+from spirit.core.tags import avatar
+from spirit.core.tags import messages
+from spirit.core.tags import paginator
+from spirit.core.tags import settings
+from spirit.core.tags import social_share
+from spirit.core.tags import time
+from spirit.core.tags import urls
+from spirit.core.tags.registry import register
 
 
 __all__ = [
@@ -25,7 +24,6 @@ __all__ = [
     'topic_notification',
     'topic_private',
     'avatar',
-    'gravatar',
     'messages',
     'paginator',
     'settings',

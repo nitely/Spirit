@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 from datetime import timedelta
 
 from django.db import models
@@ -7,8 +8,15 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
-from ..core.conf import settings
-from ..core.utils.models import AutoSlugField
+from spirit.core.conf import settings
+from spirit.core.utils.models import AutoSlugField
+from spirit.core.storage import spirit_storage_or_none, spirit_storage
+
+
+def avatar_path(instance, filename):
+    ext = os.path.splitext(filename)[1].lower()
+    return os.path.join(
+        'spirit', 'avatars', str(instance.user_id), 'pic' + ext)
 
 
 class UserProfile(models.Model):
@@ -24,6 +32,9 @@ class UserProfile(models.Model):
     last_seen = models.DateTimeField(_("last seen"), auto_now=True)
     last_ip = models.GenericIPAddressField(_("last ip"), blank=True, null=True)
     timezone = models.CharField(_("time zone"), max_length=32, default='UTC')
+    avatar = models.ImageField(
+        _("avatar"), upload_to=avatar_path, storage=spirit_storage_or_none,
+        max_length=255, blank=True)
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)
     is_verified = models.BooleanField(
@@ -50,7 +61,7 @@ class UserProfile(models.Model):
         if self.is_administrator:
             self.is_moderator = True
 
-        super(UserProfile, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse(
@@ -70,3 +81,11 @@ class UserProfile(models.Model):
             .update(
                 last_post_hash=post_hash,
                 last_post_on=timezone.now()))
+
+    def small_avatar_name(self):
+        assert self.avatar
+        name, ext = os.path.splitext(self.avatar.name)
+        return ''.join((name, '_small', ext))
+
+    def small_avatar_url(self):
+        return spirit_storage.url(self.small_avatar_name())

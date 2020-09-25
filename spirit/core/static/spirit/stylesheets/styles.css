@@ -39,6 +39,7 @@
   --st-text-comment-badge: var(--st-text-sec);
   --st-bg-comment-diff-ins: #eaffea;
   --st-bg-comment-diff-del: #fce2e2;
+  --st-bg-user-pic: var(--st-bg-sec);
   --st-bg-admin-stat: var(--st-bg-qua);
   --st-br-textarea: var(--st-bg-sec);
   --st-br-input-focus: var(--st-highlight-prim);
@@ -4874,6 +4875,18 @@ html input[disabled] {
   .spirit .unread {
     font-size: 0.75rem;
     background-color: var(--st-bg-unread); }
+  .spirit .image_widget img {
+    width: 100px; }
+  .spirit .image_widget__clear {
+    display: flex;
+    align-items: center;
+    margin: 12px 0; }
+    .spirit .image_widget__clear input,
+    .spirit .image_widget__clear label {
+      padding: 0;
+      margin: 0; }
+    .spirit .image_widget__clear label {
+      padding-left: 12px; }
   @media screen and (min-width: 768px) {
     .spirit .menu__new_topic {
       flex: none;
@@ -4973,6 +4986,17 @@ html input[disabled] {
         width: 50px;
         height: 50px;
         border-radius: 25px; } }
+    .spirit .comment__img__avatar.no-pic {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      line-height: 22px;
+      background-color: var(--st-bg-user-pic); }
+      @media screen and (min-width: 768px) {
+        .spirit .comment__img__avatar.no-pic {
+          font-size: 25px;
+          line-height: 25px; } }
   .spirit .comment__info {
     grid-area: io;
     font-size: 0.875rem;
@@ -5313,6 +5337,17 @@ html input[disabled] {
         width: 200px;
         height: 200px;
         border-radius: 100px; } }
+    .spirit .profile__img__avatar.no-pic {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      line-height: 50px;
+      background-color: var(--st-bg-user-pic); }
+      @media screen and (min-width: 768px) {
+        .spirit .profile__img__avatar.no-pic {
+          font-size: 100px;
+          line-height: 100px; } }
   .spirit .profile__img__username {
     font-size: 1.125rem; }
   .spirit .profile__info {
@@ -5335,6 +5370,11 @@ html input[disabled] {
     display: flex; }
     .spirit .profile__profile_preferences .button {
       margin: 0 auto; }
+  .spirit .profile__form {
+    display: flex;
+    flex-direction: column; }
+    .spirit .profile__form .field:nth-child(3) {
+      order: -1; }
   .spirit .profile__settings__label {
     margin: 0;
     margin-bottom: 12px; }
