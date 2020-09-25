@@ -527,6 +527,12 @@
     margin-bottom: $space-half;
     border-left: 4px solid var(--st-br-comment-quote);
     padding-left: $space-half;
+    & > * {
+      margin-bottom: $space-half;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
   // outer quote
   & > blockquote {
