@@ -5344,6 +5344,7 @@ html input[disabled] {
       justify-content: center;
       font-size: 50px;
       line-height: 50px;
+      color: var(--st-text-user-pic);
       background-color: var(--st-bg-user-pic); }
       @media screen and (min-width: 768px) {
         .spirit .profile__img__avatar.no-pic {
