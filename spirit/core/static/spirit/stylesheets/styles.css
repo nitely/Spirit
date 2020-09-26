@@ -4993,6 +4993,7 @@ html input[disabled] {
       justify-content: center;
       font-size: 22px;
       line-height: 22px;
+      color: var(--st-text-user-pic);
       background-color: var(--st-bg-user-pic); }
       @media screen and (min-width: 768px) {
         .spirit .comment__img__avatar.no-pic {

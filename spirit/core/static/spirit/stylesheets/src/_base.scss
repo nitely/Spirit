@@ -476,6 +476,7 @@
     justify-content: center;
     font-size: 22px;
     line-height: 22px;
+    color: var(--st-text-user-pic);
     background-color: var(--st-bg-user-pic);
     @media #{$medium} {
       font-size: 25px;
