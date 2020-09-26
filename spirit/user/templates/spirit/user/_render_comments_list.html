@@ -7,6 +7,7 @@
         {% include "spirit/comment/_avatar.html" with u=c.user only %}
       </div>
       <div class="comment__info">
+        {% spaceless %}
         <div class="comment__info__username">
           <a
             class="comment__info__username__link"
@@ -20,6 +21,7 @@
             {{ c.user.get_full_name }}
           </div>
         </div>
+        {% endspaceless %}
         {% spaceless %}
           <ul class="comment__info__date">
             <li class="comment__info__date__topic"><a href="{{ c.get_absolute_url }}"
