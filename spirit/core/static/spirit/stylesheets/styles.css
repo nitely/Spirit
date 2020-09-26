@@ -4754,10 +4754,6 @@ html input[disabled] {
         margin-left: auto; } }
   .spirit .header__tab__bell {
     flex: 1; }
-    @media screen and (min-width: 768px) {
-      .spirit .header__tab__bell {
-        flex: initial;
-        margin-left: auto; } }
     .spirit .header__tab__bell ul {
       display: flex;
       flex-direction: column; }

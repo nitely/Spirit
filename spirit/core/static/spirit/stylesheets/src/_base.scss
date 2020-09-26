@@ -125,10 +125,6 @@
 .header__tab__bell {
   @extend %break-words;
   flex: 1;
-  @media #{$medium} {
-    flex: initial;
-    margin-left: auto;
-  }
   // same as menu_list
   ul {
     display: flex;
