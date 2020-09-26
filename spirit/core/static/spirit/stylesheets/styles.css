@@ -40,6 +40,7 @@
   --st-bg-comment-diff-ins: #eaffea;
   --st-bg-comment-diff-del: #fce2e2;
   --st-bg-user-pic: var(--st-bg-sec);
+  --st-text-user-pic: #cecece;
   --st-bg-admin-stat: var(--st-bg-qua);
   --st-br-textarea: var(--st-bg-sec);
   --st-br-input-focus: var(--st-highlight-prim);
