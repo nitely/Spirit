@@ -65,6 +65,9 @@ class CommentForm(forms.ModelForm):
         self.topic = topic
         self.mentions = None  # {username: User, }
         self.polls = None  # {polls: [], choices: []}
+        # Do not autofocus (when there's initial/instance),
+        # we don't know where the cursor should be,
+        # and that'd need JS anyway
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
 
     def get_comment_hash(self):
