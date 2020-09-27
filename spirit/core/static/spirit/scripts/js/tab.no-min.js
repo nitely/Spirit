@@ -57,7 +57,9 @@
     };
 
     Tab.prototype.showTabContent = function() {
-      return this.containerElm.querySelector(this.el.dataset.related).style.removeProperty('display');
+      var ref;
+      this.containerElm.querySelector(this.el.dataset.related).style.removeProperty('display');
+      return (ref = this.containerElm.querySelector(this.el.dataset.related).querySelector('input')) != null ? ref.focus() : void 0;
     };
 
     return Tab;

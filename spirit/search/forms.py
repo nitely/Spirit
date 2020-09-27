@@ -53,6 +53,8 @@ class AdvancedSearchForm(BaseSearchForm):
         super(AdvancedSearchForm, self).__init__(*args, **kwargs)
         self.fields['category'].label_from_instance = (
             lambda obj: smart_text(obj.title))
+        self.fields['q'].widget.attrs.update({
+            'autofocus': ''})
 
     def search(self):
         sqs = super(AdvancedSearchForm, self).search()

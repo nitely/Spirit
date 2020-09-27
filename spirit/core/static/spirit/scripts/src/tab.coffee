@@ -47,6 +47,9 @@ class Tab
             .querySelector(@el.dataset.related)
             .style
             .removeProperty('display')
+        @containerElm
+            .querySelector(@el.dataset.related)
+            .querySelector('input')?.focus()
 
 
 stModules.tab = (elms) -> Array.from(elms).map((elm) -> new Tab(elm))
