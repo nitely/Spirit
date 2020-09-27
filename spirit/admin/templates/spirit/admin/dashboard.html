@@ -13,7 +13,10 @@
   <div class="messages_info">
     <div class="message_title is-info">{% trans "Software" %}</div>
     <div class="message_text">
-      {% trans "Installed" %}: {{ version }}
+      <ul>
+        <li>Spirit: {{ version }}</li>
+        <li>Django: {{ django_version }}</li>
+      </ul>
     </div>
   </div>
 

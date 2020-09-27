@@ -6,13 +6,14 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
 
 import spirit
-from ..category.models import Category
-from ..comment.flag.models import CommentFlag
-from ..comment.like.models import CommentLike
-from ..comment.models import Comment
-from ..topic.models import Topic
-from ..core.utils.views import is_post, post_data
-from ..core.utils.decorators import administrator_required
+import django
+from spirit.category.models import Category
+from spirit.comment.flag.models import CommentFlag
+from spirit.comment.like.models import CommentLike
+from spirit.comment.models import Comment
+from spirit.topic.models import Topic
+from spirit.core.utils.views import is_post, post_data
+from spirit.core.utils.decorators import administrator_required
 from .forms import BasicConfigForm
 
 User = get_user_model()
@@ -36,6 +37,7 @@ def dashboard(request):
     # Strongly inaccurate counters below...
     context = {
         'version': spirit.__version__,
+        'django_version': django.get_version(),
         'category_count': Category.objects.all().count() - 1,  # - private
         'topics_count': Topic.objects.all().count(),
         'comments_count': Comment.objects.all().count(),
