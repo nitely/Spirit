@@ -1,4 +1,4 @@
-0.11.0 (dev)
+0.11.0
 ==================
 
 * Added: show success message after a topic moderation action
@@ -12,7 +12,6 @@
   `'spirit.core.storage.OverwriteFileSystemStorage'`
   that will overwrite files instead of renaming them when
   there is a name clash on save
-  
 
 0.10.1
 ==================
