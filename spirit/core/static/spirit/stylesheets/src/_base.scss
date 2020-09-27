@@ -897,9 +897,12 @@ del.diff {
 }
 .admin__statistics {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-gap: $space-full;
   grid-auto-flow: row dense;
+  @media #{$medium} {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 .admin__statistics__box {
   @extend %break-words;

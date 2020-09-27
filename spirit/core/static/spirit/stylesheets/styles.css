@@ -5272,9 +5272,12 @@ html input[disabled] {
     flex: none; }
   .spirit .admin__statistics {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-gap: 24px;
     grid-auto-flow: row dense; }
+    @media screen and (min-width: 768px) {
+      .spirit .admin__statistics {
+        grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   .spirit .admin__statistics__box {
     padding: 12px 12px;
     background: var(--st-bg-admin-stat);
