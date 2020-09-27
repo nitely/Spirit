@@ -5,9 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
-"PO-Revision-Date: 2020-09-13 00:52+0000\n"
-"Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
+"PO-Revision-Date: 2020-09-27 01:07+0000\n"
+"Last-Translator: jumasheff <jumasheff@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,136 +15,149 @@ msgstr ""
 "Language: ky\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:34
+#: forms.py:38
 msgid "The email is taken."
 msgstr "Бул email колдонууда."
 
-#: forms.py:44 forms.py:49 templates/spirit/user/profile_update.html:13
+#: forms.py:48 forms.py:53 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:50 templates/spirit/user/profile_update.html:17
+#: forms.py:54 templates/spirit/user/profile_update.html:17
 msgid "Password"
 msgstr "Сырсөз"
 
-#: forms.py:60
+#: forms.py:64
 msgid "The provided password is incorrect."
 msgstr "Жазылган сырсөз туура эмес."
 
-#: forms.py:74
+#: forms.py:78
+msgid "Remove avatar"
+msgstr ""
+
+#: forms.py:86
 msgid "Time zone"
 msgstr "Убакыт алкагы"
 
-#: forms.py:83
+#: forms.py:96
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr "Учурдагы убакыт: %(date)s %(time)s"
 
-#: models.py:17
+#: forms.py:110
+#, python-format
+msgid "Unsupported file format. Supported formats are %s."
+msgstr "Файлдын форматы колдонулбайт. Колдоого алынган форматтар: %s."
+
+#: models.py:25
 msgid "profile"
 msgstr "профиль"
 
-#: models.py:22
+#: models.py:30
 msgid "nickname"
 msgstr ""
 
-#: models.py:23
+#: models.py:31
 msgid "location"
 msgstr "жайгашкан жери"
 
-#: models.py:24
+#: models.py:32
 msgid "last seen"
 msgstr "акыркы жолу кирген"
 
-#: models.py:25
+#: models.py:33
 msgid "last ip"
 msgstr "акыркы ip'си"
 
-#: models.py:26
+#: models.py:34
 msgid "time zone"
 msgstr "убакыт алкагы"
 
-#: models.py:27
+#: models.py:36
+msgid "avatar"
+msgstr ""
+
+#: models.py:38
 msgid "administrator status"
 msgstr "администратордук статусу"
 
-#: models.py:28
+#: models.py:39
 msgid "moderator status"
 msgstr "модератор статусу"
 
-#: models.py:30
+#: models.py:41
 msgid "verified"
 msgstr "тастыкталган"
 
-#: models.py:32
+#: models.py:43
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr "Колдонуучу аккаунтун email аркылуу же башка жол менен тастыктаган. Колдонуучу өзү аккаунтун активдештирсин десеңиз, бул белгини алып салыңыз."
 
-#: models.py:36
+#: models.py:47
 msgid "topic count"
 msgstr "темалар саны"
 
-#: models.py:37
+#: models.py:48
 msgid "comment count"
 msgstr "жорумдар саны"
 
-#: models.py:39
+#: models.py:50
 msgid "last post hash"
 msgstr "соңку жарыянын хэши"
 
-#: models.py:40
+#: models.py:51
 msgid "last post on"
 msgstr "соңку жарыя датасы"
 
-#: models.py:43
+#: models.py:54
 msgid "forum profile"
 msgstr "форум профили"
 
-#: models.py:44
+#: models.py:55
 msgid "forum profiles"
 msgstr "форум профили"
 
-#: templates/spirit/user/_profile.html:14
+#: templates/spirit/user/_profile.html:22
 msgid "Joined at"
 msgstr "Катталган датасы"
 
-#: templates/spirit/user/_profile.html:18
+#: templates/spirit/user/_profile.html:26
 msgid "Seen"
 msgstr "Соңку кириши"
 
-#: templates/spirit/user/_profile.html:23
+#: templates/spirit/user/_profile.html:31
 msgid "Last IP"
 msgstr "Соңку IP'си"
 
-#: templates/spirit/user/_profile.html:36
+#: templates/spirit/user/_profile.html:44
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
 msgstr "Тууралоолор"
 
-#: templates/spirit/user/_profile.html:43
+#: templates/spirit/user/_profile.html:51
 msgid "Private Message"
 msgstr "Жеке билдирүүлөр"
 
-#: templates/spirit/user/_profile.html:52
+#: templates/spirit/user/_profile.html:60
 msgid "Edit user"
 msgstr "Колдонуучуну тууралоо"
 
-#: templates/spirit/user/_profile.html:61
+#: templates/spirit/user/_profile.html:69
 msgid "Comments"
 msgstr "Жорумдар"
 
-#: templates/spirit/user/_profile.html:65 templates/spirit/user/menu.html:22
+#: templates/spirit/user/_profile.html:73 templates/spirit/user/menu.html:22
 msgid "Topics"
 msgstr "Темалар"
 
-#: templates/spirit/user/_profile.html:69
+#: templates/spirit/user/_profile.html:77
 msgid "Likes"
 msgstr "Жактыруулар"
 
-#: templates/spirit/user/_render_comments_list.html:39
+#: templates/spirit/user/_render_comments_list.html:38
 msgid "There are no comments here, yet"
 msgstr "Азырынча жорумдар жок"
 
@@ -220,8 +233,8 @@ msgid "comments"
 msgstr "жорумдар"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:530 tests.py:844
-#: utils/email.py:48
+#: templates/spirit/user/profile_email_change.html:9 tests.py:655
+#: tests.py:1020 utils/email.py:48
 msgid "Email change"
 msgstr "Эмейлди которуу"
 
@@ -250,23 +263,11 @@ msgstr "тема"
 msgid "Change password"
 msgstr "Сырсөз которуу"
 
-#: templates/spirit/user/profile_update.html:21
-msgid "Avatar"
-msgstr "Аватар"
-
-#: templates/spirit/user/profile_update.html:24
-msgid "Change avatar"
-msgstr "Аватар которуу"
-
-#: templates/spirit/user/profile_update.html:25
-msgid "Go to gravatar.com and use your current email to change it"
-msgstr "gravatar.com'го барып, учурдагы эмейлиңизди колдонуп, которсоңуз болот"
-
-#: templates/spirit/user/profile_update.html:34
+#: templates/spirit/user/profile_update.html:29
 msgid "Save"
 msgstr "Сакта"
 
-#: tests.py:808 utils/email.py:40
+#: tests.py:984 utils/email.py:40
 msgid "User activation"
 msgstr "Колдонуучуну активдештирүү"
 
@@ -275,22 +276,22 @@ msgstr "Колдонуучуну активдештирүү"
 msgid "New notification: %(topic_name)s"
 msgstr "Жаңы маалымдоо: %(topic_name)s"
 
-#: views.py:36
+#: views.py:37
 msgid "Your profile has been updated!"
 msgstr "Профилиңиз жаңыртылды!"
 
-#: views.py:52
+#: views.py:53
 msgid "Your password has been changed!"
 msgstr "Сырсөзүңүз которулду!"
 
-#: views.py:69
+#: views.py:70
 msgid "We have sent you an email so you can confirm the change!"
 msgstr "Биз сизге эмейл жөнөттүк, өзгөрүүнү ырасташыңыз үчүн!"
 
-#: views.py:90
+#: views.py:91
 msgid "Your email has been changed!"
 msgstr "Эмейлиңиз которулду!"
 
-#: views.py:93
+#: views.py:94
 msgid "Sorry, we were not able to change your email."
 msgstr "Кечиресиз, эмейлиңизди которо албай койдук."

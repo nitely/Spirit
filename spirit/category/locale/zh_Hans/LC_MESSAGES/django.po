@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
@@ -64,10 +64,10 @@ msgstr "删除的"
 msgid "private"
 msgstr "私密的"
 
-#: models.py:54
+#: models.py:51
 msgid "category"
 msgstr "分类"
 
-#: models.py:55
+#: models.py:52
 msgid "categories"
 msgstr "分类"

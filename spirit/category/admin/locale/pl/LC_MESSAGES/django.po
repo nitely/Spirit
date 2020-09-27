@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/spirit-project/spirit/language/pl/)\n"
@@ -14,12 +14,12 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: forms.py:47
+#: forms.py:51
 msgid ""
 "The category you are updating can not have a parent since it has childrens"
 msgstr "Kategoria, którą próbujesz zmienić, nie może mieć rodzica, ponieważ posiada podkategorie"
 
-#: forms.py:57
+#: forms.py:61
 msgid "The input is not a valid hex color."
 msgstr ""
 
@@ -42,8 +42,8 @@ msgstr "Lista kategorii"
 msgid "Create Category"
 msgstr "Stwórz kategorię"
 
-#: templates/spirit/category/admin/index.html:50
-#: templates/spirit/category/admin/index.html:83
+#: templates/spirit/category/admin/index.html:52
+#: templates/spirit/category/admin/index.html:87
 msgid "edit"
 msgstr "edytuj"
 
@@ -52,6 +52,6 @@ msgstr "edytuj"
 msgid "Update Category"
 msgstr "Zaktualizuj kategorię"
 
-#: views.py:48
+#: views.py:51
 msgid "The category has been updated!"
 msgstr "Kategoria została uaktualniona!"

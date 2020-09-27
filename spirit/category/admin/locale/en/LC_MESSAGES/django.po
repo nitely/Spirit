@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,12 +12,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:47
+#: forms.py:51
 msgid ""
 "The category you are updating can not have a parent since it has childrens"
 msgstr ""
 
-#: forms.py:57
+#: forms.py:61
 msgid "The input is not a valid hex color."
 msgstr ""
 
@@ -40,8 +40,8 @@ msgstr ""
 msgid "Create Category"
 msgstr ""
 
-#: templates/spirit/category/admin/index.html:50
-#: templates/spirit/category/admin/index.html:83
+#: templates/spirit/category/admin/index.html:52
+#: templates/spirit/category/admin/index.html:87
 msgid "edit"
 msgstr ""
 
@@ -50,6 +50,6 @@ msgstr ""
 msgid "Update Category"
 msgstr ""
 
-#: views.py:48
+#: views.py:51
 msgid "The category has been updated!"
 msgstr ""

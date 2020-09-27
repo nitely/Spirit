@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/language/hu/)\n"
@@ -65,31 +65,31 @@ msgstr "Nincs még új értesítés"
 msgid "unread"
 msgstr "olvasatlan"
 
-#: templates/spirit/_header.html:40
+#: templates/spirit/_header.html:41
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/spirit/_header.html:44
+#: templates/spirit/_header.html:45
 msgid "Topics"
 msgstr "Témák"
 
-#: templates/spirit/_header.html:48
+#: templates/spirit/_header.html:49
 msgid "Unread topics"
 msgstr "Olvasatlan témák"
 
-#: templates/spirit/_header.html:52
+#: templates/spirit/_header.html:53
 msgid "Private topics"
 msgstr "Privát beszélgetések"
 
-#: templates/spirit/_header.html:57
+#: templates/spirit/_header.html:58
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/spirit/_header.html:62
+#: templates/spirit/_header.html:63
 msgid "Log out"
 msgstr "Kilépés"
 
-#: templates/spirit/_header.html:80
+#: templates/spirit/_header.html:81
 msgid "Log in"
 msgstr "Bejelentkezés"
 

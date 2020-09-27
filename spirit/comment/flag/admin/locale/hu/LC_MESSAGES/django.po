@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-11-26 00:01+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/language/hu/)\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:14
+#: templates/spirit/comment/flag/admin/_list.html:16
 msgid "moderate"
 msgstr "moderálás"
 
@@ -58,15 +58,15 @@ msgstr "Mentés"
 msgid "Comment flagged"
 msgstr "Hozzászólás megjelölve"
 
-#: templates/spirit/comment/flag/admin/detail.html:67
+#: templates/spirit/comment/flag/admin/detail.html:65
 msgid "delete"
 msgstr "törlés"
 
-#: templates/spirit/comment/flag/admin/detail.html:72
+#: templates/spirit/comment/flag/admin/detail.html:70
 msgid "undelete"
 msgstr "törlés visszavonása"
 
-#: templates/spirit/comment/flag/admin/detail.html:79
+#: templates/spirit/comment/flag/admin/detail.html:77
 msgid "Reporters"
 msgstr "Jelentők"
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
@@ -64,31 +64,31 @@ msgstr "Naujų pranešimų nėra"
 msgid "unread"
 msgstr "neskaityta"
 
-#: templates/spirit/_header.html:40
+#: templates/spirit/_header.html:41
 msgid "Profile"
 msgstr "Profilis"
 
-#: templates/spirit/_header.html:44
+#: templates/spirit/_header.html:45
 msgid "Topics"
 msgstr "Temos"
 
-#: templates/spirit/_header.html:48
+#: templates/spirit/_header.html:49
 msgid "Unread topics"
 msgstr "Neskaitytos temos"
 
-#: templates/spirit/_header.html:52
+#: templates/spirit/_header.html:53
 msgid "Private topics"
 msgstr "Privačios temos"
 
-#: templates/spirit/_header.html:57
+#: templates/spirit/_header.html:58
 msgid "Admin"
 msgstr "Administravimas"
 
-#: templates/spirit/_header.html:62
+#: templates/spirit/_header.html:63
 msgid "Log out"
 msgstr "Atsijungti"
 
-#: templates/spirit/_header.html:80
+#: templates/spirit/_header.html:81
 msgid "Log in"
 msgstr "Prisijungti"
 

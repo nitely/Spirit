@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/spirit-project/spirit/language/hu/)\n"
@@ -98,59 +98,59 @@ msgstr "Legfrissebb témák"
 msgid "Main"
 msgstr "Fő"
 
-#: templates/spirit/topic/detail.html:36 templates/spirit/topic/detail.html:40
+#: templates/spirit/topic/detail.html:39 templates/spirit/topic/detail.html:43
 msgid "edit"
 msgstr "szerkeszt"
 
-#: templates/spirit/topic/detail.html:48
+#: templates/spirit/topic/detail.html:51
 msgid "Moderate"
 msgstr ""
 
-#: templates/spirit/topic/detail.html:54
+#: templates/spirit/topic/detail.html:57
 msgid "Select comments to move"
 msgstr "Mozgatni kívánt hozzászólások kiválasztása"
 
-#: templates/spirit/topic/detail.html:57
+#: templates/spirit/topic/detail.html:60
 msgid "Undelete topic"
 msgstr "Téma törlés visszavonása"
 
-#: templates/spirit/topic/detail.html:60
+#: templates/spirit/topic/detail.html:63
 msgid "Delete topic"
 msgstr "Téma törlése"
 
-#: templates/spirit/topic/detail.html:64
+#: templates/spirit/topic/detail.html:67
 msgid "Open topic"
 msgstr "Téma megnyitása"
 
-#: templates/spirit/topic/detail.html:67
+#: templates/spirit/topic/detail.html:70
 msgid "Close topic"
 msgstr "Téma lezárása"
 
-#: templates/spirit/topic/detail.html:71
+#: templates/spirit/topic/detail.html:74
 msgid "Unpin topic"
 msgstr "Téma kiemelése"
 
-#: templates/spirit/topic/detail.html:74
+#: templates/spirit/topic/detail.html:77
 msgid "Pin topic"
 msgstr "Téma kiemelés visszavonása"
 
-#: templates/spirit/topic/detail.html:78
+#: templates/spirit/topic/detail.html:81
 msgid "Unpin topic globally"
 msgstr "Globális kiemelés visszavontása"
 
-#: templates/spirit/topic/detail.html:81
+#: templates/spirit/topic/detail.html:84
 msgid "Pin topic globally"
 msgstr "Téma globális kiemelése"
 
-#: templates/spirit/topic/detail.html:103
+#: templates/spirit/topic/detail.html:106
 msgid "Reply"
 msgstr "Válasz"
 
-#: templates/spirit/topic/detail.html:111
+#: templates/spirit/topic/detail.html:114
 msgid "Move selected comments to"
 msgstr ""
 
-#: templates/spirit/topic/detail.html:117
+#: templates/spirit/topic/detail.html:120
 msgid "Move"
 msgstr "Mozgatás"
 

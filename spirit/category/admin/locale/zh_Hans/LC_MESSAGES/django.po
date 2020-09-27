@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
@@ -14,12 +14,12 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: forms.py:47
+#: forms.py:51
 msgid ""
 "The category you are updating can not have a parent since it has childrens"
 msgstr "你要更新的分类无法选择父分类，因为他已经是一个父分类。"
 
-#: forms.py:57
+#: forms.py:61
 msgid "The input is not a valid hex color."
 msgstr ""
 
@@ -42,8 +42,8 @@ msgstr "分类列表"
 msgid "Create Category"
 msgstr "创建分类"
 
-#: templates/spirit/category/admin/index.html:50
-#: templates/spirit/category/admin/index.html:83
+#: templates/spirit/category/admin/index.html:52
+#: templates/spirit/category/admin/index.html:87
 msgid "edit"
 msgstr "编辑"
 
@@ -52,6 +52,6 @@ msgstr "编辑"
 msgid "Update Category"
 msgstr "更新分类"
 
-#: views.py:48
+#: views.py:51
 msgid "The category has been updated!"
 msgstr "分类已经成功修改"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/spirit-project/spirit/language/pl_PL/)\n"
@@ -100,12 +100,12 @@ msgstr "Wyloguj się"
 msgid "Are you sure you want to log out?"
 msgstr "Czy jesteś pewny, że chcesz się wylogować?"
 
-#: templates/spirit/user/auth/password_reset_complete.html:7
-#: templates/spirit/user/auth/password_reset_complete.html:11
+#: templates/spirit/user/auth/password_reset_complete.html:8
+#: templates/spirit/user/auth/password_reset_complete.html:12
 msgid "Password change successful"
 msgstr "Zmieniono hasło"
 
-#: templates/spirit/user/auth/password_reset_complete.html:14
+#: templates/spirit/user/auth/password_reset_complete.html:15
 msgid "Continue to login"
 msgstr "Przejdź do logowania się"
 
@@ -142,7 +142,7 @@ msgid ""
 "receiving them shortly."
 msgstr "Wysłaliśmy ci instrukcje ustawienia twojego hasła. Niedługo powinieneś je dostać, sprawdź swoją skrzynkę."
 
-#: templates/spirit/user/auth/password_reset_done.html:12 views.py:148
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:149
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -192,12 +192,12 @@ msgstr "Zarejestruj się"
 msgid "User activation"
 msgstr "Aktywacja użytkownika"
 
-#: views.py:105
+#: views.py:106
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
 msgstr ""
 
-#: views.py:128
+#: views.py:129
 msgid "Your account has been activated!"
 msgstr "Twoje konto zostało aktywowane!"

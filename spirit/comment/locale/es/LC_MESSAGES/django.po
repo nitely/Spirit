@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2020-09-18 20:23+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/language/es/)\n"
@@ -19,27 +19,27 @@ msgstr ""
 msgid "Comment"
 msgstr "Comentario"
 
-#: forms.py:68
+#: forms.py:71
 msgid "Write comment..."
 msgstr "Escribe un comentario..."
 
-#: forms.py:158
+#: forms.py:161
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Formato de archivo no soportado. Los formatos soportados son %s."
 
-#: forms.py:183 forms.py:202
+#: forms.py:186 forms.py:205
 msgid "The file could not be validated"
 msgstr "El archivo no pudo ser validado"
 
-#: forms.py:189
+#: forms.py:192
 #, python-format
 msgid ""
 "Unsupported file extension %(extension)s. Supported extensions are "
 "%(supported)s."
 msgstr ""
 
-#: forms.py:207
+#: forms.py:210
 #, python-format
 msgid ""
 "Unsupported file mime type %(mime)s. Supported types are %(supported)s."
@@ -207,57 +207,57 @@ msgstr "Descripción"
 msgid "Publish"
 msgstr "Publicar"
 
-#: templates/spirit/comment/_render_list.html:31
+#: templates/spirit/comment/_render_list.html:32
 msgid "undelete"
 msgstr "restaurar"
 
-#: templates/spirit/comment/_render_list.html:32
+#: templates/spirit/comment/_render_list.html:33
 msgid "show"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:62
+#: templates/spirit/comment/_render_list.html:61
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/spirit/comment/_render_list.html:64
+#: templates/spirit/comment/_render_list.html:63
 msgid "Moderator"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:67
+#: templates/spirit/comment/_render_list.html:66
 msgid "Original Poster"
 msgstr ""
 
-#: templates/spirit/comment/_render_list.html:92
+#: templates/spirit/comment/_render_list.html:91
 msgid "delete"
 msgstr "eliminar"
 
-#: templates/spirit/comment/_render_list.html:96
+#: templates/spirit/comment/_render_list.html:95
 msgid "report"
 msgstr "reportar"
 
-#: templates/spirit/comment/_render_list.html:100
+#: templates/spirit/comment/_render_list.html:99
 msgid "share"
 msgstr "compartir"
 
-#: templates/spirit/comment/_render_list.html:108
-#: templates/spirit/comment/_render_list.html:169
+#: templates/spirit/comment/_render_list.html:107
+#: templates/spirit/comment/_render_list.html:168
 msgid "remove like"
 msgstr "eliminar \\\"me gusta\\\""
 
-#: templates/spirit/comment/_render_list.html:115
-#: templates/spirit/comment/_render_list.html:168
+#: templates/spirit/comment/_render_list.html:114
+#: templates/spirit/comment/_render_list.html:167
 msgid "like"
 msgstr "me gusta"
 
-#: templates/spirit/comment/_render_list.html:123
+#: templates/spirit/comment/_render_list.html:122
 msgid "edit"
 msgstr "editar"
 
-#: templates/spirit/comment/_render_list.html:128
+#: templates/spirit/comment/_render_list.html:127
 msgid "quote"
 msgstr "citar"
 
-#: templates/spirit/comment/_render_list.html:130
+#: templates/spirit/comment/_render_list.html:129
 msgid "reply"
 msgstr "responder"
 

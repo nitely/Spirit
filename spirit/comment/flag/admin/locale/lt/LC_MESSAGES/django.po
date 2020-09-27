@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-11-26 00:01+0000\n"
 "Last-Translator: sirex <sirexas@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Language: lt\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:14
+#: templates/spirit/comment/flag/admin/_list.html:16
 msgid "moderate"
 msgstr "moderuoti"
 
@@ -57,15 +57,15 @@ msgstr "Saugoti"
 msgid "Comment flagged"
 msgstr "Komentaras apie kurį pranešta"
 
-#: templates/spirit/comment/flag/admin/detail.html:67
+#: templates/spirit/comment/flag/admin/detail.html:65
 msgid "delete"
 msgstr "trinti"
 
-#: templates/spirit/comment/flag/admin/detail.html:72
+#: templates/spirit/comment/flag/admin/detail.html:70
 msgid "undelete"
 msgstr "atstatyti"
 
-#: templates/spirit/comment/flag/admin/detail.html:79
+#: templates/spirit/comment/flag/admin/detail.html:77
 msgid "Reporters"
 msgstr "Pranešėjai"
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:14
+#: templates/spirit/comment/flag/admin/_list.html:16
 msgid "moderate"
 msgstr ""
 
@@ -54,15 +54,15 @@ msgstr ""
 msgid "Comment flagged"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:67
+#: templates/spirit/comment/flag/admin/detail.html:65
 msgid "delete"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:72
+#: templates/spirit/comment/flag/admin/detail.html:70
 msgid "undelete"
 msgstr ""
 
-#: templates/spirit/comment/flag/admin/detail.html:79
+#: templates/spirit/comment/flag/admin/detail.html:77
 msgid "Reporters"
 msgstr ""
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: sirex <sirexas@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
@@ -101,12 +101,12 @@ msgstr "Atsijungti"
 msgid "Are you sure you want to log out?"
 msgstr "Ar tikrai norite atsijungti?"
 
-#: templates/spirit/user/auth/password_reset_complete.html:7
-#: templates/spirit/user/auth/password_reset_complete.html:11
+#: templates/spirit/user/auth/password_reset_complete.html:8
+#: templates/spirit/user/auth/password_reset_complete.html:12
 msgid "Password change successful"
 msgstr "Slaptažodis pakeistas sėkmingai"
 
-#: templates/spirit/user/auth/password_reset_complete.html:14
+#: templates/spirit/user/auth/password_reset_complete.html:15
 msgid "Continue to login"
 msgstr "Tęsti prisijungimą"
 
@@ -143,7 +143,7 @@ msgid ""
 "receiving them shortly."
 msgstr "Išsiuntėme slaptažodžio atstatymo instrukcijas el. paštu. Turėtumėte jas gauti netrukus."
 
-#: templates/spirit/user/auth/password_reset_done.html:12 views.py:148
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:149
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -193,12 +193,12 @@ msgstr "Registracija"
 msgid "User activation"
 msgstr "Naudotojo aktyvavimas"
 
-#: views.py:105
+#: views.py:106
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
 msgstr "Išsiuntėme el. laišką %(email)s adresu, kad galėtumėte aktyvuoti savo paskyrą!"
 
-#: views.py:128
+#: views.py:129
 msgid "Your account has been activated!"
 msgstr "Jūsų paskyra aktyvuota."

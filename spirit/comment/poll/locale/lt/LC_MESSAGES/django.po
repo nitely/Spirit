@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: sirex <sirexas@gmail.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/spirit-project/spirit/language/lt/)\n"
@@ -36,63 +36,63 @@ msgstr "Pasirinkta per mažai variantų. Reikia pasirinkti bent %s"
 msgid "This poll is closed"
 msgstr "Ši apklausa uždaryta."
 
-#: models.py:36
+#: models.py:34
 msgid "name"
 msgstr "pavadinimas"
 
-#: models.py:37
+#: models.py:35
 msgid "title"
 msgstr "antraštė"
 
-#: models.py:38
+#: models.py:36
 msgid "choice min"
 msgstr "mažiausiai variantų"
 
-#: models.py:39
+#: models.py:37
 msgid "choice max"
 msgstr "daugiausiai variantų"
 
-#: models.py:40
+#: models.py:38
 msgid "mode"
 msgstr "veiksena"
 
-#: models.py:41
+#: models.py:39
 msgid "auto close at"
 msgstr "automatiškai uždaryti"
 
-#: models.py:49
+#: models.py:47
 msgid "comment poll"
 msgstr "komentaras apklausa"
 
-#: models.py:50
+#: models.py:48
 msgid "comments polls"
 msgstr "komentarai apklausos"
 
-#: models.py:137
+#: models.py:135
 msgid "number"
 msgstr "skaičius"
 
-#: models.py:138
+#: models.py:136
 msgid "choice description"
 msgstr "variantų aprašymas"
 
-#: models.py:139
+#: models.py:137
 msgid "vote count"
 msgstr "balsų skaičius"
 
-#: models.py:147
+#: models.py:145
 msgid "poll choice"
 msgstr "apklausos variantas"
 
-#: models.py:148
+#: models.py:146
 msgid "poll choices"
 msgstr "apklausos variantai"
 
-#: models.py:222
+#: models.py:220
 msgid "poll vote"
 msgstr "apklausos balsas"
 
-#: models.py:223
+#: models.py:221
 msgid "poll votes"
 msgstr "apklausos balsai"
 

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
-"PO-Revision-Date: 2020-09-13 00:52+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
+"PO-Revision-Date: 2020-09-27 01:07+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -14,136 +14,149 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:34
+#: forms.py:38
 msgid "The email is taken."
 msgstr ""
 
-#: forms.py:44 forms.py:49 templates/spirit/user/profile_update.html:13
+#: forms.py:48 forms.py:53 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:50 templates/spirit/user/profile_update.html:17
+#: forms.py:54 templates/spirit/user/profile_update.html:17
 msgid "Password"
 msgstr "Lösenord"
 
-#: forms.py:60
+#: forms.py:64
 msgid "The provided password is incorrect."
 msgstr ""
 
-#: forms.py:74
+#: forms.py:78
+msgid "Remove avatar"
+msgstr ""
+
+#: forms.py:86
 msgid "Time zone"
 msgstr ""
 
-#: forms.py:83
+#: forms.py:96
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr ""
 
-#: models.py:17
+#: forms.py:110
+#, python-format
+msgid "Unsupported file format. Supported formats are %s."
+msgstr ""
+
+#: models.py:25
 msgid "profile"
 msgstr ""
 
-#: models.py:22
+#: models.py:30
 msgid "nickname"
 msgstr ""
 
-#: models.py:23
+#: models.py:31
 msgid "location"
 msgstr "plats"
 
-#: models.py:24
+#: models.py:32
 msgid "last seen"
 msgstr "senast sedd"
 
-#: models.py:25
+#: models.py:33
 msgid "last ip"
 msgstr "senaste i"
 
-#: models.py:26
+#: models.py:34
 msgid "time zone"
 msgstr "tidszon"
 
-#: models.py:27
+#: models.py:36
+msgid "avatar"
+msgstr ""
+
+#: models.py:38
 msgid "administrator status"
 msgstr "administratörsstatus"
 
-#: models.py:28
+#: models.py:39
 msgid "moderator status"
 msgstr "moderatorstatus"
 
-#: models.py:30
+#: models.py:41
 msgid "verified"
 msgstr ""
 
-#: models.py:32
+#: models.py:43
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr ""
 
-#: models.py:36
+#: models.py:47
 msgid "topic count"
 msgstr "antal ämnen"
 
-#: models.py:37
+#: models.py:48
 msgid "comment count"
 msgstr "antal kommentarer"
 
-#: models.py:39
+#: models.py:50
 msgid "last post hash"
 msgstr ""
 
-#: models.py:40
+#: models.py:51
 msgid "last post on"
 msgstr ""
 
-#: models.py:43
+#: models.py:54
 msgid "forum profile"
 msgstr ""
 
-#: models.py:44
+#: models.py:55
 msgid "forum profiles"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:14
+#: templates/spirit/user/_profile.html:22
 msgid "Joined at"
 msgstr "Gick med"
 
-#: templates/spirit/user/_profile.html:18
+#: templates/spirit/user/_profile.html:26
 msgid "Seen"
 msgstr "Sedd"
 
-#: templates/spirit/user/_profile.html:23
+#: templates/spirit/user/_profile.html:31
 msgid "Last IP"
 msgstr ""
 
-#: templates/spirit/user/_profile.html:36
+#: templates/spirit/user/_profile.html:44
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: templates/spirit/user/_profile.html:43
+#: templates/spirit/user/_profile.html:51
 msgid "Private Message"
 msgstr "Privata meddelanden"
 
-#: templates/spirit/user/_profile.html:52
+#: templates/spirit/user/_profile.html:60
 msgid "Edit user"
 msgstr "Redigera användare"
 
-#: templates/spirit/user/_profile.html:61
+#: templates/spirit/user/_profile.html:69
 msgid "Comments"
 msgstr "Kommentarer"
 
-#: templates/spirit/user/_profile.html:65 templates/spirit/user/menu.html:22
+#: templates/spirit/user/_profile.html:73 templates/spirit/user/menu.html:22
 msgid "Topics"
 msgstr "Ämnen"
 
-#: templates/spirit/user/_profile.html:69
+#: templates/spirit/user/_profile.html:77
 msgid "Likes"
 msgstr "Gilla"
 
-#: templates/spirit/user/_render_comments_list.html:39
+#: templates/spirit/user/_render_comments_list.html:38
 msgid "There are no comments here, yet"
 msgstr "Det finns ännu inga kommentarer här"
 
@@ -219,8 +232,8 @@ msgid "comments"
 msgstr "kommentarer"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:530 tests.py:844
-#: utils/email.py:48
+#: templates/spirit/user/profile_email_change.html:9 tests.py:655
+#: tests.py:1020 utils/email.py:48
 msgid "Email change"
 msgstr "Email ändrad"
 
@@ -249,23 +262,11 @@ msgstr "ämnen"
 msgid "Change password"
 msgstr "Ändra lösenord"
 
-#: templates/spirit/user/profile_update.html:21
-msgid "Avatar"
-msgstr "Avatar"
-
-#: templates/spirit/user/profile_update.html:24
-msgid "Change avatar"
-msgstr "Ändra avatar"
-
-#: templates/spirit/user/profile_update.html:25
-msgid "Go to gravatar.com and use your current email to change it"
-msgstr ""
-
-#: templates/spirit/user/profile_update.html:34
+#: templates/spirit/user/profile_update.html:29
 msgid "Save"
 msgstr "Spara"
 
-#: tests.py:808 utils/email.py:40
+#: tests.py:984 utils/email.py:40
 msgid "User activation"
 msgstr "Användaraktivering"
 
@@ -274,22 +275,22 @@ msgstr "Användaraktivering"
 msgid "New notification: %(topic_name)s"
 msgstr "Nytt meddelande: %(topic_name)s"
 
-#: views.py:36
+#: views.py:37
 msgid "Your profile has been updated!"
 msgstr "Din profil har uppdaterats!"
 
-#: views.py:52
+#: views.py:53
 msgid "Your password has been changed!"
 msgstr "Ditt lösenord har ändrats!"
 
-#: views.py:69
+#: views.py:70
 msgid "We have sent you an email so you can confirm the change!"
 msgstr "Vi har skickat ett Email så att du kan bekräfta ändringen!"
 
-#: views.py:90
+#: views.py:91
 msgid "Your email has been changed!"
 msgstr "Din Email-adress har ändrats!"
 
-#: views.py:93
+#: views.py:94
 msgid "Sorry, we were not able to change your email."
 msgstr ""

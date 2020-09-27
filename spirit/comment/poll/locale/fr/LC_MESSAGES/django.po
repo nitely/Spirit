@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2015-10-14 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (http://www.transifex.com/spirit-project/spirit/language/fr/)\n"
@@ -35,63 +35,63 @@ msgstr ""
 msgid "This poll is closed"
 msgstr "Le sondage est clos"
 
-#: models.py:36
+#: models.py:34
 msgid "name"
 msgstr ""
 
-#: models.py:37
+#: models.py:35
 msgid "title"
 msgstr "Titre"
 
-#: models.py:38
+#: models.py:36
 msgid "choice min"
 msgstr ""
 
-#: models.py:39
+#: models.py:37
 msgid "choice max"
 msgstr ""
 
-#: models.py:40
+#: models.py:38
 msgid "mode"
 msgstr ""
 
-#: models.py:41
+#: models.py:39
 msgid "auto close at"
 msgstr ""
 
-#: models.py:49
+#: models.py:47
 msgid "comment poll"
 msgstr ""
 
-#: models.py:50
+#: models.py:48
 msgid "comments polls"
 msgstr ""
 
-#: models.py:137
+#: models.py:135
 msgid "number"
 msgstr ""
 
-#: models.py:138
+#: models.py:136
 msgid "choice description"
 msgstr ""
 
-#: models.py:139
+#: models.py:137
 msgid "vote count"
 msgstr ""
 
-#: models.py:147
+#: models.py:145
 msgid "poll choice"
 msgstr ""
 
-#: models.py:148
+#: models.py:146
 msgid "poll choices"
 msgstr ""
 
-#: models.py:222
+#: models.py:220
 msgid "poll vote"
 msgstr ""
 
-#: models.py:223
+#: models.py:221
 msgid "poll votes"
 msgstr ""
 

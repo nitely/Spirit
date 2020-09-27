@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-01-30 15:41+0000\n"
 "Last-Translator: cryptogun <safetychinese@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/spirit-project/spirit/language/zh_CN/)\n"
@@ -36,63 +36,63 @@ msgstr "选中的选项不应少于%s项"
 msgid "This poll is closed"
 msgstr "投票已关闭"
 
-#: models.py:36
+#: models.py:34
 msgid "name"
 msgstr "名字"
 
-#: models.py:37
+#: models.py:35
 msgid "title"
 msgstr "标题"
 
-#: models.py:38
+#: models.py:36
 msgid "choice min"
 msgstr "选项数量最小值"
 
-#: models.py:39
+#: models.py:37
 msgid "choice max"
 msgstr "选项数量最大值"
 
-#: models.py:40
+#: models.py:38
 msgid "mode"
 msgstr "类型"
 
-#: models.py:41
+#: models.py:39
 msgid "auto close at"
 msgstr "之后自动关闭投票"
 
-#: models.py:49
+#: models.py:47
 msgid "comment poll"
 msgstr "投票回帖"
 
-#: models.py:50
+#: models.py:48
 msgid "comments polls"
 msgstr "投票回帖"
 
-#: models.py:137
+#: models.py:135
 msgid "number"
 msgstr "标号"
 
-#: models.py:138
+#: models.py:136
 msgid "choice description"
 msgstr "选项描述"
 
-#: models.py:139
+#: models.py:137
 msgid "vote count"
 msgstr "投票数"
 
-#: models.py:147
+#: models.py:145
 msgid "poll choice"
 msgstr "投票选项"
 
-#: models.py:148
+#: models.py:146
 msgid "poll choices"
 msgstr "投票选项"
 
-#: models.py:222
+#: models.py:220
 msgid "poll vote"
 msgstr "投票"
 
-#: models.py:223
+#: models.py:221
 msgid "poll votes"
 msgstr "投票"
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
@@ -96,59 +96,59 @@ msgstr "Ultimi topics attivi"
 msgid "Main"
 msgstr "Principale"
 
-#: templates/spirit/topic/detail.html:36 templates/spirit/topic/detail.html:40
+#: templates/spirit/topic/detail.html:39 templates/spirit/topic/detail.html:43
 msgid "edit"
 msgstr "modifica"
 
-#: templates/spirit/topic/detail.html:48
+#: templates/spirit/topic/detail.html:51
 msgid "Moderate"
 msgstr ""
 
-#: templates/spirit/topic/detail.html:54
+#: templates/spirit/topic/detail.html:57
 msgid "Select comments to move"
 msgstr "Selezionare commenti da spostare"
 
-#: templates/spirit/topic/detail.html:57
+#: templates/spirit/topic/detail.html:60
 msgid "Undelete topic"
 msgstr "Rrpistina topic"
 
-#: templates/spirit/topic/detail.html:60
+#: templates/spirit/topic/detail.html:63
 msgid "Delete topic"
 msgstr "Elimina topic"
 
-#: templates/spirit/topic/detail.html:64
+#: templates/spirit/topic/detail.html:67
 msgid "Open topic"
 msgstr "Apri topic"
 
-#: templates/spirit/topic/detail.html:67
+#: templates/spirit/topic/detail.html:70
 msgid "Close topic"
 msgstr "Chiudi topic"
 
-#: templates/spirit/topic/detail.html:71
+#: templates/spirit/topic/detail.html:74
 msgid "Unpin topic"
 msgstr "Sblocca topic"
 
-#: templates/spirit/topic/detail.html:74
+#: templates/spirit/topic/detail.html:77
 msgid "Pin topic"
 msgstr "Pinna topic"
 
-#: templates/spirit/topic/detail.html:78
+#: templates/spirit/topic/detail.html:81
 msgid "Unpin topic globally"
 msgstr "Spinna topic a livello globale"
 
-#: templates/spirit/topic/detail.html:81
+#: templates/spirit/topic/detail.html:84
 msgid "Pin topic globally"
 msgstr "Pinna topic a livello globale"
 
-#: templates/spirit/topic/detail.html:103
+#: templates/spirit/topic/detail.html:106
 msgid "Reply"
 msgstr "Rispondi"
 
-#: templates/spirit/topic/detail.html:111
+#: templates/spirit/topic/detail.html:114
 msgid "Move selected comments to"
 msgstr ""
 
-#: templates/spirit/topic/detail.html:117
+#: templates/spirit/topic/detail.html:120
 msgid "Move"
 msgstr "Sposta"
 

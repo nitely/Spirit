@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
-"PO-Revision-Date: 2020-09-13 00:52+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
+"PO-Revision-Date: 2020-09-27 01:07+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/spirit-project/spirit/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -14,136 +14,149 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:34
+#: forms.py:38
 msgid "The email is taken."
 msgstr "L'email è gia' in uso."
 
-#: forms.py:44 forms.py:49 templates/spirit/user/profile_update.html:13
+#: forms.py:48 forms.py:53 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:50 templates/spirit/user/profile_update.html:17
+#: forms.py:54 templates/spirit/user/profile_update.html:17
 msgid "Password"
 msgstr "Password"
 
-#: forms.py:60
+#: forms.py:64
 msgid "The provided password is incorrect."
 msgstr "La password fornita non è corretta."
 
-#: forms.py:74
+#: forms.py:78
+msgid "Remove avatar"
+msgstr ""
+
+#: forms.py:86
 msgid "Time zone"
 msgstr ""
 
-#: forms.py:83
+#: forms.py:96
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr "L'ora attuale è: %(date)s %(time)s"
 
-#: models.py:17
+#: forms.py:110
+#, python-format
+msgid "Unsupported file format. Supported formats are %s."
+msgstr "Formato di file non supportato. I formati supportati sono: %s."
+
+#: models.py:25
 msgid "profile"
 msgstr "profilo"
 
-#: models.py:22
+#: models.py:30
 msgid "nickname"
 msgstr ""
 
-#: models.py:23
+#: models.py:31
 msgid "location"
 msgstr "posizione"
 
-#: models.py:24
+#: models.py:32
 msgid "last seen"
 msgstr "visto l'ultima volta"
 
-#: models.py:25
+#: models.py:33
 msgid "last ip"
 msgstr "ultimo ip"
 
-#: models.py:26
+#: models.py:34
 msgid "time zone"
 msgstr "fuso orario"
 
-#: models.py:27
+#: models.py:36
+msgid "avatar"
+msgstr ""
+
+#: models.py:38
 msgid "administrator status"
 msgstr "stato di amministratore"
 
-#: models.py:28
+#: models.py:39
 msgid "moderator status"
 msgstr "status di moderatore"
 
-#: models.py:30
+#: models.py:41
 msgid "verified"
 msgstr "verificato"
 
-#: models.py:32
+#: models.py:43
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr "Indica se l'utente ha verificato il suo account con e-mail o altri mezzi. De-seleziona questa opzione per consentire all'utente di attivare il suo account."
 
-#: models.py:36
+#: models.py:47
 msgid "topic count"
 msgstr "numero di topics"
 
-#: models.py:37
+#: models.py:48
 msgid "comment count"
 msgstr "numero di commenti"
 
-#: models.py:39
+#: models.py:50
 msgid "last post hash"
 msgstr ""
 
-#: models.py:40
+#: models.py:51
 msgid "last post on"
 msgstr ""
 
-#: models.py:43
+#: models.py:54
 msgid "forum profile"
 msgstr "profilo del forum"
 
-#: models.py:44
+#: models.py:55
 msgid "forum profiles"
 msgstr "profili del forum"
 
-#: templates/spirit/user/_profile.html:14
+#: templates/spirit/user/_profile.html:22
 msgid "Joined at"
 msgstr "Unito il"
 
-#: templates/spirit/user/_profile.html:18
+#: templates/spirit/user/_profile.html:26
 msgid "Seen"
 msgstr "Visto"
 
-#: templates/spirit/user/_profile.html:23
+#: templates/spirit/user/_profile.html:31
 msgid "Last IP"
 msgstr "Ultimo IP"
 
-#: templates/spirit/user/_profile.html:36
+#: templates/spirit/user/_profile.html:44
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
 msgstr "Preferenze"
 
-#: templates/spirit/user/_profile.html:43
+#: templates/spirit/user/_profile.html:51
 msgid "Private Message"
 msgstr "Messaggio Privato"
 
-#: templates/spirit/user/_profile.html:52
+#: templates/spirit/user/_profile.html:60
 msgid "Edit user"
 msgstr "Modifica utente"
 
-#: templates/spirit/user/_profile.html:61
+#: templates/spirit/user/_profile.html:69
 msgid "Comments"
 msgstr "Commenti"
 
-#: templates/spirit/user/_profile.html:65 templates/spirit/user/menu.html:22
+#: templates/spirit/user/_profile.html:73 templates/spirit/user/menu.html:22
 msgid "Topics"
 msgstr "Argomenti"
 
-#: templates/spirit/user/_profile.html:69
+#: templates/spirit/user/_profile.html:77
 msgid "Likes"
 msgstr "Mi-piace"
 
-#: templates/spirit/user/_render_comments_list.html:39
+#: templates/spirit/user/_render_comments_list.html:38
 msgid "There are no comments here, yet"
 msgstr "Non ci sono commenti"
 
@@ -219,8 +232,8 @@ msgid "comments"
 msgstr "commenti"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:530 tests.py:844
-#: utils/email.py:48
+#: templates/spirit/user/profile_email_change.html:9 tests.py:655
+#: tests.py:1020 utils/email.py:48
 msgid "Email change"
 msgstr "Cambia Email"
 
@@ -249,23 +262,11 @@ msgstr "topics"
 msgid "Change password"
 msgstr "Cambia password"
 
-#: templates/spirit/user/profile_update.html:21
-msgid "Avatar"
-msgstr "Avatar"
-
-#: templates/spirit/user/profile_update.html:24
-msgid "Change avatar"
-msgstr "Cambiare avatar"
-
-#: templates/spirit/user/profile_update.html:25
-msgid "Go to gravatar.com and use your current email to change it"
-msgstr "Vai a gravatar.com e utilizzare la tua email per cambiarlo"
-
-#: templates/spirit/user/profile_update.html:34
+#: templates/spirit/user/profile_update.html:29
 msgid "Save"
 msgstr "Salva"
 
-#: tests.py:808 utils/email.py:40
+#: tests.py:984 utils/email.py:40
 msgid "User activation"
 msgstr "Attivazione utente"
 
@@ -274,22 +275,22 @@ msgstr "Attivazione utente"
 msgid "New notification: %(topic_name)s"
 msgstr "Nuova notifica: %(topic_name)s"
 
-#: views.py:36
+#: views.py:37
 msgid "Your profile has been updated!"
 msgstr "Il tuo profilo è stato aggiornato!"
 
-#: views.py:52
+#: views.py:53
 msgid "Your password has been changed!"
 msgstr "La tua password è stata cambiata!"
 
-#: views.py:69
+#: views.py:70
 msgid "We have sent you an email so you can confirm the change!"
 msgstr "Abbiamo inviato una e-mail in modo da poter confermare il cambiamento!"
 
-#: views.py:90
+#: views.py:91
 msgid "Your email has been changed!"
 msgstr "La tua mail è stata cambiata!"
 
-#: views.py:93
+#: views.py:94
 msgid "Sorry, we were not able to change your email."
 msgstr "Ci dispiace, non siamo stati in grado di cambiare la tua e-mail."

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2020-06-17 01:03+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
@@ -101,12 +101,12 @@ msgstr "Чыгуу"
 msgid "Are you sure you want to log out?"
 msgstr "Чыгасызбы?"
 
-#: templates/spirit/user/auth/password_reset_complete.html:7
-#: templates/spirit/user/auth/password_reset_complete.html:11
+#: templates/spirit/user/auth/password_reset_complete.html:8
+#: templates/spirit/user/auth/password_reset_complete.html:12
 msgid "Password change successful"
 msgstr "Сырсөз ийгиликтүү которулду"
 
-#: templates/spirit/user/auth/password_reset_complete.html:14
+#: templates/spirit/user/auth/password_reset_complete.html:15
 msgid "Continue to login"
 msgstr "Кириш үчүн улантыңыз"
 
@@ -143,7 +143,7 @@ msgid ""
 "receiving them shortly."
 msgstr "Биз сизге сырсөз орнотуу боюнча нускама жөнөтүп койдук. Кыска убакыттын ичинде келет."
 
-#: templates/spirit/user/auth/password_reset_done.html:12 views.py:148
+#: templates/spirit/user/auth/password_reset_done.html:12 views.py:149
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
@@ -193,12 +193,12 @@ msgstr "Катталуу"
 msgid "User activation"
 msgstr "Колдонуучуну активдештирүү"
 
-#: views.py:105
+#: views.py:106
 #, python-format
 msgid ""
 "We have sent you an email to %(email)s so you can activate your account!"
 msgstr "Аккаунтуңуду активдештирүү үчүн %(email)s дарегине эмейл жөнөттүк!"
 
-#: views.py:128
+#: views.py:129
 msgid "Your account has been activated!"
 msgstr "Аккаунтуңуз активдештирилди!"

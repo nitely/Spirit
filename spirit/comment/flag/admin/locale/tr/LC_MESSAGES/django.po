@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2018-11-26 00:01+0000\n"
 "Last-Translator: Alper Buluc <ihtiyaroyuncu@yandex.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/language/tr/)\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/spirit/comment/flag/admin/_list.html:14
+#: templates/spirit/comment/flag/admin/_list.html:16
 msgid "moderate"
 msgstr "yönet"
 
@@ -57,15 +57,15 @@ msgstr "Kaydet"
 msgid "Comment flagged"
 msgstr "Yorum işaretlendi"
 
-#: templates/spirit/comment/flag/admin/detail.html:67
+#: templates/spirit/comment/flag/admin/detail.html:65
 msgid "delete"
 msgstr "sil"
 
-#: templates/spirit/comment/flag/admin/detail.html:72
+#: templates/spirit/comment/flag/admin/detail.html:70
 msgid "undelete"
 msgstr "çöpten çıkar"
 
-#: templates/spirit/comment/flag/admin/detail.html:79
+#: templates/spirit/comment/flag/admin/detail.html:77
 msgid "Reporters"
 msgstr "Rapor Edenler"
 

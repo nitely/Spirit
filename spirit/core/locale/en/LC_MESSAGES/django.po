@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -61,31 +61,31 @@ msgstr ""
 msgid "unread"
 msgstr ""
 
-#: templates/spirit/_header.html:40
+#: templates/spirit/_header.html:41
 msgid "Profile"
 msgstr ""
 
-#: templates/spirit/_header.html:44
+#: templates/spirit/_header.html:45
 msgid "Topics"
 msgstr ""
 
-#: templates/spirit/_header.html:48
+#: templates/spirit/_header.html:49
 msgid "Unread topics"
 msgstr ""
 
-#: templates/spirit/_header.html:52
+#: templates/spirit/_header.html:53
 msgid "Private topics"
 msgstr ""
 
-#: templates/spirit/_header.html:57
+#: templates/spirit/_header.html:58
 msgid "Admin"
 msgstr ""
 
-#: templates/spirit/_header.html:62
+#: templates/spirit/_header.html:63
 msgid "Log out"
 msgstr ""
 
-#: templates/spirit/_header.html:80
+#: templates/spirit/_header.html:81
 msgid "Log in"
 msgstr ""
 
