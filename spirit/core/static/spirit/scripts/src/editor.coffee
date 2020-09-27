@@ -99,8 +99,9 @@ class Editor
         @stopClick(e)
 
     replyButton: (e) =>
+        window.location.hash = 'reply'
         @wrapSelection("", ", ", e.currentTarget.getAttribute('data'))
-        setTimeout((() => @textBox.focus()), 1)  # 1 ms
+        @stopClick(e)
 
     stopClick: (e) ->
         e.preventDefault()

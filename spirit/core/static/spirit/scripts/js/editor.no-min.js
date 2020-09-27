@@ -121,12 +121,9 @@
     };
 
     Editor.prototype.replyButton = function(e) {
+      window.location.hash = 'reply';
       this.wrapSelection("", ", ", e.currentTarget.getAttribute('data'));
-      return setTimeout(((function(_this) {
-        return function() {
-          return _this.textBox.focus();
-        };
-      })(this)), 1);
+      return this.stopClick(e);
     };
 
     Editor.prototype.stopClick = function(e) {
