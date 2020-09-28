@@ -85,3 +85,25 @@ Let's just add some minimal text this time::
 
 I've inlined the ``style`` in the elements, but a better way is to style things
 in the head section, see :ref:`extend_the_html_head_section`.
+
+Customize the site name/logo
+----------------------------
+
+The forum name can be set without overriding any template,
+go to ``http://127.0.0.1:8000/st/admin/config/``, and change
+the ``site name`` field.
+
+The template can be overridden to include custom HTML,
+such as an image.
+
+Here is how to change the site name::
+
+    {# templates/spirit/_header.html #}
+
+    {% extends "spirit/_header.html" %}
+    {% block custom_header_logo %}
+      <a
+        style="line-height: 3rem;font-size: 1.75rem;color: var(--st-header-logo);"
+        href="{% url "spirit:index" %}"
+      >MyForum</a>
+    {% endblock %}
