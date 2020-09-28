@@ -2,10 +2,12 @@
 {% load_settings 'LOGIN_URL' %}
 
 <header class="layout__header js-tabs-container">
-  <div class="header__logo_wrapper">
-    <a class="header__logo" href="{% url "spirit:index" %}"
-    >{{ config.site_name }}</a>
-  </div>
+  {% block custom_header_logo %}
+    <div class="header__logo_wrapper">
+      <a class="header__logo" href="{% url "spirit:index" %}"
+      >{{ config.site_name }}</a>
+    </div>
+  {% endblock %}
   {% if user.is_authenticated %}
     {% has_topic_notifications user as has_notifications %}
 
