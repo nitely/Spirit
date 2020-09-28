@@ -1,7 +1,9 @@
 0.12.0 (dev)
 ==================
 
-* 
+* Added `custom_header_logo` block to
+  `template/spirit/_header.html` template to
+  extend/override the site's name/logo
 
 0.11.0
 ==================
