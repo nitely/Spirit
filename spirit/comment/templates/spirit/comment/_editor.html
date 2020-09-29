@@ -106,7 +106,7 @@
       var editor = new Textcomplete.editors.Textarea(
         document.querySelector('.js-reply').querySelector('textarea'));
       var textcomplete = new Textcomplete(editor, {
-        dropdown: {className: 'textcomplete', maxCount: 5}});
+        dropdown: {className: 'spirit textcomplete', maxCount: 5}});
       textcomplete.register([{
         match: /(^|\s):([a-z0-9+\-\_]*)$/,
         search: function (term, callback) {

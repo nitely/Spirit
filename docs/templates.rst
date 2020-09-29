@@ -94,9 +94,7 @@ go to ``http://127.0.0.1:8000/st/admin/config/``, and change
 the ``site name`` field.
 
 The template can be overridden to include custom HTML,
-such as an image.
-
-Here is how to change the site name::
+such as an image::
 
     {# templates/spirit/_header.html #}
 
