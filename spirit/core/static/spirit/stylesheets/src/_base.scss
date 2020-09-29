@@ -59,15 +59,15 @@
   cursor: default;
   width: 100%;
   max-width: $max-width;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
   padding: 0 $space;
 
   display: grid;
   grid-template:
-          "hr hr hr hr hr hr hr hr" auto
-          "ae ae ae ae ae ae ae ae" 1fr
-          "fr fr fr fr fr fr fr fr" auto;
+    "hr hr hr hr hr hr hr hr" auto
+    "ae ae ae ae ae ae ae ae" 1fr
+    "fr fr fr fr fr fr fr fr" auto;
   grid-gap: $space-full;
 
   box-sizing: border-box;

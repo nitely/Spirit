@@ -5,7 +5,23 @@
 @import "elements/fonts";
 @import "elements/global";
 
+.spirit_wrapper {
+  height: 100vh;
+  display: grid;
+  grid-template:
+    "lhr" auto
+    "lae" 1fr
+    "lfr" auto;
+}
+.spirit_custom_header {
+  grid-area: lhr;
+}
+.spirit_custom_footer {
+  grid-area: lfr;
+}
+
 // namespace
 .spirit {
+  grid-area: lae;
   @import "base";
 }

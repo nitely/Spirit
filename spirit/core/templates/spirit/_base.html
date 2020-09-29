@@ -58,15 +58,21 @@
 </head>
 
 <body>
-{% block custom_before_spirit_body %}{% endblock %}
-<div class="spirit">
-  <div class="layout">
-    {% include 'spirit/_header.html' %}
-    {% block content %}{% endblock %}
-    {% include 'spirit/_footer.html' %}
+<div class="spirit_wrapper">
+  <div class="spirit_custom_header">
+    {% block custom_before_spirit_body %}{% endblock %}
+  </div>
+  <div class="spirit">
+    <div class="layout">
+      {% include 'spirit/_header.html' %}
+      {% block content %}{% endblock %}
+      {% include 'spirit/_footer.html' %}
+    </div>
+  </div>
+  <div class="spirit_custom_footer">
+    {% block custom_after_spirit_body %}{% endblock %}
   </div>
 </div>
-{% block custom_after_spirit_body %}{% endblock %}
 </body>
 
 </html>
