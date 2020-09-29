@@ -20,7 +20,9 @@ ST_STORAGE = None
 #: The task manager to run delayed and periodic tasks
 #: such as send emails, update the search index, clean up django
 #: sessions, etc. Valid values are: ``'celery'``, ``'huey'``, and
-#: ``None``
+#: ``None``. Requires running ``pip install django-spirit[huey]``
+#: to install Huey, and ``pip install django-spirit[celery]`` to
+#: install Celery
 ST_TASK_MANAGER = None
 
 #: The age in hours of the items

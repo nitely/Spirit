@@ -20,6 +20,13 @@ Huey
 
 Read the `Huey docs for Django <https://huey.readthedocs.io/en/latest/django.html>`_.
 
+Install
+*******
+
+Run::
+
+    pip install django-spirit[huey]
+
 Configuration
 *************
 
@@ -74,13 +81,20 @@ I'm not aware of how well Huey scales horizontally. It seems
 `it may just work fine <https://github.com/coleifer/huey/issues/195>`_.
 However, all Huey instances but one must disable the periodic
 task functionality to avoid running periodic tasks in more than
-one machine. This can be done by passing the ``--no-periodic`` to
-the task manager command.
+one machine. This can be done by passing the ``--no-periodic``
+parameter to the task manager command.
 
 Celery
 ------
 
 Read the `Celery docs for Django <https://docs.celeryproject.org/en/latest/django/first-steps-with-django.html>`_.
+
+Install
+*******
+
+Run::
+
+    pip install django-spirit[celery]
 
 Configuration
 *************
