@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core import signing
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 
 
 class TokenGenerator(object):
@@ -36,13 +36,13 @@ class TokenGenerator(object):
 class UserActivationTokenGenerator(TokenGenerator):
 
     def _uid(self, user):
-        return ";".join((smart_text(user.pk), smart_text(user.st.is_verified)))
+        return ";".join((smart_str(user.pk), smart_str(user.st.is_verified)))
 
 
 class UserEmailChangeTokenGenerator(TokenGenerator):
 
     def _uid(self, user):
-        return ";".join((smart_text(user.pk), smart_text(user.email)))
+        return ";".join((smart_str(user.pk), smart_str(user.email)))
 
     def generate(self, user, new_email):
         return super(UserEmailChangeTokenGenerator, self).generate(user, {'new_email': new_email, })

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 
 class MultipleInput(forms.TextInput):
@@ -11,7 +11,7 @@ class MultipleInput(forms.TextInput):
 
     def render(self, name, value, *args, **kwargs):
         if value:
-            value = ','.join(force_text(v) for v in value)
+            value = ','.join(force_str(v) for v in value)
         else:
             value = ''
 

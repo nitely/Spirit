@@ -4,7 +4,7 @@ import os
 import logging
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import smart_bytes
 from django.core.files.uploadedfile import TemporaryUploadedFile
 

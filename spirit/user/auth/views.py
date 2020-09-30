@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import views as django_views
 from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 

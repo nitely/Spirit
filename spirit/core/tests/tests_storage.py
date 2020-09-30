@@ -55,10 +55,12 @@ class StorageTests(TestCase):
         name = overwrite_storage.save('foo.gif', file)
         self.assertEqual(name, 'foo.gif')
         self.assertTrue(overwrite_storage.exists('foo.gif'))
-        self.assertEqual(overwrite_storage.open('foo.gif').read(), b'foo')
+        with overwrite_storage.open('foo.gif') as fh:
+            self.assertEqual(fh.read(), b'foo')
         # overwrite
         file = SimpleUploadedFile('foo.gif', content=b'bar')
         name = overwrite_storage.save('foo.gif', file)
         self.assertEqual(name, 'foo.gif')
         self.assertTrue(overwrite_storage.exists('foo.gif'))
-        self.assertEqual(overwrite_storage.open('foo.gif').read(), b'bar')
+        with overwrite_storage.open('foo.gif') as fh:
+            self.assertEqual(fh.read(), b'bar')

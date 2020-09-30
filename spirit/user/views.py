@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.http import HttpResponsePermanentRedirect
 
 from djconfig import config

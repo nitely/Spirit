@@ -7,7 +7,7 @@ from django.test import TestCase, RequestFactory, TransactionTestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model, HASH_SESSION_KEY
 from django.core import mail
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.utils import timezone
 from django.test.utils import override_settings
 from django.contrib.auth.models import AnonymousUser
@@ -506,8 +506,8 @@ class UserViewTest(TestCase):
         self.assertEqual(
             self.user.st.avatar.name,
             'spirit/avatars/{}/pic_test.jpg'.format(self.user.pk))
-        self.assertNotEqual(
-            self.user.st.avatar.open().read(), content)
+        with self.user.st.avatar.open() as fh:
+            self.assertNotEqual(fh.read(), content)
         self.assertTrue(spirit_storage.exists(
             'spirit/avatars/{}/pic_test_small_test.jpg'.format(self.user.pk)))
 
@@ -542,8 +542,8 @@ class UserViewTest(TestCase):
         self.assertEqual(
             self.user.st.avatar.name,
             'spirit/avatars/{}/pic_test.gif'.format(self.user.pk))
-        self.assertEqual(
-            self.user.st.avatar.open().read(), content)
+        with self.user.st.avatar.open() as fh:
+            self.assertEqual(fh.read(), content)
 
     def test_profile_password_change(self):
         """

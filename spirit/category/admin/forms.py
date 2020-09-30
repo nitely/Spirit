@@ -4,8 +4,8 @@ import re
 
 from django import forms
 from django.db.models import Max
-from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import smart_text
+from django.utils.translation import gettext_lazy as _
+from django.utils.encoding import smart_str
 from django.utils import timezone
 
 from ..models import Category
@@ -38,7 +38,7 @@ class CategoryForm(forms.ModelForm):
         self.fields['parent'] = forms.ModelChoiceField(
             queryset=queryset, required=False)
         self.fields['parent'].label_from_instance = (
-            lambda obj: smart_text(obj.title))
+            lambda obj: smart_str(obj.title))
 
     def clean_parent(self):
         parent = self.cleaned_data["parent"]

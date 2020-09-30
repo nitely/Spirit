@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.db.models import Prefetch
 
 
@@ -44,4 +44,4 @@ class NestedModelChoiceField(forms.ModelChoiceField):
         if getattr(obj, self.parent_field):
             level_indicator = "--- "
 
-        return "%s%s" % (level_indicator, smart_text(getattr(obj, self.label_field)))
+        return "%s%s" % (level_indicator, smart_str(getattr(obj, self.label_field)))

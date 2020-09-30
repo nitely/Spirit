@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import smart_text
+from django.utils.translation import gettext_lazy as _
+from django.utils.encoding import smart_str
 
 from haystack.forms import SearchForm
 from haystack.query import EmptySearchQuerySet
@@ -52,7 +52,7 @@ class AdvancedSearchForm(BaseSearchForm):
     def __init__(self, *args, **kwargs):
         super(AdvancedSearchForm, self).__init__(*args, **kwargs)
         self.fields['category'].label_from_instance = (
-            lambda obj: smart_text(obj.title))
+            lambda obj: smart_str(obj.title))
         self.fields['q'].widget.attrs.update({
             'autofocus': ''})
 

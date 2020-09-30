@@ -71,3 +71,6 @@ CELERY_TASK_ALWAYS_EAGER = True
 
 HAYSTACK_CONNECTIONS['default']['STORAGE'] = 'ram'
 HAYSTACK_LIMIT_TO_REGISTERED_MODELS = False
+
+LOGGING['loggers']['celery']['level'] = 'ERROR'
+LOGGING['loggers']['huey']['level'] = 'ERROR'

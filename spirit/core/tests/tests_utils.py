@@ -3,6 +3,7 @@
 import datetime
 import json
 import os
+from urllib.parse import unquote
 
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
@@ -15,7 +16,6 @@ from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils.timezone import utc
-from django.utils.http import urlunquote
 from django.contrib.auth import get_user_model
 
 from ..conf import settings
@@ -242,7 +242,7 @@ class UtilsTemplateTagTests(TestCase):
         res = t.render(Context(
             {'request': RequestFactory().get('/'),
              'long_title': long_title}))
-        url = urlunquote(res.strip())
+        url = unquote(res.strip())
         self.assertEqual(len(url.split("text=")[-1]) + 23, 139)  # 140 for https
 
 

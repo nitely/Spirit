@@ -5,7 +5,7 @@ from django.db import migrations
 
 _OLD_MODEL = """
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):

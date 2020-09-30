@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db.models.fields import SlugField
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.utils.text import slugify
 
 from spirit.core.conf import settings
@@ -37,7 +37,7 @@ class AutoSlugField(SlugField):
         if value is None:
             return default
 
-        slug = slugify(smart_text(value), allow_unicode=settings.ST_UNICODE_SLUGS)
+        slug = slugify(smart_str(value), allow_unicode=settings.ST_UNICODE_SLUGS)
         slug = slug[:self.max_length].strip('-')
 
         # Update the model’s attribute

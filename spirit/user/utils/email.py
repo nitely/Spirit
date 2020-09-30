@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 
 from spirit.core.conf import settings

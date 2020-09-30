@@ -3,7 +3,7 @@
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from spirit.core.utils.views import is_post
 from spirit.core.utils.decorators import moderator_required
