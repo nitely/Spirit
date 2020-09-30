@@ -16,7 +16,7 @@ Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/lat
 ## Compatibility
 
 * Python 3.5, 3.6, 3.7, and 3.8 (recommended)
-* Django 2.2 LTS (recommended), and 3.0
+* Django 2.2 LTS (recommended), 3.0, and 3.1
 * PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
 Constrained by "[What Python version can I use with Django?](https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django)"

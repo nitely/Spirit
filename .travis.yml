@@ -5,8 +5,9 @@ python:
   - "3.7"
   - "3.8"
 env:
-  - DJANGO=2.2.8
-  - DJANGO=3.0.3
+  - DJANGO=2.2.16
+  - DJANGO=3.0.7
+  - DJANGO=3.1.1
 install:
   - pip install --upgrade pip
   - pip install .[files]

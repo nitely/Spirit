@@ -12,10 +12,10 @@ __all__ = [
     'OverwriteFileSystemStorage']
 
 
-def select_storage():
+def select_storage(default=default_storage):
     """returns ``None`` if there is no custom storage"""
     if settings.ST_STORAGE is None:
-        return None
+        return default
     if settings.ST_STORAGE == 'spirit.core.storage.OverwriteFileSystemStorage':
         return OverwriteFileSystemStorage()
     return get_storage_class(settings.ST_STORAGE)()
@@ -26,9 +26,9 @@ def select_storage():
 if django.VERSION[:2] >= (3, 1):
     spirit_storage_or_none = select_storage
 else:
-    spirit_storage_or_none = select_storage()
+    spirit_storage_or_none = select_storage(default=None)
 
-spirit_storage = select_storage() or default_storage
+spirit_storage = select_storage()
 
 
 class OverwriteFileSystemStorage(FileSystemStorage):
