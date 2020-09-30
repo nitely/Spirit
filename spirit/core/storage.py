@@ -12,6 +12,12 @@ __all__ = [
     'OverwriteFileSystemStorage']
 
 
+class OverwriteFileSystemStorage(FileSystemStorage):
+    def get_available_name(self, name, **kwargs):
+        self.delete(name)
+        return name
+
+
 def select_storage(default=default_storage):
     """returns ``None`` if there is no custom storage"""
     if settings.ST_STORAGE is None:
@@ -29,9 +35,3 @@ else:
     spirit_storage_or_none = select_storage(default=None)
 
 spirit_storage = select_storage()
-
-
-class OverwriteFileSystemStorage(FileSystemStorage):
-    def get_available_name(self, name, **kwargs):
-        self.delete(name)
-        return name
