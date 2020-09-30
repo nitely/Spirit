@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Py ${{ matrix.python }} Dj ${{ matrix.django }}
+    strategy:
+      matrix:
+        python: [3.6, 3.7, 3.8]
+        django: [2.2.16, 3.0.7, 3.1.1]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .[files]
+          pip install .[huey]
+          pip install .[celery]
+          pip uninstall django-spirit -y
+          pip install -q --upgrade Django==${{ matrix.django }}
+          python setup.py build
+          python ./spirit/extra/bin/spirit.py startproject project
+          export PYTHONWARNINGS="default"
+          make test
