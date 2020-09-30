@@ -31,7 +31,7 @@ jobs:
       run: |
         python setup.py -q build
         python ./spirit/extra/bin/spirit.py startproject project
-        python manage.py makemigrations --check --dry-run
+        python project/manage.py makemigrations --check --dry-run
         export PYTHONWARNINGS="default"
         make test
   build_js:
