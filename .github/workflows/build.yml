@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: Py ${{ matrix.python }} Dj ${{ matrix.django }}
+    name: Py ${{ matrix.python }} / Django ${{ matrix.django }}
     strategy:
       matrix:
         python: [3.6, 3.7, 3.8]
@@ -25,8 +25,8 @@ jobs:
           pip install .[huey]
           pip install .[celery]
           pip uninstall django-spirit -y
-          pip install -q --upgrade Django==${{ matrix.django }}
-          python setup.py build
+          pip install --upgrade Django==${{ matrix.django }}
+          python setup.py -q build
           python ./spirit/extra/bin/spirit.py startproject project
           export PYTHONWARNINGS="default"
           make test
