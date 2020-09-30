@@ -48,6 +48,7 @@ jobs:
     - name: Install Dependencies
       run: |
         npm install -g yarn
+        yarn global add jasmine@3.6.1
         yarn
     - name: Run Tests
       run: |
