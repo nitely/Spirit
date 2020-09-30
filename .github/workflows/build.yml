@@ -22,9 +22,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install .[files]
-        pip install .[huey]
-        pip install .[celery]
+        pip install .[files,huey,celery]
         pip uninstall django-spirit -y
         pip install --upgrade Django==${{ matrix.django }}
     - name: Run Tests
@@ -78,4 +76,30 @@ jobs:
         export PYTHONWARNINGS="default"
         export ST_UPLOAD_FILE_ENABLED=0
         export ST_INSTALL_HUEY=0
+        make test
+  build_huey:
+    runs-on: ubuntu-latest
+    name: Huey / Py ${{ matrix.python }} / Django ${{ matrix.django }}
+    strategy:
+      matrix:
+        python: [3.8]
+        django: [3.1.1]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .[huey]
+        pip uninstall django-spirit -y
+        pip install --upgrade Django==${{ matrix.django }}
+    - name: Run Tests
+      run: |
+        python ./spirit/extra/bin/spirit.py startproject project
+        export PYTHONWARNINGS="default"
+        export ST_UPLOAD_FILE_ENABLED=0
+        export ST_TASK_MANAGER="huey"
         make test
