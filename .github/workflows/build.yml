@@ -35,13 +35,19 @@ jobs:
         make test
   build_js:
     runs-on: ubuntu-latest
-    name: Node
+    name: JS
+    strategy:
+      matrix:
+        node: [12.x]
     steps:
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v2
+    - name: Set Up NodeJS ${{ matrix.node }}
+      uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: ${{ matrix.node }}
     - name: Install Dependencies
       run: |
+        npm install -g yarn
         yarn
     - name: Run Tests
       run: |
