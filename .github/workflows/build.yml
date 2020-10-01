@@ -33,13 +33,12 @@ jobs:
         python ./spirit/extra/bin/spirit.py startproject project
         export PYTHONWARNINGS="default"
         coverage run --source=. runtests.py
+    - name: Submit to coveralls
+      env:
+        COVERALLS_PARALLEL: true
+        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
         coveralls
-    - name: Coveralls Parallel
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: run-build-${{ matrix.python }}-${{ matrix.django }}
-        parallel: true
   finish_build:
     needs: build
     runs-on: ubuntu-latest
