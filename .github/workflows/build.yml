@@ -33,6 +33,7 @@ jobs:
         python ./spirit/extra/bin/spirit.py startproject project
         export PYTHONWARNINGS="default"
         coverage run --source=. runtests.py
+        coveralls
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
       with:
