@@ -7,9 +7,9 @@ on:
   pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
     name: Py ${{ matrix.python }} / Django ${{ matrix.django }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python: [3.6, 3.7, 3.8]
@@ -23,10 +23,10 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install coveralls
         pip install .[files,huey,celery]
         pip uninstall django-spirit -y
         pip install --upgrade Django==${{ matrix.django }}
+        pip install --upgrade coveralls
     - name: Run Tests
       run: |
         python setup.py -q build
@@ -35,22 +35,31 @@ jobs:
         coverage run --source=. runtests.py
     - name: Submit to coveralls
       env:
+        COVERALLS_FLAG_NAME: run-${{ matrix.python }}-${{ matrix.django }}
         COVERALLS_PARALLEL: true
-        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         coveralls
-  finish_build:
-    needs: build
+  coveralls:
+    name: Finish Coveralls
+    needs: test
     runs-on: ubuntu-latest
     steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true
-  build_js:
-    runs-on: ubuntu-latest
+         python-version: 3.8
+    - name: Finished
+      run: |
+        python -m pip install --upgrade pip
+        pip install --upgrade coveralls
+        coveralls --finish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  test_js:
     name: JS
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [12.x]
@@ -68,9 +77,9 @@ jobs:
     - name: Run Tests
       run: |
         make testjs
-  build_no_deps:
-    runs-on: ubuntu-latest
+  test_no_deps:
     name: No-deps / Py ${{ matrix.python }} / Django ${{ matrix.django }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python: [3.8]
@@ -94,9 +103,9 @@ jobs:
         export ST_UPLOAD_FILE_ENABLED=0
         export ST_INSTALL_HUEY=0
         make test
-  build_huey:
-    runs-on: ubuntu-latest
+  test_huey:
     name: Huey / Py ${{ matrix.python }} / Django ${{ matrix.django }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python: [3.8]
