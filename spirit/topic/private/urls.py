@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import url
+from django.conf.urls import re_path
 
 from . import views
 
 
 app_name = 'private'
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^author/$', views.index_author, name='index-author'),
+    re_path(r'^$', views.index, name='index'),
+    re_path(r'^author/$', views.index_author, name='index-author'),
 
-    url(r'^publish/$', views.publish, name='publish'),
-    url(r'^publish/(?P<user_id>[0-9]+)/$', views.publish, name='publish'),
+    re_path(r'^publish/$', views.publish, name='publish'),
+    re_path(r'^publish/(?P<user_id>[0-9]+)/$', views.publish, name='publish'),
 
-    url(r'^(?P<topic_id>[0-9]+)/$', views.detail, kwargs={'slug': "", }, name='detail'),
-    url(r'^(?P<topic_id>[0-9]+)/(?P<slug>[\w-]+)/$', views.detail, name='detail'),
+    re_path(r'^(?P<topic_id>[0-9]+)/$', views.detail, kwargs={'slug': "", }, name='detail'),
+    re_path(r'^(?P<topic_id>[0-9]+)/(?P<slug>[\w-]+)/$', views.detail, name='detail'),
 
-    url(r'^invite/(?P<topic_id>[0-9]+)/$', views.create_access, name='access-create'),
-    url(r'^remove/(?P<pk>[0-9]+)/$', views.delete_access, name='access-remove'),
-    url(r'^join/(?P<topic_id>[0-9]+)/$', views.join_in, name='join'),
+    re_path(r'^invite/(?P<topic_id>[0-9]+)/$', views.create_access, name='access-create'),
+    re_path(r'^remove/(?P<pk>[0-9]+)/$', views.delete_access, name='access-remove'),
+    re_path(r'^join/(?P<topic_id>[0-9]+)/$', views.join_in, name='join'),
 ]

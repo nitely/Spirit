@@ -2,5 +2,5 @@
 
 import django.dispatch
 
-search_index_update = django.dispatch.Signal(
-    providing_args=['sender', 'instance'])
+# args: sender, instance
+search_index_update = django.dispatch.Signal()

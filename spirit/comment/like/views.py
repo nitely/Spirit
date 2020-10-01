@@ -4,9 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from spirit.core.utils.views import is_post, post_data
-from ...core.utils import json_response
-from ..models import Comment
+from spirit.core.utils.views import is_post, post_data, is_ajax
+from spirit.core.utils import json_response
+from spirit.comment.models import Comment
 from .models import CommentLike
 from .forms import LikeForm
 
@@ -25,7 +25,7 @@ def create(request, comment_id):
         like = form.save()
         like.comment.increase_likes_count()
 
-        if request.is_ajax():
+        if is_ajax(request):
             return json_response({'url_delete': like.get_delete_url()})
 
         return redirect(request.POST.get('next', comment.get_absolute_url()))
@@ -46,7 +46,7 @@ def delete(request, pk):
         like.delete()
         like.comment.decrease_likes_count()
 
-        if request.is_ajax():
+        if is_ajax(request):
             url = reverse(
                 'spirit:comment:like:create',
                 kwargs={'comment_id': like.comment.pk})

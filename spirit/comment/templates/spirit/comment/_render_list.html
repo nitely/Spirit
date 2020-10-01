@@ -99,35 +99,35 @@
         ><i class="fa fa-share-alt"></i> {% trans "share" %}</a></li>
 
         {% if user.is_authenticated %}
-        {% if c.like %}
-        <li class="comment-like"><a
-          class="js-like"
-          href="{% url "spirit:comment:like:delete" c.like.pk %}"
-          data-count="{{ c.likes_count }}"
-        ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
-        {% else %}
-        {% ifnotequal c.user user  %}
-        <li class="comment-like"><a
-          class="js-like like"
-          href="{% url "spirit:comment:like:create" c.pk %}"
-          data-count="{{ c.likes_count }}"
-        ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
-        {% else %}
-        <li class="comment-like"><i class="fa fa-heart"></i> ({{ c.likes_count }})</li>
-        {% endifnotequal %}
-        {% endif %}
+          {% if c.like %}
+            <li class="comment-like"><a
+              class="js-like"
+              href="{% url "spirit:comment:like:delete" c.like.pk %}"
+              data-count="{{ c.likes_count }}"
+            ><i class="fa fa-heart"></i> {% trans "remove like" %} ({{ c.likes_count }})</a></li>
+          {% else %}
+            {% if c.user.pk != user.pk  %}
+              <li class="comment-like"><a
+                class="js-like like"
+                href="{% url "spirit:comment:like:create" c.pk %}"
+                data-count="{{ c.likes_count }}"
+              ><i class="fa fa-heart"></i> {% trans "like" %} ({{ c.likes_count }})</a></li>
+            {% else %}
+              <li class="comment-like"><i class="fa fa-heart"></i> ({{ c.likes_count }})</li>
+            {% endif %}
+          {% endif %}
 
-        {% if user.st.is_moderator or c.user.pk == user.pk %}
-          <li><a href="{% url "spirit:comment:update" pk=c.pk %}"
-          >{% trans "edit" %}</a></li>
-        {% endif %}
+          {% if user.st.is_moderator or c.user.pk == user.pk %}
+            <li><a href="{% url "spirit:comment:update" pk=c.pk %}"
+            >{% trans "edit" %}</a></li>
+          {% endif %}
 
-        {% ifnotequal c.user.pk user.pk %}
-          <li><a href="{% url "spirit:comment:publish" topic_id=topic.pk pk=c.pk %}"
-          >{% trans "quote" %}</a></li>
-          <li><a href="#reply" class="js-reply-button" data="@{{ c.user.username }}"
-          >{% trans "reply" %}</a></li>
-        {% endifnotequal %}
+          {% if c.user.pk != user.pk %}
+            <li><a href="{% url "spirit:comment:publish" topic_id=topic.pk pk=c.pk %}"
+            >{% trans "quote" %}</a></li>
+            <li><a href="#reply" class="js-reply-button" data="@{{ c.user.username }}"
+            >{% trans "reply" %}</a></li>
+          {% endif %}
         {% endif %}
       </ul>
       {% endspaceless %}

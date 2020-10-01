@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import include, url
+from django.conf.urls import include, re_path
 
 from ..views import register
 from ..forms import RegistrationForm
@@ -15,6 +15,6 @@ def register_view(request):
 
 
 urlpatterns = [
-    url(r'^user/register/$', register_view, name='register'),
-    url(r'^', include('spirit.urls')),
+    re_path(r'^user/register/$', register_view, name='register'),
+    re_path(r'^', include('spirit.urls')),
 ]

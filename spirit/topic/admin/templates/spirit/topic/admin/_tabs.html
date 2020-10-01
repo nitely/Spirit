@@ -3,15 +3,15 @@
 {% spaceless %}
 <ul class="admin__tabs">
   <li><a
-    class="admin__tabs__link{% ifequal active_tab "deleted" %} is-selected{% endifequal %}"
+    class="admin__tabs__link{% if active_tab == "deleted" %} is-selected{% endif %}"
     href="{% url "spirit:admin:topic:deleted" %}">{% trans "Deleted" %}</a>
   </li>
   <li><a
-    class="admin__tabs__link{% ifequal active_tab "closed" %} is-selected{% endifequal %}"
+    class="admin__tabs__link{% if active_tab == "closed" %} is-selected{% endif %}"
     href="{% url "spirit:admin:topic:closed" %}" >{% trans "Closed" %}</a>
   </li>
   <li><a
-    class="admin__tabs__link{% ifequal active_tab "pinned" %} is-selected{% endifequal %}"
+    class="admin__tabs__link{% if active_tab == "pinned" %} is-selected{% endif %}"
     href="{% url "spirit:admin:topic:pinned" %}" >{% trans "Pinned" %}</a>
   </li>
 </ul>

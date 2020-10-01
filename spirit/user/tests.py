@@ -15,6 +15,7 @@ from django.apps import apps
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.http import HttpResponse
 
 from djconfig.utils import override_djconfig
 
@@ -1138,7 +1139,8 @@ class TimezoneMiddlewareTest(TestCase):
         self.user.st.timezone = time_zone
 
         self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
-        middleware.TimezoneMiddleware().process_request(req)
+        middleware.TimezoneMiddleware(
+            lambda req: HttpResponse(status=500)).process_request(req)
         self.assertEqual(timezone.get_current_timezone().zone, time_zone)
 
     @override_settings(TIME_ZONE='UTC')
@@ -1152,7 +1154,8 @@ class TimezoneMiddlewareTest(TestCase):
         time_zone = 'America/Argentina/Buenos_Aires'
         timezone.activate(time_zone)
         self.assertEqual(timezone.get_current_timezone().zone, time_zone)
-        middleware.TimezoneMiddleware().process_request(req)
+        middleware.TimezoneMiddleware(
+            lambda req: HttpResponse(status=500)).process_request(req)
         self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
 
     @override_settings(TIME_ZONE='UTC')
@@ -1169,7 +1172,8 @@ class TimezoneMiddlewareTest(TestCase):
         time_zone = 'America/Argentina/Buenos_Aires'
         timezone.activate(time_zone)
         self.assertEqual(timezone.get_current_timezone().zone, time_zone)
-        middleware.TimezoneMiddleware().process_request(req)
+        middleware.TimezoneMiddleware(
+            lambda req: HttpResponse(status=500)).process_request(req)
         self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
 
 
@@ -1187,12 +1191,16 @@ class LastIPMiddlewareTest(TestCase):
         req.user = self.user
         self.assertIsNone(User.objects.get(pk=self.user.pk).st.last_ip)
         req.META['REMOTE_ADDR'] = '123.123.123.123'
-        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
+        self.assertIsNone(
+            middleware.LastIPMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
         req.META['REMOTE_ADDR'] = '321.321.321.321'
-        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
+        self.assertIsNone(
+            middleware.LastIPMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '321.321.321.321')
@@ -1209,7 +1217,9 @@ class LastIPMiddlewareTest(TestCase):
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
         req.META['REMOTE_ADDR'] = '123.123.123.123'
-        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
+        self.assertIsNone(
+            middleware.LastIPMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
@@ -1226,7 +1236,9 @@ class LastIPMiddlewareTest(TestCase):
             User.objects.get(pk=self.user.pk).st.last_ip,
             '123.123.123.123')
         req.META['REMOTE_ADDR'] = '321.321.321.321'
-        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
+        self.assertIsNone(
+            middleware.LastIPMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
         self.assertEqual(
             User.objects.get(pk=self.user.pk).st.last_ip,
             '321.321.321.321')
@@ -1237,7 +1249,9 @@ class LastIPMiddlewareTest(TestCase):
         """
         req = RequestFactory().get('/')
         req.user = AnonymousUser()
-        self.assertIsNone(middleware.LastIPMiddleware().process_request(req))
+        self.assertIsNone(
+            middleware.LastIPMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
 
     def test_on_client(self):
         """
@@ -1277,7 +1291,8 @@ class LastSeenMiddlewareTest(TestCase):
         last_seen = UserProfile.objects.get(pk=req.user.st.pk).last_seen
         req.user.st.last_seen = last_seen
         self.assertIsNone(
-            middleware.LastSeenMiddleware().process_request(req))
+            middleware.LastSeenMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
         self.assertGreater(
             UserProfile.objects.get(pk=req.user.st.pk).last_seen,
             last_seen)
@@ -1299,7 +1314,8 @@ class LastSeenMiddlewareTest(TestCase):
         last_seen = UserProfile.objects.get(pk=req.user.st.pk).last_seen
         req.user.st.last_seen = last_seen
         self.assertIsNone(
-            middleware.LastSeenMiddleware().process_request(req))
+            middleware.LastSeenMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
         self.assertEqual(
             UserProfile.objects.get(pk=req.user.st.pk).last_seen,
             last_seen)
@@ -1312,7 +1328,8 @@ class LastSeenMiddlewareTest(TestCase):
         req.user = AnonymousUser()
         self.assertFalse(req.user.is_authenticated)
         self.assertIsNone(
-            middleware.LastSeenMiddleware().process_request(req))
+            middleware.LastSeenMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
 
     @override_settings(ST_USER_LAST_SEEN_THRESHOLD_MINUTES=1)
     def test_on_client(self):
@@ -1393,7 +1410,8 @@ class ActiveUserMiddlewareTest(TestCase):
         req.user = self.user
         self.assertTrue(req.user.is_authenticated)
         self.assertIsNone(
-            middleware.ActiveUserMiddleware().process_request(req))
+            middleware.ActiveUserMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
 
     def test_active_user_anonym_user(self):
         """
@@ -1403,7 +1421,8 @@ class ActiveUserMiddlewareTest(TestCase):
         req.user = AnonymousUser()
         self.assertFalse(req.user.is_authenticated)
         self.assertIsNone(
-            middleware.ActiveUserMiddleware().process_request(req))
+            middleware.ActiveUserMiddleware(lambda req: HttpResponse(status=500))
+            .process_request(req))
 
 
 class UserMigrationsTest(TestCase):

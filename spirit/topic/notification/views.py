@@ -12,11 +12,12 @@ from django.utils.html import escape
 from djconfig import config
 from infinite_scroll_pagination.serializers import to_page_key
 
-from ...core.conf import settings
-from ...core import utils
-from ...core.utils.paginator import yt_paginate
-from ...core.utils.paginator.infinite_paginator import paginate
-from ...topic.models import Topic
+from spirit.core.conf import settings
+from spirit.core import utils
+from spirit.core.utils.paginator import yt_paginate
+from spirit.core.utils.paginator.infinite_paginator import paginate
+from spirit.core.utils.views import is_ajax
+from spirit.topic.models import Topic
 from .models import TopicNotification
 from .forms import NotificationForm, NotificationCreationForm
 
@@ -51,12 +52,13 @@ def update(request, pk):
     else:
         messages.error(request, utils.render_form_errors(form))
 
-    return redirect(request.POST.get('next', notification.topic.get_absolute_url()))
+    return redirect(request.POST.get(
+        'next', notification.topic.get_absolute_url()))
 
 
 @login_required
 def index_ajax(request):
-    if not request.is_ajax():
+    if not is_ajax(request):
         return Http404()
 
     notifications = (
@@ -73,7 +75,9 @@ def index_ajax(request):
          'is_read': n.is_read}
         for n in notifications]
 
-    return HttpResponse(json.dumps({'n': notifications}), content_type="application/json")
+    return HttpResponse(
+        json.dumps({'n': notifications}),
+        content_type="application/json")
 
 
 @login_required
@@ -83,19 +87,18 @@ def index_unread(request):
             .for_access(request.user)
             .filter(is_read=False)
             .with_related_data())
-
     page = paginate(
         request,
         query_set=notifications,
         lookup_field='date',
         page_var='p',
         per_page=settings.ST_NOTIFICATIONS_PER_PAGE)
-
-    context = {
-        'page': page,
-        'next_page': to_page_key(**page.next_page())}
-
-    return render(request, 'spirit/topic/notification/index_unread.html', context)
+    return render(
+        request=request,
+        template_name='spirit/topic/notification/index_unread.html',
+        context={
+            'page': page,
+            'next_page': to_page_key(**page.next_page())})
 
 
 @login_required

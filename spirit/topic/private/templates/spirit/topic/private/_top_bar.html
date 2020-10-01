@@ -3,7 +3,7 @@
 <div class="layout__menu">
   <div class="menu__dropdown js-tabs-container">
     <div class="menu__dropdown_button">
-      {% ifequal active "participating" %}
+      {% if active == "participating" %}
         <a
           class="dropdown_button js-tab"
           href="#"
@@ -15,7 +15,7 @@
           href="#"
           data-related=".js-categories-content"
         >{% trans "Left" %} <i class="fa fa-chevron-down"></i></a>
-      {% endifequal %}
+      {% endif %}
     </div>
     <div class="menu_list_wrapper js-tab-content js-categories-content" style="display: none;">
       {% spaceless %}

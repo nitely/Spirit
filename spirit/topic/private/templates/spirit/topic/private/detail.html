@@ -31,12 +31,12 @@
                     class="menu_list__participant__user"
                     href="{{ tp.user.st.get_absolute_url }}"
                   >{{ tp.user.st.nickname }}</a>
-                  {% ifequal user.pk topic.user.pk %}
+                  {% if user.pk == topic.user.pk %}
                     <a
                       class="menu_list__participant__remove"
                       href="{% url "spirit:topic:private:access-remove" tp.pk %}"
                     ><i class="fa fa-times"></i></a>
-                  {% endifequal %}
+                  {% endif %}
                 </li>
               {% endfor %}
             {% endspaceless %}
@@ -51,11 +51,11 @@
       </div>
     </div>
 
-    {% ifequal user.pk topic.user.pk %}
+    {% if user.pk == topic.user.pk %}
       <div class="invite_user">
         {% render_invite_form topic %}
       </div>
-    {% endifequal %}
+    {% endif %}
 
     {% include "spirit/comment/_render_list.html" %}
 

@@ -2,11 +2,11 @@
 
 <ul class="admin__tabs">
 	<li><a
-		class="admin__tabs__link{% ifequal active_tab "open" %} is-selected{% endifequal %}"
+		class="admin__tabs__link{% if active_tab == "open" %} is-selected{% endif %}"
 		href="{% url "spirit:admin:flag:opened" %}"
 		>{% trans "Open" %}</a></li>
 	<li><a
-		class="admin__tabs__link{% ifequal active_tab "closed" %} is-selected{% endifequal %}"
+		class="admin__tabs__link{% if active_tab == "closed" %} is-selected{% endif %}"
 		href="{% url "spirit:admin:flag:closed" %}"
 		>{% trans "Closed" %}</a></li>
 </ul>

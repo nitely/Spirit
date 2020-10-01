@@ -3,19 +3,19 @@
 {% spaceless %}
   <ul class="admin__tabs">
     <li><a
-      class="admin__tabs__link{% ifequal active_tab "list" %} is-selected{% endifequal %}"
+      class="admin__tabs__link{% if active_tab == "list" %} is-selected{% endif %}"
       href="{% url "spirit:admin:user:index" %}"
     >{% trans "List" %}</a></li>
     <li><a
-      class="admin__tabs__link{% ifequal active_tab "admins" %} is-selected{% endifequal %}"
+      class="admin__tabs__link{% if active_tab == "admins" %} is-selected{% endif %}"
       href="{% url "spirit:admin:user:index-admins" %}"
     >{% trans "Admins" %}</a></li>
     <li><a
-      class="admin__tabs__link{% ifequal active_tab "mods" %} is-selected{% endifequal %}"
+      class="admin__tabs__link{% if active_tab == "mods" %} is-selected{% endif %}"
       href="{% url "spirit:admin:user:index-mods" %}"
     >{% trans "Mods" %}</a></li>
     <li><a
-      class="admin__tabs__link{% ifequal active_tab "unactive" %} is-selected{% endifequal %}"
+      class="admin__tabs__link{% if active_tab == "unactive" %} is-selected{% endif %}"
       href="{% url "spirit:admin:user:index-unactive" %}"
     >{% trans "Unactive" %}</a></li>
   </ul>

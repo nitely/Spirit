@@ -8,11 +8,11 @@ from django.http import Http404
 
 from djconfig import config
 
-from ..core.utils.views import is_post, post_data
-from ..core.utils.ratelimit.decorators import ratelimit
-from ..core.utils.decorators import moderator_required
-from ..core.utils import markdown, paginator, render_form_errors, json_response
-from ..topic.models import Topic
+from spirit.core.utils.views import is_post, post_data, is_ajax
+from spirit.core.utils.ratelimit.decorators import ratelimit
+from spirit.core.utils.decorators import moderator_required
+from spirit.core.utils import markdown, paginator, render_form_errors, json_response
+from spirit.topic.models import Topic
 from .models import Comment
 from .forms import CommentForm, CommentMoveForm, CommentImageForm, CommentFileForm
 from .utils import comment_posted, post_comment_update, pre_comment_update, post_comment_move
@@ -109,7 +109,10 @@ def move(request, topic_id):
 
 def find(request, pk):
     comment = get_object_or_404(Comment.objects.select_related('topic'), pk=pk)
-    comment_number = Comment.objects.filter(topic=comment.topic, date__lte=comment.date).count()
+    comment_number = (
+        Comment.objects
+        .filter(topic=comment.topic, date__lte=comment.date)
+        .count())
     url = paginator.get_url(
         comment.topic.get_absolute_url(),
         comment_number,
@@ -121,25 +124,27 @@ def find(request, pk):
 @require_POST
 @login_required
 def image_upload_ajax(request):
-    if not request.is_ajax():
+    if not is_ajax(request):
         return Http404()
 
-    form = CommentImageForm(user=request.user, data=request.POST, files=request.FILES)
+    form = CommentImageForm(
+        user=request.user, data=request.POST, files=request.FILES)
 
     if form.is_valid():
         image = form.save()
         return json_response({'url': image.url})
 
-    return json_response({'error': dict(form.errors.items()), })
+    return json_response({'error': dict(form.errors.items())})
 
 
 @require_POST
 @login_required
 def file_upload_ajax(request):
-    if not request.is_ajax():
+    if not is_ajax(request):
         return Http404()
 
-    form = CommentFileForm(user=request.user, data=request.POST, files=request.FILES)
+    form = CommentFileForm(
+        user=request.user, data=request.POST, files=request.FILES)
 
     if form.is_valid():
         file = form.save()
