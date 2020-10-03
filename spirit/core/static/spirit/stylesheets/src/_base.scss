@@ -548,8 +548,11 @@
   }
 }
 .comment__text {
-  @extend %break-words;
   grid-area: tx;
+}
+.comment__reply__preview,
+.comment__text {
+  @extend %break-words;
   blockquote {
     margin: 0;
     margin-bottom: $space-half;

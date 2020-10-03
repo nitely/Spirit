@@ -4642,7 +4642,8 @@ html input[disabled] {
     margin: 0;
     margin-bottom: 12px; }
   .spirit .headline, .spirit .header__tab__bell, .spirit .paginator__pages, .spirit .layout__list__item__title,
-  .spirit .topic__title, .spirit .comment__info__username__realname, .spirit .comment__text, .spirit .comment__reply__info__realname, .spirit .layout__list__item__title_action,
+  .spirit .topic__title, .spirit .comment__info__username__realname, .spirit .comment__reply__preview,
+  .spirit .comment__text, .spirit .comment__reply__info__realname, .spirit .layout__list__item__title_action,
   .spirit .admin__items_list__item__title, .spirit .admin__statistics__box {
     overflow: hidden;
     word-break: break-word;
@@ -5058,35 +5059,47 @@ html input[disabled] {
         max-width: 300px; } }
   .spirit .comment__text {
     grid-area: tx; }
-    .spirit .comment__text blockquote {
-      margin: 0;
-      margin-bottom: 12px;
-      border-left: 4px solid var(--st-br-comment-quote);
-      padding-left: 12px; }
-      .spirit .comment__text blockquote > * {
-        margin-bottom: 12px; }
-        .spirit .comment__text blockquote > *:last-child {
-          margin-bottom: 0; }
-    .spirit .comment__text > blockquote {
-      max-height: 6.75rem;
-      overflow-y: auto; }
-    .spirit .comment__text ol,
-    .spirit .comment__text ul {
-      list-style-type: disc;
-      list-style-position: inside;
-      margin-left: 12px; }
-    .spirit .comment__text ol {
-      list-style-type: decimal; }
-    .spirit .comment__text img {
-      vertical-align: text-bottom; }
-    .spirit .comment__text a {
-      text-decoration: underline; }
-      .spirit .comment__text a.comment-mention {
-        text-decoration: none; }
-    .spirit .comment__text > * {
+  .spirit .comment__reply__preview blockquote,
+  .spirit .comment__text blockquote {
+    margin: 0;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--st-br-comment-quote);
+    padding-left: 12px; }
+    .spirit .comment__reply__preview blockquote > *,
+    .spirit .comment__text blockquote > * {
       margin-bottom: 12px; }
-      .spirit .comment__text > *:last-child {
+      .spirit .comment__reply__preview blockquote > *:last-child,
+      .spirit .comment__text blockquote > *:last-child {
         margin-bottom: 0; }
+  .spirit .comment__reply__preview > blockquote,
+  .spirit .comment__text > blockquote {
+    max-height: 6.75rem;
+    overflow-y: auto; }
+  .spirit .comment__reply__preview ol,
+  .spirit .comment__reply__preview ul,
+  .spirit .comment__text ol,
+  .spirit .comment__text ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-left: 12px; }
+  .spirit .comment__reply__preview ol,
+  .spirit .comment__text ol {
+    list-style-type: decimal; }
+  .spirit .comment__reply__preview img,
+  .spirit .comment__text img {
+    vertical-align: text-bottom; }
+  .spirit .comment__reply__preview a,
+  .spirit .comment__text a {
+    text-decoration: underline; }
+    .spirit .comment__reply__preview a.comment-mention,
+    .spirit .comment__text a.comment-mention {
+      text-decoration: none; }
+  .spirit .comment__reply__preview > *,
+  .spirit .comment__text > * {
+    margin-bottom: 12px; }
+    .spirit .comment__reply__preview > *:last-child,
+    .spirit .comment__text > *:last-child {
+      margin-bottom: 0; }
   .spirit .blockquote_expand {
     display: flex;
     border-top: 1px solid var(--st-bg-sec); }
