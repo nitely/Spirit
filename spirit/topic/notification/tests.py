@@ -10,6 +10,7 @@ from django.template import Template, Context
 from django.utils import timezone
 
 from djconfig.utils import override_djconfig
+from infinite_scroll_pagination.serializers import to_page_key
 
 from spirit.core.tests import utils
 from .models import TopicNotification
@@ -58,58 +59,6 @@ class TopicNotificationViewTest(TestCase):
             list(response.context['notifications']),
             [self.topic_notification])
 
-    @override_settings(ST_NOTIFICATIONS_PER_PAGE=20)
-    def test_topic_notification_list_order(self):
-        TopicNotification.objects.all().delete()
-        old_date = timezone.now() - datetime.timedelta(days=10)
-        topic0 = utils.create_topic(self.category)
-        comment0 = utils.create_comment(topic=topic0)
-        tn_comment0 = TopicNotification.objects.create(
-            user=self.user, topic=topic0,
-            comment=comment0, is_active=True,
-            action=COMMENT)
-        topic1 = utils.create_topic(self.category)
-        comment1 = utils.create_comment(topic=topic1)
-        tn_comment1 = TopicNotification.objects.create(
-            user=self.user, topic=topic1,
-            comment=comment1, is_active=True,
-            action=COMMENT,
-            date=old_date)
-        topic2 = utils.create_topic(self.category)
-        comment2 = utils.create_comment(topic=topic2)
-        tn_mention1 = TopicNotification.objects.create(
-            user=self.user, topic=topic2,
-            comment=comment2, is_active=True,
-            action=MENTION,
-            date=old_date)
-        topic3 = utils.create_topic(self.category)
-        comment3 = utils.create_comment(topic=topic3)
-        tn_mention2_read = TopicNotification.objects.create(
-            user=self.user, topic=topic3,
-            comment=comment3, is_active=True,
-            is_read=True,
-            action=MENTION)
-        topic4 = utils.create_topic(self.category)
-        comment4 = utils.create_comment(topic=topic4)
-        tn_comment2 = TopicNotification.objects.create(
-            user=self.user, topic=topic4,
-            comment=comment4, is_active=True,
-            action=COMMENT,
-            date=old_date)
-        topic5 = utils.create_topic(self.category)
-        comment5 = utils.create_comment(topic=topic5)
-        tn_comment3_read = TopicNotification.objects.create(
-            user=self.user, topic=topic5,
-            comment=comment5, is_active=True,
-            is_read=True,
-            action=COMMENT)
-        utils.login(self)
-        response = self.client.get(reverse('spirit:topic:notification:index'))
-        self.assertEqual(
-            list(response.context['notifications']),
-            [tn_mention1, tn_comment0, tn_comment2,
-             tn_comment1, tn_mention2_read, tn_comment3_read])
-
     @override_djconfig(topics_per_page=1)
     def test_topic_notification_list_paginate(self):
         """
@@ -145,6 +94,11 @@ class TopicNotificationViewTest(TestCase):
         self.assertEqual(
             list(response.context['notifications']),
             [topic_notif, ])
+
+        # list unread should behave the same
+        response = self.client.get(
+            reverse('spirit:topic:notification:index-unread'))
+        self.assertEqual(list(response.context['page']), [topic_notif, ])
 
         # ajax list should behave the same
         response = self.client.get(
@@ -193,12 +147,48 @@ class TopicNotificationViewTest(TestCase):
         response = self.client.get(reverse('spirit:topic:notification:index'))
         self.assertEqual(list(response.context['notifications']), [])
 
+        # list unread should behave the same
+        response = self.client.get(
+            reverse('spirit:topic:notification:index-unread'))
+        self.assertEqual(list(response.context['page']), [])
+
         # ajax list should behave the same
         response = self.client.get(
             reverse('spirit:topic:notification:index-ajax'),
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 0)
+
+    @override_settings(ST_NOTIFICATIONS_PER_PAGE=10)
+    def test_topic_notification_list_unread(self):
+        """
+        topic notification list
+        """
+        topic = utils.create_topic(self.category, user=self.user2)
+        comment = utils.create_comment(topic=topic, user=self.user2)
+        topic_notification = TopicNotification.objects.create(
+            user=self.user,
+            topic=topic,
+            comment=comment,
+            is_active=True,
+            action=COMMENT)
+
+        utils.login(self)
+        response = self.client.get(
+            reverse('spirit:topic:notification:index-unread'))
+        self.assertEqual(
+            list(response.context['page']),
+            [topic_notification, self.topic_notification])
+
+        # fake next page
+        response = self.client.get(
+            reverse('spirit:topic:notification:index-unread'),
+            {'p': to_page_key(
+                value=topic_notification.date,
+                pk=topic_notification.pk)})
+        self.assertEqual(
+            list(response.context['page']),
+            [self.topic_notification, ])
 
     def test_topic_notification_ajax(self):
         """
