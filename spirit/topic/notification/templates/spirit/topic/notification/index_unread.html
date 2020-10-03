@@ -1,0 +1,29 @@
+{% extends "spirit/_base.html" %}
+
+{% load spirit_tags i18n %}
+
+{% block title %}{% trans "Unread notifications" %}{% endblock %}
+
+{% block content %}
+  <div class="layout__article">
+    {% include "spirit/topic/notification/_top_bar.html" with active="unread_notifications" %}
+
+    {% if page %}
+      {% include "spirit/topic/notification/_render_list.html" with notifications=page %}
+    {% else %}
+      <p>{% trans "There are no new notifications" %}.</p>
+    {% endif %}
+
+    {# TODO: make this a template tag #}
+    {% if page.has_next %}
+      {% spaceless %}
+        <ul class="paginator">
+          <li><a
+            class="paginator__button"
+            href="?p={{ next_page }}"
+          >{% trans "Next" %} <i class="fa fa-chevron-right"></i></a></li>
+        </ul>
+      {% endspaceless %}
+    {% endif %}
+  </div>
+{% endblock %}
