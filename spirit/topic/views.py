@@ -6,13 +6,13 @@ from django.http import HttpResponsePermanentRedirect
 
 from djconfig import config
 
-from ..core.utils.views import is_post, post_data
-from ..core.utils.paginator import paginate, yt_paginate
-from ..core.utils.ratelimit.decorators import ratelimit
-from ..category.models import Category
-from ..comment.forms import CommentForm
-from ..comment.utils import comment_posted
-from ..comment.models import Comment
+from spirit.core.utils.views import is_post, post_data
+from spirit.core.utils.paginator import paginate, yt_paginate
+from spirit.core.utils.ratelimit.decorators import ratelimit
+from spirit.category.models import Category
+from spirit.comment.forms import CommentForm
+from spirit.comment.utils import comment_posted
+from spirit.comment.models import Comment
 from .models import Topic
 from .forms import TopicForm
 from . import utils

@@ -10,12 +10,10 @@ from django.contrib import messages
 from django.utils.html import escape
 
 from djconfig import config
-from infinite_scroll_pagination.serializers import to_page_key
 
 from spirit.core.conf import settings
 from spirit.core import utils
 from spirit.core.utils.paginator import yt_paginate
-from spirit.core.utils.paginator.infinite_paginator import paginate
 from spirit.core.utils.views import is_ajax
 from spirit.topic.models import Topic
 from .models import TopicNotification
@@ -64,7 +62,7 @@ def index_ajax(request):
     notifications = (
         TopicNotification.objects
             .for_access(request.user)
-            .order_by("is_read", "-date")
+            .order_by("is_read", "action", "-date", "-pk")
             .with_related_data())
     notifications = notifications[:settings.ST_NOTIFICATIONS_PER_PAGE]
     notifications = [
@@ -81,31 +79,11 @@ def index_ajax(request):
 
 
 @login_required
-def index_unread(request):
-    notifications = (
-        TopicNotification.objects
-            .for_access(request.user)
-            .filter(is_read=False)
-            .with_related_data())
-    page = paginate(
-        request,
-        query_set=notifications,
-        lookup_field='date',
-        page_var='p',
-        per_page=settings.ST_NOTIFICATIONS_PER_PAGE)
-    return render(
-        request=request,
-        template_name='spirit/topic/notification/index_unread.html',
-        context={
-            'page': page,
-            'next_page': to_page_key(**page.next_page())})
-
-
-@login_required
 def index(request):
     notifications = yt_paginate(
         TopicNotification.objects
             .for_access(request.user)
+            .order_by("is_read", "action", "-date", "-pk")
             .with_related_data(),
         per_page=config.topics_per_page,
         page_number=request.GET.get('page', 1))

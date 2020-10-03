@@ -6,17 +6,15 @@ from django.utils import timezone
 from django.db import IntegrityError, transaction
 
 from .managers import TopicNotificationQuerySet
-from ...core.conf import settings
-
-UNDEFINED, MENTION, COMMENT = range(3)
-
-ACTION_CHOICES = (
-    (UNDEFINED, _("Undefined")),
-    (MENTION, _("Mention")),
-    (COMMENT, _("Comment")))
+from spirit.core.conf import settings
 
 
 class TopicNotification(models.Model):
+    UNDEFINED, MENTION, COMMENT = range(3)
+    ACTION_CHOICES = (
+        (UNDEFINED, _("Undefined")),
+        (MENTION, _("Mention")),
+        (COMMENT, _("Comment")))
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -50,15 +48,15 @@ class TopicNotification(models.Model):
 
     @property
     def text_action(self):
-        return ACTION_CHOICES[self.action][1]
+        return self.ACTION_CHOICES[self.action][1]
 
     @property
     def is_mention(self):
-        return self.action == MENTION
+        return self.action == self.MENTION
 
     @property
     def is_comment(self):
-        return self.action == COMMENT
+        return self.action == self.COMMENT
 
     @classmethod
     def mark_as_read(cls, user, topic):
@@ -86,7 +84,11 @@ class TopicNotification(models.Model):
         (cls.objects
          .filter(topic=comment.topic, is_active=True, is_read=True)
          .exclude(user=comment.user)
-         .update(comment=comment, is_read=False, action=COMMENT, date=timezone.now()))
+         .update(
+            comment=comment,
+            is_read=False,
+            action=cls.COMMENT,
+            date=timezone.now()))
 
     @classmethod
     def notify_new_mentions(cls, comment, mentions):
@@ -101,7 +103,7 @@ class TopicNotification(models.Model):
                         user=user,
                         topic=comment.topic,
                         comment=comment,
-                        action=MENTION,
+                        action=cls.MENTION,
                         is_active=True)
             except IntegrityError:
                 pass
@@ -114,7 +116,7 @@ class TopicNotification(models.Model):
          .update(
             comment=comment,
             is_read=False,
-            action=MENTION,
+            action=cls.MENTION,
             date=timezone.now()))
 
     @classmethod
@@ -123,7 +125,7 @@ class TopicNotification(models.Model):
             cls(user=user,
                 topic=comment.topic,
                 comment=comment,
-                action=COMMENT,
+                action=cls.COMMENT,
                 is_active=True)
             for user in users])
 
@@ -147,8 +149,8 @@ class TopicNotification(models.Model):
         if next_comment is None:
             (cls.objects
              .filter(comment=comment, topic=topic)
-             .update(is_read=True, action=UNDEFINED))
+             .update(is_read=True, action=cls.UNDEFINED))
             return
         (cls.objects
          .filter(comment=comment, topic=topic)
-         .update(comment=next_comment, action=COMMENT))
+         .update(comment=next_comment, action=cls.COMMENT))

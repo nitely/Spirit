@@ -32,11 +32,12 @@ from spirit.category.models import Category
 from spirit.user.models import UserProfile
 from .history.models import CommentHistory
 from .utils import comment_posted, pre_comment_update, post_comment_update
-from spirit.topic.notification.models import TopicNotification, MENTION
+from spirit.topic.notification.models import TopicNotification
 from spirit.topic.unread.models import TopicUnread
 from .poll.models import CommentPoll
 from . import views
 
+MENTION = TopicNotification.MENTION
 User = get_user_model()
 
 
