@@ -2,6 +2,14 @@
 
 <div class="layout__menu">
   <div class="menu__dropdown">
-    <div class="menu__dropdown_button">{% trans "Notifications" %}</div>
+    <div class="menu__dropdown_button">
+      <span class="dropdown_button">{% trans "Notifications" %}</span>
+    </div>
+  </div>
+  <div class="menu__button">
+    <form method="post" action="{% url "spirit:topic:notification:mark-all-as-read" %}">
+      {% csrf_token %}
+      <input class="button" type="submit" value="{% trans "Mark All As Read" %}" />
+    </form>
   </div>
 </div>
