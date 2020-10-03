@@ -11,4 +11,5 @@ urlpatterns = [
     re_path(r'^ajax/$', views.index_ajax, name='index-ajax'),
     re_path(r'^(?P<topic_id>[0-9]+)/create/$', views.create, name='create'),
     re_path(r'^(?P<pk>[0-9]+)/update/$', views.update, name='update'),
+    re_path(r'^mark/$', views.mark_all_as_read, name='mark-all-as-read'),
 ]

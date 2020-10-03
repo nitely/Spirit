@@ -4897,6 +4897,7 @@ html input[disabled] {
     .spirit .image_widget__clear label {
       padding-left: 12px; }
   @media screen and (min-width: 768px) {
+    .spirit .menu__button,
     .spirit .menu__new_topic {
       flex: none;
       margin-left: auto; } }

@@ -385,6 +385,58 @@ class TopicNotificationViewTest(TestCase):
             form_data)
         self.assertEqual(response.status_code, 404)
 
+    @override_settings(ST_NOTIFICATIONS_PER_PAGE=20)
+    def test_topic_notification_mark_all_as_read(self):
+        TopicNotification.objects.all().delete()
+        user2 = utils.create_user()
+        topic = utils.create_topic(self.category)
+        comment = utils.create_comment(topic=topic)
+        TopicNotification.objects.create(
+            user=user2, topic=topic,
+            comment=comment, is_active=True,
+            action=MENTION)
+        topic0 = utils.create_topic(self.category)
+        comment0 = utils.create_comment(topic=topic0)
+        TopicNotification.objects.create(
+            user=self.user, topic=topic0,
+            comment=comment0, is_active=True,
+            action=COMMENT)
+        topic1 = utils.create_topic(self.category)
+        comment1 = utils.create_comment(topic=topic1)
+        TopicNotification.objects.create(
+            user=self.user, topic=topic1,
+            comment=comment1, is_active=True,
+            action=COMMENT)
+        topic2 = utils.create_topic(self.category)
+        comment2 = utils.create_comment(topic=topic2)
+        TopicNotification.objects.create(
+            user=self.user, topic=topic2,
+            comment=comment2, is_active=True,
+            action=MENTION)
+        self.assertEqual(
+            TopicNotification.objects
+                .filter(user=self.user, is_read=False)
+                .count(), 3)
+        self.assertEqual(
+            TopicNotification.objects
+                .filter(user=user2, is_read=False)
+                .count(), 1)
+        utils.login(self)
+        response = self.client.post(reverse(
+            'spirit:topic:notification:mark-all-as-read'))
+        self.assertRedirects(
+            response,
+            reverse('spirit:topic:notification:index'),
+            status_code=302)
+        self.assertEqual(
+            TopicNotification.objects
+                .filter(user=self.user, is_read=False)
+                .count(), 0)
+        self.assertEqual(
+            TopicNotification.objects
+                .filter(user=user2, is_read=False)
+                .count(), 1)
+
 
 class TopicNotificationFormTest(TestCase):
 

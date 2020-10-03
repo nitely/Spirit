@@ -319,6 +319,7 @@
 .layout__menu {
   @extend %flex-nav;
 }
+.menu__button,
 .menu__new_topic {
   @media #{$medium} {
     flex: none;

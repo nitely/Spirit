@@ -8,6 +8,7 @@ from django.views.decorators.http import require_POST
 from django.http import Http404, HttpResponse
 from django.contrib import messages
 from django.utils.html import escape
+from django.urls import reverse
 
 from djconfig import config
 
@@ -92,3 +93,13 @@ def index(request):
         request=request,
         template_name='spirit/topic/notification/index.html',
         context={'notifications': notifications})
+
+
+@require_POST
+@login_required
+def mark_all_as_read(request):
+    (TopicNotification.objects
+        .for_access(request.user)
+        .update(is_read=True))
+    return redirect(request.POST.get(
+        'next', reverse('spirit:topic:notification:index')))
