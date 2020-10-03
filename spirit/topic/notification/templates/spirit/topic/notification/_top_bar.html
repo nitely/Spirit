@@ -1,35 +1,7 @@
 {% load i18n %}
 
 <div class="layout__menu">
-  <div class="menu__dropdown js-tabs-container">
-    <div class="menu__dropdown_button">
-      {% if active == "notifications" %}
-        <a
-          class="dropdown_button js-tab"
-          href="#"
-          data-related=".js-categories-content"
-        >{% trans "Notifications" %} <i class="fa fa-chevron-down"></i></a>
-        {% else %}
-        <a
-          class="dropdown_button js-tab"
-          href="#"
-          data-related=".js-categories-content"
-        >{% trans "Unread notifications" %} <i class="fa fa-chevron-down"></i></a>
-      {% endif %}
-    </div>
-    <div class="menu_list_wrapper js-tab-content js-categories-content" style="display: none;">
-      {% spaceless %}
-        <ul class="menu_list">
-          <li><a
-            class="menu_list__link"
-            href="{% url "spirit:topic:notification:index" %}"
-            >{% trans "Notifications" %}</a></li>
-          <li><a
-            class="menu_list__link"
-            href="{% url "spirit:topic:notification:index-unread" %}"
-            >{% trans "Unread notifications" %}</a></li>
-        </ul>
-      {% endspaceless %}
-    </div>
+  <div class="menu__dropdown">
+    <div class="menu__dropdown_button">{% trans "Notifications" %}</div>
   </div>
 </div>
