@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-27 01:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: views.py:51
+msgid "The topic has been deleted"
+msgstr ""
+
+#: views.py:60
+msgid "The topic has been undeleted"
+msgstr ""
+
+#: views.py:70
+msgid "The topic has been locked"
+msgstr ""
+
+#: views.py:80
+msgid "The topic has been unlocked"
+msgstr ""
+
+#: views.py:90
+msgid "The topic has been pinned"
+msgstr ""
+
+#: views.py:100
+msgid "The topic has been unpinned"
+msgstr ""
+
+#: views.py:110
+msgid "The topic has been globally pinned"
+msgstr ""
+
+#: views.py:120
+msgid "The topic has been globally unpinned"
+msgstr ""
