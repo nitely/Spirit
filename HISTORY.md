@@ -1,10 +1,16 @@
-0.12.0 (dev)
+0.11.1
 ==================
 
-* Added support for Django 3.1
-* Added `custom_header_logo` block to
+* Added: support for Django 3.1
+* Added: `custom_header_logo` block to
   `template/spirit/_header.html` template to
   extend/override the site's name/logo
+* Added: button to mark all notifications as read
+* Added: show installed Django version in admin dashboard
+* Fixed: error when `ST_STORAGE` was set to
+  `'spirit.core.storage.OverwriteFileSystemStorage'`
+* Fixed: Django deprecation warnings
+* Fixed: UX/UI reply preview styles
 
 0.11.0
 ==================
