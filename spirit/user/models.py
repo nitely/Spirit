@@ -2,7 +2,6 @@
 
 import os
 from datetime import timedelta
-from enum import IntFlag
 
 from django.db import models
 from django.urls import reverse
@@ -22,11 +21,11 @@ def avatar_path(instance, filename):
 
 class UserProfile(models.Model):
     class Notify:
-        NEVER = 1
-        IMMEDIATELY = 2
-        WEEKLY = 4
-        MENTION = 8
-        REPLY = 16
+        (NEVER,
+         IMMEDIATELY,
+         WEEKLY,
+         MENTION,
+         REPLY) = (1 << x for x in range(5))
         WHEN = (
             (NEVER, _("Never")),
             (IMMEDIATELY, _("Immediately")),
@@ -47,7 +46,7 @@ class UserProfile(models.Model):
     avatar = models.ImageField(
         _("avatar"), upload_to=avatar_path, storage=spirit_storage_or_none,
         max_length=255, blank=True)
-    notify = models.IntegerField(
+    notify = models.PositiveIntegerField(
         default=Notify.NEVER | Notify.MENTION | Notify.REPLY)
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)

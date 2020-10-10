@@ -99,9 +99,9 @@ class UserProfileForm(forms.ModelForm):
     notify_when = forms.TypedChoiceField(
         label=_("Email notifications"), coerce=int, choices=Notify.WHEN)
     notify_mentions = forms.BooleanField(
-        label=_("Email mentions"), initial=False, required=False)
+        label=_("Email mentions"), required=False)
     notify_replies = forms.BooleanField(
-        label=_("Email replies"), initial=False, required=False)
+        label=_("Email replies"), required=False)
 
     class Meta:
         model = UserProfile

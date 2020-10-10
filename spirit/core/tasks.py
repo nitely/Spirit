@@ -116,6 +116,38 @@ def make_avatars(user_id):
 
 
 @delayed_task
+def notify_reply(comment_id):
+    Comment = apps.get_model('spirit_comment.Comment')
+    Notification = apps.get_model(
+        'spirit_topic_notification.TopicNotification')
+    comment = Comment.objects.get(pk=comment_id)
+    notifications = (
+        Notification.objects
+        .exclude(user_id=comment.user_id)
+        .filter(
+            topic_id=comment.topic_id,
+            is_read=False,
+            action=Comment.COMMENT)
+        .only('user__email'))
+    # Since this is a task, the default language will
+    # be used; we don't know what language each user prefers
+    # XXX auto save user prefer/browser language in some field
+    subject = "New reply notification"
+    message = "foo bar link"
+    from_email = "foo@bar.com"
+    for n in notifications.iterator(chunk_size=2000):
+        try:
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=from_email,
+                recipient_list=[n.user.email])
+        except OSError as err:
+            logger.exception(err)
+            return  # bail out
+
+
+@delayed_task
 def clean_sessions():
     pass
 
