@@ -2,6 +2,7 @@
 
 import os
 from datetime import timedelta
+from enum import IntFlag
 
 from django.db import models
 from django.urls import reverse
@@ -20,6 +21,17 @@ def avatar_path(instance, filename):
 
 
 class UserProfile(models.Model):
+    class Notify:
+        NEVER = 1
+        IMMEDIATELY = 2
+        WEEKLY = 4
+        MENTION = 8
+        REPLY = 16
+        WHEN = (
+            (NEVER, _("Never")),
+            (IMMEDIATELY, _("Immediately")),
+            (WEEKLY, _("Weekly")))
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         verbose_name=_("profile"),
@@ -35,6 +47,8 @@ class UserProfile(models.Model):
     avatar = models.ImageField(
         _("avatar"), upload_to=avatar_path, storage=spirit_storage_or_none,
         max_length=255, blank=True)
+    notify = models.IntegerField(
+        default=Notify.NEVER | Notify.MENTION | Notify.REPLY)
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)
     is_verified = models.BooleanField(

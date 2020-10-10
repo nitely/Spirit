@@ -16,9 +16,10 @@ from .models import UserProfile
 
 User = get_user_model()
 TIMEZONE_CHOICES = timezones()
+Notify = UserProfile.Notify
 
 
-class CleanEmailMixin(object):
+class CleanEmailMixin:
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -81,9 +82,26 @@ class AvatarWidget(forms.ClearableFileInput):
         for ext in sorted(settings.ST_ALLOWED_AVATAR_FORMAT))
 
 
+def decompose_bits(x):
+    powers = []
+    i = 1
+    while i <= x:
+        if i & x:
+            powers.append(i)
+        i <<= 1
+    return powers
+
+
 class UserProfileForm(forms.ModelForm):
 
-    timezone = forms.ChoiceField(label=_("Time zone"), choices=TIMEZONE_CHOICES)
+    timezone = forms.ChoiceField(
+        label=_("Time zone"), choices=TIMEZONE_CHOICES)
+    notify_when = forms.TypedChoiceField(
+        label=_("Email notifications"), coerce=int, choices=Notify.WHEN)
+    notify_mentions = forms.BooleanField(
+        label=_("Email mentions"), initial=False, required=False)
+    notify_replies = forms.BooleanField(
+        label=_("Email replies"), initial=False, required=False)
 
     class Meta:
         model = UserProfile
@@ -96,6 +114,11 @@ class UserProfileForm(forms.ModelForm):
         self.fields['timezone'].help_text = _('Current time is: %(date)s %(time)s') % {
             'date': defaultfilters.date(now),
             'time': defaultfilters.time(now)}
+        self.fields['notify_when'].initial = decompose_bits(self.instance.notify)
+        self.fields['notify_mentions'].initial = bool(
+             self.instance.notify & Notify.MENTION)
+        self.fields['notify_replies'].initial = bool(
+            self.instance.notify & Notify.REPLY)
 
     def clean_avatar(self):
         file = self.cleaned_data['avatar']
@@ -112,7 +135,21 @@ class UserProfileForm(forms.ModelForm):
 
         return file
 
+    def clean_notify_mentions(self):
+        if self.cleaned_data['notify_mentions']:
+            return Notify.MENTION
+        return 0
+
+    def clean_notify_replies(self):
+        if self.cleaned_data['notify_replies']:
+            return Notify.REPLY
+        return 0
+
     def save(self, *args, **kwargs):
+        self.instance.notify = (
+            self.cleaned_data['notify_when'] |
+            self.cleaned_data['notify_mentions'] |
+            self.cleaned_data['notify_replies'])
         instance = super().save(*args, **kwargs)
         if isinstance(self.cleaned_data['avatar'], UploadedFile):
             tasks.make_avatars(self.instance.user_id)
