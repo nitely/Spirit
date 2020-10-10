@@ -7,9 +7,14 @@ from django.core.mail import send_mail
 from django.apps import apps
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
+from django.core import mail
+from django.template.loader import render_to_string
+from django.urls import reverse
 
+import djconfig
 from PIL import Image
 
+from spirit.user.utils import tokens
 from .conf import settings
 from .storage import spirit_storage
 from . import signals
@@ -116,11 +121,17 @@ def make_avatars(user_id):
 
 
 @delayed_task
-def notify_reply(comment_id):
+def notify_reply(comment_id, site):
+    if settings.ST_TASK_MANAGER is None:
+        return
+    djconfig.reload_maybe()
     Comment = apps.get_model('spirit_comment.Comment')
     Notification = apps.get_model(
         'spirit_topic_notification.TopicNotification')
-    comment = Comment.objects.get(pk=comment_id)
+    comment = (
+        Comment.objects
+        .get(pk=comment_id)
+        .select_related('user__st', 'topic'))
     notifications = (
         Notification.objects
         .exclude(user_id=comment.user_id)
@@ -128,23 +139,39 @@ def notify_reply(comment_id):
             topic_id=comment.topic_id,
             is_read=False,
             action=Comment.COMMENT)
-        .only('user__email'))
+        .only('user_id', 'user__email'))
     # Since this is a task, the default language will
     # be used; we don't know what language each user prefers
     # XXX auto save user prefer/browser language in some field
-    subject = "New reply notification"
-    message = "foo bar link"
-    from_email = "foo@bar.com"
-    for n in notifications.iterator(chunk_size=2000):
-        try:
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=from_email,
-                recipient_list=[n.user.email])
-        except OSError as err:
-            logger.exception(err)
-            return  # bail out
+    subject = "{username} has reply to {topic_title}".format(
+        username=comment.user.st.nickname,
+        topic_title=comment.topic.title)
+    # Subject cannot contain new lines
+    subject = ''.join(subject.splitlines())
+    with mail.get_connection() as connection:
+        for n in notifications.iterator(chunk_size=2000):
+            unsub_token = tokens.unsub_token(n.user_id)
+            message = render_to_string(
+                template_name='spirit/topic/notifications/email_notification.txt',
+                context={
+                    'site': site,
+                    'comment_id': comment_id,
+                    'unsub_token': unsub_token})
+            try:
+                mail.EmailMessage(
+                    subject=subject,
+                    body=message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[n.user.email],
+                    headers={
+                        'List-Unsubscribe': '<%s%s>' % (
+                            site, reverse('spirit:user:unsubscribed', kwargs={
+                                'token': unsub_token}))},
+                    connection=connection
+                ).send()
+            except OSError as err:
+                logger.exception(err)
+                return  # bail out
 
 
 @delayed_task

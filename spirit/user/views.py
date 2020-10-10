@@ -7,14 +7,16 @@ from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.utils.translation import gettext as _
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseBadRequest
 
 from djconfig import config
 
 from spirit.core.utils.views import is_post, post_data, post_files
 from spirit.core.utils.paginator import yt_paginate
 from .utils.email import send_email_change_email
-from .utils.tokens import UserEmailChangeTokenGenerator
+from .utils.tokens import (
+    UserEmailChangeTokenGenerator,
+    UserUnsubTokenGenerator)
 from spirit.topic.models import Topic
 from spirit.comment.models import Comment
 from .forms import UserProfileForm, EmailChangeForm, UserForm, EmailCheckForm
@@ -92,6 +94,24 @@ def email_change_confirm(request, token):
             return redirect(reverse('spirit:user:update'))
 
     messages.error(request, _("Sorry, we were not able to change your email."))
+    return redirect(reverse('spirit:user:update'))
+
+
+# No need to be logged
+def unsubscribe(request, token):
+    unsub = UserUnsubTokenGenerator()
+    if unsub.is_valid(token):
+        user_id = unsub.get_user_id()
+        if not isinstance(user_id, int):
+            return HttpResponseBadRequest()
+        user = get_object_or_404(User, pk=user_id)
+        user.st.notify = user.st.Notify.NEVER
+        user.st.save()
+        messages.info(request, _("You are now unsubscribed!"))
+        return redirect(reverse('spirit:user:update'))
+    messages.error(request, _(
+        "Sorry, we were not able to unsubscribed you. "
+        "Please login and change your notifications settings."))
     return redirect(reverse('spirit:user:update'))
 
 
