@@ -122,6 +122,7 @@ def index(request):
 def mark_all_as_read(request):
     (TopicNotification.objects
         .for_access(request.user)
+        .filter(is_read=False)
         .update(is_read=True))
     return redirect(request.POST.get(
         'next', reverse('spirit:topic:notification:index')))
