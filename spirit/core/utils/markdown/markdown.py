@@ -13,19 +13,17 @@ class Markdown(mistune.Markdown):
         renderer = Renderer(
             escape=True,
             hard_wrap=True,
-            no_follow=no_follow
-        )
-        super(Markdown, self).__init__(
+            no_follow=no_follow)
+        super().__init__(
             renderer=renderer,
             block=BlockLexer,
             inline=InlineLexer,
             parse_block_html=False,
-            parse_inline_html=False
-        )
+            parse_inline_html=False)
 
     # Override
     def __call__(self, text):
-        return super(Markdown, self).__call__(text).strip()
+        return super().__call__(text).strip()
 
     def render(self, text):
         return self(text)

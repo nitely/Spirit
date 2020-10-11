@@ -96,7 +96,7 @@ class TopicNotification(models.Model):
             return
 
         # TODO: refactor
-        for username, user in mentions.items():
+        for user in mentions.values():
             try:
                 with transaction.atomic():
                     cls.objects.create(
@@ -110,7 +110,7 @@ class TopicNotification(models.Model):
 
         (cls.objects
          .filter(
-            user__in=mentions.values(),
+            user__in=tuple(mentions.values()),
             topic=comment.topic,
             is_read=True)
          .update(

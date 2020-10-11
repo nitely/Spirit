@@ -60,7 +60,7 @@ class CommentForm(forms.ModelForm):
         fields = ['comment']
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
-        super(CommentForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.topic = topic
         self.mentions = None  # {username: User, }
@@ -84,8 +84,7 @@ class CommentForm(forms.ModelForm):
 
         return utils.get_hash((
             smart_bytes(self.cleaned_data['comment']),
-            smart_bytes('thread-{}'.format(self.topic.pk))
-        ))
+            smart_bytes('thread-{}'.format(self.topic.pk))))
 
     def _get_comment_html(self):
         # user = self.user or self.instance.user
@@ -124,11 +123,10 @@ class CommentMoveForm(forms.Form):
     topic = forms.ModelChoiceField(queryset=Topic.objects.all(), widget=forms.TextInput)
 
     def __init__(self, topic, *args, **kwargs):
-        super(CommentMoveForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['comments'] = forms.ModelMultipleChoiceField(
             queryset=Comment.objects.filter(topic=topic),
-            widget=forms.CheckboxSelectMultiple
-        )
+            widget=forms.CheckboxSelectMultiple)
 
     def save(self):
         comments = self.cleaned_data['comments']
@@ -176,7 +174,7 @@ class CommentFileForm(forms.Form):
     file = forms.FileField(max_length=255)
 
     def __init__(self, user=None, *args, **kwargs):
-        super(CommentFileForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
 
     def clean_file(self):

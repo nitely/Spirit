@@ -50,7 +50,7 @@ class InlineLexer(mistune.InlineLexer):
         rules = InlineGrammar()
         rules.hard_wrap()
 
-        super(InlineLexer, self).__init__(renderer, rules, **kwargs)
+        super().__init__(renderer, rules, **kwargs)
 
         self.mentions = {}
         self._mention_count = 0
