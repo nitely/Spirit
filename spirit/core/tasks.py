@@ -3,13 +3,13 @@
 import logging
 
 from django.db import transaction
-from django.core.mail import send_mail
 from django.apps import apps
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 import djconfig
 from PIL import Image
@@ -65,6 +65,20 @@ def delayed_task(t):
     return delayed_task_inner
 
 
+def _send_email(subject, message, to, unsub=None, conn=None):
+    assert isinstance(to, str)
+    headers = {}
+    if unsub:
+        headers['List-Unsubscribe'] = '<%s>' % unsub
+    return mail.EmailMessage(
+        subject=subject,
+        body=message,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=to,
+        headers=headers,
+        connection=conn).send()
+
+
 @delayed_task
 def send_email(subject, message, from_email, recipients):
     # Avoid retrying this task. It's better to log the exception
@@ -74,11 +88,7 @@ def send_email(subject, message, from_email, recipients):
     # the recipient at all
     for recipient in recipients:
         try:
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=from_email,
-                recipient_list=[recipient])
+            _send_email(subject, message, recipient)
         except OSError as err:
             logger.exception(err)
             return  # bail out
@@ -143,7 +153,7 @@ def notify_reply(comment_id, site):
     # Since this is a task, the default language will
     # be used; we don't know what language each user prefers
     # XXX auto save user prefer/browser language in some field
-    subject = "{username} has reply to {topic_title}".format(
+    subject = _("{username} commented on {topic_title}").format(
         username=comment.user.st.nickname,
         topic_title=comment.topic.title)
     # Subject cannot contain new lines
@@ -151,24 +161,19 @@ def notify_reply(comment_id, site):
     with mail.get_connection() as connection:
         for n in notifications.iterator(chunk_size=2000):
             unsub_token = tokens.unsub_token(n.user_id)
-            message = render_to_string(
-                template_name='spirit/topic/notifications/email_notification.txt',
-                context={
-                    'site': site,
-                    'comment_id': comment_id,
-                    'unsub_token': unsub_token})
+            message = render_to_string('spirit/topic/notification/email_notification.txt', {
+                'site': site,
+                'comment_id': comment_id,
+                'unsub_token': unsub_token})
+            unsub = ''.join((site, reverse(
+                'spirit:user:unsubscribed',
+                kwargs={'token': unsub_token})))
             try:
-                mail.EmailMessage(
-                    subject=subject,
-                    body=message,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    to=[n.user.email],
-                    headers={
-                        'List-Unsubscribe': '<%s%s>' % (
-                            site, reverse('spirit:user:unsubscribed', kwargs={
-                                'token': unsub_token}))},
-                    connection=connection
-                ).send()
+                _send_email(
+                    subject, message,
+                    to=n.user.email,
+                    unsub=unsub,
+                    conn=connection)
             except OSError as err:
                 logger.exception(err)
                 return  # bail out
