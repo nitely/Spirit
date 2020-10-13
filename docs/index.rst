@@ -17,6 +17,7 @@ User’s Guide
    task_manager
    templates
    settings
+   features
 
 Additional Notes
 ----------------
