@@ -67,6 +67,8 @@ def delayed_task(t):
 
 def _send_email(subject, message, to, unsub=None, conn=None):
     assert isinstance(to, str)
+    # Subject cannot contain new lines
+    subject = ''.join(subject.splitlines())
     headers = {}
     if unsub:
         headers['List-Unsubscribe'] = '<%s>' % unsub
@@ -140,6 +142,29 @@ def notify_reply(comment_id, site):
         'spirit_topic_notification.TopicNotification')
     comment = (
         Comment.objects
+            .get(pk=comment_id)
+            .select_related('user__st', 'topic'))
+    notifications = (
+        Notification.objects
+            .exclude(user_id=comment.user_id)
+            .filter(
+            topic_id=comment.topic_id,
+            is_read=False,
+            action=Comment.MENTION)
+            .only('user_id', 'user__email'))
+    # ...
+
+
+@delayed_task
+def notify_reply(comment_id, site):
+    if settings.ST_TASK_MANAGER is None:
+        return
+    djconfig.reload_maybe()
+    Comment = apps.get_model('spirit_comment.Comment')
+    Notification = apps.get_model(
+        'spirit_topic_notification.TopicNotification')
+    comment = (
+        Comment.objects
         .get(pk=comment_id)
         .select_related('user__st', 'topic'))
     notifications = (
@@ -153,11 +178,9 @@ def notify_reply(comment_id, site):
     # Since this is a task, the default language will
     # be used; we don't know what language each user prefers
     # XXX auto save user prefer/browser language in some field
-    subject = _("{username} commented on {topic_title}").format(
-        username=comment.user.st.nickname,
-        topic_title=comment.topic.title)
-    # Subject cannot contain new lines
-    subject = ''.join(subject.splitlines())
+    subject = _("{user} commented on {topic}").format(
+        user=comment.user.st.nickname,
+        topic=comment.topic.title)
     with mail.get_connection() as connection:
         for n in notifications.iterator(chunk_size=2000):
             unsub_token = tokens.unsub_token(n.user_id)
