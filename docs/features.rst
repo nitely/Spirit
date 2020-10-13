@@ -10,15 +10,18 @@ Features
   support: elastic-search, solr, xapian, and whoosh
 * Comment pools
 * Comment likes
-* Comment draft: unfinished are automatically saved to local storage
-* Comment history: all edits made to a comment are saved
+* Comment draft: unfinished user comments are automatically
+  saved to local storage
+* Comment history: all edits made to a comment are saved,
+  and displayed as diffs
 * Comment file upload, and image upload
 * Double posting prevention
-* Markdown text editor for comments: includes math jax support,
-  emojis, embedded youtube videos, and more
+* Markdown text editor for comments: includes math-jax support,
+  emoji, embedded youtube videos, and more
 * Automatic topic bookmark: users are always taken
   to the last comment they read
-* Private group conversations for every user
+* Private group conversations: users can create a private topic,
+  and invite other users to join it
 * Private forum: the entire forum can be set to private mode,
   requiring every user to be logged-in to view its content
 * User unread topics: list of visited topics with unread replies
