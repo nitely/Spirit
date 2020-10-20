@@ -8,7 +8,6 @@ from contextlib import contextmanager
 
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from django.contrib.sites.shortcuts import get_current_site
 from django.apps import apps
 from django.conf import settings
 
@@ -122,6 +121,7 @@ def site_url(request=None):
     if settings.ST_SITE_URL:
         return settings.ST_SITE_URL
     if apps.is_installed('django.contrib.sites') or request:
+        from django.contrib.sites.shortcuts import get_current_site
         return "https://{}".format(get_current_site(request))
     if settings.ALLOWED_HOSTS and settings.ALLOWED_HOSTS[0] != '*':
         return "https://{}".format(settings.ALLOWED_HOSTS[0].lstrip('.'))

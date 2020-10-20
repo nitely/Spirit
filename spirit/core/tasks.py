@@ -19,6 +19,7 @@ from .conf import settings
 from .storage import spirit_storage
 from . import signals
 from .utils.tasks import avatars
+from .utils import site_url
 
 logger = logging.getLogger(__name__)
 
@@ -132,31 +133,9 @@ def make_avatars(user_id):
         user.st.small_avatar_name(), small_avatar)
 
 
-@delayed_task
-def notify_reply(comment_id, site):
-    if settings.ST_TASK_MANAGER is None:
-        return
-    djconfig.reload_maybe()
-    Comment = apps.get_model('spirit_comment.Comment')
-    Notification = apps.get_model(
-        'spirit_topic_notification.TopicNotification')
-    comment = (
-        Comment.objects
-            .get(pk=comment_id)
-            .select_related('user__st', 'topic'))
-    notifications = (
-        Notification.objects
-            .exclude(user_id=comment.user_id)
-            .filter(
-            topic_id=comment.topic_id,
-            is_read=False,
-            action=Comment.MENTION)
-            .only('user_id', 'user__email'))
-    # ...
-
-
-@delayed_task
-def notify_reply(comment_id, site):
+def _notify_comment(
+    comment_id, site, subject, template, action
+):
     if settings.ST_TASK_MANAGER is None:
         return
     djconfig.reload_maybe()
@@ -167,24 +146,27 @@ def notify_reply(comment_id, site):
         Comment.objects
         .get(pk=comment_id)
         .select_related('user__st', 'topic'))
+    actions = {
+        'mention': Notification.MENTION,
+        'reply': Notification.COMMENT}
     notifications = (
         Notification.objects
         .exclude(user_id=comment.user_id)
         .filter(
-            topic_id=comment.topic_id,
+            comment_id=comment_id,
             is_read=False,
-            action=Comment.COMMENT)
+            action=actions[action])
         .only('user_id', 'user__email'))
     # Since this is a task, the default language will
     # be used; we don't know what language each user prefers
     # XXX auto save user prefer/browser language in some field
-    subject = _("{user} commented on {topic}").format(
+    subject = subject.format(
         user=comment.user.st.nickname,
         topic=comment.topic.title)
     with mail.get_connection() as connection:
         for n in notifications.iterator(chunk_size=2000):
             unsub_token = tokens.unsub_token(n.user_id)
-            message = render_to_string('spirit/topic/notification/email_notification.txt', {
+            message = render_to_string(template, {
                 'site': site,
                 'comment_id': comment_id,
                 'unsub_token': unsub_token})
@@ -203,6 +185,65 @@ def notify_reply(comment_id, site):
 
 
 @delayed_task
+def notify_reply(comment_id, site):
+    _notify_comment(
+        comment_id=comment_id,
+        site=site,
+        subject=_("{user} commented on {topic}"),
+        template='spirit/topic/notification/email_notification.txt',
+        action='reply')
+
+
+@delayed_task
+def notify_mention(comment_id, site):
+    _notify_comment(
+        comment_id=comment_id,
+        site=site,
+        subject=_("{user} mention you on {topic}"),
+        template='spirit/topic/notification/email_notification.txt',
+        action='mention')
+
+
+def notify_weekly():
+    from django.contrib.auth import get_user_model
+    djconfig.reload_maybe()
+    Notification = apps.get_model(
+        'spirit_topic_notification.TopicNotification')
+    UserProfile = apps.get_model('spirit_user.UserProfile')
+    Notify = UserProfile.Notify
+    User = get_user_model()
+    users_with_mentions = (
+        User.objects
+        .filter(
+            st__notify=Notify.WEEKLY | Notify.MENTION,
+            st_topic_notifications__action=Notification.MENTION,
+            st_topic_notifications__is_read=False,
+            st_topic_notifications__is_active=True)
+        .only('id', 'email'))
+    subject = _('New notifications')
+    site = site_url()
+    with mail.get_connection() as connection:
+        for u in users_with_mentions.iterator(chunk_size=2000):
+            unsub_token = tokens.unsub_token(u.id)
+            message = render_to_string(
+                'spirit/topic/notification/email_notification_weekly.txt',
+                {'site': site,
+                 'unsub_token': unsub_token})
+            unsub = ''.join((site, reverse(
+                'spirit:user:unsubscribed',
+                kwargs={'token': unsub_token})))
+            try:
+                _send_email(
+                    subject, message,
+                    to=u.email,
+                    unsub=unsub,
+                    conn=connection)
+            except OSError as err:
+                logger.exception(err)
+                return  # bail out
+
+
+@delayed_task
 def clean_sessions():
     pass
 
@@ -210,4 +251,3 @@ def clean_sessions():
 @delayed_task
 def backup_database():
     pass
-

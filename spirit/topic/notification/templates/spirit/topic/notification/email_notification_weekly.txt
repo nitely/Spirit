@@ -5,7 +5,7 @@
 
 {% trans "Please go to the following link to read it:" %}
 
-{{ site }}{% url "spirit:comment:find" pk=comment_id %}
+{{ site }}{% url "spirit:topic:notification:index" %}
 
 {% trans "If you don't want to keep receiving notifications, unsubscribe:" %}
 
