@@ -16,12 +16,15 @@ from PIL import Image
 
 from spirit.user.utils import tokens
 from .conf import settings
+from .conf import defaults
 from .storage import spirit_storage
 from . import signals
 from .utils.tasks import avatars
 from .utils import site_url
 
 logger = logging.getLogger(__name__)
+HUEY_SCHEDULE = {
+    **defaults.ST_HUEY_SCHEDULE, **settings.ST_HUEY_SCHEDULE}
 
 
 # XXX support custom task manager __import__('foo.task')?
@@ -47,9 +50,8 @@ def periodic_task_manager(tm):
     if tm == 'huey':
         from huey import crontab
         from huey.contrib.djhuey import db_periodic_task
-        def periodic_task(hours):
-            return db_periodic_task(crontab(
-                minute='0', hour='*/{}'.format(hours)))
+        def periodic_task(**kwargs):
+            return db_periodic_task(crontab(**kwargs))
         return periodic_task
     assert tm in ('celery', None)
     def fake_periodic_task(*args, **kwargs):
@@ -109,7 +111,7 @@ def search_index_update(topic_pk):
         instance=Topic.objects.get(pk=topic_pk))
 
 
-@periodic_task(hours=settings.ST_SEARCH_INDEX_UPDATE_HOURS)
+@periodic_task(HUEY_SCHEDULE['full_search_index_update'])
 def full_search_index_update():
     age = settings.ST_SEARCH_INDEX_UPDATE_HOURS
     call_command("update_index", age=age)
@@ -204,6 +206,7 @@ def notify_mention(comment_id):
         action='mention')
 
 
+@periodic_task(HUEY_SCHEDULE['notify_weekly'])
 def notify_weekly():
     from django.contrib.auth import get_user_model
     djconfig.reload_maybe()

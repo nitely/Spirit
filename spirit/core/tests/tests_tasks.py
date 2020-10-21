@@ -38,7 +38,7 @@ def none_task(s):
 
 try:
     _periodic_task = tasks.periodic_task_manager('celery')
-    @_periodic_task(hours=10)
+    @_periodic_task(hour=10)
     def celery_periodic_task(s):
         TaskResultModel.objects.create(result=s)
 except ImportError:
@@ -46,14 +46,14 @@ except ImportError:
 
 try:
     _periodic_task = tasks.periodic_task_manager('huey')
-    @_periodic_task(hours=10)
+    @_periodic_task(hour=10)
     def huey_periodic_task(s):
         TaskResultModel.objects.create(result=s)
 except ImportError:
     huey_periodic_task = None
 
 _periodic_task = tasks.periodic_task_manager(None)
-@_periodic_task(hours=10)
+@_periodic_task(hour=10)
 def none_periodic_task(s):
     TaskResultModel.objects.create(result=s)
 
