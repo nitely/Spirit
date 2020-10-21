@@ -195,6 +195,10 @@ class TasksTests(TestCase):
             comment, user3, is_read=True, action='reply')
         test_utils.create_notification(is_read=True, action='reply')
         test_utils.create_notification(is_read=False, action='reply')
+        test_utils.create_notification(
+            comment, is_read=False, action='mention')
+        test_utils.create_notification(
+            comment, is_read=False, action=None)
         tasks.notify_reply(comment_id=comment.pk)
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(
@@ -202,6 +206,53 @@ class TasksTests(TestCase):
                 user=comment.user.st.nickname, topic=comment.topic.title))
         self.assertEqual(
             mail.outbox[1].subject, "{user} commented on {topic}".format(
+                user=comment.user.st.nickname, topic=comment.topic.title))
+        self.assertEqual(mail.outbox[0].from_email, 'task@test.com')
+        self.assertEqual(mail.outbox[1].from_email, 'task@test.com')
+        self.assertEqual(mail.outbox[0].body, render_to_string(
+            'spirit/topic/notification/email_notification.txt', {
+                'comment_id': comment.pk,
+                'unsub_token': tokens.unsub_token(user2.pk),
+                'site': 'https://tests.com'}))
+        self.assertEqual(mail.outbox[1].body, render_to_string(
+            'spirit/topic/notification/email_notification.txt', {
+                'comment_id': comment.pk,
+                'unsub_token': tokens.unsub_token(user1.pk),
+                'site': 'https://tests.com'}))
+        self.assertIn('https://tests.com/comment/', mail.outbox[0].body)
+        self.assertIn('https://tests.com/comment/', mail.outbox[1].body)
+        self.assertEqual(mail.outbox[0].to, [user2.email])
+        self.assertEqual(mail.outbox[1].to, [user1.email])
+
+    @test_utils.immediate_on_commit
+    @override_settings(
+        ST_TASK_MANAGER='tests',
+        ST_SITE_URL='https://tests.com/',
+        DEFAULT_FROM_EMAIL='task@test.com')
+    def test_notify_mention(self):
+        user1 = test_utils.create_user()
+        user2 = test_utils.create_user()
+        user3 = test_utils.create_user()
+        comment = test_utils.create_comment()
+        test_utils.create_notification(
+            comment, user1, is_read=False, action='mention')
+        test_utils.create_notification(
+            comment, user2, is_read=False, action='mention')
+        test_utils.create_notification(
+            comment, user3, is_read=True, action='mention')
+        test_utils.create_notification(is_read=True, action='mention')
+        test_utils.create_notification(is_read=False, action='mention')
+        test_utils.create_notification(
+            comment, is_read=False, action='reply')
+        test_utils.create_notification(
+            comment, is_read=False, action=None)
+        tasks.notify_mention(comment_id=comment.pk)
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertEqual(
+            mail.outbox[0].subject, "{user} mention you on {topic}".format(
+                user=comment.user.st.nickname, topic=comment.topic.title))
+        self.assertEqual(
+            mail.outbox[1].subject, "{user} mention you on {topic}".format(
                 user=comment.user.st.nickname, topic=comment.topic.title))
         self.assertEqual(mail.outbox[0].from_email, 'task@test.com')
         self.assertEqual(mail.outbox[1].from_email, 'task@test.com')
