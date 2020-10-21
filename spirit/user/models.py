@@ -30,6 +30,7 @@ class UserProfile(models.Model):
             (NEVER, _("Never")),
             (IMMEDIATELY, _("Immediately")),
             (WEEKLY, _("Weekly")))
+        WHEN_VALUES = tuple(x for x, _ in WHEN)
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -80,6 +81,13 @@ class UserProfile(models.Model):
         return reverse(
             'spirit:user:detail',
             kwargs={'pk': self.user.pk, 'slug': self.slug})
+
+    @property
+    def notify_when(self):
+        for c in self.Notify.WHEN_VALUES:
+            if self.notify & c:
+                return self.notify & c
+        return self.Notify.NEVER
 
     def update_post_hash(self, post_hash):
         # Let the DB do the hash

@@ -82,16 +82,6 @@ class AvatarWidget(forms.ClearableFileInput):
         for ext in sorted(settings.ST_ALLOWED_AVATAR_FORMAT))
 
 
-def decompose_bits(x):
-    powers = []
-    i = 1
-    while i <= x:
-        if i & x:
-            powers.append(i)
-        i <<= 1
-    return powers
-
-
 class UserProfileForm(forms.ModelForm):
 
     timezone = forms.ChoiceField(
@@ -114,7 +104,7 @@ class UserProfileForm(forms.ModelForm):
         self.fields['timezone'].help_text = _('Current time is: %(date)s %(time)s') % {
             'date': defaultfilters.date(now),
             'time': defaultfilters.time(now)}
-        self.fields['notify_when'].initial = decompose_bits(self.instance.notify)
+        self.fields['notify_when'].initial = self.instance.notify_when
         self.fields['notify_mentions'].initial = bool(
              self.instance.notify & Notify.MENTION)
         self.fields['notify_replies'].initial = bool(

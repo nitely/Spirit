@@ -45,7 +45,7 @@ class UserEmailChangeTokenGenerator(TokenGenerator):
         return ";".join((smart_str(user.pk), smart_str(user.email)))
 
     def generate(self, user, new_email):
-        return super().generate(user, {'new_email': new_email, })
+        return super().generate(user, {'new_email': new_email})
 
     def get_email(self):
         return self.data['new_email']

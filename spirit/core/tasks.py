@@ -77,13 +77,13 @@ def _send_email(subject, message, to, unsub=None, conn=None):
         subject=subject,
         body=message,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        to=to,
+        to=[to],
         headers=headers,
         connection=conn).send()
 
 
 @delayed_task
-def send_email(subject, message, from_email, recipients):
+def send_email(subject, message, recipients):
     # Avoid retrying this task. It's better to log the exception
     # here instead of possibly spamming users on retry
     # We send to one recipient at the time, because otherwise
@@ -144,8 +144,8 @@ def _notify_comment(
         'spirit_topic_notification.TopicNotification')
     comment = (
         Comment.objects
-        .get(pk=comment_id)
-        .select_related('user__st', 'topic'))
+        .select_related('user__st', 'topic')
+        .get(pk=comment_id))
     actions = {
         'mention': Notification.MENTION,
         'reply': Notification.COMMENT}
@@ -171,7 +171,7 @@ def _notify_comment(
                 'comment_id': comment_id,
                 'unsub_token': unsub_token})
             unsub = ''.join((site, reverse(
-                'spirit:user:unsubscribed',
+                'spirit:user:unsubscribe',
                 kwargs={'token': unsub_token})))
             try:
                 _send_email(
@@ -185,20 +185,20 @@ def _notify_comment(
 
 
 @delayed_task
-def notify_reply(comment_id, site):
+def notify_reply(comment_id):
     _notify_comment(
         comment_id=comment_id,
-        site=site,
+        site=site_url(),
         subject=_("{user} commented on {topic}"),
         template='spirit/topic/notification/email_notification.txt',
         action='reply')
 
 
 @delayed_task
-def notify_mention(comment_id, site):
+def notify_mention(comment_id):
     _notify_comment(
         comment_id=comment_id,
-        site=site,
+        site=site_url(),
         subject=_("{user} mention you on {topic}"),
         template='spirit/topic/notification/email_notification.txt',
         action='mention')
@@ -230,7 +230,7 @@ def notify_weekly():
                 {'site': site,
                  'unsub_token': unsub_token})
             unsub = ''.join((site, reverse(
-                'spirit:user:unsubscribed',
+                'spirit:user:unsubscribe',
                 kwargs={'token': unsub_token})))
             try:
                 _send_email(

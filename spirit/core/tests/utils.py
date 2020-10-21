@@ -13,6 +13,7 @@ from spirit.topic.models import Topic
 from spirit.category.models import Category
 from spirit.comment.models import Comment
 from spirit.topic.private.models import TopicPrivate
+from spirit.topic.notification.models import TopicNotification
 
 User = get_user_model()
 
@@ -67,14 +68,28 @@ def create_subcategory(category, **kwargs):
 def create_comment(**kwargs):
     if 'comment' not in kwargs:
         kwargs['comment'] = "comment_foobar%d" % Comment.objects.all().count()
-
     if 'comment_html' not in kwargs:
         kwargs['comment_html'] = kwargs['comment']
-
     if 'user' not in kwargs:
         kwargs['user'] = create_user()
-
+    if 'topic' not in kwargs:
+        kwargs['topic'] = create_topic(create_category())
     return Comment.objects.create(**kwargs)
+
+
+def create_notification(comment=None, user=None, is_read=True, action=None):
+    comment = comment or create_comment()
+    user = user or create_user()
+    actions = {
+        'reply': TopicNotification.COMMENT,
+        'mention': TopicNotification.MENTION,
+        None: TopicNotification.UNDEFINED}
+    assert (
+        not TopicNotification.objects
+        .filter(topic_id=comment.topic_id, user=user)
+        .exists())
+    return TopicNotification.create_maybe(
+        comment=comment, user=user, is_read=is_read, action=actions[action])
 
 
 def default_categories():

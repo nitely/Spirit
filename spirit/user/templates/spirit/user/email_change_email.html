@@ -1,11 +1,11 @@
 {% load i18n %}{% autoescape off %}
-{% blocktrans trimmed %}
+{% blocktrans trimmed with site_name=config.site_name %}
   You're receiving this because you changed your user email at {{ site_name }}.
 {% endblocktrans %}
 
 {% trans "Please go to the following link to confirm your email change:" %}
 
-{{ protocol }}://{{ domain }}{% url 'spirit:user:email-change-confirm' token=token %}
+{{ site }}{% url 'spirit:user:email-change-confirm' token=token %}
 
 {% trans "Thanks for using our site!" %}
 

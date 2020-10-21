@@ -7,6 +7,12 @@ They can be overridden by the project settings
 
 import os
 
+#: The forum URL, ex: ``"https://community.spirit-project.com/"``.
+#: This is used to construct the links in the emails: email verification,
+#: password reset, notifications, etc. A ``ImproperlyConfigured`` is raised
+#: if this is not set.
+ST_SITE_URL = None
+
 #: The media file storage for Spirit.
 #: The default file storage is used if this
 #: is not set. In either case, the storage should

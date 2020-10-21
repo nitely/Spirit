@@ -117,3 +117,6 @@ HUEY = {
         'health_check_interval': 1,
     }
 }
+
+# https://spirit.readthedocs.io/en/latest/settings.html#spirit.core.conf.defaults.ST_SITE_URL
+ST_SITE_URL = 'https://example.com/'

@@ -82,12 +82,12 @@ class TasksTests(TestCase):
         self.assertEqual(
             TaskResultModel.objects.last().result, 'huey')
 
+    @override_settings(DEFAULT_FROM_EMAIL="foobar_from@foo.com")
     @test_utils.immediate_on_commit
     def test_send_email(self):
         tasks.send_email(
             subject="foobar_sub",
             message="foobar_msg",
-            from_email="foobar_from@foo.com",
             recipients=['foo@foo.com', 'bar@bar.com'])
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(mail.outbox[0].subject, "foobar_sub")
@@ -174,3 +174,22 @@ class TasksTests(TestCase):
             'spirit/avatars/{}/pic_test.jpg'.format(user.pk))
         self.assertTrue(spirit_storage.exists(
             'spirit/avatars/{}/pic_test_small_test.jpg'.format(user.pk)))
+
+    @test_utils.immediate_on_commit
+    @override_settings(
+        ST_TASK_MANAGER='tests', ST_SITE_URL='https://tests.com/')
+    def test_notify_reply(self):
+        user1 = test_utils.create_user()
+        user2 = test_utils.create_user()
+        user3 = test_utils.create_user()
+        comment = test_utils.create_comment()
+        test_utils.create_notification(
+            comment, user1, is_read=False, action='reply')
+        test_utils.create_notification(
+            comment, user2, is_read=False, action='reply')
+        test_utils.create_notification(
+            comment, user3, is_read=True, action='reply')
+        test_utils.create_notification(is_read=True, action='reply')
+        test_utils.create_notification(is_read=False, action='reply')
+        tasks.notify_reply(comment_id=comment.pk)
+        self.assertEqual(len(mail.outbox), 2)

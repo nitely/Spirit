@@ -177,4 +177,4 @@ class CustomPasswordResetForm(PasswordResetForm):
         subject = render_to_string(subject_template_name, context)
         subject = ''.join(subject.splitlines())
         body = render_to_string(email_template_name, context)
-        tasks.send_email(subject, body, from_email, [to_email])
+        tasks.send_email(subject, body, [to_email])

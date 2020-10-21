@@ -9,5 +9,5 @@
 
 {% trans "If you don't want to keep receiving notifications, unsubscribe:" %}
 
-{{ site }}{% url "spirit:user:unsubscribed" token=unsub_token %}
+{{ site }}{% url "spirit:user:unsubscribe" token=unsub_token %}
 {% endautoescape %}
