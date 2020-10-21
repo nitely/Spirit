@@ -8,9 +8,9 @@ from contextlib import contextmanager
 
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from django.conf import settings
 
 from spirit.core.storage import spirit_storage
+from spirit.core.conf import settings
 
 
 def render_form_errors(form):
