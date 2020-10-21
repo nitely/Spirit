@@ -158,6 +158,7 @@ def _notify_comment(
             comment_id=comment_id,
             is_read=False,
             action=actions[action])
+        .order_by('-pk')
         .only('user_id', 'user__email'))
     # Since this is a task, the default language will
     # be used; we don't know what language each user prefers
@@ -222,6 +223,7 @@ def notify_weekly():
             st_topic_notifications__action=Notification.MENTION,
             st_topic_notifications__is_read=False,
             st_topic_notifications__is_active=True)
+        .order_by('-pk')
         .only('id', 'email'))
     subject = _('New notifications')
     site = site_url()

@@ -52,7 +52,7 @@ ST_HUEY_SCHEDULE = {
 #:   to index into the search index on each update.
 #: | The update is run by a periodic task; ex:
 #:   ``ST_HUEY_SCHEDULE['full_search_index_update']``
-#:   in case of the Huey.
+#:   in case of Huey.
 #: | The task schedule for the selected ``ST_TASK_MANAGER``
 #:   will need to be set to this value (or lesser)
 ST_SEARCH_INDEX_UPDATE_HOURS = 24
