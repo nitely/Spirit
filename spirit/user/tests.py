@@ -993,8 +993,8 @@ class UtilsUserTests(TransactionTestCase):
             'spirit/user/activation_email.html', {
                 'user_id': self.user.pk,
                 'token': UserActivationTokenGenerator().generate(self.user),
-                'site': 'https://example.com/'}))
-        self.assertIn('https://example.com/', mail.outbox[0].body)
+                'site': 'https://example.com'}))
+        self.assertIn('https://example.com/user/', mail.outbox[0].body)
         self.assertEqual(mail.outbox[0].to, [self.user.email])
 
     @override_settings(
@@ -1015,8 +1015,8 @@ class UtilsUserTests(TransactionTestCase):
                 'user_id': self.user.pk,
                 'token': UserEmailChangeTokenGenerator().generate(
                     self.user, new_email),
-                'site': 'https://example.com/'}))
-        self.assertIn('https://example.com/', mail.outbox[0].body)
+                'site': 'https://example.com'}))
+        self.assertIn('https://example.com/user/', mail.outbox[0].body)
         self.assertEqual(mail.outbox[0].to, [self.user.email])
 
 

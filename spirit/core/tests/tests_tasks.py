@@ -8,6 +8,7 @@ from django.core import mail
 from django.core.management import call_command
 from django.utils import timezone
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.template.loader import render_to_string
 
 from haystack.query import SearchQuerySet
 
@@ -15,6 +16,7 @@ from . import utils as test_utils
 from spirit.core import tasks
 from spirit.core.tests.models import TaskResultModel
 from spirit.core.storage import spirit_storage
+from spirit.user.utils import tokens
 
 try:
     @tasks.task_manager('celery')
@@ -177,7 +179,9 @@ class TasksTests(TestCase):
 
     @test_utils.immediate_on_commit
     @override_settings(
-        ST_TASK_MANAGER='tests', ST_SITE_URL='https://tests.com/')
+        ST_TASK_MANAGER='tests',
+        ST_SITE_URL='https://tests.com/',
+        DEFAULT_FROM_EMAIL='task@test.com')
     def test_notify_reply(self):
         user1 = test_utils.create_user()
         user2 = test_utils.create_user()
@@ -193,3 +197,25 @@ class TasksTests(TestCase):
         test_utils.create_notification(is_read=False, action='reply')
         tasks.notify_reply(comment_id=comment.pk)
         self.assertEqual(len(mail.outbox), 2)
+        self.assertEqual(
+            mail.outbox[0].subject, "{user} commented on {topic}".format(
+                user=comment.user.st.nickname, topic=comment.topic.title))
+        self.assertEqual(
+            mail.outbox[1].subject, "{user} commented on {topic}".format(
+                user=comment.user.st.nickname, topic=comment.topic.title))
+        self.assertEqual(mail.outbox[0].from_email, 'task@test.com')
+        self.assertEqual(mail.outbox[1].from_email, 'task@test.com')
+        self.assertEqual(mail.outbox[0].body, render_to_string(
+            'spirit/topic/notification/email_notification.txt', {
+                'comment_id': comment.pk,
+                'unsub_token': tokens.unsub_token(user2.pk),
+                'site': 'https://tests.com'}))
+        self.assertEqual(mail.outbox[1].body, render_to_string(
+            'spirit/topic/notification/email_notification.txt', {
+                'comment_id': comment.pk,
+                'unsub_token': tokens.unsub_token(user1.pk),
+                'site': 'https://tests.com'}))
+        self.assertIn('https://tests.com/comment/', mail.outbox[0].body)
+        self.assertIn('https://tests.com/comment/', mail.outbox[1].body)
+        self.assertEqual(mail.outbox[0].to, [user2.email])
+        self.assertEqual(mail.outbox[1].to, [user1.email])

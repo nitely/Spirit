@@ -117,4 +117,4 @@ def generate_filename(file, hashed=False):
 
 
 def site_url():
-    return settings.ST_SITE_URL.rstrip('/') + '/'
+    return settings.ST_SITE_URL.rstrip('/')
