@@ -111,7 +111,7 @@ def search_index_update(topic_pk):
         instance=Topic.objects.get(pk=topic_pk))
 
 
-@periodic_task(HUEY_SCHEDULE['full_search_index_update'])
+@periodic_task(**HUEY_SCHEDULE['full_search_index_update'])
 def full_search_index_update():
     age = settings.ST_SEARCH_INDEX_UPDATE_HOURS
     call_command("update_index", age=age)
@@ -207,7 +207,7 @@ def notify_mention(comment_id):
         action='mention')
 
 
-@periodic_task(HUEY_SCHEDULE['notify_weekly'])
+@periodic_task(**HUEY_SCHEDULE['notify_weekly'])
 def notify_weekly():
     from django.contrib.auth import get_user_model
     djconfig.reload_maybe()
