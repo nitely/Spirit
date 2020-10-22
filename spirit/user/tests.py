@@ -29,8 +29,7 @@ from spirit.topic.models import Topic
 from spirit.comment.models import Comment
 from spirit.comment.bookmark.models import CommentBookmark
 from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
-from .utils.email import send_activation_email, send_email_change_email, sender
-from .utils import email
+from .utils.email import send_activation_email, send_email_change_email
 from . import middleware
 from .models import UserProfile
 
