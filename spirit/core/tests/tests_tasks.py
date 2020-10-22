@@ -8,7 +8,7 @@ from django.core import mail
 from django.core.management import call_command
 from django.utils import timezone
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.template.loader import render_to_string
+from django.urls import reverse
 
 from haystack.query import SearchQuerySet
 
@@ -201,32 +201,22 @@ class TasksTests(TestCase):
             comment, is_read=False, action=None)
         tasks.notify_reply(comment_id=comment.pk)
         self.assertEqual(len(mail.outbox), 2)
-        users = [user1, user2]
-        users.sort(key=lambda x: x.email)
-        outbox = list(mail.outbox)
-        outbox.sort(key=lambda x: x.to[0])
         self.assertEqual(
-            outbox[0].subject, "{user} commented on {topic}".format(
+            mail.outbox[0].subject, "{user} commented on {topic}".format(
                 user=comment.user.st.nickname, topic=comment.topic.title))
         self.assertEqual(
-            outbox[1].subject, "{user} commented on {topic}".format(
+            mail.outbox[1].subject, "{user} commented on {topic}".format(
                 user=comment.user.st.nickname, topic=comment.topic.title))
-        self.assertEqual(outbox[0].from_email, 'task@test.com')
-        self.assertEqual(outbox[1].from_email, 'task@test.com')
-        self.assertEqual(outbox[0].body, render_to_string(
-            'spirit/topic/notification/email_notification.txt', {
-                'comment_id': comment.pk,
-                'unsub_token': tokens.unsub_token(users[0].pk),
-                'site': 'https://tests.com'}))
-        self.assertEqual(outbox[1].body, render_to_string(
-            'spirit/topic/notification/email_notification.txt', {
-                'comment_id': comment.pk,
-                'unsub_token': tokens.unsub_token(users[1].pk),
-                'site': 'https://tests.com'}))
-        self.assertIn('https://tests.com/comment/', outbox[0].body)
-        self.assertIn('https://tests.com/comment/', outbox[1].body)
-        self.assertEqual(outbox[0].to, [users[0].email])
-        self.assertEqual(outbox[1].to, [users[1].email])
+        self.assertEqual(mail.outbox[0].from_email, 'task@test.com')
+        self.assertEqual(mail.outbox[1].from_email, 'task@test.com')
+        self.assertIn(
+            'https://tests.com' + comment.get_absolute_url(),
+            mail.outbox[0].body)
+        self.assertIn(
+            'https://tests.com' + comment.get_absolute_url(),
+            mail.outbox[1].body)
+        self.assertEqual(mail.outbox[0].to, [user2.email])
+        self.assertEqual(mail.outbox[1].to, [user1.email])
 
     @test_utils.immediate_on_commit
     @override_settings(
@@ -252,29 +242,27 @@ class TasksTests(TestCase):
             comment, is_read=False, action=None)
         tasks.notify_mention(comment_id=comment.pk)
         self.assertEqual(len(mail.outbox), 2)
-        users = [user1, user2]
-        users.sort(key=lambda x: x.email)
-        outbox = list(mail.outbox)
-        outbox.sort(key=lambda x: x.to[0])
         self.assertEqual(
-            outbox[0].subject, "{user} mention you on {topic}".format(
+            mail.outbox[0].subject, "{user} mention you on {topic}".format(
                 user=comment.user.st.nickname, topic=comment.topic.title))
         self.assertEqual(
-            outbox[1].subject, "{user} mention you on {topic}".format(
+            mail.outbox[1].subject, "{user} mention you on {topic}".format(
                 user=comment.user.st.nickname, topic=comment.topic.title))
-        self.assertEqual(outbox[0].from_email, 'task@test.com')
-        self.assertEqual(outbox[1].from_email, 'task@test.com')
-        self.assertEqual(outbox[0].body, render_to_string(
-            'spirit/topic/notification/email_notification.txt', {
-                'comment_id': comment.pk,
-                'unsub_token': tokens.unsub_token(users[0].pk),
-                'site': 'https://tests.com'}))
-        self.assertEqual(outbox[1].body, render_to_string(
-            'spirit/topic/notification/email_notification.txt', {
-                'comment_id': comment.pk,
-                'unsub_token': tokens.unsub_token(users[1].pk),
-                'site': 'https://tests.com'}))
-        self.assertIn('https://tests.com/comment/', outbox[0].body)
-        self.assertIn('https://tests.com/comment/', outbox[1].body)
-        self.assertEqual(outbox[0].to, [users[0].email])
-        self.assertEqual(outbox[1].to, [users[1].email])
+        self.assertEqual(mail.outbox[0].from_email, 'task@test.com')
+        self.assertEqual(mail.outbox[1].from_email, 'task@test.com')
+        self.assertIn(
+            'https://tests.com' + comment.get_absolute_url(),
+            mail.outbox[0].body)
+        self.assertIn(
+            'https://tests.com' + comment.get_absolute_url(),
+            mail.outbox[1].body)
+        self.assertEqual(mail.outbox[0].to, [user2.email])
+        self.assertEqual(mail.outbox[1].to, [user1.email])
+
+    @test_utils.immediate_on_commit
+    @override_settings(
+        ST_TASK_MANAGER='tests',
+        ST_SITE_URL='https://tests.com/',
+        DEFAULT_FROM_EMAIL='task@test.com')
+    def test_notify_weekly(self):
+        user1 = test_utils.create_user()

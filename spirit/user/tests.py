@@ -988,11 +988,6 @@ class UtilsUserTests(TransactionTestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, _("User activation"))
         self.assertEqual(mail.outbox[0].from_email, 'test@test.com')
-        self.assertEqual(mail.outbox[0].body, render_to_string(
-            'spirit/user/activation_email.html', {
-                'user_id': self.user.pk,
-                'token': UserActivationTokenGenerator().generate(self.user),
-                'site': 'https://example.com'}))
         self.assertIn('https://example.com/user/', mail.outbox[0].body)
         self.assertEqual(mail.outbox[0].to, [self.user.email])
 
@@ -1009,12 +1004,6 @@ class UtilsUserTests(TransactionTestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, _("Email change"))
         self.assertEqual(mail.outbox[0].from_email, 'test@test.com')
-        self.assertEqual(mail.outbox[0].body, render_to_string(
-            'spirit/user/email_change_email.html', {
-                'user_id': self.user.pk,
-                'token': UserEmailChangeTokenGenerator().generate(
-                    self.user, new_email),
-                'site': 'https://example.com'}))
         self.assertIn('https://example.com/user/', mail.outbox[0].body)
         self.assertEqual(mail.outbox[0].to, [self.user.email])
 
