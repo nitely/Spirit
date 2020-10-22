@@ -3,6 +3,7 @@
 import logging
 
 from django.db import transaction
+from django.db.models import Q
 from django.apps import apps
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
@@ -160,6 +161,7 @@ def _notify_comment(
         Notification.objects
         .exclude(user_id=comment.user_id)
         .filter(
+            topic_id=comment.topic_id,
             comment_id=comment_id,
             is_read=False,
             is_active=True,
@@ -225,20 +227,29 @@ def notify_weekly():
     UserProfile = apps.get_model('spirit_user.UserProfile')
     Notify = UserProfile.Notify
     User = get_user_model()
-    users_with_mentions = (
+    users = (
         User.objects
         .filter(
-            st__notify=Notify.WEEKLY | Notify.MENTION,
-            st_topic_notifications__action=Notification.MENTION,
+            Q(
+                st__notify__in=[
+                    Notify.WEEKLY | Notify.MENTION,
+                    Notify.WEEKLY | Notify.MENTION | Notify.REPLY],
+                st_topic_notifications__action=Notification.MENTION) |
+            Q(
+                st__notify__in=[
+                    Notify.WEEKLY | Notify.REPLY,
+                    Notify.WEEKLY | Notify.MENTION | Notify.REPLY],
+                st_topic_notifications__action=Notification.COMMENT),
             st_topic_notifications__is_read=False,
             st_topic_notifications__is_active=True)
         .order_by('-pk')
-        .only('id', 'email'))
+        .only('pk', 'email')
+        .distinct())
     subject = _('New notifications')
     site = site_url()
     with mail.get_connection() as connection:
-        for u in users_with_mentions.iterator(chunk_size=2000):
-            unsub_token = tokens.unsub_token(u.id)
+        for u in users.iterator(chunk_size=2000):
+            unsub_token = tokens.unsub_token(u.pk)
             message = render_to_string(
                 'spirit/topic/notification/email_notification_weekly.txt',
                 {'site': site,
