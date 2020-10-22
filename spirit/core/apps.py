@@ -15,3 +15,7 @@ class SpiritCoreConfig(AppConfig):
     def ready(self):
         if not settings.ST_SITE_URL:
             raise ImproperlyConfigured('ST_SITE_URL setting not set')
+        if settings.ST_TASK_MANAGER not in {'huey', 'celery', None}:
+            raise ImproperlyConfigured(
+                'ST_TASK_MANAGER setting is invalid. '
+                'Valid values are: "huey", "celery", and None')
