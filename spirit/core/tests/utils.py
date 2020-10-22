@@ -77,20 +77,22 @@ def create_comment(**kwargs):
     return Comment.objects.create(**kwargs)
 
 
-def create_notification(comment=None, user=None, is_read=True, action=None):
+def create_notification(
+    comment=None, user=None, is_read=True, action=None, is_active=True
+):
     comment = comment or create_comment()
     user = user or create_user()
     actions = {
         'reply': TopicNotification.COMMENT,
         'mention': TopicNotification.MENTION,
         None: TopicNotification.UNDEFINED}
-    assert (
-        not TopicNotification.objects
-        .filter(topic_id=comment.topic_id, user=user)
-        .exists())
-    return TopicNotification.create_maybe(
+    notification, created = TopicNotification.create_maybe(
         comment=comment, user=user, is_read=is_read, action=actions[action])
-
+    assert created
+    if not is_active:
+        notification.is_active = False
+        notification.save()
+    return notification
 
 def default_categories():
     # Only public categories are included

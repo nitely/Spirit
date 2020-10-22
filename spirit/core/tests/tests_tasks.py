@@ -186,6 +186,13 @@ class TasksTests(TestCase):
         user1 = test_utils.create_user()
         user2 = test_utils.create_user()
         user3 = test_utils.create_user()
+        user1.st.notify = user1.st.Notify.IMMEDIATELY | user1.st.Notify.REPLY
+        user1.st.save()
+        user2.st.notify = (
+            user1.st.Notify.IMMEDIATELY |
+            user1.st.Notify.REPLY |
+            user1.st.Notify.MENTION)
+        user2.st.save()
         comment = test_utils.create_comment()
         test_utils.create_notification(
             comment, user1, is_read=False, action='reply')
@@ -199,6 +206,23 @@ class TasksTests(TestCase):
             comment, is_read=False, action='mention')
         test_utils.create_notification(
             comment, is_read=False, action=None)
+        test_utils.create_notification(
+            comment, is_read=False, action='reply', is_active=False)
+        test_utils.create_notification(
+            comment, is_read=True, action='reply', is_active=False)
+        user4 = test_utils.create_user()
+        user5 = test_utils.create_user()
+        user4.st.notify = user4.st.Notify.WEEKLY | user4.st.Notify.REPLY
+        user4.st.save()
+        user5.st.notify = (
+            user5.st.Notify.NEVER |
+            user5.st.Notify.REPLY |
+            user5.st.Notify.MENTION)
+        user5.st.save()
+        test_utils.create_notification(
+            comment, user4, is_read=False, action='reply')
+        test_utils.create_notification(
+            comment, user5, is_read=False, action='reply')
         tasks.notify_reply(comment_id=comment.pk)
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(
@@ -227,6 +251,13 @@ class TasksTests(TestCase):
         user1 = test_utils.create_user()
         user2 = test_utils.create_user()
         user3 = test_utils.create_user()
+        user1.st.notify = user1.st.Notify.IMMEDIATELY | user1.st.Notify.MENTION
+        user1.st.save()
+        user2.st.notify = (
+                user1.st.Notify.IMMEDIATELY |
+                user1.st.Notify.REPLY |
+                user1.st.Notify.MENTION)
+        user2.st.save()
         comment = test_utils.create_comment()
         test_utils.create_notification(
             comment, user1, is_read=False, action='mention')
@@ -240,6 +271,23 @@ class TasksTests(TestCase):
             comment, is_read=False, action='reply')
         test_utils.create_notification(
             comment, is_read=False, action=None)
+        test_utils.create_notification(
+            comment, is_read=False, action='mention', is_active=False)
+        test_utils.create_notification(
+            comment, is_read=True, action='mention', is_active=False)
+        user4 = test_utils.create_user()
+        user5 = test_utils.create_user()
+        user4.st.notify = user4.st.Notify.WEEKLY | user4.st.Notify.MENTION
+        user4.st.save()
+        user5.st.notify = (
+                user5.st.Notify.NEVER |
+                user5.st.Notify.REPLY |
+                user5.st.Notify.MENTION)
+        user5.st.save()
+        test_utils.create_notification(
+            comment, user4, is_read=False, action='mention')
+        test_utils.create_notification(
+            comment, user5, is_read=False, action='mention')
         tasks.notify_mention(comment_id=comment.pk)
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(
@@ -266,3 +314,29 @@ class TasksTests(TestCase):
         DEFAULT_FROM_EMAIL='task@test.com')
     def test_notify_weekly(self):
         user1 = test_utils.create_user()
+        user2 = test_utils.create_user()
+        user3 = test_utils.create_user()
+        comment = test_utils.create_comment()
+        test_utils.create_notification(
+            comment, user1, is_read=False, action='mention')
+        test_utils.create_notification(
+            comment, user2, is_read=False, action='mention')
+        test_utils.create_notification(
+            comment, user3, is_read=True, action='mention')
+        test_utils.create_notification(is_read=True, action='mention')
+        test_utils.create_notification(is_read=False, action='mention')
+        test_utils.create_notification(
+            comment, is_read=False, action='reply')
+        test_utils.create_notification(
+            comment, is_read=False, action=None)
+        test_utils.create_notification(
+            comment, is_read=False, action='mention', is_active=False)
+        test_utils.create_notification(
+            comment, is_read=True, action='mention', is_active=False)
+        comment2 = test_utils.create_comment()
+        test_utils.create_notification(
+            comment2, user1, is_read=False, action='mention')
+        test_utils.create_notification(
+            comment2, user2, is_read=False, action='mention')
+        tasks.notify_weekly()
+        #self.assertEqual(len(mail.outbox), 4)

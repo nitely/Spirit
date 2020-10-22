@@ -144,6 +144,8 @@ def _notify_comment(
     Comment = apps.get_model('spirit_comment.Comment')
     Notification = apps.get_model(
         'spirit_topic_notification.TopicNotification')
+    UserProfile = apps.get_model('spirit_user.UserProfile')
+    Notify = UserProfile.Notify
     comment = (
         Comment.objects
         .select_related('user__st', 'topic')
@@ -151,13 +153,20 @@ def _notify_comment(
     actions = {
         'mention': Notification.MENTION,
         'reply': Notification.COMMENT}
+    notify = {
+        'mention': Notify.MENTION,
+        'reply': Notify.REPLY}
     notifications = (
         Notification.objects
         .exclude(user_id=comment.user_id)
         .filter(
             comment_id=comment_id,
             is_read=False,
-            action=actions[action])
+            is_active=True,
+            action=actions[action],
+            user__st__notify__in=[
+                Notify.IMMEDIATELY | notify[action],
+                Notify.IMMEDIATELY | Notify.MENTION | Notify.REPLY])
         .order_by('-pk')
         .only('user_id', 'user__email'))
     # Since this is a task, the default language will
