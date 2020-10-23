@@ -17,6 +17,9 @@ def comment_posted(comment, mentions):
     TopicUnread.unread_new_comment(comment=comment)
     comment.topic.increase_comment_count()
     tasks.search_index_update(topic_pk=comment.topic.pk)
+    tasks.notify_reply(comment_id=comment.pk)
+    if mentions:
+        tasks.notify_mention(comment_id=comment.pk)
 
 
 def pre_comment_update(comment):

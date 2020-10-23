@@ -443,6 +443,16 @@ class TasksTests(TestCase):
             user=user6, is_read=True, action='mention')
         test_utils.create_notification(
             user=user6, is_read=False, action=None)
+        user7 = test_utils.create_user()
+        user7.st.notify = (
+            user7.st.Notify.IMMEDIATELY |
+            user7.st.Notify.REPLY |
+            user7.st.Notify.MENTION)
+        user7.st.save()
+        test_utils.create_notification(
+            user=user7, is_read=False, action='reply')
+        test_utils.create_notification(
+            user=user7, is_read=True, action='reply')
         tasks.notify_weekly()
         self.assertEqual(len(mail.outbox), 5)
         self.assertEqual(mail.outbox[0].subject, 'New notifications')
