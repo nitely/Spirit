@@ -275,6 +275,24 @@ class TasksTests(TestCase):
 
     @test_utils.immediate_on_commit
     @override_settings(
+        ST_SITE_URL='https://tests.com/',
+        DEFAULT_FROM_EMAIL='task@test.com')
+    def test_notify_reply_no_tm(self):
+        user1 = test_utils.create_user()
+        user1.st.notify = user1.st.Notify.IMMEDIATELY | user1.st.Notify.REPLY
+        user1.st.save()
+        comment = test_utils.create_comment()
+        test_utils.create_notification(
+            comment, user1, is_read=False, action='reply')
+        with override_settings(ST_TASK_MANAGER=None):
+            tasks.notify_reply(comment_id=comment.pk)
+            self.assertEqual(len(mail.outbox), 0)
+        with override_settings(ST_TASK_MANAGER='test'):
+            tasks.notify_reply(comment_id=comment.pk)
+            self.assertEqual(len(mail.outbox), 1)
+
+    @test_utils.immediate_on_commit
+    @override_settings(
         ST_TASK_MANAGER='tests',
         ST_SITE_URL='https://tests.com/',
         DEFAULT_FROM_EMAIL='task@test.com')
