@@ -378,6 +378,8 @@ class TasksTests(TestCase):
         user1 = test_utils.create_user()
         user2 = test_utils.create_user()
         user3 = test_utils.create_user()
+        user4 = test_utils.create_user()
+        user5 = test_utils.create_user()
         user1.st.notify = user1.st.Notify.WEEKLY | user1.st.Notify.MENTION
         user1.st.save()
         user2.st.notify = (
@@ -385,8 +387,18 @@ class TasksTests(TestCase):
             user1.st.Notify.REPLY |
             user1.st.Notify.MENTION)
         user2.st.save()
-        user3.st.notify = user1.st.notify
+        user3.st.notify = user3.st.Notify.WEEKLY | user3.st.Notify.REPLY
         user3.st.save()
+        user4.st.notify = (
+            user4.st.Notify.WEEKLY |
+            user4.st.Notify.REPLY |
+            user4.st.Notify.MENTION)
+        user4.st.save()
+        user5.st.notify = (
+            user5.st.Notify.WEEKLY |
+            user5.st.Notify.REPLY |
+            user5.st.Notify.MENTION)
+        user5.st.save()
         test_utils.create_notification(
             user=user1, is_read=False, action='mention')
         test_utils.create_notification(
@@ -394,9 +406,15 @@ class TasksTests(TestCase):
         test_utils.create_notification(
             user=user2, is_read=False, action='mention')
         test_utils.create_notification(
-            user=user2, is_read=False, action='reply')
+            user=user3, is_read=False, action='reply')
         test_utils.create_notification(
-            user=user3, is_read=True, action='mention')
+            user=user4, is_read=False, action='reply')
+        test_utils.create_notification(
+            user=user5, is_read=False, action='reply')
+        test_utils.create_notification(
+            user=user5, is_read=False, action='mention')
+        test_utils.create_notification(
+            user=user5, is_read=False, action='mention')
         test_utils.create_notification(is_read=True, action='mention')
         test_utils.create_notification(is_read=False, action='mention')
         test_utils.create_notification(is_read=False, action='reply')
@@ -410,7 +428,32 @@ class TasksTests(TestCase):
             comment2, user1, is_read=False, action='mention')
         test_utils.create_notification(
             comment2, user2, is_read=False, action='mention')
+        user6 = test_utils.create_user()
+        user6.st.notify = user1.st.notify
+        user6.st.save()
+        test_utils.create_notification(
+            user=user6, is_read=False, action='mention', is_active=False)
+        test_utils.create_notification(
+            user=user6, is_read=False, action='reply', is_active=False)
+        test_utils.create_notification(
+            user=user6, is_read=False, action='reply')
+        test_utils.create_notification(
+            user=user6, is_read=True, action='reply')
+        test_utils.create_notification(
+            user=user6, is_read=True, action='mention')
+        test_utils.create_notification(
+            user=user6, is_read=False, action=None)
         tasks.notify_weekly()
-        self.assertEqual(len(mail.outbox), 2)
-        self.assertEqual(mail.outbox[0].to, [user2.email])
-        self.assertEqual(mail.outbox[1].to, [user1.email])
+        self.assertEqual(len(mail.outbox), 5)
+        self.assertEqual(mail.outbox[0].subject, 'New notifications')
+        self.assertEqual(mail.outbox[1].subject, 'New notifications')
+        self.assertEqual(mail.outbox[0].from_email, 'task@test.com')
+        self.assertEqual(mail.outbox[1].from_email, 'task@test.com')
+        self.assertIn(
+            'https://tests.com' + reverse('spirit:topic:notification:index'),
+            mail.outbox[0].body)
+        self.assertIn(
+            'https://tests.com' + reverse('spirit:topic:notification:index'),
+            mail.outbox[1].body)
+        self.assertEqual(mail.outbox[3].to, [user2.email])
+        self.assertEqual(mail.outbox[4].to, [user1.email])
