@@ -455,5 +455,8 @@ class TasksTests(TestCase):
         self.assertIn(
             'https://tests.com' + reverse('spirit:topic:notification:index'),
             mail.outbox[1].body)
+        self.assertEqual(mail.outbox[0].to, [user5.email])
+        self.assertEqual(mail.outbox[1].to, [user4.email])
+        self.assertEqual(mail.outbox[2].to, [user3.email])
         self.assertEqual(mail.outbox[3].to, [user2.email])
         self.assertEqual(mail.outbox[4].to, [user1.email])
