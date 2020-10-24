@@ -80,7 +80,12 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 CELERY_BEAT_SCHEDULE = {
-    'context': {
+    'notify_weekly': {
+        'task': 'spirit.core.tasks.notify_weekly',
+        'schedule': 3600 * 24 * 7  # run once every week
+        # 'schedule': crontab(hour=0, minute=0, day_of_week='sun')
+    },
+    'full_search_index_update': {
         'task': 'spirit.core.tasks.full_search_index_update',
         'schedule': 3600 * 24  # run once every 24hs
     }
