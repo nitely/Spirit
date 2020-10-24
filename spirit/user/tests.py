@@ -80,36 +80,6 @@ class UserViewTest(TestCase):
             'spirit:user:email-change-confirm', kwargs={'token': "foo"}))
         self.assertEqual(response.status_code, 302)
 
-    def test_profile_creation_on_save(self):
-        """Should create a profile on user save"""
-        user = utils.create_user()
-        self.assertTrue(UserProfile.objects.filter(user=user).exists())
-        self.assertEqual(user.st, UserProfile.objects.get(user=user))
-
-    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
-    def test_profile_creation_on_user_create_case_insensitive(self):
-        user = utils.create_user(username='UnIqUeFoO')
-        self.assertTrue(user.username, 'uniquefoo')
-        self.assertTrue(
-            User.objects.filter(username='uniquefoo').exists())
-        self.assertTrue(
-            UserProfile.objects.filter(
-                nickname='UnIqUeFoO',
-                user_id=user.pk
-            ).exists())
-
-    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
-    def test_profile_creation_on_user_create_case_insensitive_off(self):
-        user = utils.create_user(username='UnIqUeFoO')
-        self.assertTrue(user.username, 'UnIqUeFoO')
-        self.assertTrue(
-            User.objects.filter(username='UnIqUeFoO').exists())
-        self.assertTrue(
-            UserProfile.objects.filter(
-                nickname='UnIqUeFoO',
-                user_id=user.pk
-            ).exists())
-
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_profile_creation_on_register_case_insensitive_user(self):
         form_data = {
@@ -1063,6 +1033,71 @@ class UserModelTest(TestCase):
         self.assertEqual(
             user.st.small_avatar_url(),
             '/media/spirit/avatars/{}/pic_test_small.gif'.format(user.pk))
+
+
+class SignalsUserTests(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+
+    def test_profile_creation_on_save(self):
+        """Should create a profile on user save"""
+        user = utils.create_user()
+        self.assertTrue(UserProfile.objects.filter(user=user).exists())
+        self.assertEqual(user.st, UserProfile.objects.get(user=user))
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
+    def test_profile_creation_on_user_create_case_insensitive(self):
+        user = utils.create_user(username='UnIqUeFoO')
+        self.assertTrue(user.username, 'uniquefoo')
+        self.assertTrue(
+            User.objects.filter(username='uniquefoo').exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user_id=user.pk
+            ).exists())
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_profile_creation_on_user_create_case_insensitive_off(self):
+        user = utils.create_user(username='UnIqUeFoO')
+        self.assertTrue(user.username, 'UnIqUeFoO')
+        self.assertTrue(
+            User.objects.filter(username='UnIqUeFoO').exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user_id=user.pk
+            ).exists())
+
+    def test_profile_notify(self):
+        user = utils.create_user()
+        self.assertEqual(
+            user.st.notify,
+            user.st.Notify.NEVER |
+            user.st.Notify.MENTION |
+            user.st.Notify.REPLY)
+        with override_settings(ST_NOTIFY_WHEN='immediately'):
+            user = utils.create_user()
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.IMMEDIATELY |
+                user.st.Notify.MENTION |
+                user.st.Notify.REPLY)
+        with override_settings(ST_NOTIFY_WHEN='weekly'):
+            user = utils.create_user()
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.WEEKLY |
+                user.st.Notify.MENTION |
+                user.st.Notify.REPLY)
+        with override_settings(ST_NOTIFY_WHEN='never'):
+            user = utils.create_user()
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.NEVER |
+                user.st.Notify.MENTION |
+                user.st.Notify.REPLY)
 
 
 class UtilsUserTests(TransactionTestCase):

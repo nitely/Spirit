@@ -19,3 +19,7 @@ class SpiritCoreConfig(AppConfig):
             raise ImproperlyConfigured(
                 'ST_TASK_MANAGER setting is invalid. '
                 'Valid values are: "huey", "celery", and None')
+        if settings.ST_NOTIFY_WHEN not in {'never', 'immediately', 'weekly'}:
+            raise ImproperlyConfigured(
+                'ST_TASK_MANAGER setting is invalid. '
+                'Valid values are: "never", "immediately", and "weekly"')

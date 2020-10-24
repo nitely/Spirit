@@ -48,6 +48,13 @@ ST_HUEY_SCHEDULE = {
     }
 }
 
+#: Default email notification
+#: frequency. This is applied to new users;
+#: existing users will default to ``'never'``.
+#: Valid values are ``'never'``, ``'immediately'``,
+#: and ``'weekly'``
+ST_NOTIFY_WHEN = 'never'
+
 #: | The age in hours of the items
 #:   to index into the search index on each update.
 #: | The update is run by a periodic task; ex:
