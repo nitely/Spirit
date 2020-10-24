@@ -1,11 +1,11 @@
 {% load i18n %}{% autoescape off %}
 {% blocktrans trimmed %}
-  You have a new notification on {{ config.site_name }}.
+  You have a new notification on {{ site_name }}.
 {% endblocktrans %}
 
 {% trans "Please go to the following link to read it:" %}
 
-{{ site }}{% url "spirit:topic:notification:index" %}
+{{ site }}{% url "spirit:comment:find" pk=comment_id %}
 
 {% trans "If you don't want to keep receiving notifications, unsubscribe:" %}
 

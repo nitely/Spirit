@@ -182,6 +182,7 @@ def _notify_comment(
             unsub_token = tokens.unsub_token(n.user_id)
             message = render_to_string(template, {
                 'site': site,
+                'site_name': djconfig.config.site_name,
                 'comment_id': comment_id,
                 'user_id': n.user_id,
                 'unsub_token': unsub_token})
@@ -205,7 +206,7 @@ def notify_reply(comment_id):
         comment_id=comment_id,
         site=site_url(),
         subject=_("{user} commented on {topic}"),
-        template='spirit/topic/notification/email_notification.txt',
+        template='spirit/topic/notification/email_notification.html',
         action='reply')
 
 
@@ -215,7 +216,7 @@ def notify_mention(comment_id):
         comment_id=comment_id,
         site=site_url(),
         subject=_("{user} mention you on {topic}"),
-        template='spirit/topic/notification/email_notification.txt',
+        template='spirit/topic/notification/email_notification.html',
         action='mention')
 
 
@@ -252,8 +253,9 @@ def notify_weekly():
         for u in users.iterator(chunk_size=2000):
             unsub_token = tokens.unsub_token(u.pk)
             message = render_to_string(
-                'spirit/topic/notification/email_notification_weekly.txt',
+                'spirit/topic/notification/email_notification_weekly.html',
                 {'site': site,
+                 'site_name': djconfig.config.site_name,
                  'user_id': u.pk,
                  'unsub_token': unsub_token})
             unsub = ''.join((site, reverse(
