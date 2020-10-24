@@ -97,14 +97,11 @@ def email_change_confirm(request, token):
     return redirect(reverse('spirit:user:update'))
 
 
-# No need to be logged
-def unsubscribe(request, token):
+# No need to be logged-in
+def unsubscribe(request, pk, token):
     unsub = UserUnsubTokenGenerator()
-    if unsub.is_valid(token):
-        user_id = unsub.get_user_id()
-        if not isinstance(user_id, int):
-            return HttpResponseBadRequest()
-        user = get_object_or_404(User, pk=user_id)
+    if unsub.is_valid(pk, token):
+        user = get_object_or_404(User, pk=pk)
         user.st.notify = user.st.Notify.NEVER
         user.st.save()
         messages.info(request, _("You are now unsubscribed!"))

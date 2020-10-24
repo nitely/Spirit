@@ -14,8 +14,8 @@ urlpatterns = [
     re_path(r'^email-change/(?P<token>[0-9A-Za-z_\-\.]+)/$',
         views.email_change_confirm,
         name='email-change-confirm'),
-    re_path(r'^unsubscribe/(?P<token>[0-9A-Za-z_\-\.]+)/$',
-            views.unsubscribe, name='unsubscribe'),
+    re_path(r'^unsubscribe/(?P<pk>[0-9]+)/(?P<token>[0-9A-Za-z_\-\.]+)/$',
+        views.unsubscribe, name='unsubscribe'),
 
     re_path(r'^(?P<pk>[0-9]+)/$', views.comments, kwargs={'slug': ""}, name='detail'),
     re_path(r'^(?P<pk>[0-9]+)/(?P<slug>[\w-]+)/$', views.comments, name='detail'),

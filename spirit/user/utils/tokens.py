@@ -55,25 +55,6 @@ class UserUnsubTokenGenerator(TokenGenerator):
     def _uid(self, user_id):
         return smart_str(user_id)
 
-    def generate(self, user_id):
-        return super().generate(user_id, {'user_id': user_id})
-
-    def is_valid(self, signed_value):
-        try:
-            self.data = self._load(signed_value)
-        except signing.BadSignature:
-            return False
-        if 'user_id' not in self.data:
-            return False
-        if 'uid' not in self.data:
-            return False
-        if str(self.data['uid']) != str(self.data['user_id']):
-            return False
-        return True
-
-    def get_user_id(self):
-        return self.data['user_id']
-
 
 def unsub_token(user_id):
     return UserUnsubTokenGenerator().generate(user_id)

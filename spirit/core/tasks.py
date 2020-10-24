@@ -183,10 +183,11 @@ def _notify_comment(
             message = render_to_string(template, {
                 'site': site,
                 'comment_id': comment_id,
+                'user_id': n.user_id,
                 'unsub_token': unsub_token})
             unsub = ''.join((site, reverse(
                 'spirit:user:unsubscribe',
-                kwargs={'token': unsub_token})))
+                kwargs={'pk': n.user_id, 'token': unsub_token})))
             try:
                 _send_email(
                     subject, message,
@@ -253,10 +254,11 @@ def notify_weekly():
             message = render_to_string(
                 'spirit/topic/notification/email_notification_weekly.txt',
                 {'site': site,
+                 'user_id': u.pk,
                  'unsub_token': unsub_token})
             unsub = ''.join((site, reverse(
                 'spirit:user:unsubscribe',
-                kwargs={'token': unsub_token})))
+                kwargs={'pk': u.pk, 'token': unsub_token})))
             try:
                 _send_email(
                     subject, message,

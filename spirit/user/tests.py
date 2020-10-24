@@ -27,7 +27,10 @@ from spirit.comment.like.models import CommentLike
 from spirit.topic.models import Topic
 from spirit.comment.models import Comment
 from spirit.comment.bookmark.models import CommentBookmark
-from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
+from .utils.tokens import (
+    unsub_token,
+    UserActivationTokenGenerator,
+    UserEmailChangeTokenGenerator)
 from .utils.email import send_activation_email, send_email_change_email
 from . import middleware
 from .models import UserProfile
@@ -661,6 +664,33 @@ class UserViewTest(TestCase):
         # get
         response = self.client.get(reverse('spirit:user:email-change'))
         self.assertEqual(response.status_code, 200)
+
+    def test_unsubscribe(self):
+        utils.login(self)
+        self.user.st.notify = self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY
+        self.user.st.save()
+        token = unsub_token(user_id=self.user.pk)
+        response = self.client.get(reverse(
+            'spirit:user:unsubscribe', kwargs={'pk': self.user.pk, 'token': token}))
+        expected_url = reverse("spirit:user:update")
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.st.notify, self.user.st.Notify.NEVER)
+
+    def test_unsubscribe_bad_user(self):
+        utils.login(self)
+        self.user.st.notify = self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY
+        self.user.st.save()
+        token = unsub_token(user_id=self.user.pk)
+        user = utils.create_user()
+        response = self.client.get(reverse(
+            'spirit:user:unsubscribe', kwargs={'pk': user.pk, 'token': token}))
+        expected_url = reverse("spirit:user:update")
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify,
+            self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY)
 
 
 class UserFormTest(TestCase):
