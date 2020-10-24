@@ -14,6 +14,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test.utils import override_settings
+from django.core import mail
 
 from . import forms as comment_forms
 from spirit.core.conf import settings
@@ -1185,6 +1186,8 @@ class CommentUtilsTest(TestCase):
         self.category = utils.create_category()
         self.topic = utils.create_topic(category=self.category, user=self.user)
 
+    @utils.immediate_on_commit
+    @override_settings(ST_TASK_MANAGER='tests')
     def test_comment_posted(self):
         """
         * Should create subscription
@@ -1192,6 +1195,7 @@ class CommentUtilsTest(TestCase):
         * Should notify mentions
         * Should increase topic's comment counter
         * Should mark the topic as unread
+        * Should notify by email
         """
         # Should create subscription
         subscriber = self.user
@@ -1238,6 +1242,35 @@ class CommentUtilsTest(TestCase):
         self.assertEqual(Topic.objects.get(pk=topic.pk).comment_count, 1)
         comment_posted(comment=comment, mentions=None)
         self.assertEqual(Topic.objects.get(pk=topic.pk).comment_count, 2)
+
+        # Should notify by email
+        mail.outbox.clear()
+        self.assertEqual(len(mail.outbox), 0)
+        topic = utils.create_topic(self.category)
+        user = utils.create_user()
+        comment = utils.create_comment(user=user, topic=topic)
+        comment_posted(comment=comment, mentions=None)
+        user.st.notify = user.st.Notify.IMMEDIATELY | user.st.Notify.REPLY
+        user.st.save()
+        user2 = utils.create_user()
+        comment = utils.create_comment(user=user2, topic=topic)
+        comment_posted(comment=comment, mentions=None)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "{user} commented on {topic}".format(
+            user=comment.user.st.nickname, topic=comment.topic.title))
+
+        mail.outbox.clear()
+        self.assertEqual(len(mail.outbox), 0)
+        user = utils.create_user()
+        user.st.notify = user.st.Notify.IMMEDIATELY | user.st.Notify.MENTION
+        user.st.save()
+        topic = utils.create_topic(self.category)
+        user2 = utils.create_user()
+        comment = utils.create_comment(user=user2, topic=topic)
+        comment_posted(comment=comment, mentions={user.username: user})
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "{user} mention you on {topic}".format(
+            user=comment.user.st.nickname, topic=comment.topic.title))
 
     def test_pre_comment_update(self):
         """

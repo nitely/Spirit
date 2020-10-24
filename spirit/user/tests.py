@@ -884,6 +884,7 @@ class UserFormTest(TestCase):
         self.assertFalse(
             self.user.st.notify & self.user.st.Notify.REPLY)
 
+        form_data['notify_when'] = self.user.st.Notify.WEEKLY
         form_data['notify_mentions'] = True
         form = UserProfileForm(data=form_data, instance=self.user.st)
         self.assertFalse(form.fields['notify_mentions'].initial)
@@ -892,15 +893,18 @@ class UserFormTest(TestCase):
         form.save()
         self.user.refresh_from_db()
         self.assertEqual(
-            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+            self.user.st.notify_when, self.user.st.Notify.WEEKLY)
         self.assertTrue(
             self.user.st.notify & self.user.st.Notify.MENTION)
         self.assertFalse(
             self.user.st.notify & self.user.st.Notify.REPLY)
 
+        form_data['notify_when'] = self.user.st.Notify.IMMEDIATELY
         form_data['notify_mentions'] = False
         form_data['notify_replies'] = True
         form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.WEEKLY)
         self.assertTrue(form.fields['notify_mentions'].initial)
         self.assertFalse(form.fields['notify_replies'].initial)
         self.assertEqual(form.is_valid(), True)
@@ -916,6 +920,8 @@ class UserFormTest(TestCase):
         form_data['notify_mentions'] = True
         form_data['notify_replies'] = True
         form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.IMMEDIATELY)
         self.assertFalse(form.fields['notify_mentions'].initial)
         self.assertTrue(form.fields['notify_replies'].initial)
         self.assertEqual(form.is_valid(), True)

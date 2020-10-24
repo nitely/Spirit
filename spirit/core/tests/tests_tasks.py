@@ -16,7 +16,6 @@ from . import utils as test_utils
 from spirit.core import tasks
 from spirit.core.tests.models import TaskResultModel
 from spirit.core.storage import spirit_storage
-from spirit.user.utils import tokens
 
 try:
     @tasks.task_manager('celery')
