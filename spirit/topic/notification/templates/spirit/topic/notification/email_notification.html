@@ -3,11 +3,11 @@
   You have a new notification on {{ site_name }}.
 {% endblocktrans %}
 
-{% trans "Please go to the following link to read it:" %}
+{% trans "View comment" %}:
 
 {{ site }}{% url "spirit:comment:find" pk=comment_id %}
 
-{% trans "If you don't want to keep receiving notifications, unsubscribe:" %}
+{% trans "Unsubscribe" %}:
 
 {{ site }}{% url "spirit:user:unsubscribe" pk=user_id token=unsub_token %}
 {% endautoescape %}

@@ -3,6 +3,8 @@
 from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 
+from djconfig import config
+
 from spirit.core.utils import site_url
 from spirit.core import tasks
 from .tokens import (
@@ -13,6 +15,7 @@ from .tokens import (
 # XXX remove; use tasks for everything
 def sender(request, subject, template_name, context, to):
     context['site'] = site_url()
+    context['site_name'] = config.site_name
     message = render_to_string(template_name, context)
     # Subject cannot contain new lines
     subject = ''.join(subject.splitlines())
