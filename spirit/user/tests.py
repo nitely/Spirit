@@ -16,7 +16,6 @@ from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpResponse
-from django.template.loader import render_to_string
 
 from djconfig.utils import override_djconfig
 
@@ -831,6 +830,108 @@ class UserFormTest(TestCase):
         form_data = {'email': 'DuPlIcAtEd@bAr.COM', }
         form = EmailCheckForm(form_data)
         self.assertTrue(form.is_valid())
+
+    def test_notify_when(self):
+        form_data = {
+            'first_name': 'foo', 'last_name': 'bar',
+            'location': 'spirit', 'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.NEVER}
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.NEVER)
+
+        form_data['notify_when'] = self.user.st.Notify.IMMEDIATELY
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.NEVER)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+
+        form_data['notify_when'] = self.user.st.Notify.WEEKLY
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.IMMEDIATELY)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.WEEKLY)
+
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.WEEKLY)
+        self.assertEqual(form.is_valid(), True)
+
+    def test_notify(self):
+        form_data = {
+            'first_name': 'foo', 'last_name': 'bar',
+            'location': 'spirit', 'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.IMMEDIATELY}
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+        self.assertFalse(
+            self.user.st.notify & self.user.st.Notify.MENTION)
+        self.assertFalse(
+            self.user.st.notify & self.user.st.Notify.REPLY)
+
+        form_data['notify_mentions'] = True
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertFalse(form.fields['notify_mentions'].initial)
+        self.assertFalse(form.fields['notify_replies'].initial)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+        self.assertTrue(
+            self.user.st.notify & self.user.st.Notify.MENTION)
+        self.assertFalse(
+            self.user.st.notify & self.user.st.Notify.REPLY)
+
+        form_data['notify_mentions'] = False
+        form_data['notify_replies'] = True
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertTrue(form.fields['notify_mentions'].initial)
+        self.assertFalse(form.fields['notify_replies'].initial)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+        self.assertFalse(
+            self.user.st.notify & self.user.st.Notify.MENTION)
+        self.assertTrue(
+            self.user.st.notify & self.user.st.Notify.REPLY)
+
+        form_data['notify_mentions'] = True
+        form_data['notify_replies'] = True
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertFalse(form.fields['notify_mentions'].initial)
+        self.assertTrue(form.fields['notify_replies'].initial)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+        self.assertTrue(
+            self.user.st.notify & self.user.st.Notify.MENTION)
+        self.assertTrue(
+            self.user.st.notify & self.user.st.Notify.REPLY)
+
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertTrue(form.fields['notify_mentions'].initial)
+        self.assertTrue(form.fields['notify_replies'].initial)
+        self.assertEqual(form.is_valid(), True)
 
 
 class UserModelTest(TestCase):
