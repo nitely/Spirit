@@ -85,3 +85,5 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': 3600 * 24  # run once every 24hs
     }
 }
+
+ST_SITE_URL = 'http://127.0.0.1:8000/'

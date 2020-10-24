@@ -27,9 +27,11 @@ from spirit.comment.like.models import CommentLike
 from spirit.topic.models import Topic
 from spirit.comment.models import Comment
 from spirit.comment.bookmark.models import CommentBookmark
-from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator
-from .utils.email import send_activation_email, send_email_change_email, sender
-from .utils import email
+from .utils.tokens import (
+    unsub_token,
+    UserActivationTokenGenerator,
+    UserEmailChangeTokenGenerator)
+from .utils.email import send_activation_email, send_email_change_email
 from . import middleware
 from .models import UserProfile
 
@@ -77,36 +79,6 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse(
             'spirit:user:email-change-confirm', kwargs={'token': "foo"}))
         self.assertEqual(response.status_code, 302)
-
-    def test_profile_creation_on_save(self):
-        """Should create a profile on user save"""
-        user = utils.create_user()
-        self.assertTrue(UserProfile.objects.filter(user=user).exists())
-        self.assertEqual(user.st, UserProfile.objects.get(user=user))
-
-    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
-    def test_profile_creation_on_user_create_case_insensitive(self):
-        user = utils.create_user(username='UnIqUeFoO')
-        self.assertTrue(user.username, 'uniquefoo')
-        self.assertTrue(
-            User.objects.filter(username='uniquefoo').exists())
-        self.assertTrue(
-            UserProfile.objects.filter(
-                nickname='UnIqUeFoO',
-                user_id=user.pk
-            ).exists())
-
-    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
-    def test_profile_creation_on_user_create_case_insensitive_off(self):
-        user = utils.create_user(username='UnIqUeFoO')
-        self.assertTrue(user.username, 'UnIqUeFoO')
-        self.assertTrue(
-            User.objects.filter(username='UnIqUeFoO').exists())
-        self.assertTrue(
-            UserProfile.objects.filter(
-                nickname='UnIqUeFoO',
-                user_id=user.pk
-            ).exists())
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_profile_creation_on_register_case_insensitive_user(self):
@@ -442,7 +414,8 @@ class UserViewTest(TestCase):
         # post
         form_data = {
             'first_name': 'foo', 'last_name': 'bar',
-            'location': 'spirit', 'timezone': self.user.st.timezone}
+            'location': 'spirit', 'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.NEVER}
         response = self.client.post(
             reverse('spirit:user:update'), form_data)
         expected_url = reverse('spirit:user:update')
@@ -462,6 +435,7 @@ class UserViewTest(TestCase):
             'last_name': 'bar',
             'location': 'spirit',
             'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.NEVER,
             'avatar': SimpleUploadedFile('foo.gif', content=content)}
         response = self.client.post(
             reverse('spirit:user:update'), form_data)
@@ -497,6 +471,7 @@ class UserViewTest(TestCase):
             'last_name': 'bar',
             'location': 'spirit',
             'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.NEVER,
             'avatar': SimpleUploadedFile('foo.gif', content=content)}
         response = self.client.post(
             reverse('spirit:user:update'), form_data)
@@ -533,7 +508,8 @@ class UserViewTest(TestCase):
             'first_name': 'foo',
             'last_name': 'bar',
             'location': 'spirit',
-            'timezone': self.user.st.timezone}
+            'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.NEVER}
         response = self.client.post(
             reverse('spirit:user:update'), form_data)
         expected_url = reverse('spirit:user:update')
@@ -659,6 +635,33 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse('spirit:user:email-change'))
         self.assertEqual(response.status_code, 200)
 
+    def test_unsubscribe(self):
+        utils.login(self)
+        self.user.st.notify = self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY
+        self.user.st.save()
+        token = unsub_token(user_id=self.user.pk)
+        response = self.client.get(reverse(
+            'spirit:user:unsubscribe', kwargs={'pk': self.user.pk, 'token': token}))
+        expected_url = reverse("spirit:user:update")
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.st.notify, self.user.st.Notify.NEVER)
+
+    def test_unsubscribe_bad_user(self):
+        utils.login(self)
+        self.user.st.notify = self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY
+        self.user.st.save()
+        token = unsub_token(user_id=self.user.pk)
+        user = utils.create_user()
+        response = self.client.get(reverse(
+            'spirit:user:unsubscribe', kwargs={'pk': user.pk, 'token': token}))
+        expected_url = reverse("spirit:user:update")
+        self.assertRedirects(response, expected_url, status_code=302)
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify,
+            self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY)
+
 
 class UserFormTest(TestCase):
 
@@ -672,7 +675,8 @@ class UserFormTest(TestCase):
         """
         form_data = {
             'first_name': 'foo', 'last_name': 'bar',
-            'location': 'spirit', 'timezone': self.user.st.timezone}
+            'location': 'spirit', 'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.NEVER}
         form = UserProfileForm(data=form_data, instance=self.user.st)
         self.assertEqual(form.is_valid(), True)
 
@@ -682,7 +686,8 @@ class UserFormTest(TestCase):
     def test_profile_timezone_field(self):
         form_data = {
             'first_name': 'foo', 'last_name': 'bar',
-            'location': 'spirit', 'timezone': 'UTC'}
+            'location': 'spirit', 'timezone': 'UTC',
+            'notify_when': self.user.st.Notify.NEVER}
 
         form = UserProfileForm(data=form_data, instance=self.user.st)
         self.assertEqual(form.is_valid(), True)
@@ -704,7 +709,8 @@ class UserFormTest(TestCase):
             'first_name': 'foo',
             'last_name': 'bar',
             'location': 'spirit',
-            'timezone': self.user.st.timezone}
+            'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.NEVER}
         data_files = {
             'avatar': SimpleUploadedFile('foo.gif', content=content)}
         form = UserProfileForm(data=form_data, files=data_files, instance=self.user.st)
@@ -825,6 +831,114 @@ class UserFormTest(TestCase):
         form = EmailCheckForm(form_data)
         self.assertTrue(form.is_valid())
 
+    def test_notify_when(self):
+        form_data = {
+            'first_name': 'foo', 'last_name': 'bar',
+            'location': 'spirit', 'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.NEVER}
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.NEVER)
+
+        form_data['notify_when'] = self.user.st.Notify.IMMEDIATELY
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.NEVER)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+
+        form_data['notify_when'] = self.user.st.Notify.WEEKLY
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.IMMEDIATELY)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.WEEKLY)
+
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.WEEKLY)
+        self.assertEqual(form.is_valid(), True)
+
+    def test_notify(self):
+        form_data = {
+            'first_name': 'foo', 'last_name': 'bar',
+            'location': 'spirit', 'timezone': self.user.st.timezone,
+            'notify_when': self.user.st.Notify.IMMEDIATELY}
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+        self.assertFalse(
+            self.user.st.notify & self.user.st.Notify.MENTION)
+        self.assertFalse(
+            self.user.st.notify & self.user.st.Notify.REPLY)
+
+        form_data['notify_when'] = self.user.st.Notify.WEEKLY
+        form_data['notify_mentions'] = True
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertFalse(form.fields['notify_mentions'].initial)
+        self.assertFalse(form.fields['notify_replies'].initial)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.WEEKLY)
+        self.assertTrue(
+            self.user.st.notify & self.user.st.Notify.MENTION)
+        self.assertFalse(
+            self.user.st.notify & self.user.st.Notify.REPLY)
+
+        form_data['notify_when'] = self.user.st.Notify.IMMEDIATELY
+        form_data['notify_mentions'] = False
+        form_data['notify_replies'] = True
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.WEEKLY)
+        self.assertTrue(form.fields['notify_mentions'].initial)
+        self.assertFalse(form.fields['notify_replies'].initial)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+        self.assertFalse(
+            self.user.st.notify & self.user.st.Notify.MENTION)
+        self.assertTrue(
+            self.user.st.notify & self.user.st.Notify.REPLY)
+
+        form_data['notify_mentions'] = True
+        form_data['notify_replies'] = True
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertEqual(
+            form.fields['notify_when'].initial, self.user.st.Notify.IMMEDIATELY)
+        self.assertFalse(form.fields['notify_mentions'].initial)
+        self.assertTrue(form.fields['notify_replies'].initial)
+        self.assertEqual(form.is_valid(), True)
+        form.save()
+        self.user.refresh_from_db()
+        self.assertEqual(
+            self.user.st.notify_when, self.user.st.Notify.IMMEDIATELY)
+        self.assertTrue(
+            self.user.st.notify & self.user.st.Notify.MENTION)
+        self.assertTrue(
+            self.user.st.notify & self.user.st.Notify.REPLY)
+
+        form = UserProfileForm(data=form_data, instance=self.user.st)
+        self.assertTrue(form.fields['notify_mentions'].initial)
+        self.assertTrue(form.fields['notify_replies'].initial)
+        self.assertEqual(form.is_valid(), True)
+
 
 class UserModelTest(TestCase):
 
@@ -921,6 +1035,71 @@ class UserModelTest(TestCase):
             '/media/spirit/avatars/{}/pic_test_small.gif'.format(user.pk))
 
 
+class SignalsUserTests(TestCase):
+
+    def setUp(self):
+        utils.cache_clear()
+
+    def test_profile_creation_on_save(self):
+        """Should create a profile on user save"""
+        user = utils.create_user()
+        self.assertTrue(UserProfile.objects.filter(user=user).exists())
+        self.assertEqual(user.st, UserProfile.objects.get(user=user))
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
+    def test_profile_creation_on_user_create_case_insensitive(self):
+        user = utils.create_user(username='UnIqUeFoO')
+        self.assertTrue(user.username, 'uniquefoo')
+        self.assertTrue(
+            User.objects.filter(username='uniquefoo').exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user_id=user.pk
+            ).exists())
+
+    @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
+    def test_profile_creation_on_user_create_case_insensitive_off(self):
+        user = utils.create_user(username='UnIqUeFoO')
+        self.assertTrue(user.username, 'UnIqUeFoO')
+        self.assertTrue(
+            User.objects.filter(username='UnIqUeFoO').exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname='UnIqUeFoO',
+                user_id=user.pk
+            ).exists())
+
+    def test_profile_notify(self):
+        user = utils.create_user()
+        self.assertEqual(
+            user.st.notify,
+            user.st.Notify.NEVER |
+            user.st.Notify.MENTION |
+            user.st.Notify.REPLY)
+        with override_settings(ST_NOTIFY_WHEN='immediately'):
+            user = utils.create_user()
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.IMMEDIATELY |
+                user.st.Notify.MENTION |
+                user.st.Notify.REPLY)
+        with override_settings(ST_NOTIFY_WHEN='weekly'):
+            user = utils.create_user()
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.WEEKLY |
+                user.st.Notify.MENTION |
+                user.st.Notify.REPLY)
+        with override_settings(ST_NOTIFY_WHEN='never'):
+            user = utils.create_user()
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.NEVER |
+                user.st.Notify.MENTION |
+                user.st.Notify.REPLY)
+
+
 class UtilsUserTests(TransactionTestCase):
 
     def setUp(self):
@@ -968,155 +1147,37 @@ class UtilsUserTests(TransactionTestCase):
         self.user.email = "email_changed@bar.com"
         self.assertFalse(email_change_token.is_valid(self.user, token))
 
+    @override_settings(
+        ST_TASK_MANAGER='test', DEFAULT_FROM_EMAIL='test@test.com')
+    @utils.immediate_on_commit
     def test_user_activation_email(self):
         """
         Send activation email
         """
-        self._monkey_sender_called = False
-
-        def monkey_sender(request, subject, template_name, context, email):
-            self.assertEqual(request, req)
-            self.assertEqual(email, [self.user.email, ])
-
-            self.assertTrue(
-                UserActivationTokenGenerator().is_valid(
-                    self.user, context['token']))
-            self.assertEqual(context['user_id'], self.user.pk)
-            self.assertEqual(subject, _("User activation"))
-            self.assertEqual(template_name, 'spirit/user/activation_email.html')
-
-            self._monkey_sender_called = True
-
         req = RequestFactory().get('/')
 
-        org_sender, email.sender = email.sender, monkey_sender
-        try:
-            send_activation_email(req, self.user)
-            self.assertTrue(self._monkey_sender_called)
-        finally:
-            email.sender = org_sender
-
-    def test_user_activation_email_complete(self):
-        """
-        Integration test
-        """
-        req = RequestFactory().get('/')
         send_activation_email(req, self.user)
         self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, _("User activation"))
+        self.assertEqual(mail.outbox[0].from_email, 'test@test.com')
+        self.assertIn('https://example.com/user/', mail.outbox[0].body)
+        self.assertEqual(mail.outbox[0].to, [self.user.email])
 
+    @override_settings(
+        ST_TASK_MANAGER='test', DEFAULT_FROM_EMAIL='test@test.com')
     def test_email_change_email(self):
         """
         Send change email
         """
-        self._monkey_sender_called = False
-
-        def monkey_sender(request, subject, template_name, context, email):
-            self.assertEqual(request, req)
-            self.assertEqual(email, [self.user.email, ])
-
-            change_token = UserEmailChangeTokenGenerator()
-            token = change_token.generate(self.user, new_email)
-            self.assertDictEqual(context, {'token': token, })
-
-            self.assertEqual(subject, _("Email change"))
-            self.assertEqual(template_name, 'spirit/user/email_change_email.html')
-
-            self._monkey_sender_called = True
-
         req = RequestFactory().get('/')
         new_email = "newfoobar@bar.com"
 
-        org_sender, email.sender = email.sender, monkey_sender
-        try:
-            send_email_change_email(req, self.user, new_email)
-            self.assertTrue(self._monkey_sender_called)
-        finally:
-            email.sender = org_sender
-
-    def test_email_change_email_complete(self):
-        """
-        Integration test
-        """
-        req = RequestFactory().get('/')
-        send_email_change_email(req, self.user, "foo@bar.com")
+        send_email_change_email(req, self.user, new_email)
         self.assertEqual(len(mail.outbox), 1)
-
-    def test_sender(self):
-        """
-        Base email sender
-        """
-        class SiteMock:
-            name = "foo"
-            domain = "bar.com"
-
-        def monkey_get_current_site(request):
-            return SiteMock
-
-        def monkey_render_to_string(template, data):
-            self.assertEqual(template, template_name)
-            self.assertDictEqual(data, {
-                'user_id': self.user.pk,
-                'token': token,
-                'site_name': SiteMock.name,
-                'domain': SiteMock.domain,
-                'protocol': 'https' if req.is_secure() else 'http'})
-            return "email body"
-
-        req = RequestFactory().get('/')
-        token = "token"
-        subject = SiteMock.name
-        template_name = "template.html"
-        context = {'user_id': self.user.pk, 'token': token}
-
-        org_site, email.get_current_site = (
-            email.get_current_site, monkey_get_current_site)
-        org_render_to_string, email.render_to_string = (
-            email.render_to_string, monkey_render_to_string)
-        try:
-            sender(req, subject, template_name, context, [self.user.email])
-        finally:
-            email.get_current_site = org_site
-            email.render_to_string = org_render_to_string
-
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, SiteMock.name)
-        self.assertEqual(mail.outbox[0].body, "email body")
-        self.assertEqual(mail.outbox[0].from_email, "foo <noreply@bar.com>")
-        self.assertEqual(mail.outbox[0].to, [self.user.email, ])
-
-    @override_settings(DEFAULT_FROM_EMAIL='foo@bar.com')
-    def test_sender_from_email(self):
-        """
-        Should use DEFAULT_FROM_EMAIL instead of the default
-        """
-        class SiteMock:
-            name = "foo"
-            domain = "bar.com"
-
-        def monkey_get_current_site(*args, **kw):
-            return SiteMock
-
-        def monkey_render_to_string(*args, **kw):
-            return "email body"
-
-        req = RequestFactory().get('/')
-        token = "token"
-        subject = SiteMock.name
-        template_name = "template.html"
-        context = {'user_id': self.user.pk, 'token': token}
-
-        org_site, email.get_current_site = (
-            email.get_current_site, monkey_get_current_site)
-        org_render_to_string, email.render_to_string = (
-            email.render_to_string, monkey_render_to_string)
-        try:
-            sender(req, subject, template_name, context, [self.user.email])
-        finally:
-            email.get_current_site = org_site
-            email.render_to_string = org_render_to_string
-
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].from_email, "foo@bar.com")
+        self.assertEqual(mail.outbox[0].subject, _("Email change"))
+        self.assertEqual(mail.outbox[0].from_email, 'test@test.com')
+        self.assertIn('https://example.com/user/', mail.outbox[0].body)
+        self.assertEqual(mail.outbox[0].to, [self.user.email])
 
 
 class TimezoneMiddlewareTest(TestCase):

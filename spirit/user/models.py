@@ -20,6 +20,18 @@ def avatar_path(instance, filename):
 
 
 class UserProfile(models.Model):
+    class Notify:
+        (NEVER,
+         IMMEDIATELY,
+         WEEKLY,
+         MENTION,
+         REPLY) = (1 << x for x in range(5))
+        WHEN = (
+            (NEVER, _("Never")),
+            (IMMEDIATELY, _("Immediately")),
+            (WEEKLY, _("Weekly")))
+        WHEN_VALUES = tuple(x for x, _ in WHEN)
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         verbose_name=_("profile"),
@@ -35,6 +47,8 @@ class UserProfile(models.Model):
     avatar = models.ImageField(
         _("avatar"), upload_to=avatar_path, storage=spirit_storage_or_none,
         max_length=255, blank=True)
+    notify = models.PositiveIntegerField(
+        default=Notify.NEVER | Notify.MENTION | Notify.REPLY)
     is_administrator = models.BooleanField(_('administrator status'), default=False)
     is_moderator = models.BooleanField(_('moderator status'), default=False)
     is_verified = models.BooleanField(
@@ -67,6 +81,13 @@ class UserProfile(models.Model):
         return reverse(
             'spirit:user:detail',
             kwargs={'pk': self.user.pk, 'slug': self.slug})
+
+    @property
+    def notify_when(self):
+        for c in self.Notify.WHEN_VALUES:
+            if self.notify & c:
+                return self.notify & c
+        return self.Notify.NEVER
 
     def update_post_hash(self, post_hash):
         # Let the DB do the hash

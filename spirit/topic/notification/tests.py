@@ -596,7 +596,7 @@ class TopicNotificationModelsTest(TestCase):
         Should notify mentions
         """
         topic = utils.create_topic(self.category)
-        mentions = {self.user.username: self.user, }
+        mentions = {self.user.username: self.user}
         comment = utils.create_comment(topic=topic)
         TopicNotification.notify_new_mentions(
             comment=comment, mentions=mentions)
@@ -615,7 +615,7 @@ class TopicNotificationModelsTest(TestCase):
         (TopicNotification.objects
          .filter(pk=self.topic_notification.pk)
          .update(is_active=False))
-        mentions = {self.user.username: self.user, }
+        mentions = {self.user.username: self.user}
         comment = utils.create_comment(topic=self.topic_notification.topic)
         TopicNotification.notify_new_mentions(
             comment=comment, mentions=mentions)

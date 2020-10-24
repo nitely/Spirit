@@ -7,6 +7,12 @@ They can be overridden by the project settings
 
 import os
 
+#: The forum URL, ex: ``"https://community.spirit-project.com/"``.
+#: This is used to construct the links in the emails: email verification,
+#: password reset, notifications, etc. A ``ImproperlyConfigured`` error
+#: is raised if this is not set.
+ST_SITE_URL = None
+
 #: The media file storage for Spirit.
 #: The default file storage is used if this
 #: is not set. In either case, the storage should
@@ -25,12 +31,37 @@ ST_STORAGE = None
 #: install Celery
 ST_TASK_MANAGER = None
 
-#: The age in hours of the items
-#: to index into the search index on each update.
-#: The update runs every this amount of time
-#: when ``ST_TASK_MANAGER`` is set to ``'huey'``.
-#: Other task managers will need to sync their
-#: configuration to this value
+#: Tasks schedule for the Huey task manager.
+#: It contains a dict of tasks, and every
+#: task a dict of crontab params. Beware, the
+#: default value for every missing param is ``'*'``.
+#: See `Huey periodic tasks <https://huey.readthedocs.io/en/latest/guide.html#periodic-tasks>`_
+ST_HUEY_SCHEDULE = {
+    'full_search_index_update': {
+        'minute': '0',
+        'hour': '*/24'
+    },
+    'notify_weekly': {
+        'minute': '0',
+        'hour': '0',
+        'day_of_week': '1'  # 0=Sunday, 6=Saturday
+    }
+}
+
+#: Default email notification
+#: frequency. This is applied to new users;
+#: existing users will default to ``'never'``.
+#: Valid values are ``'never'``, ``'immediately'``,
+#: and ``'weekly'``
+ST_NOTIFY_WHEN = 'never'
+
+#: | The age in hours of the items
+#:   to index into the search index on each update.
+#: | The update is run by a periodic task; ex:
+#:   ``ST_HUEY_SCHEDULE['full_search_index_update']``
+#:   in case of Huey.
+#: | The task schedule for the selected ``ST_TASK_MANAGER``
+#:   will need to be set to this value (or lesser)
 ST_SEARCH_INDEX_UPDATE_HOURS = 24
 
 #: The category's PK containing all of the private topics.

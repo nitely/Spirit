@@ -5,7 +5,7 @@
 
 {% trans "Please go to the following link to activate your account:" %}
 
-{{ protocol }}://{{ domain }}{% url 'spirit:user:auth:registration-activation' pk=user_id token=token %}
+{{ site }}{% url 'spirit:user:auth:registration-activation' pk=user_id token=token %}
 
 {% trans "Thanks for using our site!" %}
 

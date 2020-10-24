@@ -1,0 +1,13 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans trimmed %}
+  You have a new notification on {{ site_name }}.
+{% endblocktrans %}
+
+{% trans "View comment" %}:
+
+{{ site }}{% url "spirit:comment:find" pk=comment_id %}
+
+{% trans "Unsubscribe" %}:
+
+{{ site }}{% url "spirit:user:unsubscribe" pk=user_id token=unsub_token %}
+{% endautoescape %}

@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 
 from spirit.core.storage import spirit_storage
+from spirit.core.conf import settings
 
 
 def render_form_errors(form):
@@ -113,3 +114,7 @@ def generate_filename(file, hashed=False):
     if hashed:
         return hashed_filename(file)
     return unique_filename(file)
+
+
+def site_url():
+    return settings.ST_SITE_URL.rstrip('/')
