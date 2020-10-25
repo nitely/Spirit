@@ -1,7 +1,13 @@
 0.12.0b (dev)
 ==================
 
-* 
+* Added: email notifications for replies and mentions
+* Added: `ST_SITE_URL` setting; this setting is
+  required
+* Added: `ST_HUEY_SCHEDULE` setting to control
+  Huey periodic tasks schedule
+* Added: `ST_NOTIFY_WHEN` setting to set the default
+  frequency of email notifications for new users
 
 0.11.1
 ==================
