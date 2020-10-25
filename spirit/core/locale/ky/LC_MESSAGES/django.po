@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 01:06+0000\n"
-"PO-Revision-Date: 2020-06-17 01:00+0000\n"
+"POT-Creation-Date: 2020-10-25 08:52+0000\n"
+"PO-Revision-Date: 2020-10-25 08:52+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Kyrgyz (http://www.transifex.com/spirit-project/spirit/language/ky/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,20 @@ msgstr "%(count)sм"
 #, python-format
 msgid "%(count)sh"
 msgstr "%(count)sс"
+
+#: tasks.py:208
+#, python-brace-format
+msgid "{user} commented on {topic}"
+msgstr ""
+
+#: tasks.py:218
+#, python-brace-format
+msgid "{user} mention you on {topic}"
+msgstr ""
+
+#: tasks.py:250
+msgid "New notifications"
+msgstr ""
 
 #: templates/403.html:10
 msgid "You do not have sufficient permissions to access this page"
@@ -64,31 +78,31 @@ msgstr "Жаңы маалымдоо жок"
 msgid "unread"
 msgstr "окулбаган"
 
-#: templates/spirit/_header.html:41
+#: templates/spirit/_header.html:43
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/spirit/_header.html:45
+#: templates/spirit/_header.html:47
 msgid "Topics"
 msgstr "Темалар"
 
-#: templates/spirit/_header.html:49
+#: templates/spirit/_header.html:51
 msgid "Unread topics"
 msgstr "Окулбаган темалар"
 
-#: templates/spirit/_header.html:53
+#: templates/spirit/_header.html:55
 msgid "Private topics"
 msgstr "Жашыруун темалар"
 
-#: templates/spirit/_header.html:58
+#: templates/spirit/_header.html:60
 msgid "Admin"
 msgstr "Админ"
 
-#: templates/spirit/_header.html:63
+#: templates/spirit/_header.html:65
 msgid "Log out"
 msgstr "Чыгуу"
 
-#: templates/spirit/_header.html:81
+#: templates/spirit/_header.html:83
 msgid "Log in"
 msgstr "Кирүү"
 

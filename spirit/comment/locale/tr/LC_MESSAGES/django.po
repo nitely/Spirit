@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 01:06+0000\n"
+"POT-Creation-Date: 2020-10-25 08:52+0000\n"
 "PO-Revision-Date: 2020-09-18 20:23+0000\n"
 "Last-Translator: Alper Buluc <ihtiyaroyuncu@yandex.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/spirit-project/spirit/language/tr/)\n"
@@ -23,23 +23,23 @@ msgstr "Yorum"
 msgid "Write comment..."
 msgstr "Yorum yapın..."
 
-#: forms.py:161
+#: forms.py:159
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Desteklenmeyen dosya format. Desteklenen formatlar %s."
 
-#: forms.py:186 forms.py:205
+#: forms.py:184 forms.py:203
 msgid "The file could not be validated"
 msgstr ""
 
-#: forms.py:192
+#: forms.py:190
 #, python-format
 msgid ""
 "Unsupported file extension %(extension)s. Supported extensions are "
 "%(supported)s."
 msgstr ""
 
-#: forms.py:210
+#: forms.py:208
 #, python-format
 msgid ""
 "Unsupported file mime type %(mime)s. Supported types are %(supported)s."

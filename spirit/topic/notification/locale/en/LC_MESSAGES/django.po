@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 01:06+0000\n"
+"POT-Creation-Date: 2020-10-25 08:52+0000\n"
 "PO-Revision-Date: 2015-07-25 18:00+0000\n"
 "Last-Translator: Esteban M. Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spirit\n"
@@ -20,23 +20,23 @@ msgstr ""
 msgid "You can't subscribe to a topic with no comments"
 msgstr ""
 
-#: models.py:14
+#: models.py:15
 msgid "Undefined"
 msgstr ""
 
-#: models.py:15
+#: models.py:16
 msgid "Mention"
 msgstr ""
 
-#: models.py:16
+#: models.py:17
 msgid "Comment"
 msgstr ""
 
-#: models.py:42
+#: models.py:40
 msgid "topic notification"
 msgstr ""
 
-#: models.py:43
+#: models.py:41
 msgid "topics notification"
 msgstr ""
 
@@ -80,6 +80,29 @@ msgstr ""
 #: templates/spirit/topic/notification/_top_bar.html:30
 #: templates/spirit/topic/notification/index_unread.html:5
 msgid "Unread notifications"
+msgstr ""
+
+#: templates/spirit/topic/notification/_top_bar.html:38
+msgid "Mark All As Read"
+msgstr ""
+
+#: templates/spirit/topic/notification/email_notification.html:2
+#: templates/spirit/topic/notification/email_notification_weekly.html:2
+#, python-format
+msgid "You have a new notification on %(site_name)s."
+msgstr ""
+
+#: templates/spirit/topic/notification/email_notification.html:6
+msgid "View comment"
+msgstr ""
+
+#: templates/spirit/topic/notification/email_notification.html:10
+#: templates/spirit/topic/notification/email_notification_weekly.html:10
+msgid "Unsubscribe"
+msgstr ""
+
+#: templates/spirit/topic/notification/email_notification_weekly.html:6
+msgid "View notifications"
 msgstr ""
 
 #: templates/spirit/topic/notification/index_unread.html:14

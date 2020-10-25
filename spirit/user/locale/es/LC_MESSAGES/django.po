@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 01:06+0000\n"
-"PO-Revision-Date: 2020-09-27 01:07+0000\n"
+"POT-Creation-Date: 2020-10-25 08:52+0000\n"
+"PO-Revision-Date: 2020-10-25 08:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -15,107 +15,131 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:38
+#: forms.py:39
 msgid "The email is taken."
 msgstr "El email ya esta registrado."
 
-#: forms.py:48 forms.py:53 templates/spirit/user/profile_update.html:13
+#: forms.py:49 forms.py:54 templates/spirit/user/profile_update.html:13
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:54 templates/spirit/user/profile_update.html:17
+#: forms.py:55 templates/spirit/user/profile_update.html:17
 msgid "Password"
 msgstr "Contraseña"
 
-#: forms.py:64
+#: forms.py:65
 msgid "The provided password is incorrect."
 msgstr "La contraseña es incorrecta"
 
-#: forms.py:78
+#: forms.py:79
 msgid "Remove avatar"
 msgstr ""
 
-#: forms.py:86
+#: forms.py:88
 msgid "Time zone"
 msgstr "Zona horaria"
 
-#: forms.py:96
+#: forms.py:90
+msgid "Email notifications"
+msgstr ""
+
+#: forms.py:92
+msgid "Email mentions"
+msgstr ""
+
+#: forms.py:94
+msgid "Email replies"
+msgstr ""
+
+#: forms.py:104
 #, python-format
 msgid "Current time is: %(date)s %(time)s"
 msgstr "El tiempo actual es: %(date)s %(time)s"
 
-#: forms.py:110
+#: forms.py:123
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
 msgstr "Formato de archivo no soportado. Los formatos soportados son %s."
 
-#: models.py:25
-msgid "profile"
-msgstr "perfil"
-
 #: models.py:30
-msgid "nickname"
+msgid "Never"
 msgstr ""
 
 #: models.py:31
+msgid "Immediately"
+msgstr ""
+
+#: models.py:32
+msgid "Weekly"
+msgstr ""
+
+#: models.py:37
+msgid "profile"
+msgstr "perfil"
+
+#: models.py:42
+msgid "nickname"
+msgstr ""
+
+#: models.py:43
 msgid "location"
 msgstr "ubicación"
 
-#: models.py:32
+#: models.py:44
 msgid "last seen"
 msgstr "visto por ultima vez"
 
-#: models.py:33
+#: models.py:45
 msgid "last ip"
 msgstr "ultima ip"
 
-#: models.py:34
+#: models.py:46
 msgid "time zone"
 msgstr "zona horaria"
 
-#: models.py:36
+#: models.py:48
 msgid "avatar"
 msgstr ""
 
-#: models.py:38
+#: models.py:52
 msgid "administrator status"
 msgstr "estado administrador"
 
-#: models.py:39
+#: models.py:53
 msgid "moderator status"
 msgstr "estado moderador"
 
-#: models.py:41
+#: models.py:55
 msgid "verified"
 msgstr "verificado"
 
-#: models.py:43
+#: models.py:57
 msgid ""
 "Designates whether the user has verified his account by email or by other "
 "means. Un-select this to let the user activate his account."
 msgstr "Designa si el usuario ha verificado su cuenta por email u otros medios. Deselecciona para dejar que el usuario la active."
 
-#: models.py:47
+#: models.py:61
 msgid "topic count"
 msgstr "contador de temas"
 
-#: models.py:48
+#: models.py:62
 msgid "comment count"
 msgstr "comentario contador"
 
-#: models.py:50
+#: models.py:64
 msgid "last post hash"
 msgstr "hash del ultimo post"
 
-#: models.py:51
+#: models.py:65
 msgid "last post on"
 msgstr "ultimo post en"
 
-#: models.py:54
+#: models.py:68
 msgid "forum profile"
 msgstr "perfil de foro"
 
-#: models.py:55
+#: models.py:69
 msgid "forum profiles"
 msgstr "perfiles de foro"
 
@@ -213,28 +237,13 @@ msgstr "Admin"
 msgid "Log out"
 msgstr "Cerrar sesión"
 
-#: templates/spirit/user/notification_email.html:2
-#, python-format
-msgid "You have a new notification at %(site_name)s."
-msgstr "Tienes una nueva notificacion en %(site_name)s."
-
-#: templates/spirit/user/notification_email.html:6
-msgid "Please go to the following link to read the comment:"
-msgstr "Ve al siguiente enlace para leer el comentario:"
-
-#: templates/spirit/user/notification_email.html:10
-msgid ""
-"If you don't want to keep receiving notifications, you can deactivate them "
-"on your profile preferences."
-msgstr "Si ya no quieres seguir recibiendo notificaciones, puedes desactivarlas en las preferencias de tu cuenta."
-
 #: templates/spirit/user/profile_comments.html:5
 msgid "comments"
 msgstr "comentarios"
 
 #: templates/spirit/user/profile_email_change.html:5
-#: templates/spirit/user/profile_email_change.html:9 tests.py:655
-#: tests.py:1020 utils/email.py:48
+#: templates/spirit/user/profile_email_change.html:9 tests.py:632
+#: tests.py:1177 utils/email.py:34
 msgid "Email change"
 msgstr "Cambiar email"
 
@@ -267,31 +276,36 @@ msgstr "Cambiar contraseña"
 msgid "Save"
 msgstr "Guardar"
 
-#: tests.py:984 utils/email.py:40
+#: tests.py:1161 utils/email.py:26
 msgid "User activation"
 msgstr "Activación de usuario"
 
-#: utils/email.py:57
-#, python-format
-msgid "New notification: %(topic_name)s"
-msgstr "Nueva notificación: %(topic_name)s"
-
-#: views.py:37
+#: views.py:39
 msgid "Your profile has been updated!"
 msgstr "Tu perfil ha sido actualizado!"
 
-#: views.py:53
+#: views.py:55
 msgid "Your password has been changed!"
 msgstr "Tu contraseña ha sido cambiada!"
 
-#: views.py:70
+#: views.py:72
 msgid "We have sent you an email so you can confirm the change!"
 msgstr "Te hemos enviado un email para que puedas confirmar el cambio!"
 
-#: views.py:91
+#: views.py:93
 msgid "Your email has been changed!"
 msgstr "Tu email ha sido cambiado!"
 
-#: views.py:94
+#: views.py:96
 msgid "Sorry, we were not able to change your email."
 msgstr "Lo sentimos, no pudimos cambiar tu email."
+
+#: views.py:107
+msgid "You are now unsubscribed!"
+msgstr ""
+
+#: views.py:110
+msgid ""
+"Sorry, we were not able to unsubscribed you. Please login and change your "
+"notifications settings."
+msgstr ""

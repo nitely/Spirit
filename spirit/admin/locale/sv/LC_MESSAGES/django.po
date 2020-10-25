@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 01:06+0000\n"
-"PO-Revision-Date: 2020-09-18 20:19+0000\n"
+"POT-Creation-Date: 2020-10-25 08:52+0000\n"
+"PO-Revision-Date: 2020-10-25 08:52+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/spirit-project/spirit/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -49,12 +49,12 @@ msgid "Basic settings"
 msgstr "Grundinställningar"
 
 #: templates/spirit/admin/_nav_menu.html:25
-#: templates/spirit/admin/dashboard.html:43
+#: templates/spirit/admin/dashboard.html:46
 msgid "Categories"
 msgstr "Kategorier"
 
 #: templates/spirit/admin/_nav_menu.html:29
-#: templates/spirit/admin/dashboard.html:27
+#: templates/spirit/admin/dashboard.html:30
 msgid "Topics"
 msgstr "Ämnen"
 
@@ -63,7 +63,7 @@ msgid "Users"
 msgstr "Användare"
 
 #: templates/spirit/admin/_nav_menu.html:37
-#: templates/spirit/admin/dashboard.html:39
+#: templates/spirit/admin/dashboard.html:42
 msgid "Flags"
 msgstr "Flaggor"
 
@@ -80,26 +80,22 @@ msgstr "Spara"
 msgid "Software"
 msgstr "Mjukvara"
 
-#: templates/spirit/admin/dashboard.html:16
-msgid "Installed"
-msgstr "Installerad"
-
-#: templates/spirit/admin/dashboard.html:20
+#: templates/spirit/admin/dashboard.html:23
 msgid "Statistics"
 msgstr "Statistik"
 
-#: templates/spirit/admin/dashboard.html:23
+#: templates/spirit/admin/dashboard.html:26
 msgid "Members"
 msgstr "Medlemmar"
 
-#: templates/spirit/admin/dashboard.html:31
+#: templates/spirit/admin/dashboard.html:34
 msgid "Comments"
 msgstr "Kommentarer"
 
-#: templates/spirit/admin/dashboard.html:35
+#: templates/spirit/admin/dashboard.html:38
 msgid "Likes"
 msgstr "Gilla"
 
-#: views.py:26
+#: views.py:27
 msgid "Settings updated!"
 msgstr "Inställningar uppdaterade!"
