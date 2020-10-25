@@ -1,12 +1,13 @@
 # 
 # Translators:
+# Esteban Castro Borsani <ecastroborsani@gmail.com>, 2020
 # Esteban Castro Borsani <ecastroborsani@gmail.com>, 2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 08:52+0000\n"
-"PO-Revision-Date: 2020-09-13 00:53+0000\n"
+"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"PO-Revision-Date: 2020-10-25 09:21+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +104,7 @@ msgstr "editar"
 
 #: templates/spirit/topic/detail.html:51
 msgid "Moderate"
-msgstr ""
+msgstr "Moderar"
 
 #: templates/spirit/topic/detail.html:57
 msgid "Select comments to move"
@@ -147,7 +148,7 @@ msgstr "Responder"
 
 #: templates/spirit/topic/detail.html:114
 msgid "Move selected comments to"
-msgstr ""
+msgstr "Mover comentarios seleccionados a"
 
 #: templates/spirit/topic/detail.html:120
 msgid "Move"

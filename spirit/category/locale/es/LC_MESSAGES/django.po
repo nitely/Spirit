@@ -1,12 +1,13 @@
 # 
 # Translators:
+# Esteban Castro Borsani <ecastroborsani@gmail.com>, 2020
 # Esteban Castro Borsani <ecastroborsani@gmail.com>, 2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 08:52+0000\n"
-"PO-Revision-Date: 2020-09-13 00:53+0000\n"
+"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"PO-Revision-Date: 2020-10-25 09:05+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +38,7 @@ msgstr "Color de titulo en formato hexadecimal (ej: #1aafd0)."
 
 #: models.py:35
 msgid "sorting order"
-msgstr ""
+msgstr "orden"
 
 #: models.py:36
 msgid "modified at"

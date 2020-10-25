@@ -1,12 +1,13 @@
 # 
 # Translators:
+# Esteban Castro Borsani <ecastroborsani@gmail.com>, 2020
 # Esteban Castro Borsani <ecastroborsani@gmail.com>, 2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 08:52+0000\n"
-"PO-Revision-Date: 2020-10-25 08:53+0000\n"
+"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"PO-Revision-Date: 2020-10-25 09:19+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +34,7 @@ msgstr "La contraseña es incorrecta"
 
 #: forms.py:79
 msgid "Remove avatar"
-msgstr ""
+msgstr "Eliminar avatar"
 
 #: forms.py:88
 msgid "Time zone"
@@ -41,15 +42,15 @@ msgstr "Zona horaria"
 
 #: forms.py:90
 msgid "Email notifications"
-msgstr ""
+msgstr "Notificaciones por email"
 
 #: forms.py:92
 msgid "Email mentions"
-msgstr ""
+msgstr "Menciones por email"
 
 #: forms.py:94
 msgid "Email replies"
-msgstr ""
+msgstr "Respuestas por email"
 
 #: forms.py:104
 #, python-format
@@ -63,15 +64,15 @@ msgstr "Formato de archivo no soportado. Los formatos soportados son %s."
 
 #: models.py:30
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: models.py:31
 msgid "Immediately"
-msgstr ""
+msgstr "Al momento"
 
 #: models.py:32
 msgid "Weekly"
-msgstr ""
+msgstr "Semanalmente"
 
 #: models.py:37
 msgid "profile"
@@ -79,7 +80,7 @@ msgstr "perfil"
 
 #: models.py:42
 msgid "nickname"
-msgstr ""
+msgstr "nick"
 
 #: models.py:43
 msgid "location"
@@ -99,7 +100,7 @@ msgstr "zona horaria"
 
 #: models.py:48
 msgid "avatar"
-msgstr ""
+msgstr "avatar"
 
 #: models.py:52
 msgid "administrator status"
@@ -302,10 +303,10 @@ msgstr "Lo sentimos, no pudimos cambiar tu email."
 
 #: views.py:107
 msgid "You are now unsubscribed!"
-msgstr ""
+msgstr "Te has desuscrito!"
 
 #: views.py:110
 msgid ""
 "Sorry, we were not able to unsubscribed you. Please login and change your "
 "notifications settings."
-msgstr ""
+msgstr "Lo sentimos, no pudimos desuscribirte. Por favor ingresa y cambia la opcion de notificación."

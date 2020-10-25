@@ -1,12 +1,13 @@
 # 
 # Translators:
+# Esteban Castro Borsani <ecastroborsani@gmail.com>, 2020
 # Esteban Castro Borsani <ecastroborsani@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 08:52+0000\n"
-"PO-Revision-Date: 2020-10-25 08:53+0000\n"
+"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"PO-Revision-Date: 2020-10-25 09:21+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/spirit-project/spirit/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -87,26 +88,26 @@ msgstr "Notificaciones sin leer"
 
 #: templates/spirit/topic/notification/_top_bar.html:38
 msgid "Mark All As Read"
-msgstr ""
+msgstr "Marcar Todo Como Leido"
 
 #: templates/spirit/topic/notification/email_notification.html:2
 #: templates/spirit/topic/notification/email_notification_weekly.html:2
 #, python-format
 msgid "You have a new notification on %(site_name)s."
-msgstr ""
+msgstr "Tienes una nueva notificación en %(site_name)s."
 
 #: templates/spirit/topic/notification/email_notification.html:6
 msgid "View comment"
-msgstr ""
+msgstr "Ver comentario"
 
 #: templates/spirit/topic/notification/email_notification.html:10
 #: templates/spirit/topic/notification/email_notification_weekly.html:10
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Desuscribir"
 
 #: templates/spirit/topic/notification/email_notification_weekly.html:6
 msgid "View notifications"
-msgstr ""
+msgstr "Ver notificaciones"
 
 #: templates/spirit/topic/notification/index_unread.html:14
 msgid "There are no new notifications"
