@@ -1,4 +1,4 @@
-0.12.0b (dev)
+0.12.0
 ==================
 
 * Added: email notifications for replies and mentions
