@@ -4,3 +4,4 @@ omit =
     setup.py
     */migrations/*
     *settings*
+    /project
