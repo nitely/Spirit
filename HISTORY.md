@@ -1,3 +1,9 @@
+0.12.2
+==================
+
+* Fixed: missing template caused an error on
+  password reset completed
+
 0.12.1
 ==================
 
