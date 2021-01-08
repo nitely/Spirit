@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from ..conf import settings as st_settings
+from spirit.core.conf import settings as st_settings
 
 from .registry import register
 
 
 @register.simple_tag(takes_context=True)
 def load_settings(context, *settings):
-    context['st_settings'] = {
+    context.setdefault('st_settings', {}).update({
         setting: getattr(st_settings, setting)
-        for setting in settings}
+        for setting in settings})
     return ''
