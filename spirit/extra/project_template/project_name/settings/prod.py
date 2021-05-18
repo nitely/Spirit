@@ -59,6 +59,7 @@ LANGUAGES = [
     ('it', gettext_noop('Italian')),
     ('ky', gettext_noop('Kyrgyz')),
     ('lt', gettext_noop('Lithuanian')),
+    ('lv', gettext_noop('Latvian')),
     ('pl', gettext_noop('Polish')),
     ('pl-pl', gettext_noop('Poland Polish')),
     ('ru', gettext_noop('Russian')),

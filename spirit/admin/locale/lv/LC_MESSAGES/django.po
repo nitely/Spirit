@@ -1,0 +1,100 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spirit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"PO-Revision-Date: 2021-05-18 09:48+0300\n"
+"Last-Translator: Armands Vijups <armands@e-cilveks.lv>\n"
+"Language-Team: Spirit\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: forms.py:11
+msgid "site name"
+msgstr "Vietnes nosaukums"
+
+#: forms.py:13
+msgid "site description"
+msgstr "Vietnes apraksts"
+
+#: forms.py:15
+msgid "footer snippet"
+msgstr "kājenes fragments"
+
+#: forms.py:21
+msgid "comments per page"
+msgstr "komentāru skaits lapā"
+
+#: forms.py:23
+msgid "topics per page"
+msgstr "tēmu skaits lapā"
+
+#: templates/spirit/admin/_nav_menu.html:10
+msgid "Show menu"
+msgstr "Rādīt izvēlni"
+
+#: templates/spirit/admin/_nav_menu.html:17
+#: templates/spirit/admin/dashboard.html:5
+#: templates/spirit/admin/dashboard.html:11
+msgid "Dashboard"
+msgstr "Vadības panelis"
+
+#: templates/spirit/admin/_nav_menu.html:21
+msgid "Basic settings"
+msgstr "Pamata iestatījumi"
+
+#: templates/spirit/admin/_nav_menu.html:25
+#: templates/spirit/admin/dashboard.html:46
+msgid "Categories"
+msgstr "Kategorijas"
+
+#: templates/spirit/admin/_nav_menu.html:29
+#: templates/spirit/admin/dashboard.html:30
+msgid "Topics"
+msgstr "Tēmas"
+
+#: templates/spirit/admin/_nav_menu.html:33
+msgid "Users"
+msgstr "Lietotāji"
+
+#: templates/spirit/admin/_nav_menu.html:37
+#: templates/spirit/admin/dashboard.html:42
+msgid "Flags"
+msgstr "Iezīmes"
+
+#: templates/spirit/admin/config_basic.html:5
+#: templates/spirit/admin/config_basic.html:11
+msgid "Basic Settings"
+msgstr "Pamata iestatījumi"
+
+#: templates/spirit/admin/config_basic.html:17
+msgid "Save"
+msgstr "Saglabāt"
+
+#: templates/spirit/admin/dashboard.html:14
+msgid "Software"
+msgstr "Programmatūra"
+
+#: templates/spirit/admin/dashboard.html:23
+msgid "Statistics"
+msgstr "Statistika"
+
+#: templates/spirit/admin/dashboard.html:26
+msgid "Members"
+msgstr "Biedri"
+
+#: templates/spirit/admin/dashboard.html:34
+msgid "Comments"
+msgstr "Komentāri"
+
+#: templates/spirit/admin/dashboard.html:38
+msgid "Likes"
+msgstr "Patīk"
+
+#: views.py:27
+msgid "Settings updated!"
+msgstr "Iestatījumi atjaunināti!"
