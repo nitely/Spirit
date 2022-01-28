@@ -125,3 +125,7 @@ HUEY = {
 
 # https://spirit.readthedocs.io/en/latest/settings.html#spirit.core.conf.defaults.ST_SITE_URL
 ST_SITE_URL = 'https://example.com/'
+
+# If using elasticsearch, this fixes:
+# https://github.com/django-haystack/django-haystack/issues/1057
+ELASTICSEARCH_DEFAULT_NGRAM_SEARCH_ANALYZER = 'standard'

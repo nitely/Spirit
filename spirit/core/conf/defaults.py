@@ -202,6 +202,12 @@ ST_PREVENT_SOME_FILE_DUPLICATION = False
 #: Latin, Greek, and Cyrillic charsets
 ST_EXTENDED_FONT = False
 
+#: This enables search on Asian languages,
+#: and across word boundaries. It'll increase the index size.
+#: Changing this setting requires re-building the
+#: search index by running `python manage.py rebuild_index`
+ST_NGRAM_SEARCH = False
+
 # Tests helper
 ST_TESTS_RATELIMIT_NEVER_EXPIRE = False
 
