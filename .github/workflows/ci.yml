@@ -39,7 +39,7 @@ jobs:
         COVERALLS_PARALLEL: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        coveralls
+        coveralls --service=github
   coveralls:
     name: Finish Coveralls
     needs: test
