@@ -3,7 +3,7 @@
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import Http404, HttpResponse
 from django.contrib import messages
@@ -18,6 +18,7 @@ from spirit.core import utils
 from spirit.core.utils.paginator import yt_paginate
 from spirit.core.utils.paginator.infinite_paginator import paginate
 from spirit.core.utils.views import is_ajax
+from spirit.core.utils.http import safe_redirect
 from spirit.topic.models import Topic
 from .models import TopicNotification
 from .forms import NotificationForm, NotificationCreationForm
@@ -39,7 +40,7 @@ def create(request, topic_id):
     else:
         messages.error(request, utils.render_form_errors(form))
 
-    return redirect(request.POST.get('next', topic.get_absolute_url()))
+    return safe_redirect(request, 'next', topic.get_absolute_url(), method='POST')
 
 
 @require_POST
@@ -53,8 +54,8 @@ def update(request, pk):
     else:
         messages.error(request, utils.render_form_errors(form))
 
-    return redirect(request.POST.get(
-        'next', notification.topic.get_absolute_url()))
+    return safe_redirect(
+        request, 'next', notification.topic.get_absolute_url(), method='POST')
 
 
 @login_required
@@ -124,5 +125,5 @@ def mark_all_as_read(request):
         .for_access(request.user)
         .filter(is_read=False)
         .update(is_read=True))
-    return redirect(request.POST.get(
-        'next', reverse('spirit:topic:notification:index')))
+    return safe_redirect(
+        request, 'next', reverse('spirit:topic:notification:index'), method='POST')

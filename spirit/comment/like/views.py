@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
+from spirit.core.utils.http import safe_redirect
 from spirit.core.utils.views import is_post, post_data, is_ajax
 from spirit.core.utils import json_response
 from spirit.comment.models import Comment
@@ -28,7 +29,7 @@ def create(request, comment_id):
         if is_ajax(request):
             return json_response({'url_delete': like.get_delete_url()})
 
-        return redirect(request.POST.get('next', comment.get_absolute_url()))
+        return safe_redirect(request, 'next', comment.get_absolute_url(), method='POST')
 
     return render(
         request=request,
@@ -52,7 +53,8 @@ def delete(request, pk):
                 kwargs={'comment_id': like.comment.pk})
             return json_response({'url_create': url, })
 
-        return redirect(request.POST.get('next', like.comment.get_absolute_url()))
+        return safe_redirect(
+            request, 'next', like.comment.get_absolute_url(), method='POST')
 
     return render(
         request=request,

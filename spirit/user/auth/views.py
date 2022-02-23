@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 
 from spirit.core.conf import settings
+from spirit.core.utils.http import safe_redirect
 from spirit.core.utils.views import is_post, post_data
 from spirit.core.utils.ratelimit.decorators import ratelimit
 from spirit.user.utils.email import send_activation_email
@@ -62,7 +63,8 @@ custom_password_reset_done = _CustomPasswordResetDoneView.as_view()
 def custom_login(request, **kwargs):
     # Currently, Django 1.5 login view does not redirect somewhere if the user is logged in
     if request.user.is_authenticated:
-        return redirect(request.GET.get('next', request.user.st.get_absolute_url()))
+        return safe_redirect(
+            request, 'next', request.user.st.get_absolute_url())
 
     if request.method == "POST" and request.is_limited():
         return redirect(request.get_full_path())
@@ -73,7 +75,7 @@ def custom_login(request, **kwargs):
 # TODO: @login_required ?
 def custom_logout(request, **kwargs):
     if not request.user.is_authenticated:
-        return redirect(request.GET.get('next', reverse(settings.LOGIN_URL)))
+        return safe_redirect(request, 'next', reverse(settings.LOGIN_URL))
 
     if request.method == 'POST':
         return _logout_view(request, **kwargs)
@@ -93,7 +95,7 @@ def custom_password_reset(request, **kwargs):
 # TODO: @guest_only
 def register(request, registration_form=RegistrationForm):
     if request.user.is_authenticated:
-        return redirect(request.GET.get('next', reverse('spirit:user:update')))
+        return safe_redirect(request, 'next', reverse('spirit:user:update'))
 
     form = registration_form(data=post_data(request))
     if (is_post(request) and
@@ -109,7 +111,7 @@ def register(request, registration_form=RegistrationForm):
         # TODO: email-less activation
         # if not settings.REGISTER_EMAIL_ACTIVATION_REQUIRED:
         # login(request, user)
-        # return redirect(request.GET.get('next', reverse('spirit:user:update')))
+        # return safe_redirect(request, 'next', reverse('spirit:user:update'))
 
         return redirect(reverse(settings.LOGIN_URL))
     return render(
@@ -135,7 +137,7 @@ def registration_activation(request, pk, token):
 # TODO: @guest_only
 def resend_activation_email(request):
     if request.user.is_authenticated:
-        return redirect(request.GET.get('next', reverse('spirit:user:update')))
+        return safe_redirect(request, 'next', reverse('spirit:user:update'))
 
     form = ResendActivationForm(data=post_data(request))
     if is_post(request):
