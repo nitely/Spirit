@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
@@ -10,8 +10,9 @@ from django.core.exceptions import PermissionDenied
 
 from djconfig import config
 
-from ...core import utils
-from ...core.utils.paginator import yt_paginate
+from spirit.core.utils.http import safe_redirect
+from spirit.core import utils
+from spirit.core.utils.paginator import yt_paginate
 from .models import CommentPoll, CommentPollChoice, CommentPollVote
 from .forms import PollVoteManyForm
 
@@ -35,7 +36,7 @@ def close_or_open(request, pk, close=True):
      .filter(pk=poll.pk)
      .update(close_at=close_at))
 
-    return redirect(request.GET.get('next', poll.get_absolute_url()))
+    return safe_redirect(request, 'next', poll.get_absolute_url())
 
 
 @require_POST
@@ -55,10 +56,10 @@ def vote(request, pk):
         CommentPollChoice.decrease_vote_count(poll=poll, voter=request.user)
         form.save_m2m()
         CommentPollChoice.increase_vote_count(poll=poll, voter=request.user)
-        return redirect(request.POST.get('next', poll.get_absolute_url()))
+        return safe_redirect(request, 'next', poll.get_absolute_url(), method='POST')
 
     messages.error(request, utils.render_form_errors(form))
-    return redirect(request.POST.get('next', poll.get_absolute_url()))
+    return safe_redirect(request, 'next', poll.get_absolute_url(), method='POST')
 
 
 @login_required

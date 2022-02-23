@@ -10,14 +10,15 @@ from django.http import HttpResponsePermanentRedirect
 
 from djconfig import config
 
-from ...core.conf import settings
-from ...core import utils
-from ...core.utils.views import is_post, post_data
-from ...core.utils.paginator import paginate, yt_paginate
-from ...core.utils.ratelimit.decorators import ratelimit
-from ...comment.forms import CommentForm
-from ...comment.utils import comment_posted
-from ...comment.models import Comment
+from spirit.core.conf import settings
+from spirit.core import utils
+from spirit.core.utils.http import safe_redirect
+from spirit.core.utils.views import is_post, post_data
+from spirit.core.utils.paginator import paginate, yt_paginate
+from spirit.core.utils.ratelimit.decorators import ratelimit
+from spirit.comment.forms import CommentForm
+from spirit.comment.utils import comment_posted
+from spirit.comment.models import Comment
 from ..models import Topic
 from ..utils import topic_viewed
 from .utils import notify_access
@@ -50,9 +51,8 @@ def publish(request, user_id=None):
             all([tform.is_valid(), cform.is_valid(), tpform.is_valid()]) and
             not request.is_limited()):
         if not user.st.update_post_hash(tform.get_topic_hash()):
-            return redirect(
-                request.POST.get('next', None) or
-                tform.category.get_absolute_url())
+            return safe_redirect(
+                request, 'next', lambda: tform.category.get_absolute_url(), method='POST')
 
         # wrap in transaction.atomic?
         topic = tform.save()
@@ -123,7 +123,8 @@ def create_access(request, topic_id):
     else:
         messages.error(request, utils.render_form_errors(form))
 
-    return redirect(request.POST.get('next', topic_private.get_absolute_url()))
+    return safe_redirect(
+        request, 'next', topic_private.get_absolute_url(), method='POST')
 
 
 @login_required
@@ -136,7 +137,8 @@ def delete_access(request, pk):
         if request.user.pk == topic_private.user_id:
             return redirect(reverse("spirit:topic:private:index"))
 
-        return redirect(request.POST.get('next', topic_private.get_absolute_url()))
+        return safe_redirect(
+            request, 'next', topic_private.get_absolute_url(), method='POST')
 
     return render(
         request=request,
@@ -160,7 +162,8 @@ def join_in(request, topic_id):
     if is_post(request) and form.is_valid():
         topic_private = form.save()
         notify_access(user=form.get_user(), topic_private=topic_private)
-        return redirect(request.POST.get('next', topic.get_absolute_url()))
+        return safe_redirect(
+            request, 'next', topic.get_absolute_url(), method='POST')
     return render(
         request=request,
         template_name='spirit/topic/private/join.html',

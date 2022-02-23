@@ -55,6 +55,11 @@ class UserViewTest(TestCase):
         response = self.client.get(reverse('spirit:user:auth:login') + '?next=/fakepath/')
         self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
 
+    def test_login_open_redirect(self):
+        utils.login(self)
+        response = self.client.get(reverse('spirit:user:auth:login') + '?next=https%3A%2F%2Fevil.com')
+        self.assertRedirects(response, '/', status_code=302)
+
     @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
     def test_login_email_case_insensitive(self):
         """

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 
 import spirit
 import django
+from spirit.core.utils.http import safe_redirect
 from spirit.category.models import Category
 from spirit.comment.flag.models import CommentFlag
 from spirit.comment.like.models import CommentLike
@@ -25,7 +26,7 @@ def config_basic(request):
     if is_post(request) and form.is_valid():
         form.save()
         messages.info(request, _("Settings updated!"))
-        return redirect(request.GET.get("next", request.get_full_path()))
+        return safe_redirect(request, "next", request.get_full_path())
     return render(
         request=request,
         template_name='spirit/admin/config_basic.html',

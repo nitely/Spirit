@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 
-from ...core.utils.views import is_post, post_data
+from spirit.core.utils.http import safe_redirect
+from spirit.core.utils.views import is_post, post_data
 from ..models import Comment
 from .forms import FlagForm
 
@@ -18,7 +19,7 @@ def create(request, comment_id):
 
     if is_post(request) and form.is_valid():
         form.save()
-        return redirect(request.POST.get('next', comment.get_absolute_url()))
+        return safe_redirect(request, 'next', comment.get_absolute_url(), method='POST')
 
     return render(
         request=request,

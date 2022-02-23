@@ -6,6 +6,7 @@ from django.http import HttpResponsePermanentRedirect
 
 from djconfig import config
 
+from spirit.core.utils.http import safe_redirect
 from spirit.core.utils.views import is_post, post_data
 from spirit.core.utils.paginator import paginate, yt_paginate
 from spirit.core.utils.ratelimit.decorators import ratelimit
@@ -38,9 +39,9 @@ def publish(request, category_id=None):
             all([form.is_valid(), cform.is_valid()]) and
             not request.is_limited()):
         if not user.st.update_post_hash(form.get_topic_hash()):
-            return redirect(
-                request.POST.get('next', None) or
-                form.get_category().get_absolute_url())
+            default_url = lambda: form.get_category().get_absolute_url()
+            return safe_redirect(
+                request, 'next', default_url, method='POST')
         # wrap in transaction.atomic?
         topic = form.save()
         cform.topic = topic
@@ -66,7 +67,7 @@ def update(request, pk):
         if topic.category_id != category_id:
             Comment.create_moderation_action(
                 user=request.user, topic=topic, action=Comment.MOVED)
-        return redirect(request.POST.get('next', topic.get_absolute_url()))
+        return safe_redirect(request,'next', topic.get_absolute_url(), method='POST')
     return render(
         request=request,
         template_name='spirit/topic/update.html',

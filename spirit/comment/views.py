@@ -8,6 +8,7 @@ from django.http import Http404
 
 from djconfig import config
 
+from spirit.core.utils.http import safe_redirect
 from spirit.core.utils.views import is_post, post_data, is_ajax
 from spirit.core.utils.ratelimit.decorators import ratelimit
 from spirit.core.utils.decorators import moderator_required
@@ -41,15 +42,14 @@ def publish(request, topic_id, pk=None):
     if is_post(request) and not request.is_limited() and form.is_valid():
         if not user.st.update_post_hash(form.get_comment_hash()):
             # Hashed comment may have not been saved yet
-            return redirect(
-                request.POST.get('next', None) or
-                Comment
+            default_url = lambda: (Comment
                 .get_last_for_topic(topic_id)
                 .get_absolute_url())
+            return safe_redirect(request, 'next', default_url, method='POST')
 
         comment = form.save()
         comment_posted(comment=comment, mentions=form.mentions)
-        return redirect(request.POST.get('next', comment.get_absolute_url()))
+        return safe_redirect(request, 'next', comment.get_absolute_url(), method='POST')
 
     return render(
         request=request,
@@ -67,7 +67,7 @@ def update(request, pk):
         pre_comment_update(comment=Comment.objects.get(pk=comment.pk))
         comment = form.save()
         post_comment_update(comment=comment)
-        return redirect(request.POST.get('next', comment.get_absolute_url()))
+        return safe_redirect(request, 'next', comment.get_absolute_url(), method='POST')
     return render(
         request=request,
         template_name='spirit/comment/update.html',
@@ -81,7 +81,7 @@ def delete(request, pk, remove=True):
         (Comment.objects
          .filter(pk=pk)
          .update(is_removed=remove))
-        return redirect(request.GET.get('next', comment.get_absolute_url()))
+        return safe_redirect(request, 'next', comment.get_absolute_url())
     return render(
         request=request,
         template_name='spirit/comment/moderate.html',
@@ -104,7 +104,7 @@ def move(request, topic_id):
     else:
         messages.error(request, render_form_errors(form))
 
-    return redirect(request.POST.get('next', topic.get_absolute_url()))
+    return safe_redirect(request, 'next', topic.get_absolute_url(), method='POST')
 
 
 def find(request, pk):

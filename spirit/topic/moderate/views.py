@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.utils import timezone
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.utils.translation import gettext as _
 
+from spirit.core.utils.http import safe_redirect
 from spirit.core.utils.views import is_post
 from spirit.core.utils.decorators import moderator_required
 from spirit.comment.models import Comment
@@ -33,8 +34,7 @@ def _moderate(request, pk, field_name, to_value, action=None, message=None):
         if message is not None:
             messages.info(request, message)
 
-        return redirect(request.POST.get(
-            'next', topic.get_absolute_url()))
+        return safe_redirect(request, 'next', topic.get_absolute_url(), method='POST')
 
     return render(
         request=request,

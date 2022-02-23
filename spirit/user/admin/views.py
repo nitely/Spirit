@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.utils.translation import gettext as _
 
 from djconfig import config
 
-from ...core.utils.views import is_post, post_data
-from ...core.utils.paginator import yt_paginate
-from ...core.utils.decorators import administrator_required
+from spirit.core.utils.http import safe_redirect
+from spirit.core.utils.views import is_post, post_data
+from spirit.core.utils.paginator import yt_paginate
+from spirit.core.utils.decorators import administrator_required
 from .forms import UserForm, UserProfileForm
 
 User = get_user_model()
@@ -24,7 +25,7 @@ def edit(request, user_id):
         uform.save()
         form.save()
         messages.info(request, _("This profile has been updated!"))
-        return redirect(request.GET.get("next", request.get_full_path()))
+        return safe_redirect(request, "next", request.get_full_path())
     return render(
         request=request,
         template_name='spirit/user/admin/edit.html',
