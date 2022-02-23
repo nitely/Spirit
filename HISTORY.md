@@ -1,3 +1,11 @@
+0.12.3
+==================
+
+* Security fix: fixes open redirect vulnerability (issue #307)
+* Added: support for search on Asian languages,
+  set setting `ST_NGRAM_SEARCH = True` and rebuild the index
+  `python manage.py rebuild_index` (issue #304)
+
 0.12.2
 ==================
 
