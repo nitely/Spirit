@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import functools
 
 from django.contrib import messages
@@ -31,7 +29,7 @@ def _is_limited(request, rate, rl):
 
 
 def ratelimit(methods=None, field=None, rate='5/5m'):
-    methods = set(m.upper() for m in methods or [])
+    methods = {m.upper() for m in methods or []}
 
     def decorator(func):
         @functools.wraps(func)

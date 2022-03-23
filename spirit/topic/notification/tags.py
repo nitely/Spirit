@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from spirit.core.tags.registry import register
 from .models import TopicNotification
 from .forms import NotificationForm

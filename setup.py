@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
 
 import sys
 import os
@@ -11,12 +9,12 @@ from setuptools import setup, find_packages
 
 BASE_DIR = os.path.join(os.path.dirname(__file__))
 
-with io.open(os.path.join(BASE_DIR, 'README.md'), encoding='utf-8') as f:
+with open(os.path.join(BASE_DIR, 'README.md'), encoding='utf-8') as f:
     README = f.read()
 
 VERSION = __import__('spirit').__version__
 
-with io.open(os.path.join(BASE_DIR, 'requirements.txt'), encoding='utf-8') as fh:
+with open(os.path.join(BASE_DIR, 'requirements.txt'), encoding='utf-8') as fh:
     REQUIREMENTS = fh.read()
 
 if sys.platform.startswith(('win32', 'darwin')):
@@ -25,7 +23,7 @@ else:  # Linux?
     PYTHON_MAGIC_DEP = ['python-magic==0.4.15']
 
 # allow setup.py to be run from any path
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+os.chdir(os.path.normpath(os.path.join(__file__, os.pardir)))
 
 setup(
     name='django-spirit',

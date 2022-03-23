@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied

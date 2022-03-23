@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 import logging
 
@@ -84,7 +82,7 @@ class CommentForm(forms.ModelForm):
 
         return utils.get_hash((
             smart_bytes(self.cleaned_data['comment']),
-            smart_bytes('thread-{}'.format(self.topic.pk))))
+            smart_bytes(f'thread-{self.topic.pk}')))
 
     def _get_comment_html(self):
         # user = self.user or self.instance.user
@@ -110,7 +108,7 @@ class CommentForm(forms.ModelForm):
             self.instance.topic = self.topic
 
         self.instance.comment_html = self._get_comment_html()
-        comment = super(CommentForm, self).save(commit)
+        comment = super().save(commit)
 
         if commit:
             self._save_polls()
@@ -146,7 +144,7 @@ class CommentImageForm(forms.Form):
     image = forms.ImageField(max_length=255)
 
     def __init__(self, user=None, *args, **kwargs):
-        super(CommentImageForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
 
     def clean_image(self):

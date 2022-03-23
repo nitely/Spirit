@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
@@ -30,7 +28,7 @@ class TopicForPrivateForm(forms.ModelForm):
         fields = ('title', )
 
     def __init__(self, user=None, *args, **kwargs):
-        super(TopicForPrivateForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self._category = None
 
@@ -52,14 +50,14 @@ class TopicForPrivateForm(forms.ModelForm):
 
         return utils.get_hash((
             smart_bytes(self.cleaned_data['title']),
-            smart_bytes('category-{}'.format(self.category.pk))))
+            smart_bytes(f'category-{self.category.pk}')))
 
     def save(self, commit=True):
         if not self.instance.pk:
             self.instance.user = self.user
             self.instance.category = self.category
 
-        return super(TopicForPrivateForm, self).save(commit)
+        return super().save(commit)
 
 
 def cx_multiple_input(*args, **kwargs):
@@ -77,7 +75,7 @@ class TopicPrivateManyForm(forms.Form):
         to_field_name=User.USERNAME_FIELD)
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
-        super(TopicPrivateManyForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.topic = topic
         # Make it dynamic for testing
@@ -120,7 +118,7 @@ class TopicPrivateInviteForm(forms.ModelForm):
         label=_("Invite user"))
 
     def __init__(self, topic=None, *args, **kwargs):
-        super(TopicPrivateInviteForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.topic = topic
         # Make it dynamic for testing
         self.fields['user'].widget = cx_text_input(
@@ -151,13 +149,13 @@ class TopicPrivateInviteForm(forms.ModelForm):
         if not self.instance.pk:
             self.instance.topic = self.topic
 
-        return super(TopicPrivateInviteForm, self).save(commit)
+        return super().save(commit)
 
 
 class TopicPrivateJoinForm(forms.ModelForm):
 
     def __init__(self, topic=None, user=None, *args, **kwargs):
-        super(TopicPrivateJoinForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.topic = topic
         self.user = user
 
@@ -166,7 +164,7 @@ class TopicPrivateJoinForm(forms.ModelForm):
         fields = ()
 
     def clean(self):
-        cleaned_data = super(TopicPrivateJoinForm, self).clean()
+        cleaned_data = super().clean()
 
         private = TopicPrivate.objects.filter(
             user=self.user, topic=self.topic)
@@ -187,4 +185,4 @@ class TopicPrivateJoinForm(forms.ModelForm):
             self.instance.topic = self.topic
             self.instance.user = self.user
 
-        return super(TopicPrivateJoinForm, self).save(commit)
+        return super().save(commit)

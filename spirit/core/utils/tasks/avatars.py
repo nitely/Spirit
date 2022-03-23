@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import io
 
 from django.core.files.uploadedfile import SimpleUploadedFile

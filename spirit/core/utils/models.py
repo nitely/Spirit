@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.db.models.fields import SlugField
 from django.utils.encoding import smart_str
 from django.utils.text import slugify
@@ -21,10 +19,10 @@ class AutoSlugField(SlugField):
     def __init__(self, *args, **kwargs):
         self.populate_from = kwargs.pop('populate_from', None)
         kwargs['allow_unicode'] = settings.ST_UNICODE_SLUGS
-        super(AutoSlugField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def pre_save(self, instance, add):
-        default = super(AutoSlugField, self).pre_save(instance, add)
+        default = super().pre_save(instance, add)
 
         if default or not add or not self.populate_from:
             return default
@@ -45,7 +43,7 @@ class AutoSlugField(SlugField):
         return slug
 
     def deconstruct(self):
-        name, path, args, kwargs = super(AutoSlugField, self).deconstruct()
+        name, path, args, kwargs = super().deconstruct()
 
         if self.populate_from is not None:
             kwargs['populate_from'] = self.populate_from

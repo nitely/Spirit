@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -433,7 +431,7 @@ class CommentPollTemplateTagsTest(TestCase):
         self.assertTrue("<poll" not in out)
         form_id = 'id="p%s"' % self.user_poll.pk
         self.assertTrue(form_id in out)
-        show_link = '?show_poll=%(pk)s#p%(pk)s' % {'pk': self.user_poll.pk}
+        show_link = '?show_poll={pk}#p{pk}'.format(pk=self.user_poll.pk)
         self.assertTrue(show_link in out)
 
     def test_render_polls_template_form_not_author(self):
@@ -690,7 +688,7 @@ class PollModelsTest(TestCase):
         poll.total_votes = 2
         self.assertEqual(choice.votes_percentage, 50)
         poll.total_votes = 3
-        self.assertEqual('{:.2f}'.format(choice.votes_percentage), '33.33')
+        self.assertEqual(f'{choice.votes_percentage:.2f}', '33.33')
         poll.total_votes = 0
         self.assertEqual(choice.votes_percentage, 0)
 

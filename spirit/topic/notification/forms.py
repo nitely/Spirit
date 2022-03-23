@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -18,12 +16,12 @@ class NotificationForm(forms.ModelForm):
 class NotificationCreationForm(NotificationForm):
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
-        super(NotificationCreationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.topic = topic
 
     def clean(self):
-        cleaned_data = super(NotificationCreationForm, self).clean()
+        cleaned_data = super().clean()
 
         notification = TopicNotification.objects.filter(
             user=self.user,
@@ -48,4 +46,4 @@ class NotificationCreationForm(NotificationForm):
             self.instance.topic = self.topic
             self.instance.comment = self.topic.comment_set.last()
 
-        return super(NotificationCreationForm, self).save(commit)
+        return super().save(commit)

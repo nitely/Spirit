@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.db import IntegrityError, transaction
@@ -15,12 +13,12 @@ class FlagForm(forms.ModelForm):
         fields = ['reason', 'body']
 
     def __init__(self, user=None, comment=None, *args, **kwargs):
-        super(FlagForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.comment = comment
 
     def clean(self):
-        cleaned_data = super(FlagForm, self).clean()
+        cleaned_data = super().clean()
 
         flag = Flag.objects.filter(user=self.user,
                                    comment=self.comment)
@@ -44,4 +42,4 @@ class FlagForm(forms.ModelForm):
             except IntegrityError:
                 pass
 
-        return super(FlagForm, self).save(commit)
+        return super().save(commit)

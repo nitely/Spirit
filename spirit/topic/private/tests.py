@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import datetime
 import hashlib
 
@@ -516,7 +514,7 @@ class TopicPrivateFormTest(TestCase):
         """
         create many private topics accesses
         """
-        users = '%s, %s' % (self.user.username, self.user2.username)
+        users = f'{self.user.username}, {self.user2.username}'
         form_data = {'users': users, }
         form = TopicPrivateManyForm(self.user, data=form_data)
         self.assertEqual(form.is_valid(), True)
@@ -572,7 +570,7 @@ class TopicPrivateFormTest(TestCase):
             user1.username, user1.username.upper())
         self.assertEqual(
             user2.username, 'uniquebar')
-        users = '%s, %s' % (
+        users = '{}, {}'.format(
             user1.username.upper(), 'uniquebar')
         form_data = {'users': users}
         form = TopicPrivateManyForm(self.user, data=form_data)
@@ -589,7 +587,7 @@ class TopicPrivateFormTest(TestCase):
             user1.username, user1.username.upper())
         self.assertEqual(
             user2.username, 'uniquebar')
-        users = '%s, %s' % (
+        users = '{}, {}'.format(
             user1.username.upper(), 'uniquebar')
         form_data = {'users': users}
         form = TopicPrivateManyForm(self.user, data=form_data)

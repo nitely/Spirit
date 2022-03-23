@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import mistune
 
 from django.utils.html import escape
@@ -34,7 +32,7 @@ class Renderer(mistune.Renderer):
     def block_latex(self, text, name):
         name = escape(name)
         text = escape(text)
-        return '<p class="math">\\begin{%s}%s\\end{%s}</p>\n' % (name, text, name)
+        return f'<p class="math">\\begin{{{name}}}{text}\\end{{{name}}}</p>\n'
 
     def math(self, text):
         return '<span class="math">\\(%s\\)</span>' % escape(text)
@@ -72,9 +70,9 @@ class Renderer(mistune.Renderer):
 
         if title:
             title = escape(title)
-            html = '<img src="%s" alt="%s" title="%s"' % (src, text, title)
+            html = f'<img src="{src}" alt="{text}" title="{title}"'
         else:
-            html = '<img src="%s" alt="%s"' % (src, text)
+            html = f'<img src="{src}" alt="{text}"'
 
         if self.options.get('use_xhtml'):
             return '%s />' % html
@@ -83,7 +81,7 @@ class Renderer(mistune.Renderer):
 
     def image(self, src, title, text):
         image = self._image(src, title, text)
-        return '<span class="img">{image}</span>'.format(image=image)
+        return f'<span class="img">{image}</span>'
 
     def emoji(self, name_class, name_raw):
         return (
@@ -114,7 +112,7 @@ class Renderer(mistune.Renderer):
 
     def image_link(self, src, title, text):
         image = self._image(src, title, text)
-        return '<p><span class="img_block">{image}</span></p>\n'.format(image=image)
+        return f'<p><span class="img_block">{image}</span></p>\n'
 
     def video_link(self, link):
         link = sanitize_url(link)
@@ -167,8 +165,8 @@ class Renderer(mistune.Renderer):
             .format(video_id=video_id))
 
     def poll(self, name):
-        return '<poll name={name}>\n'.format(name=name)
+        return f'<poll name={name}>\n'
 
     def poll_raw(self, poll_txt):
         poll_txt = poll_txt.replace('\n', '<br>')
-        return '<p>{poll}</p>\n'.format(poll=poll_txt)
+        return f'<p>{poll_txt}</p>\n'

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from spirit.comment import tags as comment
 from spirit.comment.like import tags as comment_like
 from spirit.search import tags as search

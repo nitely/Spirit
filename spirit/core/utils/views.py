@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 def is_post(request):
     """Check request is a POST"""
     return request.method == 'POST'

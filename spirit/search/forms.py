@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import smart_str
@@ -29,7 +27,7 @@ class BaseSearchForm(SearchForm):
 class BasicSearchForm(BaseSearchForm):
 
     def search(self):
-        sqs = super(BasicSearchForm, self).search()
+        sqs = super().search()
 
         if isinstance(sqs, EmptySearchQuerySet):
             return sqs
@@ -50,14 +48,14 @@ class AdvancedSearchForm(BaseSearchForm):
         widget=forms.CheckboxSelectMultiple)
 
     def __init__(self, *args, **kwargs):
-        super(AdvancedSearchForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['category'].label_from_instance = (
             lambda obj: smart_str(obj.title))
         self.fields['q'].widget.attrs.update({
             'autofocus': ''})
 
     def search(self):
-        sqs = super(AdvancedSearchForm, self).search()
+        sqs = super().search()
 
         if isinstance(sqs, EmptySearchQuerySet):
             return sqs

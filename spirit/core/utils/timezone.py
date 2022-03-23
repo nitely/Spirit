@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import logging
 import datetime
 
@@ -64,7 +62,7 @@ def timezone_format(time_zone, offset):
     else:
         zone_label = zone
 
-    return zone, '(UTC{}) {}'.format(offset, zone_label)
+    return zone, f'(UTC{offset}) {zone_label}'
 
 
 def timezones():

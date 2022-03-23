@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 import json
 import shutil
@@ -1009,7 +1007,7 @@ class CommentFormTest(TestCase):
         form = CommentForm(data=form_data, topic=self.topic)
         self.assertTrue(form.is_valid())
 
-        comment_txt_to_hash = '{}thread-{}'.format(comment_txt, self.topic.pk)
+        comment_txt_to_hash = f'{comment_txt}thread-{self.topic.pk}'
         self.assertEqual(
             form.get_comment_hash(),
             hashlib.md5(comment_txt_to_hash.encode('utf-8')).hexdigest())

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -13,12 +11,12 @@ class FavoriteForm(forms.ModelForm):
         fields = []
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
-        super(FavoriteForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.topic = topic
 
     def clean(self):
-        cleaned_data = super(FavoriteForm, self).clean()
+        cleaned_data = super().clean()
 
         favorite = TopicFavorite.objects.filter(user=self.user,
                                                 topic=self.topic)
@@ -34,4 +32,4 @@ class FavoriteForm(forms.ModelForm):
             self.instance.user = self.user
             self.instance.topic = self.topic
 
-        return super(FavoriteForm, self).save(commit)
+        return super().save(commit)

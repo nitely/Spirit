@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models, migrations
 import django.utils.timezone
 from django.conf import settings
@@ -65,14 +64,14 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='commentpollvote',
-            unique_together=set([('voter', 'choice')]),
+            unique_together={('voter', 'choice')},
         ),
         migrations.AlterUniqueTogether(
             name='commentpollchoice',
-            unique_together=set([('poll', 'number')]),
+            unique_together={('poll', 'number')},
         ),
         migrations.AlterUniqueTogether(
             name='commentpoll',
-            unique_together=set([('comment', 'name')]),
+            unique_together={('comment', 'name')},
         ),
     ]

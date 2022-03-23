@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime
 
 from django.template import defaultfilters
@@ -18,15 +16,15 @@ def shortnaturaltime(value):
     now = datetime.now(tz)
 
     if value > now:  # Future
-        return '%(delta)s' % {'delta': defaultfilters.date(value, 'j M \'y')}
+        return '{delta}'.format(delta=defaultfilters.date(value, 'j M \'y'))
 
     delta = now - value
 
     if delta.days:
         if defaultfilters.date(now, 'y') == defaultfilters.date(value, 'y'):
-            return '%(delta)s' % {'delta': defaultfilters.date(value, 'j M')}
+            return '{delta}'.format(delta=defaultfilters.date(value, 'j M'))
 
-        return '%(delta)s' % {'delta': defaultfilters.date(value, 'j M \'y')}
+        return '{delta}'.format(delta=defaultfilters.date(value, 'j M \'y'))
 
     if not delta.seconds:
         return _('now')

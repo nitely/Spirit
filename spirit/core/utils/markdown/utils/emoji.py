@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 emojis = {
     '+1',
     '+1_tone1',

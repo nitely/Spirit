@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import datetime
 from unittest import skipIf
 
@@ -172,9 +170,9 @@ class TasksTests(TestCase):
         self.assertTrue(spirit_storage.exists(user.st.avatar.name))
         self.assertEqual(
             user.st.avatar.name,
-            'spirit/avatars/{}/pic_test.jpg'.format(user.pk))
+            f'spirit/avatars/{user.pk}/pic_test.jpg')
         self.assertTrue(spirit_storage.exists(
-            'spirit/avatars/{}/pic_test_small_test.jpg'.format(user.pk)))
+            f'spirit/avatars/{user.pk}/pic_test_small_test.jpg'))
 
     @test_utils.immediate_on_commit
     @override_settings(

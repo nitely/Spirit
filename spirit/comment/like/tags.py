@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from ...core.tags.registry import register
 from .forms import LikeForm
 

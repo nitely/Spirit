@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import hashlib
 import time
 
@@ -88,7 +86,7 @@ class RateLimit:
     def _make_key(self, key):
         key_uid = '%s:%s:%d' % (
             self.uid, key, fixed_window(self.time))
-        return '%s:%s' % (
+        return '{}:{}'.format(
             settings.ST_RATELIMIT_CACHE_PREFIX,
             make_hash(key_uid))
 
@@ -105,7 +103,7 @@ class RateLimit:
                            .get(field, ''))
 
             if field_value:
-                keys.append('field:%s:%s' % (field, field_value))
+                keys.append(f'field:{field}:{field_value}')
 
         return [self._make_key(k) for k in keys]
 

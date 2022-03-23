@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.conf.urls import re_path, include
 
 from .auth import urls as auth_urls
