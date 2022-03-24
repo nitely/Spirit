@@ -1,4 +1,5 @@
-from django.conf.urls import include, re_path
+from django.urls import include
+from django.conf.urls import re_path
 
 import spirit.topic.views
 import spirit.admin.urls

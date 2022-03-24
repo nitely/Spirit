@@ -1,4 +1,5 @@
-from django.conf.urls import re_path, include
+from django.urls import include
+from django.conf.urls import re_path
 
 import spirit.topic.moderate.urls
 import spirit.topic.unread.urls

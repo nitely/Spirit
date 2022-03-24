@@ -8,7 +8,7 @@ from .conf import settings
 class XForwardedForMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        request.META['REMOTE_ADDR'] = request.META['HTTP_X_FORWARDED_FOR'].split(",")[-1].strip()
+        request.META['REMOTE_ADDR'] = request.headers['X-Forwarded-For'].split(",")[-1].strip()
 
 
 class PrivateForumMiddleware(MiddlewareMixin):

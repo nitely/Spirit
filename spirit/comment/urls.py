@@ -1,4 +1,5 @@
-from django.conf.urls import re_path, include
+from django.urls import include
+from django.conf.urls import re_path
 
 from ..core.conf import settings
 import spirit.comment.bookmark.urls
