@@ -15,7 +15,7 @@
     "gulp-uglify": "^3.0.2",
     "jasmine": "^3.6.1",
     "jquery": "^3.5.1",
-    "jsdom": "^16.4.0"
+    "jsdom": "^16.5.0"
   },
   "scripts": {
     "gulp": "gulp"
