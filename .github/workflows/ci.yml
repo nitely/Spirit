@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.6, 3.7, 3.8]
-        django: [2.2.16, 3.0.7, 3.1.1]
+        python: ['3.8', '3.9', '3.10', '3.11']
+        django: ['3.2', '4.2']
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python }}
@@ -46,10 +46,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
+    - name: Set up Python 3.11
       uses: actions/setup-python@v1
       with:
-         python-version: 3.8
+         python-version: 3.11
     - name: Finished
       run: |
         python -m pip install --upgrade pip
@@ -82,8 +82,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.8]
-        django: [3.1.1]
+        python: ['3.11']
+        django: ['4.2']
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python }}
@@ -108,8 +108,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.8]
-        django: [3.1.1]
+        python: ['3.11']
+        django: ['4.2']
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python }}
