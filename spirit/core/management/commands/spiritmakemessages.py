@@ -15,7 +15,7 @@ class Command(BaseCommand):
         '`python manage.py spiritmakemessages > out` to read '
         'the output later (look for warnings)')
 
-    requires_system_checks = False
+    requires_system_checks = []
 
     def add_arguments(self, parser):
         parser.add_argument(

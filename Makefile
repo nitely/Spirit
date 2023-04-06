@@ -21,7 +21,7 @@ sdist: test clean
 	python setup.py sdist
 
 release: sdist
-	twine upload dist/*
+	twine check dist/* && twine upload dist/*
 
 txpush:
 	python manage.py spiritmakemessages --locale en && \

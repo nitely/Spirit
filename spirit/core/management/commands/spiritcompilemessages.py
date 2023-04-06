@@ -15,7 +15,7 @@ class Command(BaseCommand):
         '`python manage.py spiritmakelocales > out` to read '
         'the output later (look for warnings)')
 
-    requires_system_checks = False
+    requires_system_checks = []
 
     def handle(self, *args, **options):
         if not settings.ST_BASE_DIR.endswith('spirit'):

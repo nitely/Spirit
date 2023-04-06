@@ -588,7 +588,9 @@ class CommentViewTest(TestCase):
             'File extension “” is not allowed' in res['error']['image'][0]
             or 'File extension \'\' is not allowed' in res['error']['image'][0])
 
-    @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
+    @override_settings(
+        MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
+        ST_PREVENT_SOME_FILE_DUPLICATION=False)
     def test_comment_image_upload_unique_bad_name(self):
         utils.login(self)
         img = io.BytesIO(
@@ -606,7 +608,9 @@ class CommentViewTest(TestCase):
         self.assertTrue(res['url'].endswith(ext))
         self.assertTrue(len(os.path.basename(res['url'])), len(ext) + 32)  # uuid name
 
-    @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
+    @override_settings(
+        MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
+        ST_PREVENT_SOME_FILE_DUPLICATION=False)
     def test_comment_image_upload_unique_dots_name(self):
         utils.login(self)
         img = io.BytesIO(
@@ -624,7 +628,9 @@ class CommentViewTest(TestCase):
         self.assertTrue(res['url'].endswith(ext))
         self.assertTrue(len(os.path.basename(res['url'])), len(ext) + 32)  # uuid name
 
-    @override_settings(MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'))
+    @override_settings(
+        MEDIA_ROOT=os.path.join(settings.BASE_DIR, 'media_test'),
+        ST_PREVENT_SOME_FILE_DUPLICATION=False)
     def test_comment_image_upload_unique_hidden_name(self):
         utils.login(self)
         img = io.BytesIO(

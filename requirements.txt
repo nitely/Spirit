@@ -1,9 +1,10 @@
-Django>=2.2,<3.2
-django-haystack==3.0
+Django>=3.2,<5
+django-haystack==3.2.1
 whoosh==2.7.4
 mistune==0.8.4
-Pillow==8.0.1
+Pillow==9.5.0
 olefile==0.46
 django-infinite-scroll-pagination>=1.1.0,<1.2
-django-djconfig>=0.8.0,<0.11
+django-djconfig>=0.11.0,<0.12
 pytz
+tzdata

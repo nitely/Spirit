@@ -12,7 +12,7 @@ from ... import utils
 class Command(BaseCommand):
     help = 'Pushes english locale source'
 
-    requires_system_checks = False
+    requires_system_checks = []
 
     def handle(self, *args, **options):
         # Requires `pip install transifex-client``

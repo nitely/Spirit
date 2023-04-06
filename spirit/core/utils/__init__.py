@@ -6,6 +6,7 @@ import hashlib
 import uuid
 from contextlib import contextmanager
 
+from django.core.exceptions import SuspiciousFileOperation
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 
@@ -102,7 +103,10 @@ def unique_filename(file):
     is assumed to be valid
     """
     name, ext = os.path.splitext(file.name)
-    name = spirit_storage.get_valid_name(name)
+    try:
+        name = spirit_storage.get_valid_name(name)
+    except SuspiciousFileOperation:
+        name = safe_uuid()
     return os.path.join(
         safe_uuid(),
         '{name}{ext}'.format(
