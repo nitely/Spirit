@@ -22,7 +22,7 @@ with io.open(os.path.join(BASE_DIR, 'requirements.txt'), encoding='utf-8') as fh
 if sys.platform.startswith(('win32', 'darwin')):
     PYTHON_MAGIC_DEP = ['python-magic-bin==0.4.14']
 else:  # Linux?
-    PYTHON_MAGIC_DEP = ['python-magic==0.4.15']
+    PYTHON_MAGIC_DEP = ['python-magic==0.4.27']
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
@@ -47,7 +47,7 @@ spirit=spirit.extra.bin.spirit:main
     install_requires=REQUIREMENTS,
     extras_require={
         'files': PYTHON_MAGIC_DEP,
-        'huey': 'huey == 2.3.0',
+        'huey': 'huey == 2.4.5',
         'celery': 'celery[redis] == 4.4.7'},
     license='MIT License',
     classifiers=[

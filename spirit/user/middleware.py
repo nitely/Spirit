@@ -30,7 +30,9 @@ class TimezoneMiddleware(MiddlewareMixin):
 
         try:
             timezone.activate(request.user.st.timezone)
-        except pytz.exceptions.UnknownTimeZoneError:
+            # use KeyError instead of ZoneInfoNotFoundError
+            # because of "backport" package for py 3.8
+        except (pytz.exceptions.UnknownTimeZoneError, KeyError):
             timezone.deactivate()
             logger.error(
                 '%s is not a valid timezone.', request.user.st.timezone)

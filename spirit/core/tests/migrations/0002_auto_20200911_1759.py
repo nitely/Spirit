@@ -7,7 +7,7 @@ import spirit.core.utils.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0001_initial'),
+        ('spirit_core_tests', '0001_initial'),
     ]
 
     operations = [

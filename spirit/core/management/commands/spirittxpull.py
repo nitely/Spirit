@@ -12,7 +12,7 @@ from ... import utils
 class Command(BaseCommand):
     help = 'Pulls all the local files listed in ./.tx/config from transifex'
 
-    requires_system_checks = False
+    requires_system_checks = []
 
     def handle(self, *args, **options):
         # todo: test!

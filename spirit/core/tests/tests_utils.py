@@ -15,7 +15,6 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
-from django.utils.timezone import utc
 from django.contrib.auth import get_user_model
 
 from ..conf import settings
@@ -28,6 +27,7 @@ from . import utils as test_utils
 from ..tags.messages import render_messages
 
 User = get_user_model()
+utc = datetime.timezone.utc
 
 
 class UtilsTests(TestCase):

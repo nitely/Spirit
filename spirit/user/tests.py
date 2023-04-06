@@ -1199,10 +1199,10 @@ class TimezoneMiddlewareTest(TestCase):
         time_zone = 'America/Argentina/Buenos_Aires'
         self.user.st.timezone = time_zone
 
-        self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
+        self.assertEqual(str(timezone.get_current_timezone()), 'UTC')
         middleware.TimezoneMiddleware(
             lambda req: HttpResponse(status=500)).process_request(req)
-        self.assertEqual(timezone.get_current_timezone().zone, time_zone)
+        self.assertEqual(str(timezone.get_current_timezone()), time_zone)
 
     @override_settings(TIME_ZONE='UTC')
     def test_timezone_bad_tz(self):
@@ -1214,10 +1214,10 @@ class TimezoneMiddlewareTest(TestCase):
 
         time_zone = 'America/Argentina/Buenos_Aires'
         timezone.activate(time_zone)
-        self.assertEqual(timezone.get_current_timezone().zone, time_zone)
+        self.assertEqual(str(timezone.get_current_timezone()), time_zone)
         middleware.TimezoneMiddleware(
             lambda req: HttpResponse(status=500)).process_request(req)
-        self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
+        self.assertEqual(str(timezone.get_current_timezone()), 'UTC')
 
     @override_settings(TIME_ZONE='UTC')
     def test_timezone_anonymous_user(self):
@@ -1232,10 +1232,10 @@ class TimezoneMiddlewareTest(TestCase):
 
         time_zone = 'America/Argentina/Buenos_Aires'
         timezone.activate(time_zone)
-        self.assertEqual(timezone.get_current_timezone().zone, time_zone)
+        self.assertEqual(str(timezone.get_current_timezone()), time_zone)
         middleware.TimezoneMiddleware(
             lambda req: HttpResponse(status=500)).process_request(req)
-        self.assertEqual(timezone.get_current_timezone().zone, 'UTC')
+        self.assertEqual(str(timezone.get_current_timezone()), 'UTC')
 
 
 class LastIPMiddlewareTest(TestCase):
