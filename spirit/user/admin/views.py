@@ -45,7 +45,7 @@ def _index(request, queryset, template):
 def index(request):
     return _index(
         request,
-        queryset=User.objects.all(),
+        queryset=User.objects.filter(st__is_spirit_user=True),
         template='spirit/user/admin/index.html'
     )
 
