@@ -7,8 +7,6 @@
 
 Spirit is a Python based forum built using the Django framework.
 
-To see it in action, please visit [The Spirit Project](http://spirit-project.com/).
-
 ## Documentation
 
 Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
