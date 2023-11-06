@@ -29,12 +29,12 @@ msgstr "geschlossen"
 #: templates/spirit/comment/flag/admin/closed.html:5
 #: templates/spirit/comment/flag/admin/closed.html:11
 msgid "Closed flags"
-msgstr "geschlossene flags"
+msgstr "geschlossene Flags"
 
 #: templates/spirit/comment/flag/admin/detail.html:5
 #: templates/spirit/comment/flag/admin/detail.html:16
 msgid "Flag"
-msgstr "flag"
+msgstr "Flag"
 
 #: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Admin"
@@ -54,7 +54,7 @@ msgstr "speichern"
 
 #: templates/spirit/comment/flag/admin/detail.html:38
 msgid "Comment flagged"
-msgstr "Kommentar gekennzeichnet"
+msgstr "Kommentar geflagged"
 
 #: templates/spirit/comment/flag/admin/detail.html:65
 msgid "delete"
@@ -71,8 +71,8 @@ msgstr "Reporter"
 #: templates/spirit/comment/flag/admin/open.html:5
 #: templates/spirit/comment/flag/admin/open.html:11
 msgid "Open flags"
-msgstr "offene flags"
+msgstr "offene Flags"
 
 #: views.py:27
 msgid "The flag has been moderated!"
-msgstr "Die Flagge wurde moderiert!"
+msgstr "Die Flag wurde moderiert!"

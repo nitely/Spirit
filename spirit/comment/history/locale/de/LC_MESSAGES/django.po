@@ -16,11 +16,11 @@ msgstr ""
 
 #: models.py:13
 msgid "original comment"
-msgstr "originaler Kommentar"
+msgstr "ursprünglicher Kommentar"
 
 #: models.py:16
 msgid "comment html"
-msgstr "comment html"
+msgstr "Kommentar-HTML"
 
 #: models.py:21
 msgid "comment history"
@@ -28,9 +28,9 @@ msgstr "Kommentar-Verlauf"
 
 #: models.py:22
 msgid "comments history"
-msgstr "Kommentar-Verlauf"
+msgstr "Kommentare-Verlauf"
 
 #: templates/spirit/comment/history/detail.html:5
 #: templates/spirit/comment/history/detail.html:11
 msgid "Comment history"
-msgstr "Kommentarverlauf"
+msgstr "Kommentar-Verlauf"

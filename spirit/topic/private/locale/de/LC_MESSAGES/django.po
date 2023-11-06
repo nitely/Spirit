@@ -16,7 +16,7 @@ msgstr ""
 
 #: forms.py:75
 msgid "Invite users"
-msgstr ""
+msgstr "Benutzer einladen"
 
 #: forms.py:85
 msgid "user1, user2, ..."
@@ -24,16 +24,16 @@ msgstr "User1, User2, ..."
 
 #: forms.py:120
 msgid "Invite user"
-msgstr "User einladen"
+msgstr "Benutzer einladen"
 
 #: forms.py:127
 msgid "username"
-msgstr "Username"
+msgstr "Benutzername"
 
 #: forms.py:142 forms.py:177
 #, python-format
 msgid "%(username)s is already a participant"
-msgstr "%(username)s ist bereits Teilnehmer_in"
+msgstr "%(username)s ist bereits Teilnehmer"
 
 #: models.py:29
 msgid "private topic"
@@ -63,7 +63,7 @@ msgstr "Neues privates Thema erstellen"
 
 #: templates/spirit/topic/private/delete.html:5
 msgid "Remove user from private topic"
-msgstr "Entferne Benutzer_in vom privaten Thema"
+msgstr "Entferne Benutzer vom privaten Thema"
 
 #: templates/spirit/topic/private/delete.html:10
 #, python-format
@@ -81,7 +81,7 @@ msgstr "private Themen"
 
 #: templates/spirit/topic/private/detail.html:23
 msgid "Participants"
-msgstr "Teilnehmer_innen"
+msgstr "Teilnehmer"
 
 #: templates/spirit/topic/private/detail.html:50
 msgid "Leave topic"
@@ -101,12 +101,12 @@ msgstr "Es gibt keine Themen, bis jetzt..."
 
 #: templates/spirit/topic/private/join.html:5
 msgid "Join topic"
-msgstr "Diskussion beitreten"
+msgstr "Thema beitreten"
 
 #: templates/spirit/topic/private/join.html:10
 #, python-format
 msgid "Do you want to join %(topic_title)s?"
-msgstr "Willst du dieser Diskussion beitreten %(topic_title)s?"
+msgstr "Willst du dem Thema %(topic_title)s beitreten?"
 
 #: templates/spirit/topic/private/join.html:20
 msgid "Join"

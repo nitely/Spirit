@@ -24,15 +24,15 @@ msgstr "Spam"
 
 #: models.py:11
 msgid "Other"
-msgstr "anders"
+msgstr "Andere"
 
 #: models.py:31
 msgid "comment flag"
-msgstr "Kommentar flag"
+msgstr "Kommentar-Flag"
 
 #: models.py:32
 msgid "comments flags"
-msgstr "Kommentar flag"
+msgstr "Kommentare-Flag"
 
 #: models.py:49
 msgid "reason"

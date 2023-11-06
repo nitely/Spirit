@@ -38,16 +38,16 @@ msgstr "%(count)sStd."
 #: tasks.py:208
 #, python-brace-format
 msgid "{user} commented on {topic}"
-msgstr ""
+msgstr "{user} kommentierte {topic}"
 
 #: tasks.py:218
 #, python-brace-format
 msgid "{user} mention you on {topic}"
-msgstr ""
+msgstr "{user} erwähnte dich am {topic}"
 
 #: tasks.py:250
 msgid "New notifications"
-msgstr ""
+msgstr "neue Benachrichtigungen"
 
 #: templates/403.html:10
 msgid "You do not have sufficient permissions to access this page"
@@ -55,12 +55,12 @@ msgstr "Unzureichende Rechte zum aufrufen dieser Seite"
 
 #: templates/404.html:10
 msgid "what you are looking for is gone..."
-msgstr "was Du suchst ist nicht mehr hier..."
+msgstr "Was du suchst ist nicht mehr hier..."
 
 #: templates/spirit/_base.html:29
 #, python-brace-format
 msgid "{user} has mention you on {topic}"
-msgstr "{user} erwähnte Dich in {topic}"
+msgstr "{user} erwähnte dich unter {topic}"
 
 #: templates/spirit/_base.html:30
 #, python-brace-format
@@ -69,7 +69,7 @@ msgstr "{user} kommentierte {topic}"
 
 #: templates/spirit/_base.html:31
 msgid "Show all"
-msgstr "Zeige alles"
+msgstr "zeige alles"
 
 #: templates/spirit/_base.html:32
 msgid "No new notifications, yet"

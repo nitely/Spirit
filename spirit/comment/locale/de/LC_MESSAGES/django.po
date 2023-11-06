@@ -30,7 +30,7 @@ msgstr "Nicht unterstütztes Dateiformat. Unterstützte Formate sind %s."
 
 #: forms.py:184 forms.py:203
 msgid "The file could not be validated"
-msgstr ""
+msgstr "Die Datei konnte nicht validiert werden"
 
 #: forms.py:190
 #, python-format
@@ -38,12 +38,16 @@ msgid ""
 "Unsupported file extension %(extension)s. Supported extensions are "
 "%(supported)s."
 msgstr ""
+"Nicht-unterstützte Dateinamenerweiterung %(extension)s. Die unterstützten "
+"Erweiterungen sind %(supported)s."
 
 #: forms.py:208
 #, python-format
 msgid ""
 "Unsupported file mime type %(mime)s. Supported types are %(supported)s."
 msgstr ""
+"Nicht-unterstützter MIME-Typ %(mime)s. Die unterstützten "
+"Typen sind %(supported)s."
 
 #: models.py:16 models.py:31 models.py:46
 msgid "comment"
@@ -59,7 +63,7 @@ msgstr "Thema geschlossen"
 
 #: models.py:19
 msgid "topic unclosed"
-msgstr "Thema geöffnet"
+msgstr "Thema wieder geöffnet"
 
 #: models.py:20
 msgid "topic pinned"
@@ -67,11 +71,11 @@ msgstr "Thema festheften"
 
 #: models.py:21
 msgid "topic unpinned"
-msgstr "Thema nicht festgeheftet"
+msgstr "Heftung bei Thema aufgehoben"
 
 #: models.py:32
 msgid "comment html"
-msgstr "comment html"
+msgstr "Kommentar-HTML"
 
 #: models.py:33
 msgid "action"
@@ -83,7 +87,7 @@ msgstr "modifizierter Zähler"
 
 #: models.py:40
 msgid "likes count"
-msgstr "likes count"
+msgstr "Likes-Anzahl"
 
 #: models.py:47
 msgid "comments"
@@ -92,32 +96,32 @@ msgstr "Kommentare"
 #: tags.py:42
 #, python-brace-format
 msgid "{user} moved this {time_ago}"
-msgstr ""
+msgstr "{user} verschob dies {time_ago}"
 
 #: tags.py:43
 #, python-brace-format
 msgid "{user} closed this {time_ago}"
-msgstr ""
+msgstr "{user} verschob dies {time_ago}"
 
 #: tags.py:44
 #, python-brace-format
 msgid "{user} reopened this {time_ago}"
-msgstr ""
+msgstr "{user} eröffnete dies {time_ago} neu"
 
 #: tags.py:45
 #, python-brace-format
 msgid "{user} pinned this {time_ago}"
-msgstr ""
+msgstr "{user} heftete dies {time_ago} fest"
 
 #: tags.py:46
 #, python-brace-format
 msgid "{user} unpinned this {time_ago}"
-msgstr ""
+msgstr "{user} hob diese Heftung {time_ago} auf"
 
 #: tags.py:56
 #, python-brace-format
 msgid "{user}'s comment was removed {time_ago}"
-msgstr ""
+msgstr "{user}s Kommentar wurde {time_ago} entfernt"
 
 #: templates/spirit/comment/_editor.html:9
 msgid "Bold"
@@ -141,7 +145,7 @@ msgstr "Bild"
 
 #: templates/spirit/comment/_editor.html:36
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: templates/spirit/comment/_editor.html:43
 msgid "Poll"
@@ -155,7 +159,7 @@ msgstr "Vorschau"
 #: templates/spirit/comment/_editor.html:86
 #, python-brace-format
 msgid "uploading {name}"
-msgstr ""
+msgstr "lade {name} hoch"
 
 #: templates/spirit/comment/_editor.html:93
 msgid "bolded text"
@@ -187,11 +191,11 @@ msgstr "Bild-URL"
 
 #: templates/spirit/comment/_editor.html:100
 msgid "file text"
-msgstr ""
+msgstr "Dateitext"
 
 #: templates/spirit/comment/_editor.html:101
 msgid "file url"
-msgstr ""
+msgstr "Datei-URL"
 
 #: templates/spirit/comment/_editor.html:102
 msgid "Title"
@@ -213,7 +217,7 @@ msgstr "wiederherstellen"
 
 #: templates/spirit/comment/_render_list.html:33
 msgid "show"
-msgstr ""
+msgstr "anzeigen"
 
 #: templates/spirit/comment/_render_list.html:61
 msgid "Admin"
@@ -221,11 +225,11 @@ msgstr "Admin"
 
 #: templates/spirit/comment/_render_list.html:63
 msgid "Moderator"
-msgstr ""
+msgstr "Moderator"
 
 #: templates/spirit/comment/_render_list.html:66
 msgid "Original Poster"
-msgstr ""
+msgstr "ursprünglicher Ersteller"
 
 #: templates/spirit/comment/_render_list.html:91
 msgid "delete"
@@ -237,12 +241,12 @@ msgstr "melden"
 
 #: templates/spirit/comment/_render_list.html:99
 msgid "share"
-msgstr "Teilen"
+msgstr "teilen"
 
 #: templates/spirit/comment/_render_list.html:107
 #: templates/spirit/comment/_render_list.html:168
 msgid "remove like"
-msgstr "like entfernen"
+msgstr "Like entfernen"
 
 #: templates/spirit/comment/_render_list.html:114
 #: templates/spirit/comment/_render_list.html:167
@@ -251,7 +255,7 @@ msgstr "like"
 
 #: templates/spirit/comment/_render_list.html:122
 msgid "edit"
-msgstr "editieren"
+msgstr "bearbeiten"
 
 #: templates/spirit/comment/_render_list.html:127
 msgid "quote"
@@ -281,4 +285,4 @@ msgstr "Kommentar veröffentlichen zu"
 #: templates/spirit/comment/update.html:5
 #: templates/spirit/comment/update.html:9
 msgid "Edit comment"
-msgstr "Kommentar editieren"
+msgstr "Kommentar bearbeiten"

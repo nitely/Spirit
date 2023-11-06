@@ -24,12 +24,12 @@ msgstr "Auswahlmöglichkeiten"
 #: forms.py:61
 #, python-format
 msgid "Too many selected choices. Limit is %s"
-msgstr "Zu viel ausgewählt. Das Limit beträgt %s"
+msgstr "Zu viele Möglichkeiten ausgewählt. Das Limit beträgt %s"
 
 #: forms.py:67
 #, python-format
 msgid "Too few selected choices. Minimum is %s"
-msgstr ""
+msgstr "Zu wenige Möglichkeiten ausgewählt. Das Minimum beträgt %s"
 
 #: forms.py:77
 msgid "This poll is closed"
@@ -37,7 +37,7 @@ msgstr "Diese Umfrage ist geschlossen"
 
 #: models.py:34
 msgid "name"
-msgstr ""
+msgstr "Name"
 
 #: models.py:35
 msgid "title"
@@ -45,31 +45,31 @@ msgstr "Titel"
 
 #: models.py:36
 msgid "choice min"
-msgstr ""
+msgstr "Auswahl-Minimum"
 
 #: models.py:37
 msgid "choice max"
-msgstr ""
+msgstr "Auswahl-Maximum"
 
 #: models.py:38
 msgid "mode"
-msgstr ""
+msgstr "Modus"
 
 #: models.py:39
 msgid "auto close at"
-msgstr ""
+msgstr "automatisch schließen um"
 
 #: models.py:47
 msgid "comment poll"
-msgstr ""
+msgstr "Kommentar-Umfrage"
 
 #: models.py:48
 msgid "comments polls"
-msgstr ""
+msgstr "Kommentare-Umfrage"
 
 #: models.py:135
 msgid "number"
-msgstr ""
+msgstr "Nummer"
 
 #: models.py:136
 msgid "choice description"
@@ -77,38 +77,38 @@ msgstr "Auswahlbeschreibung"
 
 #: models.py:137
 msgid "vote count"
-msgstr ""
+msgstr "Stimmen-Anzahl"
 
 #: models.py:145
 msgid "poll choice"
-msgstr "Auswahl"
+msgstr "Auswahlmöglichkeit"
 
 #: models.py:146
 msgid "poll choices"
-msgstr ""
+msgstr "Auswahlmöglichkeiten"
 
 #: models.py:220
 msgid "poll vote"
-msgstr ""
+msgstr "Stimme"
 
 #: models.py:221
 msgid "poll votes"
-msgstr ""
+msgstr "Stimmen"
 
 #: templates/spirit/comment/poll/_form.html:23
 #, python-format
 msgid "Closes on %(date)s."
-msgstr ""
+msgstr "schließt am %(date)s."
 
 #: templates/spirit/comment/poll/_form.html:29
 #, python-format
 msgid "You must select %(choice_min)s choices."
-msgstr ""
+msgstr "Du musst mindestens %(choice_min)s Möglichkeiten auswählen."
 
 #: templates/spirit/comment/poll/_form.html:33
 #, python-format
 msgid "You may select up to %(choice_max)s choices."
-msgstr ""
+msgstr "Du darfst höchstens %(choice_max)s Möglichkeiten auswählen."
 
 #: templates/spirit/comment/poll/_form.html:37
 #, python-format
@@ -116,45 +116,47 @@ msgid ""
 "You may select no less than %(choice_min)s and no more than %(choice_max)s "
 "choices."
 msgstr ""
+"Du musst mindestens %(choice_min)s und darfst höchstens %(choice_max)s "
+"Möglichkeiten auswählen."
 
 #: templates/spirit/comment/poll/_form.html:43
 msgid "Results will be available when the poll is closed."
-msgstr ""
+msgstr "Die Ergebnisse werden verfügbar sein, wenn die Umfrage geschlossen ist."
 
 #: templates/spirit/comment/poll/_form.html:52
 msgid "Vote"
-msgstr "Abstimmen"
+msgstr "abstimmen"
 
 #: templates/spirit/comment/poll/_form.html:58
 msgid "Show results"
-msgstr ""
+msgstr "Ergebnisse anzeigen"
 
 #: templates/spirit/comment/poll/_form.html:66
 #: templates/spirit/comment/poll/_results.html:45
 msgid "open"
-msgstr ""
+msgstr "offen"
 
 #: templates/spirit/comment/poll/_form.html:71
 #: templates/spirit/comment/poll/_results.html:50
 msgid "close"
-msgstr "Schließen"
+msgstr "schließen"
 
 #: templates/spirit/comment/poll/_results.html:15
 #, python-format
 msgid "%(choice)s, %(percentage)s%%"
-msgstr ""
+msgstr "%(choice)s, %(percentage)s%%"
 
 #: templates/spirit/comment/poll/_results.html:19
 msgid "View voters"
-msgstr ""
+msgstr "Wähler anzeigen"
 
 #: templates/spirit/comment/poll/_results.html:29
 msgid "Votes"
-msgstr ""
+msgstr "Stimmen"
 
 #: templates/spirit/comment/poll/_results.html:37
 msgid "Show vote choices"
-msgstr ""
+msgstr "Auswahlmöglichkeiten anzeigen"
 
 #: templates/spirit/comment/poll/_static.html:27
 #, python-format
@@ -162,6 +164,8 @@ msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s, close at: %(close_at)s"
 msgstr ""
+"Name: %(poll_name)s, Auswahlmöglichkeiten: von %(choice_min)s bis "
+"%(choice_max)s, Modus: %(mode)s, schließt um: %(close_at)s"
 
 #: templates/spirit/comment/poll/_static.html:31
 #, python-format
@@ -169,9 +173,11 @@ msgid ""
 "Name: %(poll_name)s, choice selection: from %(choice_min)s up to "
 "%(choice_max)s, mode: %(mode)s"
 msgstr ""
+"Name: %(poll_name)s, Auswahlmöglichkeiten: von %(choice_min)s bis "
+"%(choice_max)s, Modus: %(mode)s"
 
 #: templates/spirit/comment/poll/voters.html:5
 #: templates/spirit/comment/poll/voters.html:10
 #, python-format
 msgid "Voters for %(choice_description)s"
-msgstr ""
+msgstr "Stimmen für %(choice_description)s"

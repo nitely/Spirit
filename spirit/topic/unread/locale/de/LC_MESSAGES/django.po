@@ -25,7 +25,7 @@ msgstr "ungelesene Themen"
 #: templates/spirit/topic/unread/index.html:5
 #: templates/spirit/topic/unread/index.html:9
 msgid "Unread topics replies"
-msgstr "Ungelesene Themenantworten"
+msgstr "ungelesene Antworten"
 
 #: templates/spirit/topic/unread/index.html:19
 msgid "Next"

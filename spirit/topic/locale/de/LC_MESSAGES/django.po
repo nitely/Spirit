@@ -41,7 +41,7 @@ msgstr "zuletzt aktiv"
 
 #: models.py:39
 msgid "reindex at"
-msgstr ""
+msgstr "reindizieren um"
 
 #: models.py:41
 msgid "pinned"
@@ -57,7 +57,7 @@ msgstr "geschlossen"
 
 #: models.py:46
 msgid "views count"
-msgstr "gelesen"
+msgstr "Anzahl gelesen"
 
 #: models.py:47
 msgid "comment count"
@@ -95,15 +95,15 @@ msgstr "zuletzt aktive Themen"
 
 #: templates/spirit/topic/detail.html:12
 msgid "Main"
-msgstr "Main"
+msgstr "Start"
 
 #: templates/spirit/topic/detail.html:39 templates/spirit/topic/detail.html:43
 msgid "edit"
-msgstr "editieren"
+msgstr "bearbeiten"
 
 #: templates/spirit/topic/detail.html:51
 msgid "Moderate"
-msgstr ""
+msgstr "moderieren"
 
 #: templates/spirit/topic/detail.html:57
 msgid "Select comments to move"
@@ -111,7 +111,7 @@ msgstr "Kommentar zum verschieben auswählen"
 
 #: templates/spirit/topic/detail.html:60
 msgid "Undelete topic"
-msgstr "Thema wiederherstellen"
+msgstr "Löschung des Themas rückgängig machen"
 
 #: templates/spirit/topic/detail.html:63
 msgid "Delete topic"
@@ -127,15 +127,15 @@ msgstr "Thema schließen"
 
 #: templates/spirit/topic/detail.html:74
 msgid "Unpin topic"
-msgstr "Thema loslösen"
+msgstr "Heftung bei Thema aufheben"
 
 #: templates/spirit/topic/detail.html:77
 msgid "Pin topic"
-msgstr "Thema gefestigen"
+msgstr "Thema festheften"
 
 #: templates/spirit/topic/detail.html:81
 msgid "Unpin topic globally"
-msgstr "Thema global loslösen"
+msgstr "globale Heftung des Themas aufheben"
 
 #: templates/spirit/topic/detail.html:84
 msgid "Pin topic globally"
@@ -147,11 +147,11 @@ msgstr "Antworten"
 
 #: templates/spirit/topic/detail.html:114
 msgid "Move selected comments to"
-msgstr ""
+msgstr "ausgewählte Kommentare verschieben nach"
 
 #: templates/spirit/topic/detail.html:120
 msgid "Move"
-msgstr "verschiebe"
+msgstr "verschieben"
 
 #: templates/spirit/topic/moderate.html:5
 #: templates/spirit/topic/moderate.html:9
@@ -160,7 +160,7 @@ msgstr "Thema moderieren"
 
 #: templates/spirit/topic/moderate.html:14
 msgid "Apply"
-msgstr "akzeptieren"
+msgstr "anwenden"
 
 #: templates/spirit/topic/publish.html:5
 #: templates/spirit/topic/publish.html:20

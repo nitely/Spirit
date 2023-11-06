@@ -21,7 +21,7 @@ msgstr "Der Kategorie die du updatest, kann keine übergeordnete Kategorie zugew
 
 #: forms.py:61
 msgid "The input is not a valid hex color."
-msgstr ""
+msgstr "Die Eingabe ist keine gültige Hex-Farbe."
 
 #: templates/spirit/category/admin/create.html:5
 #: templates/spirit/category/admin/create.html:9
@@ -36,7 +36,7 @@ msgstr "speichern"
 #: templates/spirit/category/admin/index.html:5
 #: templates/spirit/category/admin/index.html:13
 msgid "Category list"
-msgstr "Kategorieliste"
+msgstr "Kategorienliste"
 
 #: templates/spirit/category/admin/index.html:20
 msgid "Create Category"
@@ -45,7 +45,7 @@ msgstr "Kategorie anlegen"
 #: templates/spirit/category/admin/index.html:52
 #: templates/spirit/category/admin/index.html:87
 msgid "edit"
-msgstr "editieren"
+msgstr "bearbeiten"
 
 #: templates/spirit/category/admin/update.html:5
 #: templates/spirit/category/admin/update.html:9

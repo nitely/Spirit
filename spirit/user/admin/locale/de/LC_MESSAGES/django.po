@@ -16,7 +16,7 @@ msgstr ""
 
 #: templates/spirit/user/admin/_list.html:15
 msgid "edit"
-msgstr "editieren"
+msgstr "bearbeiten"
 
 #: templates/spirit/user/admin/_tabs.html:8
 msgid "List"
@@ -41,7 +41,7 @@ msgstr "inaktiv"
 #: templates/spirit/user/admin/edit.html:5
 #: templates/spirit/user/admin/edit.html:9
 msgid "Edit user"
-msgstr "Benutzer editieren"
+msgstr "Benutzer bearbeiten"
 
 #: templates/spirit/user/admin/edit.html:16
 msgid "Save"
@@ -50,7 +50,7 @@ msgstr "speichern"
 #: templates/spirit/user/admin/index.html:5
 #: templates/spirit/user/admin/index.html:11
 msgid "User list"
-msgstr "Benutzer_innenliste"
+msgstr "Benutzerliste"
 
 #: templates/spirit/user/admin/unactive.html:5
 #: templates/spirit/user/admin/unactive.html:11

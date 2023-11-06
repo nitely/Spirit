@@ -33,23 +33,23 @@ msgstr "Das eingegebene Passwort ist falsch."
 
 #: forms.py:79
 msgid "Remove avatar"
-msgstr ""
+msgstr "Avatar entfernen"
 
 #: forms.py:88
 msgid "Time zone"
-msgstr ""
+msgstr "Zeitzone"
 
 #: forms.py:90
 msgid "Email notifications"
-msgstr ""
+msgstr "E-Mail Benachrichtigungen"
 
 #: forms.py:92
 msgid "Email mentions"
-msgstr ""
+msgstr "E-Mail Erwähnungen"
 
 #: forms.py:94
 msgid "Email replies"
-msgstr ""
+msgstr "E-Mail Antworten"
 
 #: forms.py:104
 #, python-format
@@ -59,19 +59,19 @@ msgstr "Aktuelle Zeit: %(date)s %(time)s"
 #: forms.py:123
 #, python-format
 msgid "Unsupported file format. Supported formats are %s."
-msgstr "Nicht unterstütztes Dateiformat. Unterstützte Formate sind %s."
+msgstr "Nicht-unterstütztes Dateiformat. Unterstützte Formate sind %s."
 
 #: models.py:30
 msgid "Never"
-msgstr ""
+msgstr "nie"
 
 #: models.py:31
 msgid "Immediately"
-msgstr ""
+msgstr "sofort"
 
 #: models.py:32
 msgid "Weekly"
-msgstr ""
+msgstr "wöchentlich"
 
 #: models.py:37
 msgid "profile"
@@ -79,7 +79,7 @@ msgstr "Profil"
 
 #: models.py:42
 msgid "nickname"
-msgstr ""
+msgstr "Nickname"
 
 #: models.py:43
 msgid "location"
@@ -91,7 +91,7 @@ msgstr "zuletzt gesehen"
 
 #: models.py:45
 msgid "last ip"
-msgstr "letzte ip"
+msgstr "letzte IP"
 
 #: models.py:46
 msgid "time zone"
@@ -99,15 +99,15 @@ msgstr "Zeitzone"
 
 #: models.py:48
 msgid "avatar"
-msgstr ""
+msgstr "Avatar"
 
 #: models.py:52
 msgid "administrator status"
-msgstr "Administrator Status"
+msgstr "Administrator-Status"
 
 #: models.py:53
 msgid "moderator status"
-msgstr "Moderator Status"
+msgstr "Moderator-Status"
 
 #: models.py:55
 msgid "verified"
@@ -137,11 +137,11 @@ msgstr ""
 
 #: models.py:68
 msgid "forum profile"
-msgstr "Forum Profil"
+msgstr "Forum-Profil"
 
 #: models.py:69
 msgid "forum profiles"
-msgstr "Forum Profile"
+msgstr "Forum-Profile"
 
 #: templates/spirit/user/_profile.html:22
 msgid "Joined at"
@@ -159,7 +159,7 @@ msgstr "Letzte IP"
 #: templates/spirit/user/profile_update.html:5
 #: templates/spirit/user/profile_update.html:9
 msgid "Preferences"
-msgstr "Vorlieben"
+msgstr "Einstellungen"
 
 #: templates/spirit/user/_profile.html:51
 msgid "Private Message"
@@ -167,7 +167,7 @@ msgstr "Private Nachricht"
 
 #: templates/spirit/user/_profile.html:60
 msgid "Edit user"
-msgstr "Benutzer editieren"
+msgstr "Benutzer bearbeiten"
 
 #: templates/spirit/user/_profile.html:69
 msgid "Comments"
@@ -211,7 +211,7 @@ msgstr "Bitte klicke auf den folgenden Link um die Änderung deiner E-Mailadress
 
 #: templates/spirit/user/menu.html:7
 msgid "User menu"
-msgstr "Benutzer_innen Menü"
+msgstr "Benutzermenü"
 
 #: templates/spirit/user/menu.html:11
 msgid "Menu"
@@ -245,15 +245,15 @@ msgstr "Kommentare"
 #: templates/spirit/user/profile_email_change.html:9 tests.py:632
 #: tests.py:1177 utils/email.py:34
 msgid "Email change"
-msgstr "E-Mailadresse ändern"
+msgstr "E-Mail-Adresse ändern"
 
 #: templates/spirit/user/profile_email_change.html:15
 msgid "Change my email"
-msgstr "Meine E-Mailadresse ändern"
+msgstr "Meine E-Mail-Adresse ändern"
 
 #: templates/spirit/user/profile_likes.html:5
 msgid "likes"
-msgstr "likes"
+msgstr "Likes"
 
 #: templates/spirit/user/profile_password_change.html:5
 #: templates/spirit/user/profile_password_change.html:9
@@ -278,7 +278,7 @@ msgstr "speichern"
 
 #: tests.py:1161 utils/email.py:26
 msgid "User activation"
-msgstr "Benutzer_innen-Aktivierung"
+msgstr "Benutzeraktivierung"
 
 #: views.py:39
 msgid "Your profile has been updated!"
@@ -298,14 +298,16 @@ msgstr "Deine E-Mailadresse wurde geändert!"
 
 #: views.py:96
 msgid "Sorry, we were not able to change your email."
-msgstr "Sorry, es ist uns nicht möglich deine E-Mail-Adresse zu ändern."
+msgstr "Leider ist es uns nicht möglich deine E-Mail-Adresse zu ändern."
 
 #: views.py:107
 msgid "You are now unsubscribed!"
-msgstr ""
+msgstr "Du bist nun nicht mehr abonniert!"
 
 #: views.py:110
 msgid ""
 "Sorry, we were not able to unsubscribed you. Please login and change your "
 "notifications settings."
 msgstr ""
+"Leider ist es uns nicht möglich dein Abonnement aufzuheben. Bitte führe "
+"einen Login durch und ändere deine Benachrichtigungs-Einstellungen."

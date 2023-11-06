@@ -49,7 +49,7 @@ msgstr "Benachrichtigung abstellen"
 
 #: templates/spirit/topic/notification/_form.html:14
 msgid "Notify Me"
-msgstr "Benachrichtige Mich"
+msgstr "benachrichtige mich"
 
 #: templates/spirit/topic/notification/_render_list.html:11
 #, python-format
@@ -87,26 +87,26 @@ msgstr "Ungelesene Benachrichtigungen"
 
 #: templates/spirit/topic/notification/_top_bar.html:38
 msgid "Mark All As Read"
-msgstr ""
+msgstr "alle als gelesen markieren"
 
 #: templates/spirit/topic/notification/email_notification.html:2
 #: templates/spirit/topic/notification/email_notification_weekly.html:2
 #, python-format
 msgid "You have a new notification on %(site_name)s."
-msgstr ""
+msgstr "Du hast eine neue Benachrichtigung auf %(site_name)s."
 
 #: templates/spirit/topic/notification/email_notification.html:6
 msgid "View comment"
-msgstr ""
+msgstr "Kommentar anzeigen"
 
 #: templates/spirit/topic/notification/email_notification.html:10
 #: templates/spirit/topic/notification/email_notification_weekly.html:10
 msgid "Unsubscribe"
-msgstr ""
+msgstr "abbestellen"
 
 #: templates/spirit/topic/notification/email_notification_weekly.html:6
 msgid "View notifications"
-msgstr ""
+msgstr "Benachrichtigungen anzeigen"
 
 #: templates/spirit/topic/notification/index_unread.html:14
 msgid "There are no new notifications"

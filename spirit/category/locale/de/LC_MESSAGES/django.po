@@ -30,19 +30,19 @@ msgstr "Beschreibung"
 
 #: models.py:33
 msgid "color"
-msgstr ""
+msgstr "Farbe"
 
 #: models.py:34
 msgid "Title color in hex format (i.e: #1aafd0)."
-msgstr ""
+msgstr "Titelfarbe im Hex-Format (z.B.: #1aafd0)."
 
 #: models.py:35
 msgid "sorting order"
-msgstr ""
+msgstr "Sortierreihenfolge"
 
 #: models.py:36
 msgid "modified at"
-msgstr ""
+msgstr "geändert um"
 
 #: models.py:39
 msgid "global"

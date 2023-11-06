@@ -61,7 +61,7 @@ msgstr "Themen"
 
 #: templates/spirit/admin/_nav_menu.html:33
 msgid "Users"
-msgstr "Benutzer_innen"
+msgstr "Benutzer"
 
 #: templates/spirit/admin/_nav_menu.html:37
 #: templates/spirit/admin/dashboard.html:42

@@ -16,15 +16,15 @@ msgstr ""
 
 #: forms.py:28
 msgid "This like already exists"
-msgstr "like existiert bereits"
+msgstr "Like existiert bereits"
 
 #: models.py:27
 msgid "like"
-msgstr "like"
+msgstr "Like"
 
 #: models.py:28
 msgid "likes"
-msgstr "likes"
+msgstr "Likes"
 
 #: templates/spirit/comment/like/create.html:5
 #: templates/spirit/comment/like/create.html:18
@@ -39,9 +39,9 @@ msgstr "Like %(username)ss Kommentar"
 #: templates/spirit/comment/like/delete.html:5
 #: templates/spirit/comment/like/delete.html:17
 msgid "Remove like"
-msgstr "like entfernen"
+msgstr "Like entfernen"
 
 #: templates/spirit/comment/like/delete.html:10
 #, python-format
 msgid "Remove %(username)s's comment like"
-msgstr "Entferne %(username)ss Kommentarlike"
+msgstr "Entferne %(username)ss Kommentar-Like"
