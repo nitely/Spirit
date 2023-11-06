@@ -1,18 +1,19 @@
-# 
+#
 # Translators:
 # 5a85a00218ad0559ac6870a4179f4dbc, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"POT-Creation-Date: 2023-11-06 10:34+0100\n"
 "PO-Revision-Date: 2020-10-25 08:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:35
@@ -56,14 +57,18 @@ msgstr "benachrichtige mich"
 msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has commented on <a "
 "href=\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr "<a href=\"%(url_profile)s\">%(username)s</a> kommentierte zu <a href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr ""
+"<a href=\"%(url_profile)s\">%(username)s</a> kommentierte zu <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
 
 #: templates/spirit/topic/notification/_render_list.html:15
 #, python-format
 msgid ""
 "<a href=\"%(url_profile)s\">%(username)s</a> has mention you on <a "
 "href=\"%(url_topic)s\">%(topic_title)s</a>"
-msgstr "<a href=\"%(url_profile)s\">%(username)s</a> erwähnte Dich in <a href=\"%(url_topic)s\">%(topic_title)s</a>"
+msgstr ""
+"<a href=\"%(url_profile)s\">%(username)s</a> erwähnte Dich in <a "
+"href=\"%(url_topic)s\">%(topic_title)s</a>"
 
 #: templates/spirit/topic/notification/_render_list.html:22
 msgid "unread"

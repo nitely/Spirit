@@ -1,18 +1,19 @@
-# 
+#
 # Translators:
 # Sven Hessenmüller <sven.hessenmueller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"POT-Creation-Date: 2023-11-06 10:33+0100\n"
 "PO-Revision-Date: 2020-09-13 00:53+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:33
@@ -162,8 +163,7 @@ msgstr "Thema moderieren"
 msgid "Apply"
 msgstr "anwenden"
 
-#: templates/spirit/topic/publish.html:5
-#: templates/spirit/topic/publish.html:20
+#: templates/spirit/topic/publish.html:5 templates/spirit/topic/publish.html:20
 msgid "Publish topic"
 msgstr "Thema veröffentlichen"
 

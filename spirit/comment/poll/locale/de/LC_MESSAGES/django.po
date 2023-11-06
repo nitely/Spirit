@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"POT-Creation-Date: 2023-11-06 10:34+0100\n"
 "PO-Revision-Date: 2015-10-14 21:05+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:29 forms.py:35
@@ -121,7 +122,8 @@ msgstr ""
 
 #: templates/spirit/comment/poll/_form.html:43
 msgid "Results will be available when the poll is closed."
-msgstr "Die Ergebnisse werden verfügbar sein, wenn die Umfrage geschlossen ist."
+msgstr ""
+"Die Ergebnisse werden verfügbar sein, wenn die Umfrage geschlossen ist."
 
 #: templates/spirit/comment/poll/_form.html:52
 msgid "Vote"
