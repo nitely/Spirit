@@ -102,7 +102,7 @@ msgstr "abmelden"
 
 #: templates/spirit/user/auth/logout.html:9
 msgid "Are you sure you want to log out?"
-msgstr "Sind Sie sicher, dass sie sich ausloggen wollen?"
+msgstr "Bist du sicher, dass du dich ausloggen willst?"
 
 #: templates/spirit/user/auth/password_reset_complete.html:8
 #: templates/spirit/user/auth/password_reset_complete.html:12
