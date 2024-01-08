@@ -1,27 +1,30 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"POT-Creation-Date: 2023-11-06 10:33+0100\n"
 "PO-Revision-Date: 2018-01-30 15:40+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:51
 msgid ""
 "The category you are updating can not have a parent since it has childrens"
-msgstr "Der Kategorie die du updatest, kann keine übergeordnete Kategorie zugewiesen werden, da sie selbst untergeordnete Kategorien besitzt."
+msgstr ""
+"Der Kategorie die du updatest, kann keine übergeordnete Kategorie zugewiesen "
+"werden, da sie selbst untergeordnete Kategorien besitzt."
 
 #: forms.py:61
 msgid "The input is not a valid hex color."
-msgstr ""
+msgstr "Die Eingabe ist keine gültige Hex-Farbe."
 
 #: templates/spirit/category/admin/create.html:5
 #: templates/spirit/category/admin/create.html:9
@@ -36,7 +39,7 @@ msgstr "speichern"
 #: templates/spirit/category/admin/index.html:5
 #: templates/spirit/category/admin/index.html:13
 msgid "Category list"
-msgstr "Kategorieliste"
+msgstr "Kategorienliste"
 
 #: templates/spirit/category/admin/index.html:20
 msgid "Create Category"
@@ -45,7 +48,7 @@ msgstr "Kategorie anlegen"
 #: templates/spirit/category/admin/index.html:52
 #: templates/spirit/category/admin/index.html:87
 msgid "edit"
-msgstr "editieren"
+msgstr "bearbeiten"
 
 #: templates/spirit/category/admin/update.html:5
 #: templates/spirit/category/admin/update.html:9
