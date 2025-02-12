@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "django-spirit"
 dynamic = ["version"]
@@ -39,7 +43,6 @@ files = [
     "python-magic-bin==0.4.14; sys_platform == 'win32' or sys_platform == 'darwin'",
 ]
 huey = ["huey == 2.4.5"]
-celery = ["celery[redis] == 4.4.7"]
 
 [project.urls]
 Homepage = "http://spirit-project.com/"
