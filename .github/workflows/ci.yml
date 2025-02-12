@@ -29,7 +29,7 @@ jobs:
         pip install --upgrade coveralls
     - name: Run Tests
       run: |
-        python setup.py -q build
+        python -m build --no-isolation
         python ./spirit/extra/bin/spirit.py startproject project
         export PYTHONWARNINGS="default"
         coverage run --source=. runtests.py
