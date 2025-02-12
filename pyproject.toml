@@ -1,0 +1,59 @@
+[project]
+name = "django-spirit"
+dynamic = ["version"]
+description = "Spirit is a Python based forum powered by Django."
+authors = [
+    { name = "Esteban Castro Borsani", email = "ecastroborsani@gmail.com" }
+]
+readme = "README.md"
+license = { text = "MIT License" }
+requires-python = ">=3.8"
+dependencies = [
+    "Django>=4.2,<5",
+    "django-haystack==3.3.0",
+    "whoosh==2.7.4",
+    "mistune==0.8.4",
+    "Pillow==9.5.0",
+    "olefile==0.46",
+    "django-infinite-scroll-pagination>=1.1.0,<1.2",
+    "django-djconfig>=0.11.0,<0.12",
+    "pytz",
+    "tzdata",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+
+[project.optional-dependencies]
+files = [
+    "python-magic==0.4.27",
+    "python-magic-bin==0.4.14; sys_platform == 'win32' or sys_platform == 'darwin'",
+]
+huey = ["huey == 2.4.5"]
+celery = ["celery[redis] == 4.4.7"]
+
+[project.urls]
+Homepage = "http://spirit-project.com/"
+
+[project.scripts]
+spirit = "spirit.extra.bin.spirit:main"
+
+[tool.setuptools]
+packages = ["spirit"]
+
+[tool.setuptools.dynamic]
+version = { attr = "spirit.__version__" }
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar>=4.4.6",
+]
