@@ -24,9 +24,11 @@ jobs:
       run: |
         uv sync --all-extras
         uv pip install --upgrade Django==${{ matrix.django }}
-    - name: Run Tests
+    - name: Test build
       run: |
         uv build --sdist
+    - name: Run Tests
+      run: |
         uv run ./spirit/extra/bin/spirit.py startproject project
         export PYTHONWARNINGS="default"
         make test
