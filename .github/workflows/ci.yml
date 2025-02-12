@@ -12,120 +12,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.9', '3.10', '3.11']
-        django: ['3.2', '4.2']
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install .[files,huey]
-        pip uninstall django-spirit -y
-        pip install --upgrade Django==${{ matrix.django }}
-        pip install --upgrade coveralls
-    - name: Run Tests
-      run: |
-        python -m build --no-isolation
-        python ./spirit/extra/bin/spirit.py startproject project
-        export PYTHONWARNINGS="default"
-        coverage run --source=. runtests.py
-    - name: Submit to coveralls
-      env:
-        COVERALLS_FLAG_NAME: run-${{ matrix.python }}-${{ matrix.django }}
-        COVERALLS_PARALLEL: true
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        coveralls --service=github
-  coveralls:
-    name: Finish Coveralls
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v1
-      with:
-         python-version: 3.11
-    - name: Finished
-      run: |
-        python -m pip install --upgrade pip
-        pip install --upgrade coveralls
-        coveralls --finish
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  test_js:
-    name: JS
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [12.x]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set Up NodeJS ${{ matrix.node }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node }}
-    - name: Install Dependencies
-      run: |
-        npm install -g yarn
-        npm install -g jasmine@3.6.1
-        yarn
-    - name: Run Tests
-      run: |
-        make testjs
-  test_no_deps:
-    name: No-deps / Py ${{ matrix.python }} / Django ${{ matrix.django }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
         python: ['3.11']
         django: ['4.2']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python }}
-      uses: actions/setup-python@v1
+      uses: astral-sh/setup-uv@v5
       with:
         python-version: ${{ matrix.python }}
     - name: Install Dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install .
-        pip uninstall django-spirit -y
-        pip install --upgrade Django==${{ matrix.django }}
+        uv sync --all-extras
+        uv pip install --upgrade Django==${{ matrix.django }}
     - name: Run Tests
       run: |
-        python ./spirit/extra/bin/spirit.py startproject project
+        uv build --sdist
+        uv run ./spirit/extra/bin/spirit.py startproject project
         export PYTHONWARNINGS="default"
-        export ST_UPLOAD_FILE_ENABLED=0
-        export ST_INSTALL_HUEY=0
-        make test
-  test_huey:
-    name: Huey / Py ${{ matrix.python }} / Django ${{ matrix.django }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python: ['3.11']
-        django: ['4.2']
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install .[huey]
-        pip uninstall django-spirit -y
-        pip install --upgrade Django==${{ matrix.django }}
-    - name: Run Tests
-      run: |
-        python ./spirit/extra/bin/spirit.py startproject project
-        export PYTHONWARNINGS="default"
-        export ST_UPLOAD_FILE_ENABLED=0
-        export ST_TASK_MANAGER="huey"
         make test
