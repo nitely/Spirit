@@ -23,7 +23,7 @@ jobs:
     - name: Install Dependencies
       run: |
         uv sync --all-extras
-        uv pip install --upgrade Django==${{ matrix.django }}
+        uv pip install --upgrade Django~=${{ matrix.django }}
     - name: Test build
       run: |
         uv build --sdist
@@ -68,7 +68,7 @@ jobs:
     - name: Install Dependencies
       run: |
         uv sync
-        uv pip install --upgrade Django==${{ matrix.django }}
+        uv pip install --upgrade Django~=${{ matrix.django }}
     - name: Run Tests
       run: |
         uv run ./spirit/extra/bin/spirit.py startproject project
@@ -92,7 +92,7 @@ jobs:
     - name: Install Dependencies
       run: |
         uv sync --all-extras
-        uv pip install --upgrade Django==${{ matrix.django }}
+        uv pip install --upgrade Django~=${{ matrix.django }}
     - name: Run Tests
       run: |
         uv run ./spirit/extra/bin/spirit.py startproject project
