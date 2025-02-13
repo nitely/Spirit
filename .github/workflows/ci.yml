@@ -76,3 +76,27 @@ jobs:
         export ST_UPLOAD_FILE_ENABLED=0
         export ST_INSTALL_HUEY=0
         make test
+  test_huey:
+    name: Huey / Py ${{ matrix.python }} / Django ${{ matrix.django }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11']
+        django: ['4.2']
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python }}
+      uses: astral-sh/setup-uv@v5
+      with:
+        python-version: ${{ matrix.python }}
+    - name: Install Dependencies
+      run: |
+        uv sync --all-extras
+        uv pip install --upgrade Django==${{ matrix.django }}
+    - name: Run Tests
+      run: |
+        uv run ./spirit/extra/bin/spirit.py startproject project
+        export PYTHONWARNINGS="default"
+        export ST_UPLOAD_FILE_ENABLED=0
+        export ST_TASK_MANAGER="huey"
+        make test
