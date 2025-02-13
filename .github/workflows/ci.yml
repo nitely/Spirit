@@ -32,3 +32,23 @@ jobs:
         uv run ./spirit/extra/bin/spirit.py startproject project
         export PYTHONWARNINGS="default"
         make test
+  test_js:
+    name: JS
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Up NodeJS ${{ matrix.node }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+    - name: Install Dependencies
+      run: |
+        npm install -g yarn
+        npm install -g jasmine@3.6.1
+        yarn
+    - name: Run Tests
+      run: |
+        make testjs
