@@ -39,7 +39,8 @@ For detailed setup docs, see [spirit.readthedocs.io](http://spirit.readthedocs.i
 ## Testing
 
 ```
-python runtests.py
+uv sync --all-extras
+uv run runtests.py
 ```
 
 ## License

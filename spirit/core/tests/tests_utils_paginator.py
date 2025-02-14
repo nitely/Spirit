@@ -74,7 +74,7 @@ class UtilsInfinitePaginatorTest(TestCase):
         self.assertEqual(
             page.next_page(),
             {'pk': page_last.pk,
-             'value': page_last.date})
+             'value': (page_last.date,)})
 
         # second page
         page_last = list(self.queryset[:15])[-1]
@@ -90,7 +90,7 @@ class UtilsInfinitePaginatorTest(TestCase):
         self.assertEqual(
             page.next_page(),
             {'pk': second_page_last.pk,
-             'value': second_page_last.date})
+             'value': (second_page_last.date,)})
 
         # invalid (id) page
         last = self.queryset.order_by("-date").last()
