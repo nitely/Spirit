@@ -113,9 +113,9 @@ requires-dist = [
     { name = "django-djconfig", specifier = ">=0.11.0,<0.12" },
     { name = "django-haystack", specifier = "==3.3.0" },
     { name = "django-infinite-scroll-pagination", specifier = ">=1.1.0,<1.2" },
-    { name = "huey", marker = "extra == 'huey'", specifier = "==2.4.5" },
+    { name = "huey", marker = "extra == 'huey'", specifier = "~=2.5" },
     { name = "mistune", specifier = "==0.8.4" },
-    { name = "olefile", specifier = "==0.46" },
+    { name = "olefile", specifier = "==0.47" },
     { name = "pillow", specifier = "==10.4.0" },
     { name = "python-magic", marker = "extra == 'files'", specifier = "==0.4.27" },
     { name = "python-magic-bin", marker = "(sys_platform == 'darwin' and extra == 'files') or (sys_platform == 'win32' and extra == 'files')", specifier = "==0.4.14" },
@@ -129,9 +129,9 @@ dev = [{ name = "django-debug-toolbar", specifier = ">=4.4.6" }]
 
 [[package]]
 name = "huey"
-version = "2.4.5"
+version = "2.5.2"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a7/2e/a1afc46dd8fadf43eaa7ca7232d1c766d444d636e840278bd1b6c2b6d873/huey-2.4.5.tar.gz", hash = "sha256:760cf150deff1fa34b852da37701a5a750d1148f03ea07aa2b3764dc6060b4c3", size = 633785 }
+sdist = { url = "https://files.pythonhosted.org/packages/9c/fe/2e063984cdd512aa71e9c9c2a9200b58a830c532d25ca2c6cbc8e44bf7b7/huey-2.5.2.tar.gz", hash = "sha256:df33db474c05414ed40ee2110e9df692369871734da22d74ffb035a4bd74047f", size = 889357 }
 
 [[package]]
 name = "mistune"
@@ -144,9 +144,12 @@ wheels = [
 
 [[package]]
 name = "olefile"
-version = "0.46"
+version = "0.47"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/34/81/e1ac43c6b45b4c5f8d9352396a14144bba52c8fec72a80f425f6a4d653ad/olefile-0.46.zip", hash = "sha256:133b031eaf8fd2c9399b78b8bc5b8fcbe4c31e85295749bb17a87cba8f3c3964", size = 112226 }
+sdist = { url = "https://files.pythonhosted.org/packages/69/1b/077b508e3e500e1629d366249c3ccb32f95e50258b231705c09e3c7a4366/olefile-0.47.zip", hash = "sha256:599383381a0bf3dfbd932ca0ca6515acd174ed48870cbf7fee123d698c192c1c", size = 112240 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/17/d3/b64c356a907242d719fc668b71befd73324e47ab46c8ebbbede252c154b2/olefile-0.47-py2.py3-none-any.whl", hash = "sha256:543c7da2a7adadf21214938bb79c83ea12b473a4b6ee4ad4bf854e7715e13d1f", size = 114565 },
+]
 
 [[package]]
 name = "packaging"

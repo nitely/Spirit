@@ -122,12 +122,12 @@ jobs:
       run: |
         uv run ./spirit/extra/bin/spirit.py startproject project
         export PYTHONWARNINGS="default"
-        uv run coverage run --source=. runtests.py
+        uv run -- coverage run --source=. runtests.py
     - name: Submit to coveralls
       env:
         COVERALLS_FLAG_NAME: run-${{ matrix.python }}-${{ matrix.django }}
         COVERALLS_PARALLEL: true
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        uv run coveralls --service=github
-        uv run coveralls --finish
+        uv run -- coveralls --service=github
+        uv run -- coveralls --finish

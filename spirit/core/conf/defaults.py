@@ -138,7 +138,8 @@ ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'jpg', 'gif')
 
 #: Enable/disable file uploads within posts.
 #: Requires running ``pip install django-spirit[files]`` to install
-#: `python-magic <https://github.com/ahupp/python-magic#installation>`_
+#: `python-magic <https://github.com/ahupp/python-magic#installation>`_.
+#: Read the instructions to install libmagic.
 ST_UPLOAD_FILE_ENABLED = False
 #: Uploaded files will be validated against these formats.
 #: This is a map of extension and media-type. Both are used for validation
