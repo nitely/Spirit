@@ -100,3 +100,34 @@ jobs:
         export ST_UPLOAD_FILE_ENABLED=0
         export ST_TASK_MANAGER="huey"
         make test
+  coverage:
+    name: Coverage / Py ${{ matrix.python }} / Django ${{ matrix.django }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11']
+        django: ['4.2']
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python }}
+      uses: astral-sh/setup-uv@v5
+      with:
+        python-version: ${{ matrix.python }}
+    - name: Install Dependencies
+      run: |
+        uv sync --all-extras
+        uv pip install --upgrade Django~=${{ matrix.django }}
+        uv pip install --upgrade coveralls
+    - name: Run Tests
+      run: |
+        uv run ./spirit/extra/bin/spirit.py startproject project
+        export PYTHONWARNINGS="default"
+        uv run coverage run --source=. runtests.py
+    - name: Submit to coveralls
+      env:
+        COVERALLS_FLAG_NAME: run-${{ matrix.python }}-${{ matrix.django }}
+        COVERALLS_PARALLEL: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        uv run coveralls --service=github
+        uv run coveralls --finish
