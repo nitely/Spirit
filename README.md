@@ -13,7 +13,7 @@ Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/lat
 
 ## Compatibility
 
-* Python 3.8, 3.9, 3.10, 3.11, and 3.12
+* Python 3.9, 3.10, 3.11, and 3.12
 * Django 4.2 LTS
 * PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
