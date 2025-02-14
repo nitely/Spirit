@@ -71,7 +71,7 @@ LANGUAGES = [
 LANGUAGE_CODE = 'en'
 
 # Append the MD5 hash of the file’s content to the filename
-STORAGES["staticfiles"] = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STORAGES["staticfiles"]["BACKEND"] = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Celery is optional, Huey can be used instead
 # https://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
