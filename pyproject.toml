@@ -41,7 +41,13 @@ files = [
 huey = ["huey == 2.4.5"]
 
 [project.urls]
-Homepage = "http://spirit-project.com/"
+Documentation = "https://spirit.readthedocs.io"
+Source = "https://github.com/nitely/Spirit"
+Donate = "https://ko-fi.com/nitely_"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [project.scripts]
 spirit = "spirit.extra.bin.spirit:main"
@@ -51,6 +57,9 @@ packages = ["spirit"]
 
 [tool.setuptools.dynamic]
 version = { attr = "spirit.__version__" }
+
+[tool.ruff]
+line-length = 120
 
 [dependency-groups]
 dev = [
