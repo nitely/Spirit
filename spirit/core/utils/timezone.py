@@ -3,25 +3,36 @@
 import logging
 import datetime
 
-import pytz
+import zoneinfo
+from zoneinfo import ZoneInfo
 
 
 __all__ = ['timezones']
 
 logger = logging.getLogger('django')
 
+def _common_timezones():
+    all_tz = [
+        z for z in zoneinfo.available_timezones()
+        if '/' in z and
+           not z.startswith('System') and
+           not z.startswith('Etc/')
+    ]
+    return ['UTC', 'GMT', *all_tz]
+
+common_timezones = _common_timezones()
+
 
 def is_standard_time(time_zone, date_time):
     try:
-        dst_delta = time_zone.dst(date_time, is_dst=False)
-    except TypeError:
-        dst_delta = time_zone.dst(date_time)
-
+        dst_delta = date_time.replace(tzinfo=time_zone, fold=1).dst()
+    except ValueError:  # delta greater than 24hs
+        return False
     return dst_delta == datetime.timedelta(0)
 
 
 def utc_offset(time_zone, fixed_dt=None):
-    tz = pytz.timezone(time_zone)
+    tz = ZoneInfo(time_zone)
     now = fixed_dt or datetime.datetime.now()
 
     for __ in range(72):
@@ -33,7 +44,7 @@ def utc_offset(time_zone, fixed_dt=None):
         logger.warning(
             'Standard Time not found for %s, will use DST.' % time_zone)
 
-    return tz.localize(now, is_dst=False).strftime('%z')
+    return now.replace(tzinfo=tz, fold=1).strftime('%z')
 
 
 def offset_to_int(offset):
@@ -51,7 +62,7 @@ def offset_to_int(offset):
 def timezones_by_offset():
     return sorted(
         ((utc_offset(tz), tz)
-         for tz in pytz.common_timezones),
+         for tz in common_timezones),
         key=lambda x: (offset_to_int(x[0]), x[1]))
 
 

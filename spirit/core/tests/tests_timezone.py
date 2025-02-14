@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import pytz
+from zoneinfo import ZoneInfo
 import datetime
 
 from django.test import TestCase
@@ -42,7 +42,7 @@ class UtilsTimezoneTests(TestCase):
         """
         Should return whether a timezone + datetime is in DST or not
         """
-        tz = pytz.timezone('America/St_Johns')
+        tz = ZoneInfo('America/St_Johns')
         no_dst = datetime.datetime(2012, 3, 9, 22, 30)
         dst_normal = datetime.datetime(2009, 9, 1)
         dst_ambiguous = datetime.datetime(2009, 10, 31, 23, 30)
@@ -50,7 +50,7 @@ class UtilsTimezoneTests(TestCase):
         self.assertFalse(utils_timezone.is_standard_time(tz, dst_normal))
         self.assertTrue(utils_timezone.is_standard_time(tz, dst_ambiguous))
 
-        tz = pytz.timezone('UTC')
+        tz = ZoneInfo('UTC')
         self.assertTrue(utils_timezone.is_standard_time(tz, no_dst))
 
     def test_utc_offset(self):
@@ -95,9 +95,9 @@ class UtilsTimezoneTests(TestCase):
         def fake_utc_offset(tz):
             return fake_timezones_dict[tz]
 
-        (common_timezones_org, utils_timezone.pytz.common_timezones,
+        (common_timezones_org, utils_timezone.common_timezones,
          utc_offset_org, utils_timezone.utc_offset) = (
-            utils_timezone.pytz.common_timezones, fake_timezones,
+            utils_timezone.common_timezones, fake_timezones,
             utils_timezone.utc_offset, fake_utc_offset)
         try:
             self.assertEqual(
@@ -108,7 +108,7 @@ class UtilsTimezoneTests(TestCase):
                     ('+0000', 'bbbb'),
                     ('+0300', 'dddd')])
         finally:
-            utils_timezone.pytz.common_timezones = common_timezones_org
+            utils_timezone.common_timezones = common_timezones_org
             utils_timezone.utc_offset = utc_offset_org
 
     def test_timezone_format(self):
