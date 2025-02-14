@@ -142,7 +142,6 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -165,7 +164,7 @@ STORAGES = {
     },
 }
 
-# Send an email to the site admins
+# Email to the site admins
 # on error when DEBUG=False,
 # log to console on error always.
 LOGGING = {
