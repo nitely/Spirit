@@ -38,7 +38,7 @@ INSTALLED_APPS.extend([
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mydatabase',
         'USER': 'mydatabaseuser',
         'PASSWORD': 'mypassword',
@@ -71,7 +71,7 @@ LANGUAGES = [
 LANGUAGE_CODE = 'en'
 
 # Append the MD5 hash of the file’s content to the filename
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STORAGES["staticfiles"]["BACKEND"] = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Celery is optional, Huey can be used instead
 # https://docs.celeryproject.org/en/latest/django/first-steps-with-django.html

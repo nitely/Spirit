@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
 
 app_name = 'flag'
 urlpatterns = [
-    re_path(r'^$', views.opened, name='index'),
-    re_path(r'^opened/$', views.opened, name='opened'),
-    re_path(r'^closed/$', views.closed, name='closed'),
-    re_path(r'^(?P<pk>[0-9]+)/$', views.detail, name='detail'),
+    path('', views.opened, name='index'),
+    path('opened/', views.opened, name='opened'),
+    path('closed/', views.closed, name='closed'),
+    path('<int:pk>/', views.detail, name='detail'),
 ]

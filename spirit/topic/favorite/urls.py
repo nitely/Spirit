@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
 
 app_name = 'favorite'
 urlpatterns = [
-    re_path(r'^(?P<topic_id>[0-9]+)/create/$', views.create, name='create'),
-    re_path(r'^(?P<pk>[0-9]+)/delete/$', views.delete, name='delete'),
+    path('<int:topic_id>/create/', views.create, name='create'),
+    path('<int:pk>/delete/', views.delete, name='delete'),
 ]

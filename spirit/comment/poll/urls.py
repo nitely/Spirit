@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
 
 app_name = 'poll'
 urlpatterns = [
-    re_path(r'^close/(?P<pk>[0-9]+)/$', views.close_or_open, name='close'),
-    re_path(r'^open/(?P<pk>[0-9]+)/$',
+    path('close/<int:pk>/', views.close_or_open, name='close'),
+    path('open/<int:pk>/',
         views.close_or_open,
         kwargs={'close': False},
         name='open'),
-    re_path(r'^vote/(?P<pk>[0-9]+)/$', views.vote, name='vote'),
-    re_path(r'^voters/(?P<pk>[0-9]+)/$', views.voters, name='voters'),
+    path('vote/<int:pk>/', views.vote, name='vote'),
+    path('voters/<int:pk>/', views.voters, name='voters'),
 ]

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
 
 app_name = 'search'
 urlpatterns = [
-    re_path(r'^$', views.SearchView(), name='search'),
+    path('', views.SearchView(), name='search'),
 ]

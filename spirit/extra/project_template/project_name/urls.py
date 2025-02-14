@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.urls import path
 from django.urls import include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,7 +14,7 @@ admin.site.login = login_required(admin.site.login)
 
 
 urlpatterns = [
-    re_path(r'^', include(spirit.urls)),
+    path('', include(spirit.urls)),
 
     # This is the default django admin
     # it's not needed to use Spirit

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.files.storage import (
-    FileSystemStorage, default_storage, get_storage_class)
+    FileSystemStorage, default_storage, storages)
 
 from .conf import settings
 
@@ -23,12 +23,9 @@ def select_storage(default=default_storage):
         return default
     if settings.ST_STORAGE == 'spirit.core.storage.OverwriteFileSystemStorage':
         return OverwriteFileSystemStorage()
-    # XXX: this is going to be a breaking change. Use the an alias defined in STORAGES
-    # some backward compat for FileSystemStorage
-    # if settings.ST_STORAGE == 'django.core.files.storage.FileSystemStorage':
-    #     return FileSystemStorage()
-    # return storages[settings.ST_STORAGE]
-    return get_storage_class(settings.ST_STORAGE)()
+    if settings.ST_STORAGE == 'django.core.files.storage.FileSystemStorage':
+        return FileSystemStorage()
+    return storages[settings.ST_STORAGE]
 
 
 spirit_storage_or_none = select_storage
