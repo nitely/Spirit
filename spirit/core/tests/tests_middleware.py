@@ -65,7 +65,7 @@ class XForwardedForMiddlewareTests(TestCase):
         try:
             self.client.get(
                 reverse('spirit:index'),
-                HTTP_X_FORWARDED_FOR='evil.ip, org.ip')
+                headers={"x-forwarded-for": 'evil.ip, org.ip'})
         finally:
             middleware.XForwardedForMiddleware = org_mid
 

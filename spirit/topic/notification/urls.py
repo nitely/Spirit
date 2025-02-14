@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
 
 app_name = 'notification'
 urlpatterns = [
-    re_path(r'^$', views.index, name='index'),
-    re_path(r'^unread/$', views.index_unread, name='index-unread'),
-    re_path(r'^ajax/$', views.index_ajax, name='index-ajax'),
-    re_path(r'^(?P<topic_id>[0-9]+)/create/$', views.create, name='create'),
-    re_path(r'^(?P<pk>[0-9]+)/update/$', views.update, name='update'),
-    re_path(r'^mark/$', views.mark_all_as_read, name='mark-all-as-read'),
+    path('', views.index, name='index'),
+    path('unread/', views.index_unread, name='index-unread'),
+    path('ajax/', views.index_ajax, name='index-ajax'),
+    path('<int:topic_id>/create/', views.create, name='create'),
+    path('<int:pk>/update/', views.update, name='update'),
+    path('mark/', views.mark_all_as_read, name='mark-all-as-read'),
 ]

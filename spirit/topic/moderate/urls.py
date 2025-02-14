@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
 
 app_name = 'moderate'
 urlpatterns = [
-    re_path(r'^delete/(?P<pk>[0-9]+)/$', views.delete, name='delete'),
-    re_path(r'^undelete/(?P<pk>[0-9]+)/$', views.undelete, name='undelete'),
+    path('delete/<int:pk>/', views.delete, name='delete'),
+    path('undelete/<int:pk>/', views.undelete, name='undelete'),
 
-    re_path(r'^lock/(?P<pk>[0-9]+)/$', views.lock, name='lock'),
-    re_path(r'^unlock/(?P<pk>[0-9]+)/$', views.unlock, name='unlock'),
+    path('lock/<int:pk>/', views.lock, name='lock'),
+    path('unlock/<int:pk>/', views.unlock, name='unlock'),
 
-    re_path(r'^pin/(?P<pk>[0-9]+)/$', views.pin, name='pin'),
-    re_path(r'^unpin/(?P<pk>[0-9]+)/$', views.unpin, name='unpin'),
+    path('pin/<int:pk>/', views.pin, name='pin'),
+    path('unpin/<int:pk>/', views.unpin, name='unpin'),
 
-    re_path(r'^global-pin/(?P<pk>[0-9]+)/$', views.global_pin, name='global-pin'),
-    re_path(r'^global-unpin/(?P<pk>[0-9]+)/$', views.global_unpin, name='global-unpin'),
+    path('global-pin/<int:pk>/', views.global_pin, name='global-pin'),
+    path('global-unpin/<int:pk>/', views.global_unpin, name='global-unpin'),
 ]

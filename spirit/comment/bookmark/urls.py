@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
 
 app_name = 'bookmark'
 urlpatterns = [
-    re_path(r'^(?P<topic_id>[0-9]+)/create/$', views.create, name='create'),
-    re_path(r'^(?P<topic_id>[0-9]+)/find/$', views.find, name='find'),
+    path('<int:topic_id>/create/', views.create, name='create'),
+    path('<int:topic_id>/find/', views.find, name='find'),
 ]

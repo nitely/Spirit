@@ -6,7 +6,7 @@ from django.utils.encoding import iri_to_uri
 try:
     from django.utils.http import url_has_allowed_host_and_scheme
 except ImportError:
-    from django.utils.http import is_safe_url as url_has_allowed_host_and_scheme
+    from django.utils.http import url_has_allowed_host_and_scheme as url_has_allowed_host_and_scheme
 
 
 def _resolve_lazy_url(url):

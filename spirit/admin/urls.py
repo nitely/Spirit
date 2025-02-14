@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import include, re_path
+from django.urls import path
+from django.urls import include
 
 from . import views
 import spirit.category.admin.urls
@@ -11,12 +12,12 @@ import spirit.user.admin.urls
 
 app_name = 'admin'
 urlpatterns = [
-    re_path(r'^$', views.dashboard, name='index'),
-    re_path(r'^dashboard/$', views.dashboard, name='dashboard'),
-    re_path(r'^config/$', views.config_basic, name='config-basic'),
+    path('', views.dashboard, name='index'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('config/', views.config_basic, name='config-basic'),
 
-    re_path(r'^category/', include(spirit.category.admin.urls)),
-    re_path(r'^comment/flag/', include(spirit.comment.flag.admin.urls)),
-    re_path(r'^topic/', include(spirit.topic.admin.urls)),
-    re_path(r'^user/', include(spirit.user.admin.urls)),
+    path('category/', include(spirit.category.admin.urls)),
+    path('comment/flag/', include(spirit.comment.flag.admin.urls)),
+    path('topic/', include(spirit.topic.admin.urls)),
+    path('user/', include(spirit.user.admin.urls)),
 ]

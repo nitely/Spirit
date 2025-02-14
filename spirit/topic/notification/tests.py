@@ -103,7 +103,7 @@ class TopicNotificationViewTest(TestCase):
         # ajax list should behave the same
         response = self.client.get(
             reverse('spirit:topic:notification:index-ajax'),
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            headers={"x-requested-with": 'XMLHttpRequest'})
         res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 1)
 
@@ -155,7 +155,7 @@ class TopicNotificationViewTest(TestCase):
         # ajax list should behave the same
         response = self.client.get(
             reverse('spirit:topic:notification:index-ajax'),
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            headers={"x-requested-with": 'XMLHttpRequest'})
         res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 0)
 
@@ -197,7 +197,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(
             reverse('spirit:topic:notification:index-ajax'),
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            headers={"x-requested-with": 'XMLHttpRequest'})
         res = json.loads(response.content.decode('utf-8'))
         self.assertEqual(len(res['n']), 1)
         expected = {
@@ -226,7 +226,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(
             reverse('spirit:topic:notification:index-ajax'),
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            headers={"x-requested-with": 'XMLHttpRequest'})
         res = json.loads(response.content.decode('utf-8'))
         self.assertGreater(
             TopicNotification.objects.filter(user=self.user).count(),
@@ -256,7 +256,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(
             reverse('spirit:topic:notification:index-ajax'),
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            headers={"x-requested-with": 'XMLHttpRequest'})
         res = json.loads(response.content.decode('utf-8'))
         self.assertFalse(res['n'][0]['is_read'])
         self.assertTrue(res['n'][1]['is_read'])
@@ -278,7 +278,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         response = self.client.get(
             reverse('spirit:topic:notification:index-ajax'),
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+            headers={"x-requested-with": 'XMLHttpRequest'}
         )
         res = json.loads(response.content.decode('utf-8'))
         expected = {

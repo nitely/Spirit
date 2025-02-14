@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
 
 app_name = 'flag'
 urlpatterns = [
-    re_path(r'^(?P<comment_id>[0-9]+)/create/$', views.create, name='create'),
+    path('<int:comment_id>/create/', views.create, name='create'),
 ]
