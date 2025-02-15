@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 Django settings for running the tests of spirit app
 """

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.http import Http404
 
 from infinite_scroll_pagination import paginator

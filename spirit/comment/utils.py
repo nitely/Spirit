@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from spirit.core import tasks
 from spirit.topic.notification.models import TopicNotification
 from spirit.topic.unread.models import TopicUnread

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.core import signing
 from django.utils.encoding import smart_str
 

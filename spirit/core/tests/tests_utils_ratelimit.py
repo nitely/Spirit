@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import warnings
 
 from django.test import TestCase, RequestFactory, override_settings
@@ -162,7 +160,7 @@ class UtilsRateLimitTests(TestCase):
                 req.user.pk,
                 rl_module.fixed_window(period=60))
             key_hash = rl_module.make_hash(key_part)
-            key = '%s:%s' % (settings.ST_RATELIMIT_CACHE_PREFIX, key_hash)
+            key = f'{settings.ST_RATELIMIT_CACHE_PREFIX}:{key_hash}'
 
             one(req)
             rl_cache = caches[settings.ST_RATELIMIT_CACHE]

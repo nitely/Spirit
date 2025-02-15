@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 
 from .models import CommentBookmark
@@ -12,7 +10,7 @@ class BookmarkForm(forms.ModelForm):
         fields = ['comment_number']
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
-        super(BookmarkForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.topic = topic
 

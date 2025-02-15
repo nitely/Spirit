@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -13,12 +11,12 @@ class LikeForm(forms.ModelForm):
         fields = []
 
     def __init__(self, user=None, comment=None, *args, **kwargs):
-        super(LikeForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.comment = comment
 
     def clean(self):
-        cleaned_data = super(LikeForm, self).clean()
+        cleaned_data = super().clean()
 
         like = CommentLike.objects.filter(user=self.user,
                                           comment=self.comment)
@@ -34,4 +32,4 @@ class LikeForm(forms.ModelForm):
             self.instance.user = self.user
             self.instance.comment = self.comment
 
-        return super(LikeForm, self).save(commit)
+        return super().save(commit)

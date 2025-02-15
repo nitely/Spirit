@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from spirit.core.conf import settings as st_settings
 
 from .registry import register

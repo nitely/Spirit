@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import re
 
 from django.utils.translation import gettext as _
@@ -38,5 +36,5 @@ def quotify(comment, username):
     comment = _strip_polls(comment)
     lines = comment.splitlines()
     quote = "\n> ".join(lines)
-    quote = "> %(header)s\n> %(quote)s\n\n" % {'header': header, 'quote': quote}
+    quote = f"> {header}\n> {quote}\n\n"
     return quote

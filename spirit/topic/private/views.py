@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib.auth import get_user_model

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import logging
 
 import mistune
@@ -17,7 +15,7 @@ class ParserError(Exception):
     """"""
 
 
-class PollParser(object):
+class PollParser:
 
     fields = {'invalid_params', 'invalid_body', 'name', 'title',
               'min', 'max', 'close', 'choices', 'mode'}
@@ -117,7 +115,7 @@ class PollParser(object):
 
         # _post_validate_poll_name()
         name = poll['name']
-        names = set(p['name'] for p in self.polls['polls'])
+        names = {p['name'] for p in self.polls['polls']}
 
         if name in names:  # Is this poll name already listed?
             raise ParserError('Poll name is duplicated')

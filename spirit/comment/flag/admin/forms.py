@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 
 from ..models import CommentFlag
@@ -12,9 +10,9 @@ class CommentFlagForm(forms.ModelForm):
         fields = ("is_closed", )
 
     def __init__(self, user=None, *args, **kwargs):
-        super(CommentFlagForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
 
     def save(self, commit=True):
         self.instance.moderator = self.user
-        return super(CommentFlagForm, self).save(commit)
+        return super().save(commit)

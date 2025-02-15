@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.shortcuts import redirect
 from django.utils.encoding import iri_to_uri
 

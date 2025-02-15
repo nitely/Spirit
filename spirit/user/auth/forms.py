@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
@@ -33,7 +31,7 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
         fields = ("username", "email")
 
     def __init__(self, *args, **kwargs):
-        super(RegistrationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['email'].required = True  # Django model does not requires it
 
     def clean_honeypot(self):
@@ -78,7 +76,7 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
     def save(self, commit=True):
         self.instance.is_active = False
         self.instance.set_password(self.cleaned_data["password"])
-        return super(RegistrationForm, self).save(commit)
+        return super().save(commit)
 
 
 class LoginForm(AuthenticationForm):
@@ -88,7 +86,7 @@ class LoginForm(AuthenticationForm):
         max_length=254)
 
     def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.error_messages['invalid_login'] = _("The password is not valid.")
 
     def _validate_username(self):
@@ -129,7 +127,7 @@ class LoginForm(AuthenticationForm):
 
     def clean(self):
         self._validate_username()
-        return super(LoginForm, self).clean()
+        return super().clean()
 
 
 class ResendActivationForm(forms.Form):

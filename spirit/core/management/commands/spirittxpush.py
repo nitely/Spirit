@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from subprocess import call
 import os
 
@@ -21,7 +19,7 @@ class Command(BaseCommand):
         tx_dir = os.path.join(root, '.tx')
 
         if not os.path.isdir(tx_dir):
-            raise CommandError('Can\'t find the .tx folder in %s' % (root, ))
+            raise CommandError(f'Can\'t find the .tx folder in {root}')
 
         with utils.pushd(root):
             # -t will update the translation,

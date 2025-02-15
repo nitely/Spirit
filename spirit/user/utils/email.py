@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 
