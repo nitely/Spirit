@@ -40,11 +40,7 @@ def delete(request, pk):
 
         if is_ajax(request):
             url = reverse("spirit:comment:like:create", kwargs={"comment_id": like.comment.pk})
-            return json_response(
-                {
-                    "url_create": url,
-                }
-            )
+            return json_response({"url_create": url})
 
         return safe_redirect(request, "next", like.comment.get_absolute_url(), method="POST")
 

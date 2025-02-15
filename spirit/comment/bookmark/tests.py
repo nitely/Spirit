@@ -21,16 +21,9 @@ class CommentBookmarkViewTest(TestCase):
         create comment
         """
         utils.login(self)
-        form_data = {
-            "comment_number": 999,
-        }
+        form_data = {"comment_number": 999}
         response = self.client.post(
-            reverse(
-                "spirit:comment:bookmark:create",
-                kwargs={
-                    "topic_id": self.topic.pk,
-                },
-            ),
+            reverse("spirit:comment:bookmark:create", kwargs={"topic_id": self.topic.pk}),
             headers={"x-requested-with": "XMLHttpRequest"},
             data=form_data,
         )
@@ -156,14 +149,5 @@ class CommentBookmarkTemplateTagsTest(TestCase):
             "{% load comment_bookmark %}"
             "{% populate_bookmarks topics=topics user=user %}"
             "{{ topics.0.bookmark.get_absolute_url }}"
-        ).render(
-            Context(
-                {
-                    "topics": [
-                        self.topic,
-                    ],
-                    "user": self.user,
-                }
-            )
-        )
+        ).render(Context({"topics": [self.topic], "user": self.user}))
         self.assertEqual(out, bookmark.get_absolute_url())

@@ -65,12 +65,7 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:topic:notification:index"))
-        self.assertEqual(
-            list(response.context["notifications"]),
-            [
-                topic_notification2,
-            ],
-        )
+        self.assertEqual(list(response.context["notifications"]), [topic_notification2])
 
     def test_topic_notification_list_show_private_topic(self):
         """
@@ -85,21 +80,11 @@ class TopicNotificationViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:topic:notification:index"))
-        self.assertEqual(
-            list(response.context["notifications"]),
-            [
-                topic_notif,
-            ],
-        )
+        self.assertEqual(list(response.context["notifications"]), [topic_notif])
 
         # list unread should behave the same
         response = self.client.get(reverse("spirit:topic:notification:index-unread"))
-        self.assertEqual(
-            list(response.context["page"]),
-            [
-                topic_notif,
-            ],
-        )
+        self.assertEqual(list(response.context["page"]), [topic_notif])
 
         # ajax list should behave the same
         response = self.client.get(
@@ -175,12 +160,7 @@ class TopicNotificationViewTest(TestCase):
             reverse("spirit:topic:notification:index-unread"),
             {"p": to_page_key(value=topic_notification.date, pk=topic_notification.pk)},
         )
-        self.assertEqual(
-            list(response.context["page"]),
-            [
-                self.topic_notification,
-            ],
-        )
+        self.assertEqual(list(response.context["page"]), [self.topic_notification])
 
     def test_topic_notification_ajax(self):
         """
@@ -280,17 +260,9 @@ class TopicNotificationViewTest(TestCase):
         TopicNotification.objects.all().delete()
 
         utils.login(self)
-        form_data = {
-            "is_active": True,
-        }
+        form_data = {"is_active": True}
         response = self.client.post(
-            reverse(
-                "spirit:topic:notification:create",
-                kwargs={
-                    "topic_id": self.topic.pk,
-                },
-            ),
-            form_data,
+            reverse("spirit:topic:notification:create", kwargs={"topic_id": self.topic.pk}), form_data
         )
         self.assertRedirects(response, self.topic.get_absolute_url(), status_code=302)
         self.assertEqual(len(TopicNotification.objects.all()), 1)
@@ -304,17 +276,9 @@ class TopicNotificationViewTest(TestCase):
         utils.create_comment(topic=private.topic)
 
         utils.login(self)
-        form_data = {
-            "is_active": True,
-        }
+        form_data = {"is_active": True}
         response = self.client.post(
-            reverse(
-                "spirit:topic:notification:create",
-                kwargs={
-                    "topic_id": private.topic.pk,
-                },
-            ),
-            form_data,
+            reverse("spirit:topic:notification:create", kwargs={"topic_id": private.topic.pk}), form_data
         )
         self.assertRedirects(response, private.topic.get_absolute_url(), status_code=302)
         self.assertEqual(len(TopicNotification.objects.all()), 1)
@@ -326,17 +290,9 @@ class TopicNotificationViewTest(TestCase):
         private = utils.create_private_topic()
 
         utils.login(self)
-        form_data = {
-            "is_active": True,
-        }
+        form_data = {"is_active": True}
         response = self.client.post(
-            reverse(
-                "spirit:topic:notification:create",
-                kwargs={
-                    "topic_id": private.topic.pk,
-                },
-            ),
-            form_data,
+            reverse("spirit:topic:notification:create", kwargs={"topic_id": private.topic.pk}), form_data
         )
         self.assertEqual(response.status_code, 404)
 
@@ -345,9 +301,7 @@ class TopicNotificationViewTest(TestCase):
         update notification
         """
         utils.login(self)
-        form_data = {
-            "is_active": True,
-        }
+        form_data = {"is_active": True}
         response = self.client.post(
             reverse("spirit:topic:notification:update", kwargs={"pk": self.topic_notification.pk}), form_data
         )
@@ -365,13 +319,7 @@ class TopicNotificationViewTest(TestCase):
         utils.login(self)
         form_data = {}
         response = self.client.post(
-            reverse(
-                "spirit:topic:notification:update",
-                kwargs={
-                    "pk": notification.pk,
-                },
-            ),
-            form_data,
+            reverse("spirit:topic:notification:update", kwargs={"pk": notification.pk}), form_data
         )
         self.assertEqual(response.status_code, 404)
 
@@ -416,9 +364,7 @@ class TopicNotificationFormTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category)
         comment = utils.create_comment(topic=topic)
-        form_data = {
-            "is_active": True,
-        }
+        form_data = {"is_active": True}
         form = NotificationCreationForm(data=form_data)
         form.user = self.user
         form.topic = topic
@@ -441,9 +387,7 @@ class TopicNotificationFormTest(TestCase):
             user=self.user, topic=topic, comment=comment, is_active=True, action=COMMENT
         )
 
-        form_data = {
-            "is_active": True,
-        }
+        form_data = {"is_active": True}
         form = NotificationForm(data=form_data, instance=notification)
         self.assertEqual(form.is_valid(), True)
 
@@ -588,11 +532,7 @@ class TopicNotificationTemplateTagsTest(TestCase):
         template = Template(
             "{% load spirit_tags %}{% has_topic_notifications user=user as has_notifications %}{{ has_notifications }}"
         )
-        context = Context(
-            {
-                "user": self.user,
-            }
-        )
+        context = Context({"user": self.user})
 
         out = template.render(context)
         self.assertEqual(out, "True")

@@ -41,12 +41,7 @@ class Comment(models.Model):
         verbose_name_plural = _("comments")
 
     def get_absolute_url(self):
-        return reverse(
-            "spirit:comment:find",
-            kwargs={
-                "pk": str(self.id),
-            },
-        )
+        return reverse("spirit:comment:find", kwargs={"pk": str(self.id)})
 
     @property
     def like(self):

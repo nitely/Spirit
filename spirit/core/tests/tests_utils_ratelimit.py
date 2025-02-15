@@ -41,12 +41,7 @@ class UtilsRateLimitTests(TestCase):
         req.user = AnonymousUser()
         setup_request_factory_messages(req)
 
-        @ratelimit(
-            methods=[
-                "GET",
-            ],
-            rate="1/m",
-        )
+        @ratelimit(methods=["GET"], rate="1/m")
         def limit_ip(request):
             return request.is_limited()
 
@@ -68,12 +63,7 @@ class UtilsRateLimitTests(TestCase):
         setup_request_factory_messages(get)
         setup_request_factory_messages(post)
 
-        @ratelimit(
-            methods=[
-                "POST",
-            ],
-            rate="1/m",
-        )
+        @ratelimit(methods=["POST"], rate="1/m")
         def limit_post(request):
             return request.is_limited()
 
@@ -82,12 +72,7 @@ class UtilsRateLimitTests(TestCase):
         self.assertFalse(limit_post(get))
 
     def test_rate_limit_field(self):
-        req = RequestFactory().post(
-            "/",
-            {
-                "username": "esteban",
-            },
-        )
+        req = RequestFactory().post("/", {"username": "esteban"})
         req.user = AnonymousUser()
         setup_request_factory_messages(req)
 
@@ -104,12 +89,7 @@ class UtilsRateLimitTests(TestCase):
         self.assertTrue(username(req))
 
     def test_rate_limit_field_empty(self):
-        empty = RequestFactory().post(
-            "/",
-            {
-                "username": "",
-            },
-        )
+        empty = RequestFactory().post("/", {"username": ""})
         empty.user = AnonymousUser()
 
         @ratelimit(field="username", rate="1/m")

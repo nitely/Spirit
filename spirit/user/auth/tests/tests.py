@@ -181,9 +181,7 @@ class UserViewTest(TestCase):
         """
         test rate limit 5/5m
         """
-        form_data = {
-            "email": "bademail@bad.com",
-        }
+        form_data = {"email": "bademail@bad.com"}
 
         for attempt in range(5):
             response = self.client.post(reverse("spirit:user:auth:password-reset"), form_data)
@@ -302,9 +300,7 @@ class UserViewTest(TestCase):
         """
         utils.create_user(password="foo")
 
-        form_data = {
-            "email": "bad@foo.com",
-        }
+        form_data = {"email": "bad@foo.com"}
         response = self.client.post(reverse("spirit:user:auth:resend-activation"), form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 0)
@@ -482,9 +478,7 @@ class UserFormTest(TestCase):
         resend activation
         """
         user = utils.create_user(email="newfoo@bar.com")
-        form_data = {
-            "email": "newfoo@bar.com",
-        }
+        form_data = {"email": "newfoo@bar.com"}
         form = ResendActivationForm(form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.get_user(), user)
@@ -493,9 +487,7 @@ class UserFormTest(TestCase):
         """
         resend activation invalid
         """
-        form_data = {
-            "email": "bad@bar.com",
-        }
+        form_data = {"email": "bad@bar.com"}
         form = ResendActivationForm(form_data)
         self.assertFalse(form.is_valid())
 
@@ -506,9 +498,7 @@ class UserFormTest(TestCase):
         utils.create_user(email="duplicated@bar.com")
         user2 = utils.create_user(email="duplicated@bar.com")
         user3 = utils.create_user(email="duplicated@bar.com")
-        form_data = {
-            "email": "duplicated@bar.com",
-        }
+        form_data = {"email": "duplicated@bar.com"}
         form = ResendActivationForm(form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.get_user(), user3)
@@ -525,9 +515,7 @@ class UserFormTest(TestCase):
         Should lower the email before checking it
         """
         user = utils.create_user(email="newfoo@bar.com")
-        form_data = {
-            "email": "NeWfOO@bAr.COM",
-        }
+        form_data = {"email": "NeWfOO@bAr.COM"}
         form = ResendActivationForm(form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.get_user(), user)
@@ -538,9 +526,7 @@ class UserFormTest(TestCase):
         Should NOT lower the email before checking it
         """
         utils.create_user(email="newfoo@bar.com")
-        form_data = {
-            "email": "NeWfOO@bAr.COM",
-        }
+        form_data = {"email": "NeWfOO@bAr.COM"}
         form = ResendActivationForm(form_data)
         self.assertFalse(form.is_valid())
         self.assertRaises(AttributeError, form.get_user)

@@ -95,15 +95,7 @@ class TopicViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
 
         # ratelimit
-        response = self.client.post(
-            reverse(
-                "spirit:topic:publish",
-                kwargs={
-                    "category_id": category.pk,
-                },
-            ),
-            form_data,
-        )
+        response = self.client.post(reverse("spirit:topic:publish", kwargs={"category_id": category.pk}), form_data)
         self.assertEqual(response.status_code, 200)
 
     def test_topic_publish_in_subcategory(self):
@@ -463,9 +455,7 @@ class TopicFormTest(TestCase):
         """
         category = utils.create_category()
         topic = utils.create_topic(category)
-        form_data = {
-            "title": "foobar",
-        }
+        form_data = {"title": "foobar"}
         form = TopicForm(self.user, data=form_data, instance=topic)
         self.assertEqual(form.is_valid(), True)
 

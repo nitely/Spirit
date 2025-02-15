@@ -16,11 +16,7 @@ def get_page_number(obj_number, per_page):
 
 def get_url(url, obj_number, per_page, page_var):
     page = get_page_number(obj_number, per_page)
-    data = urlencode(
-        {
-            page_var: page,
-        }
-    )
+    data = urlencode({page_var: page})
 
     if page == 1:
         return "".join((url, "#c", str(obj_number)))

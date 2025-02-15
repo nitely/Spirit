@@ -727,9 +727,7 @@ class UserFormTest(TestCase):
         Duplicated email allowed
         """
         utils.create_user(email="duplicated@bar.com")
-        form_data = {
-            "email": "duplicated@bar.com",
-        }
+        form_data = {"email": "duplicated@bar.com"}
         form = EmailCheckForm(form_data)
         self.assertTrue(form.is_valid())
 
@@ -739,9 +737,7 @@ class UserFormTest(TestCase):
         Should lower case the email before validating it
         """
         utils.create_user(email="duplicated@bar.com")
-        form_data = {
-            "email": "DuPlIcAtEd@bAr.COM",
-        }
+        form_data = {"email": "DuPlIcAtEd@bAr.COM"}
         form = EmailCheckForm(form_data)
         self.assertFalse(form.is_valid())
 
@@ -751,9 +747,7 @@ class UserFormTest(TestCase):
         Should not lower case the email before validating it
         """
         utils.create_user(email="duplicated@bar.com")
-        form_data = {
-            "email": "DuPlIcAtEd@bAr.COM",
-        }
+        form_data = {"email": "DuPlIcAtEd@bAr.COM"}
         form = EmailCheckForm(form_data)
         self.assertTrue(form.is_valid())
 

@@ -38,9 +38,7 @@ def detail(request, pk):
 @administrator_required
 def _index(request, queryset, template):
     flags = yt_paginate(queryset, per_page=config.comments_per_page, page_number=request.GET.get("page", 1))
-    context = {
-        "flags": flags,
-    }
+    context = {"flags": flags}
     return render(request, template, context)
 
 

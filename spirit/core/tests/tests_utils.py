@@ -36,19 +36,9 @@ class UtilsTests(TestCase):
         """
 
         class MockForm:
-            non_field_errors = [
-                "error1",
-            ]
-            hidden_fields = [
-                {
-                    "errors": "error2",
-                },
-            ]
-            visible_fields = [
-                {
-                    "errors": "error3",
-                },
-            ]
+            non_field_errors = ["error1"]
+            hidden_fields = [{"errors": "error2"}]
+            visible_fields = [{"errors": "error3"}]
 
         res = utils.render_form_errors(MockForm())
         lines = [line.strip() for line in res.splitlines()]
@@ -152,13 +142,7 @@ class UtilsTemplateTagTests(TestCase):
 
         def render(date):
             t = Template("{% load spirit_tags %}{{ date|shortnaturaltime }}")
-            return t.render(
-                Context(
-                    {
-                        "date": date,
-                    }
-                )
-            )
+            return t.render(Context({"date": date}))
 
         orig_humanize_datetime, ttags_utils.datetime = ttags_utils.datetime, MockDateTime
         try:
@@ -207,15 +191,7 @@ class UtilsTemplateTagTests(TestCase):
         m2 = MockMessage(messages.constants.ERROR, "error 2")
         m3 = MockMessage(messages.constants.INFO, "info 3")
         res = render_messages([m1, m2, m3])
-        self.assertDictEqual(
-            dict(res["messages_grouped"]),
-            {
-                "error": [m1, m2],
-                "info": [
-                    m3,
-                ],
-            },
-        )
+        self.assertDictEqual(dict(res["messages_grouped"]), {"error": [m1, m2], "info": [m3]})
 
     def test_social_share(self):
         """

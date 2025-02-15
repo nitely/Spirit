@@ -158,12 +158,7 @@ class CommentViewTest(TestCase):
         form_data = {"comment": "foobar"}
         response = self.client.post(reverse("spirit:comment:publish", kwargs={"topic_id": private.topic.pk}), form_data)
         comment = Comment.objects.all().order_by("-pk").last()
-        expected_url = reverse(
-            "spirit:comment:find",
-            kwargs={
-                "pk": comment.pk,
-            },
-        )
+        expected_url = reverse("spirit:comment:find", kwargs={"pk": comment.pk})
         self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(len(Comment.objects.all()), 1)
 
@@ -252,15 +247,7 @@ class CommentViewTest(TestCase):
         """
         utils.login(self)
         form_data = {"comment": "foobar", "next": "/fakepath/"}
-        response = self.client.post(
-            reverse(
-                "spirit:comment:publish",
-                kwargs={
-                    "topic_id": self.topic.pk,
-                },
-            ),
-            form_data,
-        )
+        response = self.client.post(reverse("spirit:comment:publish", kwargs={"topic_id": self.topic.pk}), form_data)
         self.assertRedirects(response, "/fakepath/", status_code=302, target_status_code=404)
 
     def test_comment_update(self):
@@ -270,16 +257,9 @@ class CommentViewTest(TestCase):
         comment = utils.create_comment(user=self.user, topic=self.topic)
 
         utils.login(self)
-        form_data = {
-            "comment": "barfoo",
-        }
+        form_data = {"comment": "barfoo"}
         response = self.client.post(reverse("spirit:comment:update", kwargs={"pk": comment.pk}), form_data)
-        expected_url = reverse(
-            "spirit:comment:find",
-            kwargs={
-                "pk": comment.pk,
-            },
-        )
+        expected_url = reverse("spirit:comment:find", kwargs={"pk": comment.pk})
         self.assertRedirects(response, expected_url, status_code=302, target_status_code=302)
         self.assertEqual(Comment.objects.get(pk=comment.pk).comment, "barfoo")
 
@@ -405,10 +385,7 @@ class CommentViewTest(TestCase):
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)
         to_topic = utils.create_topic(category=self.category)
-        form_data = {
-            "topic": to_topic.pk,
-            "comments": [comment.pk, comment2.pk],
-        }
+        form_data = {"topic": to_topic.pk, "comments": [comment.pk, comment2.pk]}
         response = self.client.post(reverse("spirit:comment:move", kwargs={"topic_id": self.topic.pk}), form_data)
         expected_url = self.topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
@@ -915,9 +892,7 @@ class CommentFormTest(TestCase):
         self.topic = utils.create_topic(category=self.category)
 
     def test_comment_create(self):
-        form_data = {
-            "comment": "foo",
-        }
+        form_data = {"comment": "foo"}
         form = CommentForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -971,10 +946,7 @@ class CommentFormTest(TestCase):
         comment = utils.create_comment(user=self.user, topic=self.topic)
         comment2 = utils.create_comment(user=self.user, topic=self.topic)
         to_topic = utils.create_topic(category=self.category)
-        form_data = {
-            "topic": to_topic.pk,
-            "comments": [comment.pk, comment2.pk],
-        }
+        form_data = {"topic": to_topic.pk, "comments": [comment.pk, comment2.pk]}
         form = CommentMoveForm(topic=self.topic, data=form_data)
         self.assertEqual(form.is_valid(), True)
         self.assertEqual(form.save(), list(Comment.objects.filter(topic=to_topic)))
@@ -1037,11 +1009,7 @@ class CommentFormTest(TestCase):
         form = CommentImageForm(user=self.user, data={}, files=files)
         self.assertFalse(form.is_valid())
 
-    @override_settings(
-        ST_ALLOWED_UPLOAD_IMAGE_FORMAT=[
-            "png",
-        ]
-    )
+    @override_settings(ST_ALLOWED_UPLOAD_IMAGE_FORMAT=["png"])
     def test_comment_image_upload_not_allowed_format(self):
         """
         Image upload without allowed mime but good extension should raise an error
@@ -1149,9 +1117,7 @@ class CommentUtilsTest(TestCase):
 
         # Should notify mentions
         mentioned = utils.create_user()
-        mentions = {
-            mentioned.username: mentioned,
-        }
+        mentions = {mentioned.username: mentioned}
         comment = utils.create_comment(user=user, topic=self.topic)
         comment_posted(comment=comment, mentions=mentions)
         self.assertEqual(TopicNotification.objects.get(user=mentioned, comment=comment).action, MENTION)

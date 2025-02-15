@@ -66,6 +66,9 @@ extend-exclude = [
     "*settings*.py"
 ]
 
+[tool.ruff.format]
+skip-magic-trailing-comma = true
+
 [tool.ruff.lint]
 extend-select = ["E501"]
 

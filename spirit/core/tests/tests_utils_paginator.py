@@ -198,9 +198,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
             return template, context
 
         req = RequestFactory().get("/")
-        context = {
-            "request": req,
-        }
+        context = {"request": req}
         items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
 
@@ -217,9 +215,7 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
             return template, context
 
         req = RequestFactory().get("/?foo_page=1&extra=foo")
-        context = {
-            "request": req,
-        }
+        context = {"request": req}
         items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
 
@@ -263,23 +259,14 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
         req = RequestFactory().get("/")
         items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
-        Template("{% load spirit_tags %}{% render_paginator page %}").render(
-            Context(
-                {
-                    "request": req,
-                    "page": page,
-                }
-            )
-        )
+        Template("{% load spirit_tags %}{% render_paginator page %}").render(Context({"request": req, "page": page}))
 
     def tests_render_paginator(self):
         def mock_render(template, context):
             return template, context
 
         req = RequestFactory().get("/")
-        context = {
-            "request": req,
-        }
+        context = {"request": req}
         items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
 
@@ -296,9 +283,7 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
             return template, context
 
         req = RequestFactory().get("/?foo_page=1&extra=foo")
-        context = {
-            "request": req,
-        }
+        context = {"request": req}
         items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
 

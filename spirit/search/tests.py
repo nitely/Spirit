@@ -264,9 +264,7 @@ class SearchViewTest(TestCase):
         advanced search by topic paginated
         """
         utils.login(self)
-        data = {
-            "q": "foo",
-        }
+        data = {"q": "foo"}
         response = self.client.get(reverse("spirit:search:search"), data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -323,16 +321,12 @@ class SearchFormTest(TestCase):
         utils.cache_clear()
 
     def test_basic_search(self):
-        data = {
-            "q": "foobar",
-        }
+        data = {"q": "foobar"}
         form = BasicSearchForm(data)
         self.assertEqual(form.is_valid(), True)
 
     def test_basic_search_invalid_too_short(self):
-        data = {
-            "q": "a" * (settings.ST_SEARCH_QUERY_MIN_LEN - 1),
-        }
+        data = {"q": "a" * (settings.ST_SEARCH_QUERY_MIN_LEN - 1)}
         form = BasicSearchForm(data)
         self.assertEqual(form.is_valid(), False)
 
@@ -357,16 +351,12 @@ class SearchFormTest(TestCase):
         self.assertEqual(len(form.search()), 0)
 
     def test_advanced_search(self):
-        data = {
-            "q": "foobar",
-        }
+        data = {"q": "foobar"}
         form = AdvancedSearchForm(data)
         self.assertEqual(form.is_valid(), True)
 
     def test_advanced_search_invalid_too_short(self):
-        data = {
-            "q": "a" * (settings.ST_SEARCH_QUERY_MIN_LEN - 1),
-        }
+        data = {"q": "a" * (settings.ST_SEARCH_QUERY_MIN_LEN - 1)}
         form = AdvancedSearchForm(data)
         self.assertEqual(form.is_valid(), False)
 

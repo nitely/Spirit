@@ -62,11 +62,7 @@ def email_change_confirm(request, token):
 
     if user_email_change.is_valid(user, token):
         email = user_email_change.get_email()
-        form = EmailCheckForm(
-            data={
-                "email": email,
-            }
-        )
+        form = EmailCheckForm(data={"email": email})
 
         if form.is_valid():
             user.email = form.get_email()

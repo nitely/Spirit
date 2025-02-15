@@ -4,9 +4,7 @@ from django.utils.text import slugify
 
 from spirit.core.conf import settings
 
-__all__ = [
-    "AutoSlugField",
-]
+__all__ = ["AutoSlugField"]
 
 
 class AutoSlugField(SlugField):

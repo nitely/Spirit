@@ -34,12 +34,7 @@ class FlagForm(forms.ModelForm):
 
             try:
                 with transaction.atomic():
-                    CommentFlag.objects.update_or_create(
-                        comment=self.comment,
-                        defaults={
-                            "date": timezone.now(),
-                        },
-                    )
+                    CommentFlag.objects.update_or_create(comment=self.comment, defaults={"date": timezone.now()})
             except IntegrityError:
                 pass
 

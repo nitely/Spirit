@@ -38,9 +38,7 @@ class PollVoteManyForm(forms.Form):
         if not self.poll.is_multiple_choice:
             selected_choices = selected_choices[0]
 
-        self.initial = {
-            "choices": selected_choices,
-        }
+        self.initial = {"choices": selected_choices}
 
     def clean_choices(self):
         choices = self.cleaned_data["choices"]

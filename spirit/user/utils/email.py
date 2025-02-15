@@ -23,15 +23,7 @@ def send_activation_email(request, user):
     template_name = "spirit/user/activation_email.html"
     token = UserActivationTokenGenerator().generate(user)
     context = {"user_id": user.pk, "token": token}
-    sender(
-        request,
-        subject,
-        template_name,
-        context,
-        [
-            user.email,
-        ],
-    )
+    sender(request, subject, template_name, context, [user.email])
 
 
 def send_email_change_email(request, user, new_email):
@@ -39,12 +31,4 @@ def send_email_change_email(request, user, new_email):
     template_name = "spirit/user/email_change_email.html"
     token = UserEmailChangeTokenGenerator().generate(user, new_email)
     context = {"token": token}
-    sender(
-        request,
-        subject,
-        template_name,
-        context,
-        [
-            user.email,
-        ],
-    )
+    sender(request, subject, template_name, context, [user.email])

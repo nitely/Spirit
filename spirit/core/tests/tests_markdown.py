@@ -192,7 +192,7 @@ class UtilsMarkdownTests(TestCase):
                 '<p><span class="img_block"><img src="http://foo.bar/image.png" alt="image" title="image"></span></p>',
                 '<p><span class="img_block">'
                 '<img src="http://www.foo.bar.fb/path/image.png" alt="image" title="image">'
-                '</span></p>',
+                "</span></p>",
                 '<p><span class="img_block"><img src="https://foo.bar/image.png" alt="image" title="image"></span></p>',
                 # auto-link
                 '<p>bad <a rel="nofollow" href="http://foo.bar/image.png">http://foo.bar/image.png</a><br>',
@@ -371,11 +371,7 @@ class UtilsMarkdownTests(TestCase):
         self.assertEqual(
             md.get_polls(),
             {
-                "polls": [
-                    {
-                        "name": "foo_1",
-                    }
-                ],
+                "polls": [{"name": "foo_1"}],
                 "choices": [
                     {"number": 1, "description": "opt 1", "poll_name": "foo_1"},
                     {"number": 2, "description": "opt 2", "poll_name": "foo_1"},

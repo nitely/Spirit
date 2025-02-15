@@ -85,11 +85,7 @@ def detail(request, topic_id, slug):
     return render(
         request=request,
         template_name="spirit/topic/private/detail.html",
-        context={
-            "topic": topic,
-            "topic_private": topic_private,
-            "comments": comments,
-        },
+        context={"topic": topic, "topic_private": topic_private, "comments": comments},
     )
 
 

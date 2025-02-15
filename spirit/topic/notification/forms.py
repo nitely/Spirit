@@ -9,9 +9,7 @@ class NotificationForm(forms.ModelForm):
 
     class Meta:
         model = TopicNotification
-        fields = [
-            "is_active",
-        ]
+        fields = ["is_active"]
 
 
 class NotificationCreationForm(NotificationForm):

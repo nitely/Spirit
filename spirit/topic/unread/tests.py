@@ -52,12 +52,7 @@ class TopicUnreadViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(reverse("spirit:topic:unread:index"))
-        self.assertEqual(
-            list(response.context["page"]),
-            [
-                topic_a.topic,
-            ],
-        )
+        self.assertEqual(list(response.context["page"]), [topic_a.topic])
 
     def test_topic_unread_list_dont_show_removed_or_no_access(self):
         """
