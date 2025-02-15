@@ -992,7 +992,7 @@ class UserModelTest(TestCase):
         self.assertFalse(user.st.update_post_hash('my_hash'))
 
     @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=1)
-    def test_update_post_hash_threshold(self):
+    def test_update_post_hash_and_date_user_threshold(self):
         """
         Should update the last post hash and date for the current user
         """

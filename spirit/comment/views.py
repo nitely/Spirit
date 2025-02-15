@@ -40,9 +40,8 @@ def publish(request, topic_id, pk=None):
     if is_post(request) and not request.is_limited() and form.is_valid():
         if not user.st.update_post_hash(form.get_comment_hash()):
             # Hashed comment may have not been saved yet
-            default_url = lambda: (Comment
-                .get_last_for_topic(topic_id)
-                .get_absolute_url())
+            def default_url():
+                return Comment.get_last_for_topic(topic_id).get_absolute_url()
             return safe_redirect(request, 'next', default_url, method='POST')
 
         comment = form.save()

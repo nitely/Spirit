@@ -2,7 +2,7 @@ from django.core.paginator import InvalidPage, Paginator
 from django.http import Http404
 from django.utils.http import urlencode
 
-from .yt_paginator import YTPaginator, YTPage
+from .yt_paginator import YTPaginator
 
 
 def get_page_number(obj_number, per_page):

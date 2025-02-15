@@ -791,9 +791,9 @@ class PollUtilsTest(TestCase):
         self.assertTrue('my poll' in comment_html)
 
         comment_parts = [
-            l.strip()
-            for l in strip_tags(comment_html).splitlines()
-            if l.strip()
+            line.strip()
+            for line in strip_tags(comment_html).splitlines()
+            if line.strip()
         ]
         self.assertEqual(comment_parts, [
             'my poll',

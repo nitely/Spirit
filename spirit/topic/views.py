@@ -37,7 +37,8 @@ def publish(request, category_id=None):
             all([form.is_valid(), cform.is_valid()]) and
             not request.is_limited()):
         if not user.st.update_post_hash(form.get_topic_hash()):
-            default_url = lambda: form.get_category().get_absolute_url()
+            def default_url():
+                return form.get_category().get_absolute_url()
             return safe_redirect(
                 request, 'next', default_url, method='POST')
         # wrap in transaction.atomic?

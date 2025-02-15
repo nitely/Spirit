@@ -29,7 +29,7 @@ class UtilsRateLimitTests(TestCase):
     def test_rate_limit_split_rate(self):
         req = RequestFactory().post('/')
         req.user = AnonymousUser()
-        rl = RateLimit(req, 'func_name')
+        _rl = RateLimit(req, 'func_name')
         self.assertEqual(rl_module.split_rate('5/m'), (5, 60))
         self.assertEqual(rl_module.split_rate('5/5m'), (5, 60 * 5))
         self.assertEqual(rl_module.split_rate('5/s'), (5, 1))

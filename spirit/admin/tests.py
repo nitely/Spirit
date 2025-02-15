@@ -281,7 +281,7 @@ class AdminViewTest(TestCase):
         self.assertEqual(list(response.context['flags']), [flag_closed, ])
 
     @override_djconfig(comments_per_page=1)
-    def test_flag_open_paginate(self):
+    def test_flag_open_paginate2(self):
         """
         Open flags paginated
         """

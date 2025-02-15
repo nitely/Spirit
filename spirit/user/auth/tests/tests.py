@@ -606,7 +606,7 @@ class UserFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
-    def test_login_email_case_sensitive(self):
+    def test_login_email_case_insensitive(self):
         """
         Should login the user by email
         """

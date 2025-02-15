@@ -11,7 +11,6 @@ from spirit.core.tests import utils
 from . import utils as utils_topic
 from .models import Topic
 from .forms import TopicForm
-from spirit.category.models import Category
 from spirit.comment.models import Comment
 from spirit.comment.bookmark.models import CommentBookmark
 from .notification.models import TopicNotification
@@ -447,7 +446,7 @@ class TopicViewTest(TestCase):
         topics ordered by activity paginated
         """
         category = utils.create_category()
-        topic_a = utils.create_topic(category=category)
+        _topic_a = utils.create_topic(category=category)
         topic_b = utils.create_topic(
             category=category, user=self.user, view_count=10)
 

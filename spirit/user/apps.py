@@ -12,4 +12,4 @@ class SpiritUserConfig(AppConfig):
         self.register_signals()
 
     def register_signals(self):
-        from . import signals
+        from . import signals  # noqa
