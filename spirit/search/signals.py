@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from haystack import signals
 
 from spirit.core.conf import settings

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from haystack.views import SearchView as BaseSearchView
 from djconfig import config
 
@@ -21,14 +19,14 @@ class SearchView(BaseSearchView):
     prevent database hits.
     """
     def __init__(self, *args, **kwargs):  # no-qa
-        super(SearchView, self).__init__(
+        super().__init__(
             template='spirit/search/search.html',
             form_class=AdvancedSearchForm,
             load_all=False)
 
     @method_decorator(login_required)
     def __call__(self, request):
-        return super(SearchView, self).__call__(request)
+        return super().__call__(request)
 
     def build_page(self):
         paginator = None

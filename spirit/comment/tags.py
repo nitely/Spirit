@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import mark_safe, format_html
 from django.contrib.humanize.templatetags import humanize

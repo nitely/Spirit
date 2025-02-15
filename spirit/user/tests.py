@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import datetime
 import importlib
 
@@ -445,9 +443,9 @@ class UserViewTest(TestCase):
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
         self.assertEqual(
             self.user.st.avatar.name,
-            'spirit/avatars/{}/pic_test.jpg'.format(self.user.pk))
+            f'spirit/avatars/{self.user.pk}/pic_test.jpg')
         self.assertTrue(spirit_storage.exists(
-            'spirit/avatars/{}/pic_test_small_test.jpg'.format(self.user.pk)))
+            f'spirit/avatars/{self.user.pk}/pic_test_small_test.jpg'))
 
     @utils.with_test_storage
     @utils.immediate_on_commit
@@ -464,7 +462,7 @@ class UserViewTest(TestCase):
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
         self.assertEqual(
             self.user.st.avatar.name,
-            'spirit/avatars/{}/pic_test.gif'.format(self.user.pk))
+            f'spirit/avatars/{self.user.pk}/pic_test.gif')
         # change avatar
         form_data = {
             'first_name': 'foo',
@@ -481,11 +479,11 @@ class UserViewTest(TestCase):
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
         self.assertEqual(
             self.user.st.avatar.name,
-            'spirit/avatars/{}/pic_test.jpg'.format(self.user.pk))
+            f'spirit/avatars/{self.user.pk}/pic_test.jpg')
         with self.user.st.avatar.open() as fh:
             self.assertNotEqual(fh.read(), content)
         self.assertTrue(spirit_storage.exists(
-            'spirit/avatars/{}/pic_test_small_test.jpg'.format(self.user.pk)))
+            f'spirit/avatars/{self.user.pk}/pic_test_small_test.jpg'))
 
     @utils.with_test_storage
     @utils.immediate_on_commit
@@ -502,7 +500,7 @@ class UserViewTest(TestCase):
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
         self.assertEqual(
             self.user.st.avatar.name,
-            'spirit/avatars/{}/pic_test.gif'.format(self.user.pk))
+            f'spirit/avatars/{self.user.pk}/pic_test.gif')
         # do not change avatar
         form_data = {
             'first_name': 'foo',
@@ -518,7 +516,7 @@ class UserViewTest(TestCase):
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
         self.assertEqual(
             self.user.st.avatar.name,
-            'spirit/avatars/{}/pic_test.gif'.format(self.user.pk))
+            f'spirit/avatars/{self.user.pk}/pic_test.gif')
         with self.user.st.avatar.open() as fh:
             self.assertEqual(fh.read(), content)
 
@@ -720,7 +718,7 @@ class UserFormTest(TestCase):
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
         self.assertEqual(
             self.user.st.avatar.name,
-            'spirit/avatars/{}/pic_test.jpg'.format(self.user.pk))
+            f'spirit/avatars/{self.user.pk}/pic_test.jpg')
 
     def test_email_change(self):
         """
@@ -1019,7 +1017,7 @@ class UserModelTest(TestCase):
         user.st.save()
         self.assertEqual(
             user.st.small_avatar_name(),
-            'spirit/avatars/{}/pic_test_small.gif'.format(user.pk))
+            f'spirit/avatars/{user.pk}/pic_test_small.gif')
 
     @utils.with_test_storage
     def test_small_avatar_url(self):
@@ -1032,7 +1030,7 @@ class UserModelTest(TestCase):
         user.st.save()
         self.assertEqual(
             user.st.small_avatar_url(),
-            '/media/spirit/avatars/{}/pic_test_small.gif'.format(user.pk))
+            f'/media/spirit/avatars/{user.pk}/pic_test_small.gif')
 
 
 class SignalsUserTests(TestCase):
@@ -1221,7 +1219,7 @@ class TimezoneMiddlewareTest(TestCase):
 
     @override_settings(TIME_ZONE='UTC')
     def test_timezone_anonymous_user(self):
-        class AnonymUserMock(object):
+        class AnonymUserMock:
             @property
             def is_authenticated(self):
                 return False
@@ -1445,7 +1443,7 @@ class ActiveUserMiddlewareTest(TestCase):
             def process_request(self, request):
                 self._calls.append(request)
                 assertTrue(client.session.items())
-                ret = super(ActiveUserMiddlewareMock, self).process_request(request)
+                ret = super().process_request(request)
                 assertFalse(client.session.items())
                 return ret
 

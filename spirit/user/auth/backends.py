@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 
@@ -47,5 +45,5 @@ class UsernameAuthBackend(_SpiritBackend):
             username = kwargs.get(User.USERNAME_FIELD)
         if settings.ST_CASE_INSENSITIVE_USERNAMES:
             username = username.lower()
-        return super(UsernameAuthBackend, self).authenticate(
+        return super().authenticate(
             request, username=username, password=password, **kwargs)

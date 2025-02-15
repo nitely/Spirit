@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import re
 import copy
 
@@ -150,7 +148,7 @@ class BlockLexer(mistune.BlockLexer):
         if rules is None:
             rules = BlockGrammar()
 
-        super(BlockLexer, self).__init__(rules=rules, **kwargs)
+        super().__init__(rules=rules, **kwargs)
 
         self.polls = {
             'polls': [],

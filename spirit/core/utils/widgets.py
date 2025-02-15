@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.encoding import force_str
 
@@ -15,7 +13,7 @@ class MultipleInput(forms.TextInput):
         else:
             value = ''
 
-        return super(MultipleInput, self).render(
+        return super().render(
             name, value, *args, **kwargs)
 
     def value_from_datadict(self, data, files, name, *args, **kwargs):
@@ -29,7 +27,7 @@ class CIMultipleInput(MultipleInput):
     """Case-Insensitive ``MultipleInput`` widget"""
 
     def value_from_datadict(self, *args, **kwargs):
-        value = super(CIMultipleInput, self).value_from_datadict(*args, **kwargs)
+        value = super().value_from_datadict(*args, **kwargs)
         if value:
             return [v.lower() for v in value]
 
@@ -38,6 +36,6 @@ class CITextInput(forms.TextInput):
     """Case-Insensitive ``TextInput`` widget"""
 
     def value_from_datadict(self, *args, **kwargs):
-        value = super(CITextInput, self).value_from_datadict(*args, **kwargs)
+        value = super().value_from_datadict(*args, **kwargs)
         if value:
             return value.lower()

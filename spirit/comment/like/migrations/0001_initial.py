@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models, migrations
 from django.conf import settings
 import django.utils.timezone
@@ -28,6 +27,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='commentlike',
-            unique_together=set([('user', 'comment')]),
+            unique_together={('user', 'comment')},
         ),
     ]

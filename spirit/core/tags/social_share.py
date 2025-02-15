@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.utils.http import urlencode
 
 from .registry import register

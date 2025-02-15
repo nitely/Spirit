@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 These are the default settings. \
 They can be overridden by the project settings

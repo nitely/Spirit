@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.db.models import Q, Prefetch
@@ -12,7 +10,7 @@ class CommentQuerySet(models.QuerySet):
 
     def filter(self, *args, **kwargs):
         return (
-            super(CommentQuerySet, self)
+            super()
             .filter(*args, **kwargs)
             .select_related('user__st'))
 

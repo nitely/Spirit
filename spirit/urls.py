@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.urls import include, re_path
 
 import spirit.topic.views

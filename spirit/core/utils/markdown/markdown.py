@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import mistune
 
 from .block import BlockLexer

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import mark_safe
@@ -15,8 +13,8 @@ class PollVoteManyForm(forms.Form):
     """
 
     def __init__(self, poll, user=None, *args, **kwargs):
-        super(PollVoteManyForm, self).__init__(*args, **kwargs)
-        self.auto_id = 'id_poll_{pk}_%s'.format(pk=poll.pk)  # Uniqueness "<label for=id_poll_pk_..."
+        super().__init__(*args, **kwargs)
+        self.auto_id = f'id_poll_{poll.pk}_%s'  # Uniqueness "<label for=id_poll_pk_..."
         self.user = user
         self.poll = poll
         self.poll_choices = getattr(poll, 'choices', poll.poll_choices.unremoved())
@@ -71,7 +69,7 @@ class PollVoteManyForm(forms.Form):
         return choices
 
     def clean(self):
-        cleaned_data = super(PollVoteManyForm, self).clean()
+        cleaned_data = super().clean()
 
         if self.poll.is_closed:
             raise forms.ValidationError(_("This poll is closed"))

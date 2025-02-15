@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -14,7 +12,7 @@ from .managers import (
     CommentPollVoteQuerySet)
 
 
-class PollMode(object):
+class PollMode:
 
     DEFAULT, SECRET = range(2)
     LIST = (

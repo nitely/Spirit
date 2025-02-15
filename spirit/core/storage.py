@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.core.files.storage import (
     FileSystemStorage, default_storage, storages)
 

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.test import TestCase, RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -58,7 +56,7 @@ class XForwardedForMiddlewareTests(TestCase):
             _mock_calls = []
             def process_request(self, request):
                 self._mock_calls.append(request)
-                return super(XForwardedForMiddlewareMock, self).process_request(request)
+                return super().process_request(request)
 
         org_mid, middleware.XForwardedForMiddleware = (
             middleware.XForwardedForMiddleware, XForwardedForMiddlewareMock)

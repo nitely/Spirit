@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # MINIMAL CONFIGURATION FOR PRODUCTION ENV
 
 # Create your own prod_local.py

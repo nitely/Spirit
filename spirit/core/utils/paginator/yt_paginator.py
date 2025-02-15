@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-
 from django.core.paginator import InvalidPage
 
 from ...conf import settings
 
 
-class YTPaginator(object):
+class YTPaginator:
     """
     It'll limit the page list to a given limit
     """
@@ -45,7 +43,7 @@ class YTPaginator(object):
         return page
 
 
-class YTPage(object):
+class YTPage:
     def __init__(self, object_list, number, paginator):
         self.object_list = object_list
         self.number = number

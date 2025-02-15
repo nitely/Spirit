@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.template.loader import render_to_string
 from django.core.paginator import Page
 

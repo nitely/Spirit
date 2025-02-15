@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import django.dispatch
 
 # args: sender, instance

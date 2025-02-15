@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import smart_bytes
@@ -23,7 +21,7 @@ class TopicForm(forms.ModelForm):
         fields = ('title', 'category')
 
     def __init__(self, user, *args, **kwargs):
-        super(TopicForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.fields['category'] = NestedModelChoiceField(
             queryset=Category.objects.visible().opened().ordered(),
@@ -54,4 +52,4 @@ class TopicForm(forms.ModelForm):
             self.instance.user = self.user
 
         self.instance.reindex_at = timezone.now()
-        return super(TopicForm, self).save(commit)
+        return super().save(commit)

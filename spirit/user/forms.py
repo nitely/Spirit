@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 
 from django import forms
@@ -56,7 +54,7 @@ class EmailChangeForm(CleanEmailMixin, forms.Form):
 
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
-        super(EmailChangeForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def clean_password(self):
         password = self.cleaned_data["password"]
