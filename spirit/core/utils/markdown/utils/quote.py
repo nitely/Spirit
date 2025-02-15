@@ -36,5 +36,5 @@ def quotify(comment, username):
     comment = _strip_polls(comment)
     lines = comment.splitlines()
     quote = "\n> ".join(lines)
-    quote = "> {header}\n> {quote}\n\n".format(header=header, quote=quote)
+    quote = f"> {header}\n> {quote}\n\n"
     return quote

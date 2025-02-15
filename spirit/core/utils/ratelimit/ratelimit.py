@@ -103,7 +103,7 @@ class RateLimit:
                            .get(field, ''))
 
             if field_value:
-                keys.append('field:{}:{}'.format(field, field_value))
+                keys.append(f'field:{field}:{field_value}')
 
         return [self._make_key(k) for k in keys]
 

@@ -514,7 +514,7 @@ class TopicPrivateFormTest(TestCase):
         """
         create many private topics accesses
         """
-        users = '{}, {}'.format(self.user.username, self.user2.username)
+        users = f'{self.user.username}, {self.user2.username}'
         form_data = {'users': users, }
         form = TopicPrivateManyForm(self.user, data=form_data)
         self.assertEqual(form.is_valid(), True)

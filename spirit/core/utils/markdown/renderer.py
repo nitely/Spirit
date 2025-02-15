@@ -32,7 +32,7 @@ class Renderer(mistune.Renderer):
     def block_latex(self, text, name):
         name = escape(name)
         text = escape(text)
-        return '<p class="math">\\begin{{{}}}{}\\end{{{}}}</p>\n'.format(name, text, name)
+        return f'<p class="math">\\begin{{{name}}}{text}\\end{{{name}}}</p>\n'
 
     def math(self, text):
         return '<span class="math">\\(%s\\)</span>' % escape(text)
@@ -70,9 +70,9 @@ class Renderer(mistune.Renderer):
 
         if title:
             title = escape(title)
-            html = '<img src="{}" alt="{}" title="{}"'.format(src, text, title)
+            html = f'<img src="{src}" alt="{text}" title="{title}"'
         else:
-            html = '<img src="{}" alt="{}"'.format(src, text)
+            html = f'<img src="{src}" alt="{text}"'
 
         if self.options.get('use_xhtml'):
             return '%s />' % html
