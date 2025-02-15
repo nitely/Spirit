@@ -44,13 +44,14 @@ Use [uv tooling](https://docs.astral.sh/uv/).
 
 ```
 uv sync --all-extras
+uv run spirit startproject test_project
 uv run runtests.py
 ```
 
 ### Lint & Format
 
 ```
-ruff check --select I --fix
+uvx ruff check --select I --fix
 uvx ruff format
 ```
 

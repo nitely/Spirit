@@ -29,9 +29,9 @@ jobs:
         uv build --sdist
     - name: Run Tests
       run: |
-        uv run ./spirit/extra/bin/spirit.py startproject project
+        uv run spirit startproject test_project
         export PYTHONWARNINGS="default"
-        make test
+        uv run runtests.py
   test_js:
     name: JS
     runs-on: ubuntu-latest
@@ -71,11 +71,11 @@ jobs:
         uv pip install --upgrade Django~=${{ matrix.django }}
     - name: Run Tests
       run: |
-        uv run ./spirit/extra/bin/spirit.py startproject project
+        uv run spirit startproject test_project
         export PYTHONWARNINGS="default"
         export ST_UPLOAD_FILE_ENABLED=0
         export ST_INSTALL_HUEY=0
-        make test
+        uv run runtests.py
   test_huey:
     name: Huey / Py ${{ matrix.python }} / Django ${{ matrix.django }}
     runs-on: ubuntu-latest
@@ -95,11 +95,11 @@ jobs:
         uv pip install --upgrade Django~=${{ matrix.django }}
     - name: Run Tests
       run: |
-        uv run ./spirit/extra/bin/spirit.py startproject project
+        uv run spirit startproject test_project
         export PYTHONWARNINGS="default"
         export ST_UPLOAD_FILE_ENABLED=0
         export ST_TASK_MANAGER="huey"
-        make test
+        uv run runtests.py
   lint_format:
     name: Lint & Format / Py ${{ matrix.python }} / Django ${{ matrix.django }}
     runs-on: ubuntu-latest
@@ -139,7 +139,7 @@ jobs:
         uv pip install --upgrade coveralls
     - name: Run Tests
       run: |
-        uv run ./spirit/extra/bin/spirit.py startproject project
+        uv run spirit startproject test_project
         export PYTHONWARNINGS="default"
         uv run -- coverage run --source=. runtests.py
     - name: Submit to coveralls

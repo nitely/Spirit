@@ -14,7 +14,7 @@ INSTALLED_APPS += [
 if bool(int(os.getenv('ST_INSTALL_HUEY', True))):
     INSTALLED_APPS.append('huey.contrib.djhuey')
 
-ROOT_URLCONF = 'project.project.urls'
+ROOT_URLCONF = 'test_project.test_project.urls'
 
 USE_TZ = True
 

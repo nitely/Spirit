@@ -8,7 +8,7 @@ import sys
 import django
 from django.test.runner import DiscoverRunner
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "project.project.settings.test"
+os.environ["DJANGO_SETTINGS_MODULE"] = "test_project.test_project.settings.test"
 
 
 def setup_celery():
