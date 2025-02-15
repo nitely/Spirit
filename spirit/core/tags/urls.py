@@ -8,7 +8,7 @@ def to_query_params(context, request=None, **params):
     """
     # todo: use utils.to_query_params instead
     # todo: test!
-    request = request or context['request']
+    request = request or context["request"]
     query_dict = request.GET.copy()  # MultiValueDict >___<
 
     for k, v in sorted(params.items()):

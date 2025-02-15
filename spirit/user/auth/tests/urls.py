@@ -1,8 +1,7 @@
-from django.urls import path
-from django.urls import include
+from django.urls import include, path
 
-from ..views import register
 from ..forms import RegistrationForm
+from ..views import register
 
 
 class CustomRegisterForm(RegistrationForm):
@@ -14,6 +13,6 @@ def register_view(request):
 
 
 urlpatterns = [
-    path('user/register/', register_view, name='register'),
-    path('', include('spirit.urls')),
+    path("user/register/", register_view, name="register"),
+    path("", include("spirit.urls")),
 ]

@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 from spirit.core.conf import settings
 
-__all__ = ['AutoSlugField', ]
+__all__ = ["AutoSlugField"]
 
 
 class AutoSlugField(SlugField):
@@ -17,8 +17,8 @@ class AutoSlugField(SlugField):
     """
 
     def __init__(self, *args, **kwargs):
-        self.populate_from = kwargs.pop('populate_from', None)
-        kwargs['allow_unicode'] = settings.ST_UNICODE_SLUGS
+        self.populate_from = kwargs.pop("populate_from", None)
+        kwargs["allow_unicode"] = settings.ST_UNICODE_SLUGS
         super().__init__(*args, **kwargs)
 
     def pre_save(self, instance, add):
@@ -28,7 +28,7 @@ class AutoSlugField(SlugField):
             return default
 
         inst = instance
-        for attr in self.populate_from.split('.'):
+        for attr in self.populate_from.split("."):
             value = getattr(inst, attr)
             inst = value
 
@@ -36,7 +36,7 @@ class AutoSlugField(SlugField):
             return default
 
         slug = slugify(smart_str(value), allow_unicode=settings.ST_UNICODE_SLUGS)
-        slug = slug[:self.max_length].strip('-')
+        slug = slug[: self.max_length].strip("-")
 
         # Update the model’s attribute
         setattr(instance, self.attname, slug)
@@ -46,6 +46,6 @@ class AutoSlugField(SlugField):
         name, path, args, kwargs = super().deconstruct()
 
         if self.populate_from is not None:
-            kwargs['populate_from'] = self.populate_from
+            kwargs["populate_from"] = self.populate_from
 
         return name, path, args, kwargs

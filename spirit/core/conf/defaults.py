@@ -33,15 +33,12 @@ ST_TASK_MANAGER = None
 #: default value for every missing param is ``'*'``.
 #: See `Huey periodic tasks <https://huey.readthedocs.io/en/latest/guide.html#periodic-tasks>`_
 ST_HUEY_SCHEDULE = {
-    'full_search_index_update': {
-        'minute': '0',
-        'hour': '*/24'
+    "full_search_index_update": {"minute": "0", "hour": "*/24"},
+    "notify_weekly": {
+        "minute": "0",
+        "hour": "0",
+        "day_of_week": "1",  # 0=Sunday, 6=Saturday
     },
-    'notify_weekly': {
-        'minute': '0',
-        'hour': '0',
-        'day_of_week': '1'  # 0=Sunday, 6=Saturday
-    }
 }
 
 #: Default email notification
@@ -49,7 +46,7 @@ ST_HUEY_SCHEDULE = {
 #: existing users will default to ``'never'``.
 #: Valid values are ``'never'``, ``'immediately'``,
 #: and ``'weekly'``
-ST_NOTIFY_WHEN = 'never'
+ST_NOTIFY_WHEN = "never"
 
 #: | The age in hours of the items
 #:   to index into the search index on each update.
@@ -69,11 +66,11 @@ ST_ORDERED_CATEGORIES = False
 #: Enable/disable the rate-limit for all forms
 ST_RATELIMIT_ENABLE = True
 #: The cache key prefix. This is mostly to avoid clashing with other apps
-ST_RATELIMIT_CACHE_PREFIX = 'srl'
+ST_RATELIMIT_CACHE_PREFIX = "srl"
 #: The cache ID for storing rate-limit related data.
 #: The cache ID must be a valid ``CACHES`` entry and
 #: the ``TIMEOUT`` must be ``None`` otherwise it will misbehave
-ST_RATELIMIT_CACHE = 'st_rate_limit'
+ST_RATELIMIT_CACHE = "st_rate_limit"
 #: A warning will be printed when the ``TIMEOUT``
 #: is not ``None``. Setting this to ``True`` will silence it.
 #:
@@ -116,7 +113,7 @@ ST_USER_LAST_SEEN_THRESHOLD_MINUTES = 1
 #: .. Warning::
 #:     Allowing PNG files is a security risk as it may contain malicious HTML.
 #:     See `Django notes <https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content>`_
-ST_ALLOWED_AVATAR_FORMAT = ('jpeg', 'jpg')
+ST_ALLOWED_AVATAR_FORMAT = ("jpeg", "jpg")
 
 #: Settings this to ``True`` will require
 #: all users to be logged-in to access any section
@@ -132,7 +129,7 @@ ST_UPLOAD_IMAGE_ENABLED = True
 #: .. Warning::
 #:     Allowing PNG files is a security risk as it may contain malicious HTML.
 #:     See `Django notes <https://docs.djangoproject.com/en/1.11/topics/security/#user-uploaded-content>`_
-ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ('jpeg', 'jpg', 'gif')
+ST_ALLOWED_UPLOAD_IMAGE_FORMAT = ("jpeg", "jpg", "gif")
 
 #: Enable/disable file uploads within posts.
 #: Requires running ``pip install django-spirit[files]`` to install
@@ -148,14 +145,24 @@ ST_UPLOAD_FILE_ENABLED = False
 #:     media-type will be printed within the validation error.
 #:     Either that or use the Linux ``file --mime-type ./my_file`` command
 ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE = {
-    'doc': 'application/msword',
-    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'pdf': 'application/pdf'}
+    "doc": "application/msword",
+    "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "pdf": "application/pdf",
+}
 
 #: Link protocols allowed within posts
 ST_ALLOWED_URL_PROTOCOLS = {
-    'http', 'https', 'mailto', 'ftp', 'ftps',
-    'git', 'svn', 'magnet', 'irc', 'ircs'}
+    "http",
+    "https",
+    "mailto",
+    "ftp",
+    "ftps",
+    "git",
+    "svn",
+    "magnet",
+    "irc",
+    "ircs",
+}
 
 #: Support unicode slugs. Set to ``False``
 #: to only allow ASCII chars
@@ -209,7 +216,4 @@ ST_NGRAM_SEARCH = False
 ST_TESTS_RATELIMIT_NEVER_EXPIRE = False
 
 # Full route to the spirit package
-ST_BASE_DIR = (
-    os.path.dirname(
-        os.path.dirname(
-            os.path.dirname(__file__))))
+ST_BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))

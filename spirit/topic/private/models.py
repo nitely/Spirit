@@ -1,29 +1,28 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
-from .managers import TopicPrivateQuerySet
 from ...core.conf import settings
+from .managers import TopicPrivateQuerySet
 
 
 class TopicPrivate(models.Model):
-
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='st_topics_private',
-        on_delete=models.CASCADE)
+        related_name="st_topics_private",
+        on_delete=models.CASCADE,
+    )
     topic = models.ForeignKey(
-        'spirit_topic.Topic',
-        related_name='topics_private',
-        on_delete=models.CASCADE)
+        "spirit_topic.Topic", related_name="topics_private", on_delete=models.CASCADE
+    )
 
     date = models.DateTimeField(default=timezone.now)
 
     objects = TopicPrivateQuerySet.as_manager()
 
     class Meta:
-        unique_together = ('user', 'topic')
-        ordering = ['-date', '-pk']
+        unique_together = ("user", "topic")
+        ordering = ["-date", "-pk"]
         verbose_name = _("private topic")
         verbose_name_plural = _("private topics")
 

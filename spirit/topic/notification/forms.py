@@ -5,16 +5,16 @@ from .models import TopicNotification
 
 
 class NotificationForm(forms.ModelForm):
-
-    is_active = forms.BooleanField(widget=forms.HiddenInput(), initial=True, required=False)
+    is_active = forms.BooleanField(
+        widget=forms.HiddenInput(), initial=True, required=False
+    )
 
     class Meta:
         model = TopicNotification
-        fields = ['is_active', ]
+        fields = ["is_active"]
 
 
 class NotificationCreationForm(NotificationForm):
-
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
@@ -24,8 +24,7 @@ class NotificationCreationForm(NotificationForm):
         cleaned_data = super().clean()
 
         notification = TopicNotification.objects.filter(
-            user=self.user,
-            topic=self.topic
+            user=self.user, topic=self.topic
         )
 
         if notification.exists():
@@ -36,7 +35,9 @@ class NotificationCreationForm(NotificationForm):
         comment = self.topic.comment_set.last()
 
         if comment is None:
-            raise forms.ValidationError(_("You can't subscribe to a topic with no comments"))
+            raise forms.ValidationError(
+                _("You can't subscribe to a topic with no comments")
+            )
 
         return cleaned_data
 

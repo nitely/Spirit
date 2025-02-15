@@ -1,5 +1,4 @@
 from django.db.models import Q
-
 from haystack import indexes
 
 from ..core.conf import settings
@@ -12,8 +11,7 @@ from ..topic.models import Topic
 # so it only matters when using
 # search_result.get_stored_fields()
 class BooleanField(indexes.BooleanField):
-
-    bool_map = {'true': True, 'false': False}
+    bool_map = {"true": True, "false": False}
 
     def convert(self, value):
         if value is None:
@@ -31,15 +29,14 @@ if settings.ST_NGRAM_SEARCH:
 
 
 class TopicIndex(indexes.SearchIndex, indexes.Indexable):
-
     text = TEXT_FIELD(document=True, use_template=True, stored=False)
-    category_id = indexes.IntegerField(model_attr='category_id', stored=False)
+    category_id = indexes.IntegerField(model_attr="category_id", stored=False)
     is_removed = BooleanField(stored=False)
 
-    title = indexes.CharField(model_attr='title', indexed=False)
-    slug = indexes.CharField(model_attr='slug', indexed=False)
-    comment_count = indexes.IntegerField(model_attr='comment_count', indexed=False)
-    last_active = indexes.DateTimeField(model_attr='last_active', indexed=False)
+    title = indexes.CharField(model_attr="title", indexed=False)
+    slug = indexes.CharField(model_attr="slug", indexed=False)
+    comment_count = indexes.IntegerField(model_attr="comment_count", indexed=False)
+    last_active = indexes.DateTimeField(model_attr="last_active", indexed=False)
     main_category_name = indexes.CharField(indexed=False)
 
     # Overridden
@@ -48,10 +45,12 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
 
     # Overridden
     def index_queryset(self, using=None):
-        return (self.get_model().objects
-                .all()
-                .exclude(category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
-                .select_related('category__parent'))
+        return (
+            self.get_model()
+            .objects.all()
+            .exclude(category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+            .select_related("category__parent")
+        )
 
     # Overridden
     def build_queryset(self, using=None, start_date=None, end_date=None):
@@ -72,24 +71,27 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
         lookup_subcategory = {}
 
         if start_date:
-            lookup_comments['last_active__gte'] = start_date
-            lookup_topic['reindex_at__gte'] = start_date
-            lookup_category['category__reindex_at__gte'] = start_date
-            lookup_subcategory['category__parent__reindex_at__gte'] = start_date
+            lookup_comments["last_active__gte"] = start_date
+            lookup_topic["reindex_at__gte"] = start_date
+            lookup_category["category__reindex_at__gte"] = start_date
+            lookup_subcategory["category__parent__reindex_at__gte"] = start_date
 
         if end_date:
-            lookup_comments['last_active__lte'] = end_date
-            lookup_topic['reindex_at__lte'] = end_date
-            lookup_category['category__reindex_at__lte'] = end_date
-            lookup_subcategory['category__parent__reindex_at__lte'] = end_date
+            lookup_comments["last_active__lte"] = end_date
+            lookup_topic["reindex_at__lte"] = end_date
+            lookup_category["category__reindex_at__lte"] = end_date
+            lookup_subcategory["category__parent__reindex_at__lte"] = end_date
 
-        return (self.index_queryset(using=using)
-                .filter(
-                    Q(**lookup_comments) |
-                    Q(**lookup_topic) |
-                    Q(**lookup_category) |
-                    Q(**lookup_subcategory))
-                .order_by('pk'))
+        return (
+            self.index_queryset(using=using)
+            .filter(
+                Q(**lookup_comments)
+                | Q(**lookup_topic)
+                | Q(**lookup_category)
+                | Q(**lookup_subcategory)
+            )
+            .order_by("pk")
+        )
 
     def prepare_is_removed(self, obj):
         """
@@ -98,9 +100,7 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
         :param obj: Topic
         :return: whether the topic is removed or not
         """
-        return (obj.is_removed or
-                obj.category.is_removed or
-                obj.main_category.is_removed)
+        return obj.is_removed or obj.category.is_removed or obj.main_category.is_removed
 
     def prepare_main_category_name(self, obj):
         """

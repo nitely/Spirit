@@ -1,16 +1,14 @@
+from django.template import Context, Template
 from django.test import TestCase
 from django.urls import reverse
-from django.template import Template, Context
-
 from djconfig import config
 
 from ...core.tests import utils
-from .models import CommentBookmark
 from .forms import BookmarkForm
+from .models import CommentBookmark
 
 
 class CommentBookmarkViewTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -23,15 +21,18 @@ class CommentBookmarkViewTest(TestCase):
         create comment
         """
         utils.login(self)
-        form_data = {'comment_number': 999, }
-        response = self.client.post(reverse('spirit:comment:bookmark:create', kwargs={'topic_id': self.topic.pk, }),
-                                    headers={"x-requested-with": 'XMLHttpRequest'}, 
-                                    data=form_data)
+        form_data = {"comment_number": 999}
+        response = self.client.post(
+            reverse(
+                "spirit:comment:bookmark:create", kwargs={"topic_id": self.topic.pk}
+            ),
+            headers={"x-requested-with": "XMLHttpRequest"},
+            data=form_data,
+        )
         self.assertEqual(response.status_code, 200)
 
 
 class CommentBookmarkModelsTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -45,89 +46,87 @@ class CommentBookmarkModelsTest(TestCase):
         """
         Should return the new comment url (current comment + 1)
         """
-        bookmark = CommentBookmark.objects.create(topic=self.topic, user=self.user, comment_number=1)
-        self.assertTrue(bookmark.get_absolute_url().endswith('1'))
-        self.assertTrue(bookmark.get_new_comment_url().endswith('2'))
+        bookmark = CommentBookmark.objects.create(
+            topic=self.topic, user=self.user, comment_number=1
+        )
+        self.assertTrue(bookmark.get_absolute_url().endswith("1"))
+        self.assertTrue(bookmark.get_new_comment_url().endswith("2"))
 
     def test_comment_bookmark_update_or_create_new(self):
         """
         Should create the comment number
         """
         self.assertFalse(
-            CommentBookmark.objects
-            .filter(
-                user=self.user,
-                topic=self.topic)
-            .exists())
+            CommentBookmark.objects.filter(user=self.user, topic=self.topic).exists()
+        )
         page = 2
         increased = CommentBookmark.increase_or_create(
             user=self.user,
             topic=self.topic,
-            comment_number=CommentBookmark.page_to_comment_number(page))
+            comment_number=CommentBookmark.page_to_comment_number(page),
+        )
         self.assertTrue(increased)
         comment_bookmark = CommentBookmark.objects.get(user=self.user, topic=self.topic)
         self.assertEqual(
-            comment_bookmark.comment_number,
-            config.comments_per_page * (page - 1) + 1)
+            comment_bookmark.comment_number, config.comments_per_page * (page - 1) + 1
+        )
 
     def test_comment_bookmark_update_or_create_existent(self):
         """
         Should update the comment number
         """
         CommentBookmark.objects.create(
-            user=self.user,
-            topic=self.topic,
-            comment_number=0)
+            user=self.user, topic=self.topic, comment_number=0
+        )
         page = 2
         increased = CommentBookmark.increase_or_create(
             user=self.user,
             topic=self.topic,
-            comment_number=CommentBookmark.page_to_comment_number(page))
+            comment_number=CommentBookmark.page_to_comment_number(page),
+        )
         self.assertTrue(increased)
         comment_bookmark = CommentBookmark.objects.get(user=self.user, topic=self.topic)
         self.assertEqual(
-            comment_bookmark.comment_number,
-            config.comments_per_page * (page - 1) + 1)
+            comment_bookmark.comment_number, config.comments_per_page * (page - 1) + 1
+        )
 
     def test_comment_bookmark_update_or_create_race(self):
         """
         Should update on race condition
         """
         CommentBookmark.objects.create(
-            user=self.user,
-            topic=self.topic,
-            comment_number=0)
+            user=self.user, topic=self.topic, comment_number=0
+        )
         page = 2
 
         increased = CommentBookmark.increase_or_create(
             user=self.user,
             topic=self.topic,
-            comment_number=CommentBookmark.page_to_comment_number(page))
+            comment_number=CommentBookmark.page_to_comment_number(page),
+        )
         self.assertTrue(increased)
-        comment_bookmark = CommentBookmark.objects.get(
-            user=self.user,
-            topic=self.topic)
+        comment_bookmark = CommentBookmark.objects.get(user=self.user, topic=self.topic)
         self.assertEqual(
-            comment_bookmark.comment_number,
-            config.comments_per_page * (page - 1) + 1)
+            comment_bookmark.comment_number, config.comments_per_page * (page - 1) + 1
+        )
 
     def test_comment_bookmark_update_or_create_invalid_page(self):
         """
         Should do nothing when receiving an invalid page
         """
-        page = 'im_a_string'
+        page = "im_a_string"
         increased = CommentBookmark.increase_or_create(
             user=self.user,
             topic=self.topic,
-            comment_number=CommentBookmark.page_to_comment_number(page))
+            comment_number=CommentBookmark.page_to_comment_number(page),
+        )
         self.assertFalse(increased)
         self.assertEqual(len(CommentBookmark.objects.all()), 0)
 
 
 class CommentBookmarkFormTest(TestCase):
-
     def test_form(self):
-        form_data = {'comment_number': 999}
+        form_data = {"comment_number": 999}
         form = BookmarkForm(data=form_data)
         self.assertTrue(form.is_valid())
 
@@ -140,7 +139,7 @@ class CommentBookmarkFormTest(TestCase):
 
         # Update greater bookmark
         page = 10
-        form_data = {'comment_number': config.comments_per_page * (page - 1) + 1}
+        form_data = {"comment_number": config.comments_per_page * (page - 1) + 1}
         form = BookmarkForm(user=user, topic=topic, data=form_data)
         self.assertTrue(form.is_valid())
         form.save()
@@ -149,8 +148,7 @@ class CommentBookmarkFormTest(TestCase):
 
         # Ignore lesser page
         page = 1
-        form_data = {
-            'comment_number': CommentBookmark.page_to_comment_number(page)}
+        form_data = {"comment_number": CommentBookmark.page_to_comment_number(page)}
         form = BookmarkForm(user=user, topic=topic, data=form_data)
         self.assertTrue(form.is_valid())
         form.save()
@@ -158,9 +156,7 @@ class CommentBookmarkFormTest(TestCase):
         self.assertTrue(new_number == number)
 
 
-
 class CommentBookmarkTemplateTagsTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -172,10 +168,12 @@ class CommentBookmarkTemplateTagsTest(TestCase):
         """
         should populate the topic's bookmark
         """
-        bookmark = CommentBookmark.objects.create(user=self.user, topic=self.topic, comment_number=10)
+        bookmark = CommentBookmark.objects.create(
+            user=self.user, topic=self.topic, comment_number=10
+        )
         out = Template(
             "{% load comment_bookmark %}"
             "{% populate_bookmarks topics=topics user=user %}"
             "{{ topics.0.bookmark.get_absolute_url }}"
-        ).render(Context({'topics': [self.topic, ], 'user': self.user}))
+        ).render(Context({"topics": [self.topic], "user": self.user}))
         self.assertEqual(out, bookmark.get_absolute_url())

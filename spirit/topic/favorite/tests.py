@@ -2,12 +2,11 @@ from django.test import TestCase
 from django.urls import reverse
 
 from ...core.tests import utils
-from .models import TopicFavorite
 from .forms import FavoriteForm
+from .models import TopicFavorite
 
 
 class FavoriteViewTest(TestCase):
-
     # TODO: templatetags test
     def setUp(self):
         utils.cache_clear()
@@ -21,8 +20,10 @@ class FavoriteViewTest(TestCase):
         """
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic:favorite:create', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse("spirit:topic:favorite:create", kwargs={"topic_id": self.topic.pk}),
+            form_data,
+        )
         self.assertRedirects(response, self.topic.get_absolute_url(), status_code=302)
         self.assertEqual(len(TopicFavorite.objects.all()), 1)
 
@@ -31,10 +32,14 @@ class FavoriteViewTest(TestCase):
         create favorite using next
         """
         utils.login(self)
-        form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:topic:favorite:create', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
-        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+        form_data = {"next": "/fakepath/"}
+        response = self.client.post(
+            reverse("spirit:topic:favorite:create", kwargs={"topic_id": self.topic.pk}),
+            form_data,
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
 
     def test_favorite_create_invalid(self):
         """
@@ -42,10 +47,14 @@ class FavoriteViewTest(TestCase):
         """
         TopicFavorite.objects.create(user=self.user, topic=self.topic)
         utils.login(self)
-        form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:topic:favorite:create', kwargs={'topic_id': self.topic.pk, }),
-                                    form_data)
-        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+        form_data = {"next": "/fakepath/"}
+        response = self.client.post(
+            reverse("spirit:topic:favorite:create", kwargs={"topic_id": self.topic.pk}),
+            form_data,
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
         self.assertEqual(len(TopicFavorite.objects.all()), 1)
 
     def test_favorite_delete(self):
@@ -55,8 +64,10 @@ class FavoriteViewTest(TestCase):
         utils.login(self)
         favorite = TopicFavorite.objects.create(user=self.user, topic=self.topic)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic:favorite:delete', kwargs={'pk': favorite.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse("spirit:topic:favorite:delete", kwargs={"pk": favorite.pk}),
+            form_data,
+        )
         self.assertRedirects(response, self.topic.get_absolute_url(), status_code=302)
         self.assertEqual(len(TopicFavorite.objects.all()), 0)
 
@@ -66,15 +77,18 @@ class FavoriteViewTest(TestCase):
         """
         utils.login(self)
         favorite = TopicFavorite.objects.create(user=self.user, topic=self.topic)
-        form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:topic:favorite:delete', kwargs={'pk': favorite.pk, }),
-                                    form_data)
-        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+        form_data = {"next": "/fakepath/"}
+        response = self.client.post(
+            reverse("spirit:topic:favorite:delete", kwargs={"pk": favorite.pk}),
+            form_data,
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
         self.assertEqual(len(TopicFavorite.objects.all()), 0)
 
 
 class FavoriteFormTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()

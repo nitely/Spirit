@@ -36,11 +36,22 @@ Visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 For detailed setup docs, see [spirit.readthedocs.io](http://spirit.readthedocs.io/en/latest/)
 
-## Testing
+## Dev
+
+Use [uv tooling](https://docs.astral.sh/uv/).
+
+### Testing
 
 ```
 uv sync --all-extras
 uv run runtests.py
+```
+
+### Lint & Format
+
+```
+ruff check --select I --fix
+uvx ruff format
 ```
 
 ## License

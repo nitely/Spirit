@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 
 
+import logging
 import os
 import sys
-import logging
 
 import django
 from django.test.runner import DiscoverRunner
 
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'project.project.settings.test'
+os.environ["DJANGO_SETTINGS_MODULE"] = "project.project.settings.test"
 
 
 def setup_celery():
@@ -17,21 +16,22 @@ def setup_celery():
         from celery import Celery
     except ImportError:
         return
-    app = Celery('test')
-    app.config_from_object('django.conf:settings', namespace='CELERY')
+    app = Celery("test")
+    app.config_from_object("django.conf:settings", namespace="CELERY")
     app.autodiscover_tasks()
 
 
 def log_warnings():
-    logger = logging.getLogger('py.warnings')
+    logger = logging.getLogger("py.warnings")
     handler = logging.StreamHandler()
     logger.addHandler(handler)
 
 
 def run_tests(reverse=False):
     sys.stdout.write(
-        "\nRunning spirit test suite, using settings %(settings)r\n\n" %
-        {"settings": os.environ['DJANGO_SETTINGS_MODULE']})
+        "\nRunning spirit test suite, using settings %(settings)r\n\n"
+        % {"settings": os.environ["DJANGO_SETTINGS_MODULE"]}
+    )
     return DiscoverRunner(reverse=reverse).run_tests([])
 
 

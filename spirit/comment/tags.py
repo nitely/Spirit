@@ -1,39 +1,40 @@
-from django.utils.translation import gettext_lazy as _
-from django.utils.html import mark_safe, format_html
 from django.contrib.humanize.templatetags import humanize
 from django.template.defaultfilters import date as date_format
+from django.utils.html import format_html, mark_safe
+from django.utils.translation import gettext_lazy as _
 
 from spirit.core.conf import settings
 from spirit.core.tags.registry import register
-from .poll.utils.render import render_polls
+
 from .forms import CommentForm
 from .models import Comment
+from .poll.utils.render import render_polls
 
 
-@register.inclusion_tag('spirit/comment/_form.html', takes_context=True)
+@register.inclusion_tag("spirit/comment/_form.html", takes_context=True)
 def render_comments_form(context, topic, next=None):
     form = CommentForm()
     return {
-        'form': form,
-        'topic_id': topic.pk,
-        'next': next,
+        "form": form,
+        "topic_id": topic.pk,
+        "next": next,
         # fixes #249
-        'user': context['request'].user,
+        "user": context["request"].user,
     }
 
 
 @register.simple_tag()
 def get_allowed_file_types():
     return ", ".join(
-        '.%s' % ext
-        for ext in sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
+        ".%s" % ext for ext in sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys())
+    )
 
 
 @register.simple_tag()
 def get_allowed_image_types():
     return ", ".join(
-        '.%s' % ext
-        for ext in sorted(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT))
+        ".%s" % ext for ext in sorted(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT)
+    )
 
 
 ACTIONS = {
@@ -57,15 +58,18 @@ def get_comment_action_text(comment):
         user=format_html(
             user_frag,
             url=comment.user.st.get_absolute_url(),
-            user=comment.user.st.nickname),
+            user=comment.user.st.nickname,
+        ),
         time_ago=format_html(
             date_frag,
             title=date_format(comment.date, "DATETIME_FORMAT"),
-            date=humanize.naturaltime(comment.date)))
+            date=humanize.naturaltime(comment.date),
+        ),
+    )
 
 
 @register.simple_tag(takes_context=True)
 def post_render_comment(context, comment):
-    request = context['request']
-    csrf_token = context['csrf_token']
+    request = context["request"]
+    csrf_token = context["csrf_token"]
     return mark_safe(render_polls(comment, request, csrf_token))

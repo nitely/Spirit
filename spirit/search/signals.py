@@ -13,11 +13,7 @@ class RealtimeSignalProcessor(signals.RealtimeSignalProcessor):
         super().handle_save(sender, instance, **kwargs)
 
     def setup(self):
-        search_index_update.connect(
-            self.handle_save,
-            dispatch_uid='signals.search')
+        search_index_update.connect(self.handle_save, dispatch_uid="signals.search")
 
     def teardown(self):
-        search_index_update.disconnect(
-            self.handle_save,
-            dispatch_uid='signals.search')
+        search_index_update.disconnect(self.handle_save, dispatch_uid="signals.search")

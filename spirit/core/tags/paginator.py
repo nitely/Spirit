@@ -1,11 +1,11 @@
-from django.template.loader import render_to_string
 from django.core.paginator import Page
+from django.template.loader import render_to_string
 
 from .registry import register
 
 
 @register.simple_tag(takes_context=True)
-def render_paginator(context, page, page_var='page', hashtag=''):
+def render_paginator(context, page, page_var="page", hashtag=""):
     query_dict = context["request"].GET.copy()
 
     try:
@@ -25,7 +25,7 @@ def render_paginator(context, page, page_var='page', hashtag=''):
         "page": page,
         "page_var": page_var,
         "hashtag": hashtag,
-        "extra_query": extra_query
+        "extra_query": extra_query,
     }
 
     if isinstance(page, Page):

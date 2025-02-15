@@ -1,22 +1,21 @@
-import logging
 import datetime
-
+import logging
 import zoneinfo
 from zoneinfo import ZoneInfo
 
+__all__ = ["timezones"]
 
-__all__ = ['timezones']
+logger = logging.getLogger("django")
 
-logger = logging.getLogger('django')
 
 def _common_timezones():
     all_tz = [
-        z for z in zoneinfo.available_timezones()
-        if '/' in z and
-           not z.startswith('System') and
-           not z.startswith('Etc/')
+        z
+        for z in zoneinfo.available_timezones()
+        if "/" in z and not z.startswith("System") and not z.startswith("Etc/")
     ]
-    return ['UTC', 'GMT', *all_tz]
+    return ["UTC", "GMT", *all_tz]
+
 
 common_timezones = _common_timezones()
 
@@ -39,19 +38,18 @@ def utc_offset(time_zone, fixed_dt=None):
 
         now += datetime.timedelta(days=30)
     else:
-        logger.warning(
-            'Standard Time not found for %s, will use DST.' % time_zone)
+        logger.warning("Standard Time not found for %s, will use DST." % time_zone)
 
-    return now.replace(tzinfo=tz, fold=1).strftime('%z')
+    return now.replace(tzinfo=tz, fold=1).strftime("%z")
 
 
 def offset_to_int(offset):
-    assert offset[0] in ('-', '+')
+    assert offset[0] in ("-", "+")
 
     sign, hour, minutes = offset[0], offset[1:3], offset[3:5]
     utc_offset_int = int(hour) + int(minutes) / 100
 
-    if sign == '-':
+    if sign == "-":
         utc_offset_int *= -1
 
     return utc_offset_int
@@ -59,21 +57,21 @@ def offset_to_int(offset):
 
 def timezones_by_offset():
     return sorted(
-        ((utc_offset(tz), tz)
-         for tz in common_timezones),
-        key=lambda x: (offset_to_int(x[0]), x[1]))
+        ((utc_offset(tz), tz) for tz in common_timezones),
+        key=lambda x: (offset_to_int(x[0]), x[1]),
+    )
 
 
 def timezone_format(time_zone, offset):
-    zone_parts = time_zone.split('/')
+    zone_parts = time_zone.split("/")
     zone = zone_parts[0]
 
     if len(zone_parts) > 1:
-        zone_label = ', '.join(zone_parts[1:]).replace('_', ' ')
+        zone_label = ", ".join(zone_parts[1:]).replace("_", " ")
     else:
         zone_label = zone
 
-    return zone, f'(UTC{offset}) {zone_label}'
+    return zone, f"(UTC{offset}) {zone_label}"
 
 
 def timezones():
@@ -98,10 +96,6 @@ def timezones():
 
     for offset, time_zone in timezones_by_offset():
         zone, pretty_time_zone = timezone_format(time_zone, offset)
-        (timezones_cache
-         .setdefault(zone, [])
-         .append((time_zone, pretty_time_zone)))
+        (timezones_cache.setdefault(zone, []).append((time_zone, pretty_time_zone)))
 
-    return sorted(
-        timezones_cache.items(),
-        key=lambda x: x[0])
+    return sorted(timezones_cache.items(), key=lambda x: x[0])

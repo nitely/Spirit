@@ -1,12 +1,8 @@
-from django.core.files.storage import (
-    FileSystemStorage, default_storage, storages)
+from django.core.files.storage import FileSystemStorage, default_storage, storages
 
 from .conf import settings
 
-__all__ = [
-    'spirit_storage',
-    'spirit_storage_or_none',
-    'OverwriteFileSystemStorage']
+__all__ = ["spirit_storage", "spirit_storage_or_none", "OverwriteFileSystemStorage"]
 
 
 class OverwriteFileSystemStorage(FileSystemStorage):
@@ -19,9 +15,9 @@ def select_storage(default=default_storage):
     """returns ``None`` if there is no custom storage"""
     if not settings.ST_STORAGE:  # empty or None
         return default
-    if settings.ST_STORAGE == 'spirit.core.storage.OverwriteFileSystemStorage':
+    if settings.ST_STORAGE == "spirit.core.storage.OverwriteFileSystemStorage":
         return OverwriteFileSystemStorage()
-    if settings.ST_STORAGE == 'django.core.files.storage.FileSystemStorage':
+    if settings.ST_STORAGE == "django.core.files.storage.FileSystemStorage":
         return FileSystemStorage()
     return storages[settings.ST_STORAGE]
 

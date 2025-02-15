@@ -5,7 +5,6 @@ from .models import CommentLike
 
 
 class LikeForm(forms.ModelForm):
-
     class Meta:
         model = CommentLike
         fields = []
@@ -18,8 +17,7 @@ class LikeForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        like = CommentLike.objects.filter(user=self.user,
-                                          comment=self.comment)
+        like = CommentLike.objects.filter(user=self.user, comment=self.comment)
 
         if like.exists():
             # Do this since some of the unique_together fields are excluded.

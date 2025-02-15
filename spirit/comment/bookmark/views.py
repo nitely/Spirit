@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
-from django.views.decorators.http import require_POST
 from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.http import require_POST
 
 from spirit.core.utils import json_response
 from spirit.core.utils.views import is_ajax
 from spirit.topic.models import Topic
+
 from .forms import BookmarkForm
 
 
@@ -17,8 +17,7 @@ def create(request, topic_id):
         return Http404()
 
     topic = get_object_or_404(Topic, pk=topic_id)
-    form = BookmarkForm(
-        user=request.user, topic=topic, data=request.POST)
+    form = BookmarkForm(user=request.user, topic=topic, data=request.POST)
 
     if form.is_valid():
         form.save()
@@ -30,8 +29,7 @@ def create(request, topic_id):
 @login_required
 def find(request, topic_id):
     # TODO: test!, this aint used yet.
-    bookmark = BookmarkForm.objects.filter(
-        user=request.user, topic_id=topic_id)
+    bookmark = BookmarkForm.objects.filter(user=request.user, topic_id=topic_id)
 
     if not bookmark:
         topic = get_object_or_404(Topic, pk=topic_id)

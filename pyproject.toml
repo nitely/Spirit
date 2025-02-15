@@ -58,7 +58,23 @@ packages = ["spirit"]
 version = { attr = "spirit.__version__" }
 
 [tool.ruff]
-line-length = 120
+src = ["spirit"]
+line-length = 88
+extend-exclude = [
+    ".git",
+    "*/migrations/",
+    "*settings*.py"
+]
+
+[tool.ruff.format]
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint]
+extend-select = ["E501"]
+
+[tool.ruff.lint.flake8-annotations]
+ignore-fully-untyped = true
+mypy-init-return = true
 
 [dependency-groups]
 dev = [

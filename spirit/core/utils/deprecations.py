@@ -1,8 +1,6 @@
 import warnings
 
-__all__ = [
-    'RemovedInNextVersionWarning',
-    'warn']
+__all__ = ["RemovedInNextVersionWarning", "warn"]
 
 
 class RemovedInNextVersionWarning(DeprecationWarning):
@@ -10,10 +8,7 @@ class RemovedInNextVersionWarning(DeprecationWarning):
 
 
 def warn(message, stacklevel=3):
-    warnings.warn(
-        message,
-        category=RemovedInNextVersionWarning,
-        stacklevel=stacklevel)
+    warnings.warn(message, category=RemovedInNextVersionWarning, stacklevel=stacklevel)
 
 
 warnings.simplefilter("default", RemovedInNextVersionWarning)

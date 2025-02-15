@@ -1,14 +1,14 @@
 from django.test import TestCase
 
 from .models import (
-    AutoSlugPopulateFromModel,
-    AutoSlugModel,
+    AutoSlugBadPopulateFromModel,
     AutoSlugDefaultModel,
-    AutoSlugBadPopulateFromModel)
+    AutoSlugModel,
+    AutoSlugPopulateFromModel,
+)
 
 
 class UtilsModelsTests(TestCase):
-
     def test_auto_slug_field(self):
         """
         Should behave like a regular SlugField if populate_from is not provided
@@ -38,8 +38,11 @@ class UtilsModelsTests(TestCase):
         Should raise AttributeError
         """
         foo_model = AutoSlugBadPopulateFromModel()
-        self.assertRaisesMessage(AttributeError, "'AutoSlugBadPopulateFromModel' "
-                                                 "object has no attribute 'bad'", foo_model.save)
+        self.assertRaisesMessage(
+            AttributeError,
+            "'AutoSlugBadPopulateFromModel' object has no attribute 'bad'",
+            foo_model.save,
+        )
 
     def test_auto_slug_field_populate_from(self):
         """

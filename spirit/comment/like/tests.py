@@ -1,16 +1,15 @@
+from django.template import Context, Template
 from django.test import TestCase
 from django.urls import reverse
-from django.template import Template, Context
 
 from ...core.tests import utils
 from ..models import Comment
-from .models import CommentLike
 from .forms import LikeForm
+from .models import CommentLike
 from .tags import render_like_form
 
 
 class LikeViewTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -24,9 +23,18 @@ class LikeViewTest(TestCase):
         """
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:comment:like:create', kwargs={'comment_id': self.comment.pk, }),
-                                    form_data)
-        self.assertRedirects(response, self.comment.get_absolute_url(), status_code=302, target_status_code=302)
+        response = self.client.post(
+            reverse(
+                "spirit:comment:like:create", kwargs={"comment_id": self.comment.pk}
+            ),
+            form_data,
+        )
+        self.assertRedirects(
+            response,
+            self.comment.get_absolute_url(),
+            status_code=302,
+            target_status_code=302,
+        )
         self.assertEqual(len(CommentLike.objects.all()), 1)
 
     def test_like_create_next(self):
@@ -34,10 +42,16 @@ class LikeViewTest(TestCase):
         create like using next
         """
         utils.login(self)
-        form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:comment:like:create', kwargs={'comment_id': self.comment.pk, }),
-                                    form_data)
-        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+        form_data = {"next": "/fakepath/"}
+        response = self.client.post(
+            reverse(
+                "spirit:comment:like:create", kwargs={"comment_id": self.comment.pk}
+            ),
+            form_data,
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
 
     def test_like_create_invalid(self):
         """
@@ -46,8 +60,12 @@ class LikeViewTest(TestCase):
         CommentLike.objects.create(user=self.user, comment=self.comment)
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:comment:like:create', kwargs={'comment_id': self.comment.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse(
+                "spirit:comment:like:create", kwargs={"comment_id": self.comment.pk}
+            ),
+            form_data,
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_like_create_comment_increase_likes_count(self):
@@ -56,8 +74,12 @@ class LikeViewTest(TestCase):
         """
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:comment:like:create', kwargs={'comment_id': self.comment.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse(
+                "spirit:comment:like:create", kwargs={"comment_id": self.comment.pk}
+            ),
+            form_data,
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Comment.objects.get(pk=self.comment.pk).likes_count, 1)
 
@@ -68,9 +90,15 @@ class LikeViewTest(TestCase):
         utils.login(self)
         like = CommentLike.objects.create(user=self.user, comment=self.comment)
         form_data = {}
-        response = self.client.post(reverse('spirit:comment:like:delete', kwargs={'pk': like.pk, }),
-                                    form_data)
-        self.assertRedirects(response, self.comment.get_absolute_url(), status_code=302, target_status_code=302)
+        response = self.client.post(
+            reverse("spirit:comment:like:delete", kwargs={"pk": like.pk}), form_data
+        )
+        self.assertRedirects(
+            response,
+            self.comment.get_absolute_url(),
+            status_code=302,
+            target_status_code=302,
+        )
         self.assertEqual(len(CommentLike.objects.all()), 0)
 
     def test_like_delete_next(self):
@@ -79,10 +107,13 @@ class LikeViewTest(TestCase):
         """
         utils.login(self)
         like = CommentLike.objects.create(user=self.user, comment=self.comment)
-        form_data = {'next': '/fakepath/', }
-        response = self.client.post(reverse('spirit:comment:like:delete', kwargs={'pk': like.pk, }),
-                                    form_data)
-        self.assertRedirects(response, '/fakepath/', status_code=302, target_status_code=404)
+        form_data = {"next": "/fakepath/"}
+        response = self.client.post(
+            reverse("spirit:comment:like:delete", kwargs={"pk": like.pk}), form_data
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
 
     def test_like_delete_comment_decrease_likes_count(self):
         """
@@ -92,14 +123,14 @@ class LikeViewTest(TestCase):
         comment = utils.create_comment(topic=self.topic, likes_count=1)
         like = CommentLike.objects.create(user=self.user, comment=comment)
         form_data = {}
-        response = self.client.post(reverse('spirit:comment:like:delete', kwargs={'pk': like.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse("spirit:comment:like:delete", kwargs={"pk": like.pk}), form_data
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Comment.objects.get(pk=comment.pk).likes_count, 0)
 
 
 class LikeFormTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -130,7 +161,6 @@ class LikeFormTest(TestCase):
 
 
 class LikeTemplateTagsTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -143,19 +173,18 @@ class LikeTemplateTagsTest(TestCase):
         should display the like form
         """
         template = Template(
-            "{% load spirit_tags %}"
-            "{% render_like_form comment=comment like=like %}"
+            "{% load spirit_tags %}{% render_like_form comment=comment like=like %}"
         )
-        data = {'comment': self.comment, 'like': None}
+        data = {"comment": self.comment, "like": None}
         template.render(Context(data))
         context = render_like_form(**data)
-        self.assertEqual(context['next'], None)
-        self.assertIsInstance(context['form'], LikeForm)
-        self.assertEqual(context['comment_id'], self.comment.pk)
-        self.assertEqual(context['like'], None)
+        self.assertEqual(context["next"], None)
+        self.assertIsInstance(context["form"], LikeForm)
+        self.assertEqual(context["comment_id"], self.comment.pk)
+        self.assertEqual(context["like"], None)
 
         like = CommentLike.objects.create(user=self.user, comment=self.comment)
-        data['like'] = like
+        data["like"] = like
         template.render(Context(data))
         context = render_like_form(**data)
-        self.assertEqual(context['like'], like)
+        self.assertEqual(context["like"], like)

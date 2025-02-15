@@ -10,7 +10,9 @@ def topic_viewed(request, topic):
         user=user,
         topic=topic,
         comment_number=CommentBookmark.page_to_comment_number(
-            request.GET.get('page', 1)))
+            request.GET.get("page", 1)
+        ),
+    )
     TopicNotification.mark_as_read(user=user, topic=topic)
     TopicUnread.create_or_mark_as_read(user=user, topic=topic)
     topic.increase_view_count()

@@ -1,25 +1,20 @@
 import re
 
-from django.utils.translation import gettext as _
 from django.utils import translation
+from django.utils.translation import gettext as _
 
 from ....conf import settings
 
-
 _PATTERN_POLL = re.compile(
-    r'^(?:\[poll[^\]]*\])\n+'
-    r'(?:[0-9]+[^\n]*\n+)+'
-    r'(?:\[/poll\])',
-    flags=re.MULTILINE
+    r"^(?:\[poll[^\]]*\])\n+"
+    r"(?:[0-9]+[^\n]*\n+)+"
+    r"(?:\[/poll\])",
+    flags=re.MULTILINE,
 )
 
 
 def _strip_polls(comment):
-    return re.sub(
-        _PATTERN_POLL,
-        r'',
-        comment
-    )
+    return re.sub(_PATTERN_POLL, r"", comment)
 
 
 def quotify(comment, username):
@@ -31,7 +26,7 @@ def quotify(comment, username):
     \n\n
     """
     with translation.override(settings.LANGUAGE_CODE):
-        header = _("@%(username)s said:") % {'username': username}
+        header = _("@%(username)s said:") % {"username": username}
 
     comment = _strip_polls(comment)
     lines = comment.splitlines()
