@@ -11,7 +11,7 @@ from infinite_scroll_pagination.serializers import to_page_key
 from ..tests import utils
 from ...comment.models import Comment
 from ..utils import paginator
-from ..utils.paginator import YTPaginator, InvalidPage, YTPage
+from spirit.core.utils.paginator.yt_paginator import YTPaginator, InvalidPage, YTPage
 from ..utils.paginator import infinite_paginator, paginate, yt_paginate
 from ..tags.paginator import render_paginator
 from ..tags import paginator as ttag_paginator
