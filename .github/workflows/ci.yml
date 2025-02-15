@@ -30,6 +30,7 @@ jobs:
     - name: Run Tests
       run: |
         uv run spirit startproject test_project
+        uv run -- ./test_project/manage.py makemigrations --check
         export PYTHONWARNINGS="default"
         uv run runtests.py
   test_js:
