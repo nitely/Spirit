@@ -1,18 +1,19 @@
-from django.shortcuts import render
+import django
 from django.contrib import messages
-from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
+from django.shortcuts import render
+from django.utils.translation import gettext as _
 
 import spirit
-import django
-from spirit.core.utils.http import safe_redirect
 from spirit.category.models import Category
 from spirit.comment.flag.models import CommentFlag
 from spirit.comment.like.models import CommentLike
 from spirit.comment.models import Comment
-from spirit.topic.models import Topic
-from spirit.core.utils.views import is_post, post_data
 from spirit.core.utils.decorators import administrator_required
+from spirit.core.utils.http import safe_redirect
+from spirit.core.utils.views import is_post, post_data
+from spirit.topic.models import Topic
+
 from .forms import BasicConfigForm
 
 User = get_user_model()
@@ -25,24 +26,21 @@ def config_basic(request):
         form.save()
         messages.info(request, _("Settings updated!"))
         return safe_redirect(request, "next", request.get_full_path())
-    return render(
-        request=request,
-        template_name='spirit/admin/config_basic.html',
-        context={'form': form})
+    return render(request=request, template_name="spirit/admin/config_basic.html", context={"form": form})
 
 
 @administrator_required
 def dashboard(request):
     # Strongly inaccurate counters below...
     context = {
-        'version': spirit.__version__,
-        'django_version': django.get_version(),
-        'category_count': Category.objects.all().count() - 1,  # - private
-        'topics_count': Topic.objects.all().count(),
-        'comments_count': Comment.objects.all().count(),
-        'users_count': User.objects.all().count(),
-        'flags_count': CommentFlag.objects.filter(is_closed=False).count(),
-        'likes_count': CommentLike.objects.all().count()
+        "version": spirit.__version__,
+        "django_version": django.get_version(),
+        "category_count": Category.objects.all().count() - 1,  # - private
+        "topics_count": Topic.objects.all().count(),
+        "comments_count": Comment.objects.all().count(),
+        "users_count": User.objects.all().count(),
+        "flags_count": CommentFlag.objects.filter(is_closed=False).count(),
+        "likes_count": CommentLike.objects.all().count(),
     }
 
-    return render(request, 'spirit/admin/dashboard.html', context)
+    return render(request, "spirit/admin/dashboard.html", context)

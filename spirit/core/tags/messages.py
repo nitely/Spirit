@@ -4,17 +4,16 @@ from django.contrib.messages import constants
 
 from .registry import register
 
-
 TAGS = {
-    constants.DEBUG: 'debug',
-    constants.INFO: 'info',
-    constants.SUCCESS: 'success',
-    constants.WARNING: 'warning',
-    constants.ERROR: 'error',
+    constants.DEBUG: "debug",
+    constants.INFO: "info",
+    constants.SUCCESS: "success",
+    constants.WARNING: "warning",
+    constants.ERROR: "error",
 }
 
 
-@register.inclusion_tag('spirit/utils/_messages.html')
+@register.inclusion_tag("spirit/utils/_messages.html")
 def render_messages(messages):
     grouped = OrderedDict()
 
@@ -23,4 +22,6 @@ def render_messages(messages):
         messages_group.append(m)
         grouped[TAGS[m.level]] = messages_group
 
-    return {'messages_grouped': grouped, }
+    return {
+        "messages_grouped": grouped,
+    }

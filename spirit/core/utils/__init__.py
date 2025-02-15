@@ -1,25 +1,30 @@
-import os
-import json
 import hashlib
+import json
+import os
 import uuid
 from contextlib import contextmanager
 
 from django.core.exceptions import SuspiciousFileOperation
-from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 
-from spirit.core.storage import spirit_storage
 from spirit.core.conf import settings
+from spirit.core.storage import spirit_storage
 
 
 def render_form_errors(form):
-    return render_to_string('spirit/utils/_form_errors.html', {'form': form, })
+    return render_to_string(
+        "spirit/utils/_form_errors.html",
+        {
+            "form": form,
+        },
+    )
 
 
 def json_response(data=None, status=200):
     # TODO: Use JsonResponse on Django 1.7
     data = data or {}
-    return HttpResponse(json.dumps(data), content_type='application/json', status=status)
+    return HttpResponse(json.dumps(data), content_type="application/json", status=status)
 
 
 def mkdir_p(path):
@@ -31,8 +36,7 @@ def mkdir_p(path):
 
 
 def get_hash(bytes_iter):
-    assert not isinstance(
-        bytes_iter, (str, bytes))  # Avoid gotchas
+    assert not isinstance(bytes_iter, (str, bytes))  # Avoid gotchas
 
     # todo: test!
     md5 = hashlib.md5()
@@ -82,9 +86,10 @@ def get_query_string(request, **params):
 def hashed_filename(file):
     # Assume a valid extension
     _, ext = os.path.splitext(file.name)
-    return '{name}{ext}'.format(
+    return "{name}{ext}".format(
         name=get_file_hash(file),  # This is slow
-        ext=ext.lower())
+        ext=ext.lower(),
+    )
 
 
 def safe_uuid():
@@ -105,11 +110,7 @@ def unique_filename(file):
         name = spirit_storage.get_valid_name(name)
     except SuspiciousFileOperation:
         name = safe_uuid()
-    return os.path.join(
-        safe_uuid(),
-        '{name}{ext}'.format(
-            name=name.lstrip('.') or safe_uuid(),
-            ext=ext.lower()))
+    return os.path.join(safe_uuid(), "{name}{ext}".format(name=name.lstrip(".") or safe_uuid(), ext=ext.lower()))
 
 
 def generate_filename(file, hashed=False):
@@ -119,4 +120,4 @@ def generate_filename(file, hashed=False):
 
 
 def site_url():
-    return settings.ST_SITE_URL.rstrip('/')
+    return settings.ST_SITE_URL.rstrip("/")

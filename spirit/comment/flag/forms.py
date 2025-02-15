@@ -1,16 +1,15 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
 from django.db import IntegrityError, transaction
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
-from .models import Flag, CommentFlag
+from .models import CommentFlag, Flag
 
 
 class FlagForm(forms.ModelForm):
-
     class Meta:
         model = Flag
-        fields = ['reason', 'body']
+        fields = ["reason", "body"]
 
     def __init__(self, user=None, comment=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -20,8 +19,7 @@ class FlagForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        flag = Flag.objects.filter(user=self.user,
-                                   comment=self.comment)
+        flag = Flag.objects.filter(user=self.user, comment=self.comment)
 
         if flag.exists():
             # Do this since some of the unique_together fields are excluded.
@@ -38,7 +36,10 @@ class FlagForm(forms.ModelForm):
                 with transaction.atomic():
                     CommentFlag.objects.update_or_create(
                         comment=self.comment,
-                        defaults={'date': timezone.now(), })
+                        defaults={
+                            "date": timezone.now(),
+                        },
+                    )
             except IntegrityError:
                 pass
 

@@ -1,14 +1,14 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404, render
 from django.utils.translation import gettext as _
-
 from djconfig import config
 
-from spirit.core.utils.http import safe_redirect
-from spirit.core.utils.views import is_post, post_data
-from spirit.core.utils.paginator import yt_paginate
 from spirit.core.utils.decorators import administrator_required
+from spirit.core.utils.http import safe_redirect
+from spirit.core.utils.paginator import yt_paginate
+from spirit.core.utils.views import is_post, post_data
+
 from .forms import UserForm, UserProfileForm
 
 User = get_user_model()
@@ -24,35 +24,26 @@ def edit(request, user_id):
         form.save()
         messages.info(request, _("This profile has been updated!"))
         return safe_redirect(request, "next", request.get_full_path())
-    return render(
-        request=request,
-        template_name='spirit/user/admin/edit.html',
-        context={'form': form, 'uform': uform})
+    return render(request=request, template_name="spirit/user/admin/edit.html", context={"form": form, "uform": uform})
 
 
 @administrator_required
 def _index(request, queryset, template):
     users = yt_paginate(
-        queryset.order_by('-date_joined', '-pk'),
+        queryset.order_by("-date_joined", "-pk"),
         per_page=config.topics_per_page,
-        page_number=request.GET.get('page', 1)
+        page_number=request.GET.get("page", 1),
     )
-    return render(request, template, context={'users': users})
+    return render(request, template, context={"users": users})
 
 
 def index(request):
-    return _index(
-        request,
-        queryset=User.objects.all(),
-        template='spirit/user/admin/index.html'
-    )
+    return _index(request, queryset=User.objects.all(), template="spirit/user/admin/index.html")
 
 
 def index_admins(request):
     return _index(
-        request,
-        queryset=User.objects.filter(st__is_administrator=True),
-        template='spirit/user/admin/admins.html'
+        request, queryset=User.objects.filter(st__is_administrator=True), template="spirit/user/admin/admins.html"
     )
 
 
@@ -60,13 +51,9 @@ def index_mods(request):
     return _index(
         request,
         queryset=User.objects.filter(st__is_moderator=True, st__is_administrator=False),
-        template='spirit/user/admin/mods.html'
+        template="spirit/user/admin/mods.html",
     )
 
 
 def index_unactive(request):
-    return _index(
-        request,
-        queryset=User.objects.filter(is_active=False),
-        template='spirit/user/admin/unactive.html'
-    )
+    return _index(request, queryset=User.objects.filter(is_active=False), template="spirit/user/admin/unactive.html")

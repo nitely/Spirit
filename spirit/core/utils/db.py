@@ -1,4 +1,4 @@
-from django.db import transaction, IntegrityError
+from django.db import IntegrityError, transaction
 
 
 def create_or_none(cls, **kwargs):

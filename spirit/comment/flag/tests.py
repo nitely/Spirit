@@ -2,12 +2,11 @@ from django.test import TestCase
 from django.urls import reverse
 
 from ...core.tests import utils
-from .models import Flag, CommentFlag
 from .forms import FlagForm
+from .models import CommentFlag, Flag
 
 
 class FlagViewTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -20,16 +19,24 @@ class FlagViewTest(TestCase):
         create flag
         """
         utils.login(self)
-        form_data = {'reason': "0", }
-        response = self.client.post(reverse('spirit:comment:flag:create', kwargs={'comment_id': self.comment.pk, }),
-                                    form_data)
+        form_data = {
+            "reason": "0",
+        }
+        response = self.client.post(
+            reverse(
+                "spirit:comment:flag:create",
+                kwargs={
+                    "comment_id": self.comment.pk,
+                },
+            ),
+            form_data,
+        )
         self.assertRedirects(response, self.comment.get_absolute_url(), status_code=302, target_status_code=302)
         self.assertEqual(len(Flag.objects.all()), 1)
         self.assertEqual(len(CommentFlag.objects.all()), 1)
 
 
 class FlagFormTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -41,7 +48,7 @@ class FlagFormTest(TestCase):
         """
         create flag
         """
-        form_data = {'reason': '0', 'body': 'spam comment foo'}
+        form_data = {"reason": "0", "body": "spam comment foo"}
         form = FlagForm(data=form_data)
         form.comment = self.comment
         form.user = self.user

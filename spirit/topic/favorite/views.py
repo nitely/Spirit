@@ -1,13 +1,14 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
-from django.contrib import messages
 
-from .models import TopicFavorite
-from .forms import FavoriteForm
-from ..models import Topic
 from spirit.core import utils
 from spirit.core.utils.http import safe_redirect
+
+from ..models import Topic
+from .forms import FavoriteForm
+from .models import TopicFavorite
 
 
 @require_POST
@@ -21,7 +22,7 @@ def create(request, topic_id):
     else:
         messages.error(request, utils.render_form_errors(form))
 
-    return safe_redirect(request, 'next', topic.get_absolute_url(), method='POST')
+    return safe_redirect(request, "next", topic.get_absolute_url(), method="POST")
 
 
 @require_POST
@@ -29,4 +30,4 @@ def create(request, topic_id):
 def delete(request, pk):
     favorite = get_object_or_404(TopicFavorite, pk=pk, user=request.user)
     favorite.delete()
-    return safe_redirect(request, 'next', favorite.topic.get_absolute_url(), method='POST')
+    return safe_redirect(request, "next", favorite.topic.get_absolute_url(), method="POST")

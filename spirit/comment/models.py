@@ -1,8 +1,8 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
 from django.db.models import F
+from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from ..core.conf import settings
 from .managers import CommentQuerySet
@@ -16,15 +16,11 @@ class Comment(models.Model):
         (CLOSED, _("topic closed")),
         (UNCLOSED, _("topic unclosed")),
         (PINNED, _("topic pinned")),
-        (UNPINNED, _("topic unpinned")))
+        (UNPINNED, _("topic unpinned")),
+    )
 
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name='st_comments',
-        on_delete=models.CASCADE)
-    topic = models.ForeignKey(
-        'spirit_topic.Topic',
-        on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="st_comments", on_delete=models.CASCADE)
+    topic = models.ForeignKey("spirit_topic.Topic", on_delete=models.CASCADE)
 
     comment = models.TextField(_("comment"))
     comment_html = models.TextField(_("comment html"))
@@ -40,12 +36,17 @@ class Comment(models.Model):
     objects = CommentQuerySet.as_manager()
 
     class Meta:
-        ordering = ['-date', '-pk']
+        ordering = ["-date", "-pk"]
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
 
     def get_absolute_url(self):
-        return reverse('spirit:comment:find', kwargs={'pk': str(self.id), })
+        return reverse(
+            "spirit:comment:find",
+            kwargs={
+                "pk": str(self.id),
+            },
+        )
 
     @property
     def like(self):
@@ -57,34 +58,19 @@ class Comment(models.Model):
             return
 
     def increase_modified_count(self):
-        (Comment.objects
-         .filter(pk=self.pk)
-         .update(modified_count=F('modified_count') + 1))
+        (Comment.objects.filter(pk=self.pk).update(modified_count=F("modified_count") + 1))
 
     def increase_likes_count(self):
-        (Comment.objects
-         .filter(pk=self.pk)
-         .update(likes_count=F('likes_count') + 1))
+        (Comment.objects.filter(pk=self.pk).update(likes_count=F("likes_count") + 1))
 
     def decrease_likes_count(self):
-        (Comment.objects
-         .filter(pk=self.pk, likes_count__gt=0)
-         .update(likes_count=F('likes_count') - 1))
+        (Comment.objects.filter(pk=self.pk, likes_count__gt=0).update(likes_count=F("likes_count") - 1))
 
     @classmethod
     def create_moderation_action(cls, user, topic, action):
         # TODO: better comment_html text (map to actions), use default language
-        return cls.objects.create(
-            user=user,
-            topic=topic,
-            action=action,
-            comment="action",
-            comment_html="action")
+        return cls.objects.create(user=user, topic=topic, action=action, comment="action", comment_html="action")
 
     @classmethod
     def get_last_for_topic(cls, topic_id):
-        return (
-            cls.objects
-                .filter(topic_id=topic_id)
-                .order_by('pk')
-                .last())
+        return cls.objects.filter(topic_id=topic_id).order_by("pk").last()

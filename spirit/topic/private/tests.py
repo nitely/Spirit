@@ -1,33 +1,27 @@
 import datetime
 import hashlib
 
+from django.template import Context, Template
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from django.template import Template, Context
 from django.utils import timezone
-
 from djconfig.utils import override_djconfig
 
+from ...category.models import Category
+from ...comment.bookmark.models import CommentBookmark
 from ...core.conf import settings
 from ...core.tests import utils
-from ...category.models import Category
-from .models import TopicPrivate
-from .forms import (
-    TopicForPrivateForm,
-    TopicPrivateInviteForm,
-    TopicPrivateManyForm,
-    TopicPrivateJoinForm)
-from .tags import render_invite_form
-from ..models import Topic
-from ...comment.bookmark.models import CommentBookmark
 from .. import utils as utils_topic
+from ..models import Topic
 from ..notification.models import TopicNotification
-from .utils import notify_access
 from . import views as private_views
+from .forms import TopicForPrivateForm, TopicPrivateInviteForm, TopicPrivateJoinForm, TopicPrivateManyForm
+from .models import TopicPrivate
+from .tags import render_invite_form
+from .utils import notify_access
 
 
 class TopicPrivateViewTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -41,21 +35,21 @@ class TopicPrivateViewTest(TestCase):
         self.assertEqual(len(Topic.objects.all()), 0)
 
         utils.login(self)
-        form_data = {'comment': 'foo', 'title': 'foobar', 'users': self.user2.username}
-        response = self.client.post(reverse('spirit:topic:private:publish'), form_data)
+        form_data = {"comment": "foo", "title": "foobar", "users": self.user2.username}
+        response = self.client.post(reverse("spirit:topic:private:publish"), form_data)
         private = TopicPrivate.objects.last()
         expected_url = private.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(len(Topic.objects.all()), 1)
 
         # ratelimit
-        form_data['title'] = 'new foobar'
-        form_data['comment'] = 'new foo'
-        response = self.client.post(reverse('spirit:topic:private:publish'), form_data)
+        form_data["title"] = "new foobar"
+        form_data["comment"] = "new foo"
+        response = self.client.post(reverse("spirit:topic:private:publish"), form_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(Topic.objects.all()), 1)
 
-        response = self.client.get(reverse('spirit:topic:private:publish'))
+        response = self.client.get(reverse("spirit:topic:private:publish"))
         self.assertEqual(response.status_code, 200)
 
     @override_settings(ST_TESTS_RATELIMIT_NEVER_EXPIRE=True)
@@ -67,16 +61,16 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         no_data = {}
-        response = self.client.post(reverse('spirit:topic:private:publish'), no_data)
+        response = self.client.post(reverse("spirit:topic:private:publish"), no_data)
         self.assertEqual(len(Topic.objects.all()), 0)
-        self.assertTrue(bool(response.context['tform'].errors))
-        self.assertTrue(bool(response.context['cform'].errors))
-        self.assertTrue(bool(response.context['tpform'].errors))
-        self.assertEqual(len(list(response.context['messages'])), 0)
+        self.assertTrue(bool(response.context["tform"].errors))
+        self.assertTrue(bool(response.context["cform"].errors))
+        self.assertTrue(bool(response.context["tpform"].errors))
+        self.assertEqual(len(list(response.context["messages"])), 0)
 
         # No rate-limit
-        form_data = {'comment': 'foo', 'title': 'foobar', 'users': self.user2.username}
-        self.client.post(reverse('spirit:topic:private:publish'), form_data)
+        form_data = {"comment": "foo", "title": "foobar", "users": self.user2.username}
+        self.client.post(reverse("spirit:topic:private:publish"), form_data)
         self.assertEqual(len(Topic.objects.all()), 1)
 
     def test_private_publish_create_notifications(self):
@@ -85,9 +79,14 @@ class TopicPrivateViewTest(TestCase):
         """
         utils.login(self)
         user = utils.create_user()
-        form_data = {'comment': 'foo', 'title': 'foobar', 'users': [user.username, ]}
-        response = self.client.post(reverse('spirit:topic:private:publish'),
-                                    form_data)
+        form_data = {
+            "comment": "foo",
+            "title": "foobar",
+            "users": [
+                user.username,
+            ],
+        }
+        response = self.client.post(reverse("spirit:topic:private:publish"), form_data)
         self.assertEqual(response.status_code, 302)
 
         topic_private = TopicPrivate.objects.last()
@@ -100,8 +99,20 @@ class TopicPrivateViewTest(TestCase):
         create private topic with user as initial value
         """
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:private:publish', kwargs={'user_id': self.user2.pk, }))
-        self.assertEqual(response.context['tpform'].initial['users'], [self.user2.username, ])
+        response = self.client.get(
+            reverse(
+                "spirit:topic:private:publish",
+                kwargs={
+                    "user_id": self.user2.pk,
+                },
+            )
+        )
+        self.assertEqual(
+            response.context["tpform"].initial["users"],
+            [
+                self.user2.username,
+            ],
+        )
 
     @override_settings(ST_DOUBLE_POST_THRESHOLD_MINUTES=10)
     def test_private_publish_double_post(self):
@@ -109,34 +120,34 @@ class TopicPrivateViewTest(TestCase):
         Should prevent double posts
         """
         utils.login(self)
-        category_private = Category.objects.get(
-            pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
-        topic_title = 'title foobar'
+        category_private = Category.objects.get(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+        topic_title = "title foobar"
 
         # First post
         self.client.post(
-            reverse('spirit:topic:private:publish'),
-            {'comment': 'foo', 'title': topic_title, 'users': [self.user2.username]})
+            reverse("spirit:topic:private:publish"),
+            {"comment": "foo", "title": topic_title, "users": [self.user2.username]},
+        )
         self.assertEqual(len(Topic.objects.all()), 1)
 
         # Double post
         utils.cache_clear()  # Clear rate limit
         response = self.client.post(
-            reverse('spirit:topic:private:publish'),
-            {'comment': 'new foo', 'title': topic_title, 'users': [self.user2.username]})
+            reverse("spirit:topic:private:publish"),
+            {"comment": "new foo", "title": topic_title, "users": [self.user2.username]},
+        )
         self.assertEqual(len(Topic.objects.all()), 1)  # Prevented!
 
         self.assertRedirects(
-            response,
-            expected_url=category_private.get_absolute_url(),
-            status_code=302,
-            target_status_code=200)
+            response, expected_url=category_private.get_absolute_url(), status_code=302, target_status_code=200
+        )
 
         # New post
         utils.cache_clear()  # Clear rate limit
         self.client.post(
-            reverse('spirit:topic:private:publish'),
-            {'comment': 'foo', 'title': 'new topic', 'users': [self.user2.username]})
+            reverse("spirit:topic:private:publish"),
+            {"comment": "foo", "title": "new topic", "users": [self.user2.username]},
+        )
         self.assertEqual(len(Topic.objects.all()), 2)
 
     def test_private_detail(self):
@@ -153,11 +164,12 @@ class TopicPrivateViewTest(TestCase):
         topic2 = utils.create_topic(category=category)
         utils.create_comment(topic=topic2)
 
-        response = self.client.get(reverse('spirit:topic:private:detail', kwargs={'topic_id': private.topic.pk,
-                                                                            'slug': private.topic.slug}))
+        response = self.client.get(
+            reverse("spirit:topic:private:detail", kwargs={"topic_id": private.topic.pk, "slug": private.topic.slug})
+        )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['topic'], private.topic)
-        self.assertEqual(list(response.context['comments']), [comment1, comment2])
+        self.assertEqual(response.context["topic"], private.topic)
+        self.assertEqual(list(response.context["comments"]), [comment1, comment2])
 
     @override_djconfig(comments_per_page=2)
     def test_private_detail_view_paginate(self):
@@ -171,16 +183,18 @@ class TopicPrivateViewTest(TestCase):
         comment2 = utils.create_comment(topic=private.topic)
         utils.create_comment(topic=private.topic)  # comment3
 
-        response = self.client.get(reverse('spirit:topic:private:detail', kwargs={'topic_id': private.topic.pk,
-                                                                            'slug': private.topic.slug}))
+        response = self.client.get(
+            reverse("spirit:topic:private:detail", kwargs={"topic_id": private.topic.pk, "slug": private.topic.slug})
+        )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['topic'], private.topic)
-        self.assertEqual(list(response.context['comments']), [comment1, comment2])
+        self.assertEqual(response.context["topic"], private.topic)
+        self.assertEqual(list(response.context["comments"]), [comment1, comment2])
 
     def test_topic_private_detail_viewed(self):
         """
         Calls utils.topic_viewed
         """
+
         def mocked_topic_viewed(request, topic):
             self._user = request.user
             self._topic = topic
@@ -190,7 +204,7 @@ class TopicPrivateViewTest(TestCase):
             utils.login(self)
             category = utils.create_category()
             topic = utils.create_topic(category=category, user=self.user)
-            response = self.client.get(reverse('spirit:topic:detail', kwargs={'pk': topic.pk, 'slug': topic.slug}))
+            response = self.client.get(reverse("spirit:topic:detail", kwargs={"pk": topic.pk, "slug": topic.slug}))
             self.assertEqual(response.status_code, 200)
             self.assertEqual(self._topic, topic)
             self.assertEqual(self._user, self.user)
@@ -204,9 +218,18 @@ class TopicPrivateViewTest(TestCase):
         utils.login(self)
         private = utils.create_private_topic(user=self.user)
         utils.create_comment(topic=private.topic)
-        form_data = {'user': self.user2.username, }
-        response = self.client.post(reverse('spirit:topic:private:access-create', kwargs={'topic_id': private.topic.pk, }),
-                                    form_data)
+        form_data = {
+            "user": self.user2.username,
+        }
+        response = self.client.post(
+            reverse(
+                "spirit:topic:private:access-create",
+                kwargs={
+                    "topic_id": private.topic.pk,
+                },
+            ),
+            form_data,
+        )
         expected_url = private.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(len(TopicPrivate.objects.filter(user=self.user2, topic=private.topic)), 1)
@@ -219,15 +242,25 @@ class TopicPrivateViewTest(TestCase):
         private = utils.create_private_topic(user=self.user2)
         TopicPrivate.objects.create(user=self.user, topic=private.topic)
         user = utils.create_user()
-        form_data = {'user': user.username, }
-        response = self.client.post(reverse('spirit:topic:private:access-create', kwargs={'topic_id': private.topic.pk, }),
-                                    form_data)
+        form_data = {
+            "user": user.username,
+        }
+        response = self.client.post(
+            reverse(
+                "spirit:topic:private:access-create",
+                kwargs={
+                    "topic_id": private.topic.pk,
+                },
+            ),
+            form_data,
+        )
         self.assertEqual(response.status_code, 404)
 
     def test_private_access_create_notify_access(self):
         """
         notify_access
         """
+
         def mocked_notify_access(user, topic_private):
             self._user = user
             self._topic_private = topic_private
@@ -236,9 +269,18 @@ class TopicPrivateViewTest(TestCase):
         try:
             utils.login(self)
             private = utils.create_private_topic(user=self.user)
-            form_data = {'user': self.user2.username, }
-            response = self.client.post(reverse('spirit:topic:private:access-create', kwargs={'topic_id': private.topic.pk, }),
-                                        form_data)
+            form_data = {
+                "user": self.user2.username,
+            }
+            response = self.client.post(
+                reverse(
+                    "spirit:topic:private:access-create",
+                    kwargs={
+                        "topic_id": private.topic.pk,
+                    },
+                ),
+                form_data,
+            )
             self.assertEqual(response.status_code, 302)
             self.assertEqual(self._topic_private, TopicPrivate.objects.last())
             self.assertEqual(self._user, self.user2)
@@ -253,8 +295,15 @@ class TopicPrivateViewTest(TestCase):
         private = utils.create_private_topic(user=self.user)
         private2 = TopicPrivate.objects.create(user=self.user2, topic=private.topic)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic:private:access-remove', kwargs={'pk': private2.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse(
+                "spirit:topic:private:access-remove",
+                kwargs={
+                    "pk": private2.pk,
+                },
+            ),
+            form_data,
+        )
         expected_url = private.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
 
@@ -266,8 +315,15 @@ class TopicPrivateViewTest(TestCase):
         private = utils.create_private_topic(user=self.user2)
         TopicPrivate.objects.create(user=self.user, topic=private.topic)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic:private:access-remove', kwargs={'pk': private.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse(
+                "spirit:topic:private:access-remove",
+                kwargs={
+                    "pk": private.pk,
+                },
+            ),
+            form_data,
+        )
         self.assertEqual(response.status_code, 404)
 
     def test_private_access_delete_leave(self):
@@ -278,8 +334,15 @@ class TopicPrivateViewTest(TestCase):
         private = utils.create_private_topic(user=self.user2)
         private2_leave = TopicPrivate.objects.create(user=self.user, topic=private.topic)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic:private:access-remove', kwargs={'pk': private2_leave.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse(
+                "spirit:topic:private:access-remove",
+                kwargs={
+                    "pk": private2_leave.pk,
+                },
+            ),
+            form_data,
+        )
         expected_url = reverse("spirit:topic:private:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
@@ -295,8 +358,13 @@ class TopicPrivateViewTest(TestCase):
         utils.create_topic(category, user=self.user)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:private:index'))
-        self.assertEqual(list(response.context['topics']), [private.topic, ])
+        response = self.client.get(reverse("spirit:topic:private:index"))
+        self.assertEqual(
+            list(response.context["topics"]),
+            [
+                private.topic,
+            ],
+        )
 
     def test_private_list_order_topics(self):
         """
@@ -310,8 +378,8 @@ class TopicPrivateViewTest(TestCase):
         Topic.objects.filter(pk=private_c.topic.pk).update(last_active=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:private:index'))
-        self.assertEqual(list(response.context['topics']), [private_b.topic, private_c.topic, private_a.topic])
+        response = self.client.get(reverse("spirit:topic:private:index"))
+        self.assertEqual(list(response.context["topics"]), [private_b.topic, private_c.topic, private_a.topic])
 
     def test_private_list_bookmarks(self):
         """
@@ -321,9 +389,14 @@ class TopicPrivateViewTest(TestCase):
         bookmark = CommentBookmark.objects.create(topic=private.topic, user=self.user)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:private:index'))
-        self.assertEqual(list(response.context['topics']), [private.topic, ])
-        self.assertEqual(response.context['topics'][0].bookmark, bookmark)
+        response = self.client.get(reverse("spirit:topic:private:index"))
+        self.assertEqual(
+            list(response.context["topics"]),
+            [
+                private.topic,
+            ],
+        )
+        self.assertEqual(response.context["topics"][0].bookmark, bookmark)
 
     @override_djconfig(topics_per_page=1)
     def test_private_list_paginated(self):
@@ -334,8 +407,13 @@ class TopicPrivateViewTest(TestCase):
         private = utils.create_private_topic(user=self.user)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:private:index'))
-        self.assertEqual(list(response.context['topics']), [private.topic, ])
+        response = self.client.get(reverse("spirit:topic:private:index"))
+        self.assertEqual(
+            list(response.context["topics"]),
+            [
+                private.topic,
+            ],
+        )
 
     def test_private_join(self):
         """
@@ -347,12 +425,26 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic:private:join', kwargs={'topic_id': private.topic.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse(
+                "spirit:topic:private:join",
+                kwargs={
+                    "topic_id": private.topic.pk,
+                },
+            ),
+            form_data,
+        )
         expected_url = private.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:topic:private:join', kwargs={'topic_id': private.topic.pk, }))
+        response = self.client.get(
+            reverse(
+                "spirit:topic:private:join",
+                kwargs={
+                    "topic_id": private.topic.pk,
+                },
+            )
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_private_join_invalid_regular_topic(self):
@@ -364,8 +456,15 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic:private:join', kwargs={'topic_id': topic.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse(
+                "spirit:topic:private:join",
+                kwargs={
+                    "topic_id": topic.pk,
+                },
+            ),
+            form_data,
+        )
         self.assertEqual(response.status_code, 404)
 
     def test_private_join_invalid_not_owner(self):
@@ -376,14 +475,22 @@ class TopicPrivateViewTest(TestCase):
 
         utils.login(self)
         form_data = {}
-        response = self.client.post(reverse('spirit:topic:private:join', kwargs={'topic_id': private.topic.pk, }),
-                                    form_data)
+        response = self.client.post(
+            reverse(
+                "spirit:topic:private:join",
+                kwargs={
+                    "topic_id": private.topic.pk,
+                },
+            ),
+            form_data,
+        )
         self.assertEqual(response.status_code, 404)
 
     def test_private_join_access_notify_access(self):
         """
         notify_access
         """
+
         def mocked_notify_access(user, topic_private):
             self._user = user
             self._topic_private = topic_private
@@ -395,8 +502,15 @@ class TopicPrivateViewTest(TestCase):
 
             utils.login(self)
             form_data = {}
-            response = self.client.post(reverse('spirit:topic:private:join', kwargs={'topic_id': private.topic.pk, }),
-                                        form_data)
+            response = self.client.post(
+                reverse(
+                    "spirit:topic:private:join",
+                    kwargs={
+                        "topic_id": private.topic.pk,
+                    },
+                ),
+                form_data,
+            )
             self.assertEqual(response.status_code, 302)
             self.assertEqual(self._topic_private, TopicPrivate.objects.last())
             self.assertEqual(self._user, self.user)
@@ -421,8 +535,13 @@ class TopicPrivateViewTest(TestCase):
         TopicPrivate.objects.create(user=self.user, topic=private4.topic)
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:private:index-author'))
-        self.assertEqual(list(response.context['topics']), [private.topic, ])
+        response = self.client.get(reverse("spirit:topic:private:index-author"))
+        self.assertEqual(
+            list(response.context["topics"]),
+            [
+                private.topic,
+            ],
+        )
 
     def test_private_created_list_order_topics(self):
         """
@@ -439,8 +558,8 @@ class TopicPrivateViewTest(TestCase):
         Topic.objects.filter(pk=private_c.topic.pk).update(last_active=timezone.now() - datetime.timedelta(days=5))
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:private:index-author'))
-        self.assertEqual(list(response.context['topics']), [private_b.topic, private_c.topic, private_a.topic])
+        response = self.client.get(reverse("spirit:topic:private:index-author"))
+        self.assertEqual(list(response.context["topics"]), [private_b.topic, private_c.topic, private_a.topic])
 
     @override_djconfig(topics_per_page=1)
     def test_private_created_list_paginate(self):
@@ -453,12 +572,16 @@ class TopicPrivateViewTest(TestCase):
         private2.delete()
 
         utils.login(self)
-        response = self.client.get(reverse('spirit:topic:private:index-author'))
-        self.assertEqual(list(response.context['topics']), [private2.topic, ])
+        response = self.client.get(reverse("spirit:topic:private:index-author"))
+        self.assertEqual(
+            list(response.context["topics"]),
+            [
+                private2.topic,
+            ],
+        )
 
 
 class TopicPrivateFormTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -468,7 +591,9 @@ class TopicPrivateFormTest(TestCase):
         """
         create simple topic
         """
-        form_data = {'title': 'foo', }
+        form_data = {
+            "title": "foo",
+        }
         form = TopicForPrivateForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -476,8 +601,7 @@ class TopicPrivateFormTest(TestCase):
         """
         Should return the private category
         """
-        category_private = Category.objects.get(
-            pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+        category_private = Category.objects.get(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
         form = TopicForPrivateForm()
         self.assertEqual(form.category, category_private)
         self.assertEqual(form.category, category_private)  # Cached
@@ -486,27 +610,21 @@ class TopicPrivateFormTest(TestCase):
         """
         Should return the topic hash
         """
-        category_private = Category.objects.get(
-            pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
-        title = 'title foobar'
-        form = TopicForPrivateForm(data={'title': title})
+        category_private = Category.objects.get(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+        title = "title foobar"
+        form = TopicForPrivateForm(data={"title": title})
         self.assertTrue(form.is_valid())
         self.assertEqual(
             form.get_topic_hash(),
-            hashlib.md5(
-                '{}category-{}'
-                .format(title, category_private.pk)
-                .encode('utf-8')).hexdigest())
+            hashlib.md5("{}category-{}".format(title, category_private.pk).encode("utf-8")).hexdigest(),
+        )
 
     def test_private_publish_get_topic_hash_from_field(self):
         """
         Should return the topic hash from form field
         """
-        topic_hash = '1' * 32
-        form = TopicForPrivateForm(
-            data={
-                'title': 'foobar',
-                'topic_hash': topic_hash})
+        topic_hash = "1" * 32
+        form = TopicForPrivateForm(data={"title": "foobar", "topic_hash": topic_hash})
         self.assertTrue(form.is_valid())
         self.assertEqual(form.get_topic_hash(), topic_hash)
 
@@ -514,8 +632,10 @@ class TopicPrivateFormTest(TestCase):
         """
         create many private topics accesses
         """
-        users = f'{self.user.username}, {self.user2.username}'
-        form_data = {'users': users, }
+        users = f"{self.user.username}, {self.user2.username}"
+        form_data = {
+            "users": users,
+        }
         form = TopicPrivateManyForm(self.user, data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -529,32 +649,30 @@ class TopicPrivateFormTest(TestCase):
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_private_invite_case_insensitive(self):
-        user1 = utils.create_user(username='UnIQuEfOo')
-        self.assertNotEqual(
-            user1.username, user1.username.upper())
-        form_data = {'user': user1.username.upper()}
+        user1 = utils.create_user(username="UnIQuEfOo")
+        self.assertNotEqual(user1.username, user1.username.upper())
+        form_data = {"user": user1.username.upper()}
         private = utils.create_private_topic(user=self.user)
         form = TopicPrivateInviteForm(private.topic, data=form_data)
         self.assertEqual(form.is_valid(), True)
 
         # regular username should still work
-        form_data = {'user': user1.username}
+        form_data = {"user": user1.username}
         private = utils.create_private_topic(user=self.user)
         form = TopicPrivateInviteForm(private.topic, data=form_data)
         self.assertEqual(form.is_valid(), True)
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
     def test_private_invite_case_insensitive_off(self):
-        user1 = utils.create_user(username='UnIQuEfOo')
-        self.assertNotEqual(
-            user1.username, user1.username.upper())
-        form_data = {'user': user1.username.upper()}
+        user1 = utils.create_user(username="UnIQuEfOo")
+        self.assertNotEqual(user1.username, user1.username.upper())
+        form_data = {"user": user1.username.upper()}
         private = utils.create_private_topic(user=self.user)
         form = TopicPrivateInviteForm(private.topic, data=form_data)
         self.assertEqual(form.is_valid(), False)
 
         # regular username should still work
-        form_data = {'user': user1.username}
+        form_data = {"user": user1.username}
         private = utils.create_private_topic(user=self.user)
         form = TopicPrivateInviteForm(private.topic, data=form_data)
         self.assertEqual(form.is_valid(), True)
@@ -564,15 +682,12 @@ class TopicPrivateFormTest(TestCase):
         """
         create many private topics accesses
         """
-        user1 = utils.create_user(username='UnIQuEfOo')
-        user2 = utils.create_user(username='uniquebar')
-        self.assertNotEqual(
-            user1.username, user1.username.upper())
-        self.assertEqual(
-            user2.username, 'uniquebar')
-        users = '{}, {}'.format(
-            user1.username.upper(), 'uniquebar')
-        form_data = {'users': users}
+        user1 = utils.create_user(username="UnIQuEfOo")
+        user2 = utils.create_user(username="uniquebar")
+        self.assertNotEqual(user1.username, user1.username.upper())
+        self.assertEqual(user2.username, "uniquebar")
+        users = "{}, {}".format(user1.username.upper(), "uniquebar")
+        form_data = {"users": users}
         form = TopicPrivateManyForm(self.user, data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -581,20 +696,17 @@ class TopicPrivateFormTest(TestCase):
         """
         create many private topics accesses
         """
-        user1 = utils.create_user(username='UnIQuEfOo')
-        user2 = utils.create_user(username='uniquebar')
-        self.assertNotEqual(
-            user1.username, user1.username.upper())
-        self.assertEqual(
-            user2.username, 'uniquebar')
-        users = '{}, {}'.format(
-            user1.username.upper(), 'uniquebar')
-        form_data = {'users': users}
+        user1 = utils.create_user(username="UnIQuEfOo")
+        user2 = utils.create_user(username="uniquebar")
+        self.assertNotEqual(user1.username, user1.username.upper())
+        self.assertEqual(user2.username, "uniquebar")
+        users = "{}, {}".format(user1.username.upper(), "uniquebar")
+        form_data = {"users": users}
         form = TopicPrivateManyForm(self.user, data=form_data)
         self.assertEqual(form.is_valid(), False)
 
-        users = 'UnIQuEfOo, uniquebar'
-        form_data = {'users': users}
+        users = "UnIQuEfOo, uniquebar"
+        form_data = {"users": users}
         form = TopicPrivateManyForm(self.user, data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -604,7 +716,9 @@ class TopicPrivateFormTest(TestCase):
         """
         category = Category.objects.get(pk=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
         topic = utils.create_topic(category=category, user=self.user)
-        form_data = {'user': self.user.username, }
+        form_data = {
+            "user": self.user.username,
+        }
         form = TopicPrivateInviteForm(data=form_data)
         form.topic = topic
         self.assertEqual(form.is_valid(), True)
@@ -630,7 +744,6 @@ class TopicPrivateFormTest(TestCase):
 
 
 class TopicTemplateTagsTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -641,19 +754,21 @@ class TopicTemplateTagsTest(TestCase):
         """
         display invite form
         """
-        out = Template(
-            "{% load spirit_tags %}"
-            "{% render_invite_form topic %}"
-        ).render(Context({'topic': self.topic, }))
+        out = Template("{% load spirit_tags %}{% render_invite_form topic %}").render(
+            Context(
+                {
+                    "topic": self.topic,
+                }
+            )
+        )
         self.assertNotEqual(out, "")
         context = render_invite_form(self.topic)
-        self.assertEqual(context['next'], None)
-        self.assertIsInstance(context['form'], TopicPrivateInviteForm)
-        self.assertEqual(context['topic'], self.topic)
+        self.assertEqual(context["next"], None)
+        self.assertIsInstance(context["form"], TopicPrivateInviteForm)
+        self.assertEqual(context["topic"], self.topic)
 
 
 class TopicPrivateUtilsTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()

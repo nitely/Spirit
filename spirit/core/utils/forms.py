@@ -1,10 +1,11 @@
 from django import forms
-from django.utils.encoding import smart_str
 from django.db.models import Prefetch
+from django.utils.encoding import smart_str
 
 
 class NestedModelChoiceField(forms.ModelChoiceField):
     """A ModelChoiceField that groups parents and childrens"""
+
     # TODO: subclass ModelChoiceIterator, remove _populate_choices()
 
     def __init__(self, related_name, parent_field, label_field, *args, **kwargs):
@@ -23,16 +24,14 @@ class NestedModelChoiceField(forms.ModelChoiceField):
         # This is *hackish* but simpler than subclassing ModelChoiceIterator
         choices = [("", self.empty_label)]
         kwargs = {self.parent_field: None}
-        queryset = (
-            self.queryset
-            .filter(**kwargs)
-            .prefetch_related(Prefetch(self.related_name, queryset=self.queryset)))
+        queryset = self.queryset.filter(**kwargs).prefetch_related(Prefetch(self.related_name, queryset=self.queryset))
 
         for parent in queryset:
             choices.append((self.prepare_value(parent), self.label_from_instance(parent)))
             choices.extend(
                 (self.prepare_value(children), self.label_from_instance(children))
-                for children in getattr(parent, self.related_name).all())
+                for children in getattr(parent, self.related_name).all()
+            )
 
         self.choices = choices
 

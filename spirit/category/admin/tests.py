@@ -1,21 +1,21 @@
 import datetime
 
-from django.test import TestCase, RequestFactory, override_settings
-from django.urls import reverse
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
+from django.core.exceptions import PermissionDenied
+from django.test import RequestFactory, TestCase, override_settings
+from django.urls import reverse
 from django.utils import timezone
 
-from spirit.core.tests import utils
-from . import views as category_views
 from spirit.category.models import Category
+from spirit.core.tests import utils
+
+from . import views as category_views
 from .forms import CategoryForm
 
 User = get_user_model()
 
 
 class AdminViewTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -25,7 +25,7 @@ class AdminViewTest(TestCase):
         self.topic = utils.create_topic(self.category, user=self.user)
 
     def test_permission_denied_to_non_admin(self):
-        req = RequestFactory().get('/')
+        req = RequestFactory().get("/")
         req.user = self.user
         req.user.st.is_administrator = False
 
@@ -40,8 +40,8 @@ class AdminViewTest(TestCase):
         utils.create_category(parent=self.category)
         categories = Category.objects.filter(is_private=False, parent=None)
         utils.login(self)
-        response = self.client.get(reverse('spirit:admin:category:index'))
-        self.assertEqual(list(response.context['categories']), list(categories))
+        response = self.client.get(reverse("spirit:admin:category:index"))
+        self.assertEqual(list(response.context["categories"]), list(categories))
 
     def test_category_create(self):
         """
@@ -49,14 +49,19 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         form_data = {
-            "parent": "", "title": "foo", "description": "",
-            "is_closed": False, "is_removed": False, "is_global": True, "color": ""}
-        response = self.client.post(reverse('spirit:admin:category:create'),
-                                    form_data)
+            "parent": "",
+            "title": "foo",
+            "description": "",
+            "is_closed": False,
+            "is_removed": False,
+            "is_global": True,
+            "color": "",
+        }
+        response = self.client.post(reverse("spirit:admin:category:create"), form_data)
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse('spirit:admin:category:create'))
+        response = self.client.get(reverse("spirit:admin:category:create"))
         self.assertEqual(response.status_code, 200)
 
     def test_category_update(self):
@@ -65,23 +70,47 @@ class AdminViewTest(TestCase):
         """
         utils.login(self)
         form_data = {
-            "parent": "", "title": "foo", "description": "",
-            "is_closed": False, "is_removed": False, "is_global": True, "color": "#ff0000"}
+            "parent": "",
+            "title": "foo",
+            "description": "",
+            "is_closed": False,
+            "is_removed": False,
+            "is_global": True,
+            "color": "#ff0000",
+        }
         response = self.client.post(
-            reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }),
-            form_data)
+            reverse(
+                "spirit:admin:category:update",
+                kwargs={
+                    "category_id": self.category.pk,
+                },
+            ),
+            form_data,
+        )
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
         response = self.client.get(
-            reverse('spirit:admin:category:update', kwargs={"category_id": self.category.pk, }))
+            reverse(
+                "spirit:admin:category:update",
+                kwargs={
+                    "category_id": self.category.pk,
+                },
+            )
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_category_form_color(self):
-        """ Test category form raises exception on wrong color """
+        """Test category form raises exception on wrong color"""
         form_data = {
-            "parent": "", "title": "foo", "description": "",
-            "is_closed": False, "is_removed": False, "is_global": True, "color": "#QWERTZ"}
+            "parent": "",
+            "title": "foo",
+            "description": "",
+            "is_closed": False,
+            "is_removed": False,
+            "is_global": True,
+            "color": "#QWERTZ",
+        }
         form = CategoryForm(data=form_data)
 
         self.assertFalse(form.is_valid())
@@ -92,27 +121,34 @@ class AdminViewTest(TestCase):
         self.another_category = utils.create_category()
         response = self.client.post(
             reverse(
-                'spirit:admin:category:move_dn',
-                kwargs={"category_id": self.category.pk, }))
+                "spirit:admin:category:move_dn",
+                kwargs={
+                    "category_id": self.category.pk,
+                },
+            )
+        )
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
         self.category.refresh_from_db()
-        self.another_category.refresh_from_db()        
+        self.another_category.refresh_from_db()
         self.assertTrue(self.category.sort > self.another_category.sort)
 
         response = self.client.post(
             reverse(
-                'spirit:admin:category:move_up',
-                kwargs={"category_id": self.category.pk, }))
+                "spirit:admin:category:move_up",
+                kwargs={
+                    "category_id": self.category.pk,
+                },
+            )
+        )
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
         self.category.refresh_from_db()
-        self.another_category.refresh_from_db()        
+        self.another_category.refresh_from_db()
         self.assertTrue(self.category.sort < self.another_category.sort)
 
 
 class AdminFormTest(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user()
@@ -130,7 +166,7 @@ class AdminFormTest(TestCase):
             "is_closed": False,
             "is_removed": False,
             "is_global": True,
-            "color": ""
+            "color": "",
         }
         form = CategoryForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
@@ -143,31 +179,39 @@ class AdminFormTest(TestCase):
         """
         # parent can not be a subcategory, only one level subcat is allowed
         subcategory = utils.create_category(parent=self.category)
-        form_data = {"parent": subcategory.pk, }
+        form_data = {
+            "parent": subcategory.pk,
+        }
         form = CategoryForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
-        self.assertNotIn('parent', form.cleaned_data)
+        self.assertNotIn("parent", form.cleaned_data)
 
         # parent can not be set to a category with childrens
         category_ = utils.create_category()
-        form_data = {"parent": category_.pk, }
+        form_data = {
+            "parent": category_.pk,
+        }
         form = CategoryForm(data=form_data, instance=self.category)
         self.assertEqual(form.is_valid(), False)
-        self.assertNotIn('parent', form.cleaned_data)
+        self.assertNotIn("parent", form.cleaned_data)
 
         # parent can not be removed
         category_ = utils.create_category(is_removed=True)
-        form_data = {"parent": category_.pk, }
+        form_data = {
+            "parent": category_.pk,
+        }
         form = CategoryForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
-        self.assertNotIn('parent', form.cleaned_data)
+        self.assertNotIn("parent", form.cleaned_data)
 
         # parent can not be private
         category_ = utils.create_category(is_private=True)
-        form_data = {"parent": category_.pk, }
+        form_data = {
+            "parent": category_.pk,
+        }
         form = CategoryForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
-        self.assertNotIn('parent', form.cleaned_data)
+        self.assertNotIn("parent", form.cleaned_data)
 
     def test_category_updates_reindex_at(self):
         """
@@ -180,19 +224,15 @@ class AdminFormTest(TestCase):
             "is_closed": False,
             "is_removed": False,
             "is_global": True,
-            "color": ""}
+            "color": "",
+        }
         yesterday = timezone.now() - datetime.timedelta(days=1)
-        category = utils.create_category(
-            reindex_at=yesterday)
-        self.assertEqual(
-            category.reindex_at,
-            yesterday)
+        category = utils.create_category(reindex_at=yesterday)
+        self.assertEqual(category.reindex_at, yesterday)
         form = CategoryForm(instance=category, data=form_data)
         self.assertEqual(form.is_valid(), True)
         form.save()
-        self.assertGreater(
-            Category.objects.get(pk=category.pk).reindex_at,
-            yesterday)
+        self.assertGreater(Category.objects.get(pk=category.pk).reindex_at, yesterday)
 
     @override_settings(ST_ORDERED_CATEGORIES=True)
     def test_category_order(self):
@@ -201,12 +241,12 @@ class AdminFormTest(TestCase):
         cat2 = utils.create_category(title="2", sort=1)
         self.assertEqual(list(Category.objects.all()), [cat1, cat2])
         form = CategoryForm(data=None)
-        self.assertEqual(list(form.fields['parent'].queryset), [cat2, cat1])
+        self.assertEqual(list(form.fields["parent"].queryset), [cat2, cat1])
         cat1.sort = 0
         cat1.save()
         self.assertEqual(list(Category.objects.all()), [cat1, cat2])
         form = CategoryForm(data=None)
-        self.assertEqual(list(form.fields['parent'].queryset), [cat1, cat2])
+        self.assertEqual(list(form.fields["parent"].queryset), [cat1, cat2])
 
     @override_settings(ST_ORDERED_CATEGORIES=False)
     def test_category_order_by_title(self):
@@ -215,4 +255,4 @@ class AdminFormTest(TestCase):
         cat2 = utils.create_category(title="2", sort=1)
         self.assertEqual(list(Category.objects.all()), [cat1, cat2])
         form = CategoryForm(data=None)
-        self.assertEqual(list(form.fields['parent'].queryset), [cat1, cat2])
+        self.assertEqual(list(form.fields["parent"].queryset), [cat1, cat2])

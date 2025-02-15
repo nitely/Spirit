@@ -1,15 +1,13 @@
 from spirit.core import tasks
 from spirit.topic.notification.models import TopicNotification
 from spirit.topic.unread.models import TopicUnread
+
 from .history.models import CommentHistory
 from .poll.utils.render_static import post_render_static_polls
 
 
 def comment_posted(comment, mentions):
-    TopicNotification.create_maybe(
-        user=comment.user,
-        comment=comment,
-        action=TopicNotification.UNDEFINED)
+    TopicNotification.create_maybe(user=comment.user, comment=comment, action=TopicNotification.UNDEFINED)
     TopicNotification.notify_new_comment(comment=comment)
     TopicNotification.notify_new_mentions(comment=comment, mentions=mentions)
     TopicUnread.unread_new_comment(comment=comment)

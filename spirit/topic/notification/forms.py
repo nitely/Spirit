@@ -5,16 +5,16 @@ from .models import TopicNotification
 
 
 class NotificationForm(forms.ModelForm):
-
     is_active = forms.BooleanField(widget=forms.HiddenInput(), initial=True, required=False)
 
     class Meta:
         model = TopicNotification
-        fields = ['is_active', ]
+        fields = [
+            "is_active",
+        ]
 
 
 class NotificationCreationForm(NotificationForm):
-
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
@@ -23,10 +23,7 @@ class NotificationCreationForm(NotificationForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        notification = TopicNotification.objects.filter(
-            user=self.user,
-            topic=self.topic
-        )
+        notification = TopicNotification.objects.filter(user=self.user, topic=self.topic)
 
         if notification.exists():
             # Do this since some of the unique_together fields are excluded.

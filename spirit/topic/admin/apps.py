@@ -2,7 +2,6 @@ from django.apps import AppConfig
 
 
 class SpiritTopicAdminConfig(AppConfig):
-
-    name = 'spirit.topic.admin'
+    name = "spirit.topic.admin"
     verbose_name = "Spirit Topic Admin"
-    label = 'spirit_topic_admin'
+    label = "spirit_topic_admin"

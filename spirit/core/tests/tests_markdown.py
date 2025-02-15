@@ -1,17 +1,14 @@
 from django.test import TestCase
 from django.test.utils import override_settings
-from django.utils import translation
-from django.utils import timezone
+from django.utils import timezone, translation
 
-from . import utils
 from ..utils.markdown import Markdown, quotify
-
+from . import utils
 
 now_fixed = timezone.now()
 
 
 class UtilsMarkdownTests(TestCase):
-
     def setUp(self):
         utils.cache_clear()
         self.user = utils.create_user(username="nitely")
@@ -24,7 +21,7 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = "<span>foo</span>"
         comment_md = Markdown().render(comment)
-        self.assertEqual(comment_md, '<p>&lt;span&gt;foo&lt;/span&gt;</p>')
+        self.assertEqual(comment_md, "<p>&lt;span&gt;foo&lt;/span&gt;</p>")
 
     def test_markdown_html(self):
         """
@@ -46,18 +43,22 @@ class UtilsMarkdownTests(TestCase):
             "*<em>foobar</em>*\n"
         )
         comment_md = Markdown().render(comment)
-        self.assertEqual(comment_md, (
-            '<p>&lt;div&gt;\n'
-            '&lt;em&gt;*foo*&lt;/em&gt;\n'
-            '&lt;em&gt;*bar*&lt;/em&gt;\n'
-            '*foobar*\n'
-            '@nitely\n'
-            '*&lt;em&gt;foobar&lt;/em&gt;*\n'
-            '&lt;/div&gt;<br>\n'
-            '&lt;em&gt;*foo*&lt;/em&gt;<br>\n'
-            '&lt;em&gt;<a class="comment-mention" rel="nofollow" href="%s">@nitely</a>&lt;/em&gt;<br>\n'
-            '<em>&lt;em&gt;foobar&lt;/em&gt;</em></p>'
-        ) % (self.user.st.get_absolute_url(), ))
+        self.assertEqual(
+            comment_md,
+            (
+                "<p>&lt;div&gt;\n"
+                "&lt;em&gt;*foo*&lt;/em&gt;\n"
+                "&lt;em&gt;*bar*&lt;/em&gt;\n"
+                "*foobar*\n"
+                "@nitely\n"
+                "*&lt;em&gt;foobar&lt;/em&gt;*\n"
+                "&lt;/div&gt;<br>\n"
+                "&lt;em&gt;*foo*&lt;/em&gt;<br>\n"
+                '&lt;em&gt;<a class="comment-mention" rel="nofollow" href="%s">@nitely</a>&lt;/em&gt;<br>\n'
+                "<em>&lt;em&gt;foobar&lt;/em&gt;</em></p>"
+            )
+            % (self.user.st.get_absolute_url(),),
+        )
 
     def test_markdown_mentions(self):
         """
@@ -65,14 +66,14 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = "@nitely, @esteban,@áéíóú, @fakeone"
         comment_md = Markdown().render(comment)
-        self.assertEqual(comment_md,
+        self.assertEqual(
+            comment_md,
             '<p><a class="comment-mention" rel="nofollow" href="%s">@nitely</a>, '
             '<a class="comment-mention" rel="nofollow" href="%s">@esteban</a>,'
             '<a class="comment-mention" rel="nofollow" href="%s">@áéíóú</a>, '
-            '@fakeone</p>' %
-            (self.user.st.get_absolute_url(),
-             self.user2.st.get_absolute_url(),
-             self.user3.st.get_absolute_url()))
+            "@fakeone</p>"
+            % (self.user.st.get_absolute_url(), self.user2.st.get_absolute_url(), self.user3.st.get_absolute_url()),
+        )
 
     @override_settings(ST_MENTIONS_PER_COMMENT=2)
     def test_markdown_mentions_limit(self):
@@ -91,9 +92,7 @@ class UtilsMarkdownTests(TestCase):
         md = Markdown()
         md.render(comment)
         # mentions get dynamically added on MentionifyExtension
-        self.assertDictEqual(md.get_mentions(), {
-            'nitely': self.user,
-            'esteban': self.user2})
+        self.assertDictEqual(md.get_mentions(), {"nitely": self.user, "esteban": self.user2})
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_markdown_mentions_dict_ci(self):
@@ -103,17 +102,14 @@ class UtilsMarkdownTests(TestCase):
         comment = "@NiTely, @EsTebaN, @nitEly, @NiteLy"
         md = Markdown()
         md.render(comment)
-        self.assertDictEqual(md.get_mentions(), {
-            'nitely': self.user,
-            'esteban': self.user2})
+        self.assertDictEqual(md.get_mentions(), {"nitely": self.user, "esteban": self.user2})
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
     def test_markdown_mentions_dict_ci_off(self):
         comment = "@NiTely, @esteban, @nitEly, @NiteLy"
         md = Markdown()
         md.render(comment)
-        self.assertDictEqual(md.get_mentions(), {
-            'esteban': self.user2})
+        self.assertDictEqual(md.get_mentions(), {"esteban": self.user2})
 
     def test_markdown_emoji(self):
         """
@@ -121,12 +117,15 @@ class UtilsMarkdownTests(TestCase):
         """
         comment = ":airplane:, :8ball: :+1: :bademoji: foo:"
         comment_md = Markdown().render(comment)
-        self.assertEqual(comment_md, '<p><i class="tw tw-airplane" title=":airplane:"></i>, '
-                                     '<i class="tw tw-8ball" title=":8ball:"></i> '
-                                     '<i class="tw tw-plus1" title=":+1:"></i> '
-                                     ':bademoji: foo:</p>')
+        self.assertEqual(
+            comment_md,
+            '<p><i class="tw tw-airplane" title=":airplane:"></i>, '
+            '<i class="tw tw-8ball" title=":8ball:"></i> '
+            '<i class="tw tw-plus1" title=":+1:"></i> '
+            ":bademoji: foo:</p>",
+        )
 
-    @override_settings(LANGUAGE_CODE='en')
+    @override_settings(LANGUAGE_CODE="en")
     def test_markdown_quote(self):
         """
         markdown quote
@@ -134,10 +133,10 @@ class UtilsMarkdownTests(TestCase):
         comment = "text\nnew line"
         quote = quotify(comment, self.user)
         self.assertListEqual(
-            quote.splitlines(),
-            ("> @%s said:\n> text\n> new line\n\n" % self.user.st.nickname).splitlines())
+            quote.splitlines(), ("> @%s said:\n> text\n> new line\n\n" % self.user.st.nickname).splitlines()
+        )
 
-    @override_settings(LANGUAGE_CODE='en')
+    @override_settings(LANGUAGE_CODE="en")
     def test_markdown_quote_header_language(self):
         """
         markdown quote
@@ -146,12 +145,10 @@ class UtilsMarkdownTests(TestCase):
         comment = ""
         quote = quotify(comment, self.user)
 
-        with translation.override('es'):
-            self.assertListEqual(
-                quote.splitlines(),
-                ("> @%s said:\n> \n\n" % self.user.st.nickname).splitlines())
+        with translation.override("es"):
+            self.assertListEqual(quote.splitlines(), ("> @%s said:\n> \n\n" % self.user.st.nickname).splitlines())
 
-    @override_settings(LANGUAGE_CODE='en')
+    @override_settings(LANGUAGE_CODE="en")
     def test_markdown_quote_no_polls(self):
         """
         should remove poll markdown
@@ -166,11 +163,12 @@ class UtilsMarkdownTests(TestCase):
             "[poll param=value]\n"
             "1. opt 1\n"
             "2. opt 2\n"
-            "[/poll]")
+            "[/poll]"
+        )
         quote = quotify(comment, self.user)
         self.assertListEqual(
-            quote.splitlines(),
-            ("> @%s said:\n> foo\n> \n> bar\n\n" % self.user.username).splitlines())
+            quote.splitlines(), ("> @%s said:\n> foo\n> \n> bar\n\n" % self.user.username).splitlines()
+        )
 
     def test_markdown_image(self):
         """
@@ -192,20 +190,20 @@ class UtilsMarkdownTests(TestCase):
             comment_md.splitlines(),
             [
                 '<p><span class="img_block"><img src="http://foo.bar/image.png" alt="image" title="image"></span></p>',
-                '<p><span class="img_block"><img src="http://www.foo.bar.fb/path/image.png" alt="image" title="image"></span></p>',
+                '<p><span class="img_block">'
+                '<img src="http://www.foo.bar.fb/path/image.png" alt="image" title="image">'
+                '</span></p>',
                 '<p><span class="img_block"><img src="https://foo.bar/image.png" alt="image" title="image"></span></p>',
-
                 # auto-link
                 '<p>bad <a rel="nofollow" href="http://foo.bar/image.png">http://foo.bar/image.png</a><br>',
                 '<a rel="nofollow" href="http://foo.bar/image.png">http://foo.bar/image.png</a> bad<br>',
                 '<a rel="nofollow" href="http://bad.png">http://bad.png</a><br>',
                 '<a rel="nofollow" href="http://foo.bar/.png">http://foo.bar/.png</a><br>',
                 '<span class="img"><img src="http://foo.bar/not_imagified.png" alt="im"></span><br>',
-                'foo.bar/bad.png</p>',
-
+                "foo.bar/bad.png</p>",
                 '<p><span class="img_block"><img src="http://foo.bar/&lt;escaped&gt;.png" '
-                'alt="&lt;escaped&gt;" title="&lt;escaped&gt;"></span></p>'
-            ]
+                'alt="&lt;escaped&gt;" title="&lt;escaped&gt;"></span></p>',
+            ],
         )
 
     def test_markdown_youtube(self):
@@ -231,30 +229,30 @@ class UtilsMarkdownTests(TestCase):
             comment_md.splitlines(),
             [
                 '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?html5=1" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://www.youtube.com/embed/Z0UISCEe52Y?html5=1&start=73" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://www.youtube.com/embed/O1QQajfobPw?html5=1&start=3698" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://www.youtube.com/embed/O1QQajfobPw?html5=1&start=6300" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://www.youtube.com/embed/O1QQajfobPw?html5=1&start=3698" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://www.youtube.com/embed/afyK1HSFfgw?html5=1"'
-                ' allowfullscreen></iframe></span>',
+                " allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://www.youtube.com/embed/O1QQajfobPw?html5=1&start=3698" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://www.youtube.com/embed/vsF0K3Ou1v0?html5=1"'
-                ' allowfullscreen></iframe></span>',
+                " allowfullscreen></iframe></span>",
                 '<p><a rel="nofollow" href="https://www.youtube.com/watch?v=&lt;bad&gt;">'
-                'https://www.youtube.com/watch…</a></p>',
+                "https://www.youtube.com/watch…</a></p>",
                 '<p><a rel="nofollow" href="https://www.noyoutube.com/watch?v=Z0UISCEe52Y">'
-                'https://www.noyoutube.com/wat…</a></p>',
+                "https://www.noyoutube.com/wat…</a></p>",
                 '<p>badbad <a rel="nofollow" href="https://www.youtube.com/watch?v=Z0UISCEe52Y">'
-                'https://www.youtube.com/watch…</a></p>',
+                "https://www.youtube.com/watch…</a></p>",
                 '<p><a rel="nofollow" href="https://www.youtube.com/watch?v=Z0UISCEe52Y">'
-                'https://www.youtube.com/watch…</a> badbad</p>'
-            ]
+                "https://www.youtube.com/watch…</a> badbad</p>",
+            ],
         )
 
     def test_markdown_vimeo(self):
@@ -278,24 +276,23 @@ class UtilsMarkdownTests(TestCase):
             comment_md.splitlines(),
             [
                 '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" '
-                'allowfullscreen></iframe></span>',
+                "allowfullscreen></iframe></span>",
                 '<span class="video"><iframe src="https://player.vimeo.com/video/11111111" '
-                'allowfullscreen></iframe></span>',
-
+                "allowfullscreen></iframe></span>",
                 '<p><a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a></p>',
                 '<p>bad <a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a></p>',
-                '<p><a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a> bad</p>'
-            ]
+                '<p><a rel="nofollow" href="https://novimeo.com/11111111">https://novimeo.com/11111111</a> bad</p>',
+            ],
         )
 
     def test_markdown_gfycat(self):
@@ -322,22 +319,18 @@ class UtilsMarkdownTests(TestCase):
                 'frameborder="0" scrolling="no" allowfullscreen></iframe></span>',
                 '<span class="video"><iframe src="https://gfycat.com/ifr/PointedVengefulHyracotherium" '
                 'frameborder="0" scrolling="no" allowfullscreen></iframe></span>',
-
                 '<p>bad <a rel="nofollow" href="https://gfycat.com/PointedVengefulHyracotherium">'
-                'https://gfycat.com/PointedVen…</a><br>',
+                "https://gfycat.com/PointedVen…</a><br>",
                 '<a rel="nofollow" href="https://gfycat.com/PointedVengefulHyracotherium">'
-                'https://gfycat.com/PointedVen…</a> bad</p>'
-            ]
+                "https://gfycat.com/PointedVen…</a> bad</p>",
+            ],
         )
 
     def test_markdown_video(self):
         """
         markdown video
         """
-        comment = (
-            "http://foo.bar/video.mp4\n"
-            "http://foo.bar/<escaped>.mp4"
-        )
+        comment = "http://foo.bar/video.mp4\nhttp://foo.bar/<escaped>.mp4"
         comment_md = Markdown().render(comment)
         self.assertListEqual(
             comment_md.splitlines(),
@@ -346,18 +339,15 @@ class UtilsMarkdownTests(TestCase):
                 '<a rel="nofollow" href="http://foo.bar/video.mp4">http://foo.bar/video.mp4</a></video>',
                 '<video controls><source src="http://foo.bar/&lt;escaped&gt;.mp4">'
                 '<a rel="nofollow" href="http://foo.bar/&lt;escaped&gt;.mp4">'
-                'http://foo.bar/&lt;escaped&gt;.mp4</a></video>'
-            ]
+                "http://foo.bar/&lt;escaped&gt;.mp4</a></video>",
+            ],
         )
 
     def test_markdown_audio(self):
         """
         markdown audio
         """
-        comment = (
-            "http://foo.bar/audio.mp3\n"
-            "http://foo.bar/<escaped>.mp3"
-        )
+        comment = "http://foo.bar/audio.mp3\nhttp://foo.bar/<escaped>.mp3"
         comment_md = Markdown().render(comment)
         self.assertListEqual(
             comment_md.splitlines(),
@@ -366,68 +356,67 @@ class UtilsMarkdownTests(TestCase):
                 'rel="nofollow" href="http://foo.bar/audio.mp3">http://foo.bar/audio.mp3</a></audio>',
                 '<audio controls><source src="http://foo.bar/&lt;escaped&gt;.mp3"><a '
                 'rel="nofollow" href="http://foo.bar/&lt;escaped&gt;.mp3">'
-                'http://foo.bar/&lt;escaped&gt;.mp3</a></audio>'
-            ]
+                "http://foo.bar/&lt;escaped&gt;.mp3</a></audio>",
+            ],
         )
 
     def test_markdown_poll(self):
         """
         markdown poll
         """
-        comment = (
-            "[poll name=foo_1]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "3. opt 3\n"
-            "[/poll]")
+        comment = "[poll name=foo_1]\n1. opt 1\n2. opt 2\n3. opt 3\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=foo_1>')
-        self.assertEqual(md.get_polls(), {
-            'polls': [
-                {'name': 'foo_1', }
-            ],
-            'choices': [
-                {'number': 1, 'description': 'opt 1', 'poll_name': 'foo_1'},
-                {'number': 2, 'description': 'opt 2', 'poll_name': 'foo_1'},
-                {'number': 3, 'description': 'opt 3', 'poll_name': 'foo_1'}
-            ]
-        })
+        self.assertEqual(comment_md, "<poll name=foo_1>")
+        self.assertEqual(
+            md.get_polls(),
+            {
+                "polls": [
+                    {
+                        "name": "foo_1",
+                    }
+                ],
+                "choices": [
+                    {"number": 1, "description": "opt 1", "poll_name": "foo_1"},
+                    {"number": 2, "description": "opt 2", "poll_name": "foo_1"},
+                    {"number": 3, "description": "opt 3", "poll_name": "foo_1"},
+                ],
+            },
+        )
 
     def test_markdown_poll_params(self):
         """
         Should accept min, max, close, and title
         """
+
         def mock_now():
             return now_fixed
 
         org_now, timezone.now = timezone.now, mock_now
         try:
-            comment = (
-                "[poll name=foo_1 min=1 max=2 close=1d mode=default]\n"
-                "# Foo or bar?\n"
-                "1. opt 1\n"
-                "2. opt 2\n"
-                "[/poll]")
+            comment = "[poll name=foo_1 min=1 max=2 close=1d mode=default]\n# Foo or bar?\n1. opt 1\n2. opt 2\n[/poll]"
             md = Markdown()
             comment_md = md.render(comment)
-            self.assertEqual(comment_md, '<poll name=foo_1>')
-            self.assertEqual(md.get_polls(), {
-                'polls': [
-                    {
-                        'name': 'foo_1',
-                        'choice_min': 1,
-                        'choice_max': 2,
-                        'title': 'Foo or bar?',
-                        'mode': 0,
-                        'close_at': now_fixed + timezone.timedelta(days=1)
-                    }
-                ],
-                'choices': [
-                    {'number': 1, 'description': 'opt 1', 'poll_name': 'foo_1'},
-                    {'number': 2, 'description': 'opt 2', 'poll_name': 'foo_1'}
-                ]
-            })
+            self.assertEqual(comment_md, "<poll name=foo_1>")
+            self.assertEqual(
+                md.get_polls(),
+                {
+                    "polls": [
+                        {
+                            "name": "foo_1",
+                            "choice_min": 1,
+                            "choice_max": 2,
+                            "title": "Foo or bar?",
+                            "mode": 0,
+                            "close_at": now_fixed + timezone.timedelta(days=1),
+                        }
+                    ],
+                    "choices": [
+                        {"number": 1, "description": "opt 1", "poll_name": "foo_1"},
+                        {"number": 2, "description": "opt 2", "poll_name": "foo_1"},
+                    ],
+                },
+            )
         finally:
             timezone.now = org_now
 
@@ -435,348 +424,257 @@ class UtilsMarkdownTests(TestCase):
         """
         Should have at least two options
         """
-        comment = (
-            "[poll name=foo_1]\n"
-            "1. opt 1\n"
-            "[/poll]")
+        comment = "[poll name=foo_1]\n1. opt 1\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo_1]<br>1. opt 1<br>[/poll]</p>')
-        self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
+        self.assertEqual(comment_md, "<p>[poll name=foo_1]<br>1. opt 1<br>[/poll]</p>")
+        self.assertEqual(md.get_polls(), {"polls": [], "choices": []})
 
     def test_markdown_poll_invalid_no_options(self):
         """
         Should have at least two options
         """
-        comment = (
-            "[poll name=foo_1]\n"
-            "[/poll]")
+        comment = "[poll name=foo_1]\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo_1]<br>[/poll]</p>')
-        self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
+        self.assertEqual(comment_md, "<p>[poll name=foo_1]<br>[/poll]</p>")
+        self.assertEqual(md.get_polls(), {"polls": [], "choices": []})
 
     def test_markdown_poll_invalid_no_name(self):
         """
         Should have a name param
         """
-        comment = (
-            "[poll]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
-        self.assertEqual(md.get_polls(), {'polls': [], 'choices': []})
+        self.assertEqual(comment_md, "<p>[poll]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>")
+        self.assertEqual(md.get_polls(), {"polls": [], "choices": []})
 
     def test_markdown_poll_and_text(self):
         """
         Should work with surrounding text
         """
-        comment = (
-            "foo\n"
-            "\n"
-            "[poll name=foo_1]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]\n"
-            "bar")
+        comment = "foo\n\n[poll name=foo_1]\n1. opt 1\n2. opt 2\n[/poll]\nbar"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>foo</p>\n<poll name=foo_1>\n<p>bar</p>')
+        self.assertEqual(comment_md, "<p>foo</p>\n<poll name=foo_1>\n<p>bar</p>")
 
     def test_markdown_poll_many(self):
         """
         Should work with many polls in the same comment
         """
-        comment = (
-            "[poll name=foo_1]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]\n"
-            "\n"
-            "[poll name=foo_2]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo_1]\n1. opt 1\n2. opt 2\n[/poll]\n\n[poll name=foo_2]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=foo_1>\n<poll name=foo_2>')
+        self.assertEqual(comment_md, "<poll name=foo_1>\n<poll name=foo_2>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['polls']), 2)
+        self.assertEqual(len(polls["polls"]), 2)
 
     def test_markdown_poll_truncates_name_title_description(self):
         """
         Should truncate name, title and description to model max_length
         """
-        name = 'a' * 255 * 2
-        title = 'b' * 255 * 2
-        description = 'c' * 255 * 2
-        comment = (
-            "[poll name=%(name)s]\n"
-            "# %(title)s\n"
-            "1. %(description)s\n"
-            "2. %(description)s\n"
-            "[/poll]" % {'name': name, 'title': title, 'description': description})
+        name = "a" * 255 * 2
+        title = "b" * 255 * 2
+        description = "c" * 255 * 2
+        comment = "[poll name=%(name)s]\n# %(title)s\n1. %(description)s\n2. %(description)s\n[/poll]" % {
+            "name": name,
+            "title": title,
+            "description": description,
+        }
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=%s>' % name[:255])
+        self.assertEqual(comment_md, "<poll name=%s>" % name[:255])
         polls = md.get_polls()
-        self.assertEqual(len(polls['polls'][0]['name']), 255)
-        self.assertEqual(len(polls['polls'][0]['title']), 255)
-        self.assertEqual(len(polls['choices'][0]['description']), 255)
-        self.assertEqual(len(polls['choices'][0]['poll_name']), 255)
-        self.assertEqual(len(polls['choices'][1]['description']), 255)
-        self.assertEqual(len(polls['choices'][1]['poll_name']), 255)
+        self.assertEqual(len(polls["polls"][0]["name"]), 255)
+        self.assertEqual(len(polls["polls"][0]["title"]), 255)
+        self.assertEqual(len(polls["choices"][0]["description"]), 255)
+        self.assertEqual(len(polls["choices"][0]["poll_name"]), 255)
+        self.assertEqual(len(polls["choices"][1]["description"]), 255)
+        self.assertEqual(len(polls["choices"][1]["poll_name"]), 255)
 
     def test_markdown_poll_choice_description_escaped(self):
         """
         Should escape the choice description
         """
-        comment = (
-            "[poll name=foo]\n"
-            "1. <i'm bad>\n"
-            "2. option\n"
-            "[/poll]")
+        comment = "[poll name=foo]\n1. <i'm bad>\n2. option\n[/poll]"
         md = Markdown()
         md.render(comment)
         polls = md.get_polls()
-        self.assertEqual(polls['choices'][0]['description'], '&lt;i&#39;m bad&gt;')
+        self.assertEqual(polls["choices"][0]["description"], "&lt;i&#39;m bad&gt;")
 
     def test_markdown_poll_title_escaped(self):
         """
         Should escape the title
         """
-        comment = (
-            "[poll name=foo]\n"
-            "# <i'm bad>\n"
-            "1. option1\n"
-            "2. option2\n"
-            "[/poll]")
+        comment = "[poll name=foo]\n# <i'm bad>\n1. option1\n2. option2\n[/poll]"
         md = Markdown()
         md.render(comment)
         polls = md.get_polls()
-        self.assertEqual(polls['polls'][0]['title'], '&lt;i&#39;m bad&gt;')
+        self.assertEqual(polls["polls"][0]["title"], "&lt;i&#39;m bad&gt;")
 
     def test_markdown_poll_choice_limit_ok(self):
         """
         Should not exceed the limit
         """
         limit = 20  # todo: change to setting
-        opts = '\n'.join('%s. opt' % x for x in range(limit))
+        opts = "\n".join("%s. opt" % x for x in range(limit))
         comment = "[poll name=foo]\n" + opts + "\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=foo>')
+        self.assertEqual(comment_md, "<poll name=foo>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), limit)
+        self.assertEqual(len(polls["choices"]), limit)
 
     def test_markdown_poll_choice_limit_pre_exceeded(self):
         """
         Should not exceed the limit
         """
         limit = 20  # todo: change to setting
-        comment = (
-            "[poll name=foo]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         polls = md.get_polls()
-        polls['choices'].extend({} for _ in range(limit))
+        polls["choices"].extend({} for _ in range(limit))
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(comment_md, "<p>[poll name=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), limit)
+        self.assertEqual(len(polls["choices"]), limit)
 
     def test_markdown_poll_choice_limit_exceeded(self):
         """
         Should not exceed the limit
         """
         limit = 20  # todo: change to setting
-        opts = '\n'.join('%s. opt' % x for x in range(limit + 1))
+        opts = "\n".join("%s. opt" % x for x in range(limit + 1))
         comment = "[poll name=foo]\n" + opts + "\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo]<br>' + opts.replace('\n', '<br>') + '<br>[/poll]</p>')
+        self.assertEqual(comment_md, "<p>[poll name=foo]<br>" + opts.replace("\n", "<br>") + "<br>[/poll]</p>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), 0)
+        self.assertEqual(len(polls["choices"]), 0)
 
     def test_markdown_poll_unique_name(self):
         """
         Should not allow repeated names
         """
-        comment = (
-            "[poll name=foo]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         polls = md.get_polls()
-        polls['polls'].append({'name': 'foo'})
+        polls["polls"].append({"name": "foo"})
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(comment_md, "<p>[poll name=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), 0)
-        self.assertEqual(len(polls['polls']), 1)
+        self.assertEqual(len(polls["choices"]), 0)
+        self.assertEqual(len(polls["polls"]), 1)
 
     def test_markdown_poll_unique_choice_numbers(self):
         """
         Should not allow repeated numbers
         """
-        comment = (
-            "[poll name=foo]\n"
-            "1. opt 1\n"
-            "1. opt 2\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo]\n1. opt 1\n1. opt 2\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<p>[poll name=foo]<br>1. opt 1<br>1. opt 2<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(comment_md, "<p>[poll name=foo]<br>1. opt 1<br>1. opt 2<br>2. opt 2<br>[/poll]</p>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), 0)
-        self.assertEqual(len(polls['polls']), 0)
+        self.assertEqual(len(polls["choices"]), 0)
+        self.assertEqual(len(polls["polls"]), 0)
 
     def test_markdown_poll_unique_choice_coerced_numbers(self):
         """
         Should not allow repeated numbers (1 = 01 = 001)
         """
-        comment = (
-            "[poll name=foo]\n"
-            "1. opt 1\n"
-            "01. opt 2\n"
-            "001. opt 2\n"
-            "2. opt 2\n"
-            "02. opt 2\n"
-            "002. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo]\n1. opt 1\n01. opt 2\n001. opt 2\n2. opt 2\n02. opt 2\n002. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
         self.assertEqual(
             comment_md,
-            '<p>[poll name=foo]<br>'
-            '1. opt 1<br>'
-            '01. opt 2<br>'
-            '001. opt 2<br>'
-            '2. opt 2<br>'
-            '02. opt 2<br>'
-            '002. opt 2<br>'
-            '[/poll]</p>')
+            "<p>[poll name=foo]<br>"
+            "1. opt 1<br>"
+            "01. opt 2<br>"
+            "001. opt 2<br>"
+            "2. opt 2<br>"
+            "02. opt 2<br>"
+            "002. opt 2<br>"
+            "[/poll]</p>",
+        )
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), 0)
-        self.assertEqual(len(polls['polls']), 0)
+        self.assertEqual(len(polls["choices"]), 0)
+        self.assertEqual(len(polls["polls"]), 0)
 
     def test_markdown_poll_choice_min_le_than_max(self):
         """
         Should validate min is less or equal than max
         """
-        comment = (
-            "[poll name=foo min=2 max=1]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo min=2 max=1]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(
-            comment_md,
-            '<p>[poll name=foo min=2 max=1]<br>'
-            '1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(comment_md, "<p>[poll name=foo min=2 max=1]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), 0)
-        self.assertEqual(len(polls['polls']), 0)
+        self.assertEqual(len(polls["choices"]), 0)
+        self.assertEqual(len(polls["polls"]), 0)
 
     def test_markdown_poll_choice_min_greater_than_zero(self):
         """
         Should validate min is greater than 0
         """
-        comment = (
-            "[poll name=foo min=0]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo min=0]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(
-            comment_md,
-            '<p>[poll name=foo min=0]<br>'
-            '1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(comment_md, "<p>[poll name=foo min=0]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), 0)
-        self.assertEqual(len(polls['polls']), 0)
+        self.assertEqual(len(polls["choices"]), 0)
+        self.assertEqual(len(polls["polls"]), 0)
 
     def test_markdown_poll_choice_max_greater_than_zero(self):
         """
         Should validate max is greater than 0
         """
-        comment = (
-            "[poll name=foo max=0]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo max=0]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(
-            comment_md, '<p>[poll name=foo max=0]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>')
+        self.assertEqual(comment_md, "<p>[poll name=foo max=0]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>")
         polls = md.get_polls()
-        self.assertEqual(len(polls['choices']), 0)
-        self.assertEqual(len(polls['polls']), 0)
+        self.assertEqual(len(polls["choices"]), 0)
+        self.assertEqual(len(polls["polls"]), 0)
 
     def test_markdown_poll_choice_max(self):
         """
         Should work with max only
         """
-        comment = (
-            "[poll name=foo max=2]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "3. opt 3\n"
-            "[/poll]")
+        comment = "[poll name=foo max=2]\n1. opt 1\n2. opt 2\n3. opt 3\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=foo>')
+        self.assertEqual(comment_md, "<poll name=foo>")
         polls = md.get_polls()
-        self.assertEqual(polls['polls'][0]['choice_max'], 2)
+        self.assertEqual(polls["polls"][0]["choice_max"], 2)
 
     def test_markdown_poll_choice_min(self):
         """
         Should work with min only, max should default to choices length
         """
-        comment = (
-            "[poll name=foo min=2]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "3. opt 3\n"
-            "[/poll]")
+        comment = "[poll name=foo min=2]\n1. opt 1\n2. opt 2\n3. opt 3\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=foo>')
+        self.assertEqual(comment_md, "<poll name=foo>")
         polls = md.get_polls()
-        self.assertEqual(polls['polls'][0]['choice_min'], 2)
-        self.assertEqual(polls['polls'][0]['choice_max'], 3)
+        self.assertEqual(polls["polls"][0]["choice_min"], 2)
+        self.assertEqual(polls["polls"][0]["choice_max"], 3)
 
     def test_markdown_poll_truncates_close(self):
         """
         Should truncates the close days
         """
+
         def mock_now():
             return now_fixed
 
         org_now, timezone.now = timezone.now, mock_now
         try:
-            comment = (
-                "[poll name=foo_1 close=100000000000d]\n"
-                "# Foo or bar?\n"
-                "1. opt 1\n"
-                "2. opt 2\n"
-                "[/poll]")
+            comment = "[poll name=foo_1 close=100000000000d]\n# Foo or bar?\n1. opt 1\n2. opt 2\n[/poll]"
             md = Markdown()
             comment_md = md.render(comment)
-            self.assertEqual(comment_md, '<poll name=foo_1>')
-            self.assertEqual(
-                md.get_polls()['polls'][0]['close_at'],
-                now_fixed + timezone.timedelta(days=10000)
-            )
+            self.assertEqual(comment_md, "<poll name=foo_1>")
+            self.assertEqual(md.get_polls()["polls"][0]["close_at"], now_fixed + timezone.timedelta(days=10000))
         finally:
             timezone.now = org_now
 
@@ -784,66 +682,47 @@ class UtilsMarkdownTests(TestCase):
         """
         Should accept mode=default
         """
-        comment = (
-            "[poll name=foo mode=default]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo mode=default]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=foo>')
+        self.assertEqual(comment_md, "<poll name=foo>")
         polls = md.get_polls()
-        self.assertEqual(polls['polls'][0]['mode'], 0)
+        self.assertEqual(polls["polls"][0]["mode"], 0)
 
     def test_markdown_poll_mode_secret(self):
         """
         Should accept mode=secret
         """
-        comment = (
-            "[poll name=foo mode=secret]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo mode=secret]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(comment_md, '<poll name=foo>')
+        self.assertEqual(comment_md, "<poll name=foo>")
         polls = md.get_polls()
-        self.assertEqual(polls['polls'][0]['mode'], 1)
+        self.assertEqual(polls["polls"][0]["mode"], 1)
 
     def test_markdown_poll_mode_invalid(self):
         """
         Should not accept unknown mode
         """
-        comment = (
-            "[poll name=foo mode=foo]\n"
-            "1. opt 1\n"
-            "2. opt 2\n"
-            "[/poll]")
+        comment = "[poll name=foo mode=foo]\n1. opt 1\n2. opt 2\n[/poll]"
         md = Markdown()
         comment_md = md.render(comment)
-        self.assertEqual(
-            comment_md,
-            '<p>[poll name=foo mode=foo]<br>'
-            '1. opt 1<br>'
-            '2. opt 2<br>[/poll]</p>')
+        self.assertEqual(comment_md, "<p>[poll name=foo mode=foo]<br>1. opt 1<br>2. opt 2<br>[/poll]</p>")
 
     def test_autolink(self):
         """
         Should parse the link as <a> tag
         """
-        comment = (
-            "http://foo.com\n"
-            "http://foo.com?foo=1&bar=2\n"
-            "http://foo.com/<bad>")
+        comment = "http://foo.com\nhttp://foo.com?foo=1&bar=2\nhttp://foo.com/<bad>"
         comment_md = Markdown().render(comment)
         self.assertEqual(
             comment_md.splitlines(),
-            ['<p><a rel="nofollow" href="http://foo.com">'
-             'http://foo.com</a></p>',
-             '<p><a rel="nofollow" href="http://foo.com?foo=1&amp;bar=2">'
-             'http://foo.com?foo=1&amp;bar=2</a></p>',
-             '<p><a rel="nofollow" href="http://foo.com/&lt;bad&gt;">'
-             'http://foo.com/&lt;bad&gt;</a></p>'])
+            [
+                '<p><a rel="nofollow" href="http://foo.com">http://foo.com</a></p>',
+                '<p><a rel="nofollow" href="http://foo.com?foo=1&amp;bar=2">http://foo.com?foo=1&amp;bar=2</a></p>',
+                '<p><a rel="nofollow" href="http://foo.com/&lt;bad&gt;">http://foo.com/&lt;bad&gt;</a></p>',
+            ],
+        )
 
     def test_autolink_without_no_follow(self):
         """
@@ -873,7 +752,7 @@ class UtilsMarkdownTests(TestCase):
         """
         Should parse the link as <a> tag
         """
-        comment = "[link](http://foo.com \"bar\")"
+        comment = '[link](http://foo.com "bar")'
         comment_md = Markdown().render(comment)
         self.assertEqual(comment_md, '<p><a rel="nofollow" href="http://foo.com" title="bar">link</a></p>')
 
@@ -881,7 +760,7 @@ class UtilsMarkdownTests(TestCase):
         """
         Should parse the link as <a> tag without no-follow
         """
-        comment = "[link](http://foo.com \"bar\")"
+        comment = '[link](http://foo.com "bar")'
         comment_md = Markdown(no_follow=False).render(comment)
         self.assertEqual(comment_md, '<p><a href="http://foo.com" title="bar">link</a></p>')
 
@@ -891,91 +770,66 @@ class UtilsMarkdownTests(TestCase):
         """
         attack_vectors = (
             # "standard" javascript pseudo protocol
-            ('javascript:alert`1`', ''),
+            ("javascript:alert`1`", ""),
             # bypass attempt
-            ('jAvAsCrIpT:alert`1`', ''),
+            ("jAvAsCrIpT:alert`1`", ""),
             # javascript pseudo protocol with entities
-            ('javascript&colon;alert`1`', ''),
+            ("javascript&colon;alert`1`", ""),
             # javascript pseudo protocol with prefix (dangerous in Chrome)
-            ('\x1Ajavascript:alert`1`', ''),
+            ("\x1ajavascript:alert`1`", ""),
             # data-URI (dangerous in Firefox)
-            ('data:text/html,<script>alert`1`</script>', ''),
+            ("data:text/html,<script>alert`1`</script>", ""),
             # vbscript-URI (dangerous in Internet Explorer)
-            ('vbscript:msgbox', ''),
+            ("vbscript:msgbox", ""),
             # breaking out of the attribute
-            ('"<>', ''),
+            ('"<>', ""),
         )
 
         for vector, expected in attack_vectors:
             # Image
             self.assertEqual(
-                Markdown().render('![atk](%s)' % vector),
-                '<p><span class="img"><img src="%s" alt="atk"></span></p>' % expected)
+                Markdown().render("![atk](%s)" % vector),
+                '<p><span class="img"><img src="%s" alt="atk"></span></p>' % expected,
+            )
             # Link
             self.assertEqual(
-                Markdown().render('[atk](%s)' % vector),
-                '<p><a rel="nofollow" href="%s">atk</a></p>' % expected)
+                Markdown().render("[atk](%s)" % vector), '<p><a rel="nofollow" href="%s">atk</a></p>' % expected
+            )
 
     def test_markdown_math_inline(self):
         comment = "hey *foo* \\(2 * 2\\) *bar* bye"
         comment_md = Markdown().render(comment)
-        self.assertEqual(
-            comment_md,
-            '<p>hey <em>foo</em> '
-            '<span class="math">\\(2 * 2\\)</span> '
-            '<em>bar</em> bye</p>')
+        self.assertEqual(comment_md, '<p>hey <em>foo</em> <span class="math">\\(2 * 2\\)</span> <em>bar</em> bye</p>')
 
     def test_markdown_math_multi_line(self):
-        comment = (
-            "hey *foo*\n\n"
-            "$$\n"
-            "2 * 2\n"
-            "4 * 4\n"
-            "$$\n")
+        comment = "hey *foo*\n\n$$\n2 * 2\n4 * 4\n$$\n"
         comment_md = Markdown().render(comment)
-        self.assertEqual(
-            comment_md,
-            '<p>hey <em>foo</em></p>\n'
-            '<p class="math">$$\n'
-            '2 * 2\n'
-            '4 * 4\n'
-            '$$</p>')
+        self.assertEqual(comment_md, '<p>hey <em>foo</em></p>\n<p class="math">$$\n2 * 2\n4 * 4\n$$</p>')
 
     def test_markdown_math_latex(self):
-        comment = (
-            "\\begin{...}\n"
-            "2 * 2\n"
-            "4 * 4\n"
-            "\\end{...}\n")
+        comment = "\\begin{...}\n2 * 2\n4 * 4\n\\end{...}\n"
         comment_md = Markdown().render(comment)
-        self.assertEqual(
-            comment_md,
-            '<p class="math">\\begin{...}\n'
-            '2 * 2\n'
-            '4 * 4\n'
-            '\\end{...}</p>')
+        self.assertEqual(comment_md, '<p class="math">\\begin{...}\n2 * 2\n4 * 4\n\\end{...}</p>')
 
     def test_markdown_mathjax(self):
         comment = (
             "When \\(a \\ne 0\\), there are two solutions to "
             "\\(ax^2 + bx + c = 0\\) and they are\n\n"
-            "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$")
+            "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$"
+        )
         comment_md = Markdown().render(comment)
         self.assertEqual(
             comment_md,
-            '<p>When '
+            "<p>When "
             '<span class="math">\\(a \\ne 0\\)</span>'
-            ', there are two solutions to '
+            ", there are two solutions to "
             '<span class="math">\\(ax^2 + bx + c = 0\\)</span>'
-            ' and they are</p>\n'
-            '<p class="math">$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$</p>')
+            " and they are</p>\n"
+            '<p class="math">$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$</p>',
+        )
 
     def test_markdown_math_xss(self):
-        comment = (
-            "$$ x < y $$\n\n"
-            "$$\n x < y\n $$\n\n"
-            "\\( x < y \\)\n\n"
-            "\\[ x < y \\]\n\n")
+        comment = "$$ x < y $$\n\n$$\n x < y\n $$\n\n\\( x < y \\)\n\n\\[ x < y \\]\n\n"
         comment_md = Markdown().render(comment)
         self.maxDiff = None
         self.assertEqual(
@@ -983,19 +837,19 @@ class UtilsMarkdownTests(TestCase):
             '<p class="math">$$ x &lt; y $$</p>\n'
             '<p class="math">$$\n x &lt; y\n $$</p>\n'
             '<p><span class="math">\\( x &lt; y \\)</span></p>\n'
-            '<p class="math">\\[ x &lt; y \\]</p>')
+            '<p class="math">\\[ x &lt; y \\]</p>',
+        )
 
     def test_markdown_math_not_within_link(self):
-        comment = (
-            "[this is a link \\[2 * 2\\]]"
-            "(http://example.com \"this is a title \\(2 * 2\\) \")")
+        comment = '[this is a link \\[2 * 2\\]](http://example.com "this is a title \\(2 * 2\\) ")'
         comment_md = Markdown().render(comment)
         self.assertEqual(
             comment_md,
             '<p><a rel="nofollow" href="http://example.com" '
-            'title="this is a title \\(2 * 2\\) ">this is a link [2 * 2]</a></p>')
+            'title="this is a title \\(2 * 2\\) ">this is a link [2 * 2]</a></p>',
+        )
 
     def test_markdown_math_not_a_link(self):
         comment = "\\[this is not]\\(a link)"
         comment_md = Markdown().render(comment)
-        self.assertEqual(comment_md, '<p>[this is not](a link)</p>')
+        self.assertEqual(comment_md, "<p>[this is not](a link)</p>")

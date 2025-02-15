@@ -2,11 +2,10 @@ from django.apps import AppConfig
 
 
 class SpiritUserConfig(AppConfig):
-
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'spirit.user'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "spirit.user"
     verbose_name = "Spirit User"
-    label = 'spirit_user'
+    label = "spirit_user"
 
     def ready(self):
         self.register_signals()

@@ -1,6 +1,6 @@
 def is_post(request):
     """Check request is a POST"""
-    return request.method == 'POST'
+    return request.method == "POST"
 
 
 def post_data(request):
@@ -17,4 +17,4 @@ def post_files(request):
 
 
 def is_ajax(request):
-    return request.headers.get('x-requested-with') == 'XMLHttpRequest'
+    return request.headers.get("x-requested-with") == "XMLHttpRequest"

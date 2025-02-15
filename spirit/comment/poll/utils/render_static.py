@@ -8,29 +8,22 @@ from .render import PATTERN
 
 def _evaluate(polls_by_name):
     def evaluate(m):
-        name = m.group('name')
+        name = m.group("name")
 
-        context = {
-            'poll': polls_by_name[name]
-        }
+        context = {"poll": polls_by_name[name]}
 
-        return render_to_string('spirit/comment/poll/_static.html', context)
+        return render_to_string("spirit/comment/poll/_static.html", context)
 
     return evaluate
 
 
 def _render_polls(comment):
-    polls = (
-        CommentPoll.objects
-        .for_comment(comment)
-        .unremoved()
-        .with_choices())
+    polls = CommentPoll.objects.for_comment(comment).unremoved().with_choices()
 
     if not polls:
         return comment.comment_html
 
-    evaluate = _evaluate(polls_by_name={
-        poll.name: poll for poll in polls})
+    evaluate = _evaluate(polls_by_name={poll.name: poll for poll in polls})
     return re.sub(PATTERN, evaluate, comment.comment_html)
 
 

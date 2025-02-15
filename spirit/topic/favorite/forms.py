@@ -5,7 +5,6 @@ from .models import TopicFavorite
 
 
 class FavoriteForm(forms.ModelForm):
-
     class Meta:
         model = TopicFavorite
         fields = []
@@ -18,8 +17,7 @@ class FavoriteForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        favorite = TopicFavorite.objects.filter(user=self.user,
-                                                topic=self.topic)
+        favorite = TopicFavorite.objects.filter(user=self.user, topic=self.topic)
 
         if favorite.exists():
             # Do this since some of the unique_together fields are excluded.

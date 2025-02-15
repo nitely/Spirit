@@ -6,13 +6,10 @@ from django.core.cache import caches
 from ...conf import settings
 from ..deprecations import warn
 
+__all__ = ["RateLimit"]
 
-__all__ = ['RateLimit']
 
-
-TIME_DICT = {
-    's': 1,
-    'm': 60}
+TIME_DICT = {"s": 1, "m": 60}
 
 
 def validate_cache_config():
@@ -23,21 +20,21 @@ def validate_cache_config():
         # this cache so we do nothing
         return
 
-    if (not settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK and
-            cache.get('TIMEOUT', 1) is not None):
+    if not settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK and cache.get("TIMEOUT", 1) is not None:
         # todo: ConfigurationError in next version
         warn(
-           'settings.ST_RATELIMIT_CACHE cache\'s TIMEOUT '
-           'must be None (never expire) and it may '
-           'be other than the default cache. '
-           'To skip this check, for example when using '
-           'a third-party backend with no TIMEOUT option, set '
-           'settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True. '
-           'This will raise an exception in next version.')
+            "settings.ST_RATELIMIT_CACHE cache's TIMEOUT "
+            "must be None (never expire) and it may "
+            "be other than the default cache. "
+            "To skip this check, for example when using "
+            "a third-party backend with no TIMEOUT option, set "
+            "settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK to True. "
+            "This will raise an exception in next version."
+        )
 
 
 def split_rate(rate):
-    limit, period = rate.split('/')
+    limit, period = rate.split("/")
     limit = int(limit)
 
     if len(period) > 1:
@@ -54,7 +51,7 @@ def fixed_window(period):
         return 0
 
     if not period:  # todo: assert on Spirit 0.5
-        warn('Period must be greater than 0.')
+        warn("Period must be greater than 0.")
         return time.time()  # Closer to no period
 
     timestamp = int(time.time())
@@ -62,18 +59,15 @@ def fixed_window(period):
 
 
 def make_hash(key):
-    return (hashlib
-            .sha1(key.encode('utf-8'))
-            .hexdigest())
+    return hashlib.sha1(key.encode("utf-8")).hexdigest()
 
 
 class RateLimit:
-
-    def __init__(self, request, uid, methods=None, field=None, rate='5/5m'):
+    def __init__(self, request, uid, methods=None, field=None, rate="5/5m"):
         validate_cache_config()
         self.request = request
         self.uid = uid
-        self.methods = methods or ['POST']
+        self.methods = methods or ["POST"]
         self.rate = rate
         self.limit = None
         self.time = None
@@ -84,32 +78,27 @@ class RateLimit:
             self.cache_keys = self._get_keys(field)
 
     def _make_key(self, key):
-        key_uid = '%s:%s:%d' % (
-            self.uid, key, fixed_window(self.time))
-        return '{}:{}'.format(
-            settings.ST_RATELIMIT_CACHE_PREFIX,
-            make_hash(key_uid))
+        key_uid = "%s:%s:%d" % (self.uid, key, fixed_window(self.time))
+        return "{}:{}".format(settings.ST_RATELIMIT_CACHE_PREFIX, make_hash(key_uid))
 
     def _get_keys(self, field=None):
         keys = []
 
         if self.request.user.is_authenticated:
-            keys.append('user:%d' % self.request.user.pk)
+            keys.append("user:%d" % self.request.user.pk)
         else:
-            keys.append('ip:%s' % self.request.META['REMOTE_ADDR'])
+            keys.append("ip:%s" % self.request.META["REMOTE_ADDR"])
 
         if field is not None:
-            field_value = (getattr(self.request, self.request.method)
-                           .get(field, ''))
+            field_value = getattr(self.request, self.request.method).get(field, "")
 
             if field_value:
-                keys.append(f'field:{field}:{field_value}')
+                keys.append(f"field:{field}:{field_value}")
 
         return [self._make_key(k) for k in keys]
 
     def _get_cache_values(self):
-        return (caches[settings.ST_RATELIMIT_CACHE]
-                .get_many(self.cache_keys))
+        return caches[settings.ST_RATELIMIT_CACHE].get_many(self.cache_keys)
 
     def _incr(self, key):
         cache = caches[settings.ST_RATELIMIT_CACHE]
@@ -136,6 +125,4 @@ class RateLimit:
         else:
             cache_values = self._get_cache_values()
 
-        return any(
-            count > self.limit
-            for count in cache_values)
+        return any(count > self.limit for count in cache_values)

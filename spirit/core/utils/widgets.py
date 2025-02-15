@@ -9,18 +9,17 @@ class MultipleInput(forms.TextInput):
 
     def render(self, name, value, *args, **kwargs):
         if value:
-            value = ','.join(force_str(v) for v in value)
+            value = ",".join(force_str(v) for v in value)
         else:
-            value = ''
+            value = ""
 
-        return super().render(
-            name, value, *args, **kwargs)
+        return super().render(name, value, *args, **kwargs)
 
     def value_from_datadict(self, data, files, name, *args, **kwargs):
         value = data.get(name)
 
         if value:
-            return [v.strip() for v in value.split(',')]
+            return [v.strip() for v in value.split(",")]
 
 
 class CIMultipleInput(MultipleInput):

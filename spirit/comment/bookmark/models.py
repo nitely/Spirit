@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 from djconfig import config
 
 from ...core.conf import settings
@@ -9,19 +8,13 @@ from ...core.utils.db import create_or_none
 
 
 class CommentBookmark(models.Model):
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name='st_comment_bookmarks',
-        on_delete=models.CASCADE)
-    topic = models.ForeignKey(
-        'spirit_topic.Topic',
-        on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="st_comment_bookmarks", on_delete=models.CASCADE)
+    topic = models.ForeignKey("spirit_topic.Topic", on_delete=models.CASCADE)
 
     comment_number = models.PositiveIntegerField(default=0)
 
     class Meta:
-        unique_together = ('user', 'topic')
+        unique_together = ("user", "topic")
         verbose_name = _("comment bookmark")
         verbose_name_plural = _("comments bookmarks")
 
@@ -31,7 +24,8 @@ class CommentBookmark(models.Model):
             url=self.topic.get_absolute_url(),
             obj_number=comment_number,
             per_page=config.comments_per_page,
-            page_var='page')
+            page_var="page",
+        )
 
     def get_absolute_url(self):
         return self._get_url()
@@ -58,12 +52,10 @@ class CommentBookmark(models.Model):
         """
         assert user.is_authenticated
         return bool(
-            cls.objects
-            .filter(
-                user=user,
-                topic=topic,
-                comment_number__lt=comment_number)
-            .update(comment_number=comment_number))
+            cls.objects.filter(user=user, topic=topic, comment_number__lt=comment_number).update(
+                comment_number=comment_number
+            )
+        )
 
     @classmethod
     def increase_or_create(cls, user, topic, comment_number):
@@ -78,12 +70,7 @@ class CommentBookmark(models.Model):
         if comment_number is None:
             return False
 
-        kwargs = dict(
-            user=user,
-            topic=topic,
-            comment_number=comment_number)
+        kwargs = dict(user=user, topic=topic, comment_number=comment_number)
         # Due to `comment_number__lt` we can't do better than this,
         # both queries run almost always
-        return (
-            bool(create_or_none(cls, **kwargs)) or
-            cls.increase_to(**kwargs))
+        return bool(create_or_none(cls, **kwargs)) or cls.increase_to(**kwargs)

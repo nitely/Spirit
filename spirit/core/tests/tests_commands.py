@@ -1,17 +1,13 @@
-import os
 import io
+import os
 
-from django.test import TestCase
 from django.core.management import call_command
+from django.test import TestCase
 
-from ..management.commands import spiritcompilemessages
-from ..management.commands import spirittxpush
-from ..management.commands import spiritinstall
-from ..management.commands import spiritupgrade
+from ..management.commands import spiritcompilemessages, spiritinstall, spirittxpush, spiritupgrade
 
 
 class CommandsTests(TestCase):
-
     def test_command_spiritcompilemessages(self):
         """
         Should compile all locales under the spirit root folder
@@ -27,10 +23,10 @@ class CommandsTests(TestCase):
         try:
             out = io.StringIO()
             err = io.StringIO()
-            call_command('spiritcompilemessages', stdout=out, stderr=err)
+            call_command("spiritcompilemessages", stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
-            self.assertEqual(commands[0], 'compilemessages')
+            self.assertEqual(commands[0], "compilemessages")
             self.assertEqual(len(dirs), 22)
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
@@ -41,6 +37,7 @@ class CommandsTests(TestCase):
         """
         Should run the tx command
         """
+
         def call_mock(command):
             self._command = command
 
@@ -48,12 +45,10 @@ class CommandsTests(TestCase):
         try:
             out = io.StringIO()
             err = io.StringIO()
-            call_command('spirittxpush', stdout=out, stderr=err)
+            call_command("spirittxpush", stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
-            self.assertEqual(
-                self._command,
-                ['tx', 'push', '--source', '--skip', '--language', 'en'])
+            self.assertEqual(self._command, ["tx", "push", "--source", "--skip", "--language", "en"])
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
         finally:
@@ -72,7 +67,7 @@ class CommandsTests(TestCase):
         try:
             out = io.StringIO()
             err = io.StringIO()
-            call_command('spiritinstall', stdout=out, stderr=err)
+            call_command("spiritinstall", stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
             self.assertEqual(out_put[-1], "ok")
@@ -94,7 +89,7 @@ class CommandsTests(TestCase):
         try:
             out = io.StringIO()
             err = io.StringIO()
-            call_command('spiritupgrade', stdout=out, stderr=err)
+            call_command("spiritupgrade", stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
             self.assertEqual(out_put[-1], "ok")
