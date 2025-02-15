@@ -100,6 +100,25 @@ jobs:
         export ST_UPLOAD_FILE_ENABLED=0
         export ST_TASK_MANAGER="huey"
         make test
+  lint_format:
+    name: Lint & Format / Py ${{ matrix.python }} / Django ${{ matrix.django }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.12']
+        django: ['4.2']
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python }}
+      uses: astral-sh/setup-uv@v5
+      with:
+        python-version: ${{ matrix.python }}
+    - name: Run Linter
+      run: |
+        uvx ruff check --select I
+    - name: Run Formatter
+      run: |
+        uvx ruff format --check
   coverage:
     name: Coverage / Py ${{ matrix.python }} / Django ${{ matrix.django }}
     runs-on: ubuntu-latest
