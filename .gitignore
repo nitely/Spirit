@@ -5,6 +5,8 @@
 /example/static/
 /manage.py
 /project
+/test_project
+/mysite
 celerybeat-schedule
 
 # Node

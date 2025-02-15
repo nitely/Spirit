@@ -5,3 +5,4 @@ omit =
     */migrations/*
     *settings*
     project/*
+    test_project/*
