@@ -20,7 +20,7 @@ Notify = UserProfile.Notify
 
 class CleanEmailMixin:
     def clean_email(self):
-        email = self.cleaned_data["email"]
+        email = self.cleaned_data['email']
 
         if settings.ST_CASE_INSENSITIVE_EMAILS:
             email = email.lower()
