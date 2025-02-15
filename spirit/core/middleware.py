@@ -7,7 +7,9 @@ from .conf import settings
 
 class XForwardedForMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        request.META["REMOTE_ADDR"] = request.headers["x-forwarded-for"].split(",")[-1].strip()
+        request.META["REMOTE_ADDR"] = (
+            request.headers["x-forwarded-for"].split(",")[-1].strip()
+        )
 
 
 class PrivateForumMiddleware(MiddlewareMixin):
@@ -31,4 +33,6 @@ class PrivateForumMiddleware(MiddlewareMixin):
         if full_namespace == "spirit:user:auth":
             return
 
-        return redirect_to_login(next=request.get_full_path(), login_url=settings.LOGIN_URL)
+        return redirect_to_login(
+            next=request.get_full_path(), login_url=settings.LOGIN_URL
+        )

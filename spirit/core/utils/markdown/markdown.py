@@ -9,7 +9,11 @@ class Markdown(mistune.Markdown):
     def __init__(self, no_follow=True):
         renderer = Renderer(escape=True, hard_wrap=True, no_follow=no_follow)
         super().__init__(
-            renderer=renderer, block=BlockLexer, inline=InlineLexer, parse_block_html=False, parse_inline_html=False
+            renderer=renderer,
+            block=BlockLexer,
+            inline=InlineLexer,
+            parse_block_html=False,
+            parse_inline_html=False,
         )
 
     # Override
@@ -32,7 +36,9 @@ class Markdown(mistune.Markdown):
         return self.renderer.block_math_brackets(text=self.token["text"])
 
     def output_block_latex(self):
-        return self.renderer.block_latex(text=self.token["text"], name=self.token["name"])
+        return self.renderer.block_latex(
+            text=self.token["text"], name=self.token["name"]
+        )
 
     def output_block_link(self):
         return self.renderer.block_link(link=self.token["link"])
@@ -41,7 +47,9 @@ class Markdown(mistune.Markdown):
         return self.renderer.audio_link(link=self.token["link"])
 
     def output_image_link(self):
-        return self.renderer.image_link(src=self.token["src"], title=self.token["title"], text=self.token["text"])
+        return self.renderer.image_link(
+            src=self.token["src"], title=self.token["title"], text=self.token["text"]
+        )
 
     def output_video_link(self):
         return self.renderer.video_link(link=self.token["link"])

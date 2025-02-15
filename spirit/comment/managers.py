@@ -13,7 +13,8 @@ class CommentQuerySet(models.QuerySet):
     def unremoved(self):
         # TODO: remove action
         return self.filter(
-            Q(topic__category__parent=None) | Q(topic__category__parent__is_removed=False),
+            Q(topic__category__parent=None)
+            | Q(topic__category__parent__is_removed=False),
             topic__category__is_removed=False,
             topic__is_removed=False,
             is_removed=False,
@@ -30,7 +31,9 @@ class CommentQuerySet(models.QuerySet):
         return self.filter(topic=topic)
 
     def _access(self, user):
-        return self.filter(Q(topic__category__is_private=False) | Q(topic__topics_private__user=user))
+        return self.filter(
+            Q(topic__category__is_private=False) | Q(topic__topics_private__user=user)
+        )
 
     def with_likes(self, user):
         if not user.is_authenticated:
@@ -42,18 +45,24 @@ class CommentQuerySet(models.QuerySet):
 
     def with_polls(self, user):
         visible_polls = CommentPoll.objects.unremoved()
-        prefetch_polls = Prefetch("comment_polls", queryset=visible_polls, to_attr="polls")
+        prefetch_polls = Prefetch(
+            "comment_polls", queryset=visible_polls, to_attr="polls"
+        )
 
         # Choices are attached to polls
         visible_choices = CommentPollChoice.objects.unremoved()
-        prefetch_choices = Prefetch("polls__poll_choices", queryset=visible_choices, to_attr="choices")
+        prefetch_choices = Prefetch(
+            "polls__poll_choices", queryset=visible_choices, to_attr="choices"
+        )
 
         if not user.is_authenticated:
             return self.prefetch_related(prefetch_polls, prefetch_choices)
 
         # Votes are attached to choices
         visible_votes = CommentPollVote.objects.unremoved().for_voter(user)
-        prefetch_votes = Prefetch("polls__choices__choice_votes", queryset=visible_votes, to_attr="votes")
+        prefetch_votes = Prefetch(
+            "polls__choices__choice_votes", queryset=visible_votes, to_attr="votes"
+        )
 
         return self.prefetch_related(prefetch_polls, prefetch_choices, prefetch_votes)
 

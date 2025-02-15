@@ -14,7 +14,12 @@ from spirit.topic.models import Topic
 
 from .forms import CommentFileForm, CommentForm, CommentImageForm, CommentMoveForm
 from .models import Comment
-from .utils import comment_posted, post_comment_move, post_comment_update, pre_comment_update
+from .utils import (
+    comment_posted,
+    post_comment_move,
+    post_comment_update,
+    pre_comment_update,
+)
 
 
 @login_required
@@ -22,7 +27,9 @@ from .utils import comment_posted, post_comment_move, post_comment_update, pre_c
 def publish(request, topic_id, pk=None):
     initial = None
     if pk:  # todo: move to form
-        comment = get_object_or_404(Comment.objects.for_access(user=request.user), pk=pk)
+        comment = get_object_or_404(
+            Comment.objects.for_access(user=request.user), pk=pk
+        )
         quote = markdown.quotify(comment.comment, comment.user.st.nickname)
         initial = {"comment": quote}
 
@@ -42,7 +49,11 @@ def publish(request, topic_id, pk=None):
         comment_posted(comment=comment, mentions=form.mentions)
         return safe_redirect(request, "next", comment.get_absolute_url(), method="POST")
 
-    return render(request=request, template_name="spirit/comment/publish.html", context={"form": form, "topic": topic})
+    return render(
+        request=request,
+        template_name="spirit/comment/publish.html",
+        context={"form": form, "topic": topic},
+    )
 
 
 @login_required
@@ -54,7 +65,11 @@ def update(request, pk):
         comment = form.save()
         post_comment_update(comment=comment)
         return safe_redirect(request, "next", comment.get_absolute_url(), method="POST")
-    return render(request=request, template_name="spirit/comment/update.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/comment/update.html",
+        context={"form": form},
+    )
 
 
 @moderator_required
@@ -63,7 +78,11 @@ def delete(request, pk, remove=True):
     if is_post(request):
         (Comment.objects.filter(pk=pk).update(is_removed=remove))
         return safe_redirect(request, "next", comment.get_absolute_url())
-    return render(request=request, template_name="spirit/comment/moderate.html", context={"comment": comment})
+    return render(
+        request=request,
+        template_name="spirit/comment/moderate.html",
+        context={"comment": comment},
+    )
 
 
 @require_POST
@@ -87,8 +106,15 @@ def move(request, topic_id):
 
 def find(request, pk):
     comment = get_object_or_404(Comment.objects.select_related("topic"), pk=pk)
-    comment_number = Comment.objects.filter(topic=comment.topic, date__lte=comment.date).count()
-    url = paginator.get_url(comment.topic.get_absolute_url(), comment_number, config.comments_per_page, "page")
+    comment_number = Comment.objects.filter(
+        topic=comment.topic, date__lte=comment.date
+    ).count()
+    url = paginator.get_url(
+        comment.topic.get_absolute_url(),
+        comment_number,
+        config.comments_per_page,
+        "page",
+    )
     return redirect(url)
 
 

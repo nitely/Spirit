@@ -151,7 +151,18 @@ ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE = {
 }
 
 #: Link protocols allowed within posts
-ST_ALLOWED_URL_PROTOCOLS = {"http", "https", "mailto", "ftp", "ftps", "git", "svn", "magnet", "irc", "ircs"}
+ST_ALLOWED_URL_PROTOCOLS = {
+    "http",
+    "https",
+    "mailto",
+    "ftp",
+    "ftps",
+    "git",
+    "svn",
+    "magnet",
+    "irc",
+    "ircs",
+}
 
 #: Support unicode slugs. Set to ``False``
 #: to only allow ASCII chars

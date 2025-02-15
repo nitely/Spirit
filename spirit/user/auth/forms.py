@@ -102,7 +102,9 @@ class LoginForm(AuthenticationForm):
         if is_found_email:
             return
 
-        raise forms.ValidationError(_("No account matches %(username)s.") % {"username": username})
+        raise forms.ValidationError(
+            _("No account matches %(username)s.") % {"username": username}
+        )
 
     def clean(self):
         self._validate_username()
@@ -122,7 +124,11 @@ class ResendActivationForm(forms.Form):
         if not is_existent:
             raise forms.ValidationError(_("The provided email does not exists."))
 
-        self.user = User.objects.filter(email=email, st__is_verified=False).order_by("-pk").first()
+        self.user = (
+            User.objects.filter(email=email, st__is_verified=False)
+            .order_by("-pk")
+            .first()
+        )
         if not self.user:
             raise forms.ValidationError(_("This account is verified, try logging-in."))
 
@@ -134,7 +140,13 @@ class ResendActivationForm(forms.Form):
 
 class CustomPasswordResetForm(PasswordResetForm):
     def send_mail(
-        self, subject_template_name, email_template_name, context, from_email, to_email, html_email_template_name=None
+        self,
+        subject_template_name,
+        email_template_name,
+        context,
+        from_email,
+        to_email,
+        html_email_template_name=None,
     ):
         subject = render_to_string(subject_template_name, context)
         subject = "".join(subject.splitlines())

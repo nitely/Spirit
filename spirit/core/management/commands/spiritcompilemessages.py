@@ -18,7 +18,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if not settings.ST_BASE_DIR.endswith("spirit"):
-            raise CommandError("settings.ST_BASE_DIR is not the spirit root folder, are you overriding it?")
+            raise CommandError(
+                "settings.ST_BASE_DIR is not the spirit root folder, are you overriding it?"
+            )
 
         for root, dirs, files in os.walk(settings.ST_BASE_DIR):
             if "locale" not in dirs:

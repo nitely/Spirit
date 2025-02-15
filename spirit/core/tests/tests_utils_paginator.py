@@ -24,13 +24,21 @@ class UtilsPaginatorTest(TestCase):
     def test_paginator_page(self):
         per_page = 15
         obj_number = 1
-        self.assertEqual(paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
+        self.assertEqual(
+            paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1
+        )
         obj_number = per_page
-        self.assertEqual(paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
+        self.assertEqual(
+            paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1
+        )
         obj_number = per_page - 1
-        self.assertEqual(paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1)
+        self.assertEqual(
+            paginator.get_page_number(obj_number=obj_number, per_page=per_page), 1
+        )
         obj_number = per_page + 1
-        self.assertEqual(paginator.get_page_number(obj_number=obj_number, per_page=per_page), 2)
+        self.assertEqual(
+            paginator.get_page_number(obj_number=obj_number, per_page=per_page), 2
+        )
 
     def test_paginator_url(self):
         per_page = 15
@@ -38,12 +46,16 @@ class UtilsPaginatorTest(TestCase):
         page_var = "page"
         url = "/path/"
         first_page = url + "#c" + str(obj_number)
-        self.assertEqual(paginator.get_url(url, obj_number, per_page, page_var), first_page)
+        self.assertEqual(
+            paginator.get_url(url, obj_number, per_page, page_var), first_page
+        )
         obj_number = 16
         expected = "{url}?{page_var}={page_num}#c{obj_number}".format(
             url=url, page_var=page_var, page_num=2, obj_number=obj_number
         )
-        self.assertEqual(paginator.get_url(url, obj_number, per_page, page_var), expected)
+        self.assertEqual(
+            paginator.get_url(url, obj_number, per_page, page_var), expected
+        )
 
 
 class UtilsInfinitePaginatorTest(TestCase):
@@ -60,24 +72,39 @@ class UtilsInfinitePaginatorTest(TestCase):
     def test_paginate(self):
         # first page
         req = RequestFactory().get("/")
-        page = infinite_paginator.paginate(req, self.queryset, per_page=15, lookup_field="date")
+        page = infinite_paginator.paginate(
+            req, self.queryset, per_page=15, lookup_field="date"
+        )
         page_last = list(self.queryset[:15])[-1]
-        self.assertEqual(page.next_page(), {"pk": page_last.pk, "value": (page_last.date,)})
+        self.assertEqual(
+            page.next_page(), {"pk": page_last.pk, "value": (page_last.date,)}
+        )
 
         # second page
         page_last = list(self.queryset[:15])[-1]
         param = to_page_key(value=page_last.date, pk=page_last.pk)
         req = RequestFactory().get("/?p=%s" % param)
-        page = infinite_paginator.paginate(req, self.queryset, per_page=15, lookup_field="date", page_var="p")
+        page = infinite_paginator.paginate(
+            req, self.queryset, per_page=15, lookup_field="date", page_var="p"
+        )
         second_page_last = list(self.queryset[15:30])[-1]
-        self.assertEqual(page.next_page(), {"pk": second_page_last.pk, "value": (second_page_last.date,)})
+        self.assertEqual(
+            page.next_page(),
+            {"pk": second_page_last.pk, "value": (second_page_last.date,)},
+        )
 
         # invalid (id) page
         last = self.queryset.order_by("-date").last()
         param = to_page_key(value=last.date - timedelta(days=123), pk=last.pk)
         req = RequestFactory().get("/?p=%s" % param)
         self.assertRaises(
-            Http404, infinite_paginator.paginate, req, self.queryset, per_page=15, lookup_field="date", page_var="p"
+            Http404,
+            infinite_paginator.paginate,
+            req,
+            self.queryset,
+            per_page=15,
+            lookup_field="date",
+            page_var="p",
         )
 
         # empty page
@@ -96,7 +123,9 @@ class UtilsInfinitePaginatorTest(TestCase):
 
         # empty first page
         req = RequestFactory().get("/")
-        page = infinite_paginator.paginate(req, self.queryset.none(), per_page=15, lookup_field="date")
+        page = infinite_paginator.paginate(
+            req, self.queryset.none(), per_page=15, lookup_field="date"
+        )
         self.assertEqual(len(page), 0)
 
 
@@ -202,10 +231,16 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
         items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
 
-        org_render, ttag_paginator.render_to_string = ttag_paginator.render_to_string, mock_render
+        org_render, ttag_paginator.render_to_string = (
+            ttag_paginator.render_to_string,
+            mock_render,
+        )
         try:
             template, context2 = render_paginator(context, page)
-            self.assertDictEqual(context2, {"page": page, "page_var": "page", "hashtag": "", "extra_query": ""})
+            self.assertDictEqual(
+                context2,
+                {"page": page, "page_var": "page", "hashtag": "", "extra_query": ""},
+            )
             self.assertEqual(template, "spirit/utils/paginator/_yt_paginator.html")
         finally:
             ttag_paginator.render_to_string = org_render
@@ -219,11 +254,22 @@ class UtilsYTPaginatorTemplateTagsTests(TestCase):
         items = list(range(0, 20))
         page = YTPaginator(items, per_page=10).page(1)
 
-        org_render, ttag_paginator.render_to_string = ttag_paginator.render_to_string, mock_render
+        org_render, ttag_paginator.render_to_string = (
+            ttag_paginator.render_to_string,
+            mock_render,
+        )
         try:
-            template, context2 = render_paginator(context, page, page_var="foo_page", hashtag="c20")
+            template, context2 = render_paginator(
+                context, page, page_var="foo_page", hashtag="c20"
+            )
             self.assertDictEqual(
-                context2, {"page": page, "page_var": "foo_page", "hashtag": "#c20", "extra_query": "&extra=foo"}
+                context2,
+                {
+                    "page": page,
+                    "page_var": "foo_page",
+                    "hashtag": "#c20",
+                    "extra_query": "&extra=foo",
+                },
             )
             self.assertEqual(template, "spirit/utils/paginator/_yt_paginator.html")
         finally:
@@ -259,7 +305,9 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
         req = RequestFactory().get("/")
         items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
-        Template("{% load spirit_tags %}{% render_paginator page %}").render(Context({"request": req, "page": page}))
+        Template("{% load spirit_tags %}{% render_paginator page %}").render(
+            Context({"request": req, "page": page})
+        )
 
     def tests_render_paginator(self):
         def mock_render(template, context):
@@ -270,10 +318,16 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
         items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
 
-        org_render, ttag_paginator.render_to_string = ttag_paginator.render_to_string, mock_render
+        org_render, ttag_paginator.render_to_string = (
+            ttag_paginator.render_to_string,
+            mock_render,
+        )
         try:
             template, context2 = render_paginator(context, page)
-            self.assertDictEqual(context2, {"page": page, "page_var": "page", "hashtag": "", "extra_query": ""})
+            self.assertDictEqual(
+                context2,
+                {"page": page, "page_var": "page", "hashtag": "", "extra_query": ""},
+            )
             self.assertEqual(template, "spirit/utils/paginator/_paginator.html")
         finally:
             ttag_paginator.render_to_string = org_render
@@ -287,11 +341,22 @@ class UtilsPaginatorTemplateTagsTests(TestCase):
         items = list(range(0, 20))
         page = Paginator(items, per_page=10).page(1)
 
-        org_render, ttag_paginator.render_to_string = ttag_paginator.render_to_string, mock_render
+        org_render, ttag_paginator.render_to_string = (
+            ttag_paginator.render_to_string,
+            mock_render,
+        )
         try:
-            template, context2 = render_paginator(context, page, page_var="foo_page", hashtag="c20")
+            template, context2 = render_paginator(
+                context, page, page_var="foo_page", hashtag="c20"
+            )
             self.assertDictEqual(
-                context2, {"page": page, "page_var": "foo_page", "hashtag": "#c20", "extra_query": "&extra=foo"}
+                context2,
+                {
+                    "page": page,
+                    "page_var": "foo_page",
+                    "hashtag": "#c20",
+                    "extra_query": "&extra=foo",
+                },
             )
             self.assertEqual(template, "spirit/utils/paginator/_paginator.html")
         finally:

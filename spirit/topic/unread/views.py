@@ -11,7 +11,11 @@ def index(request):
     # TODO: add button to clean up read topics? or read all?
     # redirect to first page if empty
 
-    topics = Topic.objects.for_access(user=request.user).for_unread(user=request.user).with_bookmarks(user=request.user)
+    topics = (
+        Topic.objects.for_access(user=request.user)
+        .for_unread(user=request.user)
+        .with_bookmarks(user=request.user)
+    )
     page = paginate(request, query_set=topics, lookup_field="last_active", page_var="p")
 
     context = {"page": page, "next_page": to_page_key(**page.next_page())}

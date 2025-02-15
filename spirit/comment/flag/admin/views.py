@@ -37,18 +37,26 @@ def detail(request, pk):
 
 @administrator_required
 def _index(request, queryset, template):
-    flags = yt_paginate(queryset, per_page=config.comments_per_page, page_number=request.GET.get("page", 1))
+    flags = yt_paginate(
+        queryset,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get("page", 1),
+    )
     context = {"flags": flags}
     return render(request, template, context)
 
 
 def opened(request):
     return _index(
-        request, queryset=CommentFlag.objects.filter(is_closed=False), template="spirit/comment/flag/admin/open.html"
+        request,
+        queryset=CommentFlag.objects.filter(is_closed=False),
+        template="spirit/comment/flag/admin/open.html",
     )
 
 
 def closed(request):
     return _index(
-        request, queryset=CommentFlag.objects.filter(is_closed=True), template="spirit/comment/flag/admin/closed.html"
+        request,
+        queryset=CommentFlag.objects.filter(is_closed=True),
+        template="spirit/comment/flag/admin/closed.html",
     )

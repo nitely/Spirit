@@ -74,7 +74,9 @@ class AvatarWidget(forms.ClearableFileInput):
 
 class UserProfileForm(forms.ModelForm):
     timezone = forms.ChoiceField(label=_("Time zone"), choices=TIMEZONE_CHOICES)
-    notify_when = forms.TypedChoiceField(label=_("Email notifications"), coerce=int, choices=Notify.WHEN)
+    notify_when = forms.TypedChoiceField(
+        label=_("Email notifications"), coerce=int, choices=Notify.WHEN
+    )
     notify_mentions = forms.BooleanField(label=_("Email mentions"), required=False)
     notify_replies = forms.BooleanField(label=_("Email replies"), required=False)
 
@@ -91,8 +93,12 @@ class UserProfileForm(forms.ModelForm):
             "time": defaultfilters.time(now),
         }
         self.fields["notify_when"].initial = self.instance.notify_when
-        self.fields["notify_mentions"].initial = bool(self.instance.notify & Notify.MENTION)
-        self.fields["notify_replies"].initial = bool(self.instance.notify & Notify.REPLY)
+        self.fields["notify_mentions"].initial = bool(
+            self.instance.notify & Notify.MENTION
+        )
+        self.fields["notify_replies"].initial = bool(
+            self.instance.notify & Notify.REPLY
+        )
 
     def clean_avatar(self):
         file = self.cleaned_data["avatar"]
@@ -106,7 +112,8 @@ class UserProfileForm(forms.ModelForm):
             or file.image.format.lower() not in settings.ST_ALLOWED_AVATAR_FORMAT
         ):
             raise forms.ValidationError(
-                _("Unsupported file format. Supported formats are %s.") % ", ".join(settings.ST_ALLOWED_AVATAR_FORMAT)
+                _("Unsupported file format. Supported formats are %s.")
+                % ", ".join(settings.ST_ALLOWED_AVATAR_FORMAT)
             )
 
         return file

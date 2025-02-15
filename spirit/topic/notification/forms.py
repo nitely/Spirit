@@ -5,7 +5,9 @@ from .models import TopicNotification
 
 
 class NotificationForm(forms.ModelForm):
-    is_active = forms.BooleanField(widget=forms.HiddenInput(), initial=True, required=False)
+    is_active = forms.BooleanField(
+        widget=forms.HiddenInput(), initial=True, required=False
+    )
 
     class Meta:
         model = TopicNotification
@@ -21,7 +23,9 @@ class NotificationCreationForm(NotificationForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        notification = TopicNotification.objects.filter(user=self.user, topic=self.topic)
+        notification = TopicNotification.objects.filter(
+            user=self.user, topic=self.topic
+        )
 
         if notification.exists():
             # Do this since some of the unique_together fields are excluded.
@@ -31,7 +35,9 @@ class NotificationCreationForm(NotificationForm):
         comment = self.topic.comment_set.last()
 
         if comment is None:
-            raise forms.ValidationError(_("You can't subscribe to a topic with no comments"))
+            raise forms.ValidationError(
+                _("You can't subscribe to a topic with no comments")
+            )
 
         return cleaned_data
 

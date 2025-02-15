@@ -19,7 +19,11 @@ class SearchView(BaseSearchView):
     """
 
     def __init__(self, *args, **kwargs):  # no-qa
-        super().__init__(template="spirit/search/search.html", form_class=AdvancedSearchForm, load_all=False)
+        super().__init__(
+            template="spirit/search/search.html",
+            form_class=AdvancedSearchForm,
+            load_all=False,
+        )
 
     @method_decorator(login_required)
     def __call__(self, request):
@@ -27,6 +31,10 @@ class SearchView(BaseSearchView):
 
     def build_page(self):
         paginator = None
-        page = yt_paginate(self.results, per_page=config.topics_per_page, page_number=self.request.GET.get("page", 1))
+        page = yt_paginate(
+            self.results,
+            per_page=config.topics_per_page,
+            page_number=self.request.GET.get("page", 1),
+        )
         page = [{"fields": r.get_stored_fields(), "pk": r.pk} for r in page]
         return paginator, page

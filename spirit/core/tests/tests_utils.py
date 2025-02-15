@@ -42,7 +42,10 @@ class UtilsTests(TestCase):
 
         res = utils.render_form_errors(MockForm())
         lines = [line.strip() for line in res.splitlines()]
-        self.assertEqual("".join(lines), '<ul class="errorlist"><li>error1</li><li>error2</li><li>error3</li></ul>')
+        self.assertEqual(
+            "".join(lines),
+            '<ul class="errorlist"><li>error1</li><li>error2</li><li>error3</li></ul>',
+        )
 
     def test_json_response(self):
         """
@@ -144,7 +147,10 @@ class UtilsTemplateTagTests(TestCase):
             t = Template("{% load spirit_tags %}{{ date|shortnaturaltime }}")
             return t.render(Context({"date": date}))
 
-        orig_humanize_datetime, ttags_utils.datetime = ttags_utils.datetime, MockDateTime
+        orig_humanize_datetime, ttags_utils.datetime = (
+            ttags_utils.datetime,
+            MockDateTime,
+        )
         try:
             with translation.override("en"):
                 with override_settings(USE_TZ=True):
@@ -171,7 +177,10 @@ class UtilsTemplateTagTests(TestCase):
 
                     with override_settings(TIME_ZONE="America/Chicago"):
                         # django 2.2 and 3.0 compat
-                        self.assertTrue(render(dt) == "8 Mar &#x27;11" or render(dt) == "8 Mar &#39;11")
+                        self.assertTrue(
+                            render(dt) == "8 Mar &#x27;11"
+                            or render(dt) == "8 Mar &#39;11"
+                        )
         finally:
             ttags_utils.datetime = orig_humanize_datetime
 
@@ -191,7 +200,9 @@ class UtilsTemplateTagTests(TestCase):
         m2 = MockMessage(messages.constants.ERROR, "error 2")
         m3 = MockMessage(messages.constants.INFO, "info 3")
         res = render_messages([m1, m2, m3])
-        self.assertDictEqual(dict(res["messages_grouped"]), {"error": [m1, m2], "info": [m3]})
+        self.assertDictEqual(
+            dict(res["messages_grouped"]), {"error": [m1, m2], "info": [m3]}
+        )
 
     def test_social_share(self):
         """
@@ -204,7 +215,9 @@ class UtilsTemplateTagTests(TestCase):
             '{% get_email_share_url url="/á/foo bar/" title="á" %}'
             '{% get_share_url url="/á/foo bar/" %}'
         )
-        res = t.render(Context({"request": RequestFactory().get("/")}, autoescape=False))
+        res = t.render(
+            Context({"request": RequestFactory().get("/")}, autoescape=False)
+        )
         self.assertEqual(
             res.strip(),
             "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftestserver"
@@ -223,8 +236,12 @@ class UtilsTemplateTagTests(TestCase):
         # so this unicode title when is *url-quoted* becomes really large, like 1000 chars large,
         # browsers support up to 2000 chars for an address, we should be fine.
         long_title = "á" * 150
-        t = Template('{% load spirit_tags %}{% get_twitter_share_url url="/foo/" title=long_title %}')
-        res = t.render(Context({"request": RequestFactory().get("/"), "long_title": long_title}))
+        t = Template(
+            '{% load spirit_tags %}{% get_twitter_share_url url="/foo/" title=long_title %}'
+        )
+        res = t.render(
+            Context({"request": RequestFactory().get("/"), "long_title": long_title})
+        )
         url = unquote(res.strip())
         self.assertEqual(len(url.split("text=")[-1]) + 23, 139)  # 140 for https
 
@@ -240,7 +257,10 @@ class UtilsFormsTests(TestCase):
         category2 = test_utils.create_category()
         subcategory = test_utils.create_subcategory(category)
         field = NestedModelChoiceField(
-            queryset=Category.objects.all(), related_name="category_set", parent_field="parent_id", label_field="title"
+            queryset=Category.objects.all(),
+            related_name="category_set",
+            parent_field="parent_id",
+            label_field="title",
         )
         self.assertSequenceEqual(
             list(field.choices),

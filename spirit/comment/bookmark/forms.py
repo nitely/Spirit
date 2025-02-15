@@ -16,5 +16,7 @@ class BookmarkForm(forms.ModelForm):
     def save(self, commit=True):
         # Bookmark is created/updated on topic view.
         CommentBookmark.increase_to(
-            user=self.user, topic=self.topic, comment_number=self.cleaned_data["comment_number"]
+            user=self.user,
+            topic=self.topic,
+            comment_number=self.cleaned_data["comment_number"],
         )

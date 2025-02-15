@@ -18,7 +18,8 @@ class UtilsTimezoneTests(TestCase):
         time_zones_america_dict = dict(time_zones_dict["America"])
         self.assertTrue("America/Argentina/Buenos_Aires" in time_zones_america_dict)
         self.assertEqual(
-            time_zones_america_dict["America/Argentina/Buenos_Aires"], "(UTC-0300) Argentina, Buenos Aires"
+            time_zones_america_dict["America/Argentina/Buenos_Aires"],
+            "(UTC-0300) Argentina, Buenos Aires",
         )
 
     def test_timezones_are_valid(self):
@@ -79,14 +80,24 @@ class UtilsTimezoneTests(TestCase):
         """
         Should sort all timezones by offset and then by timezone name
         """
-        fake_timezones_tup = (("aaaa", "+0000"), ("bbbb", "+0000"), ("cccc", "-0300"), ("dddd", "+0300"))
+        fake_timezones_tup = (
+            ("aaaa", "+0000"),
+            ("bbbb", "+0000"),
+            ("cccc", "-0300"),
+            ("dddd", "+0300"),
+        )
         fake_timezones_dict = dict(fake_timezones_tup)
         fake_timezones = [tz for tz, offset in reversed(fake_timezones_tup)]
 
         def fake_utc_offset(tz):
             return fake_timezones_dict[tz]
 
-        (common_timezones_org, utils_timezone.common_timezones, utc_offset_org, utils_timezone.utc_offset) = (
+        (
+            common_timezones_org,
+            utils_timezone.common_timezones,
+            utc_offset_org,
+            utils_timezone.utc_offset,
+        ) = (
             utils_timezone.common_timezones,
             fake_timezones,
             utils_timezone.utc_offset,
@@ -95,7 +106,12 @@ class UtilsTimezoneTests(TestCase):
         try:
             self.assertEqual(
                 utils_timezone.timezones_by_offset(),
-                [("-0300", "cccc"), ("+0000", "aaaa"), ("+0000", "bbbb"), ("+0300", "dddd")],
+                [
+                    ("-0300", "cccc"),
+                    ("+0000", "aaaa"),
+                    ("+0000", "bbbb"),
+                    ("+0300", "dddd"),
+                ],
             )
         finally:
             utils_timezone.common_timezones = common_timezones_org
@@ -105,7 +121,9 @@ class UtilsTimezoneTests(TestCase):
         """
         Should return the zone and the timezone description
         """
-        self.assertEqual(utils_timezone.timezone_format("UTC", "+0000"), ("UTC", "(UTC+0000) UTC"))
+        self.assertEqual(
+            utils_timezone.timezone_format("UTC", "+0000"), ("UTC", "(UTC+0000) UTC")
+        )
         self.assertEqual(
             utils_timezone.timezone_format("America/Argentina/Buenos_Aires", "-0300"),
             ("America", "(UTC-0300) Argentina, Buenos Aires"),

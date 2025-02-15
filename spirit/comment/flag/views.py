@@ -18,5 +18,7 @@ def create(request, comment_id):
         return safe_redirect(request, "next", comment.get_absolute_url(), method="POST")
 
     return render(
-        request=request, template_name="spirit/comment/flag/create.html", context={"form": form, "comment": comment}
+        request=request,
+        template_name="spirit/comment/flag/create.html",
+        context={"form": form, "comment": comment},
     )

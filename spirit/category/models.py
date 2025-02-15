@@ -19,14 +19,21 @@ class Category(models.Model):
     """
 
     parent = models.ForeignKey(
-        "self", verbose_name=_("category parent"), null=True, blank=True, on_delete=models.CASCADE
+        "self",
+        verbose_name=_("category parent"),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
     )
 
     title = models.CharField(_("title"), max_length=75)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     description = models.CharField(_("description"), max_length=255, blank=True)
     color = models.CharField(
-        _("color"), max_length=7, blank=True, help_text=_("Title color in hex format (i.e: #1aafd0).")
+        _("color"),
+        max_length=7,
+        blank=True,
+        help_text=_("Title color in hex format (i.e: #1aafd0)."),
     )
     sort = models.PositiveIntegerField(_("sorting order"), default=0)
     reindex_at = models.DateTimeField(_("modified at"), default=timezone.now)
@@ -34,7 +41,9 @@ class Category(models.Model):
     is_global = models.BooleanField(
         _("global"),
         default=True,
-        help_text=_("Designates whether the topics will bedisplayed in the all-categories list."),
+        help_text=_(
+            "Designates whether the topics will bedisplayed in the all-categories list."
+        ),
     )
     is_closed = models.BooleanField(_("closed"), default=False)
     is_removed = models.BooleanField(_("removed"), default=False)
@@ -51,7 +60,9 @@ class Category(models.Model):
         if self.pk == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
             return reverse("spirit:topic:private:index")
         else:
-            return reverse("spirit:category:detail", kwargs={"pk": str(self.id), "slug": self.slug})
+            return reverse(
+                "spirit:category:detail", kwargs={"pk": str(self.id), "slug": self.slug}
+            )
 
     @property
     def is_subcategory(self):

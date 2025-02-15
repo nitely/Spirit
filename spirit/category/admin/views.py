@@ -16,7 +16,11 @@ User = get_user_model()
 @administrator_required
 def index(request):
     categories = Category.objects.filter(parent=None, is_private=False).ordered()
-    return render(request=request, template_name="spirit/category/admin/index.html", context={"categories": categories})
+    return render(
+        request=request,
+        template_name="spirit/category/admin/index.html",
+        context={"categories": categories},
+    )
 
 
 @administrator_required
@@ -25,7 +29,11 @@ def create(request):
     if is_post(request) and form.is_valid():
         form.save()
         return redirect(reverse("spirit:admin:category:index"))
-    return render(request=request, template_name="spirit/category/admin/create.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/category/admin/create.html",
+        context={"form": form},
+    )
 
 
 @administrator_required
@@ -38,7 +46,11 @@ def update(request, category_id):
         messages.info(request, _("The category has been updated!"))
         return redirect(reverse("spirit:admin:category:index"))
 
-    return render(request=request, template_name="spirit/category/admin/update.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/category/admin/update.html",
+        context={"form": form},
+    )
 
 
 # XXX fix race conditions
@@ -53,7 +65,9 @@ def _move(request, category_id, direction):
         sort_filter = "sort__gt"
         order_by = "sort"
 
-    category = get_object_or_404(Category.objects.select_related("parent"), pk=category_id)
+    category = get_object_or_404(
+        Category.objects.select_related("parent"), pk=category_id
+    )
     sibling = (
         Category.objects.public()
         .filter(parent=category.parent, **{sort_filter: category.sort})

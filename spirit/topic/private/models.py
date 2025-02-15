@@ -7,8 +7,14 @@ from .managers import TopicPrivateQuerySet
 
 
 class TopicPrivate(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="st_topics_private", on_delete=models.CASCADE)
-    topic = models.ForeignKey("spirit_topic.Topic", related_name="topics_private", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="st_topics_private",
+        on_delete=models.CASCADE,
+    )
+    topic = models.ForeignKey(
+        "spirit_topic.Topic", related_name="topics_private", on_delete=models.CASCADE
+    )
 
     date = models.DateTimeField(default=timezone.now)
 

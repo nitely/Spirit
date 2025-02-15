@@ -25,7 +25,9 @@ class StorageTests(TestCase):
     @skipIf(not IS_DJANGO_LESSER_THAN_3_1, "Django >= 3.1")
     @skipIf(settings.ST_STORAGE is None, "ST_STORAGE is None")
     def test_spirit_storage_or_none_set(self):
-        self.assertIs(type(storage.spirit_storage_or_none), type(storage.select_storage()))
+        self.assertIs(
+            type(storage.spirit_storage_or_none), type(storage.select_storage())
+        )
 
     @skipIf(IS_DJANGO_LESSER_THAN_3_1, "Django < 3.1")
     def test_spirit_storage_or_none_callable(self):
@@ -36,9 +38,15 @@ class StorageTests(TestCase):
             self.assertIsNone(storage.select_storage(default=None))
         with override_settings(ST_STORAGE=None):
             self.assertIs(storage.select_storage(), default_storage)
-        with override_settings(ST_STORAGE="spirit.core.storage.OverwriteFileSystemStorage"):
-            self.assertIsInstance(storage.select_storage(), storage.OverwriteFileSystemStorage)
-        with override_settings(ST_STORAGE="django.core.files.storage.FileSystemStorage"):
+        with override_settings(
+            ST_STORAGE="spirit.core.storage.OverwriteFileSystemStorage"
+        ):
+            self.assertIsInstance(
+                storage.select_storage(), storage.OverwriteFileSystemStorage
+            )
+        with override_settings(
+            ST_STORAGE="django.core.files.storage.FileSystemStorage"
+        ):
             self.assertIsInstance(storage.select_storage(), FileSystemStorage)
 
     def test_overwrite_file_system(self):

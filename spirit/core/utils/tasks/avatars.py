@@ -27,7 +27,9 @@ def to_file(image):
         image = image.convert("RGB")
     buff = io.BytesIO()
     image.save(buff, format="JPEG", subsampling=0, quality=90)
-    return SimpleUploadedFile("pic.jpg", content=buff.getvalue(), content_type="image/jpeg")
+    return SimpleUploadedFile(
+        "pic.jpg", content=buff.getvalue(), content_type="image/jpeg"
+    )
 
 
 def thumbnail(image, to):

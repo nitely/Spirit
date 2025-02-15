@@ -26,7 +26,11 @@ urlpatterns = [
 ]
 
 if settings.ST_UPLOAD_IMAGE_ENABLED:
-    urlpatterns.append(path("upload/", views.image_upload_ajax, name="image-upload-ajax"))
+    urlpatterns.append(
+        path("upload/", views.image_upload_ajax, name="image-upload-ajax")
+    )
 
 if settings.ST_UPLOAD_FILE_ENABLED:
-    urlpatterns.append(path("upload/file/", views.file_upload_ajax, name="file-upload-ajax"))
+    urlpatterns.append(
+        path("upload/file/", views.file_upload_ajax, name="file-upload-ajax")
+    )

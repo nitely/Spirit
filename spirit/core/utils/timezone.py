@@ -56,7 +56,10 @@ def offset_to_int(offset):
 
 
 def timezones_by_offset():
-    return sorted(((utc_offset(tz), tz) for tz in common_timezones), key=lambda x: (offset_to_int(x[0]), x[1]))
+    return sorted(
+        ((utc_offset(tz), tz) for tz in common_timezones),
+        key=lambda x: (offset_to_int(x[0]), x[1]),
+    )
 
 
 def timezone_format(time_zone, offset):

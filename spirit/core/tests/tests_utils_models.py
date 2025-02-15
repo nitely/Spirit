@@ -1,6 +1,11 @@
 from django.test import TestCase
 
-from .models import AutoSlugBadPopulateFromModel, AutoSlugDefaultModel, AutoSlugModel, AutoSlugPopulateFromModel
+from .models import (
+    AutoSlugBadPopulateFromModel,
+    AutoSlugDefaultModel,
+    AutoSlugModel,
+    AutoSlugPopulateFromModel,
+)
 
 
 class UtilsModelsTests(TestCase):
@@ -34,7 +39,9 @@ class UtilsModelsTests(TestCase):
         """
         foo_model = AutoSlugBadPopulateFromModel()
         self.assertRaisesMessage(
-            AttributeError, "'AutoSlugBadPopulateFromModel' object has no attribute 'bad'", foo_model.save
+            AttributeError,
+            "'AutoSlugBadPopulateFromModel' object has no attribute 'bad'",
+            foo_model.save,
         )
 
     def test_auto_slug_field_populate_from(self):

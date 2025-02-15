@@ -125,7 +125,9 @@ class UtilsRateLimitTests(TestCase):
         req.user.pk = 1
         rl = RateLimit(req, "func_name")
         rl.incr()
-        self.assertEqual(len(rl.cache_keys[0]), len(settings.ST_RATELIMIT_CACHE_PREFIX) + 1 + 40)  # prefix:sha1_hash
+        self.assertEqual(
+            len(rl.cache_keys[0]), len(settings.ST_RATELIMIT_CACHE_PREFIX) + 1 + 40
+        )  # prefix:sha1_hash
         rl_cache = caches[settings.ST_RATELIMIT_CACHE]
         self.assertIsNotNone(rl_cache.get(rl.cache_keys[0]))
 
@@ -247,7 +249,10 @@ class UtilsRateLimitDeprecationsTests(TestCase):
 
         foo_cache = {
             "default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"},
-            "foo": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache", "LOCATION": "foo"},
+            "foo": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+                "LOCATION": "foo",
+            },
         }
 
         with override_settings(CACHES=foo_cache, ST_RATELIMIT_CACHE="foo"):

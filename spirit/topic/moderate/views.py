@@ -22,25 +22,39 @@ def _moderate(request, pk, field_name, to_value, action=None, message=None):
         )
 
         if count and action is not None:
-            Comment.create_moderation_action(user=request.user, topic=topic, action=action)
+            Comment.create_moderation_action(
+                user=request.user, topic=topic, action=action
+            )
 
         if message is not None:
             messages.info(request, message)
 
         return safe_redirect(request, "next", topic.get_absolute_url(), method="POST")
 
-    return render(request=request, template_name="spirit/topic/moderate.html", context={"topic": topic})
+    return render(
+        request=request,
+        template_name="spirit/topic/moderate.html",
+        context={"topic": topic},
+    )
 
 
 def delete(request, pk):
     return _moderate(
-        request=request, pk=pk, field_name="is_removed", to_value=True, message=_("The topic has been deleted")
+        request=request,
+        pk=pk,
+        field_name="is_removed",
+        to_value=True,
+        message=_("The topic has been deleted"),
     )
 
 
 def undelete(request, pk):
     return _moderate(
-        request=request, pk=pk, field_name="is_removed", to_value=False, message=_("The topic has been undeleted")
+        request=request,
+        pk=pk,
+        field_name="is_removed",
+        to_value=False,
+        message=_("The topic has been undeleted"),
     )
 
 

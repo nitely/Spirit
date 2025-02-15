@@ -23,14 +23,18 @@ User = get_user_model()
 @login_required
 def update(request):
     uform = UserForm(data=post_data(request), instance=request.user)
-    form = UserProfileForm(data=post_data(request), files=post_files(request), instance=request.user.st)
+    form = UserProfileForm(
+        data=post_data(request), files=post_files(request), instance=request.user.st
+    )
     if is_post(request) and all([uform.is_valid(), form.is_valid()]):  # TODO: test!
         uform.save()
         form.save()
         messages.info(request, _("Your profile has been updated!"))
         return redirect(reverse("spirit:user:update"))
     return render(
-        request=request, template_name="spirit/user/profile_update.html", context={"form": form, "uform": uform}
+        request=request,
+        template_name="spirit/user/profile_update.html",
+        context={"form": form, "uform": uform},
     )
 
 
@@ -42,7 +46,11 @@ def password_change(request):
         update_session_auth_hash(request, form.user)
         messages.info(request, _("Your password has been changed!"))
         return redirect(reverse("spirit:user:update"))
-    return render(request=request, template_name="spirit/user/profile_password_change.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/user/profile_password_change.html",
+        context={"form": form},
+    )
 
 
 @login_required
@@ -50,9 +58,15 @@ def email_change(request):
     form = EmailChangeForm(user=request.user, data=post_data(request))
     if is_post(request) and form.is_valid():
         send_email_change_email(request, request.user, form.get_email())
-        messages.info(request, _("We have sent you an email so you can confirm the change!"))
+        messages.info(
+            request, _("We have sent you an email so you can confirm the change!")
+        )
         return redirect(reverse("spirit:user:update"))
-    return render(request=request, template_name="spirit/user/profile_email_change.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/user/profile_email_change.html",
+        context={"form": form},
+    )
 
 
 @login_required
@@ -84,18 +98,31 @@ def unsubscribe(request, pk, token):
         messages.info(request, _("You are now unsubscribed!"))
         return redirect(reverse("spirit:user:update"))
     messages.error(
-        request, _("Sorry, we were not able to unsubscribed you. Please login and change your notifications settings.")
+        request,
+        _(
+            "Sorry, we were not able to unsubscribed you. Please login and change your notifications settings."
+        ),
     )
     return redirect(reverse("spirit:user:update"))
 
 
 @login_required
-def _activity(request, pk, slug, queryset, template, reverse_to, context_name, per_page):
+def _activity(
+    request, pk, slug, queryset, template, reverse_to, context_name, per_page
+):
     p_user = get_object_or_404(User, pk=pk)
     if p_user.st.slug != slug:
-        return HttpResponsePermanentRedirect(reverse(reverse_to, kwargs={"pk": p_user.pk, "slug": p_user.st.slug}))
-    items = yt_paginate(queryset, per_page=per_page, page_number=request.GET.get("page", 1))
-    return render(request=request, template_name=template, context={"p_user": p_user, context_name: items})
+        return HttpResponsePermanentRedirect(
+            reverse(reverse_to, kwargs={"pk": p_user.pk, "slug": p_user.st.slug})
+        )
+    items = yt_paginate(
+        queryset, per_page=per_page, page_number=request.GET.get("page", 1)
+    )
+    return render(
+        request=request,
+        template_name=template,
+        context={"p_user": p_user, context_name: items},
+    )
 
 
 def topics(request, pk, slug):
@@ -121,7 +148,12 @@ def topics(request, pk, slug):
 
 def comments(request, pk, slug):
     # todo: test with_polls!
-    user_comments = Comment.objects.filter(user_id=pk).visible().with_polls(user=request.user).select_related("topic")
+    user_comments = (
+        Comment.objects.filter(user_id=pk)
+        .visible()
+        .with_polls(user=request.user)
+        .select_related("topic")
+    )
 
     return _activity(
         request,

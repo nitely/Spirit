@@ -54,14 +54,24 @@ def vote(request, pk):
 @login_required
 def voters(request, pk):
     # TODO: check if user has access to this topic/poll
-    choice = get_object_or_404(CommentPollChoice.objects.unremoved().select_related("poll"), pk=pk)
+    choice = get_object_or_404(
+        CommentPollChoice.objects.unremoved().select_related("poll"), pk=pk
+    )
 
     if not choice.poll.can_show_results:
         raise PermissionDenied
 
-    choice_votes = CommentPollVote.objects.unremoved().for_choice(choice=choice).select_related("voter__st")
+    choice_votes = (
+        CommentPollVote.objects.unremoved()
+        .for_choice(choice=choice)
+        .select_related("voter__st")
+    )
 
-    choice_votes = yt_paginate(choice_votes, per_page=config.topics_per_page, page_number=request.GET.get("page", 1))
+    choice_votes = yt_paginate(
+        choice_votes,
+        per_page=config.topics_per_page,
+        page_number=request.GET.get("page", 1),
+    )
 
     context = {"choice": choice, "votes": choice_votes}
 

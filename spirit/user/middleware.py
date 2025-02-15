@@ -8,7 +8,12 @@ from django.utils.deprecation import MiddlewareMixin
 from ..core.conf import settings
 from .models import UserProfile
 
-__all__ = ["TimezoneMiddleware", "LastIPMiddleware", "LastSeenMiddleware", "ActiveUserMiddleware"]
+__all__ = [
+    "TimezoneMiddleware",
+    "LastIPMiddleware",
+    "LastSeenMiddleware",
+    "ActiveUserMiddleware",
+]
 
 logger = logging.getLogger("django")
 
@@ -50,7 +55,11 @@ class LastSeenMiddleware(MiddlewareMixin):
         if delta.total_seconds() < threshold:
             return
 
-        (UserProfile.objects.filter(pk=request.user.st.pk).update(last_seen=timezone.now()))
+        (
+            UserProfile.objects.filter(pk=request.user.st.pk).update(
+                last_seen=timezone.now()
+            )
+        )
 
 
 class ActiveUserMiddleware(MiddlewareMixin):

@@ -14,7 +14,9 @@ User = get_user_model()
 
 
 class TopicForPrivateForm(forms.ModelForm):
-    topic_hash = forms.CharField(max_length=32, widget=forms.HiddenInput, required=False)
+    topic_hash = forms.CharField(
+        max_length=32, widget=forms.HiddenInput, required=False
+    )
 
     class Meta:
         model = Topic
@@ -40,7 +42,12 @@ class TopicForPrivateForm(forms.ModelForm):
         if topic_hash:
             return topic_hash
 
-        return utils.get_hash((smart_bytes(self.cleaned_data["title"]), smart_bytes(f"category-{self.category.pk}")))
+        return utils.get_hash(
+            (
+                smart_bytes(self.cleaned_data["title"]),
+                smart_bytes(f"category-{self.category.pk}"),
+            )
+        )
 
     def save(self, commit=True):
         if not self.instance.pk:
@@ -59,7 +66,9 @@ def cx_multiple_input(*args, **kwargs):
 class TopicPrivateManyForm(forms.Form):
     # Only good for create
     users = forms.ModelMultipleChoiceField(
-        label=_("Invite users"), queryset=User.objects.all(), to_field_name=User.USERNAME_FIELD
+        label=_("Invite users"),
+        queryset=User.objects.all(),
+        to_field_name=User.USERNAME_FIELD,
     )
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
@@ -67,7 +76,9 @@ class TopicPrivateManyForm(forms.Form):
         self.user = user
         self.topic = topic
         # Make it dynamic for testing
-        self.fields["users"].widget = cx_multiple_input(attrs={"placeholder": _("user1, user2, ...")})
+        self.fields["users"].widget = cx_multiple_input(
+            attrs={"placeholder": _("user1, user2, ...")}
+        )
 
     def clean_users(self):
         users = set(self.cleaned_data["users"])
@@ -85,7 +96,9 @@ class TopicPrivateManyForm(forms.Form):
     def save_m2m(self):
         users = self.cleaned_data["users"]
         # Since the topic was just created this should not raise an exception
-        return TopicPrivate.objects.bulk_create([TopicPrivate(user=user, topic=self.topic) for user in users])
+        return TopicPrivate.objects.bulk_create(
+            [TopicPrivate(user=user, topic=self.topic) for user in users]
+        )
 
 
 def cx_text_input(*args, **kwargs):
@@ -97,7 +110,9 @@ def cx_text_input(*args, **kwargs):
 class TopicPrivateInviteForm(forms.ModelForm):
     # Only good for create
     user = forms.ModelChoiceField(
-        queryset=User.objects.all(), to_field_name=User.USERNAME_FIELD, label=_("Invite user")
+        queryset=User.objects.all(),
+        to_field_name=User.USERNAME_FIELD,
+        label=_("Invite user"),
     )
 
     def __init__(self, topic=None, *args, **kwargs):
@@ -117,7 +132,10 @@ class TopicPrivateInviteForm(forms.ModelForm):
 
         if private.exists():
             # Do this since some of the unique_together fields are excluded.
-            raise forms.ValidationError(_("%(username)s is already a participant") % {"username": user.st.nickname})
+            raise forms.ValidationError(
+                _("%(username)s is already a participant")
+                % {"username": user.st.nickname}
+            )
 
         return user
 
@@ -149,7 +167,8 @@ class TopicPrivateJoinForm(forms.ModelForm):
         if private.exists():
             # Do this since some of the unique_together fields are excluded.
             raise forms.ValidationError(
-                _("%(username)s is already a participant") % {"username": self.user.st.nickname}
+                _("%(username)s is already a participant")
+                % {"username": self.user.st.nickname}
             )
 
         return cleaned_data

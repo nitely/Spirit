@@ -14,11 +14,19 @@ urlpatterns = [
         name="registration-activation",
     ),
     path("password-reset/", views.custom_password_reset, name="password-reset"),
-    path("password-reset/done/", views.custom_password_reset_done, name="password-reset-done"),
+    path(
+        "password-reset/done/",
+        views.custom_password_reset_done,
+        name="password-reset-done",
+    ),
     re_path(
         r"^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[\w\-]+)/$",
         views.custom_password_reset_confirm,
         name="password-reset-confirm",
     ),
-    path("reset/done/", views.custom_password_reset_complete, name="password-reset-complete"),
+    path(
+        "reset/done/",
+        views.custom_password_reset_complete,
+        name="password-reset-complete",
+    ),
 ]

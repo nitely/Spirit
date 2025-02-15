@@ -4,7 +4,12 @@ import os
 from django.core.management import call_command
 from django.test import TestCase
 
-from ..management.commands import spiritcompilemessages, spiritinstall, spirittxpush, spiritupgrade
+from ..management.commands import (
+    spiritcompilemessages,
+    spiritinstall,
+    spirittxpush,
+    spiritupgrade,
+)
 
 
 class CommandsTests(TestCase):
@@ -19,7 +24,10 @@ class CommandsTests(TestCase):
             commands.append(command)
             dirs.append(os.getcwd())
 
-        org_call, spiritcompilemessages.call_command = spiritcompilemessages.call_command, call_mock
+        org_call, spiritcompilemessages.call_command = (
+            spiritcompilemessages.call_command,
+            call_mock,
+        )
         try:
             out = io.StringIO()
             err = io.StringIO()
@@ -48,7 +56,9 @@ class CommandsTests(TestCase):
             call_command("spirittxpush", stdout=out, stderr=err)
             out_put = out.getvalue().strip().splitlines()
             out_put_err = err.getvalue().strip().splitlines()
-            self.assertEqual(self._command, ["tx", "push", "--source", "--skip", "--language", "en"])
+            self.assertEqual(
+                self._command, ["tx", "push", "--source", "--skip", "--language", "en"]
+            )
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
         finally:
@@ -72,7 +82,9 @@ class CommandsTests(TestCase):
             out_put_err = err.getvalue().strip().splitlines()
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
-            self.assertEqual(command_list, ["migrate", "createcachetable", "collectstatic"])
+            self.assertEqual(
+                command_list, ["migrate", "createcachetable", "collectstatic"]
+            )
         finally:
             spiritinstall.call = org_call
 
@@ -94,6 +106,8 @@ class CommandsTests(TestCase):
             out_put_err = err.getvalue().strip().splitlines()
             self.assertEqual(out_put[-1], "ok")
             self.assertEqual(out_put_err, [])
-            self.assertEqual(command_list, ["migrate", "rebuild_index", "collectstatic"])
+            self.assertEqual(
+                command_list, ["migrate", "rebuild_index", "collectstatic"]
+            )
         finally:
             spiritupgrade.call = org_call

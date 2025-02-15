@@ -79,12 +79,19 @@ class AdminViewTest(TestCase):
             "color": "#ff0000",
         }
         response = self.client.post(
-            reverse("spirit:admin:category:update", kwargs={"category_id": self.category.pk}), form_data
+            reverse(
+                "spirit:admin:category:update", kwargs={"category_id": self.category.pk}
+            ),
+            form_data,
         )
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse("spirit:admin:category:update", kwargs={"category_id": self.category.pk}))
+        response = self.client.get(
+            reverse(
+                "spirit:admin:category:update", kwargs={"category_id": self.category.pk}
+            )
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_category_form_color(self):
@@ -106,14 +113,24 @@ class AdminViewTest(TestCase):
         """Should order the category when moving up/down"""
         utils.login(self)
         self.another_category = utils.create_category()
-        response = self.client.post(reverse("spirit:admin:category:move_dn", kwargs={"category_id": self.category.pk}))
+        response = self.client.post(
+            reverse(
+                "spirit:admin:category:move_dn",
+                kwargs={"category_id": self.category.pk},
+            )
+        )
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
         self.category.refresh_from_db()
         self.another_category.refresh_from_db()
         self.assertTrue(self.category.sort > self.another_category.sort)
 
-        response = self.client.post(reverse("spirit:admin:category:move_up", kwargs={"category_id": self.category.pk}))
+        response = self.client.post(
+            reverse(
+                "spirit:admin:category:move_up",
+                kwargs={"category_id": self.category.pk},
+            )
+        )
         expected_url = reverse("spirit:admin:category:index")
         self.assertRedirects(response, expected_url, status_code=302)
         self.category.refresh_from_db()

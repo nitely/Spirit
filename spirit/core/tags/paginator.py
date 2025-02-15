@@ -21,7 +21,12 @@ def render_paginator(context, page, page_var="page", hashtag=""):
     if hashtag:
         hashtag = "#%s" % hashtag
 
-    new_context = {"page": page, "page_var": page_var, "hashtag": hashtag, "extra_query": extra_query}
+    new_context = {
+        "page": page,
+        "page_var": page_var,
+        "hashtag": hashtag,
+        "extra_query": extra_query,
+    }
 
     if isinstance(page, Page):
         template = "spirit/utils/paginator/_paginator.html"

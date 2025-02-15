@@ -39,4 +39,6 @@ class UsernameAuthBackend(_SpiritBackend):
             username = kwargs.get(User.USERNAME_FIELD)
         if settings.ST_CASE_INSENSITIVE_USERNAMES:
             username = username.lower()
-        return super().authenticate(request, username=username, password=password, **kwargs)
+        return super().authenticate(
+            request, username=username, password=password, **kwargs
+        )

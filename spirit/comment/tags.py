@@ -25,12 +25,16 @@ def render_comments_form(context, topic, next=None):
 
 @register.simple_tag()
 def get_allowed_file_types():
-    return ", ".join(".%s" % ext for ext in sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))
+    return ", ".join(
+        ".%s" % ext for ext in sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys())
+    )
 
 
 @register.simple_tag()
 def get_allowed_image_types():
-    return ", ".join(".%s" % ext for ext in sorted(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT))
+    return ", ".join(
+        ".%s" % ext for ext in sorted(settings.ST_ALLOWED_UPLOAD_IMAGE_FORMAT)
+    )
 
 
 ACTIONS = {
@@ -51,9 +55,15 @@ def get_comment_action_text(comment):
         text_frag = _("{user}'s comment was removed {time_ago}")
     return format_html(
         text_frag,
-        user=format_html(user_frag, url=comment.user.st.get_absolute_url(), user=comment.user.st.nickname),
+        user=format_html(
+            user_frag,
+            url=comment.user.st.get_absolute_url(),
+            user=comment.user.st.nickname,
+        ),
         time_ago=format_html(
-            date_frag, title=date_format(comment.date, "DATETIME_FORMAT"), date=humanize.naturaltime(comment.date)
+            date_frag,
+            title=date_format(comment.date, "DATETIME_FORMAT"),
+            date=humanize.naturaltime(comment.date),
         ),
     )
 

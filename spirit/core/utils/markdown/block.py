@@ -130,7 +130,14 @@ class BlockLexer(mistune.BlockLexer):
     default_rules.insert(0, "block_link")
     default_rules.insert(0, "poll")
 
-    _sub_block_links = ("audio_link", "image_link", "video_link", "youtube_link", "vimeo_link", "gfycat_link")
+    _sub_block_links = (
+        "audio_link",
+        "image_link",
+        "video_link",
+        "youtube_link",
+        "vimeo_link",
+        "gfycat_link",
+    )
 
     def __init__(self, rules=None, **kwargs):
         if rules is None:
@@ -147,7 +154,9 @@ class BlockLexer(mistune.BlockLexer):
         self.tokens.append({"type": "block_math_brackets", "text": m.group(1)})
 
     def parse_block_latex(self, m):
-        self.tokens.append({"type": "block_latex", "name": m.group(1), "text": m.group(2)})
+        self.tokens.append(
+            {"type": "block_latex", "name": m.group(1), "text": m.group(2)}
+        )
 
     def parse_block_link(self, m):
         link = m.group(0).strip()
@@ -171,7 +180,9 @@ class BlockLexer(mistune.BlockLexer):
     def parse_image_link(self, m):
         link = m.group(0).strip()
         title = m.group("image_name").strip()
-        self.tokens.append({"type": "image_link", "src": link, "title": title, "text": title})
+        self.tokens.append(
+            {"type": "image_link", "src": link, "title": title, "text": title}
+        )
 
     def parse_video_link(self, m):
         self.tokens.append({"type": "video_link", "link": m.group(0).strip()})

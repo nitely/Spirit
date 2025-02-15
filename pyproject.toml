@@ -59,7 +59,7 @@ version = { attr = "spirit.__version__" }
 
 [tool.ruff]
 src = ["spirit"]
-line-length = 120
+line-length = 88
 extend-exclude = [
     ".git",
     "*/migrations/",

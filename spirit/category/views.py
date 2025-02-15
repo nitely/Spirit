@@ -24,12 +24,18 @@ def detail(request, pk, slug):
         .select_related("category")
     )
 
-    topics = yt_paginate(topics, per_page=config.topics_per_page, page_number=request.GET.get("page", 1))
+    topics = yt_paginate(
+        topics, per_page=config.topics_per_page, page_number=request.GET.get("page", 1)
+    )
 
     return render(
         request=request,
         template_name="spirit/category/detail.html",
-        context={"category": category, "subcategories": subcategories, "topics": topics},
+        context={
+            "category": category,
+            "subcategories": subcategories,
+            "topics": topics,
+        },
     )
 
 

@@ -26,7 +26,9 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category, reindex_at=yesterday)
         self.assertEqual(topic.reindex_at, yesterday)
-        response = self.client.post(reverse("spirit:topic:moderate:delete", kwargs={"pk": topic.pk}), data={})
+        response = self.client.post(
+            reverse("spirit:topic:moderate:delete", kwargs={"pk": topic.pk}), data={}
+        )
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
 
@@ -46,7 +48,9 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category, is_removed=True, reindex_at=yesterday)
         self.assertEqual(topic.reindex_at, yesterday)
-        response = self.client.post(reverse("spirit:topic:moderate:undelete", kwargs={"pk": topic.pk}), data={})
+        response = self.client.post(
+            reverse("spirit:topic:moderate:undelete", kwargs={"pk": topic.pk}), data={}
+        )
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
 
@@ -65,11 +69,20 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category)
         form_data = {}
-        response = self.client.post(reverse("spirit:topic:moderate:lock", kwargs={"pk": topic.pk}), form_data)
+        response = self.client.post(
+            reverse("spirit:topic:moderate:lock", kwargs={"pk": topic.pk}), form_data
+        )
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_closed)
-        self.assertEqual(len(Comment.objects.filter(user=self.user, topic=topic, action=Comment.CLOSED)), 1)
+        self.assertEqual(
+            len(
+                Comment.objects.filter(
+                    user=self.user, topic=topic, action=Comment.CLOSED
+                )
+            ),
+            1,
+        )
 
     def test_topic_moderate_unlock(self):
         """
@@ -82,11 +95,20 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category, is_closed=True)
         form_data = {}
-        response = self.client.post(reverse("spirit:topic:moderate:unlock", kwargs={"pk": topic.pk}), form_data)
+        response = self.client.post(
+            reverse("spirit:topic:moderate:unlock", kwargs={"pk": topic.pk}), form_data
+        )
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_closed)
-        self.assertEqual(len(Comment.objects.filter(user=self.user, topic=topic, action=Comment.UNCLOSED)), 1)
+        self.assertEqual(
+            len(
+                Comment.objects.filter(
+                    user=self.user, topic=topic, action=Comment.UNCLOSED
+                )
+            ),
+            1,
+        )
 
     def test_topic_moderate_pin(self):
         """
@@ -99,11 +121,20 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category)
         form_data = {}
-        response = self.client.post(reverse("spirit:topic:moderate:pin", kwargs={"pk": topic.pk}), form_data)
+        response = self.client.post(
+            reverse("spirit:topic:moderate:pin", kwargs={"pk": topic.pk}), form_data
+        )
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_pinned)
-        self.assertEqual(len(Comment.objects.filter(user=self.user, topic=topic, action=Comment.PINNED)), 1)
+        self.assertEqual(
+            len(
+                Comment.objects.filter(
+                    user=self.user, topic=topic, action=Comment.PINNED
+                )
+            ),
+            1,
+        )
 
     def test_topic_moderate_unpin(self):
         """
@@ -116,11 +147,20 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category, is_pinned=True)
         form_data = {}
-        response = self.client.post(reverse("spirit:topic:moderate:unpin", kwargs={"pk": topic.pk}), form_data)
+        response = self.client.post(
+            reverse("spirit:topic:moderate:unpin", kwargs={"pk": topic.pk}), form_data
+        )
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_pinned)
-        self.assertEqual(len(Comment.objects.filter(user=self.user, topic=topic, action=Comment.UNPINNED)), 1)
+        self.assertEqual(
+            len(
+                Comment.objects.filter(
+                    user=self.user, topic=topic, action=Comment.UNPINNED
+                )
+            ),
+            1,
+        )
 
     def test_topic_moderate_global_pin(self):
         """
@@ -133,11 +173,21 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category)
         form_data = {}
-        response = self.client.post(reverse("spirit:topic:moderate:global-pin", kwargs={"pk": topic.pk}), form_data)
+        response = self.client.post(
+            reverse("spirit:topic:moderate:global-pin", kwargs={"pk": topic.pk}),
+            form_data,
+        )
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertTrue(Topic.objects.get(pk=topic.pk).is_globally_pinned)
-        self.assertEqual(len(Comment.objects.filter(user=self.user, topic=topic, action=Comment.PINNED)), 1)
+        self.assertEqual(
+            len(
+                Comment.objects.filter(
+                    user=self.user, topic=topic, action=Comment.PINNED
+                )
+            ),
+            1,
+        )
 
     def test_topic_moderate_global_unpin(self):
         """
@@ -150,8 +200,18 @@ class TopicViewTest(TestCase):
         category = utils.create_category()
         topic = utils.create_topic(category, is_globally_pinned=True)
         form_data = {}
-        response = self.client.post(reverse("spirit:topic:moderate:global-unpin", kwargs={"pk": topic.pk}), form_data)
+        response = self.client.post(
+            reverse("spirit:topic:moderate:global-unpin", kwargs={"pk": topic.pk}),
+            form_data,
+        )
         expected_url = topic.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertFalse(Topic.objects.get(pk=topic.pk).is_globally_pinned)
-        self.assertEqual(len(Comment.objects.filter(user=self.user, topic=topic, action=Comment.UNPINNED)), 1)
+        self.assertEqual(
+            len(
+                Comment.objects.filter(
+                    user=self.user, topic=topic, action=Comment.UNPINNED
+                )
+            ),
+            1,
+        )

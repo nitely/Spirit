@@ -86,7 +86,12 @@ def _send_email(subject, message, to, unsub=None, conn=None):
     if unsub:
         headers["List-Unsubscribe"] = "<%s>" % unsub
     return mail.EmailMessage(
-        subject=subject, body=message, from_email=settings.DEFAULT_FROM_EMAIL, to=[to], headers=headers, connection=conn
+        subject=subject,
+        body=message,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=[to],
+        headers=headers,
+        connection=conn,
     ).send()
 
 
@@ -112,7 +117,9 @@ def search_index_update(topic_pk):
     if settings.ST_TASK_MANAGER is None:
         return
     Topic = apps.get_model("spirit_topic.Topic")
-    signals.search_index_update.send(sender=Topic, instance=Topic.objects.get(pk=topic_pk))
+    signals.search_index_update.send(
+        sender=Topic, instance=Topic.objects.get(pk=topic_pk)
+    )
 
 
 @periodic_task(**HUEY_SCHEDULE["full_search_index_update"])
@@ -182,9 +189,19 @@ def _notify_comment(comment_id, site, subject, template, action):
                     "unsub_token": unsub_token,
                 },
             )
-            unsub = "".join((site, reverse("spirit:user:unsubscribe", kwargs={"pk": n.user_id, "token": unsub_token})))
+            unsub = "".join(
+                (
+                    site,
+                    reverse(
+                        "spirit:user:unsubscribe",
+                        kwargs={"pk": n.user_id, "token": unsub_token},
+                    ),
+                )
+            )
             try:
-                _send_email(subject, message, to=n.user.email, unsub=unsub, conn=connection)
+                _send_email(
+                    subject, message, to=n.user.email, unsub=unsub, conn=connection
+                )
             except OSError as err:
                 logger.exception(err)
                 return  # bail out
@@ -224,11 +241,17 @@ def notify_weekly():
     users = (
         User.objects.filter(
             Q(
-                st__notify__in=[Notify.WEEKLY | Notify.MENTION, Notify.WEEKLY | Notify.MENTION | Notify.REPLY],
+                st__notify__in=[
+                    Notify.WEEKLY | Notify.MENTION,
+                    Notify.WEEKLY | Notify.MENTION | Notify.REPLY,
+                ],
                 st_topic_notifications__action=Notification.MENTION,
             )
             | Q(
-                st__notify__in=[Notify.WEEKLY | Notify.REPLY, Notify.WEEKLY | Notify.MENTION | Notify.REPLY],
+                st__notify__in=[
+                    Notify.WEEKLY | Notify.REPLY,
+                    Notify.WEEKLY | Notify.MENTION | Notify.REPLY,
+                ],
                 st_topic_notifications__action=Notification.COMMENT,
             ),
             st_topic_notifications__is_read=False,
@@ -245,9 +268,22 @@ def notify_weekly():
             unsub_token = tokens.unsub_token(u.pk)
             message = render_to_string(
                 "spirit/topic/notification/email_notification_weekly.html",
-                {"site": site, "site_name": djconfig.config.site_name, "user_id": u.pk, "unsub_token": unsub_token},
+                {
+                    "site": site,
+                    "site_name": djconfig.config.site_name,
+                    "user_id": u.pk,
+                    "unsub_token": unsub_token,
+                },
             )
-            unsub = "".join((site, reverse("spirit:user:unsubscribe", kwargs={"pk": u.pk, "token": unsub_token})))
+            unsub = "".join(
+                (
+                    site,
+                    reverse(
+                        "spirit:user:unsubscribe",
+                        kwargs={"pk": u.pk, "token": unsub_token},
+                    ),
+                )
+            )
             try:
                 _send_email(subject, message, to=u.email, unsub=unsub, conn=connection)
             except OSError as err:

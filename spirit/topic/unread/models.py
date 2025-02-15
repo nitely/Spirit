@@ -6,7 +6,11 @@ from ...core.conf import settings
 
 
 class TopicUnread(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="st_topics_unread", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="st_topics_unread",
+        on_delete=models.CASCADE,
+    )
     topic = models.ForeignKey("spirit_topic.Topic", on_delete=models.CASCADE)
 
     date = models.DateTimeField(default=timezone.now)
@@ -26,8 +30,14 @@ class TopicUnread(models.Model):
         if not user.is_authenticated:
             return
 
-        return cls.objects.update_or_create(user=user, topic=topic, defaults={"is_read": True})
+        return cls.objects.update_or_create(
+            user=user, topic=topic, defaults={"is_read": True}
+        )
 
     @classmethod
     def unread_new_comment(cls, comment):
-        (cls.objects.filter(topic=comment.topic).exclude(user=comment.user).update(is_read=False, date=timezone.now()))
+        (
+            cls.objects.filter(topic=comment.topic)
+            .exclude(user=comment.user)
+            .update(is_read=False, date=timezone.now())
+        )

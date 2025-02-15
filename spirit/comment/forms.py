@@ -43,8 +43,14 @@ def save_user_file(user, file, subdir, hashed=False):
 
 
 class CommentForm(forms.ModelForm):
-    comment = forms.CharField(label=_("Comment"), max_length=settings.ST_COMMENT_MAX_LEN, widget=forms.Textarea)
-    comment_hash = forms.CharField(max_length=32, widget=forms.HiddenInput, required=False)
+    comment = forms.CharField(
+        label=_("Comment"),
+        max_length=settings.ST_COMMENT_MAX_LEN,
+        widget=forms.Textarea,
+    )
+    comment_hash = forms.CharField(
+        max_length=32, widget=forms.HiddenInput, required=False
+    )
 
     class Meta:
         model = Comment
@@ -73,7 +79,12 @@ class CommentForm(forms.ModelForm):
         if comment_hash:
             return comment_hash
 
-        return utils.get_hash((smart_bytes(self.cleaned_data["comment"]), smart_bytes(f"thread-{self.topic.pk}")))
+        return utils.get_hash(
+            (
+                smart_bytes(self.cleaned_data["comment"]),
+                smart_bytes(f"thread-{self.topic.pk}"),
+            )
+        )
 
     def _get_comment_html(self):
         # user = self.user or self.instance.user
@@ -91,7 +102,9 @@ class CommentForm(forms.ModelForm):
         choices = self.polls["choices"]
 
         CommentPoll.update_or_create_many(comment=self.instance, polls_raw=polls)
-        CommentPollChoice.update_or_create_many(comment=self.instance, choices_raw=choices)
+        CommentPollChoice.update_or_create_many(
+            comment=self.instance, choices_raw=choices
+        )
 
     def save(self, commit=True):
         if not self.instance.pk:
@@ -113,7 +126,8 @@ class CommentMoveForm(forms.Form):
     def __init__(self, topic, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["comments"] = forms.ModelMultipleChoiceField(
-            queryset=Comment.objects.filter(topic=topic), widget=forms.CheckboxSelectMultiple
+            queryset=Comment.objects.filter(topic=topic),
+            widget=forms.CheckboxSelectMultiple,
         )
 
     def save(self):
@@ -177,8 +191,15 @@ class CommentFileForm(forms.Form):
         ext = os.path.splitext(file.name)[1].lstrip(".").lower()
         if ext not in settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE:
             raise forms.ValidationError(
-                _("Unsupported file extension %(extension)s. Supported extensions are %(supported)s.")
-                % {"extension": ext, "supported": ", ".join(sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys()))}
+                _(
+                    "Unsupported file extension %(extension)s. Supported extensions are %(supported)s."
+                )
+                % {
+                    "extension": ext,
+                    "supported": ", ".join(
+                        sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.keys())
+                    ),
+                }
             )
 
         try:
@@ -193,10 +214,14 @@ class CommentFileForm(forms.Form):
         mime = settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.get(ext, None)
         if mime != file_mime:
             raise forms.ValidationError(
-                _("Unsupported file mime type %(mime)s. Supported types are %(supported)s.")
+                _(
+                    "Unsupported file mime type %(mime)s. Supported types are %(supported)s."
+                )
                 % {
                     "mime": file_mime,
-                    "supported": ", ".join(sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values())),
+                    "supported": ", ".join(
+                        sorted(settings.ST_ALLOWED_UPLOAD_FILE_MEDIA_TYPE.values())
+                    ),
                 }
             )
 

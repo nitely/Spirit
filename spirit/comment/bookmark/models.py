@@ -8,7 +8,11 @@ from ...core.utils.db import create_or_none
 
 
 class CommentBookmark(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="st_comment_bookmarks", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="st_comment_bookmarks",
+        on_delete=models.CASCADE,
+    )
     topic = models.ForeignKey("spirit_topic.Topic", on_delete=models.CASCADE)
 
     comment_number = models.PositiveIntegerField(default=0)
@@ -52,9 +56,9 @@ class CommentBookmark(models.Model):
         """
         assert user.is_authenticated
         return bool(
-            cls.objects.filter(user=user, topic=topic, comment_number__lt=comment_number).update(
-                comment_number=comment_number
-            )
+            cls.objects.filter(
+                user=user, topic=topic, comment_number__lt=comment_number
+            ).update(comment_number=comment_number)
         )
 
     @classmethod

@@ -20,7 +20,11 @@ class XForwardedForMiddlewareTests(TestCase):
         http_x_fwd_for = "evil.ip, foo.ip, org.ip"
         req.META["HTTP_X_FORWARDED_FOR"] = http_x_fwd_for
         self.assertEqual(req.META["HTTP_X_FORWARDED_FOR"], http_x_fwd_for)
-        self.assertIsNone(middleware.XForwardedForMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.XForwardedForMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
         self.assertEqual(req.META["HTTP_X_FORWARDED_FOR"], http_x_fwd_for)
         self.assertEqual(req.META["REMOTE_ADDR"], "org.ip")
 
@@ -34,7 +38,11 @@ class XForwardedForMiddlewareTests(TestCase):
         http_x_fwd_for = "evil.ip, foo.ip,,bar.ip, baz.ip,  org.ip  "
         req.META["HTTP_X_FORWARDED_FOR"] = http_x_fwd_for
         self.assertEqual(req.META["HTTP_X_FORWARDED_FOR"], http_x_fwd_for)
-        self.assertIsNone(middleware.XForwardedForMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.XForwardedForMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
         self.assertEqual(req.META["HTTP_X_FORWARDED_FOR"], http_x_fwd_for)
         self.assertEqual(req.META["REMOTE_ADDR"], "org.ip")
 
@@ -55,14 +63,21 @@ class XForwardedForMiddlewareTests(TestCase):
                 self._mock_calls.append(request)
                 return super().process_request(request)
 
-        org_mid, middleware.XForwardedForMiddleware = (middleware.XForwardedForMiddleware, XForwardedForMiddlewareMock)
+        org_mid, middleware.XForwardedForMiddleware = (
+            middleware.XForwardedForMiddleware,
+            XForwardedForMiddlewareMock,
+        )
         try:
-            self.client.get(reverse("spirit:index"), headers={"x-forwarded-for": "evil.ip, org.ip"})
+            self.client.get(
+                reverse("spirit:index"), headers={"x-forwarded-for": "evil.ip, org.ip"}
+            )
         finally:
             middleware.XForwardedForMiddleware = org_mid
 
         self.assertEqual(len(XForwardedForMiddlewareMock._mock_calls), 1)
-        self.assertEqual(XForwardedForMiddlewareMock._mock_calls[0].META["REMOTE_ADDR"], "org.ip")
+        self.assertEqual(
+            XForwardedForMiddlewareMock._mock_calls[0].META["REMOTE_ADDR"], "org.ip"
+        )
 
 
 class PrivateForumMiddlewareTests(TestCase):
@@ -77,7 +92,9 @@ class PrivateForumMiddlewareTests(TestCase):
         """
         req = RequestFactory().get(reverse("spirit:index"))
         req.user = AnonymousUser()
-        resp = middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req)
+        resp = middleware.PrivateForumMiddleware(
+            lambda req: HttpResponse(status=500)
+        ).process_request(req)
         self.assertIsInstance(resp, HttpResponseRedirect)
         self.assertEqual(resp["Location"], reverse(settings.LOGIN_URL) + "?next=/")
 
@@ -88,7 +105,11 @@ class PrivateForumMiddlewareTests(TestCase):
         """
         req = RequestFactory().get(reverse("spirit:index"))
         req.user = AnonymousUser()
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
     @override_settings(ST_PRIVATE_FORUM=True)
     def test_authenticated_user(self):
@@ -98,7 +119,11 @@ class PrivateForumMiddlewareTests(TestCase):
         req = RequestFactory().get(reverse("spirit:index"))
         req.user = self.user
         self.assertTrue(self.user.is_authenticated)
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
     @override_settings(ST_PRIVATE_FORUM=False)
     def test_authenticated_user_not_private(self):
@@ -108,7 +133,11 @@ class PrivateForumMiddlewareTests(TestCase):
         req = RequestFactory().get(reverse("spirit:index"))
         req.user = self.user
         self.assertTrue(self.user.is_authenticated)
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
     @override_settings(ST_PRIVATE_FORUM=True)
     def test_auth_paths(self):
@@ -118,21 +147,39 @@ class PrivateForumMiddlewareTests(TestCase):
         req = RequestFactory().get(reverse("spirit:index"))
         req.user = AnonymousUser()
         self.assertIsInstance(
-            middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req),
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req),
             HttpResponseRedirect,
         )
         req = RequestFactory().get(reverse("spirit:user:auth:login"))
         req.user = AnonymousUser()
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
         req = RequestFactory().get(reverse("spirit:user:auth:register"))
         req.user = AnonymousUser()
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
         req = RequestFactory().get(reverse("spirit:user:auth:logout"))
         req.user = AnonymousUser()
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
         req = RequestFactory().get(reverse("spirit:user:auth:resend-activation"))
         req.user = AnonymousUser()
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
     @override_settings(ST_PRIVATE_FORUM=True)
     def test_not_spirit(self):
@@ -142,15 +189,25 @@ class PrivateForumMiddlewareTests(TestCase):
         req = RequestFactory().get(reverse("spirit:index"))
         req.user = AnonymousUser()
         self.assertIsInstance(
-            middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req),
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req),
             HttpResponseRedirect,
         )
         req = RequestFactory().get(reverse("admin:index"))
         req.user = AnonymousUser()
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
         req = RequestFactory().get(reverse("admin:index"))
         req.user = self.user
-        self.assertIsNone(middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
     @override_settings(ST_PRIVATE_FORUM=True)
     def test_on_client(self):
@@ -176,11 +233,19 @@ class PrivateForumMiddlewareTests(TestCase):
         """
         Should restrict the URLs
         """
-        url_names = ["spirit:topic:index-active", "spirit:topic:private:index", "spirit:category:index"]
+        url_names = [
+            "spirit:topic:index-active",
+            "spirit:topic:private:index",
+            "spirit:category:index",
+        ]
         for url_name in url_names:
             url = reverse(url_name)
             req = RequestFactory().get(url)
             req.user = AnonymousUser()
-            resp = middleware.PrivateForumMiddleware(lambda req: HttpResponse(status=500)).process_request(req)
+            resp = middleware.PrivateForumMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
             self.assertIsInstance(resp, HttpResponseRedirect)
-            self.assertEqual(resp["Location"], reverse(settings.LOGIN_URL) + "?next=" + url)
+            self.assertEqual(
+                resp["Location"], reverse(settings.LOGIN_URL) + "?next=" + url
+            )

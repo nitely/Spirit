@@ -12,7 +12,15 @@ from ..models import Category
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ("parent", "title", "description", "is_global", "is_closed", "is_removed", "color")
+        fields = (
+            "parent",
+            "title",
+            "description",
+            "is_global",
+            "is_closed",
+            "is_removed",
+            "color",
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,7 +29,9 @@ class CategoryForm(forms.ModelForm):
         if self.instance.pk:
             queryset = queryset.exclude(pk=self.instance.pk)
 
-        self.fields["parent"] = forms.ModelChoiceField(queryset=queryset, required=False)
+        self.fields["parent"] = forms.ModelChoiceField(
+            queryset=queryset, required=False
+        )
         self.fields["parent"].label_from_instance = lambda obj: smart_str(obj.title)
 
     def clean_parent(self):
@@ -32,7 +42,9 @@ class CategoryForm(forms.ModelForm):
 
             if parent and has_children:
                 raise forms.ValidationError(
-                    _("The category you are updating can not have a parent since it has childrens")
+                    _(
+                        "The category you are updating can not have a parent since it has childrens"
+                    )
                 )
 
         return parent

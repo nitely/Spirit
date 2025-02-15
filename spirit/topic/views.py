@@ -24,9 +24,15 @@ def publish(request, category_id=None):
         get_object_or_404(Category.objects.visible(), pk=category_id)
 
     user = request.user
-    form = TopicForm(user=user, data=post_data(request), initial={"category": category_id})
+    form = TopicForm(
+        user=user, data=post_data(request), initial={"category": category_id}
+    )
     cform = CommentForm(user=user, data=post_data(request))
-    if is_post(request) and all([form.is_valid(), cform.is_valid()]) and not request.is_limited():
+    if (
+        is_post(request)
+        and all([form.is_valid(), cform.is_valid()])
+        and not request.is_limited()
+    ):
         if not user.st.update_post_hash(form.get_topic_hash()):
 
             def default_url():
@@ -39,7 +45,11 @@ def publish(request, category_id=None):
         comment = cform.save()
         comment_posted(comment=comment, mentions=cform.mentions)
         return redirect(topic.get_absolute_url())
-    return render(request=request, template_name="spirit/topic/publish.html", context={"form": form, "cform": cform})
+    return render(
+        request=request,
+        template_name="spirit/topic/publish.html",
+        context={"form": form, "cform": cform},
+    )
 
 
 @login_required
@@ -50,9 +60,15 @@ def update(request, pk):
     if is_post(request) and form.is_valid():
         topic = form.save()
         if topic.category_id != category_id:
-            Comment.create_moderation_action(user=request.user, topic=topic, action=Comment.MOVED)
+            Comment.create_moderation_action(
+                user=request.user, topic=topic, action=Comment.MOVED
+            )
         return safe_redirect(request, "next", topic.get_absolute_url(), method="POST")
-    return render(request=request, template_name="spirit/topic/update.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/topic/update.html",
+        context={"form": form},
+    )
 
 
 def detail(request, pk, slug):
@@ -70,10 +86,16 @@ def detail(request, pk, slug):
         .order_by("date")
     )
 
-    comments = paginate(comments, per_page=config.comments_per_page, page_number=request.GET.get("page", 1))
+    comments = paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get("page", 1),
+    )
 
     return render(
-        request=request, template_name="spirit/topic/detail.html", context={"topic": topic, "comments": comments}
+        request=request,
+        template_name="spirit/topic/detail.html",
+        context={"topic": topic, "comments": comments},
     )
 
 
@@ -88,8 +110,12 @@ def index_active(request):
         .select_related("category")
     )
 
-    topics = yt_paginate(topics, per_page=config.topics_per_page, page_number=request.GET.get("page", 1))
+    topics = yt_paginate(
+        topics, per_page=config.topics_per_page, page_number=request.GET.get("page", 1)
+    )
 
     return render(
-        request=request, template_name="spirit/topic/active.html", context={"categories": categories, "topics": topics}
+        request=request,
+        template_name="spirit/topic/active.html",
+        context={"categories": categories, "topics": topics},
     )

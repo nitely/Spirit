@@ -14,7 +14,17 @@ class ParserError(Exception):
 
 
 class PollParser:
-    fields = {"invalid_params", "invalid_body", "name", "title", "min", "max", "close", "choices", "mode"}
+    fields = {
+        "invalid_params",
+        "invalid_body",
+        "name",
+        "title",
+        "min",
+        "max",
+        "close",
+        "choices",
+        "mode",
+    }
 
     def __init__(self, polls, data):
         assert set(data.keys()) == self.fields

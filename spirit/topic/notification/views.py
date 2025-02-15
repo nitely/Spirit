@@ -47,7 +47,9 @@ def update(request, pk):
     else:
         messages.error(request, utils.render_form_errors(form))
 
-    return safe_redirect(request, "next", notification.topic.get_absolute_url(), method="POST")
+    return safe_redirect(
+        request, "next", notification.topic.get_absolute_url(), method="POST"
+    )
 
 
 @login_required
@@ -55,7 +57,11 @@ def index_ajax(request):
     if not is_ajax(request):
         return Http404()
 
-    notifications = TopicNotification.objects.for_access(request.user).order_by("is_read", "-date").with_related_data()
+    notifications = (
+        TopicNotification.objects.for_access(request.user)
+        .order_by("is_read", "-date")
+        .with_related_data()
+    )
     notifications = notifications[: settings.ST_NOTIFICATIONS_PER_PAGE]
     notifications = [
         {
@@ -68,14 +74,24 @@ def index_ajax(request):
         for n in notifications
     ]
 
-    return HttpResponse(json.dumps({"n": notifications}), content_type="application/json")
+    return HttpResponse(
+        json.dumps({"n": notifications}), content_type="application/json"
+    )
 
 
 @login_required
 def index_unread(request):
-    notifications = TopicNotification.objects.for_access(request.user).filter(is_read=False).with_related_data()
+    notifications = (
+        TopicNotification.objects.for_access(request.user)
+        .filter(is_read=False)
+        .with_related_data()
+    )
     page = paginate(
-        request, query_set=notifications, lookup_field="date", page_var="p", per_page=settings.ST_NOTIFICATIONS_PER_PAGE
+        request,
+        query_set=notifications,
+        lookup_field="date",
+        page_var="p",
+        per_page=settings.ST_NOTIFICATIONS_PER_PAGE,
     )
     return render(
         request=request,
@@ -93,12 +109,20 @@ def index(request):
     )
 
     return render(
-        request=request, template_name="spirit/topic/notification/index.html", context={"notifications": notifications}
+        request=request,
+        template_name="spirit/topic/notification/index.html",
+        context={"notifications": notifications},
     )
 
 
 @require_POST
 @login_required
 def mark_all_as_read(request):
-    (TopicNotification.objects.for_access(request.user).filter(is_read=False).update(is_read=True))
-    return safe_redirect(request, "next", reverse("spirit:topic:notification:index"), method="POST")
+    (
+        TopicNotification.objects.for_access(request.user)
+        .filter(is_read=False)
+        .update(is_read=True)
+    )
+    return safe_redirect(
+        request, "next", reverse("spirit:topic:notification:index"), method="POST"
+    )

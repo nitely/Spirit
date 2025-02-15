@@ -84,7 +84,12 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
 
         return (
             self.index_queryset(using=using)
-            .filter(Q(**lookup_comments) | Q(**lookup_topic) | Q(**lookup_category) | Q(**lookup_subcategory))
+            .filter(
+                Q(**lookup_comments)
+                | Q(**lookup_topic)
+                | Q(**lookup_category)
+                | Q(**lookup_subcategory)
+            )
             .order_by("pk")
         )
 

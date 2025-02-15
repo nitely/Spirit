@@ -10,7 +10,9 @@ from .models import Topic
 
 
 class TopicForm(forms.ModelForm):
-    topic_hash = forms.CharField(max_length=32, widget=forms.HiddenInput, required=False)
+    topic_hash = forms.CharField(
+        max_length=32, widget=forms.HiddenInput, required=False
+    )
 
     class Meta:
         model = Topic

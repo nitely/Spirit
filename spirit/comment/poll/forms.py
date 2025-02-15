@@ -22,7 +22,9 @@ class PollVoteManyForm(forms.Form):
 
         if poll.is_multiple_choice:
             self.fields["choices"] = forms.MultipleChoiceField(
-                choices=choices, widget=forms.CheckboxSelectMultiple, label=_("Poll choices")
+                choices=choices,
+                widget=forms.CheckboxSelectMultiple,
+                label=_("Poll choices"),
             )
         else:
             self.fields["choices"] = forms.ChoiceField(
@@ -47,10 +49,14 @@ class PollVoteManyForm(forms.Form):
             return choices
 
         if len(choices) > self.poll.choice_max:
-            raise forms.ValidationError(_("Too many selected choices. Limit is %s") % self.poll.choice_max)
+            raise forms.ValidationError(
+                _("Too many selected choices. Limit is %s") % self.poll.choice_max
+            )
 
         if len(choices) < self.poll.choice_min:  # todo: test!
-            raise forms.ValidationError(_("Too few selected choices. Minimum is %s") % self.poll.choice_min)
+            raise forms.ValidationError(
+                _("Too few selected choices. Minimum is %s") % self.poll.choice_min
+            )
 
         return choices
 
@@ -68,7 +74,11 @@ class PollVoteManyForm(forms.Form):
         if not self.poll.is_multiple_choice:
             choices = [choices]
 
-        (CommentPollVote.objects.filter(voter=self.user, choice__poll=self.poll).update(is_removed=True))
+        (
+            CommentPollVote.objects.filter(
+                voter=self.user, choice__poll=self.poll
+            ).update(is_removed=True)
+        )
 
         for choice_id in choices:
             CommentPollVote.objects.update_or_create(

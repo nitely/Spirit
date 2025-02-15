@@ -7,14 +7,20 @@ from .models import UserProfile
 
 User = get_user_model()
 Notify = UserProfile.Notify
-NOTIFY = {"never": Notify.NEVER, "immediately": Notify.IMMEDIATELY, "weekly": Notify.WEEKLY}
+NOTIFY = {
+    "never": Notify.NEVER,
+    "immediately": Notify.IMMEDIATELY,
+    "weekly": Notify.WEEKLY,
+}
 
 
 def update_or_create_user_profile(sender, instance, created, **kwargs):
     user = instance
     if created:
         UserProfile.objects.create(
-            user=user, nickname=user.username, notify=NOTIFY[settings.ST_NOTIFY_WHEN] | Notify.MENTION | Notify.REPLY
+            user=user,
+            nickname=user.username,
+            notify=NOTIFY[settings.ST_NOTIFY_WHEN] | Notify.MENTION | Notify.REPLY,
         )
     else:
         user.st.save()

@@ -110,7 +110,10 @@ class SearchTopicIndexTest(TestCase):
         utils.create_topic(category)
         rebuild_index()
         self.assertEqual(len(self.topic_sqs.all()), 1)
-        self.assertEqual(list(self.topic_sqs.all())[0].get_stored_fields()["main_category_name"], main_category.title)
+        self.assertEqual(
+            list(self.topic_sqs.all())[0].get_stored_fields()["main_category_name"],
+            main_category.title,
+        )
 
     def test_indexing_text_include_comments(self):
         """
@@ -136,7 +139,9 @@ class SearchTopicIndexTest(TestCase):
         utils.create_comment(topic=topic, comment_html="<span>foo</span>")
         utils.create_comment(topic=topic, comment_html="<b>bar</b>")
         self.assertEqual(
-            render_to_string("search/indexes/spirit_topic/topic_text.txt", context={"object": topic}),
+            render_to_string(
+                "search/indexes/spirit_topic/topic_text.txt", context={"object": topic}
+            ),
             "my title\n\nbar\n\nfoo\n\n",
         )
 
@@ -145,64 +150,128 @@ class SearchTopicIndexTest(TestCase):
         Should update topics based on modified times
         """
         main_category = utils.create_category(reindex_at=self.yesterday)
-        category = utils.create_category(parent=main_category, reindex_at=self.yesterday)
-        topic = utils.create_topic(category, reindex_at=self.yesterday, last_active=self.yesterday)
+        category = utils.create_category(
+            parent=main_category, reindex_at=self.yesterday
+        )
+        topic = utils.create_topic(
+            category, reindex_at=self.yesterday, last_active=self.yesterday
+        )
         self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now)), 0)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
+        self.assertEqual(
+            len(
+                TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)
+            ),
+            0,
+        )
 
         topic.reindex_at = self.tomorrow
         topic.save()
         self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now)), 1)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
+        self.assertEqual(
+            len(
+                TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)
+            ),
+            1,
+        )
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0
+        )
 
     def test_indexing_build_queryset_by_comment(self):
         """
         Should update topics based on modified times
         """
         main_category = utils.create_category(reindex_at=self.yesterday)
-        category = utils.create_category(parent=main_category, reindex_at=self.yesterday)
-        topic = utils.create_topic(category, reindex_at=self.yesterday, last_active=self.yesterday)
+        category = utils.create_category(
+            parent=main_category, reindex_at=self.yesterday
+        )
+        topic = utils.create_topic(
+            category, reindex_at=self.yesterday, last_active=self.yesterday
+        )
         self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now)), 0)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
+        self.assertEqual(
+            len(
+                TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)
+            ),
+            0,
+        )
 
         topic.last_active = self.tomorrow
         topic.save()
         self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now)), 1)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
+        self.assertEqual(
+            len(
+                TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)
+            ),
+            1,
+        )
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0
+        )
 
     def test_indexing_build_queryset_by_category(self):
         """
         Should update topics based on modified times
         """
         main_category = utils.create_category(reindex_at=self.yesterday)
-        category = utils.create_category(parent=main_category, reindex_at=self.yesterday)
-        utils.create_topic(category, reindex_at=self.yesterday, last_active=self.yesterday)
+        category = utils.create_category(
+            parent=main_category, reindex_at=self.yesterday
+        )
+        utils.create_topic(
+            category, reindex_at=self.yesterday, last_active=self.yesterday
+        )
         self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now)), 0)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
+        self.assertEqual(
+            len(
+                TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)
+            ),
+            0,
+        )
 
         category.reindex_at = self.tomorrow
         category.save()
         self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now)), 1)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
+        self.assertEqual(
+            len(
+                TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)
+            ),
+            1,
+        )
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0
+        )
 
     def test_indexing_build_queryset_by_subcategory(self):
         """
         Should update topics based on modified times
         """
         main_category = utils.create_category(reindex_at=self.yesterday)
-        category = utils.create_category(parent=main_category, reindex_at=self.yesterday)
-        utils.create_topic(category, reindex_at=self.yesterday, last_active=self.yesterday)
+        category = utils.create_category(
+            parent=main_category, reindex_at=self.yesterday
+        )
+        utils.create_topic(
+            category, reindex_at=self.yesterday, last_active=self.yesterday
+        )
         self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now)), 0)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 0)
+        self.assertEqual(
+            len(
+                TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)
+            ),
+            0,
+        )
 
         main_category.reindex_at = self.tomorrow
         main_category.save()
         self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now)), 1)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)), 1)
-        self.assertEqual(len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0)
+        self.assertEqual(
+            len(
+                TopicIndex().build_queryset(start_date=self.now, end_date=self.tomorrow)
+            ),
+            1,
+        )
+        self.assertEqual(
+            len(TopicIndex().build_queryset(start_date=self.now, end_date=self.now)), 0
+        )
 
 
 class SearchViewTest(TestCase):
@@ -210,8 +279,12 @@ class SearchViewTest(TestCase):
         utils.cache_clear()
         self.user = utils.create_user()
         self.category = utils.create_category()
-        self.topic = utils.create_topic(category=self.category, user=self.user, title="spirit search test foo")
-        self.topic2 = utils.create_topic(category=self.category, user=self.user, title="foo")
+        self.topic = utils.create_topic(
+            category=self.category, user=self.user, title="spirit search test foo"
+        )
+        self.topic2 = utils.create_topic(
+            category=self.category, user=self.user, title="foo"
+        )
 
         rebuild_index()
 

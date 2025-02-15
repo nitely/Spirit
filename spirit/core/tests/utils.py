@@ -75,7 +75,9 @@ def create_comment(**kwargs):
     return Comment.objects.create(**kwargs)
 
 
-def create_notification(comment=None, user=None, is_read=True, action=None, is_active=True):
+def create_notification(
+    comment=None, user=None, is_read=True, action=None, is_active=True
+):
     comment = comment or create_comment()
     user = user or create_user()
     actions = {
@@ -101,7 +103,9 @@ def default_categories():
 def login(test_case_instance, user=None, password=None):
     user = user or test_case_instance.user
     password = password or "bar"
-    login_successful = test_case_instance.client.login(username=user.username, password=password)
+    login_successful = test_case_instance.client.login(
+        username=user.username, password=password
+    )
     test_case_instance.assertTrue(login_successful)
 
 

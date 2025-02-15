@@ -6,7 +6,9 @@ from django.utils.translation import gettext_lazy as _
 
 class CommentHistory(models.Model):
     comment_fk = models.ForeignKey(
-        "spirit_comment.Comment", verbose_name=_("original comment"), on_delete=models.CASCADE
+        "spirit_comment.Comment",
+        verbose_name=_("original comment"),
+        on_delete=models.CASCADE,
     )
 
     comment_html = models.TextField(_("comment html"))
@@ -24,7 +26,9 @@ class CommentHistory(models.Model):
     def create(cls, comment, created_at=None):
         created_at = created_at or timezone.now()
 
-        return cls.objects.create(comment_fk=comment, comment_html=comment.comment_html, date=created_at)
+        return cls.objects.create(
+            comment_fk=comment, comment_html=comment.comment_html, date=created_at
+        )
 
     @classmethod
     def create_maybe(cls, comment):

@@ -6,7 +6,9 @@ from spirit.core.conf import settings
 
 class CategoryQuerySet(models.QuerySet):
     def unremoved(self):
-        return self.filter(Q(parent=None) | Q(parent__is_removed=False), is_removed=False)
+        return self.filter(
+            Q(parent=None) | Q(parent__is_removed=False), is_removed=False
+        )
 
     def public(self):
         return self.filter(is_private=False)

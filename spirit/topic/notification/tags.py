@@ -23,4 +23,9 @@ def render_notification_form(user, topic, next=None):
         initial["is_active"] = not notification.is_active
 
     form = NotificationForm(initial=initial)
-    return {"form": form, "topic_id": topic.pk, "notification": notification, "next": next}
+    return {
+        "form": form,
+        "topic_id": topic.pk,
+        "notification": notification,
+        "next": next,
+    }

@@ -12,7 +12,12 @@ from spirit.core.utils.views import is_post, post_data
 from spirit.user.utils.email import send_activation_email
 from spirit.user.utils.tokens import UserActivationTokenGenerator
 
-from .forms import CustomPasswordResetForm, LoginForm, RegistrationForm, ResendActivationForm
+from .forms import (
+    CustomPasswordResetForm,
+    LoginForm,
+    RegistrationForm,
+    ResendActivationForm,
+)
 
 User = get_user_model()
 
@@ -96,7 +101,10 @@ def register(request, registration_form=RegistrationForm):
         send_activation_email(request, user)
         messages.info(
             request,
-            _("We have sent you an email to %(email)s so you can activate your account!") % {"email": form.get_email()},
+            _(
+                "We have sent you an email to %(email)s so you can activate your account!"
+            )
+            % {"email": form.get_email()},
         )
 
         # TODO: email-less activation
@@ -105,7 +113,11 @@ def register(request, registration_form=RegistrationForm):
         # return safe_redirect(request, 'next', reverse('spirit:user:update'))
 
         return redirect(reverse(settings.LOGIN_URL))
-    return render(request=request, template_name="spirit/user/auth/register.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/user/auth/register.html",
+        context={"form": form},
+    )
 
 
 def registration_activation(request, pk, token):
@@ -142,4 +154,8 @@ def resend_activation_email(request):
             ),
         )
         return redirect(reverse(settings.LOGIN_URL))
-    return render(request=request, template_name="spirit/user/auth/activation_resend.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/user/auth/activation_resend.html",
+        context={"form": form},
+    )

@@ -9,7 +9,11 @@ REASON_CHOICES = ((0, _("Spam")), (1, _("Other")))
 
 class CommentFlag(models.Model):
     moderator = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="st_comment_flags", null=True, blank=True, on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL,
+        related_name="st_comment_flags",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
     )
     comment = models.OneToOneField("spirit_comment.Comment", on_delete=models.CASCADE)
 
@@ -26,7 +30,9 @@ class CommentFlag(models.Model):
 
 
 class Flag(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="st_flags", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="st_flags", on_delete=models.CASCADE
+    )
     comment = models.ForeignKey("spirit_comment.Comment", on_delete=models.CASCADE)
 
     date = models.DateTimeField(default=timezone.now)

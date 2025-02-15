@@ -14,7 +14,9 @@ class CommentPollQuerySet(models.QuerySet):
         choice_model = apps.get_model("spirit_comment_poll.CommentPollChoice")
 
         visible_choices = choice_model.objects.unremoved()
-        prefetch_choices = Prefetch("poll_choices", queryset=visible_choices, to_attr="choices")
+        prefetch_choices = Prefetch(
+            "poll_choices", queryset=visible_choices, to_attr="choices"
+        )
         return self.prefetch_related(prefetch_choices)
 
 

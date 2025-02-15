@@ -26,7 +26,11 @@ def config_basic(request):
         form.save()
         messages.info(request, _("Settings updated!"))
         return safe_redirect(request, "next", request.get_full_path())
-    return render(request=request, template_name="spirit/admin/config_basic.html", context={"form": form})
+    return render(
+        request=request,
+        template_name="spirit/admin/config_basic.html",
+        context={"form": form},
+    )
 
 
 @administrator_required

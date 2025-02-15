@@ -24,7 +24,11 @@ def edit(request, user_id):
         form.save()
         messages.info(request, _("This profile has been updated!"))
         return safe_redirect(request, "next", request.get_full_path())
-    return render(request=request, template_name="spirit/user/admin/edit.html", context={"form": form, "uform": uform})
+    return render(
+        request=request,
+        template_name="spirit/user/admin/edit.html",
+        context={"form": form, "uform": uform},
+    )
 
 
 @administrator_required
@@ -38,12 +42,16 @@ def _index(request, queryset, template):
 
 
 def index(request):
-    return _index(request, queryset=User.objects.all(), template="spirit/user/admin/index.html")
+    return _index(
+        request, queryset=User.objects.all(), template="spirit/user/admin/index.html"
+    )
 
 
 def index_admins(request):
     return _index(
-        request, queryset=User.objects.filter(st__is_administrator=True), template="spirit/user/admin/admins.html"
+        request,
+        queryset=User.objects.filter(st__is_administrator=True),
+        template="spirit/user/admin/admins.html",
     )
 
 
@@ -56,4 +64,8 @@ def index_mods(request):
 
 
 def index_unactive(request):
-    return _index(request, queryset=User.objects.filter(is_active=False), template="spirit/user/admin/unactive.html")
+    return _index(
+        request,
+        queryset=User.objects.filter(is_active=False),
+        template="spirit/user/admin/unactive.html",
+    )

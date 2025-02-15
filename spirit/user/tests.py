@@ -28,10 +28,18 @@ from . import middleware
 from .forms import EmailChangeForm, EmailCheckForm, UserForm, UserProfileForm
 from .models import UserProfile
 from .utils.email import send_activation_email, send_email_change_email
-from .utils.tokens import UserActivationTokenGenerator, UserEmailChangeTokenGenerator, unsub_token
+from .utils.tokens import (
+    UserActivationTokenGenerator,
+    UserEmailChangeTokenGenerator,
+    unsub_token,
+)
 
-data_migration_profiles = importlib.import_module("spirit.user.migrations.0004_auto_20150731_2351")
-data_migration_11 = importlib.import_module("spirit.user.migrations.0011_auto_20181124_2320")
+data_migration_profiles = importlib.import_module(
+    "spirit.user.migrations.0004_auto_20150731_2351"
+)
+data_migration_11 = importlib.import_module(
+    "spirit.user.migrations.0011_auto_20181124_2320"
+)
 
 User = get_user_model()
 
@@ -52,11 +60,17 @@ class UserViewTest(TestCase):
         pk = self.user.pk
         slug = self.user.st.slug
 
-        response = self.client.get(reverse("spirit:user:topics", kwargs={"pk": pk, "slug": slug}))
+        response = self.client.get(
+            reverse("spirit:user:topics", kwargs={"pk": pk, "slug": slug})
+        )
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse("spirit:user:detail", kwargs={"pk": pk, "slug": slug}))
+        response = self.client.get(
+            reverse("spirit:user:detail", kwargs={"pk": pk, "slug": slug})
+        )
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse("spirit:user:likes", kwargs={"pk": pk, "slug": slug}))
+        response = self.client.get(
+            reverse("spirit:user:likes", kwargs={"pk": pk, "slug": slug})
+        )
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(reverse("spirit:user:update"))
@@ -65,25 +79,45 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse("spirit:user:email-change"))
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse("spirit:user:email-change-confirm", kwargs={"token": "foo"}))
+        response = self.client.get(
+            reverse("spirit:user:email-change-confirm", kwargs={"token": "foo"})
+        )
         self.assertEqual(response.status_code, 302)
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_profile_creation_on_register_case_insensitive_user(self):
-        form_data = {"username": "UnIqUeFoO", "email": "some@some.com", "email2": "some@some.com", "password": "pass"}
+        form_data = {
+            "username": "UnIqUeFoO",
+            "email": "some@some.com",
+            "email2": "some@some.com",
+            "password": "pass",
+        }
         response = self.client.post(reverse("spirit:user:auth:register"), form_data)
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
-        self.assertTrue(UserProfile.objects.filter(nickname="UnIqUeFoO", user__username="uniquefoo").exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname="UnIqUeFoO", user__username="uniquefoo"
+            ).exists()
+        )
         self.assertFalse(UserProfile.objects.filter(nickname="uniquefoo").exists())
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
     def test_profile_creation_on_register_case_insensitive_user_off(self):
-        form_data = {"username": "UnIqUeFoO", "email": "some@some.com", "email2": "some@some.com", "password": "pass"}
+        form_data = {
+            "username": "UnIqUeFoO",
+            "email": "some@some.com",
+            "email2": "some@some.com",
+            "password": "pass",
+        }
         response = self.client.post(reverse("spirit:user:auth:register"), form_data)
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
-        self.assertTrue(UserProfile.objects.filter(nickname="UnIqUeFoO", user__username="UnIqUeFoO").exists())
+        self.assertTrue(
+            UserProfile.objects.filter(
+                nickname="UnIqUeFoO", user__username="UnIqUeFoO"
+            ).exists()
+        )
 
     def test_profile_topics(self):
         """
@@ -91,7 +125,10 @@ class UserViewTest(TestCase):
         """
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:topics", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:topics",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["topics"]), [self.topic])
@@ -108,12 +145,19 @@ class UserViewTest(TestCase):
         topic_b = utils.create_topic(category=category, user=self.user2)
         topic_c = utils.create_topic(category=category, user=self.user2)
 
-        Topic.objects.filter(pk=topic_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
-        Topic.objects.filter(pk=topic_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
+        Topic.objects.filter(pk=topic_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10)
+        )
+        Topic.objects.filter(pk=topic_c.pk).update(
+            date=timezone.now() - datetime.timedelta(days=5)
+        )
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:topics", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:topics",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(list(response.context["topics"]), [topic_b, topic_c, topic_a])
 
@@ -125,7 +169,10 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:topics", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:topics",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["topics"]), [self.topic])
@@ -140,7 +187,10 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:topics", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:topics",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["topics"]), [topic])
@@ -163,7 +213,10 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:topics", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:topics",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(list(response.context["topics"]), [])
 
@@ -172,8 +225,15 @@ class UserViewTest(TestCase):
         profile user's topics
         """
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:topics", kwargs={"pk": self.user2.pk, "slug": "invalid"}))
-        expected_url = reverse("spirit:user:topics", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+        response = self.client.get(
+            reverse(
+                "spirit:user:topics", kwargs={"pk": self.user2.pk, "slug": "invalid"}
+            )
+        )
+        expected_url = reverse(
+            "spirit:user:topics",
+            kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+        )
         self.assertRedirects(response, expected_url, status_code=301)
 
     def test_profile_comments(self):
@@ -184,7 +244,10 @@ class UserViewTest(TestCase):
         comment = utils.create_comment(user=self.user2, topic=self.topic)
         utils.create_comment(user=self.user, topic=self.topic)
         response = self.client.get(
-            reverse("spirit:user:detail", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:detail",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["comments"]), [comment])
@@ -198,14 +261,23 @@ class UserViewTest(TestCase):
         comment_b = utils.create_comment(user=self.user2, topic=self.topic)
         comment_c = utils.create_comment(user=self.user2, topic=self.topic)
 
-        Comment.objects.filter(pk=comment_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
-        Comment.objects.filter(pk=comment_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
+        Comment.objects.filter(pk=comment_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10)
+        )
+        Comment.objects.filter(pk=comment_c.pk).update(
+            date=timezone.now() - datetime.timedelta(days=5)
+        )
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:detail", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:detail",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
-        self.assertEqual(list(response.context["comments"]), [comment_b, comment_c, comment_a])
+        self.assertEqual(
+            list(response.context["comments"]), [comment_b, comment_c, comment_a]
+        )
 
     @override_djconfig(comments_per_page=1)
     def test_profile_comments_paginate(self):
@@ -217,7 +289,10 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:detail", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:detail",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["comments"]), [comment])
@@ -243,7 +318,10 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:detail", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:detail",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(list(response.context["comments"]), [])
 
@@ -252,8 +330,15 @@ class UserViewTest(TestCase):
         profile user's comments, invalid user slug
         """
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:detail", kwargs={"pk": self.user2.pk, "slug": "invalid"}))
-        expected_url = reverse("spirit:user:detail", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+        response = self.client.get(
+            reverse(
+                "spirit:user:detail", kwargs={"pk": self.user2.pk, "slug": "invalid"}
+            )
+        )
+        expected_url = reverse(
+            "spirit:user:detail",
+            kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+        )
         self.assertRedirects(response, expected_url, status_code=301)
 
     def test_profile_likes(self):
@@ -266,7 +351,10 @@ class UserViewTest(TestCase):
         like = CommentLike.objects.create(user=self.user2, comment=comment)
         CommentLike.objects.create(user=self.user, comment=comment2)
         response = self.client.get(
-            reverse("spirit:user:likes", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:likes",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["comments"]), [like.comment])
@@ -283,14 +371,23 @@ class UserViewTest(TestCase):
         CommentLike.objects.create(user=self.user2, comment=comment_b)
         like_c = CommentLike.objects.create(user=self.user2, comment=comment_c)
 
-        CommentLike.objects.filter(pk=like_a.pk).update(date=timezone.now() - datetime.timedelta(days=10))
-        CommentLike.objects.filter(pk=like_c.pk).update(date=timezone.now() - datetime.timedelta(days=5))
+        CommentLike.objects.filter(pk=like_a.pk).update(
+            date=timezone.now() - datetime.timedelta(days=10)
+        )
+        CommentLike.objects.filter(pk=like_c.pk).update(
+            date=timezone.now() - datetime.timedelta(days=5)
+        )
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:likes", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:likes",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
-        self.assertEqual(list(response.context["comments"]), [comment_b, comment_c, comment_a])
+        self.assertEqual(
+            list(response.context["comments"]), [comment_b, comment_c, comment_a]
+        )
 
     def test_profile_likes_dont_show_removed_or_private(self):
         """
@@ -318,7 +415,10 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:likes", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:likes",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(list(response.context["comments"]), [])
 
@@ -327,8 +427,15 @@ class UserViewTest(TestCase):
         profile user's likes, invalid user slug
         """
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:likes", kwargs={"pk": self.user2.pk, "slug": "invalid"}))
-        expected_url = reverse("spirit:user:likes", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+        response = self.client.get(
+            reverse(
+                "spirit:user:likes", kwargs={"pk": self.user2.pk, "slug": "invalid"}
+            )
+        )
+        expected_url = reverse(
+            "spirit:user:likes",
+            kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+        )
         self.assertRedirects(response, expected_url, status_code=301)
 
     @override_djconfig(comments_per_page=1)
@@ -343,7 +450,10 @@ class UserViewTest(TestCase):
 
         utils.login(self)
         response = self.client.get(
-            reverse("spirit:user:likes", kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug})
+            reverse(
+                "spirit:user:likes",
+                kwargs={"pk": self.user2.pk, "slug": self.user2.st.slug},
+            )
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["comments"]), [like.comment])
@@ -374,9 +484,7 @@ class UserViewTest(TestCase):
     def test_profile_update_avatar(self):
         utils.clean_media()
         utils.login(self)
-        content = (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
-        )
+        content = b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
         form_data = {
             "first_name": "foo",
             "last_name": "bar",
@@ -390,8 +498,14 @@ class UserViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.user.refresh_from_db()
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
-        self.assertEqual(self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.jpg")
-        self.assertTrue(spirit_storage.exists(f"spirit/avatars/{self.user.pk}/pic_test_small_test.jpg"))
+        self.assertEqual(
+            self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.jpg"
+        )
+        self.assertTrue(
+            spirit_storage.exists(
+                f"spirit/avatars/{self.user.pk}/pic_test_small_test.jpg"
+            )
+        )
 
     @utils.with_test_storage
     @utils.immediate_on_commit
@@ -399,14 +513,14 @@ class UserViewTest(TestCase):
     def test_profile_update_change_avatar(self):
         utils.clean_media()
         utils.login(self)
-        content = (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
-        )
+        content = b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
         # store initial avatar
         self.user.st.avatar = SimpleUploadedFile("foo.gif", content=content)
         self.user.st.save()
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
-        self.assertEqual(self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.gif")
+        self.assertEqual(
+            self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.gif"
+        )
         # change avatar
         form_data = {
             "first_name": "foo",
@@ -421,10 +535,16 @@ class UserViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.user.refresh_from_db()
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
-        self.assertEqual(self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.jpg")
+        self.assertEqual(
+            self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.jpg"
+        )
         with self.user.st.avatar.open() as fh:
             self.assertNotEqual(fh.read(), content)
-        self.assertTrue(spirit_storage.exists(f"spirit/avatars/{self.user.pk}/pic_test_small_test.jpg"))
+        self.assertTrue(
+            spirit_storage.exists(
+                f"spirit/avatars/{self.user.pk}/pic_test_small_test.jpg"
+            )
+        )
 
     @utils.with_test_storage
     @utils.immediate_on_commit
@@ -432,14 +552,14 @@ class UserViewTest(TestCase):
     def test_profile_update_no_change_avatar(self):
         utils.clean_media()
         utils.login(self)
-        content = (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
-        )
+        content = b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
         # store initial avatar
         self.user.st.avatar = SimpleUploadedFile("foo.gif", content=content)
         self.user.st.save()
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
-        self.assertEqual(self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.gif")
+        self.assertEqual(
+            self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.gif"
+        )
         # do not change avatar
         form_data = {
             "first_name": "foo",
@@ -453,7 +573,9 @@ class UserViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
         self.user.refresh_from_db()
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
-        self.assertEqual(self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.gif")
+        self.assertEqual(
+            self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.gif"
+        )
         with self.user.st.avatar.open() as fh:
             self.assertEqual(fh.read(), content)
 
@@ -463,7 +585,11 @@ class UserViewTest(TestCase):
         """
         user = utils.create_user(password="foo")
         utils.login(self, user=user, password="foo")
-        form_data = {"old_password": "foo", "new_password1": "bar", "new_password2": "bar"}
+        form_data = {
+            "old_password": "foo",
+            "new_password1": "bar",
+            "new_password2": "bar",
+        }
         response = self.client.post(reverse("spirit:user:password-change"), form_data)
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -481,7 +607,11 @@ class UserViewTest(TestCase):
         utils.login(self, user=user, password="foo")
         old_hash = self.client.session[HASH_SESSION_KEY]
 
-        form_data = {"old_password": "foo", "new_password1": "bar", "new_password2": "bar"}
+        form_data = {
+            "old_password": "foo",
+            "new_password1": "bar",
+            "new_password2": "bar",
+        }
         response = self.client.post(reverse("spirit:user:password-change"), form_data)
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -495,7 +625,9 @@ class UserViewTest(TestCase):
         utils.login(self)
         new_email = "newfoo@bar.com"
         token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
-        response = self.client.get(reverse("spirit:user:email-change-confirm", kwargs={"token": token}))
+        response = self.client.get(
+            reverse("spirit:user:email-change-confirm", kwargs={"token": token})
+        )
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
@@ -509,7 +641,9 @@ class UserViewTest(TestCase):
         token = UserEmailChangeTokenGenerator().generate(self.user, old_email)
         new_email = "newfoo@bar.com"
         User.objects.filter(pk=self.user.pk).update(email=new_email)
-        response = self.client.get(reverse("spirit:user:email-change-confirm", kwargs={"token": token}))
+        response = self.client.get(
+            reverse("spirit:user:email-change-confirm", kwargs={"token": token})
+        )
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
@@ -523,7 +657,9 @@ class UserViewTest(TestCase):
         new_email = "duplicated@bar.com"
         old_email = self.user.email
         token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
-        self.client.get(reverse("spirit:user:email-change-confirm", kwargs={"token": token}))
+        self.client.get(
+            reverse("spirit:user:email-change-confirm", kwargs={"token": token})
+        )
         self.assertEqual(User.objects.get(pk=self.user.pk).email, old_email)
 
     @override_settings(ST_UNIQUE_EMAILS=False)
@@ -535,7 +671,9 @@ class UserViewTest(TestCase):
         utils.create_user(email="duplicated@bar.com")
         new_email = "duplicated@bar.com"
         token = UserEmailChangeTokenGenerator().generate(self.user, new_email)
-        self.client.get(reverse("spirit:user:email-change-confirm", kwargs={"token": token}))
+        self.client.get(
+            reverse("spirit:user:email-change-confirm", kwargs={"token": token})
+        )
         self.assertEqual(User.objects.get(pk=self.user.pk).email, new_email)
 
     @utils.immediate_on_commit
@@ -558,10 +696,16 @@ class UserViewTest(TestCase):
 
     def test_unsubscribe(self):
         utils.login(self)
-        self.user.st.notify = self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY
+        self.user.st.notify = (
+            self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY
+        )
         self.user.st.save()
         token = unsub_token(user_id=self.user.pk)
-        response = self.client.get(reverse("spirit:user:unsubscribe", kwargs={"pk": self.user.pk, "token": token}))
+        response = self.client.get(
+            reverse(
+                "spirit:user:unsubscribe", kwargs={"pk": self.user.pk, "token": token}
+            )
+        )
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.user.refresh_from_db()
@@ -569,15 +713,22 @@ class UserViewTest(TestCase):
 
     def test_unsubscribe_bad_user(self):
         utils.login(self)
-        self.user.st.notify = self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY
+        self.user.st.notify = (
+            self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY
+        )
         self.user.st.save()
         token = unsub_token(user_id=self.user.pk)
         user = utils.create_user()
-        response = self.client.get(reverse("spirit:user:unsubscribe", kwargs={"pk": user.pk, "token": token}))
+        response = self.client.get(
+            reverse("spirit:user:unsubscribe", kwargs={"pk": user.pk, "token": token})
+        )
         expected_url = reverse("spirit:user:update")
         self.assertRedirects(response, expected_url, status_code=302)
         self.user.refresh_from_db()
-        self.assertEqual(self.user.st.notify, self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY)
+        self.assertEqual(
+            self.user.st.notify,
+            self.user.st.Notify.IMMEDIATELY | self.user.st.Notify.REPLY,
+        )
 
 
 class UserFormTest(TestCase):
@@ -624,9 +775,7 @@ class UserFormTest(TestCase):
     @override_settings(ST_ALLOWED_AVATAR_FORMAT=("gif",))
     def test_profile_avatar(self):
         utils.clean_media()
-        content = (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
-        )
+        content = b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
         form_data = {
             "first_name": "foo",
             "last_name": "bar",
@@ -640,7 +789,9 @@ class UserFormTest(TestCase):
         form.save()
         self.user.refresh_from_db()
         self.assertTrue(spirit_storage.exists(self.user.st.avatar.name))
-        self.assertEqual(self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.jpg")
+        self.assertEqual(
+            self.user.st.avatar.name, f"spirit/avatars/{self.user.pk}/pic_test.jpg"
+        )
 
     def test_email_change(self):
         """
@@ -775,7 +926,9 @@ class UserFormTest(TestCase):
 
         form_data["notify_when"] = self.user.st.Notify.WEEKLY
         form = UserProfileForm(data=form_data, instance=self.user.st)
-        self.assertEqual(form.fields["notify_when"].initial, self.user.st.Notify.IMMEDIATELY)
+        self.assertEqual(
+            form.fields["notify_when"].initial, self.user.st.Notify.IMMEDIATELY
+        )
         self.assertEqual(form.is_valid(), True)
         form.save()
         self.user.refresh_from_db()
@@ -830,7 +983,9 @@ class UserFormTest(TestCase):
         form_data["notify_mentions"] = True
         form_data["notify_replies"] = True
         form = UserProfileForm(data=form_data, instance=self.user.st)
-        self.assertEqual(form.fields["notify_when"].initial, self.user.st.Notify.IMMEDIATELY)
+        self.assertEqual(
+            form.fields["notify_when"].initial, self.user.st.Notify.IMMEDIATELY
+        )
         self.assertFalse(form.fields["notify_mentions"].initial)
         self.assertTrue(form.fields["notify_replies"].initial)
         self.assertEqual(form.is_valid(), True)
@@ -917,23 +1072,24 @@ class UserModelTest(TestCase):
     def test_small_avatar_name(self):
         user = User(username="foo")
         user.save()
-        content = (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
-        )
+        content = b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
         user.st.avatar = SimpleUploadedFile("foo.gif", content=content)
         user.st.save()
-        self.assertEqual(user.st.small_avatar_name(), f"spirit/avatars/{user.pk}/pic_test_small.gif")
+        self.assertEqual(
+            user.st.small_avatar_name(), f"spirit/avatars/{user.pk}/pic_test_small.gif"
+        )
 
     @utils.with_test_storage
     def test_small_avatar_url(self):
         user = User(username="foo")
         user.save()
-        content = (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
-        )
+        content = b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
         user.st.avatar = SimpleUploadedFile("foo.gif", content=content)
         user.st.save()
-        self.assertEqual(user.st.small_avatar_url(), f"/media/spirit/avatars/{user.pk}/pic_test_small.gif")
+        self.assertEqual(
+            user.st.small_avatar_url(),
+            f"/media/spirit/avatars/{user.pk}/pic_test_small.gif",
+        )
 
 
 class SignalsUserTests(TestCase):
@@ -951,27 +1107,45 @@ class SignalsUserTests(TestCase):
         user = utils.create_user(username="UnIqUeFoO")
         self.assertTrue(user.username, "uniquefoo")
         self.assertTrue(User.objects.filter(username="uniquefoo").exists())
-        self.assertTrue(UserProfile.objects.filter(nickname="UnIqUeFoO", user_id=user.pk).exists())
+        self.assertTrue(
+            UserProfile.objects.filter(nickname="UnIqUeFoO", user_id=user.pk).exists()
+        )
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
     def test_profile_creation_on_user_create_case_insensitive_off(self):
         user = utils.create_user(username="UnIqUeFoO")
         self.assertTrue(user.username, "UnIqUeFoO")
         self.assertTrue(User.objects.filter(username="UnIqUeFoO").exists())
-        self.assertTrue(UserProfile.objects.filter(nickname="UnIqUeFoO", user_id=user.pk).exists())
+        self.assertTrue(
+            UserProfile.objects.filter(nickname="UnIqUeFoO", user_id=user.pk).exists()
+        )
 
     def test_profile_notify(self):
         user = utils.create_user()
-        self.assertEqual(user.st.notify, user.st.Notify.NEVER | user.st.Notify.MENTION | user.st.Notify.REPLY)
+        self.assertEqual(
+            user.st.notify,
+            user.st.Notify.NEVER | user.st.Notify.MENTION | user.st.Notify.REPLY,
+        )
         with override_settings(ST_NOTIFY_WHEN="immediately"):
             user = utils.create_user()
-            self.assertEqual(user.st.notify, user.st.Notify.IMMEDIATELY | user.st.Notify.MENTION | user.st.Notify.REPLY)
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.IMMEDIATELY
+                | user.st.Notify.MENTION
+                | user.st.Notify.REPLY,
+            )
         with override_settings(ST_NOTIFY_WHEN="weekly"):
             user = utils.create_user()
-            self.assertEqual(user.st.notify, user.st.Notify.WEEKLY | user.st.Notify.MENTION | user.st.Notify.REPLY)
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.WEEKLY | user.st.Notify.MENTION | user.st.Notify.REPLY,
+            )
         with override_settings(ST_NOTIFY_WHEN="never"):
             user = utils.create_user()
-            self.assertEqual(user.st.notify, user.st.Notify.NEVER | user.st.Notify.MENTION | user.st.Notify.REPLY)
+            self.assertEqual(
+                user.st.notify,
+                user.st.Notify.NEVER | user.st.Notify.MENTION | user.st.Notify.REPLY,
+            )
 
 
 class UtilsUserTests(TransactionTestCase):
@@ -1070,7 +1244,9 @@ class TimezoneMiddlewareTest(TestCase):
         self.user.st.timezone = time_zone
 
         self.assertEqual(str(timezone.get_current_timezone()), "UTC")
-        middleware.TimezoneMiddleware(lambda req: HttpResponse(status=500)).process_request(req)
+        middleware.TimezoneMiddleware(
+            lambda req: HttpResponse(status=500)
+        ).process_request(req)
         self.assertEqual(str(timezone.get_current_timezone()), time_zone)
 
     @override_settings(TIME_ZONE="UTC")
@@ -1084,7 +1260,9 @@ class TimezoneMiddlewareTest(TestCase):
         time_zone = "America/Argentina/Buenos_Aires"
         timezone.activate(time_zone)
         self.assertEqual(str(timezone.get_current_timezone()), time_zone)
-        middleware.TimezoneMiddleware(lambda req: HttpResponse(status=500)).process_request(req)
+        middleware.TimezoneMiddleware(
+            lambda req: HttpResponse(status=500)
+        ).process_request(req)
         self.assertEqual(str(timezone.get_current_timezone()), "UTC")
 
     @override_settings(TIME_ZONE="UTC")
@@ -1101,7 +1279,9 @@ class TimezoneMiddlewareTest(TestCase):
         time_zone = "America/Argentina/Buenos_Aires"
         timezone.activate(time_zone)
         self.assertEqual(str(timezone.get_current_timezone()), time_zone)
-        middleware.TimezoneMiddleware(lambda req: HttpResponse(status=500)).process_request(req)
+        middleware.TimezoneMiddleware(
+            lambda req: HttpResponse(status=500)
+        ).process_request(req)
         self.assertEqual(str(timezone.get_current_timezone()), "UTC")
 
 
@@ -1118,11 +1298,23 @@ class LastIPMiddlewareTest(TestCase):
         req.user = self.user
         self.assertIsNone(User.objects.get(pk=self.user.pk).st.last_ip)
         req.META["REMOTE_ADDR"] = "123.123.123.123"
-        self.assertIsNone(middleware.LastIPMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
-        self.assertEqual(User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123")
+        self.assertIsNone(
+            middleware.LastIPMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123"
+        )
         req.META["REMOTE_ADDR"] = "321.321.321.321"
-        self.assertIsNone(middleware.LastIPMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
-        self.assertEqual(User.objects.get(pk=self.user.pk).st.last_ip, "321.321.321.321")
+        self.assertIsNone(
+            middleware.LastIPMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip, "321.321.321.321"
+        )
 
     def test_last_ip_no_update(self):
         """
@@ -1132,10 +1324,18 @@ class LastIPMiddlewareTest(TestCase):
         req.user = self.user
         self.user.st.last_ip = "123.123.123.123"
         self.user.st.save()
-        self.assertEqual(User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123")
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123"
+        )
         req.META["REMOTE_ADDR"] = "123.123.123.123"
-        self.assertIsNone(middleware.LastIPMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
-        self.assertEqual(User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123")
+        self.assertIsNone(
+            middleware.LastIPMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123"
+        )
 
     def test_last_ip_update(self):
         """
@@ -1145,10 +1345,18 @@ class LastIPMiddlewareTest(TestCase):
         req.user = self.user
         self.user.st.last_ip = "123.123.123.123"
         self.user.st.save()
-        self.assertEqual(User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123")
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123"
+        )
         req.META["REMOTE_ADDR"] = "321.321.321.321"
-        self.assertIsNone(middleware.LastIPMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
-        self.assertEqual(User.objects.get(pk=self.user.pk).st.last_ip, "321.321.321.321")
+        self.assertIsNone(
+            middleware.LastIPMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip, "321.321.321.321"
+        )
 
     def test_last_ip_anonym_user(self):
         """
@@ -1156,7 +1364,11 @@ class LastIPMiddlewareTest(TestCase):
         """
         req = RequestFactory().get("/")
         req.user = AnonymousUser()
-        self.assertIsNone(middleware.LastIPMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.LastIPMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
     def test_on_client(self):
         """
@@ -1164,9 +1376,13 @@ class LastIPMiddlewareTest(TestCase):
         """
         utils.login(self)
         self.assertIsNone(User.objects.get(pk=self.user.pk).st.last_ip)
-        response = self.client.get(reverse("spirit:index"), REMOTE_ADDR="123.123.123.123")
+        response = self.client.get(
+            reverse("spirit:index"), REMOTE_ADDR="123.123.123.123"
+        )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123")
+        self.assertEqual(
+            User.objects.get(pk=self.user.pk).st.last_ip, "123.123.123.123"
+        )
 
 
 class LastSeenMiddlewareTest(TestCase):
@@ -1182,13 +1398,26 @@ class LastSeenMiddlewareTest(TestCase):
         req = RequestFactory().get("/")
         req.user = self.user
         self.assertTrue(req.user.is_authenticated)
-        delta = datetime.timedelta(seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 + 1)
-        self.assertEqual(UserProfile.objects.filter(pk=req.user.st.pk).update(last_seen=timezone.now() - delta), 1)
+        delta = datetime.timedelta(
+            seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 + 1
+        )
+        self.assertEqual(
+            UserProfile.objects.filter(pk=req.user.st.pk).update(
+                last_seen=timezone.now() - delta
+            ),
+            1,
+        )
         # Some DBs don't save microseconds, so get the real value
         last_seen = UserProfile.objects.get(pk=req.user.st.pk).last_seen
         req.user.st.last_seen = last_seen
-        self.assertIsNone(middleware.LastSeenMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
-        self.assertGreater(UserProfile.objects.get(pk=req.user.st.pk).last_seen, last_seen)
+        self.assertIsNone(
+            middleware.LastSeenMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
+        self.assertGreater(
+            UserProfile.objects.get(pk=req.user.st.pk).last_seen, last_seen
+        )
 
     @override_settings(ST_USER_LAST_SEEN_THRESHOLD_MINUTES=1)
     def test_last_seen_no_update(self):
@@ -1198,12 +1427,25 @@ class LastSeenMiddlewareTest(TestCase):
         req = RequestFactory().get("/")
         req.user = self.user
         self.assertTrue(req.user.is_authenticated)
-        delta = datetime.timedelta(seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 - 1)
-        self.assertEqual(UserProfile.objects.filter(pk=req.user.st.pk).update(last_seen=timezone.now() - delta), 1)
+        delta = datetime.timedelta(
+            seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 - 1
+        )
+        self.assertEqual(
+            UserProfile.objects.filter(pk=req.user.st.pk).update(
+                last_seen=timezone.now() - delta
+            ),
+            1,
+        )
         last_seen = UserProfile.objects.get(pk=req.user.st.pk).last_seen
         req.user.st.last_seen = last_seen
-        self.assertIsNone(middleware.LastSeenMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
-        self.assertEqual(UserProfile.objects.get(pk=req.user.st.pk).last_seen, last_seen)
+        self.assertIsNone(
+            middleware.LastSeenMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
+        self.assertEqual(
+            UserProfile.objects.get(pk=req.user.st.pk).last_seen, last_seen
+        )
 
     def test_last_seen_anonym_user(self):
         """
@@ -1212,7 +1454,11 @@ class LastSeenMiddlewareTest(TestCase):
         req = RequestFactory().get("/")
         req.user = AnonymousUser()
         self.assertFalse(req.user.is_authenticated)
-        self.assertIsNone(middleware.LastSeenMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.LastSeenMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
     @override_settings(ST_USER_LAST_SEEN_THRESHOLD_MINUTES=1)
     def test_on_client(self):
@@ -1220,12 +1466,21 @@ class LastSeenMiddlewareTest(TestCase):
         Should be called on a request
         """
         utils.login(self)
-        delta = datetime.timedelta(seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 + 1)
-        self.assertEqual(UserProfile.objects.filter(pk=self.user.st.pk).update(last_seen=timezone.now() - delta), 1)
+        delta = datetime.timedelta(
+            seconds=settings.ST_USER_LAST_SEEN_THRESHOLD_MINUTES * 60 + 1
+        )
+        self.assertEqual(
+            UserProfile.objects.filter(pk=self.user.st.pk).update(
+                last_seen=timezone.now() - delta
+            ),
+            1,
+        )
         last_seen = UserProfile.objects.get(pk=self.user.st.pk).last_seen
         response = self.client.get(reverse("spirit:index"))
         self.assertEqual(response.status_code, 200)
-        self.assertGreater(UserProfile.objects.get(pk=self.user.st.pk).last_seen, last_seen)
+        self.assertGreater(
+            UserProfile.objects.get(pk=self.user.st.pk).last_seen, last_seen
+        )
 
 
 class ActiveUserMiddlewareTest(TestCase):
@@ -1270,7 +1525,10 @@ class ActiveUserMiddlewareTest(TestCase):
         self.user.is_active = False
         self.assertFalse(ActiveUserMiddlewareMock._calls)
 
-        org_mid, middleware.ActiveUserMiddleware = (middleware.ActiveUserMiddleware, ActiveUserMiddlewareMock)
+        org_mid, middleware.ActiveUserMiddleware = (
+            middleware.ActiveUserMiddleware,
+            ActiveUserMiddlewareMock,
+        )
         try:
             self.client.get(reverse("spirit:index"))
         finally:
@@ -1285,7 +1543,11 @@ class ActiveUserMiddlewareTest(TestCase):
         req = RequestFactory().get("/")
         req.user = self.user
         self.assertTrue(req.user.is_authenticated)
-        self.assertIsNone(middleware.ActiveUserMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.ActiveUserMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
     def test_active_user_anonym_user(self):
         """
@@ -1294,7 +1556,11 @@ class ActiveUserMiddlewareTest(TestCase):
         req = RequestFactory().get("/")
         req.user = AnonymousUser()
         self.assertFalse(req.user.is_authenticated)
-        self.assertIsNone(middleware.ActiveUserMiddleware(lambda req: HttpResponse(status=500)).process_request(req))
+        self.assertIsNone(
+            middleware.ActiveUserMiddleware(
+                lambda req: HttpResponse(status=500)
+            ).process_request(req)
+        )
 
 
 class UserMigrationsTest(TestCase):
@@ -1311,12 +1577,20 @@ class UserMigrationsTest(TestCase):
         # default all nicknames to empty
         self.assertEqual(UserProfile.objects.all().update(nickname=""), 3)
         data_migration_11.populate_nickname(apps, None)
-        self.assertEqual([u.nickname for u in UserProfile.objects.all()], ["FOO", "BaR", "baz"])
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()], ["FOO", "BaR", "baz"]
+        )
 
-        self.assertEqual([u.username for u in User.objects.all()], ["FOO", "BaR", "baz"])
+        self.assertEqual(
+            [u.username for u in User.objects.all()], ["FOO", "BaR", "baz"]
+        )
         data_migration_11.make_usernames_lower(apps, None)
-        self.assertEqual([u.username for u in User.objects.all()], ["foo", "bar", "baz"])
-        self.assertEqual([u.nickname for u in UserProfile.objects.all()], ["FOO", "BaR", "baz"])
+        self.assertEqual(
+            [u.username for u in User.objects.all()], ["foo", "bar", "baz"]
+        )
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()], ["FOO", "BaR", "baz"]
+        )
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
     def test_migration_11_no_ci_usernames(self):
@@ -1328,12 +1602,24 @@ class UserMigrationsTest(TestCase):
 
         self.assertEqual(UserProfile.objects.all().update(nickname=""), 5)
         data_migration_11.populate_nickname(apps, None)
-        self.assertEqual([u.nickname for u in UserProfile.objects.all()], ["FOO", "foo", "BaR", "bar", "baz"])
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()],
+            ["FOO", "foo", "BaR", "bar", "baz"],
+        )
 
-        self.assertEqual([u.username for u in User.objects.all()], ["FOO", "foo", "BaR", "bar", "baz"])
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ["FOO", "foo", "BaR", "bar", "baz"],
+        )
         data_migration_11.make_usernames_lower(apps, None)
-        self.assertEqual([u.username for u in User.objects.all()], ["FOO", "foo", "BaR", "bar", "baz"])
-        self.assertEqual([u.nickname for u in UserProfile.objects.all()], ["FOO", "foo", "BaR", "bar", "baz"])
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ["FOO", "foo", "BaR", "bar", "baz"],
+        )
+        self.assertEqual(
+            [u.nickname for u in UserProfile.objects.all()],
+            ["FOO", "foo", "BaR", "bar", "baz"],
+        )
 
     def test_migration_11_make_usernames_lower_integrity_err(self):
         with override_settings(ST_CASE_INSENSITIVE_USERNAMES=False):
@@ -1344,7 +1630,10 @@ class UserMigrationsTest(TestCase):
             utils.create_user(username="bAr")
             utils.create_user(username="baz")
 
-        self.assertEqual([u.username for u in User.objects.all()], ["FOO", "fOo", "Foo", "bar", "bAr", "baz"])
+        self.assertEqual(
+            [u.username for u in User.objects.all()],
+            ["FOO", "fOo", "Foo", "bar", "bAr", "baz"],
+        )
 
         # transaction is already handled
         with self.assertRaises(IntegrityError) as cm:

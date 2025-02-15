@@ -1,4 +1,9 @@
-from .auto_slug import AutoSlugBadPopulateFromModel, AutoSlugDefaultModel, AutoSlugModel, AutoSlugPopulateFromModel
+from .auto_slug import (
+    AutoSlugBadPopulateFromModel,
+    AutoSlugDefaultModel,
+    AutoSlugModel,
+    AutoSlugPopulateFromModel,
+)
 from .task_result import TaskResultModel
 
 __all__ = [

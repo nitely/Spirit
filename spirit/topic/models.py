@@ -22,8 +22,12 @@ class Topic(models.Model):
     :vartype reindex_at: `:py:class:models.DateTimeField`
     """
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="st_topics", on_delete=models.CASCADE)
-    category = models.ForeignKey("spirit_category.Category", verbose_name=_("category"), on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="st_topics", on_delete=models.CASCADE
+    )
+    category = models.ForeignKey(
+        "spirit_category.Category", verbose_name=_("category"), on_delete=models.CASCADE
+    )
 
     title = models.CharField(_("title"), max_length=255)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
@@ -48,8 +52,13 @@ class Topic(models.Model):
 
     def get_absolute_url(self):
         if self.category_id == settings.ST_TOPIC_PRIVATE_CATEGORY_PK:
-            return reverse("spirit:topic:private:detail", kwargs={"topic_id": str(self.id), "slug": self.slug})
-        return reverse("spirit:topic:detail", kwargs={"pk": str(self.id), "slug": self.slug})
+            return reverse(
+                "spirit:topic:private:detail",
+                kwargs={"topic_id": str(self.id), "slug": self.slug},
+            )
+        return reverse(
+            "spirit:topic:detail", kwargs={"pk": str(self.id), "slug": self.slug}
+        )
 
     def get_bookmark_url(self):
         if not self.is_visited:
@@ -96,7 +105,11 @@ class Topic(models.Model):
         (Topic.objects.filter(pk=self.pk).update(view_count=F("view_count") + 1))
 
     def increase_comment_count(self):
-        (Topic.objects.filter(pk=self.pk).update(comment_count=F("comment_count") + 1, last_active=timezone.now()))
+        (
+            Topic.objects.filter(pk=self.pk).update(
+                comment_count=F("comment_count") + 1, last_active=timezone.now()
+            )
+        )
 
     def decrease_comment_count(self):
         # todo: update last_active to last() comment

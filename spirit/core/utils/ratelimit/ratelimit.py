@@ -20,7 +20,10 @@ def validate_cache_config():
         # this cache so we do nothing
         return
 
-    if not settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK and cache.get("TIMEOUT", 1) is not None:
+    if (
+        not settings.ST_RATELIMIT_SKIP_TIMEOUT_CHECK
+        and cache.get("TIMEOUT", 1) is not None
+    ):
         # todo: ConfigurationError in next version
         warn(
             "settings.ST_RATELIMIT_CACHE cache's TIMEOUT "

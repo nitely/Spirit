@@ -88,7 +88,11 @@ class TasksTests(TestCase):
     @override_settings(DEFAULT_FROM_EMAIL="foobar_from@foo.com")
     @test_utils.immediate_on_commit
     def test_send_email(self):
-        tasks.send_email(subject="foobar_sub", message="foobar_msg", recipients=["foo@foo.com", "bar@bar.com"])
+        tasks.send_email(
+            subject="foobar_sub",
+            message="foobar_msg",
+            recipients=["foo@foo.com", "bar@bar.com"],
+        )
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(mail.outbox[0].subject, "foobar_sub")
         self.assertEqual(mail.outbox[1].subject, "foobar_sub")
@@ -139,7 +143,9 @@ class TasksTests(TestCase):
         rebuild_index()
         at_date = timezone.now() - datetime.timedelta(days=99)
         test_utils.create_topic(
-            category=test_utils.create_category(reindex_at=at_date), last_active=at_date, reindex_at=at_date
+            category=test_utils.create_category(reindex_at=at_date),
+            last_active=at_date,
+            reindex_at=at_date,
         )
         topic = test_utils.create_topic(test_utils.create_category())
         tasks.full_search_index_update()
@@ -151,9 +157,7 @@ class TasksTests(TestCase):
     @override_settings(ST_ALLOWED_AVATAR_FORMAT=("gif",))
     def test_make_avatars(self):
         test_utils.clean_media()
-        content = (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
-        )
+        content = b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
         file = SimpleUploadedFile("foo.gif", content=content, content_type="image/gif")
         user = test_utils.create_user()
         user.st.avatar = file
@@ -165,17 +169,27 @@ class TasksTests(TestCase):
         user.refresh_from_db()
         self.assertTrue(spirit_storage.exists(user.st.avatar.name))
         self.assertEqual(user.st.avatar.name, f"spirit/avatars/{user.pk}/pic_test.jpg")
-        self.assertTrue(spirit_storage.exists(f"spirit/avatars/{user.pk}/pic_test_small_test.jpg"))
+        self.assertTrue(
+            spirit_storage.exists(f"spirit/avatars/{user.pk}/pic_test_small_test.jpg")
+        )
 
     @test_utils.immediate_on_commit
-    @override_settings(ST_TASK_MANAGER="tests", ST_SITE_URL="https://tests.com/", DEFAULT_FROM_EMAIL="task@test.com")
+    @override_settings(
+        ST_TASK_MANAGER="tests",
+        ST_SITE_URL="https://tests.com/",
+        DEFAULT_FROM_EMAIL="task@test.com",
+    )
     def test_notify_reply(self):
         user1 = test_utils.create_user()
         user2 = test_utils.create_user()
         user3 = test_utils.create_user()
         user1.st.notify = user1.st.Notify.IMMEDIATELY | user1.st.Notify.REPLY
         user1.st.save()
-        user2.st.notify = user1.st.Notify.IMMEDIATELY | user1.st.Notify.REPLY | user1.st.Notify.MENTION
+        user2.st.notify = (
+            user1.st.Notify.IMMEDIATELY
+            | user1.st.Notify.REPLY
+            | user1.st.Notify.MENTION
+        )
         user2.st.save()
         user3.st.notify = user3.st.Notify.IMMEDIATELY | user3.st.Notify.REPLY
         user3.st.save()
@@ -186,19 +200,27 @@ class TasksTests(TestCase):
         test_utils.create_notification(user=user1, is_read=False, action="reply")
         test_utils.create_notification(comment, user2, is_read=False, action="reply")
         test_utils.create_notification(comment, user3, is_read=True, action="reply")
-        test_utils.create_notification(comment, comment.user, is_read=False, action="reply")
+        test_utils.create_notification(
+            comment, comment.user, is_read=False, action="reply"
+        )
         test_utils.create_notification(user=user3, is_read=False, action="reply")
         test_utils.create_notification(is_read=True, action="reply")
         test_utils.create_notification(is_read=False, action="reply")
         test_utils.create_notification(comment, is_read=False, action="mention")
         test_utils.create_notification(comment, is_read=False, action=None)
-        test_utils.create_notification(comment, is_read=False, action="reply", is_active=False)
-        test_utils.create_notification(comment, is_read=True, action="reply", is_active=False)
+        test_utils.create_notification(
+            comment, is_read=False, action="reply", is_active=False
+        )
+        test_utils.create_notification(
+            comment, is_read=True, action="reply", is_active=False
+        )
         user4 = test_utils.create_user()
         user5 = test_utils.create_user()
         user4.st.notify = user4.st.Notify.WEEKLY | user4.st.Notify.REPLY
         user4.st.save()
-        user5.st.notify = user5.st.Notify.NEVER | user5.st.Notify.REPLY | user5.st.Notify.MENTION
+        user5.st.notify = (
+            user5.st.Notify.NEVER | user5.st.Notify.REPLY | user5.st.Notify.MENTION
+        )
         user5.st.save()
         test_utils.create_notification(comment, user4, is_read=False, action="reply")
         test_utils.create_notification(comment, user5, is_read=False, action="reply")
@@ -211,7 +233,9 @@ class TasksTests(TestCase):
         user8 = test_utils.create_user()
         user8.st.notify = user1.st.notify
         user8.st.save()
-        test_utils.create_notification(comment, user6, is_read=False, action="reply", is_active=False)
+        test_utils.create_notification(
+            comment, user6, is_read=False, action="reply", is_active=False
+        )
         test_utils.create_notification(comment, user7, is_read=False, action="mention")
         test_utils.create_notification(comment, user8, is_read=False, action=None)
         user9 = test_utils.create_user()
@@ -223,21 +247,31 @@ class TasksTests(TestCase):
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(
             mail.outbox[0].subject,
-            "{user} commented on {topic}".format(user=comment.user.st.nickname, topic=comment.topic.title),
+            "{user} commented on {topic}".format(
+                user=comment.user.st.nickname, topic=comment.topic.title
+            ),
         )
         self.assertEqual(
             mail.outbox[1].subject,
-            "{user} commented on {topic}".format(user=comment.user.st.nickname, topic=comment.topic.title),
+            "{user} commented on {topic}".format(
+                user=comment.user.st.nickname, topic=comment.topic.title
+            ),
         )
         self.assertEqual(mail.outbox[0].from_email, "task@test.com")
         self.assertEqual(mail.outbox[1].from_email, "task@test.com")
-        self.assertIn("https://tests.com" + comment.get_absolute_url(), mail.outbox[0].body)
-        self.assertIn("https://tests.com" + comment.get_absolute_url(), mail.outbox[1].body)
+        self.assertIn(
+            "https://tests.com" + comment.get_absolute_url(), mail.outbox[0].body
+        )
+        self.assertIn(
+            "https://tests.com" + comment.get_absolute_url(), mail.outbox[1].body
+        )
         self.assertEqual(mail.outbox[0].to, [user2.email])
         self.assertEqual(mail.outbox[1].to, [user1.email])
 
     @test_utils.immediate_on_commit
-    @override_settings(ST_SITE_URL="https://tests.com/", DEFAULT_FROM_EMAIL="task@test.com")
+    @override_settings(
+        ST_SITE_URL="https://tests.com/", DEFAULT_FROM_EMAIL="task@test.com"
+    )
     def test_notify_reply_no_tm(self):
         user1 = test_utils.create_user()
         user1.st.notify = user1.st.Notify.IMMEDIATELY | user1.st.Notify.REPLY
@@ -252,14 +286,22 @@ class TasksTests(TestCase):
             self.assertEqual(len(mail.outbox), 1)
 
     @test_utils.immediate_on_commit
-    @override_settings(ST_TASK_MANAGER="tests", ST_SITE_URL="https://tests.com/", DEFAULT_FROM_EMAIL="task@test.com")
+    @override_settings(
+        ST_TASK_MANAGER="tests",
+        ST_SITE_URL="https://tests.com/",
+        DEFAULT_FROM_EMAIL="task@test.com",
+    )
     def test_notify_mention(self):
         user1 = test_utils.create_user()
         user2 = test_utils.create_user()
         user3 = test_utils.create_user()
         user1.st.notify = user1.st.Notify.IMMEDIATELY | user1.st.Notify.MENTION
         user1.st.save()
-        user2.st.notify = user1.st.Notify.IMMEDIATELY | user1.st.Notify.REPLY | user1.st.Notify.MENTION
+        user2.st.notify = (
+            user1.st.Notify.IMMEDIATELY
+            | user1.st.Notify.REPLY
+            | user1.st.Notify.MENTION
+        )
         user2.st.save()
         user3.st.notify = user1.st.notify
         user3.st.save()
@@ -270,19 +312,27 @@ class TasksTests(TestCase):
         test_utils.create_notification(user=user1, is_read=False, action="mention")
         test_utils.create_notification(comment, user2, is_read=False, action="mention")
         test_utils.create_notification(comment, user3, is_read=True, action="mention")
-        test_utils.create_notification(comment, comment.user, is_read=False, action="mention")
+        test_utils.create_notification(
+            comment, comment.user, is_read=False, action="mention"
+        )
         test_utils.create_notification(user=user3, is_read=False, action="mention")
         test_utils.create_notification(is_read=True, action="mention")
         test_utils.create_notification(is_read=False, action="mention")
         test_utils.create_notification(comment, is_read=False, action="reply")
         test_utils.create_notification(comment, is_read=False, action=None)
-        test_utils.create_notification(comment, is_read=False, action="mention", is_active=False)
-        test_utils.create_notification(comment, is_read=True, action="mention", is_active=False)
+        test_utils.create_notification(
+            comment, is_read=False, action="mention", is_active=False
+        )
+        test_utils.create_notification(
+            comment, is_read=True, action="mention", is_active=False
+        )
         user4 = test_utils.create_user()
         user5 = test_utils.create_user()
         user4.st.notify = user4.st.Notify.WEEKLY | user4.st.Notify.MENTION
         user4.st.save()
-        user5.st.notify = user5.st.Notify.NEVER | user5.st.Notify.REPLY | user5.st.Notify.MENTION
+        user5.st.notify = (
+            user5.st.Notify.NEVER | user5.st.Notify.REPLY | user5.st.Notify.MENTION
+        )
         user5.st.save()
         test_utils.create_notification(comment, user4, is_read=False, action="mention")
         test_utils.create_notification(comment, user5, is_read=False, action="mention")
@@ -295,7 +345,9 @@ class TasksTests(TestCase):
         user8 = test_utils.create_user()
         user8.st.notify = user1.st.notify
         user8.st.save()
-        test_utils.create_notification(comment, user6, is_read=False, action="mention", is_active=False)
+        test_utils.create_notification(
+            comment, user6, is_read=False, action="mention", is_active=False
+        )
         test_utils.create_notification(comment, user7, is_read=False, action="reply")
         test_utils.create_notification(comment, user8, is_read=False, action=None)
         user9 = test_utils.create_user()
@@ -307,21 +359,33 @@ class TasksTests(TestCase):
         self.assertEqual(len(mail.outbox), 2)
         self.assertEqual(
             mail.outbox[0].subject,
-            "{user} mention you on {topic}".format(user=comment.user.st.nickname, topic=comment.topic.title),
+            "{user} mention you on {topic}".format(
+                user=comment.user.st.nickname, topic=comment.topic.title
+            ),
         )
         self.assertEqual(
             mail.outbox[1].subject,
-            "{user} mention you on {topic}".format(user=comment.user.st.nickname, topic=comment.topic.title),
+            "{user} mention you on {topic}".format(
+                user=comment.user.st.nickname, topic=comment.topic.title
+            ),
         )
         self.assertEqual(mail.outbox[0].from_email, "task@test.com")
         self.assertEqual(mail.outbox[1].from_email, "task@test.com")
-        self.assertIn("https://tests.com" + comment.get_absolute_url(), mail.outbox[0].body)
-        self.assertIn("https://tests.com" + comment.get_absolute_url(), mail.outbox[1].body)
+        self.assertIn(
+            "https://tests.com" + comment.get_absolute_url(), mail.outbox[0].body
+        )
+        self.assertIn(
+            "https://tests.com" + comment.get_absolute_url(), mail.outbox[1].body
+        )
         self.assertEqual(mail.outbox[0].to, [user2.email])
         self.assertEqual(mail.outbox[1].to, [user1.email])
 
     @test_utils.immediate_on_commit
-    @override_settings(ST_TASK_MANAGER="tests", ST_SITE_URL="https://tests.com/", DEFAULT_FROM_EMAIL="task@test.com")
+    @override_settings(
+        ST_TASK_MANAGER="tests",
+        ST_SITE_URL="https://tests.com/",
+        DEFAULT_FROM_EMAIL="task@test.com",
+    )
     def test_notify_weekly(self):
         user1 = test_utils.create_user()
         user2 = test_utils.create_user()
@@ -330,13 +394,19 @@ class TasksTests(TestCase):
         user5 = test_utils.create_user()
         user1.st.notify = user1.st.Notify.WEEKLY | user1.st.Notify.MENTION
         user1.st.save()
-        user2.st.notify = user1.st.Notify.WEEKLY | user1.st.Notify.REPLY | user1.st.Notify.MENTION
+        user2.st.notify = (
+            user1.st.Notify.WEEKLY | user1.st.Notify.REPLY | user1.st.Notify.MENTION
+        )
         user2.st.save()
         user3.st.notify = user3.st.Notify.WEEKLY | user3.st.Notify.REPLY
         user3.st.save()
-        user4.st.notify = user4.st.Notify.WEEKLY | user4.st.Notify.REPLY | user4.st.Notify.MENTION
+        user4.st.notify = (
+            user4.st.Notify.WEEKLY | user4.st.Notify.REPLY | user4.st.Notify.MENTION
+        )
         user4.st.save()
-        user5.st.notify = user5.st.Notify.WEEKLY | user5.st.Notify.REPLY | user5.st.Notify.MENTION
+        user5.st.notify = (
+            user5.st.Notify.WEEKLY | user5.st.Notify.REPLY | user5.st.Notify.MENTION
+        )
         user5.st.save()
         test_utils.create_notification(user=user1, is_read=False, action="mention")
         test_utils.create_notification(user=user2, is_read=False, action="mention")
@@ -358,14 +428,22 @@ class TasksTests(TestCase):
         user6 = test_utils.create_user()
         user6.st.notify = user1.st.notify
         user6.st.save()
-        test_utils.create_notification(user=user6, is_read=False, action="mention", is_active=False)
-        test_utils.create_notification(user=user6, is_read=False, action="reply", is_active=False)
+        test_utils.create_notification(
+            user=user6, is_read=False, action="mention", is_active=False
+        )
+        test_utils.create_notification(
+            user=user6, is_read=False, action="reply", is_active=False
+        )
         test_utils.create_notification(user=user6, is_read=False, action="reply")
         test_utils.create_notification(user=user6, is_read=True, action="reply")
         test_utils.create_notification(user=user6, is_read=True, action="mention")
         test_utils.create_notification(user=user6, is_read=False, action=None)
         user7 = test_utils.create_user()
-        user7.st.notify = user7.st.Notify.IMMEDIATELY | user7.st.Notify.REPLY | user7.st.Notify.MENTION
+        user7.st.notify = (
+            user7.st.Notify.IMMEDIATELY
+            | user7.st.Notify.REPLY
+            | user7.st.Notify.MENTION
+        )
         user7.st.save()
         test_utils.create_notification(user=user7, is_read=False, action="reply")
         test_utils.create_notification(user=user7, is_read=True, action="reply")
@@ -375,8 +453,14 @@ class TasksTests(TestCase):
         self.assertEqual(mail.outbox[1].subject, "New notifications")
         self.assertEqual(mail.outbox[0].from_email, "task@test.com")
         self.assertEqual(mail.outbox[1].from_email, "task@test.com")
-        self.assertIn("https://tests.com" + reverse("spirit:topic:notification:index"), mail.outbox[0].body)
-        self.assertIn("https://tests.com" + reverse("spirit:topic:notification:index"), mail.outbox[1].body)
+        self.assertIn(
+            "https://tests.com" + reverse("spirit:topic:notification:index"),
+            mail.outbox[0].body,
+        )
+        self.assertIn(
+            "https://tests.com" + reverse("spirit:topic:notification:index"),
+            mail.outbox[1].body,
+        )
         self.assertEqual(mail.outbox[0].to, [user5.email])
         self.assertEqual(mail.outbox[1].to, [user4.email])
         self.assertEqual(mail.outbox[2].to, [user3.email])

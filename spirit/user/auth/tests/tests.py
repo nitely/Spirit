@@ -48,12 +48,18 @@ class UserViewTest(TestCase):
         expected_url = self.user.st.get_absolute_url()
         self.assertRedirects(response, expected_url, status_code=302)
         # next
-        response = self.client.get(reverse("spirit:user:auth:login") + "?next=/fakepath/")
-        self.assertRedirects(response, "/fakepath/", status_code=302, target_status_code=404)
+        response = self.client.get(
+            reverse("spirit:user:auth:login") + "?next=/fakepath/"
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
 
     def test_login_open_redirect(self):
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:auth:login") + "?next=https%3A%2F%2Fevil.com")
+        response = self.client.get(
+            reverse("spirit:user:auth:login") + "?next=https%3A%2F%2Fevil.com"
+        )
         self.assertRedirects(response, "/", status_code=302)
 
     @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
@@ -101,7 +107,12 @@ class UserViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # post
-        form_data = {"username": "uniquefoo", "email": "some@some.com", "email2": "some@some.com", "password": "pass"}
+        form_data = {
+            "username": "uniquefoo",
+            "email": "some@some.com",
+            "email2": "some@some.com",
+            "password": "pass",
+        }
         response = self.client.post(reverse("spirit:user:auth:register"), form_data)
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -113,7 +124,12 @@ class UserViewTest(TestCase):
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_register_username_case_insensitive(self):
-        form_data = {"username": "UnIqUeFoO", "email": "some@some.com", "email2": "some@some.com", "password": "pass"}
+        form_data = {
+            "username": "UnIqUeFoO",
+            "email": "some@some.com",
+            "email2": "some@some.com",
+            "password": "pass",
+        }
         response = self.client.post(reverse("spirit:user:auth:register"), form_data)
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -122,7 +138,12 @@ class UserViewTest(TestCase):
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
     def test_register_username_case_insensitive_off(self):
-        form_data = {"username": "UnIqUeFoO", "email": "some@some.com", "email2": "some@some.com", "password": "pass"}
+        form_data = {
+            "username": "UnIqUeFoO",
+            "email": "some@some.com",
+            "email2": "some@some.com",
+            "password": "pass",
+        }
         response = self.client.post(reverse("spirit:user:auth:register"), form_data)
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -134,7 +155,12 @@ class UserViewTest(TestCase):
         """
         register and send activation email
         """
-        form_data = {"username": "uniquefoo", "email": "some@some.com", "email2": "some@some.com", "password": "pass"}
+        form_data = {
+            "username": "uniquefoo",
+            "email": "some@some.com",
+            "email2": "some@some.com",
+            "password": "pass",
+        }
         response = self.client.post(reverse("spirit:user:auth:register"), form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 1)
@@ -146,8 +172,12 @@ class UserViewTest(TestCase):
         """
         # redirect logged in user
         utils.login(self)
-        response = self.client.get(reverse("spirit:user:auth:register") + "?next=/fakepath/")
-        self.assertRedirects(response, "/fakepath/", status_code=302, target_status_code=404)
+        response = self.client.get(
+            reverse("spirit:user:auth:register") + "?next=/fakepath/"
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
 
     @override_settings(ROOT_URLCONF="spirit.user.auth.tests.urls")
     def test_register_custom_form(self):
@@ -184,11 +214,15 @@ class UserViewTest(TestCase):
         form_data = {"email": "bademail@bad.com"}
 
         for attempt in range(5):
-            response = self.client.post(reverse("spirit:user:auth:password-reset"), form_data)
+            response = self.client.post(
+                reverse("spirit:user:auth:password-reset"), form_data
+            )
             expected_url = reverse("spirit:user:auth:password-reset-done")
             self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.post(reverse("spirit:user:auth:password-reset"), form_data)
+        response = self.client.post(
+            reverse("spirit:user:auth:password-reset"), form_data
+        )
         expected_url = reverse("spirit:user:auth:password-reset")
         self.assertRedirects(response, expected_url, status_code=302)
 
@@ -196,7 +230,9 @@ class UserViewTest(TestCase):
     def test_custom_reset_password_email(self):
         self.assertEqual(len(mail.outbox), 0)
         form_data = {"email": self.user.email}
-        response = self.client.post(reverse("spirit:user:auth:password-reset"), form_data)
+        response = self.client.post(
+            reverse("spirit:user:auth:password-reset"), form_data
+        )
         expected_url = reverse("spirit:user:auth:password-reset-done")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(len(mail.outbox), 1)
@@ -209,7 +245,10 @@ class UserViewTest(TestCase):
         test access
         """
         response = self.client.get(
-            reverse("spirit:user:auth:password-reset-confirm", kwargs={"uidb64": "f-a-k-e", "token": "f-a-k-e"})
+            reverse(
+                "spirit:user:auth:password-reset-confirm",
+                kwargs={"uidb64": "f-a-k-e", "token": "f-a-k-e"},
+            )
         )
         self.assertEqual(response.status_code, 200)
 
@@ -227,7 +266,9 @@ class UserViewTest(TestCase):
             return
 
         response = self.client.get(url)
-        expected_url = reverse("spirit:user:auth:login") + "?next=" + reverse("admin:login")
+        expected_url = (
+            reverse("spirit:user:auth:login") + "?next=" + reverse("admin:login")
+        )
         self.assertRedirects(response, expected_url, status_code=302)
 
     def test_registration_activation(self):
@@ -239,7 +280,10 @@ class UserViewTest(TestCase):
         self.user.save()
         token = UserActivationTokenGenerator().generate(self.user)
         response = self.client.get(
-            reverse("spirit:user:auth:registration-activation", kwargs={"pk": self.user.pk, "token": token})
+            reverse(
+                "spirit:user:auth:registration-activation",
+                kwargs={"pk": self.user.pk, "token": token},
+            )
         )
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -257,7 +301,10 @@ class UserViewTest(TestCase):
         User.objects.filter(pk=self.user.pk).update(is_active=False)
         UserProfile.objects.filter(user__pk=self.user.pk).update(is_verified=True)
         response = self.client.get(
-            reverse("spirit:user:auth:registration-activation", kwargs={"pk": self.user.pk, "token": token})
+            reverse(
+                "spirit:user:auth:registration-activation",
+                kwargs={"pk": self.user.pk, "token": token},
+            )
         )
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -271,7 +318,9 @@ class UserViewTest(TestCase):
         user = utils.create_user(password="foo")
 
         form_data = {"email": user.email, "password": "foo"}
-        response = self.client.post(reverse("spirit:user:auth:resend-activation"), form_data)
+        response = self.client.post(
+            reverse("spirit:user:auth:resend-activation"), form_data
+        )
         expected_url = reverse("spirit:user:auth:login")
         self.assertRedirects(response, expected_url, status_code=302)
         self.assertEqual(len(mail.outbox), 1)
@@ -290,7 +339,9 @@ class UserViewTest(TestCase):
         user.st.save()
 
         form_data = {"email": user.email, "password": "foo"}
-        response = self.client.post(reverse("spirit:user:auth:resend-activation"), form_data)
+        response = self.client.post(
+            reverse("spirit:user:auth:resend-activation"), form_data
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 0)
 
@@ -301,7 +352,9 @@ class UserViewTest(TestCase):
         utils.create_user(password="foo")
 
         form_data = {"email": "bad@foo.com"}
-        response = self.client.post(reverse("spirit:user:auth:resend-activation"), form_data)
+        response = self.client.post(
+            reverse("spirit:user:auth:resend-activation"), form_data
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 0)
 
@@ -334,8 +387,12 @@ class UserViewTest(TestCase):
         # next
         utils.login(self)
         self.assertTrue(self.client.session.items())
-        response = self.client.post(reverse("spirit:user:auth:logout") + "?next=/fakepath/")
-        self.assertRedirects(response, "/fakepath/", status_code=302, target_status_code=404)
+        response = self.client.post(
+            reverse("spirit:user:auth:logout") + "?next=/fakepath/"
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
         self.assertFalse(self.client.session.items())
 
     def test_logout_anonymous_redirect(self):
@@ -348,8 +405,12 @@ class UserViewTest(TestCase):
         self.assertRedirects(response, expected_url, status_code=302)
 
         # next if user is anonymous
-        response = self.client.get(reverse("spirit:user:auth:logout") + "?next=/fakepath/")
-        self.assertRedirects(response, "/fakepath/", status_code=302, target_status_code=404)
+        response = self.client.get(
+            reverse("spirit:user:auth:logout") + "?next=/fakepath/"
+        )
+        self.assertRedirects(
+            response, "/fakepath/", status_code=302, target_status_code=404
+        )
 
 
 class UserFormTest(TestCase):
@@ -361,7 +422,12 @@ class UserFormTest(TestCase):
         """
         register
         """
-        form_data = {"username": "foo", "email": "foo@foo.com", "email2": "foo@foo.com", "password": "pass"}
+        form_data = {
+            "username": "foo",
+            "email": "foo@foo.com",
+            "email2": "foo@foo.com",
+            "password": "pass",
+        }
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -369,7 +435,12 @@ class UserFormTest(TestCase):
         """
         Register and login
         """
-        form_data = {"username": "foo", "email": "foo@foo.com", "email2": "foo@foo.com", "password": "pass"}
+        form_data = {
+            "username": "foo",
+            "email": "foo@foo.com",
+            "email2": "foo@foo.com",
+            "password": "pass",
+        }
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -394,7 +465,12 @@ class UserFormTest(TestCase):
         invalid email and user
         """
         User.objects.create_user(username="foo", password="bar", email="foo@foo.com")
-        form_data = {"username": "foo", "email": "foo@foo.com", "email2": "foo@foo.com", "password": "pass"}
+        form_data = {
+            "username": "foo",
+            "email": "foo@foo.com",
+            "email2": "foo@foo.com",
+            "password": "pass",
+        }
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn("username", form.cleaned_data)
@@ -449,7 +525,12 @@ class UserFormTest(TestCase):
         """
         Confirmation email should match email
         """
-        form_data = {"username": "foo", "email": "foo@bar.com", "email2": "foofoo@bar.com", "password": "pass"}
+        form_data = {
+            "username": "foo",
+            "email": "foo@bar.com",
+            "email2": "foofoo@bar.com",
+            "password": "pass",
+        }
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn("email2", form.cleaned_data)
@@ -459,7 +540,12 @@ class UserFormTest(TestCase):
         """
         Confirmation email should match email
         """
-        form_data = {"username": "foo", "email": "FOO@bar.com", "email2": "FOO@BAR.COM", "password": "pass"}
+        form_data = {
+            "username": "foo",
+            "email": "FOO@bar.com",
+            "email2": "FOO@BAR.COM",
+            "password": "pass",
+        }
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
 
@@ -468,7 +554,12 @@ class UserFormTest(TestCase):
         """
         Confirmation email should match email
         """
-        form_data = {"username": "foo", "email": "FOO@bar.com", "email2": "FOO@BAR.COM", "password": "pass"}
+        form_data = {
+            "username": "foo",
+            "email": "FOO@bar.com",
+            "email2": "FOO@BAR.COM",
+            "password": "pass",
+        }
         form = RegistrationForm(data=form_data)
         self.assertEqual(form.is_valid(), False)
         self.assertNotIn("email2", form.cleaned_data)
@@ -601,7 +692,9 @@ class UserBackendTest(TestCase):
         self.user = utils.create_user(email="foobar@bar.com", password="bar")
 
     def test_email_auth_backend(self):
-        user = EmailAuthBackend().authenticate(request=None, username="foobar@bar.com", password="bar")
+        user = EmailAuthBackend().authenticate(
+            request=None, username="foobar@bar.com", password="bar"
+        )
         self.assertEqual(user, self.user)
 
     def test_email_auth_backend_email_duplication(self):
@@ -610,31 +703,45 @@ class UserBackendTest(TestCase):
         """
         utils.create_user(email="duplicated@bar.com", password="foo")
         utils.create_user(email="duplicated@bar.com", password="foo2")
-        user = EmailAuthBackend().authenticate(request=None, username="duplicated@bar.com", password="foo")
+        user = EmailAuthBackend().authenticate(
+            request=None, username="duplicated@bar.com", password="foo"
+        )
         self.assertIsNone(user)
 
     @override_settings(ST_CASE_INSENSITIVE_EMAILS=True)
     def test_email_auth_backend_case_insensitive(self):
-        user = EmailAuthBackend().authenticate(request=None, username="FooBar@bAr.COM", password="bar")
+        user = EmailAuthBackend().authenticate(
+            request=None, username="FooBar@bAr.COM", password="bar"
+        )
         self.assertEqual(user, self.user)
 
     @override_settings(ST_CASE_INSENSITIVE_EMAILS=False)
     def test_email_auth_backend_case_sensitive(self):
-        user = EmailAuthBackend().authenticate(request=None, username="FooBar@bAr.COM", password="bar")
+        user = EmailAuthBackend().authenticate(
+            request=None, username="FooBar@bAr.COM", password="bar"
+        )
         self.assertIsNone(user)
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=True)
     def test_username_auth_backend_case_sensitive(self):
         usr = utils.create_user(username="FooBar", password="bar")
-        user = UsernameAuthBackend().authenticate(request=None, username="FooBar", password="bar")
+        user = UsernameAuthBackend().authenticate(
+            request=None, username="FooBar", password="bar"
+        )
         self.assertEqual(user.pk, usr.pk)
-        user = UsernameAuthBackend().authenticate(request=None, username="foobar", password="bar")
+        user = UsernameAuthBackend().authenticate(
+            request=None, username="foobar", password="bar"
+        )
         self.assertEqual(user.pk, usr.pk)
 
     @override_settings(ST_CASE_INSENSITIVE_USERNAMES=False)
     def test_username_auth_backend_case_sensitive_off(self):
         usr = utils.create_user(username="FooBar", password="bar")
-        user = UsernameAuthBackend().authenticate(request=None, username="FooBar", password="bar")
+        user = UsernameAuthBackend().authenticate(
+            request=None, username="FooBar", password="bar"
+        )
         self.assertEqual(user.pk, usr.pk)
-        user = UsernameAuthBackend().authenticate(request=None, username="foobar", password="bar")
+        user = UsernameAuthBackend().authenticate(
+            request=None, username="foobar", password="bar"
+        )
         self.assertIsNone(user)

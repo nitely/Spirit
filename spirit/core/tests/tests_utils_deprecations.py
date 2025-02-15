@@ -13,5 +13,7 @@ class UtilsDeprecations(TestCase):
         with warnings.catch_warnings(record=True) as w:
             deprecations.warn("foo")
             self.assertEqual(len(w), 1)
-            self.assertTrue(issubclass(w[-1].category, deprecations.RemovedInNextVersionWarning))
+            self.assertTrue(
+                issubclass(w[-1].category, deprecations.RemovedInNextVersionWarning)
+            )
             self.assertTrue("foo" in str(w[-1].message))

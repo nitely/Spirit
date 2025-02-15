@@ -20,7 +20,12 @@ from spirit.core.utils.views import is_post, post_data
 from ..models import Topic
 from ..notification.models import TopicNotification
 from ..utils import topic_viewed
-from .forms import TopicForPrivateForm, TopicPrivateInviteForm, TopicPrivateJoinForm, TopicPrivateManyForm
+from .forms import (
+    TopicForPrivateForm,
+    TopicPrivateInviteForm,
+    TopicPrivateJoinForm,
+    TopicPrivateManyForm,
+)
 from .models import TopicPrivate
 from .utils import notify_access
 
@@ -40,9 +45,18 @@ def publish(request, user_id=None):
     cform = CommentForm(user=user, data=post_data(request))
     tpform = TopicPrivateManyForm(user=user, data=post_data(request), initial=initial)
 
-    if is_post(request) and all([tform.is_valid(), cform.is_valid(), tpform.is_valid()]) and not request.is_limited():
+    if (
+        is_post(request)
+        and all([tform.is_valid(), cform.is_valid(), tpform.is_valid()])
+        and not request.is_limited()
+    ):
         if not user.st.update_post_hash(tform.get_topic_hash()):
-            return safe_redirect(request, "next", lambda: tform.category.get_absolute_url(), method="POST")
+            return safe_redirect(
+                request,
+                "next",
+                lambda: tform.category.get_absolute_url(),
+                method="POST",
+            )
 
         # wrap in transaction.atomic?
         topic = tform.save()
@@ -64,7 +78,9 @@ def publish(request, user_id=None):
 @login_required
 def detail(request, topic_id, slug):
     topic_private = get_object_or_404(
-        TopicPrivate.objects.select_related("topic"), topic_id=topic_id, user=request.user
+        TopicPrivate.objects.select_related("topic"),
+        topic_id=topic_id,
+        user=request.user,
     )
     topic = topic_private.topic
 
@@ -80,7 +96,11 @@ def detail(request, topic_id, slug):
         .order_by("date")
     )
 
-    comments = paginate(comments, per_page=config.comments_per_page, page_number=request.GET.get("page", 1))
+    comments = paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get("page", 1),
+    )
 
     return render(
         request=request,
@@ -101,7 +121,9 @@ def create_access(request, topic_id):
     else:
         messages.error(request, utils.render_form_errors(form))
 
-    return safe_redirect(request, "next", topic_private.get_absolute_url(), method="POST")
+    return safe_redirect(
+        request, "next", topic_private.get_absolute_url(), method="POST"
+    )
 
 
 @login_required
@@ -114,10 +136,14 @@ def delete_access(request, pk):
         if request.user.pk == topic_private.user_id:
             return redirect(reverse("spirit:topic:private:index"))
 
-        return safe_redirect(request, "next", topic_private.get_absolute_url(), method="POST")
+        return safe_redirect(
+            request, "next", topic_private.get_absolute_url(), method="POST"
+        )
 
     return render(
-        request=request, template_name="spirit/topic/private/delete.html", context={"topic_private": topic_private}
+        request=request,
+        template_name="spirit/topic/private/delete.html",
+        context={"topic_private": topic_private},
     )
 
 
@@ -125,22 +151,37 @@ def delete_access(request, pk):
 def join_in(request, topic_id):
     # todo: replace by create_access()?
     # This is for topic creators who left their own topics and want to join again
-    topic = get_object_or_404(Topic, pk=topic_id, user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK)
+    topic = get_object_or_404(
+        Topic,
+        pk=topic_id,
+        user=request.user,
+        category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK,
+    )
     form = TopicPrivateJoinForm(topic=topic, user=request.user, data=post_data(request))
     if is_post(request) and form.is_valid():
         topic_private = form.save()
         notify_access(user=form.get_user(), topic_private=topic_private)
         return safe_redirect(request, "next", topic.get_absolute_url(), method="POST")
     return render(
-        request=request, template_name="spirit/topic/private/join.html", context={"topic": topic, "form": form}
+        request=request,
+        template_name="spirit/topic/private/join.html",
+        context={"topic": topic, "form": form},
     )
 
 
 @login_required
 def index(request):
-    topics = Topic.objects.with_bookmarks(user=request.user).filter(topics_private__user=request.user)
-    topics = yt_paginate(topics, per_page=config.topics_per_page, page_number=request.GET.get("page", 1))
-    return render(request=request, template_name="spirit/topic/private/index.html", context={"topics": topics})
+    topics = Topic.objects.with_bookmarks(user=request.user).filter(
+        topics_private__user=request.user
+    )
+    topics = yt_paginate(
+        topics, per_page=config.topics_per_page, page_number=request.GET.get("page", 1)
+    )
+    return render(
+        request=request,
+        template_name="spirit/topic/private/index.html",
+        context={"topics": topics},
+    )
 
 
 @login_required
@@ -148,8 +189,14 @@ def index_author(request):
     # Show created topics but exclude those the user is participating on
     # TODO: show all, show join link in those the user is not participating
     # TODO: move to manager
-    topics = Topic.objects.filter(user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK).exclude(
-        topics_private__user=request.user
+    topics = Topic.objects.filter(
+        user=request.user, category_id=settings.ST_TOPIC_PRIVATE_CATEGORY_PK
+    ).exclude(topics_private__user=request.user)
+    topics = yt_paginate(
+        topics, per_page=config.topics_per_page, page_number=request.GET.get("page", 1)
     )
-    topics = yt_paginate(topics, per_page=config.topics_per_page, page_number=request.GET.get("page", 1))
-    return render(request=request, template_name="spirit/topic/private/index_author.html", context={"topics": topics})
+    return render(
+        request=request,
+        template_name="spirit/topic/private/index_author.html",
+        context={"topics": topics},
+    )

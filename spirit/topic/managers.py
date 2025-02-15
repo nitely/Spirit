@@ -44,15 +44,23 @@ class TopicQuerySet(models.QuerySet):
         if not user.is_authenticated:
             return self
 
-        user_bookmarks = CommentBookmark.objects.filter(user=user).select_related("topic")
-        prefetch = Prefetch("commentbookmark_set", queryset=user_bookmarks, to_attr="bookmarks")
+        user_bookmarks = CommentBookmark.objects.filter(user=user).select_related(
+            "topic"
+        )
+        prefetch = Prefetch(
+            "commentbookmark_set", queryset=user_bookmarks, to_attr="bookmarks"
+        )
         return self.prefetch_related(prefetch)
 
     def get_public_or_404(self, pk, user):
         if user.is_authenticated and user.st.is_moderator:
-            return get_object_or_404(self.public().select_related("category__parent"), pk=pk)
+            return get_object_or_404(
+                self.public().select_related("category__parent"), pk=pk
+            )
         else:
-            return get_object_or_404(self.visible().select_related("category__parent"), pk=pk)
+            return get_object_or_404(
+                self.visible().select_related("category__parent"), pk=pk
+            )
 
     def for_update_or_404(self, pk, user):
         if user.st.is_moderator:

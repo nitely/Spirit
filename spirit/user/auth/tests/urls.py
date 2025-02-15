@@ -12,4 +12,7 @@ def register_view(request):
     return register(request, registration_form=CustomRegisterForm)
 
 
-urlpatterns = [path("user/register/", register_view, name="register"), path("", include("spirit.urls"))]
+urlpatterns = [
+    path("user/register/", register_view, name="register"),
+    path("", include("spirit.urls")),
+]

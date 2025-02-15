@@ -108,7 +108,9 @@ class Renderer(mistune.Renderer):
             link=link
         )
 
-    def youtube_link(self, video_id, start_hours=None, start_minutes=None, start_seconds=None):
+    def youtube_link(
+        self, video_id, start_hours=None, start_minutes=None, start_seconds=None
+    ):
         timestamp = 0
 
         if start_hours:
@@ -128,7 +130,9 @@ class Renderer(mistune.Renderer):
         return (
             '<span class="video"><iframe '
             'src="https://www.youtube.com/embed/{video_id}?html5=1{timestamp}" '
-            "allowfullscreen></iframe></span>\n".format(video_id=video_id, timestamp=timestamp)
+            "allowfullscreen></iframe></span>\n".format(
+                video_id=video_id, timestamp=timestamp
+            )
         )
 
     def vimeo_link(self, video_id):
@@ -141,7 +145,9 @@ class Renderer(mistune.Renderer):
     def gfycat_link(self, video_id):
         return (
             '<span class="video"><iframe src="https://gfycat.com/ifr/{video_id}" '
-            'frameborder="0" scrolling="no" allowfullscreen></iframe></span>\n'.format(video_id=video_id)
+            'frameborder="0" scrolling="no" allowfullscreen></iframe></span>\n'.format(
+                video_id=video_id
+            )
         )
 
     def poll(self, name):

@@ -1,5 +1,10 @@
 from spirit.core.middleware import PrivateForumMiddleware, XForwardedForMiddleware
-from spirit.user.middleware import ActiveUserMiddleware, LastIPMiddleware, LastSeenMiddleware, TimezoneMiddleware
+from spirit.user.middleware import (
+    ActiveUserMiddleware,
+    LastIPMiddleware,
+    LastSeenMiddleware,
+    TimezoneMiddleware,
+)
 
 from .core.utils.deprecations import warn
 

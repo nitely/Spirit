@@ -64,11 +64,18 @@ class AdminViewTest(TestCase):
             "is_moderator": True,
             "is_active": True,
         }
-        response = self.client.post(reverse("spirit:admin:user:edit", kwargs={"user_id": self.user.pk}), form_data)
-        expected_url = reverse("spirit:admin:user:edit", kwargs={"user_id": self.user.pk})
+        response = self.client.post(
+            reverse("spirit:admin:user:edit", kwargs={"user_id": self.user.pk}),
+            form_data,
+        )
+        expected_url = reverse(
+            "spirit:admin:user:edit", kwargs={"user_id": self.user.pk}
+        )
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse("spirit:admin:user:edit", kwargs={"user_id": self.user.pk}))
+        response = self.client.get(
+            reverse("spirit:admin:user:edit", kwargs={"user_id": self.user.pk})
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_user_list(self):
@@ -235,7 +242,12 @@ class AdminViewTest(TestCase):
         Config
         """
         utils.login(self)
-        form_data = {"site_name": "foo", "site_description": "bar", "comments_per_page": 10, "topics_per_page": 10}
+        form_data = {
+            "site_name": "foo",
+            "site_description": "bar",
+            "comments_per_page": 10,
+            "topics_per_page": 10,
+        }
         response = self.client.post(reverse("spirit:admin:config-basic"), form_data)
         expected_url = reverse("spirit:admin:config-basic")
         self.assertRedirects(response, expected_url, status_code=302)
@@ -311,11 +323,16 @@ class AdminViewTest(TestCase):
 
         utils.login(self)
         form_data = {"is_closed": True}
-        response = self.client.post(reverse("spirit:admin:flag:detail", kwargs={"pk": comment_flag.pk}), form_data)
+        response = self.client.post(
+            reverse("spirit:admin:flag:detail", kwargs={"pk": comment_flag.pk}),
+            form_data,
+        )
         expected_url = reverse("spirit:admin:flag:index")
         self.assertRedirects(response, expected_url, status_code=302)
 
-        response = self.client.get(reverse("spirit:admin:flag:detail", kwargs={"pk": comment_flag.pk}))
+        response = self.client.get(
+            reverse("spirit:admin:flag:detail", kwargs={"pk": comment_flag.pk})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["flag"], comment_flag)
         self.assertEqual(list(response.context["flags"]), [flag_])
@@ -332,7 +349,9 @@ class AdminViewTest(TestCase):
         flag_ = Flag.objects.create(comment=comment, user=self.user, reason=0)
 
         utils.login(self)
-        response = self.client.get(reverse("spirit:admin:flag:detail", kwargs={"pk": comment_flag.pk}))
+        response = self.client.get(
+            reverse("spirit:admin:flag:detail", kwargs={"pk": comment_flag.pk})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["flags"]), [flag_])
 

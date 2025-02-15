@@ -18,7 +18,11 @@ def _is_limited(request, rate, rl):
         is_limited = rl.is_limited(*args, **kwargs)
 
         if is_limited:
-            messages.error(request, _("Too many submissions, wait %(time)s.") % {"time": rate.split("/")[1]})
+            messages.error(
+                request,
+                _("Too many submissions, wait %(time)s.")
+                % {"time": rate.split("/")[1]},
+            )
 
         return is_limited
 

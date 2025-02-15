@@ -19,7 +19,9 @@ def render_form_errors(form):
 def json_response(data=None, status=200):
     # TODO: Use JsonResponse on Django 1.7
     data = data or {}
-    return HttpResponse(json.dumps(data), content_type="application/json", status=status)
+    return HttpResponse(
+        json.dumps(data), content_type="application/json", status=status
+    )
 
 
 def mkdir_p(path):
@@ -105,7 +107,10 @@ def unique_filename(file):
         name = spirit_storage.get_valid_name(name)
     except SuspiciousFileOperation:
         name = safe_uuid()
-    return os.path.join(safe_uuid(), "{name}{ext}".format(name=name.lstrip(".") or safe_uuid(), ext=ext.lower()))
+    return os.path.join(
+        safe_uuid(),
+        "{name}{ext}".format(name=name.lstrip(".") or safe_uuid(), ext=ext.lower()),
+    )
 
 
 def generate_filename(file, hashed=False):

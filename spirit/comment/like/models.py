@@ -7,8 +7,14 @@ from ...core.conf import settings
 
 
 class CommentLike(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="st_comment_likes", on_delete=models.CASCADE)
-    comment = models.ForeignKey("spirit_comment.Comment", related_name="comment_likes", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="st_comment_likes",
+        on_delete=models.CASCADE,
+    )
+    comment = models.ForeignKey(
+        "spirit_comment.Comment", related_name="comment_likes", on_delete=models.CASCADE
+    )
 
     date = models.DateTimeField(default=timezone.now)
 

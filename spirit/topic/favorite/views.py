@@ -30,4 +30,6 @@ def create(request, topic_id):
 def delete(request, pk):
     favorite = get_object_or_404(TopicFavorite, pk=pk, user=request.user)
     favorite.delete()
-    return safe_redirect(request, "next", favorite.topic.get_absolute_url(), method="POST")
+    return safe_redirect(
+        request, "next", favorite.topic.get_absolute_url(), method="POST"
+    )
