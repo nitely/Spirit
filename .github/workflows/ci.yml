@@ -27,6 +27,9 @@ jobs:
     - name: Test build
       run: |
         uv build --sdist
+    - name: Test migrations
+      run: |
+        uv run manage.py makemigrations --check
     - name: Run Tests
       run: |
         uv run spirit startproject test_project
