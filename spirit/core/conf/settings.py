@@ -2,7 +2,7 @@ from django.conf import settings as django_settings
 
 from . import defaults
 
-__all__ = ['settings']
+__all__ = ["settings"]
 
 
 class Settings:
