@@ -133,7 +133,7 @@ Celery does not work
 
 Celery likes to break all the things in every major version.
 The celery configuration (including ``prod.py``, ``dev.py``, and
-``mysite/celery.py``) were tested on ``v4.4.7``.
+``mysite/celery.py``) were tested on ``v5.4.0``.
 
 I'm not a Celery user. These docs and the Celery support are a
 community effort. Please, send a PR if something breaks.
