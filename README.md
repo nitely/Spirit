@@ -21,8 +21,6 @@ Constrained by "[What Python version can I use with Django?](https://docs.django
 
 ## Usage
 
-> New in Spirit 0.5
-
 ```
 pip install django-spirit
 spirit startproject mysite
