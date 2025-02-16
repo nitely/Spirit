@@ -1,3 +1,11 @@
+0.14.0
+==================
+
+* Support only Python +3.9
+* Support only Django 4.2
+* Update all dependencies
+* `ST_STORAGE` requires a storage backend alias if set
+
 0.13.0
 ==================
 
