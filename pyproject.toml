@@ -37,7 +37,12 @@ files = [
     "python-magic==0.4.27",
     "python-magic-bin==0.4.14; sys_platform == 'win32'",
 ]
-huey = ["huey~=2.5"]
+huey = [
+    "huey~=2.5",
+]
+celery = [
+    "celery[redis]~=5.4",
+]
 
 [project.urls]
 Documentation = "https://spirit.readthedocs.io"
