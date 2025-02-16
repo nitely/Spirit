@@ -58,6 +58,7 @@ spirit = "spirit.extra.bin.spirit:main"
 
 [tool.setuptools]
 packages = ["spirit"]
+license-files = []
 
 [tool.setuptools.dynamic]
 version = { attr = "spirit.__version__" }
