@@ -16,10 +16,11 @@ jobs:
       # For PyPI's trusted publishing.
       id-token: write
     steps:
+      - uses: actions/checkout@v4
       - name: "Install uv"
         uses: astral-sh/setup-uv@v5
       - name: Build
-        run: uv build
+        run: uv build --sdist
       - name: Publish to PyPi
         run: uv publish --token ${{ secrets.UV_PUBLISH_TOKEN }}
 
