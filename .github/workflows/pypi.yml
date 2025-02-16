@@ -1,0 +1,25 @@
+name: Release to PyPI
+
+on:
+  push:
+    tags:
+    - "v*"
+
+jobs:
+  pypi-publish:
+    name: Upload to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: release
+    permissions:
+      contents: write
+      # For PyPI's trusted publishing.
+      id-token: write
+    steps:
+      - name: "Install uv"
+        uses: astral-sh/setup-uv@v5
+      - name: Build
+        run: uv build
+      - name: Publish to PyPi
+        run: uv publish --token ${{ secrets.UV_PUBLISH_TOKEN }}
+
