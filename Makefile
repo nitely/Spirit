@@ -5,7 +5,7 @@ docs:
 	cd docs && make clean && make html
 
 test:
-	python -Wd runtests.py
+	PYTHONWARNINGS=default uv run runtests.py
 
 testjs:
 	npm run gulp test && \
@@ -18,25 +18,25 @@ buildcss:
 	npm run gulp css
 
 sdist: test clean
-	python setup.py sdist
+	uv build --sdist
 
 release: sdist
 	twine check dist/* && twine upload dist/*
 
 txpush:
-	python manage.py spiritmakemessages --locale en && \
-	python manage.py spirittxpush
+	uv run -- manage.py spiritmakemessages --locale en && \
+	uv run manage.py spirittxpush
 
 txpull:
-	python manage.py spirittxpull && \
-	python manage.py spiritcompilemessages
+	uv run manage.py spirittxpull && \
+	uv run manage.py spiritcompilemessages
 
 tx: txpush txpull
 
 start:
-	python manage.py runserver
+	uv run manage.py runserver
 
 start_tasks_manager:
-	python manage.py run_huey
+	uv run manage.py run_huey
 
-.PHONY: clean test sdist release docs txpush txpull tx start
+.PHONY: clean test sdist release docs txpush txpull tx start start_tasks_manager
