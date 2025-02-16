@@ -5,7 +5,7 @@ They can be overridden by the project settings
 
 import os
 
-#: The forum URL, ex: ``"https://community.spirit-project.com/"``.
+#: The forum URL, ex: ``"https://community.example.com/"``.
 #: This is used to construct the links in the emails: email verification,
 #: password reset, notifications, etc. A ``ImproperlyConfigured`` error
 #: is raised if this is not set.
