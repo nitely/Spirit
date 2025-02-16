@@ -101,13 +101,13 @@ Configuration
 
 Set Celery as the Spirit task manager::
 
-    # mysite/settings/settings.py (dev.py or prod.py)
+    # mysite/mysite/settings/settings.py (dev.py or prod.py)
 
     ST_TASK_MANAGER = 'celery'
 
 Import Celery at Django startup::
 
-    # mysite/__init__.py
+    # mysite/mysite/__init__.py
 
     from .celery import app as celery_app
     __all__ = ('celery_app',)
@@ -117,16 +117,19 @@ Run the tasks consumer
 
 To start the task manager, run::
 
-    celery -A mysite worker -l info
+    celery -A mysite.mysite worker -l info
 
 This can be run with `supervisord <http://supervisord.org>`_,
 or systemd in production.
 
 To start the periodic task manager, run::
 
-    celery -A mysite beat -l info
+    celery -A mysite.mysite beat -l info
 
 Note this will just enqueue tasks that will later be consumed by the worker.
+
+.. note::
+   When upgrading celery, remove the `celerybeat-schedule` file at the root of your project. It gets created when running the `beat` command.
 
 Celery does not work
 ********************
