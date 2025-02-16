@@ -65,6 +65,7 @@ version = { attr = "spirit.__version__" }
 
 [tool.setuptools.package-data]
 "*" = ["LICENSE", "README.md", "HISTORY.md"]
+"spirit" = ["**/*"]
 
 [tool.setuptools.exclude-package-data]
 "*" = ["__pycache__/*", "*.py[co]", ".*"]
