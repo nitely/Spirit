@@ -57,6 +57,12 @@ packages = ["spirit"]
 [tool.setuptools.dynamic]
 version = { attr = "spirit.__version__" }
 
+[tool.setuptools.package-data]
+"*" = ["LICENSE", "README.md", "HISTORY.md"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["__pycache__/*", "*.py[co]", ".*"]
+
 [tool.ruff]
 src = ["spirit"]
 line-length = 88
