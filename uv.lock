@@ -177,7 +177,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/f8/6a/9282838dba21135ff
 
 [[package]]
 name = "django-spirit"
-version = "0.13.0"
+version = "0.14.1"
 source = { editable = "." }
 dependencies = [
     { name = "django" },

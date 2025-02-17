@@ -6,6 +6,9 @@ on:
       - master
   pull_request:
 
+env:
+  UV_FROZEN: '1'
+
 jobs:
   test:
     name: Py ${{ matrix.python }} / Django ${{ matrix.django }}
@@ -28,6 +31,8 @@ jobs:
     - name: Test build
       run: |
         uv build --sdist
+    - name: Test lock
+      run: uv lock --locked
     - name: Run Tests
       run: |
         uv run spirit startproject test_project
