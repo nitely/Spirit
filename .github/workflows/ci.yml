@@ -32,7 +32,7 @@ jobs:
       run: |
         uv build --sdist
     - name: Test lock
-      run: UV_FROZEN=0 uv lock --locked
+      run: uv lock --check
     - name: Run Tests
       run: |
         uv run spirit startproject test_project
