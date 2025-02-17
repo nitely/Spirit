@@ -20,9 +20,6 @@ buildcss:
 sdist: test clean
 	uv build --sdist
 
-release: sdist
-	twine check dist/* && twine upload dist/*
-
 txpush:
 	uv run -- manage.py spiritmakemessages --locale en && \
 	uv run manage.py spirittxpush
@@ -39,4 +36,4 @@ start:
 start_tasks_manager:
 	uv run manage.py run_huey
 
-.PHONY: clean test sdist release docs txpush txpull tx start start_tasks_manager
+.PHONY: clean test sdist docs txpush txpull tx start start_tasks_manager
