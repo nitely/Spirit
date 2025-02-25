@@ -26,7 +26,7 @@ def close_or_open(request, pk, close=True):
     else:
         close_at = None
 
-    (CommentPoll.objects.filter(pk=poll.pk).update(close_at=close_at))
+    CommentPoll.objects.filter(pk=poll.pk).update(close_at=close_at)
 
     return safe_redirect(request, "next", poll.get_absolute_url())
 

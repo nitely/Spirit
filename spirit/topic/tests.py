@@ -344,15 +344,11 @@ class TopicViewTest(TestCase):
         topic_b = utils.create_topic(category=category, user=self.user, view_count=10)
         topic_c = utils.create_topic(category=category)
 
-        (
-            Topic.objects.filter(pk=topic_a.pk).update(
-                last_active=timezone.now() - datetime.timedelta(days=10)
-            )
+        Topic.objects.filter(pk=topic_a.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=10)
         )
-        (
-            Topic.objects.filter(pk=topic_c.pk).update(
-                last_active=timezone.now() - datetime.timedelta(days=5)
-            )
+        Topic.objects.filter(pk=topic_c.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=5)
         )
 
         response = self.client.get(reverse("spirit:topic:index-active"))
@@ -369,10 +365,8 @@ class TopicViewTest(TestCase):
         topic_c = utils.create_topic(category=category)
         topic_d = utils.create_topic(category=category, is_globally_pinned=True)
         # show globally pinned first
-        (
-            Topic.objects.filter(pk=topic_d.pk).update(
-                last_active=timezone.now() - datetime.timedelta(days=10)
-            )
+        Topic.objects.filter(pk=topic_d.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=10)
         )
 
         response = self.client.get(reverse("spirit:topic:index-active"))

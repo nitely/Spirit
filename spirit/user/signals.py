@@ -29,7 +29,7 @@ def update_or_create_user_profile(sender, instance, created, **kwargs):
 def lower_username(sender, instance, created, **kwargs):
     user = instance
     if created and settings.ST_CASE_INSENSITIVE_USERNAMES:
-        (User.objects.filter(pk=user.pk).update(username=user.username.lower()))
+        User.objects.filter(pk=user.pk).update(username=user.username.lower())
         user.username = user.username.lower()
 
 

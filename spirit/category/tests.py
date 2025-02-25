@@ -36,15 +36,11 @@ class CategoryViewTest(TestCase):
         topic2 = utils.create_topic(category=self.subcategory_1)
         topic3 = utils.create_topic(category=self.category_1)
 
-        (
-            Topic.objects.filter(pk=topic.pk).update(
-                last_active=timezone.now() - datetime.timedelta(days=10)
-            )
+        Topic.objects.filter(pk=topic.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=10)
         )
-        (
-            Topic.objects.filter(pk=topic3.pk).update(
-                last_active=timezone.now() - datetime.timedelta(days=5)
-            )
+        Topic.objects.filter(pk=topic3.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=5)
         )
 
         response = self.client.get(
@@ -63,10 +59,8 @@ class CategoryViewTest(TestCase):
         topic_b = utils.create_topic(category=self.category_1)
         utils.create_topic(category=self.category_1, is_pinned=True, is_removed=True)
         # show pinned first
-        (
-            Topic.objects.filter(pk=topic_a.pk).update(
-                last_active=timezone.now() - datetime.timedelta(days=10)
-            )
+        Topic.objects.filter(pk=topic_a.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=10)
         )
 
         response = self.client.get(
@@ -87,10 +81,8 @@ class CategoryViewTest(TestCase):
         topic_c = utils.create_topic(category=category)
         topic_d = utils.create_topic(category=category, is_globally_pinned=True)
         # show globally pinned first
-        (
-            Topic.objects.filter(pk=topic_d.pk).update(
-                last_active=timezone.now() - datetime.timedelta(days=10)
-            )
+        Topic.objects.filter(pk=topic_d.pk).update(
+            last_active=timezone.now() - datetime.timedelta(days=10)
         )
 
         response = self.client.get(

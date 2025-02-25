@@ -59,7 +59,7 @@ class TopicNotification(models.Model):
         if not user.is_authenticated:
             return
 
-        (cls.objects.filter(user=user, topic=topic).update(is_read=True))
+        cls.objects.filter(user=user, topic=topic).update(is_read=True)
 
     @classmethod
     def create_maybe(cls, user, comment, is_read=True, action=COMMENT):
@@ -104,12 +104,10 @@ class TopicNotification(models.Model):
             except IntegrityError:
                 pass
 
-        (
-            cls.objects.filter(
-                user__in=tuple(mentions.values()), topic=comment.topic, is_read=True
-            ).update(
-                comment=comment, is_read=False, action=cls.MENTION, date=timezone.now()
-            )
+        cls.objects.filter(
+            user__in=tuple(mentions.values()), topic=comment.topic, is_read=True
+        ).update(
+            comment=comment, is_read=False, action=cls.MENTION, date=timezone.now()
         )
 
     @classmethod
@@ -143,14 +141,10 @@ class TopicNotification(models.Model):
             topic.comment_set.filter(date__gt=comment.date).order_by("date").first()
         )
         if next_comment is None:
-            (
-                cls.objects.filter(comment=comment, topic=topic).update(
-                    is_read=True, action=cls.UNDEFINED
-                )
+            cls.objects.filter(comment=comment, topic=topic).update(
+                is_read=True, action=cls.UNDEFINED
             )
             return
-        (
-            cls.objects.filter(comment=comment, topic=topic).update(
-                comment=next_comment, action=cls.COMMENT
-            )
+        cls.objects.filter(comment=comment, topic=topic).update(
+            comment=next_comment, action=cls.COMMENT
         )

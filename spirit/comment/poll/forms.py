@@ -74,10 +74,8 @@ class PollVoteManyForm(forms.Form):
         if not self.poll.is_multiple_choice:
             choices = [choices]
 
-        (
-            CommentPollVote.objects.filter(
-                voter=self.user, choice__poll=self.poll
-            ).update(is_removed=True)
+        CommentPollVote.objects.filter(voter=self.user, choice__poll=self.poll).update(
+            is_removed=True
         )
 
         for choice_id in choices:
