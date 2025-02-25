@@ -275,10 +275,8 @@ class TopicNotificationViewTest(TestCase):
 
         TopicNotification.objects.filter(user=self.user).update(is_read=True)
         old_date = timezone.now() - datetime.timedelta(days=10)
-        (
-            TopicNotification.objects.filter(pk=self.topic_notification.pk).update(
-                is_read=False, date=old_date
-            )
+        TopicNotification.objects.filter(pk=self.topic_notification.pk).update(
+            is_read=False, date=old_date
         )
 
         utils.login(self)
@@ -583,11 +581,7 @@ class TopicNotificationModelsTest(TestCase):
         self.assertEqual(notification.action, COMMENT)
 
         # Creating it again should do nothing
-        (
-            TopicNotification.objects.filter(user=user, topic=topic).update(
-                is_active=False
-            )
-        )
+        TopicNotification.objects.filter(user=user, topic=topic).update(is_active=False)
         TopicNotification.create_maybe(user=user, comment=comment)
         self.assertFalse(
             TopicNotification.objects.get(user=user, topic=topic).is_active
@@ -658,10 +652,8 @@ class TopicNotificationModelsTest(TestCase):
         set is_read=False when user gets mentioned
         even if is_active=False
         """
-        (
-            TopicNotification.objects.filter(pk=self.topic_notification.pk).update(
-                is_active=False
-            )
+        TopicNotification.objects.filter(pk=self.topic_notification.pk).update(
+            is_active=False
         )
         mentions = {self.user.username: self.user}
         comment = utils.create_comment(topic=self.topic_notification.topic)

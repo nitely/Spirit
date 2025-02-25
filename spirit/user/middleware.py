@@ -41,7 +41,7 @@ class LastIPMiddleware(MiddlewareMixin):
         if request.user.st.last_ip == last_ip:
             return
 
-        (UserProfile.objects.filter(user__pk=request.user.pk).update(last_ip=last_ip))
+        UserProfile.objects.filter(user__pk=request.user.pk).update(last_ip=last_ip)
 
 
 class LastSeenMiddleware(MiddlewareMixin):
@@ -55,10 +55,8 @@ class LastSeenMiddleware(MiddlewareMixin):
         if delta.total_seconds() < threshold:
             return
 
-        (
-            UserProfile.objects.filter(pk=request.user.st.pk).update(
-                last_seen=timezone.now()
-            )
+        UserProfile.objects.filter(pk=request.user.st.pk).update(
+            last_seen=timezone.now()
         )
 
 

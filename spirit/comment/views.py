@@ -76,7 +76,7 @@ def update(request, pk):
 def delete(request, pk, remove=True):
     comment = get_object_or_404(Comment, pk=pk)
     if is_post(request):
-        (Comment.objects.filter(pk=pk).update(is_removed=remove))
+        Comment.objects.filter(pk=pk).update(is_removed=remove)
         return safe_redirect(request, "next", comment.get_absolute_url())
     return render(
         request=request,

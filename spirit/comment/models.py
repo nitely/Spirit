@@ -55,20 +55,16 @@ class Comment(models.Model):
             return
 
     def increase_modified_count(self):
-        (
-            Comment.objects.filter(pk=self.pk).update(
-                modified_count=F("modified_count") + 1
-            )
+        Comment.objects.filter(pk=self.pk).update(
+            modified_count=F("modified_count") + 1
         )
 
     def increase_likes_count(self):
-        (Comment.objects.filter(pk=self.pk).update(likes_count=F("likes_count") + 1))
+        Comment.objects.filter(pk=self.pk).update(likes_count=F("likes_count") + 1)
 
     def decrease_likes_count(self):
-        (
-            Comment.objects.filter(pk=self.pk, likes_count__gt=0).update(
-                likes_count=F("likes_count") - 1
-            )
+        Comment.objects.filter(pk=self.pk, likes_count__gt=0).update(
+            likes_count=F("likes_count") - 1
         )
 
     @classmethod

@@ -93,7 +93,7 @@ class CommentPoll(models.Model):
 
     @classmethod
     def update_or_create_many(cls, comment, polls_raw):
-        (cls.objects.for_comment(comment).update(is_removed=True))
+        cls.objects.for_comment(comment).update(is_removed=True)
 
         default_fields = ["title", "choice_min", "choice_max", "close_at", "mode"]
 
@@ -148,23 +148,19 @@ class CommentPollChoice(models.Model):
 
     @classmethod
     def increase_vote_count(cls, poll, voter):
-        (
-            cls.objects.for_vote(poll=poll, voter=voter).update(
-                vote_count=F("vote_count") + 1
-            )
+        cls.objects.for_vote(poll=poll, voter=voter).update(
+            vote_count=F("vote_count") + 1
         )
 
     @classmethod
     def decrease_vote_count(cls, poll, voter):
-        (
-            cls.objects.for_vote(poll=poll, voter=voter).update(
-                vote_count=F("vote_count") - 1
-            )
+        cls.objects.for_vote(poll=poll, voter=voter).update(
+            vote_count=F("vote_count") - 1
         )
 
     @classmethod
     def update_or_create_many(cls, comment, choices_raw):
-        (cls.objects.for_comment(comment).update(is_removed=True))
+        cls.objects.for_comment(comment).update(is_removed=True)
 
         if not choices_raw:  # Avoid the later transaction.atomic()
             return
