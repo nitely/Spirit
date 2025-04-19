@@ -13,8 +13,8 @@ Docs can be found at [spirit.readthedocs.io](http://spirit.readthedocs.io/en/lat
 
 ## Compatibility
 
-* Python 3.9, 3.10, 3.11, and 3.12
-* Django 4.2 LTS
+* Python 3.9, 3.10, 3.11, 3.12, 3.13
+* Django 4.2 LTS, 5.2 LTS
 * PostgreSQL (recommended), MySQL, Oracle Database and SQLite
 
 Constrained by "[What Python version can I use with Django?](https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django)"

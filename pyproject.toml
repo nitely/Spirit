@@ -9,7 +9,7 @@ readme = "README.md"
 license = { text = "MIT License" }
 requires-python = ">=3.9"
 dependencies = [
-    "Django>=4.2,<5",
+    "Django>=4.2,<6",
     "django-haystack~=3.3",
     "whoosh==2.7.4",
     "mistune==0.8.4",

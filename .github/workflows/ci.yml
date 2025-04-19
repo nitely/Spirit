@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.9', '3.10', '3.11', '3.12']
-        django: ['4.2']
+        python: ['3.10', '3.11', '3.12']
+        django: ['4.2', '5.2']
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python }}
@@ -64,8 +64,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.9', '3.10', '3.11', '3.12']
-        django: ['4.2']
+        python: ['3.10', '3.11', '3.12']
+        django: ['4.2', '5.2']
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python }}
@@ -89,8 +89,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.9', '3.10', '3.11', '3.12']
-        django: ['4.2']
+        python: ['3.10', '3.11', '3.12']
+        django: ['4.2', '5.2']
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python }}
@@ -114,8 +114,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.9']
-        django: ['4.2']
+        python: ['3.12']
+        django: ['4.2', '5.2']
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python }}
@@ -135,12 +135,11 @@ jobs:
         export ST_TASK_MANAGER="celery"
         uv run runtests.py
   lint_format:
-    name: Lint & Format / Py ${{ matrix.python }} / Django ${{ matrix.django }}
+    name: Lint & Format / Py ${{ matrix.python }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python: ['3.12']
-        django: ['4.2']
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python }}
