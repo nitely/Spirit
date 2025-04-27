@@ -1,17 +1,18 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Spirit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-25 14:24+0000\n"
+"POT-Creation-Date: 2023-11-06 10:34+0100\n"
 "PO-Revision-Date: 2018-11-26 00:01+0000\n"
 "Last-Translator: Esteban Castro Borsani <ecastroborsani@gmail.com>\n"
-"Language-Team: German (http://www.transifex.com/spirit-project/spirit/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/spirit-project/spirit/"
+"language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/spirit/comment/flag/admin/_list.html:16
@@ -29,12 +30,12 @@ msgstr "geschlossen"
 #: templates/spirit/comment/flag/admin/closed.html:5
 #: templates/spirit/comment/flag/admin/closed.html:11
 msgid "Closed flags"
-msgstr "geschlossene flags"
+msgstr "geschlossene Flags"
 
 #: templates/spirit/comment/flag/admin/detail.html:5
 #: templates/spirit/comment/flag/admin/detail.html:16
 msgid "Flag"
-msgstr "flag"
+msgstr "Flag"
 
 #: templates/spirit/comment/flag/admin/detail.html:11
 msgid "Admin"
@@ -54,7 +55,7 @@ msgstr "speichern"
 
 #: templates/spirit/comment/flag/admin/detail.html:38
 msgid "Comment flagged"
-msgstr "Kommentar gekennzeichnet"
+msgstr "Kommentar geflagged"
 
 #: templates/spirit/comment/flag/admin/detail.html:65
 msgid "delete"
@@ -71,8 +72,8 @@ msgstr "Reporter"
 #: templates/spirit/comment/flag/admin/open.html:5
 #: templates/spirit/comment/flag/admin/open.html:11
 msgid "Open flags"
-msgstr "offene flags"
+msgstr "offene Flags"
 
 #: views.py:27
 msgid "The flag has been moderated!"
-msgstr "Die Flagge wurde moderiert!"
+msgstr "Die Flag wurde moderiert!"
