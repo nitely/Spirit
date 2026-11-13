@@ -154,5 +154,5 @@ class Renderer(mistune.Renderer):
         return f"<poll name={name}>\n"
 
     def poll_raw(self, poll_txt):
-        poll_txt = poll_txt.replace("\n", "<br>")
+        poll_txt = escape(poll_txt).replace("\n", "<br>")
         return f"<p>{poll_txt}</p>\n"
